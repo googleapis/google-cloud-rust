@@ -207,25 +207,12 @@ impl LogEntry {
     }
 
     /// Sets the value of [log_name][crate::model::LogEntry::log_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// let x = LogEntry::new().set_log_name("example");
-    /// ```
     pub fn set_log_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.log_name = v.into();
         self
     }
 
     /// Sets the value of [resource][crate::model::LogEntry::resource].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use api::model::MonitoredResource;
-    /// let x = LogEntry::new().set_resource(MonitoredResource::default()/* use setters */);
-    /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<api::model::MonitoredResource>,
@@ -235,14 +222,6 @@ impl LogEntry {
     }
 
     /// Sets or clears the value of [resource][crate::model::LogEntry::resource].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use api::model::MonitoredResource;
-    /// let x = LogEntry::new().set_or_clear_resource(Some(MonitoredResource::default()/* use setters */));
-    /// let x = LogEntry::new().set_or_clear_resource(None::<MonitoredResource>);
-    /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::MonitoredResource>,
@@ -252,13 +231,6 @@ impl LogEntry {
     }
 
     /// Sets the value of [timestamp][crate::model::LogEntry::timestamp].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use wkt::Timestamp;
-    /// let x = LogEntry::new().set_timestamp(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_timestamp<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -268,14 +240,6 @@ impl LogEntry {
     }
 
     /// Sets or clears the value of [timestamp][crate::model::LogEntry::timestamp].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use wkt::Timestamp;
-    /// let x = LogEntry::new().set_or_clear_timestamp(Some(Timestamp::default()/* use setters */));
-    /// let x = LogEntry::new().set_or_clear_timestamp(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -285,13 +249,6 @@ impl LogEntry {
     }
 
     /// Sets the value of [receive_timestamp][crate::model::LogEntry::receive_timestamp].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use wkt::Timestamp;
-    /// let x = LogEntry::new().set_receive_timestamp(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_receive_timestamp<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -301,14 +258,6 @@ impl LogEntry {
     }
 
     /// Sets or clears the value of [receive_timestamp][crate::model::LogEntry::receive_timestamp].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use wkt::Timestamp;
-    /// let x = LogEntry::new().set_or_clear_receive_timestamp(Some(Timestamp::default()/* use setters */));
-    /// let x = LogEntry::new().set_or_clear_receive_timestamp(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_receive_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -318,15 +267,6 @@ impl LogEntry {
     }
 
     /// Sets the value of [severity][crate::model::LogEntry::severity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use logging_type::model::LogSeverity;
-    /// let x0 = LogEntry::new().set_severity(LogSeverity::Debug);
-    /// let x1 = LogEntry::new().set_severity(LogSeverity::Info);
-    /// let x2 = LogEntry::new().set_severity(LogSeverity::Notice);
-    /// ```
     pub fn set_severity<T: std::convert::Into<logging_type::model::LogSeverity>>(
         mut self,
         v: T,
@@ -336,25 +276,12 @@ impl LogEntry {
     }
 
     /// Sets the value of [insert_id][crate::model::LogEntry::insert_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// let x = LogEntry::new().set_insert_id("example");
-    /// ```
     pub fn set_insert_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.insert_id = v.into();
         self
     }
 
     /// Sets the value of [http_request][crate::model::LogEntry::http_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use logging_type::model::HttpRequest;
-    /// let x = LogEntry::new().set_http_request(HttpRequest::default()/* use setters */);
-    /// ```
     pub fn set_http_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<logging_type::model::HttpRequest>,
@@ -364,14 +291,6 @@ impl LogEntry {
     }
 
     /// Sets or clears the value of [http_request][crate::model::LogEntry::http_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use logging_type::model::HttpRequest;
-    /// let x = LogEntry::new().set_or_clear_http_request(Some(HttpRequest::default()/* use setters */));
-    /// let x = LogEntry::new().set_or_clear_http_request(None::<HttpRequest>);
-    /// ```
     pub fn set_or_clear_http_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<logging_type::model::HttpRequest>,
@@ -381,15 +300,6 @@ impl LogEntry {
     }
 
     /// Sets the value of [labels][crate::model::LogEntry::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// let x = LogEntry::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -402,13 +312,6 @@ impl LogEntry {
     }
 
     /// Sets the value of [operation][crate::model::LogEntry::operation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use google_cloud_logging_v2::model::LogEntryOperation;
-    /// let x = LogEntry::new().set_operation(LogEntryOperation::default()/* use setters */);
-    /// ```
     pub fn set_operation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LogEntryOperation>,
@@ -418,14 +321,6 @@ impl LogEntry {
     }
 
     /// Sets or clears the value of [operation][crate::model::LogEntry::operation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use google_cloud_logging_v2::model::LogEntryOperation;
-    /// let x = LogEntry::new().set_or_clear_operation(Some(LogEntryOperation::default()/* use setters */));
-    /// let x = LogEntry::new().set_or_clear_operation(None::<LogEntryOperation>);
-    /// ```
     pub fn set_or_clear_operation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogEntryOperation>,
@@ -435,49 +330,24 @@ impl LogEntry {
     }
 
     /// Sets the value of [trace][crate::model::LogEntry::trace].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// let x = LogEntry::new().set_trace("example");
-    /// ```
     pub fn set_trace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trace = v.into();
         self
     }
 
     /// Sets the value of [span_id][crate::model::LogEntry::span_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// let x = LogEntry::new().set_span_id("example");
-    /// ```
     pub fn set_span_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.span_id = v.into();
         self
     }
 
     /// Sets the value of [trace_sampled][crate::model::LogEntry::trace_sampled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// let x = LogEntry::new().set_trace_sampled(true);
-    /// ```
     pub fn set_trace_sampled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.trace_sampled = v.into();
         self
     }
 
     /// Sets the value of [source_location][crate::model::LogEntry::source_location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use google_cloud_logging_v2::model::LogEntrySourceLocation;
-    /// let x = LogEntry::new().set_source_location(LogEntrySourceLocation::default()/* use setters */);
-    /// ```
     pub fn set_source_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LogEntrySourceLocation>,
@@ -487,14 +357,6 @@ impl LogEntry {
     }
 
     /// Sets or clears the value of [source_location][crate::model::LogEntry::source_location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use google_cloud_logging_v2::model::LogEntrySourceLocation;
-    /// let x = LogEntry::new().set_or_clear_source_location(Some(LogEntrySourceLocation::default()/* use setters */));
-    /// let x = LogEntry::new().set_or_clear_source_location(None::<LogEntrySourceLocation>);
-    /// ```
     pub fn set_or_clear_source_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogEntrySourceLocation>,
@@ -504,13 +366,6 @@ impl LogEntry {
     }
 
     /// Sets the value of [split][crate::model::LogEntry::split].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use google_cloud_logging_v2::model::LogSplit;
-    /// let x = LogEntry::new().set_split(LogSplit::default()/* use setters */);
-    /// ```
     pub fn set_split<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LogSplit>,
@@ -520,14 +375,6 @@ impl LogEntry {
     }
 
     /// Sets or clears the value of [split][crate::model::LogEntry::split].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use google_cloud_logging_v2::model::LogSplit;
-    /// let x = LogEntry::new().set_or_clear_split(Some(LogSplit::default()/* use setters */));
-    /// let x = LogEntry::new().set_or_clear_split(None::<LogSplit>);
-    /// ```
     pub fn set_or_clear_split<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogSplit>,
@@ -540,13 +387,6 @@ impl LogEntry {
     ///
     /// Note that all the setters affecting `payload` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use google_cloud_logging_v2::model::log_entry;
-    /// let x = LogEntry::new().set_payload(Some(log_entry::Payload::TextPayload("example".to_string())));
-    /// ```
     pub fn set_payload<
         T: std::convert::Into<std::option::Option<crate::model::log_entry::Payload>>,
     >(
@@ -573,16 +413,6 @@ impl LogEntry {
     ///
     /// Note that all the setters affecting `payload` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use wkt::Any;
-    /// let x = LogEntry::new().set_proto_payload(Any::default()/* use setters */);
-    /// assert!(x.proto_payload().is_some());
-    /// assert!(x.text_payload().is_none());
-    /// assert!(x.json_payload().is_none());
-    /// ```
     pub fn set_proto_payload<T: std::convert::Into<std::boxed::Box<wkt::Any>>>(
         mut self,
         v: T,
@@ -608,15 +438,6 @@ impl LogEntry {
     ///
     /// Note that all the setters affecting `payload` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// let x = LogEntry::new().set_text_payload("example");
-    /// assert!(x.text_payload().is_some());
-    /// assert!(x.proto_payload().is_none());
-    /// assert!(x.json_payload().is_none());
-    /// ```
     pub fn set_text_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.payload =
             std::option::Option::Some(crate::model::log_entry::Payload::TextPayload(v.into()));
@@ -639,16 +460,6 @@ impl LogEntry {
     ///
     /// Note that all the setters affecting `payload` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use wkt::Struct;
-    /// let x = LogEntry::new().set_json_payload(Struct::default()/* use setters */);
-    /// assert!(x.json_payload().is_some());
-    /// assert!(x.proto_payload().is_none());
-    /// assert!(x.text_payload().is_none());
-    /// ```
     pub fn set_json_payload<T: std::convert::Into<std::boxed::Box<wkt::Struct>>>(
         mut self,
         v: T,
@@ -720,48 +531,24 @@ impl LogEntryOperation {
     }
 
     /// Sets the value of [id][crate::model::LogEntryOperation::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntryOperation;
-    /// let x = LogEntryOperation::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [producer][crate::model::LogEntryOperation::producer].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntryOperation;
-    /// let x = LogEntryOperation::new().set_producer("example");
-    /// ```
     pub fn set_producer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.producer = v.into();
         self
     }
 
     /// Sets the value of [first][crate::model::LogEntryOperation::first].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntryOperation;
-    /// let x = LogEntryOperation::new().set_first(true);
-    /// ```
     pub fn set_first<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.first = v.into();
         self
     }
 
     /// Sets the value of [last][crate::model::LogEntryOperation::last].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntryOperation;
-    /// let x = LogEntryOperation::new().set_last(true);
-    /// ```
     pub fn set_last<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.last = v.into();
         self
@@ -804,36 +591,18 @@ impl LogEntrySourceLocation {
     }
 
     /// Sets the value of [file][crate::model::LogEntrySourceLocation::file].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntrySourceLocation;
-    /// let x = LogEntrySourceLocation::new().set_file("example");
-    /// ```
     pub fn set_file<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file = v.into();
         self
     }
 
     /// Sets the value of [line][crate::model::LogEntrySourceLocation::line].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntrySourceLocation;
-    /// let x = LogEntrySourceLocation::new().set_line(42);
-    /// ```
     pub fn set_line<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.line = v.into();
         self
     }
 
     /// Sets the value of [function][crate::model::LogEntrySourceLocation::function].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogEntrySourceLocation;
-    /// let x = LogEntrySourceLocation::new().set_function("example");
-    /// ```
     pub fn set_function<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.function = v.into();
         self
@@ -874,36 +643,18 @@ impl LogSplit {
     }
 
     /// Sets the value of [uid][crate::model::LogSplit::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogSplit;
-    /// let x = LogSplit::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [index][crate::model::LogSplit::index].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogSplit;
-    /// let x = LogSplit::new().set_index(42);
-    /// ```
     pub fn set_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.index = v.into();
         self
     }
 
     /// Sets the value of [total_splits][crate::model::LogSplit::total_splits].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogSplit;
-    /// let x = LogSplit::new().set_total_splits(42);
-    /// ```
     pub fn set_total_splits<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_splits = v.into();
         self
@@ -946,12 +697,6 @@ impl DeleteLogRequest {
     }
 
     /// Sets the value of [log_name][crate::model::DeleteLogRequest::log_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::DeleteLogRequest;
-    /// let x = DeleteLogRequest::new().set_log_name("example");
-    /// ```
     pub fn set_log_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.log_name = v.into();
         self
@@ -1062,25 +807,12 @@ impl WriteLogEntriesRequest {
     }
 
     /// Sets the value of [log_name][crate::model::WriteLogEntriesRequest::log_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::WriteLogEntriesRequest;
-    /// let x = WriteLogEntriesRequest::new().set_log_name("example");
-    /// ```
     pub fn set_log_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.log_name = v.into();
         self
     }
 
     /// Sets the value of [resource][crate::model::WriteLogEntriesRequest::resource].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::WriteLogEntriesRequest;
-    /// use api::model::MonitoredResource;
-    /// let x = WriteLogEntriesRequest::new().set_resource(MonitoredResource::default()/* use setters */);
-    /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<api::model::MonitoredResource>,
@@ -1090,14 +822,6 @@ impl WriteLogEntriesRequest {
     }
 
     /// Sets or clears the value of [resource][crate::model::WriteLogEntriesRequest::resource].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::WriteLogEntriesRequest;
-    /// use api::model::MonitoredResource;
-    /// let x = WriteLogEntriesRequest::new().set_or_clear_resource(Some(MonitoredResource::default()/* use setters */));
-    /// let x = WriteLogEntriesRequest::new().set_or_clear_resource(None::<MonitoredResource>);
-    /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::MonitoredResource>,
@@ -1107,15 +831,6 @@ impl WriteLogEntriesRequest {
     }
 
     /// Sets the value of [labels][crate::model::WriteLogEntriesRequest::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::WriteLogEntriesRequest;
-    /// let x = WriteLogEntriesRequest::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1128,17 +843,6 @@ impl WriteLogEntriesRequest {
     }
 
     /// Sets the value of [entries][crate::model::WriteLogEntriesRequest::entries].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::WriteLogEntriesRequest;
-    /// use google_cloud_logging_v2::model::LogEntry;
-    /// let x = WriteLogEntriesRequest::new()
-    ///     .set_entries([
-    ///         LogEntry::default()/* use setters */,
-    ///         LogEntry::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1150,24 +854,12 @@ impl WriteLogEntriesRequest {
     }
 
     /// Sets the value of [partial_success][crate::model::WriteLogEntriesRequest::partial_success].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::WriteLogEntriesRequest;
-    /// let x = WriteLogEntriesRequest::new().set_partial_success(true);
-    /// ```
     pub fn set_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.partial_success = v.into();
         self
     }
 
     /// Sets the value of [dry_run][crate::model::WriteLogEntriesRequest::dry_run].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::WriteLogEntriesRequest;
-    /// let x = WriteLogEntriesRequest::new().set_dry_run(true);
-    /// ```
     pub fn set_dry_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.dry_run = v.into();
         self
@@ -1220,16 +912,6 @@ impl WriteLogEntriesPartialErrors {
     }
 
     /// Sets the value of [log_entry_errors][crate::model::WriteLogEntriesPartialErrors::log_entry_errors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::WriteLogEntriesPartialErrors;
-    /// use rpc::model::Status;
-    /// let x = WriteLogEntriesPartialErrors::new().set_log_entry_errors([
-    ///     (0, Status::default()/* use setters */),
-    ///     (1, Status::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_log_entry_errors<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1307,12 +989,6 @@ impl ListLogEntriesRequest {
     }
 
     /// Sets the value of [resource_names][crate::model::ListLogEntriesRequest::resource_names].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLogEntriesRequest;
-    /// let x = ListLogEntriesRequest::new().set_resource_names(["a", "b", "c"]);
-    /// ```
     pub fn set_resource_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1324,48 +1000,24 @@ impl ListLogEntriesRequest {
     }
 
     /// Sets the value of [filter][crate::model::ListLogEntriesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLogEntriesRequest;
-    /// let x = ListLogEntriesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListLogEntriesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLogEntriesRequest;
-    /// let x = ListLogEntriesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListLogEntriesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLogEntriesRequest;
-    /// let x = ListLogEntriesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListLogEntriesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLogEntriesRequest;
-    /// let x = ListLogEntriesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1408,17 +1060,6 @@ impl ListLogEntriesResponse {
     }
 
     /// Sets the value of [entries][crate::model::ListLogEntriesResponse::entries].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLogEntriesResponse;
-    /// use google_cloud_logging_v2::model::LogEntry;
-    /// let x = ListLogEntriesResponse::new()
-    ///     .set_entries([
-    ///         LogEntry::default()/* use setters */,
-    ///         LogEntry::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1430,12 +1071,6 @@ impl ListLogEntriesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListLogEntriesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLogEntriesResponse;
-    /// let x = ListLogEntriesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1486,24 +1121,12 @@ impl ListMonitoredResourceDescriptorsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListMonitoredResourceDescriptorsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListMonitoredResourceDescriptorsRequest;
-    /// let x = ListMonitoredResourceDescriptorsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListMonitoredResourceDescriptorsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListMonitoredResourceDescriptorsRequest;
-    /// let x = ListMonitoredResourceDescriptorsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1537,17 +1160,6 @@ impl ListMonitoredResourceDescriptorsResponse {
     }
 
     /// Sets the value of [resource_descriptors][crate::model::ListMonitoredResourceDescriptorsResponse::resource_descriptors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListMonitoredResourceDescriptorsResponse;
-    /// use api::model::MonitoredResourceDescriptor;
-    /// let x = ListMonitoredResourceDescriptorsResponse::new()
-    ///     .set_resource_descriptors([
-    ///         MonitoredResourceDescriptor::default()/* use setters */,
-    ///         MonitoredResourceDescriptor::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_resource_descriptors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1559,12 +1171,6 @@ impl ListMonitoredResourceDescriptorsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListMonitoredResourceDescriptorsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListMonitoredResourceDescriptorsResponse;
-    /// let x = ListMonitoredResourceDescriptorsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1640,24 +1246,12 @@ impl ListLogsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListLogsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLogsRequest;
-    /// let x = ListLogsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [resource_names][crate::model::ListLogsRequest::resource_names].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLogsRequest;
-    /// let x = ListLogsRequest::new().set_resource_names(["a", "b", "c"]);
-    /// ```
     pub fn set_resource_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1669,24 +1263,12 @@ impl ListLogsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListLogsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLogsRequest;
-    /// let x = ListLogsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListLogsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLogsRequest;
-    /// let x = ListLogsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1722,12 +1304,6 @@ impl ListLogsResponse {
     }
 
     /// Sets the value of [log_names][crate::model::ListLogsResponse::log_names].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLogsResponse;
-    /// let x = ListLogsResponse::new().set_log_names(["a", "b", "c"]);
-    /// ```
     pub fn set_log_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1739,12 +1315,6 @@ impl ListLogsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListLogsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLogsResponse;
-    /// let x = ListLogsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1798,12 +1368,6 @@ impl TailLogEntriesRequest {
     }
 
     /// Sets the value of [resource_names][crate::model::TailLogEntriesRequest::resource_names].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::TailLogEntriesRequest;
-    /// let x = TailLogEntriesRequest::new().set_resource_names(["a", "b", "c"]);
-    /// ```
     pub fn set_resource_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1815,25 +1379,12 @@ impl TailLogEntriesRequest {
     }
 
     /// Sets the value of [filter][crate::model::TailLogEntriesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::TailLogEntriesRequest;
-    /// let x = TailLogEntriesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [buffer_window][crate::model::TailLogEntriesRequest::buffer_window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::TailLogEntriesRequest;
-    /// use wkt::Duration;
-    /// let x = TailLogEntriesRequest::new().set_buffer_window(Duration::default()/* use setters */);
-    /// ```
     pub fn set_buffer_window<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1843,14 +1394,6 @@ impl TailLogEntriesRequest {
     }
 
     /// Sets or clears the value of [buffer_window][crate::model::TailLogEntriesRequest::buffer_window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::TailLogEntriesRequest;
-    /// use wkt::Duration;
-    /// let x = TailLogEntriesRequest::new().set_or_clear_buffer_window(Some(Duration::default()/* use setters */));
-    /// let x = TailLogEntriesRequest::new().set_or_clear_buffer_window(None::<Duration>);
-    /// ```
     pub fn set_or_clear_buffer_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1891,17 +1434,6 @@ impl TailLogEntriesResponse {
     }
 
     /// Sets the value of [entries][crate::model::TailLogEntriesResponse::entries].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::TailLogEntriesResponse;
-    /// use google_cloud_logging_v2::model::LogEntry;
-    /// let x = TailLogEntriesResponse::new()
-    ///     .set_entries([
-    ///         LogEntry::default()/* use setters */,
-    ///         LogEntry::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1913,17 +1445,6 @@ impl TailLogEntriesResponse {
     }
 
     /// Sets the value of [suppression_info][crate::model::TailLogEntriesResponse::suppression_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::TailLogEntriesResponse;
-    /// use google_cloud_logging_v2::model::tail_log_entries_response::SuppressionInfo;
-    /// let x = TailLogEntriesResponse::new()
-    ///     .set_suppression_info([
-    ///         SuppressionInfo::default()/* use setters */,
-    ///         SuppressionInfo::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_suppression_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1965,14 +1486,6 @@ pub mod tail_log_entries_response {
         }
 
         /// Sets the value of [reason][crate::model::tail_log_entries_response::SuppressionInfo::reason].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_logging_v2::model::tail_log_entries_response::SuppressionInfo;
-        /// use google_cloud_logging_v2::model::tail_log_entries_response::suppression_info::Reason;
-        /// let x0 = SuppressionInfo::new().set_reason(Reason::RateLimit);
-        /// let x1 = SuppressionInfo::new().set_reason(Reason::NotConsumed);
-        /// ```
         pub fn set_reason<
             T: std::convert::Into<crate::model::tail_log_entries_response::suppression_info::Reason>,
         >(
@@ -1984,12 +1497,6 @@ pub mod tail_log_entries_response {
         }
 
         /// Sets the value of [suppressed_count][crate::model::tail_log_entries_response::SuppressionInfo::suppressed_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_logging_v2::model::tail_log_entries_response::SuppressionInfo;
-        /// let x = SuppressionInfo::new().set_suppressed_count(42);
-        /// ```
         pub fn set_suppressed_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.suppressed_count = v.into();
             self
@@ -2180,39 +1687,18 @@ impl IndexConfig {
     }
 
     /// Sets the value of [field_path][crate::model::IndexConfig::field_path].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::IndexConfig;
-    /// let x = IndexConfig::new().set_field_path("example");
-    /// ```
     pub fn set_field_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.field_path = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::IndexConfig::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::IndexConfig;
-    /// use google_cloud_logging_v2::model::IndexType;
-    /// let x0 = IndexConfig::new().set_type(IndexType::String);
-    /// let x1 = IndexConfig::new().set_type(IndexType::Integer);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::IndexType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::IndexConfig::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::IndexConfig;
-    /// use wkt::Timestamp;
-    /// let x = IndexConfig::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2222,14 +1708,6 @@ impl IndexConfig {
     }
 
     /// Sets or clears the value of [create_time][crate::model::IndexConfig::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::IndexConfig;
-    /// use wkt::Timestamp;
-    /// let x = IndexConfig::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = IndexConfig::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2322,37 +1800,18 @@ impl LogBucket {
     }
 
     /// Sets the value of [name][crate::model::LogBucket::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogBucket;
-    /// let x = LogBucket::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::LogBucket::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogBucket;
-    /// let x = LogBucket::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::LogBucket::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogBucket;
-    /// use wkt::Timestamp;
-    /// let x = LogBucket::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2362,14 +1821,6 @@ impl LogBucket {
     }
 
     /// Sets or clears the value of [create_time][crate::model::LogBucket::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogBucket;
-    /// use wkt::Timestamp;
-    /// let x = LogBucket::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = LogBucket::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2379,13 +1830,6 @@ impl LogBucket {
     }
 
     /// Sets the value of [update_time][crate::model::LogBucket::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogBucket;
-    /// use wkt::Timestamp;
-    /// let x = LogBucket::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2395,14 +1839,6 @@ impl LogBucket {
     }
 
     /// Sets or clears the value of [update_time][crate::model::LogBucket::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogBucket;
-    /// use wkt::Timestamp;
-    /// let x = LogBucket::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = LogBucket::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2412,39 +1848,18 @@ impl LogBucket {
     }
 
     /// Sets the value of [retention_days][crate::model::LogBucket::retention_days].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogBucket;
-    /// let x = LogBucket::new().set_retention_days(42);
-    /// ```
     pub fn set_retention_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.retention_days = v.into();
         self
     }
 
     /// Sets the value of [locked][crate::model::LogBucket::locked].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogBucket;
-    /// let x = LogBucket::new().set_locked(true);
-    /// ```
     pub fn set_locked<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.locked = v.into();
         self
     }
 
     /// Sets the value of [lifecycle_state][crate::model::LogBucket::lifecycle_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogBucket;
-    /// use google_cloud_logging_v2::model::LifecycleState;
-    /// let x0 = LogBucket::new().set_lifecycle_state(LifecycleState::Active);
-    /// let x1 = LogBucket::new().set_lifecycle_state(LifecycleState::DeleteRequested);
-    /// let x2 = LogBucket::new().set_lifecycle_state(LifecycleState::Updating);
-    /// ```
     pub fn set_lifecycle_state<T: std::convert::Into<crate::model::LifecycleState>>(
         mut self,
         v: T,
@@ -2454,24 +1869,12 @@ impl LogBucket {
     }
 
     /// Sets the value of [analytics_enabled][crate::model::LogBucket::analytics_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogBucket;
-    /// let x = LogBucket::new().set_analytics_enabled(true);
-    /// ```
     pub fn set_analytics_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.analytics_enabled = v.into();
         self
     }
 
     /// Sets the value of [restricted_fields][crate::model::LogBucket::restricted_fields].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogBucket;
-    /// let x = LogBucket::new().set_restricted_fields(["a", "b", "c"]);
-    /// ```
     pub fn set_restricted_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2483,17 +1886,6 @@ impl LogBucket {
     }
 
     /// Sets the value of [index_configs][crate::model::LogBucket::index_configs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogBucket;
-    /// use google_cloud_logging_v2::model::IndexConfig;
-    /// let x = LogBucket::new()
-    ///     .set_index_configs([
-    ///         IndexConfig::default()/* use setters */,
-    ///         IndexConfig::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_index_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2505,13 +1897,6 @@ impl LogBucket {
     }
 
     /// Sets the value of [cmek_settings][crate::model::LogBucket::cmek_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogBucket;
-    /// use google_cloud_logging_v2::model::CmekSettings;
-    /// let x = LogBucket::new().set_cmek_settings(CmekSettings::default()/* use setters */);
-    /// ```
     pub fn set_cmek_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CmekSettings>,
@@ -2521,14 +1906,6 @@ impl LogBucket {
     }
 
     /// Sets or clears the value of [cmek_settings][crate::model::LogBucket::cmek_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogBucket;
-    /// use google_cloud_logging_v2::model::CmekSettings;
-    /// let x = LogBucket::new().set_or_clear_cmek_settings(Some(CmekSettings::default()/* use setters */));
-    /// let x = LogBucket::new().set_or_clear_cmek_settings(None::<CmekSettings>);
-    /// ```
     pub fn set_or_clear_cmek_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CmekSettings>,
@@ -2589,37 +1966,18 @@ impl LogView {
     }
 
     /// Sets the value of [name][crate::model::LogView::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogView;
-    /// let x = LogView::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::LogView::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogView;
-    /// let x = LogView::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::LogView::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogView;
-    /// use wkt::Timestamp;
-    /// let x = LogView::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2629,14 +1987,6 @@ impl LogView {
     }
 
     /// Sets or clears the value of [create_time][crate::model::LogView::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogView;
-    /// use wkt::Timestamp;
-    /// let x = LogView::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = LogView::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2646,13 +1996,6 @@ impl LogView {
     }
 
     /// Sets the value of [update_time][crate::model::LogView::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogView;
-    /// use wkt::Timestamp;
-    /// let x = LogView::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2662,14 +2005,6 @@ impl LogView {
     }
 
     /// Sets or clears the value of [update_time][crate::model::LogView::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogView;
-    /// use wkt::Timestamp;
-    /// let x = LogView::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = LogView::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2679,12 +2014,6 @@ impl LogView {
     }
 
     /// Sets the value of [filter][crate::model::LogView::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogView;
-    /// let x = LogView::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -2822,77 +2151,36 @@ impl LogSink {
     }
 
     /// Sets the value of [name][crate::model::LogSink::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogSink;
-    /// let x = LogSink::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [destination][crate::model::LogSink::destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogSink;
-    /// let x = LogSink::new().set_destination("example");
-    /// ```
     pub fn set_destination<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::LogSink::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogSink;
-    /// let x = LogSink::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::LogSink::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogSink;
-    /// let x = LogSink::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [disabled][crate::model::LogSink::disabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogSink;
-    /// let x = LogSink::new().set_disabled(true);
-    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
     }
 
     /// Sets the value of [exclusions][crate::model::LogSink::exclusions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogSink;
-    /// use google_cloud_logging_v2::model::LogExclusion;
-    /// let x = LogSink::new()
-    ///     .set_exclusions([
-    ///         LogExclusion::default()/* use setters */,
-    ///         LogExclusion::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_exclusions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2904,14 +2192,6 @@ impl LogSink {
     }
 
     /// Sets the value of [output_version_format][crate::model::LogSink::output_version_format].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogSink;
-    /// use google_cloud_logging_v2::model::log_sink::VersionFormat;
-    /// let x0 = LogSink::new().set_output_version_format(VersionFormat::V2);
-    /// let x1 = LogSink::new().set_output_version_format(VersionFormat::V1);
-    /// ```
     #[deprecated]
     pub fn set_output_version_format<
         T: std::convert::Into<crate::model::log_sink::VersionFormat>,
@@ -2924,37 +2204,18 @@ impl LogSink {
     }
 
     /// Sets the value of [writer_identity][crate::model::LogSink::writer_identity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogSink;
-    /// let x = LogSink::new().set_writer_identity("example");
-    /// ```
     pub fn set_writer_identity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.writer_identity = v.into();
         self
     }
 
     /// Sets the value of [include_children][crate::model::LogSink::include_children].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogSink;
-    /// let x = LogSink::new().set_include_children(true);
-    /// ```
     pub fn set_include_children<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_children = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::LogSink::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogSink;
-    /// use wkt::Timestamp;
-    /// let x = LogSink::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2964,14 +2225,6 @@ impl LogSink {
     }
 
     /// Sets or clears the value of [create_time][crate::model::LogSink::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogSink;
-    /// use wkt::Timestamp;
-    /// let x = LogSink::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = LogSink::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2981,13 +2234,6 @@ impl LogSink {
     }
 
     /// Sets the value of [update_time][crate::model::LogSink::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogSink;
-    /// use wkt::Timestamp;
-    /// let x = LogSink::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2997,14 +2243,6 @@ impl LogSink {
     }
 
     /// Sets or clears the value of [update_time][crate::model::LogSink::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogSink;
-    /// use wkt::Timestamp;
-    /// let x = LogSink::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = LogSink::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3017,14 +2255,6 @@ impl LogSink {
     ///
     /// Note that all the setters affecting `options` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogSink;
-    /// use google_cloud_logging_v2::model::log_sink;
-    /// use google_cloud_logging_v2::model::BigQueryOptions;
-    /// let x = LogSink::new().set_options(Some(log_sink::Options::BigqueryOptions(BigQueryOptions::default().into())));
-    /// ```
     pub fn set_options<
         T: std::convert::Into<std::option::Option<crate::model::log_sink::Options>>,
     >(
@@ -3053,14 +2283,6 @@ impl LogSink {
     ///
     /// Note that all the setters affecting `options` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogSink;
-    /// use google_cloud_logging_v2::model::BigQueryOptions;
-    /// let x = LogSink::new().set_bigquery_options(BigQueryOptions::default()/* use setters */);
-    /// assert!(x.bigquery_options().is_some());
-    /// ```
     pub fn set_bigquery_options<
         T: std::convert::Into<std::boxed::Box<crate::model::BigQueryOptions>>,
     >(
@@ -3247,12 +2469,6 @@ impl BigQueryDataset {
     }
 
     /// Sets the value of [dataset_id][crate::model::BigQueryDataset::dataset_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::BigQueryDataset;
-    /// let x = BigQueryDataset::new().set_dataset_id("example");
-    /// ```
     pub fn set_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset_id = v.into();
         self
@@ -3311,37 +2527,18 @@ impl Link {
     }
 
     /// Sets the value of [name][crate::model::Link::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::Link;
-    /// let x = Link::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Link::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::Link;
-    /// let x = Link::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Link::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::Link;
-    /// use wkt::Timestamp;
-    /// let x = Link::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3351,14 +2548,6 @@ impl Link {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Link::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::Link;
-    /// use wkt::Timestamp;
-    /// let x = Link::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Link::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3368,15 +2557,6 @@ impl Link {
     }
 
     /// Sets the value of [lifecycle_state][crate::model::Link::lifecycle_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::Link;
-    /// use google_cloud_logging_v2::model::LifecycleState;
-    /// let x0 = Link::new().set_lifecycle_state(LifecycleState::Active);
-    /// let x1 = Link::new().set_lifecycle_state(LifecycleState::DeleteRequested);
-    /// let x2 = Link::new().set_lifecycle_state(LifecycleState::Updating);
-    /// ```
     pub fn set_lifecycle_state<T: std::convert::Into<crate::model::LifecycleState>>(
         mut self,
         v: T,
@@ -3386,13 +2566,6 @@ impl Link {
     }
 
     /// Sets the value of [bigquery_dataset][crate::model::Link::bigquery_dataset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::Link;
-    /// use google_cloud_logging_v2::model::BigQueryDataset;
-    /// let x = Link::new().set_bigquery_dataset(BigQueryDataset::default()/* use setters */);
-    /// ```
     pub fn set_bigquery_dataset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryDataset>,
@@ -3402,14 +2575,6 @@ impl Link {
     }
 
     /// Sets or clears the value of [bigquery_dataset][crate::model::Link::bigquery_dataset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::Link;
-    /// use google_cloud_logging_v2::model::BigQueryDataset;
-    /// let x = Link::new().set_or_clear_bigquery_dataset(Some(BigQueryDataset::default()/* use setters */));
-    /// let x = Link::new().set_or_clear_bigquery_dataset(None::<BigQueryDataset>);
-    /// ```
     pub fn set_or_clear_bigquery_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryDataset>,
@@ -3457,24 +2622,12 @@ impl BigQueryOptions {
     }
 
     /// Sets the value of [use_partitioned_tables][crate::model::BigQueryOptions::use_partitioned_tables].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::BigQueryOptions;
-    /// let x = BigQueryOptions::new().set_use_partitioned_tables(true);
-    /// ```
     pub fn set_use_partitioned_tables<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_partitioned_tables = v.into();
         self
     }
 
     /// Sets the value of [uses_timestamp_column_partitioning][crate::model::BigQueryOptions::uses_timestamp_column_partitioning].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::BigQueryOptions;
-    /// let x = BigQueryOptions::new().set_uses_timestamp_column_partitioning(true);
-    /// ```
     pub fn set_uses_timestamp_column_partitioning<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -3528,36 +2681,18 @@ impl ListBucketsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBucketsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListBucketsRequest;
-    /// let x = ListBucketsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBucketsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListBucketsRequest;
-    /// let x = ListBucketsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBucketsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListBucketsRequest;
-    /// let x = ListBucketsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -3591,17 +2726,6 @@ impl ListBucketsResponse {
     }
 
     /// Sets the value of [buckets][crate::model::ListBucketsResponse::buckets].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListBucketsResponse;
-    /// use google_cloud_logging_v2::model::LogBucket;
-    /// let x = ListBucketsResponse::new()
-    ///     .set_buckets([
-    ///         LogBucket::default()/* use setters */,
-    ///         LogBucket::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_buckets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3613,12 +2737,6 @@ impl ListBucketsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBucketsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListBucketsResponse;
-    /// let x = ListBucketsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3679,37 +2797,18 @@ impl CreateBucketRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBucketRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateBucketRequest;
-    /// let x = CreateBucketRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [bucket_id][crate::model::CreateBucketRequest::bucket_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateBucketRequest;
-    /// let x = CreateBucketRequest::new().set_bucket_id("example");
-    /// ```
     pub fn set_bucket_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket_id = v.into();
         self
     }
 
     /// Sets the value of [bucket][crate::model::CreateBucketRequest::bucket].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateBucketRequest;
-    /// use google_cloud_logging_v2::model::LogBucket;
-    /// let x = CreateBucketRequest::new().set_bucket(LogBucket::default()/* use setters */);
-    /// ```
     pub fn set_bucket<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LogBucket>,
@@ -3719,14 +2818,6 @@ impl CreateBucketRequest {
     }
 
     /// Sets or clears the value of [bucket][crate::model::CreateBucketRequest::bucket].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateBucketRequest;
-    /// use google_cloud_logging_v2::model::LogBucket;
-    /// let x = CreateBucketRequest::new().set_or_clear_bucket(Some(LogBucket::default()/* use setters */));
-    /// let x = CreateBucketRequest::new().set_or_clear_bucket(None::<LogBucket>);
-    /// ```
     pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogBucket>,
@@ -3782,25 +2873,12 @@ impl UpdateBucketRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateBucketRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateBucketRequest;
-    /// let x = UpdateBucketRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [bucket][crate::model::UpdateBucketRequest::bucket].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateBucketRequest;
-    /// use google_cloud_logging_v2::model::LogBucket;
-    /// let x = UpdateBucketRequest::new().set_bucket(LogBucket::default()/* use setters */);
-    /// ```
     pub fn set_bucket<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LogBucket>,
@@ -3810,14 +2888,6 @@ impl UpdateBucketRequest {
     }
 
     /// Sets or clears the value of [bucket][crate::model::UpdateBucketRequest::bucket].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateBucketRequest;
-    /// use google_cloud_logging_v2::model::LogBucket;
-    /// let x = UpdateBucketRequest::new().set_or_clear_bucket(Some(LogBucket::default()/* use setters */));
-    /// let x = UpdateBucketRequest::new().set_or_clear_bucket(None::<LogBucket>);
-    /// ```
     pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogBucket>,
@@ -3827,13 +2897,6 @@ impl UpdateBucketRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateBucketRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBucketRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3843,14 +2906,6 @@ impl UpdateBucketRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateBucketRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBucketRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateBucketRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3893,12 +2948,6 @@ impl GetBucketRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBucketRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::GetBucketRequest;
-    /// let x = GetBucketRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3938,12 +2987,6 @@ impl DeleteBucketRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBucketRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::DeleteBucketRequest;
-    /// let x = DeleteBucketRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3983,12 +3026,6 @@ impl UndeleteBucketRequest {
     }
 
     /// Sets the value of [name][crate::model::UndeleteBucketRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UndeleteBucketRequest;
-    /// let x = UndeleteBucketRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4033,36 +3070,18 @@ impl ListViewsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListViewsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListViewsRequest;
-    /// let x = ListViewsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListViewsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListViewsRequest;
-    /// let x = ListViewsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListViewsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListViewsRequest;
-    /// let x = ListViewsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -4096,17 +3115,6 @@ impl ListViewsResponse {
     }
 
     /// Sets the value of [views][crate::model::ListViewsResponse::views].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListViewsResponse;
-    /// use google_cloud_logging_v2::model::LogView;
-    /// let x = ListViewsResponse::new()
-    ///     .set_views([
-    ///         LogView::default()/* use setters */,
-    ///         LogView::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_views<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4118,12 +3126,6 @@ impl ListViewsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListViewsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListViewsResponse;
-    /// let x = ListViewsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4182,37 +3184,18 @@ impl CreateViewRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateViewRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateViewRequest;
-    /// let x = CreateViewRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [view_id][crate::model::CreateViewRequest::view_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateViewRequest;
-    /// let x = CreateViewRequest::new().set_view_id("example");
-    /// ```
     pub fn set_view_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.view_id = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::CreateViewRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateViewRequest;
-    /// use google_cloud_logging_v2::model::LogView;
-    /// let x = CreateViewRequest::new().set_view(LogView::default()/* use setters */);
-    /// ```
     pub fn set_view<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LogView>,
@@ -4222,14 +3205,6 @@ impl CreateViewRequest {
     }
 
     /// Sets or clears the value of [view][crate::model::CreateViewRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateViewRequest;
-    /// use google_cloud_logging_v2::model::LogView;
-    /// let x = CreateViewRequest::new().set_or_clear_view(Some(LogView::default()/* use setters */));
-    /// let x = CreateViewRequest::new().set_or_clear_view(None::<LogView>);
-    /// ```
     pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogView>,
@@ -4282,25 +3257,12 @@ impl UpdateViewRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateViewRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateViewRequest;
-    /// let x = UpdateViewRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::UpdateViewRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateViewRequest;
-    /// use google_cloud_logging_v2::model::LogView;
-    /// let x = UpdateViewRequest::new().set_view(LogView::default()/* use setters */);
-    /// ```
     pub fn set_view<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LogView>,
@@ -4310,14 +3272,6 @@ impl UpdateViewRequest {
     }
 
     /// Sets or clears the value of [view][crate::model::UpdateViewRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateViewRequest;
-    /// use google_cloud_logging_v2::model::LogView;
-    /// let x = UpdateViewRequest::new().set_or_clear_view(Some(LogView::default()/* use setters */));
-    /// let x = UpdateViewRequest::new().set_or_clear_view(None::<LogView>);
-    /// ```
     pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogView>,
@@ -4327,13 +3281,6 @@ impl UpdateViewRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateViewRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateViewRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4343,14 +3290,6 @@ impl UpdateViewRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateViewRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateViewRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateViewRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4390,12 +3329,6 @@ impl GetViewRequest {
     }
 
     /// Sets the value of [name][crate::model::GetViewRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::GetViewRequest;
-    /// let x = GetViewRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4432,12 +3365,6 @@ impl DeleteViewRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteViewRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::DeleteViewRequest;
-    /// let x = DeleteViewRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4484,36 +3411,18 @@ impl ListSinksRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSinksRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListSinksRequest;
-    /// let x = ListSinksRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSinksRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListSinksRequest;
-    /// let x = ListSinksRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSinksRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListSinksRequest;
-    /// let x = ListSinksRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -4547,17 +3456,6 @@ impl ListSinksResponse {
     }
 
     /// Sets the value of [sinks][crate::model::ListSinksResponse::sinks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListSinksResponse;
-    /// use google_cloud_logging_v2::model::LogSink;
-    /// let x = ListSinksResponse::new()
-    ///     .set_sinks([
-    ///         LogSink::default()/* use setters */,
-    ///         LogSink::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_sinks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4569,12 +3467,6 @@ impl ListSinksResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSinksResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListSinksResponse;
-    /// let x = ListSinksResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4628,12 +3520,6 @@ impl GetSinkRequest {
     }
 
     /// Sets the value of [sink_name][crate::model::GetSinkRequest::sink_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::GetSinkRequest;
-    /// let x = GetSinkRequest::new().set_sink_name("example");
-    /// ```
     pub fn set_sink_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sink_name = v.into();
         self
@@ -4694,25 +3580,12 @@ impl CreateSinkRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSinkRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateSinkRequest;
-    /// let x = CreateSinkRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [sink][crate::model::CreateSinkRequest::sink].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateSinkRequest;
-    /// use google_cloud_logging_v2::model::LogSink;
-    /// let x = CreateSinkRequest::new().set_sink(LogSink::default()/* use setters */);
-    /// ```
     pub fn set_sink<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LogSink>,
@@ -4722,14 +3595,6 @@ impl CreateSinkRequest {
     }
 
     /// Sets or clears the value of [sink][crate::model::CreateSinkRequest::sink].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateSinkRequest;
-    /// use google_cloud_logging_v2::model::LogSink;
-    /// let x = CreateSinkRequest::new().set_or_clear_sink(Some(LogSink::default()/* use setters */));
-    /// let x = CreateSinkRequest::new().set_or_clear_sink(None::<LogSink>);
-    /// ```
     pub fn set_or_clear_sink<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogSink>,
@@ -4739,12 +3604,6 @@ impl CreateSinkRequest {
     }
 
     /// Sets the value of [unique_writer_identity][crate::model::CreateSinkRequest::unique_writer_identity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateSinkRequest;
-    /// let x = CreateSinkRequest::new().set_unique_writer_identity(true);
-    /// ```
     pub fn set_unique_writer_identity<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.unique_writer_identity = v.into();
         self
@@ -4822,25 +3681,12 @@ impl UpdateSinkRequest {
     }
 
     /// Sets the value of [sink_name][crate::model::UpdateSinkRequest::sink_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateSinkRequest;
-    /// let x = UpdateSinkRequest::new().set_sink_name("example");
-    /// ```
     pub fn set_sink_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sink_name = v.into();
         self
     }
 
     /// Sets the value of [sink][crate::model::UpdateSinkRequest::sink].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateSinkRequest;
-    /// use google_cloud_logging_v2::model::LogSink;
-    /// let x = UpdateSinkRequest::new().set_sink(LogSink::default()/* use setters */);
-    /// ```
     pub fn set_sink<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LogSink>,
@@ -4850,14 +3696,6 @@ impl UpdateSinkRequest {
     }
 
     /// Sets or clears the value of [sink][crate::model::UpdateSinkRequest::sink].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateSinkRequest;
-    /// use google_cloud_logging_v2::model::LogSink;
-    /// let x = UpdateSinkRequest::new().set_or_clear_sink(Some(LogSink::default()/* use setters */));
-    /// let x = UpdateSinkRequest::new().set_or_clear_sink(None::<LogSink>);
-    /// ```
     pub fn set_or_clear_sink<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogSink>,
@@ -4867,25 +3705,12 @@ impl UpdateSinkRequest {
     }
 
     /// Sets the value of [unique_writer_identity][crate::model::UpdateSinkRequest::unique_writer_identity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateSinkRequest;
-    /// let x = UpdateSinkRequest::new().set_unique_writer_identity(true);
-    /// ```
     pub fn set_unique_writer_identity<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.unique_writer_identity = v.into();
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSinkRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateSinkRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateSinkRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4895,14 +3720,6 @@ impl UpdateSinkRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSinkRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateSinkRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateSinkRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateSinkRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4946,12 +3763,6 @@ impl DeleteSinkRequest {
     }
 
     /// Sets the value of [sink_name][crate::model::DeleteSinkRequest::sink_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::DeleteSinkRequest;
-    /// let x = DeleteSinkRequest::new().set_sink_name("example");
-    /// ```
     pub fn set_sink_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sink_name = v.into();
         self
@@ -4995,25 +3806,12 @@ impl CreateLinkRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateLinkRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateLinkRequest;
-    /// let x = CreateLinkRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [link][crate::model::CreateLinkRequest::link].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateLinkRequest;
-    /// use google_cloud_logging_v2::model::Link;
-    /// let x = CreateLinkRequest::new().set_link(Link::default()/* use setters */);
-    /// ```
     pub fn set_link<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Link>,
@@ -5023,14 +3821,6 @@ impl CreateLinkRequest {
     }
 
     /// Sets or clears the value of [link][crate::model::CreateLinkRequest::link].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateLinkRequest;
-    /// use google_cloud_logging_v2::model::Link;
-    /// let x = CreateLinkRequest::new().set_or_clear_link(Some(Link::default()/* use setters */));
-    /// let x = CreateLinkRequest::new().set_or_clear_link(None::<Link>);
-    /// ```
     pub fn set_or_clear_link<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Link>,
@@ -5040,12 +3830,6 @@ impl CreateLinkRequest {
     }
 
     /// Sets the value of [link_id][crate::model::CreateLinkRequest::link_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateLinkRequest;
-    /// let x = CreateLinkRequest::new().set_link_id("example");
-    /// ```
     pub fn set_link_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.link_id = v.into();
         self
@@ -5079,12 +3863,6 @@ impl DeleteLinkRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteLinkRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::DeleteLinkRequest;
-    /// let x = DeleteLinkRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5126,36 +3904,18 @@ impl ListLinksRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListLinksRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLinksRequest;
-    /// let x = ListLinksRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListLinksRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLinksRequest;
-    /// let x = ListLinksRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListLinksRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLinksRequest;
-    /// let x = ListLinksRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -5189,17 +3949,6 @@ impl ListLinksResponse {
     }
 
     /// Sets the value of [links][crate::model::ListLinksResponse::links].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLinksResponse;
-    /// use google_cloud_logging_v2::model::Link;
-    /// let x = ListLinksResponse::new()
-    ///     .set_links([
-    ///         Link::default()/* use setters */,
-    ///         Link::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5211,12 +3960,6 @@ impl ListLinksResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListLinksResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLinksResponse;
-    /// let x = ListLinksResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5264,12 +4007,6 @@ impl GetLinkRequest {
     }
 
     /// Sets the value of [name][crate::model::GetLinkRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::GetLinkRequest;
-    /// let x = GetLinkRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5338,61 +4075,30 @@ impl LogExclusion {
     }
 
     /// Sets the value of [name][crate::model::LogExclusion::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogExclusion;
-    /// let x = LogExclusion::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::LogExclusion::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogExclusion;
-    /// let x = LogExclusion::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::LogExclusion::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogExclusion;
-    /// let x = LogExclusion::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [disabled][crate::model::LogExclusion::disabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogExclusion;
-    /// let x = LogExclusion::new().set_disabled(true);
-    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::LogExclusion::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogExclusion;
-    /// use wkt::Timestamp;
-    /// let x = LogExclusion::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5402,14 +4108,6 @@ impl LogExclusion {
     }
 
     /// Sets or clears the value of [create_time][crate::model::LogExclusion::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogExclusion;
-    /// use wkt::Timestamp;
-    /// let x = LogExclusion::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = LogExclusion::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5419,13 +4117,6 @@ impl LogExclusion {
     }
 
     /// Sets the value of [update_time][crate::model::LogExclusion::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogExclusion;
-    /// use wkt::Timestamp;
-    /// let x = LogExclusion::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5435,14 +4126,6 @@ impl LogExclusion {
     }
 
     /// Sets or clears the value of [update_time][crate::model::LogExclusion::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogExclusion;
-    /// use wkt::Timestamp;
-    /// let x = LogExclusion::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = LogExclusion::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5492,36 +4175,18 @@ impl ListExclusionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListExclusionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListExclusionsRequest;
-    /// let x = ListExclusionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListExclusionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListExclusionsRequest;
-    /// let x = ListExclusionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListExclusionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListExclusionsRequest;
-    /// let x = ListExclusionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -5555,17 +4220,6 @@ impl ListExclusionsResponse {
     }
 
     /// Sets the value of [exclusions][crate::model::ListExclusionsResponse::exclusions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListExclusionsResponse;
-    /// use google_cloud_logging_v2::model::LogExclusion;
-    /// let x = ListExclusionsResponse::new()
-    ///     .set_exclusions([
-    ///         LogExclusion::default()/* use setters */,
-    ///         LogExclusion::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_exclusions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5577,12 +4231,6 @@ impl ListExclusionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListExclusionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListExclusionsResponse;
-    /// let x = ListExclusionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5636,12 +4284,6 @@ impl GetExclusionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetExclusionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::GetExclusionRequest;
-    /// let x = GetExclusionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5686,25 +4328,12 @@ impl CreateExclusionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateExclusionRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateExclusionRequest;
-    /// let x = CreateExclusionRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [exclusion][crate::model::CreateExclusionRequest::exclusion].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateExclusionRequest;
-    /// use google_cloud_logging_v2::model::LogExclusion;
-    /// let x = CreateExclusionRequest::new().set_exclusion(LogExclusion::default()/* use setters */);
-    /// ```
     pub fn set_exclusion<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LogExclusion>,
@@ -5714,14 +4343,6 @@ impl CreateExclusionRequest {
     }
 
     /// Sets or clears the value of [exclusion][crate::model::CreateExclusionRequest::exclusion].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateExclusionRequest;
-    /// use google_cloud_logging_v2::model::LogExclusion;
-    /// let x = CreateExclusionRequest::new().set_or_clear_exclusion(Some(LogExclusion::default()/* use setters */));
-    /// let x = CreateExclusionRequest::new().set_or_clear_exclusion(None::<LogExclusion>);
-    /// ```
     pub fn set_or_clear_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogExclusion>,
@@ -5780,25 +4401,12 @@ impl UpdateExclusionRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateExclusionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateExclusionRequest;
-    /// let x = UpdateExclusionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [exclusion][crate::model::UpdateExclusionRequest::exclusion].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateExclusionRequest;
-    /// use google_cloud_logging_v2::model::LogExclusion;
-    /// let x = UpdateExclusionRequest::new().set_exclusion(LogExclusion::default()/* use setters */);
-    /// ```
     pub fn set_exclusion<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LogExclusion>,
@@ -5808,14 +4416,6 @@ impl UpdateExclusionRequest {
     }
 
     /// Sets or clears the value of [exclusion][crate::model::UpdateExclusionRequest::exclusion].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateExclusionRequest;
-    /// use google_cloud_logging_v2::model::LogExclusion;
-    /// let x = UpdateExclusionRequest::new().set_or_clear_exclusion(Some(LogExclusion::default()/* use setters */));
-    /// let x = UpdateExclusionRequest::new().set_or_clear_exclusion(None::<LogExclusion>);
-    /// ```
     pub fn set_or_clear_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogExclusion>,
@@ -5825,13 +4425,6 @@ impl UpdateExclusionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateExclusionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateExclusionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateExclusionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5841,14 +4434,6 @@ impl UpdateExclusionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateExclusionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateExclusionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateExclusionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateExclusionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5891,12 +4476,6 @@ impl DeleteExclusionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteExclusionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::DeleteExclusionRequest;
-    /// let x = DeleteExclusionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5948,12 +4527,6 @@ impl GetCmekSettingsRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCmekSettingsRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::GetCmekSettingsRequest;
-    /// let x = GetCmekSettingsRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6022,25 +4595,12 @@ impl UpdateCmekSettingsRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateCmekSettingsRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateCmekSettingsRequest;
-    /// let x = UpdateCmekSettingsRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [cmek_settings][crate::model::UpdateCmekSettingsRequest::cmek_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateCmekSettingsRequest;
-    /// use google_cloud_logging_v2::model::CmekSettings;
-    /// let x = UpdateCmekSettingsRequest::new().set_cmek_settings(CmekSettings::default()/* use setters */);
-    /// ```
     pub fn set_cmek_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CmekSettings>,
@@ -6050,14 +4610,6 @@ impl UpdateCmekSettingsRequest {
     }
 
     /// Sets or clears the value of [cmek_settings][crate::model::UpdateCmekSettingsRequest::cmek_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateCmekSettingsRequest;
-    /// use google_cloud_logging_v2::model::CmekSettings;
-    /// let x = UpdateCmekSettingsRequest::new().set_or_clear_cmek_settings(Some(CmekSettings::default()/* use setters */));
-    /// let x = UpdateCmekSettingsRequest::new().set_or_clear_cmek_settings(None::<CmekSettings>);
-    /// ```
     pub fn set_or_clear_cmek_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CmekSettings>,
@@ -6067,13 +4619,6 @@ impl UpdateCmekSettingsRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCmekSettingsRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateCmekSettingsRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateCmekSettingsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6083,14 +4628,6 @@ impl UpdateCmekSettingsRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCmekSettingsRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateCmekSettingsRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateCmekSettingsRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateCmekSettingsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6198,36 +4735,18 @@ impl CmekSettings {
     }
 
     /// Sets the value of [name][crate::model::CmekSettings::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CmekSettings;
-    /// let x = CmekSettings::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [kms_key_name][crate::model::CmekSettings::kms_key_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CmekSettings;
-    /// let x = CmekSettings::new().set_kms_key_name("example");
-    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [kms_key_version_name][crate::model::CmekSettings::kms_key_version_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CmekSettings;
-    /// let x = CmekSettings::new().set_kms_key_version_name("example");
-    /// ```
     pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6237,12 +4756,6 @@ impl CmekSettings {
     }
 
     /// Sets the value of [service_account_id][crate::model::CmekSettings::service_account_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CmekSettings;
-    /// let x = CmekSettings::new().set_service_account_id("example");
-    /// ```
     pub fn set_service_account_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6297,12 +4810,6 @@ impl GetSettingsRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSettingsRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::GetSettingsRequest;
-    /// let x = GetSettingsRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6368,25 +4875,12 @@ impl UpdateSettingsRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateSettingsRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateSettingsRequest;
-    /// let x = UpdateSettingsRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateSettingsRequest;
-    /// use google_cloud_logging_v2::model::Settings;
-    /// let x = UpdateSettingsRequest::new().set_settings(Settings::default()/* use setters */);
-    /// ```
     pub fn set_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Settings>,
@@ -6396,14 +4890,6 @@ impl UpdateSettingsRequest {
     }
 
     /// Sets or clears the value of [settings][crate::model::UpdateSettingsRequest::settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateSettingsRequest;
-    /// use google_cloud_logging_v2::model::Settings;
-    /// let x = UpdateSettingsRequest::new().set_or_clear_settings(Some(Settings::default()/* use setters */));
-    /// let x = UpdateSettingsRequest::new().set_or_clear_settings(None::<Settings>);
-    /// ```
     pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Settings>,
@@ -6413,13 +4899,6 @@ impl UpdateSettingsRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateSettingsRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateSettingsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6429,14 +4908,6 @@ impl UpdateSettingsRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateSettingsRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateSettingsRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateSettingsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6525,36 +4996,18 @@ impl Settings {
     }
 
     /// Sets the value of [name][crate::model::Settings::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::Settings;
-    /// let x = Settings::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [kms_key_name][crate::model::Settings::kms_key_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::Settings;
-    /// let x = Settings::new().set_kms_key_name("example");
-    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [kms_service_account_id][crate::model::Settings::kms_service_account_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::Settings;
-    /// let x = Settings::new().set_kms_service_account_id("example");
-    /// ```
     pub fn set_kms_service_account_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6564,12 +5017,6 @@ impl Settings {
     }
 
     /// Sets the value of [storage_location][crate::model::Settings::storage_location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::Settings;
-    /// let x = Settings::new().set_storage_location("example");
-    /// ```
     pub fn set_storage_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6579,12 +5026,6 @@ impl Settings {
     }
 
     /// Sets the value of [disable_default_sink][crate::model::Settings::disable_default_sink].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::Settings;
-    /// let x = Settings::new().set_disable_default_sink(true);
-    /// ```
     pub fn set_disable_default_sink<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_default_sink = v.into();
         self
@@ -6624,36 +5065,18 @@ impl CopyLogEntriesRequest {
     }
 
     /// Sets the value of [name][crate::model::CopyLogEntriesRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CopyLogEntriesRequest;
-    /// let x = CopyLogEntriesRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::CopyLogEntriesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CopyLogEntriesRequest;
-    /// let x = CopyLogEntriesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [destination][crate::model::CopyLogEntriesRequest::destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CopyLogEntriesRequest;
-    /// let x = CopyLogEntriesRequest::new().set_destination("example");
-    /// ```
     pub fn set_destination<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = v.into();
         self
@@ -6706,13 +5129,6 @@ impl CopyLogEntriesMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::CopyLogEntriesMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CopyLogEntriesMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CopyLogEntriesMetadata::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6722,14 +5138,6 @@ impl CopyLogEntriesMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::CopyLogEntriesMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CopyLogEntriesMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CopyLogEntriesMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CopyLogEntriesMetadata::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6739,13 +5147,6 @@ impl CopyLogEntriesMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::CopyLogEntriesMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CopyLogEntriesMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CopyLogEntriesMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6755,14 +5156,6 @@ impl CopyLogEntriesMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::CopyLogEntriesMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CopyLogEntriesMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CopyLogEntriesMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CopyLogEntriesMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6772,40 +5165,18 @@ impl CopyLogEntriesMetadata {
     }
 
     /// Sets the value of [state][crate::model::CopyLogEntriesMetadata::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CopyLogEntriesMetadata;
-    /// use google_cloud_logging_v2::model::OperationState;
-    /// let x0 = CopyLogEntriesMetadata::new().set_state(OperationState::Scheduled);
-    /// let x1 = CopyLogEntriesMetadata::new().set_state(OperationState::WaitingForPermissions);
-    /// let x2 = CopyLogEntriesMetadata::new().set_state(OperationState::Running);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::OperationState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [cancellation_requested][crate::model::CopyLogEntriesMetadata::cancellation_requested].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CopyLogEntriesMetadata;
-    /// let x = CopyLogEntriesMetadata::new().set_cancellation_requested(true);
-    /// ```
     pub fn set_cancellation_requested<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.cancellation_requested = v.into();
         self
     }
 
     /// Sets the value of [request][crate::model::CopyLogEntriesMetadata::request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CopyLogEntriesMetadata;
-    /// use google_cloud_logging_v2::model::CopyLogEntriesRequest;
-    /// let x = CopyLogEntriesMetadata::new().set_request(CopyLogEntriesRequest::default()/* use setters */);
-    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CopyLogEntriesRequest>,
@@ -6815,14 +5186,6 @@ impl CopyLogEntriesMetadata {
     }
 
     /// Sets or clears the value of [request][crate::model::CopyLogEntriesMetadata::request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CopyLogEntriesMetadata;
-    /// use google_cloud_logging_v2::model::CopyLogEntriesRequest;
-    /// let x = CopyLogEntriesMetadata::new().set_or_clear_request(Some(CopyLogEntriesRequest::default()/* use setters */));
-    /// let x = CopyLogEntriesMetadata::new().set_or_clear_request(None::<CopyLogEntriesRequest>);
-    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CopyLogEntriesRequest>,
@@ -6832,24 +5195,12 @@ impl CopyLogEntriesMetadata {
     }
 
     /// Sets the value of [progress][crate::model::CopyLogEntriesMetadata::progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CopyLogEntriesMetadata;
-    /// let x = CopyLogEntriesMetadata::new().set_progress(42);
-    /// ```
     pub fn set_progress<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress = v.into();
         self
     }
 
     /// Sets the value of [writer_identity][crate::model::CopyLogEntriesMetadata::writer_identity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CopyLogEntriesMetadata;
-    /// let x = CopyLogEntriesMetadata::new().set_writer_identity("example");
-    /// ```
     pub fn set_writer_identity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.writer_identity = v.into();
         self
@@ -6878,12 +5229,6 @@ impl CopyLogEntriesResponse {
     }
 
     /// Sets the value of [log_entries_copied_count][crate::model::CopyLogEntriesResponse::log_entries_copied_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CopyLogEntriesResponse;
-    /// let x = CopyLogEntriesResponse::new().set_log_entries_copied_count(42);
-    /// ```
     pub fn set_log_entries_copied_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.log_entries_copied_count = v.into();
         self
@@ -6920,13 +5265,6 @@ impl BucketMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::BucketMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::BucketMetadata;
-    /// use wkt::Timestamp;
-    /// let x = BucketMetadata::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6936,14 +5274,6 @@ impl BucketMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::BucketMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::BucketMetadata;
-    /// use wkt::Timestamp;
-    /// let x = BucketMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BucketMetadata::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6953,13 +5283,6 @@ impl BucketMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::BucketMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::BucketMetadata;
-    /// use wkt::Timestamp;
-    /// let x = BucketMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6969,14 +5292,6 @@ impl BucketMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::BucketMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::BucketMetadata;
-    /// use wkt::Timestamp;
-    /// let x = BucketMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BucketMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6986,15 +5301,6 @@ impl BucketMetadata {
     }
 
     /// Sets the value of [state][crate::model::BucketMetadata::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::BucketMetadata;
-    /// use google_cloud_logging_v2::model::OperationState;
-    /// let x0 = BucketMetadata::new().set_state(OperationState::Scheduled);
-    /// let x1 = BucketMetadata::new().set_state(OperationState::WaitingForPermissions);
-    /// let x2 = BucketMetadata::new().set_state(OperationState::Running);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::OperationState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
@@ -7004,14 +5310,6 @@ impl BucketMetadata {
     ///
     /// Note that all the setters affecting `request` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::BucketMetadata;
-    /// use google_cloud_logging_v2::model::bucket_metadata;
-    /// use google_cloud_logging_v2::model::CreateBucketRequest;
-    /// let x = BucketMetadata::new().set_request(Some(bucket_metadata::Request::CreateBucketRequest(CreateBucketRequest::default().into())));
-    /// ```
     pub fn set_request<
         T: std::convert::Into<std::option::Option<crate::model::bucket_metadata::Request>>,
     >(
@@ -7042,15 +5340,6 @@ impl BucketMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::BucketMetadata;
-    /// use google_cloud_logging_v2::model::CreateBucketRequest;
-    /// let x = BucketMetadata::new().set_create_bucket_request(CreateBucketRequest::default()/* use setters */);
-    /// assert!(x.create_bucket_request().is_some());
-    /// assert!(x.update_bucket_request().is_none());
-    /// ```
     pub fn set_create_bucket_request<
         T: std::convert::Into<std::boxed::Box<crate::model::CreateBucketRequest>>,
     >(
@@ -7083,15 +5372,6 @@ impl BucketMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::BucketMetadata;
-    /// use google_cloud_logging_v2::model::UpdateBucketRequest;
-    /// let x = BucketMetadata::new().set_update_bucket_request(UpdateBucketRequest::default()/* use setters */);
-    /// assert!(x.update_bucket_request().is_some());
-    /// assert!(x.create_bucket_request().is_none());
-    /// ```
     pub fn set_update_bucket_request<
         T: std::convert::Into<std::boxed::Box<crate::model::UpdateBucketRequest>>,
     >(
@@ -7150,13 +5430,6 @@ impl LinkMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::LinkMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LinkMetadata;
-    /// use wkt::Timestamp;
-    /// let x = LinkMetadata::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7166,14 +5439,6 @@ impl LinkMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::LinkMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LinkMetadata;
-    /// use wkt::Timestamp;
-    /// let x = LinkMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = LinkMetadata::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7183,13 +5448,6 @@ impl LinkMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::LinkMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LinkMetadata;
-    /// use wkt::Timestamp;
-    /// let x = LinkMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7199,14 +5457,6 @@ impl LinkMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::LinkMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LinkMetadata;
-    /// use wkt::Timestamp;
-    /// let x = LinkMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = LinkMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7216,15 +5466,6 @@ impl LinkMetadata {
     }
 
     /// Sets the value of [state][crate::model::LinkMetadata::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LinkMetadata;
-    /// use google_cloud_logging_v2::model::OperationState;
-    /// let x0 = LinkMetadata::new().set_state(OperationState::Scheduled);
-    /// let x1 = LinkMetadata::new().set_state(OperationState::WaitingForPermissions);
-    /// let x2 = LinkMetadata::new().set_state(OperationState::Running);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::OperationState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
@@ -7234,14 +5475,6 @@ impl LinkMetadata {
     ///
     /// Note that all the setters affecting `request` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LinkMetadata;
-    /// use google_cloud_logging_v2::model::link_metadata;
-    /// use google_cloud_logging_v2::model::CreateLinkRequest;
-    /// let x = LinkMetadata::new().set_request(Some(link_metadata::Request::CreateLinkRequest(CreateLinkRequest::default().into())));
-    /// ```
     pub fn set_request<
         T: std::convert::Into<std::option::Option<crate::model::link_metadata::Request>>,
     >(
@@ -7272,15 +5505,6 @@ impl LinkMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LinkMetadata;
-    /// use google_cloud_logging_v2::model::CreateLinkRequest;
-    /// let x = LinkMetadata::new().set_create_link_request(CreateLinkRequest::default()/* use setters */);
-    /// assert!(x.create_link_request().is_some());
-    /// assert!(x.delete_link_request().is_none());
-    /// ```
     pub fn set_create_link_request<
         T: std::convert::Into<std::boxed::Box<crate::model::CreateLinkRequest>>,
     >(
@@ -7313,15 +5537,6 @@ impl LinkMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LinkMetadata;
-    /// use google_cloud_logging_v2::model::DeleteLinkRequest;
-    /// let x = LinkMetadata::new().set_delete_link_request(DeleteLinkRequest::default()/* use setters */);
-    /// assert!(x.delete_link_request().is_some());
-    /// assert!(x.create_link_request().is_none());
-    /// ```
     pub fn set_delete_link_request<
         T: std::convert::Into<std::boxed::Box<crate::model::DeleteLinkRequest>>,
     >(
@@ -7373,12 +5588,6 @@ impl LocationMetadata {
     }
 
     /// Sets the value of [log_analytics_enabled][crate::model::LocationMetadata::log_analytics_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LocationMetadata;
-    /// let x = LocationMetadata::new().set_log_analytics_enabled(true);
-    /// ```
     pub fn set_log_analytics_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.log_analytics_enabled = v.into();
         self
@@ -7536,73 +5745,36 @@ impl LogMetric {
     }
 
     /// Sets the value of [name][crate::model::LogMetric::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogMetric;
-    /// let x = LogMetric::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::LogMetric::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogMetric;
-    /// let x = LogMetric::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::LogMetric::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogMetric;
-    /// let x = LogMetric::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [bucket_name][crate::model::LogMetric::bucket_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogMetric;
-    /// let x = LogMetric::new().set_bucket_name("example");
-    /// ```
     pub fn set_bucket_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket_name = v.into();
         self
     }
 
     /// Sets the value of [disabled][crate::model::LogMetric::disabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogMetric;
-    /// let x = LogMetric::new().set_disabled(true);
-    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
     }
 
     /// Sets the value of [metric_descriptor][crate::model::LogMetric::metric_descriptor].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogMetric;
-    /// use api::model::MetricDescriptor;
-    /// let x = LogMetric::new().set_metric_descriptor(MetricDescriptor::default()/* use setters */);
-    /// ```
     pub fn set_metric_descriptor<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<api::model::MetricDescriptor>,
@@ -7612,14 +5784,6 @@ impl LogMetric {
     }
 
     /// Sets or clears the value of [metric_descriptor][crate::model::LogMetric::metric_descriptor].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogMetric;
-    /// use api::model::MetricDescriptor;
-    /// let x = LogMetric::new().set_or_clear_metric_descriptor(Some(MetricDescriptor::default()/* use setters */));
-    /// let x = LogMetric::new().set_or_clear_metric_descriptor(None::<MetricDescriptor>);
-    /// ```
     pub fn set_or_clear_metric_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::MetricDescriptor>,
@@ -7629,27 +5793,12 @@ impl LogMetric {
     }
 
     /// Sets the value of [value_extractor][crate::model::LogMetric::value_extractor].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogMetric;
-    /// let x = LogMetric::new().set_value_extractor("example");
-    /// ```
     pub fn set_value_extractor<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value_extractor = v.into();
         self
     }
 
     /// Sets the value of [label_extractors][crate::model::LogMetric::label_extractors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogMetric;
-    /// let x = LogMetric::new().set_label_extractors([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_label_extractors<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7662,13 +5811,6 @@ impl LogMetric {
     }
 
     /// Sets the value of [bucket_options][crate::model::LogMetric::bucket_options].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogMetric;
-    /// use api::model::distribution::BucketOptions;
-    /// let x = LogMetric::new().set_bucket_options(BucketOptions::default()/* use setters */);
-    /// ```
     pub fn set_bucket_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<api::model::distribution::BucketOptions>,
@@ -7678,14 +5820,6 @@ impl LogMetric {
     }
 
     /// Sets or clears the value of [bucket_options][crate::model::LogMetric::bucket_options].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogMetric;
-    /// use api::model::distribution::BucketOptions;
-    /// let x = LogMetric::new().set_or_clear_bucket_options(Some(BucketOptions::default()/* use setters */));
-    /// let x = LogMetric::new().set_or_clear_bucket_options(None::<BucketOptions>);
-    /// ```
     pub fn set_or_clear_bucket_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::distribution::BucketOptions>,
@@ -7695,13 +5829,6 @@ impl LogMetric {
     }
 
     /// Sets the value of [create_time][crate::model::LogMetric::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogMetric;
-    /// use wkt::Timestamp;
-    /// let x = LogMetric::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7711,14 +5838,6 @@ impl LogMetric {
     }
 
     /// Sets or clears the value of [create_time][crate::model::LogMetric::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogMetric;
-    /// use wkt::Timestamp;
-    /// let x = LogMetric::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = LogMetric::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7728,13 +5847,6 @@ impl LogMetric {
     }
 
     /// Sets the value of [update_time][crate::model::LogMetric::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogMetric;
-    /// use wkt::Timestamp;
-    /// let x = LogMetric::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7744,14 +5856,6 @@ impl LogMetric {
     }
 
     /// Sets or clears the value of [update_time][crate::model::LogMetric::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogMetric;
-    /// use wkt::Timestamp;
-    /// let x = LogMetric::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = LogMetric::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7761,13 +5865,6 @@ impl LogMetric {
     }
 
     /// Sets the value of [version][crate::model::LogMetric::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::LogMetric;
-    /// use google_cloud_logging_v2::model::log_metric::ApiVersion;
-    /// let x0 = LogMetric::new().set_version(ApiVersion::V1);
-    /// ```
     #[deprecated]
     pub fn set_version<T: std::convert::Into<crate::model::log_metric::ApiVersion>>(
         mut self,
@@ -7946,36 +6043,18 @@ impl ListLogMetricsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListLogMetricsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLogMetricsRequest;
-    /// let x = ListLogMetricsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListLogMetricsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLogMetricsRequest;
-    /// let x = ListLogMetricsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListLogMetricsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLogMetricsRequest;
-    /// let x = ListLogMetricsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -8009,17 +6088,6 @@ impl ListLogMetricsResponse {
     }
 
     /// Sets the value of [metrics][crate::model::ListLogMetricsResponse::metrics].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLogMetricsResponse;
-    /// use google_cloud_logging_v2::model::LogMetric;
-    /// let x = ListLogMetricsResponse::new()
-    ///     .set_metrics([
-    ///         LogMetric::default()/* use setters */,
-    ///         LogMetric::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_metrics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8031,12 +6099,6 @@ impl ListLogMetricsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListLogMetricsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::ListLogMetricsResponse;
-    /// let x = ListLogMetricsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -8083,12 +6145,6 @@ impl GetLogMetricRequest {
     }
 
     /// Sets the value of [metric_name][crate::model::GetLogMetricRequest::metric_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::GetLogMetricRequest;
-    /// let x = GetLogMetricRequest::new().set_metric_name("example");
-    /// ```
     pub fn set_metric_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metric_name = v.into();
         self
@@ -8127,25 +6183,12 @@ impl CreateLogMetricRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateLogMetricRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateLogMetricRequest;
-    /// let x = CreateLogMetricRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [metric][crate::model::CreateLogMetricRequest::metric].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateLogMetricRequest;
-    /// use google_cloud_logging_v2::model::LogMetric;
-    /// let x = CreateLogMetricRequest::new().set_metric(LogMetric::default()/* use setters */);
-    /// ```
     pub fn set_metric<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LogMetric>,
@@ -8155,14 +6198,6 @@ impl CreateLogMetricRequest {
     }
 
     /// Sets or clears the value of [metric][crate::model::CreateLogMetricRequest::metric].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::CreateLogMetricRequest;
-    /// use google_cloud_logging_v2::model::LogMetric;
-    /// let x = CreateLogMetricRequest::new().set_or_clear_metric(Some(LogMetric::default()/* use setters */));
-    /// let x = CreateLogMetricRequest::new().set_or_clear_metric(None::<LogMetric>);
-    /// ```
     pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogMetric>,
@@ -8205,25 +6240,12 @@ impl UpdateLogMetricRequest {
     }
 
     /// Sets the value of [metric_name][crate::model::UpdateLogMetricRequest::metric_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateLogMetricRequest;
-    /// let x = UpdateLogMetricRequest::new().set_metric_name("example");
-    /// ```
     pub fn set_metric_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metric_name = v.into();
         self
     }
 
     /// Sets the value of [metric][crate::model::UpdateLogMetricRequest::metric].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateLogMetricRequest;
-    /// use google_cloud_logging_v2::model::LogMetric;
-    /// let x = UpdateLogMetricRequest::new().set_metric(LogMetric::default()/* use setters */);
-    /// ```
     pub fn set_metric<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LogMetric>,
@@ -8233,14 +6255,6 @@ impl UpdateLogMetricRequest {
     }
 
     /// Sets or clears the value of [metric][crate::model::UpdateLogMetricRequest::metric].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::UpdateLogMetricRequest;
-    /// use google_cloud_logging_v2::model::LogMetric;
-    /// let x = UpdateLogMetricRequest::new().set_or_clear_metric(Some(LogMetric::default()/* use setters */));
-    /// let x = UpdateLogMetricRequest::new().set_or_clear_metric(None::<LogMetric>);
-    /// ```
     pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogMetric>,
@@ -8276,12 +6290,6 @@ impl DeleteLogMetricRequest {
     }
 
     /// Sets the value of [metric_name][crate::model::DeleteLogMetricRequest::metric_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_logging_v2::model::DeleteLogMetricRequest;
-    /// let x = DeleteLogMetricRequest::new().set_metric_name("example");
-    /// ```
     pub fn set_metric_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metric_name = v.into();
         self

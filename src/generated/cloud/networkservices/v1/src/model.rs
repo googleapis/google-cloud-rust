@@ -78,13 +78,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -94,14 +87,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -111,13 +96,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -127,14 +105,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -144,60 +114,30 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -229,12 +169,6 @@ impl TrafficPortSelector {
     }
 
     /// Sets the value of [ports][crate::model::TrafficPortSelector::ports].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TrafficPortSelector;
-    /// let x = TrafficPortSelector::new().set_ports(["a", "b", "c"]);
-    /// ```
     pub fn set_ports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -272,14 +206,6 @@ impl EndpointMatcher {
     ///
     /// Note that all the setters affecting `matcher_type` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::EndpointMatcher;
-    /// use google_cloud_networkservices_v1::model::endpoint_matcher;
-    /// use google_cloud_networkservices_v1::model::endpoint_matcher::MetadataLabelMatcher;
-    /// let x = EndpointMatcher::new().set_matcher_type(Some(endpoint_matcher::MatcherType::MetadataLabelMatcher(MetadataLabelMatcher::default().into())));
-    /// ```
     pub fn set_matcher_type<
         T: std::convert::Into<std::option::Option<crate::model::endpoint_matcher::MatcherType>>,
     >(
@@ -311,14 +237,6 @@ impl EndpointMatcher {
     ///
     /// Note that all the setters affecting `matcher_type` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::EndpointMatcher;
-    /// use google_cloud_networkservices_v1::model::endpoint_matcher::MetadataLabelMatcher;
-    /// let x = EndpointMatcher::new().set_metadata_label_matcher(MetadataLabelMatcher::default()/* use setters */);
-    /// assert!(x.metadata_label_matcher().is_some());
-    /// ```
     pub fn set_metadata_label_matcher<
         T: std::convert::Into<std::boxed::Box<crate::model::endpoint_matcher::MetadataLabelMatcher>>,
     >(
@@ -393,31 +311,12 @@ pub mod endpoint_matcher {
         }
 
         /// Sets the value of [metadata_label_match_criteria][crate::model::endpoint_matcher::MetadataLabelMatcher::metadata_label_match_criteria].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::endpoint_matcher::MetadataLabelMatcher;
-        /// use google_cloud_networkservices_v1::model::endpoint_matcher::metadata_label_matcher::MetadataLabelMatchCriteria;
-        /// let x0 = MetadataLabelMatcher::new().set_metadata_label_match_criteria(MetadataLabelMatchCriteria::MatchAny);
-        /// let x1 = MetadataLabelMatcher::new().set_metadata_label_match_criteria(MetadataLabelMatchCriteria::MatchAll);
-        /// ```
         pub fn set_metadata_label_match_criteria<T: std::convert::Into<crate::model::endpoint_matcher::metadata_label_matcher::MetadataLabelMatchCriteria>>(mut self, v: T) -> Self{
             self.metadata_label_match_criteria = v.into();
             self
         }
 
         /// Sets the value of [metadata_labels][crate::model::endpoint_matcher::MetadataLabelMatcher::metadata_labels].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::endpoint_matcher::MetadataLabelMatcher;
-        /// use google_cloud_networkservices_v1::model::endpoint_matcher::metadata_label_matcher::MetadataLabels;
-        /// let x = MetadataLabelMatcher::new()
-        ///     .set_metadata_labels([
-        ///         MetadataLabels::default()/* use setters */,
-        ///         MetadataLabels::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_metadata_labels<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -462,12 +361,6 @@ pub mod endpoint_matcher {
             }
 
             /// Sets the value of [label_name][crate::model::endpoint_matcher::metadata_label_matcher::MetadataLabels::label_name].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_networkservices_v1::model::endpoint_matcher::metadata_label_matcher::MetadataLabels;
-            /// let x = MetadataLabels::new().set_label_name("example");
-            /// ```
             pub fn set_label_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -477,12 +370,6 @@ pub mod endpoint_matcher {
             }
 
             /// Sets the value of [label_value][crate::model::endpoint_matcher::metadata_label_matcher::MetadataLabels::label_value].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_networkservices_v1::model::endpoint_matcher::metadata_label_matcher::MetadataLabels;
-            /// let x = MetadataLabels::new().set_label_value("example");
-            /// ```
             pub fn set_label_value<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -679,25 +566,12 @@ impl ExtensionChain {
     }
 
     /// Sets the value of [name][crate::model::ExtensionChain::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ExtensionChain;
-    /// let x = ExtensionChain::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [match_condition][crate::model::ExtensionChain::match_condition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ExtensionChain;
-    /// use google_cloud_networkservices_v1::model::extension_chain::MatchCondition;
-    /// let x = ExtensionChain::new().set_match_condition(MatchCondition::default()/* use setters */);
-    /// ```
     pub fn set_match_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::extension_chain::MatchCondition>,
@@ -707,14 +581,6 @@ impl ExtensionChain {
     }
 
     /// Sets or clears the value of [match_condition][crate::model::ExtensionChain::match_condition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ExtensionChain;
-    /// use google_cloud_networkservices_v1::model::extension_chain::MatchCondition;
-    /// let x = ExtensionChain::new().set_or_clear_match_condition(Some(MatchCondition::default()/* use setters */));
-    /// let x = ExtensionChain::new().set_or_clear_match_condition(None::<MatchCondition>);
-    /// ```
     pub fn set_or_clear_match_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::extension_chain::MatchCondition>,
@@ -724,17 +590,6 @@ impl ExtensionChain {
     }
 
     /// Sets the value of [extensions][crate::model::ExtensionChain::extensions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ExtensionChain;
-    /// use google_cloud_networkservices_v1::model::extension_chain::Extension;
-    /// let x = ExtensionChain::new()
-    ///     .set_extensions([
-    ///         Extension::default()/* use setters */,
-    ///         Extension::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_extensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -777,12 +632,6 @@ pub mod extension_chain {
         }
 
         /// Sets the value of [cel_expression][crate::model::extension_chain::MatchCondition::cel_expression].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::extension_chain::MatchCondition;
-        /// let x = MatchCondition::new().set_cel_expression("example");
-        /// ```
         pub fn set_cel_expression<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -923,53 +772,24 @@ pub mod extension_chain {
         }
 
         /// Sets the value of [name][crate::model::extension_chain::Extension::name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::extension_chain::Extension;
-        /// let x = Extension::new().set_name("example");
-        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [authority][crate::model::extension_chain::Extension::authority].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::extension_chain::Extension;
-        /// let x = Extension::new().set_authority("example");
-        /// ```
         pub fn set_authority<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.authority = v.into();
             self
         }
 
         /// Sets the value of [service][crate::model::extension_chain::Extension::service].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::extension_chain::Extension;
-        /// let x = Extension::new().set_service("example");
-        /// ```
         pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service = v.into();
             self
         }
 
         /// Sets the value of [supported_events][crate::model::extension_chain::Extension::supported_events].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::extension_chain::Extension;
-        /// use google_cloud_networkservices_v1::model::EventType;
-        /// let x = Extension::new().set_supported_events([
-        ///     EventType::RequestHeaders,
-        ///     EventType::RequestBody,
-        ///     EventType::ResponseHeaders,
-        /// ]);
-        /// ```
         pub fn set_supported_events<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -981,13 +801,6 @@ pub mod extension_chain {
         }
 
         /// Sets the value of [timeout][crate::model::extension_chain::Extension::timeout].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::extension_chain::Extension;
-        /// use wkt::Duration;
-        /// let x = Extension::new().set_timeout(Duration::default()/* use setters */);
-        /// ```
         pub fn set_timeout<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -997,14 +810,6 @@ pub mod extension_chain {
         }
 
         /// Sets or clears the value of [timeout][crate::model::extension_chain::Extension::timeout].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::extension_chain::Extension;
-        /// use wkt::Duration;
-        /// let x = Extension::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
-        /// let x = Extension::new().set_or_clear_timeout(None::<Duration>);
-        /// ```
         pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -1014,24 +819,12 @@ pub mod extension_chain {
         }
 
         /// Sets the value of [fail_open][crate::model::extension_chain::Extension::fail_open].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::extension_chain::Extension;
-        /// let x = Extension::new().set_fail_open(true);
-        /// ```
         pub fn set_fail_open<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.fail_open = v.into();
             self
         }
 
         /// Sets the value of [forward_headers][crate::model::extension_chain::Extension::forward_headers].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::extension_chain::Extension;
-        /// let x = Extension::new().set_forward_headers(["a", "b", "c"]);
-        /// ```
         pub fn set_forward_headers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1043,13 +836,6 @@ pub mod extension_chain {
         }
 
         /// Sets the value of [metadata][crate::model::extension_chain::Extension::metadata].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::extension_chain::Extension;
-        /// use wkt::Struct;
-        /// let x = Extension::new().set_metadata(Struct::default()/* use setters */);
-        /// ```
         pub fn set_metadata<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -1059,14 +845,6 @@ pub mod extension_chain {
         }
 
         /// Sets or clears the value of [metadata][crate::model::extension_chain::Extension::metadata].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::extension_chain::Extension;
-        /// use wkt::Struct;
-        /// let x = Extension::new().set_or_clear_metadata(Some(Struct::default()/* use setters */));
-        /// let x = Extension::new().set_or_clear_metadata(None::<Struct>);
-        /// ```
         pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -1164,25 +942,12 @@ impl LbTrafficExtension {
     }
 
     /// Sets the value of [name][crate::model::LbTrafficExtension::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbTrafficExtension;
-    /// let x = LbTrafficExtension::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::LbTrafficExtension::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbTrafficExtension;
-    /// use wkt::Timestamp;
-    /// let x = LbTrafficExtension::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1192,14 +957,6 @@ impl LbTrafficExtension {
     }
 
     /// Sets or clears the value of [create_time][crate::model::LbTrafficExtension::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbTrafficExtension;
-    /// use wkt::Timestamp;
-    /// let x = LbTrafficExtension::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = LbTrafficExtension::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1209,13 +966,6 @@ impl LbTrafficExtension {
     }
 
     /// Sets the value of [update_time][crate::model::LbTrafficExtension::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbTrafficExtension;
-    /// use wkt::Timestamp;
-    /// let x = LbTrafficExtension::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1225,14 +975,6 @@ impl LbTrafficExtension {
     }
 
     /// Sets or clears the value of [update_time][crate::model::LbTrafficExtension::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbTrafficExtension;
-    /// use wkt::Timestamp;
-    /// let x = LbTrafficExtension::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = LbTrafficExtension::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1242,27 +984,12 @@ impl LbTrafficExtension {
     }
 
     /// Sets the value of [description][crate::model::LbTrafficExtension::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbTrafficExtension;
-    /// let x = LbTrafficExtension::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::LbTrafficExtension::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbTrafficExtension;
-    /// let x = LbTrafficExtension::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1275,12 +1002,6 @@ impl LbTrafficExtension {
     }
 
     /// Sets the value of [forwarding_rules][crate::model::LbTrafficExtension::forwarding_rules].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbTrafficExtension;
-    /// let x = LbTrafficExtension::new().set_forwarding_rules(["a", "b", "c"]);
-    /// ```
     pub fn set_forwarding_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1292,17 +1013,6 @@ impl LbTrafficExtension {
     }
 
     /// Sets the value of [extension_chains][crate::model::LbTrafficExtension::extension_chains].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbTrafficExtension;
-    /// use google_cloud_networkservices_v1::model::ExtensionChain;
-    /// let x = LbTrafficExtension::new()
-    ///     .set_extension_chains([
-    ///         ExtensionChain::default()/* use setters */,
-    ///         ExtensionChain::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_extension_chains<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1314,14 +1024,6 @@ impl LbTrafficExtension {
     }
 
     /// Sets the value of [load_balancing_scheme][crate::model::LbTrafficExtension::load_balancing_scheme].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbTrafficExtension;
-    /// use google_cloud_networkservices_v1::model::LoadBalancingScheme;
-    /// let x0 = LbTrafficExtension::new().set_load_balancing_scheme(LoadBalancingScheme::InternalManaged);
-    /// let x1 = LbTrafficExtension::new().set_load_balancing_scheme(LoadBalancingScheme::ExternalManaged);
-    /// ```
     pub fn set_load_balancing_scheme<T: std::convert::Into<crate::model::LoadBalancingScheme>>(
         mut self,
         v: T,
@@ -1331,13 +1033,6 @@ impl LbTrafficExtension {
     }
 
     /// Sets the value of [metadata][crate::model::LbTrafficExtension::metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbTrafficExtension;
-    /// use wkt::Struct;
-    /// let x = LbTrafficExtension::new().set_metadata(Struct::default()/* use setters */);
-    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1347,14 +1042,6 @@ impl LbTrafficExtension {
     }
 
     /// Sets or clears the value of [metadata][crate::model::LbTrafficExtension::metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbTrafficExtension;
-    /// use wkt::Struct;
-    /// let x = LbTrafficExtension::new().set_or_clear_metadata(Some(Struct::default()/* use setters */));
-    /// let x = LbTrafficExtension::new().set_or_clear_metadata(None::<Struct>);
-    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1401,60 +1088,30 @@ impl ListLbTrafficExtensionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListLbTrafficExtensionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbTrafficExtensionsRequest;
-    /// let x = ListLbTrafficExtensionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListLbTrafficExtensionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbTrafficExtensionsRequest;
-    /// let x = ListLbTrafficExtensionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListLbTrafficExtensionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbTrafficExtensionsRequest;
-    /// let x = ListLbTrafficExtensionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListLbTrafficExtensionsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbTrafficExtensionsRequest;
-    /// let x = ListLbTrafficExtensionsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListLbTrafficExtensionsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbTrafficExtensionsRequest;
-    /// let x = ListLbTrafficExtensionsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1489,17 +1146,6 @@ impl ListLbTrafficExtensionsResponse {
     }
 
     /// Sets the value of [lb_traffic_extensions][crate::model::ListLbTrafficExtensionsResponse::lb_traffic_extensions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbTrafficExtensionsResponse;
-    /// use google_cloud_networkservices_v1::model::LbTrafficExtension;
-    /// let x = ListLbTrafficExtensionsResponse::new()
-    ///     .set_lb_traffic_extensions([
-    ///         LbTrafficExtension::default()/* use setters */,
-    ///         LbTrafficExtension::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_lb_traffic_extensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1511,24 +1157,12 @@ impl ListLbTrafficExtensionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListLbTrafficExtensionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbTrafficExtensionsResponse;
-    /// let x = ListLbTrafficExtensionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListLbTrafficExtensionsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbTrafficExtensionsResponse;
-    /// let x = ListLbTrafficExtensionsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1578,12 +1212,6 @@ impl GetLbTrafficExtensionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetLbTrafficExtensionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GetLbTrafficExtensionRequest;
-    /// let x = GetLbTrafficExtensionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1634,24 +1262,12 @@ impl CreateLbTrafficExtensionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateLbTrafficExtensionRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateLbTrafficExtensionRequest;
-    /// let x = CreateLbTrafficExtensionRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [lb_traffic_extension_id][crate::model::CreateLbTrafficExtensionRequest::lb_traffic_extension_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateLbTrafficExtensionRequest;
-    /// let x = CreateLbTrafficExtensionRequest::new().set_lb_traffic_extension_id("example");
-    /// ```
     pub fn set_lb_traffic_extension_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1661,13 +1277,6 @@ impl CreateLbTrafficExtensionRequest {
     }
 
     /// Sets the value of [lb_traffic_extension][crate::model::CreateLbTrafficExtensionRequest::lb_traffic_extension].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateLbTrafficExtensionRequest;
-    /// use google_cloud_networkservices_v1::model::LbTrafficExtension;
-    /// let x = CreateLbTrafficExtensionRequest::new().set_lb_traffic_extension(LbTrafficExtension::default()/* use setters */);
-    /// ```
     pub fn set_lb_traffic_extension<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LbTrafficExtension>,
@@ -1677,14 +1286,6 @@ impl CreateLbTrafficExtensionRequest {
     }
 
     /// Sets or clears the value of [lb_traffic_extension][crate::model::CreateLbTrafficExtensionRequest::lb_traffic_extension].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateLbTrafficExtensionRequest;
-    /// use google_cloud_networkservices_v1::model::LbTrafficExtension;
-    /// let x = CreateLbTrafficExtensionRequest::new().set_or_clear_lb_traffic_extension(Some(LbTrafficExtension::default()/* use setters */));
-    /// let x = CreateLbTrafficExtensionRequest::new().set_or_clear_lb_traffic_extension(None::<LbTrafficExtension>);
-    /// ```
     pub fn set_or_clear_lb_traffic_extension<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LbTrafficExtension>,
@@ -1694,12 +1295,6 @@ impl CreateLbTrafficExtensionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateLbTrafficExtensionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateLbTrafficExtensionRequest;
-    /// let x = CreateLbTrafficExtensionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1749,13 +1344,6 @@ impl UpdateLbTrafficExtensionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateLbTrafficExtensionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateLbTrafficExtensionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateLbTrafficExtensionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1765,14 +1353,6 @@ impl UpdateLbTrafficExtensionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateLbTrafficExtensionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateLbTrafficExtensionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateLbTrafficExtensionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateLbTrafficExtensionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1782,13 +1362,6 @@ impl UpdateLbTrafficExtensionRequest {
     }
 
     /// Sets the value of [lb_traffic_extension][crate::model::UpdateLbTrafficExtensionRequest::lb_traffic_extension].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateLbTrafficExtensionRequest;
-    /// use google_cloud_networkservices_v1::model::LbTrafficExtension;
-    /// let x = UpdateLbTrafficExtensionRequest::new().set_lb_traffic_extension(LbTrafficExtension::default()/* use setters */);
-    /// ```
     pub fn set_lb_traffic_extension<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LbTrafficExtension>,
@@ -1798,14 +1371,6 @@ impl UpdateLbTrafficExtensionRequest {
     }
 
     /// Sets or clears the value of [lb_traffic_extension][crate::model::UpdateLbTrafficExtensionRequest::lb_traffic_extension].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateLbTrafficExtensionRequest;
-    /// use google_cloud_networkservices_v1::model::LbTrafficExtension;
-    /// let x = UpdateLbTrafficExtensionRequest::new().set_or_clear_lb_traffic_extension(Some(LbTrafficExtension::default()/* use setters */));
-    /// let x = UpdateLbTrafficExtensionRequest::new().set_or_clear_lb_traffic_extension(None::<LbTrafficExtension>);
-    /// ```
     pub fn set_or_clear_lb_traffic_extension<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LbTrafficExtension>,
@@ -1815,12 +1380,6 @@ impl UpdateLbTrafficExtensionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateLbTrafficExtensionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateLbTrafficExtensionRequest;
-    /// let x = UpdateLbTrafficExtensionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1865,24 +1424,12 @@ impl DeleteLbTrafficExtensionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteLbTrafficExtensionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteLbTrafficExtensionRequest;
-    /// let x = DeleteLbTrafficExtensionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteLbTrafficExtensionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteLbTrafficExtensionRequest;
-    /// let x = DeleteLbTrafficExtensionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1974,25 +1521,12 @@ impl LbRouteExtension {
     }
 
     /// Sets the value of [name][crate::model::LbRouteExtension::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbRouteExtension;
-    /// let x = LbRouteExtension::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::LbRouteExtension::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbRouteExtension;
-    /// use wkt::Timestamp;
-    /// let x = LbRouteExtension::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2002,14 +1536,6 @@ impl LbRouteExtension {
     }
 
     /// Sets or clears the value of [create_time][crate::model::LbRouteExtension::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbRouteExtension;
-    /// use wkt::Timestamp;
-    /// let x = LbRouteExtension::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = LbRouteExtension::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2019,13 +1545,6 @@ impl LbRouteExtension {
     }
 
     /// Sets the value of [update_time][crate::model::LbRouteExtension::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbRouteExtension;
-    /// use wkt::Timestamp;
-    /// let x = LbRouteExtension::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2035,14 +1554,6 @@ impl LbRouteExtension {
     }
 
     /// Sets or clears the value of [update_time][crate::model::LbRouteExtension::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbRouteExtension;
-    /// use wkt::Timestamp;
-    /// let x = LbRouteExtension::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = LbRouteExtension::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2052,27 +1563,12 @@ impl LbRouteExtension {
     }
 
     /// Sets the value of [description][crate::model::LbRouteExtension::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbRouteExtension;
-    /// let x = LbRouteExtension::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::LbRouteExtension::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbRouteExtension;
-    /// let x = LbRouteExtension::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2085,12 +1581,6 @@ impl LbRouteExtension {
     }
 
     /// Sets the value of [forwarding_rules][crate::model::LbRouteExtension::forwarding_rules].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbRouteExtension;
-    /// let x = LbRouteExtension::new().set_forwarding_rules(["a", "b", "c"]);
-    /// ```
     pub fn set_forwarding_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2102,17 +1592,6 @@ impl LbRouteExtension {
     }
 
     /// Sets the value of [extension_chains][crate::model::LbRouteExtension::extension_chains].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbRouteExtension;
-    /// use google_cloud_networkservices_v1::model::ExtensionChain;
-    /// let x = LbRouteExtension::new()
-    ///     .set_extension_chains([
-    ///         ExtensionChain::default()/* use setters */,
-    ///         ExtensionChain::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_extension_chains<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2124,14 +1603,6 @@ impl LbRouteExtension {
     }
 
     /// Sets the value of [load_balancing_scheme][crate::model::LbRouteExtension::load_balancing_scheme].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbRouteExtension;
-    /// use google_cloud_networkservices_v1::model::LoadBalancingScheme;
-    /// let x0 = LbRouteExtension::new().set_load_balancing_scheme(LoadBalancingScheme::InternalManaged);
-    /// let x1 = LbRouteExtension::new().set_load_balancing_scheme(LoadBalancingScheme::ExternalManaged);
-    /// ```
     pub fn set_load_balancing_scheme<T: std::convert::Into<crate::model::LoadBalancingScheme>>(
         mut self,
         v: T,
@@ -2141,13 +1612,6 @@ impl LbRouteExtension {
     }
 
     /// Sets the value of [metadata][crate::model::LbRouteExtension::metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbRouteExtension;
-    /// use wkt::Struct;
-    /// let x = LbRouteExtension::new().set_metadata(Struct::default()/* use setters */);
-    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -2157,14 +1621,6 @@ impl LbRouteExtension {
     }
 
     /// Sets or clears the value of [metadata][crate::model::LbRouteExtension::metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbRouteExtension;
-    /// use wkt::Struct;
-    /// let x = LbRouteExtension::new().set_or_clear_metadata(Some(Struct::default()/* use setters */));
-    /// let x = LbRouteExtension::new().set_or_clear_metadata(None::<Struct>);
-    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -2211,60 +1667,30 @@ impl ListLbRouteExtensionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListLbRouteExtensionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbRouteExtensionsRequest;
-    /// let x = ListLbRouteExtensionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListLbRouteExtensionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbRouteExtensionsRequest;
-    /// let x = ListLbRouteExtensionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListLbRouteExtensionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbRouteExtensionsRequest;
-    /// let x = ListLbRouteExtensionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListLbRouteExtensionsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbRouteExtensionsRequest;
-    /// let x = ListLbRouteExtensionsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListLbRouteExtensionsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbRouteExtensionsRequest;
-    /// let x = ListLbRouteExtensionsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2299,17 +1725,6 @@ impl ListLbRouteExtensionsResponse {
     }
 
     /// Sets the value of [lb_route_extensions][crate::model::ListLbRouteExtensionsResponse::lb_route_extensions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbRouteExtensionsResponse;
-    /// use google_cloud_networkservices_v1::model::LbRouteExtension;
-    /// let x = ListLbRouteExtensionsResponse::new()
-    ///     .set_lb_route_extensions([
-    ///         LbRouteExtension::default()/* use setters */,
-    ///         LbRouteExtension::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_lb_route_extensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2321,24 +1736,12 @@ impl ListLbRouteExtensionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListLbRouteExtensionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbRouteExtensionsResponse;
-    /// let x = ListLbRouteExtensionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListLbRouteExtensionsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbRouteExtensionsResponse;
-    /// let x = ListLbRouteExtensionsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2388,12 +1791,6 @@ impl GetLbRouteExtensionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetLbRouteExtensionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GetLbRouteExtensionRequest;
-    /// let x = GetLbRouteExtensionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2444,24 +1841,12 @@ impl CreateLbRouteExtensionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateLbRouteExtensionRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateLbRouteExtensionRequest;
-    /// let x = CreateLbRouteExtensionRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [lb_route_extension_id][crate::model::CreateLbRouteExtensionRequest::lb_route_extension_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateLbRouteExtensionRequest;
-    /// let x = CreateLbRouteExtensionRequest::new().set_lb_route_extension_id("example");
-    /// ```
     pub fn set_lb_route_extension_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2471,13 +1856,6 @@ impl CreateLbRouteExtensionRequest {
     }
 
     /// Sets the value of [lb_route_extension][crate::model::CreateLbRouteExtensionRequest::lb_route_extension].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateLbRouteExtensionRequest;
-    /// use google_cloud_networkservices_v1::model::LbRouteExtension;
-    /// let x = CreateLbRouteExtensionRequest::new().set_lb_route_extension(LbRouteExtension::default()/* use setters */);
-    /// ```
     pub fn set_lb_route_extension<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LbRouteExtension>,
@@ -2487,14 +1865,6 @@ impl CreateLbRouteExtensionRequest {
     }
 
     /// Sets or clears the value of [lb_route_extension][crate::model::CreateLbRouteExtensionRequest::lb_route_extension].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateLbRouteExtensionRequest;
-    /// use google_cloud_networkservices_v1::model::LbRouteExtension;
-    /// let x = CreateLbRouteExtensionRequest::new().set_or_clear_lb_route_extension(Some(LbRouteExtension::default()/* use setters */));
-    /// let x = CreateLbRouteExtensionRequest::new().set_or_clear_lb_route_extension(None::<LbRouteExtension>);
-    /// ```
     pub fn set_or_clear_lb_route_extension<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LbRouteExtension>,
@@ -2504,12 +1874,6 @@ impl CreateLbRouteExtensionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateLbRouteExtensionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateLbRouteExtensionRequest;
-    /// let x = CreateLbRouteExtensionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2559,13 +1923,6 @@ impl UpdateLbRouteExtensionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateLbRouteExtensionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateLbRouteExtensionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateLbRouteExtensionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2575,14 +1932,6 @@ impl UpdateLbRouteExtensionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateLbRouteExtensionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateLbRouteExtensionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateLbRouteExtensionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateLbRouteExtensionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2592,13 +1941,6 @@ impl UpdateLbRouteExtensionRequest {
     }
 
     /// Sets the value of [lb_route_extension][crate::model::UpdateLbRouteExtensionRequest::lb_route_extension].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateLbRouteExtensionRequest;
-    /// use google_cloud_networkservices_v1::model::LbRouteExtension;
-    /// let x = UpdateLbRouteExtensionRequest::new().set_lb_route_extension(LbRouteExtension::default()/* use setters */);
-    /// ```
     pub fn set_lb_route_extension<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LbRouteExtension>,
@@ -2608,14 +1950,6 @@ impl UpdateLbRouteExtensionRequest {
     }
 
     /// Sets or clears the value of [lb_route_extension][crate::model::UpdateLbRouteExtensionRequest::lb_route_extension].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateLbRouteExtensionRequest;
-    /// use google_cloud_networkservices_v1::model::LbRouteExtension;
-    /// let x = UpdateLbRouteExtensionRequest::new().set_or_clear_lb_route_extension(Some(LbRouteExtension::default()/* use setters */));
-    /// let x = UpdateLbRouteExtensionRequest::new().set_or_clear_lb_route_extension(None::<LbRouteExtension>);
-    /// ```
     pub fn set_or_clear_lb_route_extension<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LbRouteExtension>,
@@ -2625,12 +1959,6 @@ impl UpdateLbRouteExtensionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateLbRouteExtensionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateLbRouteExtensionRequest;
-    /// let x = UpdateLbRouteExtensionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2675,24 +2003,12 @@ impl DeleteLbRouteExtensionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteLbRouteExtensionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteLbRouteExtensionRequest;
-    /// let x = DeleteLbRouteExtensionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteLbRouteExtensionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteLbRouteExtensionRequest;
-    /// let x = DeleteLbRouteExtensionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2760,25 +2076,12 @@ impl LbEdgeExtension {
     }
 
     /// Sets the value of [name][crate::model::LbEdgeExtension::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbEdgeExtension;
-    /// let x = LbEdgeExtension::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::LbEdgeExtension::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbEdgeExtension;
-    /// use wkt::Timestamp;
-    /// let x = LbEdgeExtension::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2788,14 +2091,6 @@ impl LbEdgeExtension {
     }
 
     /// Sets or clears the value of [create_time][crate::model::LbEdgeExtension::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbEdgeExtension;
-    /// use wkt::Timestamp;
-    /// let x = LbEdgeExtension::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = LbEdgeExtension::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2805,13 +2100,6 @@ impl LbEdgeExtension {
     }
 
     /// Sets the value of [update_time][crate::model::LbEdgeExtension::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbEdgeExtension;
-    /// use wkt::Timestamp;
-    /// let x = LbEdgeExtension::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2821,14 +2109,6 @@ impl LbEdgeExtension {
     }
 
     /// Sets or clears the value of [update_time][crate::model::LbEdgeExtension::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbEdgeExtension;
-    /// use wkt::Timestamp;
-    /// let x = LbEdgeExtension::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = LbEdgeExtension::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2838,27 +2118,12 @@ impl LbEdgeExtension {
     }
 
     /// Sets the value of [description][crate::model::LbEdgeExtension::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbEdgeExtension;
-    /// let x = LbEdgeExtension::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::LbEdgeExtension::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbEdgeExtension;
-    /// let x = LbEdgeExtension::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2871,12 +2136,6 @@ impl LbEdgeExtension {
     }
 
     /// Sets the value of [forwarding_rules][crate::model::LbEdgeExtension::forwarding_rules].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbEdgeExtension;
-    /// let x = LbEdgeExtension::new().set_forwarding_rules(["a", "b", "c"]);
-    /// ```
     pub fn set_forwarding_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2888,17 +2147,6 @@ impl LbEdgeExtension {
     }
 
     /// Sets the value of [extension_chains][crate::model::LbEdgeExtension::extension_chains].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbEdgeExtension;
-    /// use google_cloud_networkservices_v1::model::ExtensionChain;
-    /// let x = LbEdgeExtension::new()
-    ///     .set_extension_chains([
-    ///         ExtensionChain::default()/* use setters */,
-    ///         ExtensionChain::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_extension_chains<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2910,14 +2158,6 @@ impl LbEdgeExtension {
     }
 
     /// Sets the value of [load_balancing_scheme][crate::model::LbEdgeExtension::load_balancing_scheme].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::LbEdgeExtension;
-    /// use google_cloud_networkservices_v1::model::LoadBalancingScheme;
-    /// let x0 = LbEdgeExtension::new().set_load_balancing_scheme(LoadBalancingScheme::InternalManaged);
-    /// let x1 = LbEdgeExtension::new().set_load_balancing_scheme(LoadBalancingScheme::ExternalManaged);
-    /// ```
     pub fn set_load_balancing_scheme<T: std::convert::Into<crate::model::LoadBalancingScheme>>(
         mut self,
         v: T,
@@ -2964,60 +2204,30 @@ impl ListLbEdgeExtensionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListLbEdgeExtensionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbEdgeExtensionsRequest;
-    /// let x = ListLbEdgeExtensionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListLbEdgeExtensionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbEdgeExtensionsRequest;
-    /// let x = ListLbEdgeExtensionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListLbEdgeExtensionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbEdgeExtensionsRequest;
-    /// let x = ListLbEdgeExtensionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListLbEdgeExtensionsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbEdgeExtensionsRequest;
-    /// let x = ListLbEdgeExtensionsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListLbEdgeExtensionsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbEdgeExtensionsRequest;
-    /// let x = ListLbEdgeExtensionsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3052,17 +2262,6 @@ impl ListLbEdgeExtensionsResponse {
     }
 
     /// Sets the value of [lb_edge_extensions][crate::model::ListLbEdgeExtensionsResponse::lb_edge_extensions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbEdgeExtensionsResponse;
-    /// use google_cloud_networkservices_v1::model::LbEdgeExtension;
-    /// let x = ListLbEdgeExtensionsResponse::new()
-    ///     .set_lb_edge_extensions([
-    ///         LbEdgeExtension::default()/* use setters */,
-    ///         LbEdgeExtension::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_lb_edge_extensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3074,24 +2273,12 @@ impl ListLbEdgeExtensionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListLbEdgeExtensionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbEdgeExtensionsResponse;
-    /// let x = ListLbEdgeExtensionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListLbEdgeExtensionsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListLbEdgeExtensionsResponse;
-    /// let x = ListLbEdgeExtensionsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3141,12 +2328,6 @@ impl GetLbEdgeExtensionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetLbEdgeExtensionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GetLbEdgeExtensionRequest;
-    /// let x = GetLbEdgeExtensionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3196,24 +2377,12 @@ impl CreateLbEdgeExtensionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateLbEdgeExtensionRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateLbEdgeExtensionRequest;
-    /// let x = CreateLbEdgeExtensionRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [lb_edge_extension_id][crate::model::CreateLbEdgeExtensionRequest::lb_edge_extension_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateLbEdgeExtensionRequest;
-    /// let x = CreateLbEdgeExtensionRequest::new().set_lb_edge_extension_id("example");
-    /// ```
     pub fn set_lb_edge_extension_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3223,13 +2392,6 @@ impl CreateLbEdgeExtensionRequest {
     }
 
     /// Sets the value of [lb_edge_extension][crate::model::CreateLbEdgeExtensionRequest::lb_edge_extension].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateLbEdgeExtensionRequest;
-    /// use google_cloud_networkservices_v1::model::LbEdgeExtension;
-    /// let x = CreateLbEdgeExtensionRequest::new().set_lb_edge_extension(LbEdgeExtension::default()/* use setters */);
-    /// ```
     pub fn set_lb_edge_extension<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LbEdgeExtension>,
@@ -3239,14 +2401,6 @@ impl CreateLbEdgeExtensionRequest {
     }
 
     /// Sets or clears the value of [lb_edge_extension][crate::model::CreateLbEdgeExtensionRequest::lb_edge_extension].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateLbEdgeExtensionRequest;
-    /// use google_cloud_networkservices_v1::model::LbEdgeExtension;
-    /// let x = CreateLbEdgeExtensionRequest::new().set_or_clear_lb_edge_extension(Some(LbEdgeExtension::default()/* use setters */));
-    /// let x = CreateLbEdgeExtensionRequest::new().set_or_clear_lb_edge_extension(None::<LbEdgeExtension>);
-    /// ```
     pub fn set_or_clear_lb_edge_extension<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LbEdgeExtension>,
@@ -3256,12 +2410,6 @@ impl CreateLbEdgeExtensionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateLbEdgeExtensionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateLbEdgeExtensionRequest;
-    /// let x = CreateLbEdgeExtensionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3311,13 +2459,6 @@ impl UpdateLbEdgeExtensionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateLbEdgeExtensionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateLbEdgeExtensionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateLbEdgeExtensionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3327,14 +2468,6 @@ impl UpdateLbEdgeExtensionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateLbEdgeExtensionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateLbEdgeExtensionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateLbEdgeExtensionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateLbEdgeExtensionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3344,13 +2477,6 @@ impl UpdateLbEdgeExtensionRequest {
     }
 
     /// Sets the value of [lb_edge_extension][crate::model::UpdateLbEdgeExtensionRequest::lb_edge_extension].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateLbEdgeExtensionRequest;
-    /// use google_cloud_networkservices_v1::model::LbEdgeExtension;
-    /// let x = UpdateLbEdgeExtensionRequest::new().set_lb_edge_extension(LbEdgeExtension::default()/* use setters */);
-    /// ```
     pub fn set_lb_edge_extension<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LbEdgeExtension>,
@@ -3360,14 +2486,6 @@ impl UpdateLbEdgeExtensionRequest {
     }
 
     /// Sets or clears the value of [lb_edge_extension][crate::model::UpdateLbEdgeExtensionRequest::lb_edge_extension].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateLbEdgeExtensionRequest;
-    /// use google_cloud_networkservices_v1::model::LbEdgeExtension;
-    /// let x = UpdateLbEdgeExtensionRequest::new().set_or_clear_lb_edge_extension(Some(LbEdgeExtension::default()/* use setters */));
-    /// let x = UpdateLbEdgeExtensionRequest::new().set_or_clear_lb_edge_extension(None::<LbEdgeExtension>);
-    /// ```
     pub fn set_or_clear_lb_edge_extension<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LbEdgeExtension>,
@@ -3377,12 +2495,6 @@ impl UpdateLbEdgeExtensionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateLbEdgeExtensionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateLbEdgeExtensionRequest;
-    /// let x = UpdateLbEdgeExtensionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3427,24 +2539,12 @@ impl DeleteLbEdgeExtensionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteLbEdgeExtensionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteLbEdgeExtensionRequest;
-    /// let x = DeleteLbEdgeExtensionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteLbEdgeExtensionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteLbEdgeExtensionRequest;
-    /// let x = DeleteLbEdgeExtensionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3557,25 +2657,12 @@ impl AuthzExtension {
     }
 
     /// Sets the value of [name][crate::model::AuthzExtension::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// let x = AuthzExtension::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::AuthzExtension::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// use wkt::Timestamp;
-    /// let x = AuthzExtension::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3585,14 +2672,6 @@ impl AuthzExtension {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AuthzExtension::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// use wkt::Timestamp;
-    /// let x = AuthzExtension::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AuthzExtension::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3602,13 +2681,6 @@ impl AuthzExtension {
     }
 
     /// Sets the value of [update_time][crate::model::AuthzExtension::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// use wkt::Timestamp;
-    /// let x = AuthzExtension::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3618,14 +2690,6 @@ impl AuthzExtension {
     }
 
     /// Sets or clears the value of [update_time][crate::model::AuthzExtension::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// use wkt::Timestamp;
-    /// let x = AuthzExtension::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AuthzExtension::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3635,27 +2699,12 @@ impl AuthzExtension {
     }
 
     /// Sets the value of [description][crate::model::AuthzExtension::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// let x = AuthzExtension::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::AuthzExtension::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// let x = AuthzExtension::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3668,14 +2717,6 @@ impl AuthzExtension {
     }
 
     /// Sets the value of [load_balancing_scheme][crate::model::AuthzExtension::load_balancing_scheme].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// use google_cloud_networkservices_v1::model::LoadBalancingScheme;
-    /// let x0 = AuthzExtension::new().set_load_balancing_scheme(LoadBalancingScheme::InternalManaged);
-    /// let x1 = AuthzExtension::new().set_load_balancing_scheme(LoadBalancingScheme::ExternalManaged);
-    /// ```
     pub fn set_load_balancing_scheme<T: std::convert::Into<crate::model::LoadBalancingScheme>>(
         mut self,
         v: T,
@@ -3685,37 +2726,18 @@ impl AuthzExtension {
     }
 
     /// Sets the value of [authority][crate::model::AuthzExtension::authority].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// let x = AuthzExtension::new().set_authority("example");
-    /// ```
     pub fn set_authority<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.authority = v.into();
         self
     }
 
     /// Sets the value of [service][crate::model::AuthzExtension::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// let x = AuthzExtension::new().set_service("example");
-    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [timeout][crate::model::AuthzExtension::timeout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// use wkt::Duration;
-    /// let x = AuthzExtension::new().set_timeout(Duration::default()/* use setters */);
-    /// ```
     pub fn set_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3725,14 +2747,6 @@ impl AuthzExtension {
     }
 
     /// Sets or clears the value of [timeout][crate::model::AuthzExtension::timeout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// use wkt::Duration;
-    /// let x = AuthzExtension::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
-    /// let x = AuthzExtension::new().set_or_clear_timeout(None::<Duration>);
-    /// ```
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3742,25 +2756,12 @@ impl AuthzExtension {
     }
 
     /// Sets the value of [fail_open][crate::model::AuthzExtension::fail_open].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// let x = AuthzExtension::new().set_fail_open(true);
-    /// ```
     pub fn set_fail_open<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.fail_open = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::AuthzExtension::metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// use wkt::Struct;
-    /// let x = AuthzExtension::new().set_metadata(Struct::default()/* use setters */);
-    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -3770,14 +2771,6 @@ impl AuthzExtension {
     }
 
     /// Sets or clears the value of [metadata][crate::model::AuthzExtension::metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// use wkt::Struct;
-    /// let x = AuthzExtension::new().set_or_clear_metadata(Some(Struct::default()/* use setters */));
-    /// let x = AuthzExtension::new().set_or_clear_metadata(None::<Struct>);
-    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -3787,12 +2780,6 @@ impl AuthzExtension {
     }
 
     /// Sets the value of [forward_headers][crate::model::AuthzExtension::forward_headers].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// let x = AuthzExtension::new().set_forward_headers(["a", "b", "c"]);
-    /// ```
     pub fn set_forward_headers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3804,13 +2791,6 @@ impl AuthzExtension {
     }
 
     /// Sets the value of [wire_format][crate::model::AuthzExtension::wire_format].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// use google_cloud_networkservices_v1::model::WireFormat;
-    /// let x0 = AuthzExtension::new().set_wire_format(WireFormat::ExtProcGrpc);
-    /// ```
     pub fn set_wire_format<T: std::convert::Into<crate::model::WireFormat>>(
         mut self,
         v: T,
@@ -3857,60 +2837,30 @@ impl ListAuthzExtensionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAuthzExtensionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListAuthzExtensionsRequest;
-    /// let x = ListAuthzExtensionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAuthzExtensionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListAuthzExtensionsRequest;
-    /// let x = ListAuthzExtensionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAuthzExtensionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListAuthzExtensionsRequest;
-    /// let x = ListAuthzExtensionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAuthzExtensionsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListAuthzExtensionsRequest;
-    /// let x = ListAuthzExtensionsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListAuthzExtensionsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListAuthzExtensionsRequest;
-    /// let x = ListAuthzExtensionsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3945,17 +2895,6 @@ impl ListAuthzExtensionsResponse {
     }
 
     /// Sets the value of [authz_extensions][crate::model::ListAuthzExtensionsResponse::authz_extensions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListAuthzExtensionsResponse;
-    /// use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// let x = ListAuthzExtensionsResponse::new()
-    ///     .set_authz_extensions([
-    ///         AuthzExtension::default()/* use setters */,
-    ///         AuthzExtension::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_authz_extensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3967,24 +2906,12 @@ impl ListAuthzExtensionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAuthzExtensionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListAuthzExtensionsResponse;
-    /// let x = ListAuthzExtensionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListAuthzExtensionsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListAuthzExtensionsResponse;
-    /// let x = ListAuthzExtensionsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4034,12 +2961,6 @@ impl GetAuthzExtensionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAuthzExtensionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GetAuthzExtensionRequest;
-    /// let x = GetAuthzExtensionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4090,24 +3011,12 @@ impl CreateAuthzExtensionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAuthzExtensionRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateAuthzExtensionRequest;
-    /// let x = CreateAuthzExtensionRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [authz_extension_id][crate::model::CreateAuthzExtensionRequest::authz_extension_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateAuthzExtensionRequest;
-    /// let x = CreateAuthzExtensionRequest::new().set_authz_extension_id("example");
-    /// ```
     pub fn set_authz_extension_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4117,13 +3026,6 @@ impl CreateAuthzExtensionRequest {
     }
 
     /// Sets the value of [authz_extension][crate::model::CreateAuthzExtensionRequest::authz_extension].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateAuthzExtensionRequest;
-    /// use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// let x = CreateAuthzExtensionRequest::new().set_authz_extension(AuthzExtension::default()/* use setters */);
-    /// ```
     pub fn set_authz_extension<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AuthzExtension>,
@@ -4133,14 +3035,6 @@ impl CreateAuthzExtensionRequest {
     }
 
     /// Sets or clears the value of [authz_extension][crate::model::CreateAuthzExtensionRequest::authz_extension].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateAuthzExtensionRequest;
-    /// use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// let x = CreateAuthzExtensionRequest::new().set_or_clear_authz_extension(Some(AuthzExtension::default()/* use setters */));
-    /// let x = CreateAuthzExtensionRequest::new().set_or_clear_authz_extension(None::<AuthzExtension>);
-    /// ```
     pub fn set_or_clear_authz_extension<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AuthzExtension>,
@@ -4150,12 +3044,6 @@ impl CreateAuthzExtensionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateAuthzExtensionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateAuthzExtensionRequest;
-    /// let x = CreateAuthzExtensionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4205,13 +3093,6 @@ impl UpdateAuthzExtensionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAuthzExtensionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateAuthzExtensionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateAuthzExtensionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4221,14 +3102,6 @@ impl UpdateAuthzExtensionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAuthzExtensionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateAuthzExtensionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateAuthzExtensionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateAuthzExtensionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4238,13 +3111,6 @@ impl UpdateAuthzExtensionRequest {
     }
 
     /// Sets the value of [authz_extension][crate::model::UpdateAuthzExtensionRequest::authz_extension].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateAuthzExtensionRequest;
-    /// use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// let x = UpdateAuthzExtensionRequest::new().set_authz_extension(AuthzExtension::default()/* use setters */);
-    /// ```
     pub fn set_authz_extension<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AuthzExtension>,
@@ -4254,14 +3120,6 @@ impl UpdateAuthzExtensionRequest {
     }
 
     /// Sets or clears the value of [authz_extension][crate::model::UpdateAuthzExtensionRequest::authz_extension].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateAuthzExtensionRequest;
-    /// use google_cloud_networkservices_v1::model::AuthzExtension;
-    /// let x = UpdateAuthzExtensionRequest::new().set_or_clear_authz_extension(Some(AuthzExtension::default()/* use setters */));
-    /// let x = UpdateAuthzExtensionRequest::new().set_or_clear_authz_extension(None::<AuthzExtension>);
-    /// ```
     pub fn set_or_clear_authz_extension<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AuthzExtension>,
@@ -4271,12 +3129,6 @@ impl UpdateAuthzExtensionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateAuthzExtensionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateAuthzExtensionRequest;
-    /// let x = UpdateAuthzExtensionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4321,24 +3173,12 @@ impl DeleteAuthzExtensionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAuthzExtensionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteAuthzExtensionRequest;
-    /// let x = DeleteAuthzExtensionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteAuthzExtensionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteAuthzExtensionRequest;
-    /// let x = DeleteAuthzExtensionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4419,25 +3259,12 @@ impl EndpointPolicy {
     }
 
     /// Sets the value of [name][crate::model::EndpointPolicy::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// let x = EndpointPolicy::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::EndpointPolicy::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// use wkt::Timestamp;
-    /// let x = EndpointPolicy::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4447,14 +3274,6 @@ impl EndpointPolicy {
     }
 
     /// Sets or clears the value of [create_time][crate::model::EndpointPolicy::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// use wkt::Timestamp;
-    /// let x = EndpointPolicy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = EndpointPolicy::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4464,13 +3283,6 @@ impl EndpointPolicy {
     }
 
     /// Sets the value of [update_time][crate::model::EndpointPolicy::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// use wkt::Timestamp;
-    /// let x = EndpointPolicy::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4480,14 +3292,6 @@ impl EndpointPolicy {
     }
 
     /// Sets or clears the value of [update_time][crate::model::EndpointPolicy::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// use wkt::Timestamp;
-    /// let x = EndpointPolicy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = EndpointPolicy::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4497,15 +3301,6 @@ impl EndpointPolicy {
     }
 
     /// Sets the value of [labels][crate::model::EndpointPolicy::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// let x = EndpointPolicy::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4518,14 +3313,6 @@ impl EndpointPolicy {
     }
 
     /// Sets the value of [r#type][crate::model::EndpointPolicy::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// use google_cloud_networkservices_v1::model::endpoint_policy::EndpointPolicyType;
-    /// let x0 = EndpointPolicy::new().set_type(EndpointPolicyType::SidecarProxy);
-    /// let x1 = EndpointPolicy::new().set_type(EndpointPolicyType::GrpcServer);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::endpoint_policy::EndpointPolicyType>>(
         mut self,
         v: T,
@@ -4535,12 +3322,6 @@ impl EndpointPolicy {
     }
 
     /// Sets the value of [authorization_policy][crate::model::EndpointPolicy::authorization_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// let x = EndpointPolicy::new().set_authorization_policy("example");
-    /// ```
     pub fn set_authorization_policy<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4550,13 +3331,6 @@ impl EndpointPolicy {
     }
 
     /// Sets the value of [endpoint_matcher][crate::model::EndpointPolicy::endpoint_matcher].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// use google_cloud_networkservices_v1::model::EndpointMatcher;
-    /// let x = EndpointPolicy::new().set_endpoint_matcher(EndpointMatcher::default()/* use setters */);
-    /// ```
     pub fn set_endpoint_matcher<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EndpointMatcher>,
@@ -4566,14 +3340,6 @@ impl EndpointPolicy {
     }
 
     /// Sets or clears the value of [endpoint_matcher][crate::model::EndpointPolicy::endpoint_matcher].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// use google_cloud_networkservices_v1::model::EndpointMatcher;
-    /// let x = EndpointPolicy::new().set_or_clear_endpoint_matcher(Some(EndpointMatcher::default()/* use setters */));
-    /// let x = EndpointPolicy::new().set_or_clear_endpoint_matcher(None::<EndpointMatcher>);
-    /// ```
     pub fn set_or_clear_endpoint_matcher<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EndpointMatcher>,
@@ -4583,13 +3349,6 @@ impl EndpointPolicy {
     }
 
     /// Sets the value of [traffic_port_selector][crate::model::EndpointPolicy::traffic_port_selector].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// use google_cloud_networkservices_v1::model::TrafficPortSelector;
-    /// let x = EndpointPolicy::new().set_traffic_port_selector(TrafficPortSelector::default()/* use setters */);
-    /// ```
     pub fn set_traffic_port_selector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TrafficPortSelector>,
@@ -4599,14 +3358,6 @@ impl EndpointPolicy {
     }
 
     /// Sets or clears the value of [traffic_port_selector][crate::model::EndpointPolicy::traffic_port_selector].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// use google_cloud_networkservices_v1::model::TrafficPortSelector;
-    /// let x = EndpointPolicy::new().set_or_clear_traffic_port_selector(Some(TrafficPortSelector::default()/* use setters */));
-    /// let x = EndpointPolicy::new().set_or_clear_traffic_port_selector(None::<TrafficPortSelector>);
-    /// ```
     pub fn set_or_clear_traffic_port_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TrafficPortSelector>,
@@ -4616,24 +3367,12 @@ impl EndpointPolicy {
     }
 
     /// Sets the value of [description][crate::model::EndpointPolicy::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// let x = EndpointPolicy::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [server_tls_policy][crate::model::EndpointPolicy::server_tls_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// let x = EndpointPolicy::new().set_server_tls_policy("example");
-    /// ```
     pub fn set_server_tls_policy<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4643,12 +3382,6 @@ impl EndpointPolicy {
     }
 
     /// Sets the value of [client_tls_policy][crate::model::EndpointPolicy::client_tls_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// let x = EndpointPolicy::new().set_client_tls_policy("example");
-    /// ```
     pub fn set_client_tls_policy<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4833,48 +3566,24 @@ impl ListEndpointPoliciesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEndpointPoliciesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListEndpointPoliciesRequest;
-    /// let x = ListEndpointPoliciesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEndpointPoliciesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListEndpointPoliciesRequest;
-    /// let x = ListEndpointPoliciesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEndpointPoliciesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListEndpointPoliciesRequest;
-    /// let x = ListEndpointPoliciesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [return_partial_success][crate::model::ListEndpointPoliciesRequest::return_partial_success].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListEndpointPoliciesRequest;
-    /// let x = ListEndpointPoliciesRequest::new().set_return_partial_success(true);
-    /// ```
     pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.return_partial_success = v.into();
         self
@@ -4916,17 +3625,6 @@ impl ListEndpointPoliciesResponse {
     }
 
     /// Sets the value of [endpoint_policies][crate::model::ListEndpointPoliciesResponse::endpoint_policies].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListEndpointPoliciesResponse;
-    /// use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// let x = ListEndpointPoliciesResponse::new()
-    ///     .set_endpoint_policies([
-    ///         EndpointPolicy::default()/* use setters */,
-    ///         EndpointPolicy::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_endpoint_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4938,24 +3636,12 @@ impl ListEndpointPoliciesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEndpointPoliciesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListEndpointPoliciesResponse;
-    /// let x = ListEndpointPoliciesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListEndpointPoliciesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListEndpointPoliciesResponse;
-    /// let x = ListEndpointPoliciesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5004,12 +3690,6 @@ impl GetEndpointPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEndpointPolicyRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GetEndpointPolicyRequest;
-    /// let x = GetEndpointPolicyRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5046,24 +3726,12 @@ impl CreateEndpointPolicyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEndpointPolicyRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateEndpointPolicyRequest;
-    /// let x = CreateEndpointPolicyRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [endpoint_policy_id][crate::model::CreateEndpointPolicyRequest::endpoint_policy_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateEndpointPolicyRequest;
-    /// let x = CreateEndpointPolicyRequest::new().set_endpoint_policy_id("example");
-    /// ```
     pub fn set_endpoint_policy_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5073,13 +3741,6 @@ impl CreateEndpointPolicyRequest {
     }
 
     /// Sets the value of [endpoint_policy][crate::model::CreateEndpointPolicyRequest::endpoint_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateEndpointPolicyRequest;
-    /// use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// let x = CreateEndpointPolicyRequest::new().set_endpoint_policy(EndpointPolicy::default()/* use setters */);
-    /// ```
     pub fn set_endpoint_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EndpointPolicy>,
@@ -5089,14 +3750,6 @@ impl CreateEndpointPolicyRequest {
     }
 
     /// Sets or clears the value of [endpoint_policy][crate::model::CreateEndpointPolicyRequest::endpoint_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateEndpointPolicyRequest;
-    /// use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// let x = CreateEndpointPolicyRequest::new().set_or_clear_endpoint_policy(Some(EndpointPolicy::default()/* use setters */));
-    /// let x = CreateEndpointPolicyRequest::new().set_or_clear_endpoint_policy(None::<EndpointPolicy>);
-    /// ```
     pub fn set_or_clear_endpoint_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EndpointPolicy>,
@@ -5135,13 +3788,6 @@ impl UpdateEndpointPolicyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEndpointPolicyRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateEndpointPolicyRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateEndpointPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5151,14 +3797,6 @@ impl UpdateEndpointPolicyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateEndpointPolicyRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateEndpointPolicyRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateEndpointPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateEndpointPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5168,13 +3806,6 @@ impl UpdateEndpointPolicyRequest {
     }
 
     /// Sets the value of [endpoint_policy][crate::model::UpdateEndpointPolicyRequest::endpoint_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateEndpointPolicyRequest;
-    /// use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// let x = UpdateEndpointPolicyRequest::new().set_endpoint_policy(EndpointPolicy::default()/* use setters */);
-    /// ```
     pub fn set_endpoint_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EndpointPolicy>,
@@ -5184,14 +3815,6 @@ impl UpdateEndpointPolicyRequest {
     }
 
     /// Sets or clears the value of [endpoint_policy][crate::model::UpdateEndpointPolicyRequest::endpoint_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateEndpointPolicyRequest;
-    /// use google_cloud_networkservices_v1::model::EndpointPolicy;
-    /// let x = UpdateEndpointPolicyRequest::new().set_or_clear_endpoint_policy(Some(EndpointPolicy::default()/* use setters */));
-    /// let x = UpdateEndpointPolicyRequest::new().set_or_clear_endpoint_policy(None::<EndpointPolicy>);
-    /// ```
     pub fn set_or_clear_endpoint_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EndpointPolicy>,
@@ -5224,12 +3847,6 @@ impl DeleteEndpointPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteEndpointPolicyRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteEndpointPolicyRequest;
-    /// let x = DeleteEndpointPolicyRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5311,25 +3928,12 @@ impl WasmPlugin {
     }
 
     /// Sets the value of [name][crate::model::WasmPlugin::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPlugin;
-    /// let x = WasmPlugin::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::WasmPlugin::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPlugin;
-    /// use wkt::Timestamp;
-    /// let x = WasmPlugin::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5339,14 +3943,6 @@ impl WasmPlugin {
     }
 
     /// Sets or clears the value of [create_time][crate::model::WasmPlugin::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPlugin;
-    /// use wkt::Timestamp;
-    /// let x = WasmPlugin::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = WasmPlugin::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5356,13 +3952,6 @@ impl WasmPlugin {
     }
 
     /// Sets the value of [update_time][crate::model::WasmPlugin::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPlugin;
-    /// use wkt::Timestamp;
-    /// let x = WasmPlugin::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5372,14 +3961,6 @@ impl WasmPlugin {
     }
 
     /// Sets or clears the value of [update_time][crate::model::WasmPlugin::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPlugin;
-    /// use wkt::Timestamp;
-    /// let x = WasmPlugin::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = WasmPlugin::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5389,27 +3970,12 @@ impl WasmPlugin {
     }
 
     /// Sets the value of [description][crate::model::WasmPlugin::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPlugin;
-    /// let x = WasmPlugin::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::WasmPlugin::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPlugin;
-    /// let x = WasmPlugin::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5422,25 +3988,12 @@ impl WasmPlugin {
     }
 
     /// Sets the value of [main_version_id][crate::model::WasmPlugin::main_version_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPlugin;
-    /// let x = WasmPlugin::new().set_main_version_id("example");
-    /// ```
     pub fn set_main_version_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.main_version_id = v.into();
         self
     }
 
     /// Sets the value of [log_config][crate::model::WasmPlugin::log_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPlugin;
-    /// use google_cloud_networkservices_v1::model::wasm_plugin::LogConfig;
-    /// let x = WasmPlugin::new().set_log_config(LogConfig::default()/* use setters */);
-    /// ```
     pub fn set_log_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::wasm_plugin::LogConfig>,
@@ -5450,14 +4003,6 @@ impl WasmPlugin {
     }
 
     /// Sets or clears the value of [log_config][crate::model::WasmPlugin::log_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPlugin;
-    /// use google_cloud_networkservices_v1::model::wasm_plugin::LogConfig;
-    /// let x = WasmPlugin::new().set_or_clear_log_config(Some(LogConfig::default()/* use setters */));
-    /// let x = WasmPlugin::new().set_or_clear_log_config(None::<LogConfig>);
-    /// ```
     pub fn set_or_clear_log_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::wasm_plugin::LogConfig>,
@@ -5467,16 +4012,6 @@ impl WasmPlugin {
     }
 
     /// Sets the value of [versions][crate::model::WasmPlugin::versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPlugin;
-    /// use google_cloud_networkservices_v1::model::wasm_plugin::VersionDetails;
-    /// let x = WasmPlugin::new().set_versions([
-    ///     ("key0", VersionDetails::default()/* use setters */),
-    ///     ("key1", VersionDetails::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_versions<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5489,17 +4024,6 @@ impl WasmPlugin {
     }
 
     /// Sets the value of [used_by][crate::model::WasmPlugin::used_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPlugin;
-    /// use google_cloud_networkservices_v1::model::wasm_plugin::UsedBy;
-    /// let x = WasmPlugin::new()
-    ///     .set_used_by([
-    ///         UsedBy::default()/* use setters */,
-    ///         UsedBy::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_used_by<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5572,13 +4096,6 @@ pub mod wasm_plugin {
         }
 
         /// Sets the value of [create_time][crate::model::wasm_plugin::VersionDetails::create_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::wasm_plugin::VersionDetails;
-        /// use wkt::Timestamp;
-        /// let x = VersionDetails::new().set_create_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_create_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5588,14 +4105,6 @@ pub mod wasm_plugin {
         }
 
         /// Sets or clears the value of [create_time][crate::model::wasm_plugin::VersionDetails::create_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::wasm_plugin::VersionDetails;
-        /// use wkt::Timestamp;
-        /// let x = VersionDetails::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-        /// let x = VersionDetails::new().set_or_clear_create_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5605,13 +4114,6 @@ pub mod wasm_plugin {
         }
 
         /// Sets the value of [update_time][crate::model::wasm_plugin::VersionDetails::update_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::wasm_plugin::VersionDetails;
-        /// use wkt::Timestamp;
-        /// let x = VersionDetails::new().set_update_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_update_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5621,14 +4123,6 @@ pub mod wasm_plugin {
         }
 
         /// Sets or clears the value of [update_time][crate::model::wasm_plugin::VersionDetails::update_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::wasm_plugin::VersionDetails;
-        /// use wkt::Timestamp;
-        /// let x = VersionDetails::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-        /// let x = VersionDetails::new().set_or_clear_update_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5638,27 +4132,12 @@ pub mod wasm_plugin {
         }
 
         /// Sets the value of [description][crate::model::wasm_plugin::VersionDetails::description].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::wasm_plugin::VersionDetails;
-        /// let x = VersionDetails::new().set_description("example");
-        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [labels][crate::model::wasm_plugin::VersionDetails::labels].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::wasm_plugin::VersionDetails;
-        /// let x = VersionDetails::new().set_labels([
-        ///     ("key0", "abc"),
-        ///     ("key1", "xyz"),
-        /// ]);
-        /// ```
         pub fn set_labels<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5671,24 +4150,12 @@ pub mod wasm_plugin {
         }
 
         /// Sets the value of [image_uri][crate::model::wasm_plugin::VersionDetails::image_uri].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::wasm_plugin::VersionDetails;
-        /// let x = VersionDetails::new().set_image_uri("example");
-        /// ```
         pub fn set_image_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.image_uri = v.into();
             self
         }
 
         /// Sets the value of [image_digest][crate::model::wasm_plugin::VersionDetails::image_digest].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::wasm_plugin::VersionDetails;
-        /// let x = VersionDetails::new().set_image_digest("example");
-        /// ```
         pub fn set_image_digest<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5698,12 +4165,6 @@ pub mod wasm_plugin {
         }
 
         /// Sets the value of [plugin_config_digest][crate::model::wasm_plugin::VersionDetails::plugin_config_digest].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::wasm_plugin::VersionDetails;
-        /// let x = VersionDetails::new().set_plugin_config_digest("example");
-        /// ```
         pub fn set_plugin_config_digest<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5716,13 +4177,6 @@ pub mod wasm_plugin {
         ///
         /// Note that all the setters affecting `plugin_config_source` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::wasm_plugin::VersionDetails;
-        /// use google_cloud_networkservices_v1::model::wasm_plugin::version_details;
-        /// let x = VersionDetails::new().set_plugin_config_source(Some(wasm_plugin::version_details::PluginConfigSource::PluginConfigData(bytes::Bytes::from_static(b"example"))));
-        /// ```
         pub fn set_plugin_config_source<
             T: std::convert::Into<
                     std::option::Option<
@@ -5753,14 +4207,6 @@ pub mod wasm_plugin {
         ///
         /// Note that all the setters affecting `plugin_config_source` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::wasm_plugin::VersionDetails;
-        /// let x = VersionDetails::new().set_plugin_config_data(bytes::Bytes::from_static(b"example"));
-        /// assert!(x.plugin_config_data().is_some());
-        /// assert!(x.plugin_config_uri().is_none());
-        /// ```
         pub fn set_plugin_config_data<T: std::convert::Into<::bytes::Bytes>>(
             mut self,
             v: T,
@@ -5791,14 +4237,6 @@ pub mod wasm_plugin {
         ///
         /// Note that all the setters affecting `plugin_config_source` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::wasm_plugin::VersionDetails;
-        /// let x = VersionDetails::new().set_plugin_config_uri("example");
-        /// assert!(x.plugin_config_uri().is_some());
-        /// assert!(x.plugin_config_data().is_none());
-        /// ```
         pub fn set_plugin_config_uri<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5885,39 +4323,18 @@ pub mod wasm_plugin {
         }
 
         /// Sets the value of [enable][crate::model::wasm_plugin::LogConfig::enable].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::wasm_plugin::LogConfig;
-        /// let x = LogConfig::new().set_enable(true);
-        /// ```
         pub fn set_enable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable = v.into();
             self
         }
 
         /// Sets the value of [sample_rate][crate::model::wasm_plugin::LogConfig::sample_rate].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::wasm_plugin::LogConfig;
-        /// let x = LogConfig::new().set_sample_rate(42.0);
-        /// ```
         pub fn set_sample_rate<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.sample_rate = v.into();
             self
         }
 
         /// Sets the value of [min_log_level][crate::model::wasm_plugin::LogConfig::min_log_level].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::wasm_plugin::LogConfig;
-        /// use google_cloud_networkservices_v1::model::wasm_plugin::log_config::LogLevel;
-        /// let x0 = LogConfig::new().set_min_log_level(LogLevel::Trace);
-        /// let x1 = LogConfig::new().set_min_log_level(LogLevel::Debug);
-        /// let x2 = LogConfig::new().set_min_log_level(LogLevel::Info);
-        /// ```
         pub fn set_min_log_level<
             T: std::convert::Into<crate::model::wasm_plugin::log_config::LogLevel>,
         >(
@@ -6123,12 +4540,6 @@ pub mod wasm_plugin {
         }
 
         /// Sets the value of [name][crate::model::wasm_plugin::UsedBy::name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::wasm_plugin::UsedBy;
-        /// let x = UsedBy::new().set_name("example");
-        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
@@ -6197,25 +4608,12 @@ impl WasmPluginVersion {
     }
 
     /// Sets the value of [name][crate::model::WasmPluginVersion::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPluginVersion;
-    /// let x = WasmPluginVersion::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::WasmPluginVersion::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPluginVersion;
-    /// use wkt::Timestamp;
-    /// let x = WasmPluginVersion::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6225,14 +4623,6 @@ impl WasmPluginVersion {
     }
 
     /// Sets or clears the value of [create_time][crate::model::WasmPluginVersion::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPluginVersion;
-    /// use wkt::Timestamp;
-    /// let x = WasmPluginVersion::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = WasmPluginVersion::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6242,13 +4632,6 @@ impl WasmPluginVersion {
     }
 
     /// Sets the value of [update_time][crate::model::WasmPluginVersion::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPluginVersion;
-    /// use wkt::Timestamp;
-    /// let x = WasmPluginVersion::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6258,14 +4641,6 @@ impl WasmPluginVersion {
     }
 
     /// Sets or clears the value of [update_time][crate::model::WasmPluginVersion::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPluginVersion;
-    /// use wkt::Timestamp;
-    /// let x = WasmPluginVersion::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = WasmPluginVersion::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6275,27 +4650,12 @@ impl WasmPluginVersion {
     }
 
     /// Sets the value of [description][crate::model::WasmPluginVersion::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPluginVersion;
-    /// let x = WasmPluginVersion::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::WasmPluginVersion::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPluginVersion;
-    /// let x = WasmPluginVersion::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6308,36 +4668,18 @@ impl WasmPluginVersion {
     }
 
     /// Sets the value of [image_uri][crate::model::WasmPluginVersion::image_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPluginVersion;
-    /// let x = WasmPluginVersion::new().set_image_uri("example");
-    /// ```
     pub fn set_image_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_uri = v.into();
         self
     }
 
     /// Sets the value of [image_digest][crate::model::WasmPluginVersion::image_digest].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPluginVersion;
-    /// let x = WasmPluginVersion::new().set_image_digest("example");
-    /// ```
     pub fn set_image_digest<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_digest = v.into();
         self
     }
 
     /// Sets the value of [plugin_config_digest][crate::model::WasmPluginVersion::plugin_config_digest].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPluginVersion;
-    /// let x = WasmPluginVersion::new().set_plugin_config_digest("example");
-    /// ```
     pub fn set_plugin_config_digest<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6350,13 +4692,6 @@ impl WasmPluginVersion {
     ///
     /// Note that all the setters affecting `plugin_config_source` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPluginVersion;
-    /// use google_cloud_networkservices_v1::model::wasm_plugin_version;
-    /// let x = WasmPluginVersion::new().set_plugin_config_source(Some(wasm_plugin_version::PluginConfigSource::PluginConfigData(bytes::Bytes::from_static(b"example"))));
-    /// ```
     pub fn set_plugin_config_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::wasm_plugin_version::PluginConfigSource>,
@@ -6387,14 +4722,6 @@ impl WasmPluginVersion {
     ///
     /// Note that all the setters affecting `plugin_config_source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPluginVersion;
-    /// let x = WasmPluginVersion::new().set_plugin_config_data(bytes::Bytes::from_static(b"example"));
-    /// assert!(x.plugin_config_data().is_some());
-    /// assert!(x.plugin_config_uri().is_none());
-    /// ```
     pub fn set_plugin_config_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.plugin_config_source = std::option::Option::Some(
             crate::model::wasm_plugin_version::PluginConfigSource::PluginConfigData(v.into()),
@@ -6420,14 +4747,6 @@ impl WasmPluginVersion {
     ///
     /// Note that all the setters affecting `plugin_config_source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::WasmPluginVersion;
-    /// let x = WasmPluginVersion::new().set_plugin_config_uri("example");
-    /// assert!(x.plugin_config_uri().is_some());
-    /// assert!(x.plugin_config_data().is_none());
-    /// ```
     pub fn set_plugin_config_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6498,36 +4817,18 @@ impl ListWasmPluginsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListWasmPluginsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListWasmPluginsRequest;
-    /// let x = ListWasmPluginsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListWasmPluginsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListWasmPluginsRequest;
-    /// let x = ListWasmPluginsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListWasmPluginsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListWasmPluginsRequest;
-    /// let x = ListWasmPluginsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6567,17 +4868,6 @@ impl ListWasmPluginsResponse {
     }
 
     /// Sets the value of [wasm_plugins][crate::model::ListWasmPluginsResponse::wasm_plugins].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListWasmPluginsResponse;
-    /// use google_cloud_networkservices_v1::model::WasmPlugin;
-    /// let x = ListWasmPluginsResponse::new()
-    ///     .set_wasm_plugins([
-    ///         WasmPlugin::default()/* use setters */,
-    ///         WasmPlugin::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_wasm_plugins<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6589,24 +4879,12 @@ impl ListWasmPluginsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListWasmPluginsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListWasmPluginsResponse;
-    /// let x = ListWasmPluginsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListWasmPluginsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListWasmPluginsResponse;
-    /// let x = ListWasmPluginsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6659,26 +4937,12 @@ impl GetWasmPluginRequest {
     }
 
     /// Sets the value of [name][crate::model::GetWasmPluginRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GetWasmPluginRequest;
-    /// let x = GetWasmPluginRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetWasmPluginRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GetWasmPluginRequest;
-    /// use google_cloud_networkservices_v1::model::WasmPluginView;
-    /// let x0 = GetWasmPluginRequest::new().set_view(WasmPluginView::Basic);
-    /// let x1 = GetWasmPluginRequest::new().set_view(WasmPluginView::Full);
-    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::WasmPluginView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -6714,37 +4978,18 @@ impl CreateWasmPluginRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateWasmPluginRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateWasmPluginRequest;
-    /// let x = CreateWasmPluginRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [wasm_plugin_id][crate::model::CreateWasmPluginRequest::wasm_plugin_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateWasmPluginRequest;
-    /// let x = CreateWasmPluginRequest::new().set_wasm_plugin_id("example");
-    /// ```
     pub fn set_wasm_plugin_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.wasm_plugin_id = v.into();
         self
     }
 
     /// Sets the value of [wasm_plugin][crate::model::CreateWasmPluginRequest::wasm_plugin].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateWasmPluginRequest;
-    /// use google_cloud_networkservices_v1::model::WasmPlugin;
-    /// let x = CreateWasmPluginRequest::new().set_wasm_plugin(WasmPlugin::default()/* use setters */);
-    /// ```
     pub fn set_wasm_plugin<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WasmPlugin>,
@@ -6754,14 +4999,6 @@ impl CreateWasmPluginRequest {
     }
 
     /// Sets or clears the value of [wasm_plugin][crate::model::CreateWasmPluginRequest::wasm_plugin].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateWasmPluginRequest;
-    /// use google_cloud_networkservices_v1::model::WasmPlugin;
-    /// let x = CreateWasmPluginRequest::new().set_or_clear_wasm_plugin(Some(WasmPlugin::default()/* use setters */));
-    /// let x = CreateWasmPluginRequest::new().set_or_clear_wasm_plugin(None::<WasmPlugin>);
-    /// ```
     pub fn set_or_clear_wasm_plugin<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WasmPlugin>,
@@ -6805,13 +5042,6 @@ impl UpdateWasmPluginRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateWasmPluginRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateWasmPluginRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateWasmPluginRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6821,14 +5051,6 @@ impl UpdateWasmPluginRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateWasmPluginRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateWasmPluginRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateWasmPluginRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateWasmPluginRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6838,13 +5060,6 @@ impl UpdateWasmPluginRequest {
     }
 
     /// Sets the value of [wasm_plugin][crate::model::UpdateWasmPluginRequest::wasm_plugin].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateWasmPluginRequest;
-    /// use google_cloud_networkservices_v1::model::WasmPlugin;
-    /// let x = UpdateWasmPluginRequest::new().set_wasm_plugin(WasmPlugin::default()/* use setters */);
-    /// ```
     pub fn set_wasm_plugin<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WasmPlugin>,
@@ -6854,14 +5069,6 @@ impl UpdateWasmPluginRequest {
     }
 
     /// Sets or clears the value of [wasm_plugin][crate::model::UpdateWasmPluginRequest::wasm_plugin].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateWasmPluginRequest;
-    /// use google_cloud_networkservices_v1::model::WasmPlugin;
-    /// let x = UpdateWasmPluginRequest::new().set_or_clear_wasm_plugin(Some(WasmPlugin::default()/* use setters */));
-    /// let x = UpdateWasmPluginRequest::new().set_or_clear_wasm_plugin(None::<WasmPlugin>);
-    /// ```
     pub fn set_or_clear_wasm_plugin<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WasmPlugin>,
@@ -6894,12 +5101,6 @@ impl DeleteWasmPluginRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteWasmPluginRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteWasmPluginRequest;
-    /// let x = DeleteWasmPluginRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6942,36 +5143,18 @@ impl ListWasmPluginVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListWasmPluginVersionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListWasmPluginVersionsRequest;
-    /// let x = ListWasmPluginVersionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListWasmPluginVersionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListWasmPluginVersionsRequest;
-    /// let x = ListWasmPluginVersionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListWasmPluginVersionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListWasmPluginVersionsRequest;
-    /// let x = ListWasmPluginVersionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -7011,17 +5194,6 @@ impl ListWasmPluginVersionsResponse {
     }
 
     /// Sets the value of [wasm_plugin_versions][crate::model::ListWasmPluginVersionsResponse::wasm_plugin_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListWasmPluginVersionsResponse;
-    /// use google_cloud_networkservices_v1::model::WasmPluginVersion;
-    /// let x = ListWasmPluginVersionsResponse::new()
-    ///     .set_wasm_plugin_versions([
-    ///         WasmPluginVersion::default()/* use setters */,
-    ///         WasmPluginVersion::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_wasm_plugin_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7033,24 +5205,12 @@ impl ListWasmPluginVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListWasmPluginVersionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListWasmPluginVersionsResponse;
-    /// let x = ListWasmPluginVersionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListWasmPluginVersionsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListWasmPluginVersionsResponse;
-    /// let x = ListWasmPluginVersionsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7100,12 +5260,6 @@ impl GetWasmPluginVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetWasmPluginVersionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GetWasmPluginVersionRequest;
-    /// let x = GetWasmPluginVersionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7143,24 +5297,12 @@ impl CreateWasmPluginVersionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateWasmPluginVersionRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateWasmPluginVersionRequest;
-    /// let x = CreateWasmPluginVersionRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [wasm_plugin_version_id][crate::model::CreateWasmPluginVersionRequest::wasm_plugin_version_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateWasmPluginVersionRequest;
-    /// let x = CreateWasmPluginVersionRequest::new().set_wasm_plugin_version_id("example");
-    /// ```
     pub fn set_wasm_plugin_version_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7170,13 +5312,6 @@ impl CreateWasmPluginVersionRequest {
     }
 
     /// Sets the value of [wasm_plugin_version][crate::model::CreateWasmPluginVersionRequest::wasm_plugin_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateWasmPluginVersionRequest;
-    /// use google_cloud_networkservices_v1::model::WasmPluginVersion;
-    /// let x = CreateWasmPluginVersionRequest::new().set_wasm_plugin_version(WasmPluginVersion::default()/* use setters */);
-    /// ```
     pub fn set_wasm_plugin_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WasmPluginVersion>,
@@ -7186,14 +5321,6 @@ impl CreateWasmPluginVersionRequest {
     }
 
     /// Sets or clears the value of [wasm_plugin_version][crate::model::CreateWasmPluginVersionRequest::wasm_plugin_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateWasmPluginVersionRequest;
-    /// use google_cloud_networkservices_v1::model::WasmPluginVersion;
-    /// let x = CreateWasmPluginVersionRequest::new().set_or_clear_wasm_plugin_version(Some(WasmPluginVersion::default()/* use setters */));
-    /// let x = CreateWasmPluginVersionRequest::new().set_or_clear_wasm_plugin_version(None::<WasmPluginVersion>);
-    /// ```
     pub fn set_or_clear_wasm_plugin_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WasmPluginVersion>,
@@ -7227,12 +5354,6 @@ impl DeleteWasmPluginVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteWasmPluginVersionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteWasmPluginVersionRequest;
-    /// let x = DeleteWasmPluginVersionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7357,37 +5478,18 @@ impl Gateway {
     }
 
     /// Sets the value of [name][crate::model::Gateway::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// let x = Gateway::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [self_link][crate::model::Gateway::self_link].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// let x = Gateway::new().set_self_link("example");
-    /// ```
     pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.self_link = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Gateway::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// use wkt::Timestamp;
-    /// let x = Gateway::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7397,14 +5499,6 @@ impl Gateway {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Gateway::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// use wkt::Timestamp;
-    /// let x = Gateway::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Gateway::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7414,13 +5508,6 @@ impl Gateway {
     }
 
     /// Sets the value of [update_time][crate::model::Gateway::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// use wkt::Timestamp;
-    /// let x = Gateway::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7430,14 +5517,6 @@ impl Gateway {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Gateway::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// use wkt::Timestamp;
-    /// let x = Gateway::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Gateway::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7447,15 +5526,6 @@ impl Gateway {
     }
 
     /// Sets the value of [labels][crate::model::Gateway::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// let x = Gateway::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7468,38 +5538,18 @@ impl Gateway {
     }
 
     /// Sets the value of [description][crate::model::Gateway::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// let x = Gateway::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Gateway::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// use google_cloud_networkservices_v1::model::gateway::Type;
-    /// let x0 = Gateway::new().set_type(Type::OpenMesh);
-    /// let x1 = Gateway::new().set_type(Type::SecureWebGateway);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::gateway::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [addresses][crate::model::Gateway::addresses].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// let x = Gateway::new().set_addresses(["a", "b", "c"]);
-    /// ```
     pub fn set_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7511,12 +5561,6 @@ impl Gateway {
     }
 
     /// Sets the value of [ports][crate::model::Gateway::ports].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// let x = Gateway::new().set_ports([1, 2, 3]);
-    /// ```
     pub fn set_ports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7528,24 +5572,12 @@ impl Gateway {
     }
 
     /// Sets the value of [scope][crate::model::Gateway::scope].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// let x = Gateway::new().set_scope("example");
-    /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
 
     /// Sets the value of [server_tls_policy][crate::model::Gateway::server_tls_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// let x = Gateway::new().set_server_tls_policy("example");
-    /// ```
     pub fn set_server_tls_policy<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7555,12 +5587,6 @@ impl Gateway {
     }
 
     /// Sets the value of [certificate_urls][crate::model::Gateway::certificate_urls].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// let x = Gateway::new().set_certificate_urls(["a", "b", "c"]);
-    /// ```
     pub fn set_certificate_urls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7572,12 +5598,6 @@ impl Gateway {
     }
 
     /// Sets the value of [gateway_security_policy][crate::model::Gateway::gateway_security_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// let x = Gateway::new().set_gateway_security_policy("example");
-    /// ```
     pub fn set_gateway_security_policy<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7587,38 +5607,18 @@ impl Gateway {
     }
 
     /// Sets the value of [network][crate::model::Gateway::network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// let x = Gateway::new().set_network("example");
-    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [subnetwork][crate::model::Gateway::subnetwork].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// let x = Gateway::new().set_subnetwork("example");
-    /// ```
     pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnetwork = v.into();
         self
     }
 
     /// Sets the value of [ip_version][crate::model::Gateway::ip_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// use google_cloud_networkservices_v1::model::gateway::IpVersion;
-    /// let x0 = Gateway::new().set_ip_version(IpVersion::Ipv4);
-    /// let x1 = Gateway::new().set_ip_version(IpVersion::Ipv6);
-    /// ```
     pub fn set_ip_version<T: std::convert::Into<crate::model::gateway::IpVersion>>(
         mut self,
         v: T,
@@ -7628,14 +5628,6 @@ impl Gateway {
     }
 
     /// Sets the value of [envoy_headers][crate::model::Gateway::envoy_headers].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// use google_cloud_networkservices_v1::model::EnvoyHeaders;
-    /// let x0 = Gateway::new().set_envoy_headers(EnvoyHeaders::None);
-    /// let x1 = Gateway::new().set_envoy_headers(EnvoyHeaders::DebugHeaders);
-    /// ```
     pub fn set_envoy_headers<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EnvoyHeaders>,
@@ -7645,15 +5637,6 @@ impl Gateway {
     }
 
     /// Sets or clears the value of [envoy_headers][crate::model::Gateway::envoy_headers].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// use google_cloud_networkservices_v1::model::EnvoyHeaders;
-    /// let x0 = Gateway::new().set_or_clear_envoy_headers(Some(EnvoyHeaders::None));
-    /// let x1 = Gateway::new().set_or_clear_envoy_headers(Some(EnvoyHeaders::DebugHeaders));
-    /// let x_none = Gateway::new().set_or_clear_envoy_headers(None::<EnvoyHeaders>);
-    /// ```
     pub fn set_or_clear_envoy_headers<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EnvoyHeaders>,
@@ -7663,13 +5646,6 @@ impl Gateway {
     }
 
     /// Sets the value of [routing_mode][crate::model::Gateway::routing_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Gateway;
-    /// use google_cloud_networkservices_v1::model::gateway::RoutingMode;
-    /// let x0 = Gateway::new().set_routing_mode(RoutingMode::NextHopRoutingMode);
-    /// ```
     pub fn set_routing_mode<T: std::convert::Into<crate::model::gateway::RoutingMode>>(
         mut self,
         v: T,
@@ -8123,36 +6099,18 @@ impl ListGatewaysRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListGatewaysRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGatewaysRequest;
-    /// let x = ListGatewaysRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListGatewaysRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGatewaysRequest;
-    /// let x = ListGatewaysRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListGatewaysRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGatewaysRequest;
-    /// let x = ListGatewaysRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -8189,17 +6147,6 @@ impl ListGatewaysResponse {
     }
 
     /// Sets the value of [gateways][crate::model::ListGatewaysResponse::gateways].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGatewaysResponse;
-    /// use google_cloud_networkservices_v1::model::Gateway;
-    /// let x = ListGatewaysResponse::new()
-    ///     .set_gateways([
-    ///         Gateway::default()/* use setters */,
-    ///         Gateway::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_gateways<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8211,24 +6158,12 @@ impl ListGatewaysResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListGatewaysResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGatewaysResponse;
-    /// let x = ListGatewaysResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListGatewaysResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGatewaysResponse;
-    /// let x = ListGatewaysResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8277,12 +6212,6 @@ impl GetGatewayRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGatewayRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GetGatewayRequest;
-    /// let x = GetGatewayRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8318,37 +6247,18 @@ impl CreateGatewayRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateGatewayRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateGatewayRequest;
-    /// let x = CreateGatewayRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [gateway_id][crate::model::CreateGatewayRequest::gateway_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateGatewayRequest;
-    /// let x = CreateGatewayRequest::new().set_gateway_id("example");
-    /// ```
     pub fn set_gateway_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gateway_id = v.into();
         self
     }
 
     /// Sets the value of [gateway][crate::model::CreateGatewayRequest::gateway].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateGatewayRequest;
-    /// use google_cloud_networkservices_v1::model::Gateway;
-    /// let x = CreateGatewayRequest::new().set_gateway(Gateway::default()/* use setters */);
-    /// ```
     pub fn set_gateway<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Gateway>,
@@ -8358,14 +6268,6 @@ impl CreateGatewayRequest {
     }
 
     /// Sets or clears the value of [gateway][crate::model::CreateGatewayRequest::gateway].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateGatewayRequest;
-    /// use google_cloud_networkservices_v1::model::Gateway;
-    /// let x = CreateGatewayRequest::new().set_or_clear_gateway(Some(Gateway::default()/* use setters */));
-    /// let x = CreateGatewayRequest::new().set_or_clear_gateway(None::<Gateway>);
-    /// ```
     pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Gateway>,
@@ -8404,13 +6306,6 @@ impl UpdateGatewayRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateGatewayRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateGatewayRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8420,14 +6315,6 @@ impl UpdateGatewayRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateGatewayRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateGatewayRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateGatewayRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8437,13 +6324,6 @@ impl UpdateGatewayRequest {
     }
 
     /// Sets the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateGatewayRequest;
-    /// use google_cloud_networkservices_v1::model::Gateway;
-    /// let x = UpdateGatewayRequest::new().set_gateway(Gateway::default()/* use setters */);
-    /// ```
     pub fn set_gateway<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Gateway>,
@@ -8453,14 +6333,6 @@ impl UpdateGatewayRequest {
     }
 
     /// Sets or clears the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateGatewayRequest;
-    /// use google_cloud_networkservices_v1::model::Gateway;
-    /// let x = UpdateGatewayRequest::new().set_or_clear_gateway(Some(Gateway::default()/* use setters */));
-    /// let x = UpdateGatewayRequest::new().set_or_clear_gateway(None::<Gateway>);
-    /// ```
     pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Gateway>,
@@ -8493,12 +6365,6 @@ impl DeleteGatewayRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteGatewayRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteGatewayRequest;
-    /// let x = DeleteGatewayRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8601,37 +6467,18 @@ impl GrpcRoute {
     }
 
     /// Sets the value of [name][crate::model::GrpcRoute::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GrpcRoute;
-    /// let x = GrpcRoute::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [self_link][crate::model::GrpcRoute::self_link].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GrpcRoute;
-    /// let x = GrpcRoute::new().set_self_link("example");
-    /// ```
     pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.self_link = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::GrpcRoute::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GrpcRoute;
-    /// use wkt::Timestamp;
-    /// let x = GrpcRoute::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8641,14 +6488,6 @@ impl GrpcRoute {
     }
 
     /// Sets or clears the value of [create_time][crate::model::GrpcRoute::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GrpcRoute;
-    /// use wkt::Timestamp;
-    /// let x = GrpcRoute::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = GrpcRoute::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8658,13 +6497,6 @@ impl GrpcRoute {
     }
 
     /// Sets the value of [update_time][crate::model::GrpcRoute::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GrpcRoute;
-    /// use wkt::Timestamp;
-    /// let x = GrpcRoute::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8674,14 +6506,6 @@ impl GrpcRoute {
     }
 
     /// Sets or clears the value of [update_time][crate::model::GrpcRoute::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GrpcRoute;
-    /// use wkt::Timestamp;
-    /// let x = GrpcRoute::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = GrpcRoute::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8691,15 +6515,6 @@ impl GrpcRoute {
     }
 
     /// Sets the value of [labels][crate::model::GrpcRoute::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GrpcRoute;
-    /// let x = GrpcRoute::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -8712,24 +6527,12 @@ impl GrpcRoute {
     }
 
     /// Sets the value of [description][crate::model::GrpcRoute::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GrpcRoute;
-    /// let x = GrpcRoute::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [hostnames][crate::model::GrpcRoute::hostnames].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GrpcRoute;
-    /// let x = GrpcRoute::new().set_hostnames(["a", "b", "c"]);
-    /// ```
     pub fn set_hostnames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8741,12 +6544,6 @@ impl GrpcRoute {
     }
 
     /// Sets the value of [meshes][crate::model::GrpcRoute::meshes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GrpcRoute;
-    /// let x = GrpcRoute::new().set_meshes(["a", "b", "c"]);
-    /// ```
     pub fn set_meshes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8758,12 +6555,6 @@ impl GrpcRoute {
     }
 
     /// Sets the value of [gateways][crate::model::GrpcRoute::gateways].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GrpcRoute;
-    /// let x = GrpcRoute::new().set_gateways(["a", "b", "c"]);
-    /// ```
     pub fn set_gateways<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8775,17 +6566,6 @@ impl GrpcRoute {
     }
 
     /// Sets the value of [rules][crate::model::GrpcRoute::rules].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GrpcRoute;
-    /// use google_cloud_networkservices_v1::model::grpc_route::RouteRule;
-    /// let x = GrpcRoute::new()
-    ///     .set_rules([
-    ///         RouteRule::default()/* use setters */,
-    ///         RouteRule::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8838,14 +6618,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [r#type][crate::model::grpc_route::MethodMatch::type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::MethodMatch;
-        /// use google_cloud_networkservices_v1::model::grpc_route::method_match::Type;
-        /// let x0 = MethodMatch::new().set_type(Type::Exact);
-        /// let x1 = MethodMatch::new().set_type(Type::RegularExpression);
-        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::grpc_route::method_match::Type>>(
             mut self,
             v: T,
@@ -8855,12 +6627,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [grpc_service][crate::model::grpc_route::MethodMatch::grpc_service].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::MethodMatch;
-        /// let x = MethodMatch::new().set_grpc_service("example");
-        /// ```
         pub fn set_grpc_service<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -8870,24 +6636,12 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [grpc_method][crate::model::grpc_route::MethodMatch::grpc_method].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::MethodMatch;
-        /// let x = MethodMatch::new().set_grpc_method("example");
-        /// ```
         pub fn set_grpc_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.grpc_method = v.into();
             self
         }
 
         /// Sets the value of [case_sensitive][crate::model::grpc_route::MethodMatch::case_sensitive].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::MethodMatch;
-        /// let x = MethodMatch::new().set_case_sensitive(true);
-        /// ```
         pub fn set_case_sensitive<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -8897,13 +6651,6 @@ pub mod grpc_route {
         }
 
         /// Sets or clears the value of [case_sensitive][crate::model::grpc_route::MethodMatch::case_sensitive].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::MethodMatch;
-        /// let x = MethodMatch::new().set_or_clear_case_sensitive(Some(false));
-        /// let x = MethodMatch::new().set_or_clear_case_sensitive(None::<bool>);
-        /// ```
         pub fn set_or_clear_case_sensitive<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -9084,14 +6831,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [r#type][crate::model::grpc_route::HeaderMatch::type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::HeaderMatch;
-        /// use google_cloud_networkservices_v1::model::grpc_route::header_match::Type;
-        /// let x0 = HeaderMatch::new().set_type(Type::Exact);
-        /// let x1 = HeaderMatch::new().set_type(Type::RegularExpression);
-        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::grpc_route::header_match::Type>>(
             mut self,
             v: T,
@@ -9101,24 +6840,12 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [key][crate::model::grpc_route::HeaderMatch::key].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::HeaderMatch;
-        /// let x = HeaderMatch::new().set_key("example");
-        /// ```
         pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.key = v.into();
             self
         }
 
         /// Sets the value of [value][crate::model::grpc_route::HeaderMatch::value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::HeaderMatch;
-        /// let x = HeaderMatch::new().set_value("example");
-        /// ```
         pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.value = v.into();
             self
@@ -9294,13 +7021,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [method][crate::model::grpc_route::RouteMatch::method].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RouteMatch;
-        /// use google_cloud_networkservices_v1::model::grpc_route::MethodMatch;
-        /// let x = RouteMatch::new().set_method(MethodMatch::default()/* use setters */);
-        /// ```
         pub fn set_method<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::MethodMatch>,
@@ -9310,14 +7030,6 @@ pub mod grpc_route {
         }
 
         /// Sets or clears the value of [method][crate::model::grpc_route::RouteMatch::method].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RouteMatch;
-        /// use google_cloud_networkservices_v1::model::grpc_route::MethodMatch;
-        /// let x = RouteMatch::new().set_or_clear_method(Some(MethodMatch::default()/* use setters */));
-        /// let x = RouteMatch::new().set_or_clear_method(None::<MethodMatch>);
-        /// ```
         pub fn set_or_clear_method<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::MethodMatch>,
@@ -9327,17 +7039,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [headers][crate::model::grpc_route::RouteMatch::headers].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RouteMatch;
-        /// use google_cloud_networkservices_v1::model::grpc_route::HeaderMatch;
-        /// let x = RouteMatch::new()
-        ///     .set_headers([
-        ///         HeaderMatch::default()/* use setters */,
-        ///         HeaderMatch::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_headers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -9389,12 +7090,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [weight][crate::model::grpc_route::Destination::weight].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::Destination;
-        /// let x = Destination::new().set_weight(42);
-        /// ```
         pub fn set_weight<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -9404,13 +7099,6 @@ pub mod grpc_route {
         }
 
         /// Sets or clears the value of [weight][crate::model::grpc_route::Destination::weight].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::Destination;
-        /// let x = Destination::new().set_or_clear_weight(Some(42));
-        /// let x = Destination::new().set_or_clear_weight(None::<i32>);
-        /// ```
         pub fn set_or_clear_weight<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -9423,13 +7111,6 @@ pub mod grpc_route {
         ///
         /// Note that all the setters affecting `destination_type` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::Destination;
-        /// use google_cloud_networkservices_v1::model::grpc_route::destination;
-        /// let x = Destination::new().set_destination_type(Some(grpc_route::destination::DestinationType::ServiceName("example".to_string())));
-        /// ```
         pub fn set_destination_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::grpc_route::destination::DestinationType>,
@@ -9460,13 +7141,6 @@ pub mod grpc_route {
         ///
         /// Note that all the setters affecting `destination_type` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::Destination;
-        /// let x = Destination::new().set_service_name("example");
-        /// assert!(x.service_name().is_some());
-        /// ```
         pub fn set_service_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9523,13 +7197,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [delay][crate::model::grpc_route::FaultInjectionPolicy::delay].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::FaultInjectionPolicy;
-        /// use google_cloud_networkservices_v1::model::grpc_route::fault_injection_policy::Delay;
-        /// let x = FaultInjectionPolicy::new().set_delay(Delay::default()/* use setters */);
-        /// ```
         pub fn set_delay<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::fault_injection_policy::Delay>,
@@ -9539,14 +7206,6 @@ pub mod grpc_route {
         }
 
         /// Sets or clears the value of [delay][crate::model::grpc_route::FaultInjectionPolicy::delay].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::FaultInjectionPolicy;
-        /// use google_cloud_networkservices_v1::model::grpc_route::fault_injection_policy::Delay;
-        /// let x = FaultInjectionPolicy::new().set_or_clear_delay(Some(Delay::default()/* use setters */));
-        /// let x = FaultInjectionPolicy::new().set_or_clear_delay(None::<Delay>);
-        /// ```
         pub fn set_or_clear_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::fault_injection_policy::Delay>,
@@ -9556,13 +7215,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [abort][crate::model::grpc_route::FaultInjectionPolicy::abort].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::FaultInjectionPolicy;
-        /// use google_cloud_networkservices_v1::model::grpc_route::fault_injection_policy::Abort;
-        /// let x = FaultInjectionPolicy::new().set_abort(Abort::default()/* use setters */);
-        /// ```
         pub fn set_abort<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::fault_injection_policy::Abort>,
@@ -9572,14 +7224,6 @@ pub mod grpc_route {
         }
 
         /// Sets or clears the value of [abort][crate::model::grpc_route::FaultInjectionPolicy::abort].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::FaultInjectionPolicy;
-        /// use google_cloud_networkservices_v1::model::grpc_route::fault_injection_policy::Abort;
-        /// let x = FaultInjectionPolicy::new().set_or_clear_abort(Some(Abort::default()/* use setters */));
-        /// let x = FaultInjectionPolicy::new().set_or_clear_abort(None::<Abort>);
-        /// ```
         pub fn set_or_clear_abort<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::fault_injection_policy::Abort>,
@@ -9622,13 +7266,6 @@ pub mod grpc_route {
             }
 
             /// Sets the value of [fixed_delay][crate::model::grpc_route::fault_injection_policy::Delay::fixed_delay].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_networkservices_v1::model::grpc_route::fault_injection_policy::Delay;
-            /// use wkt::Duration;
-            /// let x = Delay::new().set_fixed_delay(Duration::default()/* use setters */);
-            /// ```
             pub fn set_fixed_delay<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -9638,14 +7275,6 @@ pub mod grpc_route {
             }
 
             /// Sets or clears the value of [fixed_delay][crate::model::grpc_route::fault_injection_policy::Delay::fixed_delay].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_networkservices_v1::model::grpc_route::fault_injection_policy::Delay;
-            /// use wkt::Duration;
-            /// let x = Delay::new().set_or_clear_fixed_delay(Some(Duration::default()/* use setters */));
-            /// let x = Delay::new().set_or_clear_fixed_delay(None::<Duration>);
-            /// ```
             pub fn set_or_clear_fixed_delay<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -9655,12 +7284,6 @@ pub mod grpc_route {
             }
 
             /// Sets the value of [percentage][crate::model::grpc_route::fault_injection_policy::Delay::percentage].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_networkservices_v1::model::grpc_route::fault_injection_policy::Delay;
-            /// let x = Delay::new().set_percentage(42);
-            /// ```
             pub fn set_percentage<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<i32>,
@@ -9670,13 +7293,6 @@ pub mod grpc_route {
             }
 
             /// Sets or clears the value of [percentage][crate::model::grpc_route::fault_injection_policy::Delay::percentage].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_networkservices_v1::model::grpc_route::fault_injection_policy::Delay;
-            /// let x = Delay::new().set_or_clear_percentage(Some(42));
-            /// let x = Delay::new().set_or_clear_percentage(None::<i32>);
-            /// ```
             pub fn set_or_clear_percentage<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<i32>,
@@ -9716,12 +7332,6 @@ pub mod grpc_route {
             }
 
             /// Sets the value of [http_status][crate::model::grpc_route::fault_injection_policy::Abort::http_status].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_networkservices_v1::model::grpc_route::fault_injection_policy::Abort;
-            /// let x = Abort::new().set_http_status(42);
-            /// ```
             pub fn set_http_status<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<i32>,
@@ -9731,13 +7341,6 @@ pub mod grpc_route {
             }
 
             /// Sets or clears the value of [http_status][crate::model::grpc_route::fault_injection_policy::Abort::http_status].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_networkservices_v1::model::grpc_route::fault_injection_policy::Abort;
-            /// let x = Abort::new().set_or_clear_http_status(Some(42));
-            /// let x = Abort::new().set_or_clear_http_status(None::<i32>);
-            /// ```
             pub fn set_or_clear_http_status<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<i32>,
@@ -9747,12 +7350,6 @@ pub mod grpc_route {
             }
 
             /// Sets the value of [percentage][crate::model::grpc_route::fault_injection_policy::Abort::percentage].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_networkservices_v1::model::grpc_route::fault_injection_policy::Abort;
-            /// let x = Abort::new().set_percentage(42);
-            /// ```
             pub fn set_percentage<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<i32>,
@@ -9762,13 +7359,6 @@ pub mod grpc_route {
             }
 
             /// Sets or clears the value of [percentage][crate::model::grpc_route::fault_injection_policy::Abort::percentage].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_networkservices_v1::model::grpc_route::fault_injection_policy::Abort;
-            /// let x = Abort::new().set_or_clear_percentage(Some(42));
-            /// let x = Abort::new().set_or_clear_percentage(None::<i32>);
-            /// ```
             pub fn set_or_clear_percentage<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<i32>,
@@ -9813,13 +7403,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [cookie_ttl][crate::model::grpc_route::StatefulSessionAffinityPolicy::cookie_ttl].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::StatefulSessionAffinityPolicy;
-        /// use wkt::Duration;
-        /// let x = StatefulSessionAffinityPolicy::new().set_cookie_ttl(Duration::default()/* use setters */);
-        /// ```
         pub fn set_cookie_ttl<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -9829,14 +7412,6 @@ pub mod grpc_route {
         }
 
         /// Sets or clears the value of [cookie_ttl][crate::model::grpc_route::StatefulSessionAffinityPolicy::cookie_ttl].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::StatefulSessionAffinityPolicy;
-        /// use wkt::Duration;
-        /// let x = StatefulSessionAffinityPolicy::new().set_or_clear_cookie_ttl(Some(Duration::default()/* use setters */));
-        /// let x = StatefulSessionAffinityPolicy::new().set_or_clear_cookie_ttl(None::<Duration>);
-        /// ```
         pub fn set_or_clear_cookie_ttl<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -9889,12 +7464,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [retry_conditions][crate::model::grpc_route::RetryPolicy::retry_conditions].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RetryPolicy;
-        /// let x = RetryPolicy::new().set_retry_conditions(["a", "b", "c"]);
-        /// ```
         pub fn set_retry_conditions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -9906,12 +7475,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [num_retries][crate::model::grpc_route::RetryPolicy::num_retries].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RetryPolicy;
-        /// let x = RetryPolicy::new().set_num_retries(42);
-        /// ```
         pub fn set_num_retries<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
             self.num_retries = v.into();
             self
@@ -9974,17 +7537,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [destinations][crate::model::grpc_route::RouteAction::destinations].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::grpc_route::Destination;
-        /// let x = RouteAction::new()
-        ///     .set_destinations([
-        ///         Destination::default()/* use setters */,
-        ///         Destination::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_destinations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -9996,13 +7548,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [fault_injection_policy][crate::model::grpc_route::RouteAction::fault_injection_policy].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::grpc_route::FaultInjectionPolicy;
-        /// let x = RouteAction::new().set_fault_injection_policy(FaultInjectionPolicy::default()/* use setters */);
-        /// ```
         pub fn set_fault_injection_policy<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::FaultInjectionPolicy>,
@@ -10012,14 +7557,6 @@ pub mod grpc_route {
         }
 
         /// Sets or clears the value of [fault_injection_policy][crate::model::grpc_route::RouteAction::fault_injection_policy].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::grpc_route::FaultInjectionPolicy;
-        /// let x = RouteAction::new().set_or_clear_fault_injection_policy(Some(FaultInjectionPolicy::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_fault_injection_policy(None::<FaultInjectionPolicy>);
-        /// ```
         pub fn set_or_clear_fault_injection_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::FaultInjectionPolicy>,
@@ -10029,13 +7566,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [timeout][crate::model::grpc_route::RouteAction::timeout].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RouteAction;
-        /// use wkt::Duration;
-        /// let x = RouteAction::new().set_timeout(Duration::default()/* use setters */);
-        /// ```
         pub fn set_timeout<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -10045,14 +7575,6 @@ pub mod grpc_route {
         }
 
         /// Sets or clears the value of [timeout][crate::model::grpc_route::RouteAction::timeout].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RouteAction;
-        /// use wkt::Duration;
-        /// let x = RouteAction::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_timeout(None::<Duration>);
-        /// ```
         pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -10062,13 +7584,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [retry_policy][crate::model::grpc_route::RouteAction::retry_policy].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::grpc_route::RetryPolicy;
-        /// let x = RouteAction::new().set_retry_policy(RetryPolicy::default()/* use setters */);
-        /// ```
         pub fn set_retry_policy<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::RetryPolicy>,
@@ -10078,14 +7593,6 @@ pub mod grpc_route {
         }
 
         /// Sets or clears the value of [retry_policy][crate::model::grpc_route::RouteAction::retry_policy].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::grpc_route::RetryPolicy;
-        /// let x = RouteAction::new().set_or_clear_retry_policy(Some(RetryPolicy::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_retry_policy(None::<RetryPolicy>);
-        /// ```
         pub fn set_or_clear_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::RetryPolicy>,
@@ -10095,13 +7602,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [stateful_session_affinity][crate::model::grpc_route::RouteAction::stateful_session_affinity].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::grpc_route::StatefulSessionAffinityPolicy;
-        /// let x = RouteAction::new().set_stateful_session_affinity(StatefulSessionAffinityPolicy::default()/* use setters */);
-        /// ```
         pub fn set_stateful_session_affinity<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::StatefulSessionAffinityPolicy>,
@@ -10111,14 +7611,6 @@ pub mod grpc_route {
         }
 
         /// Sets or clears the value of [stateful_session_affinity][crate::model::grpc_route::RouteAction::stateful_session_affinity].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::grpc_route::StatefulSessionAffinityPolicy;
-        /// let x = RouteAction::new().set_or_clear_stateful_session_affinity(Some(StatefulSessionAffinityPolicy::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_stateful_session_affinity(None::<StatefulSessionAffinityPolicy>);
-        /// ```
         pub fn set_or_clear_stateful_session_affinity<T>(
             mut self,
             v: std::option::Option<T>,
@@ -10131,13 +7623,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [idle_timeout][crate::model::grpc_route::RouteAction::idle_timeout].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RouteAction;
-        /// use wkt::Duration;
-        /// let x = RouteAction::new().set_idle_timeout(Duration::default()/* use setters */);
-        /// ```
         pub fn set_idle_timeout<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -10147,14 +7632,6 @@ pub mod grpc_route {
         }
 
         /// Sets or clears the value of [idle_timeout][crate::model::grpc_route::RouteAction::idle_timeout].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RouteAction;
-        /// use wkt::Duration;
-        /// let x = RouteAction::new().set_or_clear_idle_timeout(Some(Duration::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_idle_timeout(None::<Duration>);
-        /// ```
         pub fn set_or_clear_idle_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -10193,17 +7670,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [matches][crate::model::grpc_route::RouteRule::matches].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RouteRule;
-        /// use google_cloud_networkservices_v1::model::grpc_route::RouteMatch;
-        /// let x = RouteRule::new()
-        ///     .set_matches([
-        ///         RouteMatch::default()/* use setters */,
-        ///         RouteMatch::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_matches<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10215,13 +7681,6 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [action][crate::model::grpc_route::RouteRule::action].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RouteRule;
-        /// use google_cloud_networkservices_v1::model::grpc_route::RouteAction;
-        /// let x = RouteRule::new().set_action(RouteAction::default()/* use setters */);
-        /// ```
         pub fn set_action<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::RouteAction>,
@@ -10231,14 +7690,6 @@ pub mod grpc_route {
         }
 
         /// Sets or clears the value of [action][crate::model::grpc_route::RouteRule::action].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::grpc_route::RouteRule;
-        /// use google_cloud_networkservices_v1::model::grpc_route::RouteAction;
-        /// let x = RouteRule::new().set_or_clear_action(Some(RouteAction::default()/* use setters */));
-        /// let x = RouteRule::new().set_or_clear_action(None::<RouteAction>);
-        /// ```
         pub fn set_or_clear_action<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::RouteAction>,
@@ -10285,48 +7736,24 @@ impl ListGrpcRoutesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListGrpcRoutesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGrpcRoutesRequest;
-    /// let x = ListGrpcRoutesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListGrpcRoutesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGrpcRoutesRequest;
-    /// let x = ListGrpcRoutesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListGrpcRoutesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGrpcRoutesRequest;
-    /// let x = ListGrpcRoutesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [return_partial_success][crate::model::ListGrpcRoutesRequest::return_partial_success].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGrpcRoutesRequest;
-    /// let x = ListGrpcRoutesRequest::new().set_return_partial_success(true);
-    /// ```
     pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.return_partial_success = v.into();
         self
@@ -10368,17 +7795,6 @@ impl ListGrpcRoutesResponse {
     }
 
     /// Sets the value of [grpc_routes][crate::model::ListGrpcRoutesResponse::grpc_routes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGrpcRoutesResponse;
-    /// use google_cloud_networkservices_v1::model::GrpcRoute;
-    /// let x = ListGrpcRoutesResponse::new()
-    ///     .set_grpc_routes([
-    ///         GrpcRoute::default()/* use setters */,
-    ///         GrpcRoute::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_grpc_routes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10390,24 +7806,12 @@ impl ListGrpcRoutesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListGrpcRoutesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGrpcRoutesResponse;
-    /// let x = ListGrpcRoutesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListGrpcRoutesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGrpcRoutesResponse;
-    /// let x = ListGrpcRoutesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10456,12 +7860,6 @@ impl GetGrpcRouteRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGrpcRouteRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GetGrpcRouteRequest;
-    /// let x = GetGrpcRouteRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -10497,37 +7895,18 @@ impl CreateGrpcRouteRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateGrpcRouteRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateGrpcRouteRequest;
-    /// let x = CreateGrpcRouteRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [grpc_route_id][crate::model::CreateGrpcRouteRequest::grpc_route_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateGrpcRouteRequest;
-    /// let x = CreateGrpcRouteRequest::new().set_grpc_route_id("example");
-    /// ```
     pub fn set_grpc_route_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.grpc_route_id = v.into();
         self
     }
 
     /// Sets the value of [grpc_route][crate::model::CreateGrpcRouteRequest::grpc_route].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateGrpcRouteRequest;
-    /// use google_cloud_networkservices_v1::model::GrpcRoute;
-    /// let x = CreateGrpcRouteRequest::new().set_grpc_route(GrpcRoute::default()/* use setters */);
-    /// ```
     pub fn set_grpc_route<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GrpcRoute>,
@@ -10537,14 +7916,6 @@ impl CreateGrpcRouteRequest {
     }
 
     /// Sets or clears the value of [grpc_route][crate::model::CreateGrpcRouteRequest::grpc_route].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateGrpcRouteRequest;
-    /// use google_cloud_networkservices_v1::model::GrpcRoute;
-    /// let x = CreateGrpcRouteRequest::new().set_or_clear_grpc_route(Some(GrpcRoute::default()/* use setters */));
-    /// let x = CreateGrpcRouteRequest::new().set_or_clear_grpc_route(None::<GrpcRoute>);
-    /// ```
     pub fn set_or_clear_grpc_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GrpcRoute>,
@@ -10583,13 +7954,6 @@ impl UpdateGrpcRouteRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGrpcRouteRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateGrpcRouteRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateGrpcRouteRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -10599,14 +7963,6 @@ impl UpdateGrpcRouteRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateGrpcRouteRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateGrpcRouteRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateGrpcRouteRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateGrpcRouteRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -10616,13 +7972,6 @@ impl UpdateGrpcRouteRequest {
     }
 
     /// Sets the value of [grpc_route][crate::model::UpdateGrpcRouteRequest::grpc_route].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateGrpcRouteRequest;
-    /// use google_cloud_networkservices_v1::model::GrpcRoute;
-    /// let x = UpdateGrpcRouteRequest::new().set_grpc_route(GrpcRoute::default()/* use setters */);
-    /// ```
     pub fn set_grpc_route<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GrpcRoute>,
@@ -10632,14 +7981,6 @@ impl UpdateGrpcRouteRequest {
     }
 
     /// Sets or clears the value of [grpc_route][crate::model::UpdateGrpcRouteRequest::grpc_route].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateGrpcRouteRequest;
-    /// use google_cloud_networkservices_v1::model::GrpcRoute;
-    /// let x = UpdateGrpcRouteRequest::new().set_or_clear_grpc_route(Some(GrpcRoute::default()/* use setters */));
-    /// let x = UpdateGrpcRouteRequest::new().set_or_clear_grpc_route(None::<GrpcRoute>);
-    /// ```
     pub fn set_or_clear_grpc_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GrpcRoute>,
@@ -10672,12 +8013,6 @@ impl DeleteGrpcRouteRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteGrpcRouteRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteGrpcRouteRequest;
-    /// let x = DeleteGrpcRouteRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -10773,49 +8108,24 @@ impl HttpRoute {
     }
 
     /// Sets the value of [name][crate::model::HttpRoute::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::HttpRoute;
-    /// let x = HttpRoute::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [self_link][crate::model::HttpRoute::self_link].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::HttpRoute;
-    /// let x = HttpRoute::new().set_self_link("example");
-    /// ```
     pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.self_link = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::HttpRoute::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::HttpRoute;
-    /// let x = HttpRoute::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::HttpRoute::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::HttpRoute;
-    /// use wkt::Timestamp;
-    /// let x = HttpRoute::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10825,14 +8135,6 @@ impl HttpRoute {
     }
 
     /// Sets or clears the value of [create_time][crate::model::HttpRoute::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::HttpRoute;
-    /// use wkt::Timestamp;
-    /// let x = HttpRoute::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = HttpRoute::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10842,13 +8144,6 @@ impl HttpRoute {
     }
 
     /// Sets the value of [update_time][crate::model::HttpRoute::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::HttpRoute;
-    /// use wkt::Timestamp;
-    /// let x = HttpRoute::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10858,14 +8153,6 @@ impl HttpRoute {
     }
 
     /// Sets or clears the value of [update_time][crate::model::HttpRoute::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::HttpRoute;
-    /// use wkt::Timestamp;
-    /// let x = HttpRoute::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = HttpRoute::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10875,12 +8162,6 @@ impl HttpRoute {
     }
 
     /// Sets the value of [hostnames][crate::model::HttpRoute::hostnames].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::HttpRoute;
-    /// let x = HttpRoute::new().set_hostnames(["a", "b", "c"]);
-    /// ```
     pub fn set_hostnames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10892,12 +8173,6 @@ impl HttpRoute {
     }
 
     /// Sets the value of [meshes][crate::model::HttpRoute::meshes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::HttpRoute;
-    /// let x = HttpRoute::new().set_meshes(["a", "b", "c"]);
-    /// ```
     pub fn set_meshes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10909,12 +8184,6 @@ impl HttpRoute {
     }
 
     /// Sets the value of [gateways][crate::model::HttpRoute::gateways].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::HttpRoute;
-    /// let x = HttpRoute::new().set_gateways(["a", "b", "c"]);
-    /// ```
     pub fn set_gateways<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10926,15 +8195,6 @@ impl HttpRoute {
     }
 
     /// Sets the value of [labels][crate::model::HttpRoute::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::HttpRoute;
-    /// let x = HttpRoute::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -10947,17 +8207,6 @@ impl HttpRoute {
     }
 
     /// Sets the value of [rules][crate::model::HttpRoute::rules].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::HttpRoute;
-    /// use google_cloud_networkservices_v1::model::http_route::RouteRule;
-    /// let x = HttpRoute::new()
-    ///     .set_rules([
-    ///         RouteRule::default()/* use setters */,
-    ///         RouteRule::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11002,24 +8251,12 @@ pub mod http_route {
         }
 
         /// Sets the value of [header][crate::model::http_route::HeaderMatch::header].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::HeaderMatch;
-        /// let x = HeaderMatch::new().set_header("example");
-        /// ```
         pub fn set_header<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.header = v.into();
             self
         }
 
         /// Sets the value of [invert_match][crate::model::http_route::HeaderMatch::invert_match].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::HeaderMatch;
-        /// let x = HeaderMatch::new().set_invert_match(true);
-        /// ```
         pub fn set_invert_match<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.invert_match = v.into();
             self
@@ -11029,13 +8266,6 @@ pub mod http_route {
         ///
         /// Note that all the setters affecting `match_type` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::HeaderMatch;
-        /// use google_cloud_networkservices_v1::model::http_route::header_match;
-        /// let x = HeaderMatch::new().set_match_type(Some(http_route::header_match::MatchType::ExactMatch("example".to_string())));
-        /// ```
         pub fn set_match_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::http_route::header_match::MatchType>,
@@ -11066,18 +8296,6 @@ pub mod http_route {
         ///
         /// Note that all the setters affecting `match_type` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::HeaderMatch;
-        /// let x = HeaderMatch::new().set_exact_match("example");
-        /// assert!(x.exact_match().is_some());
-        /// assert!(x.regex_match().is_none());
-        /// assert!(x.prefix_match().is_none());
-        /// assert!(x.present_match().is_none());
-        /// assert!(x.suffix_match().is_none());
-        /// assert!(x.range_match().is_none());
-        /// ```
         pub fn set_exact_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.match_type = std::option::Option::Some(
                 crate::model::http_route::header_match::MatchType::ExactMatch(v.into()),
@@ -11103,18 +8321,6 @@ pub mod http_route {
         ///
         /// Note that all the setters affecting `match_type` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::HeaderMatch;
-        /// let x = HeaderMatch::new().set_regex_match("example");
-        /// assert!(x.regex_match().is_some());
-        /// assert!(x.exact_match().is_none());
-        /// assert!(x.prefix_match().is_none());
-        /// assert!(x.present_match().is_none());
-        /// assert!(x.suffix_match().is_none());
-        /// assert!(x.range_match().is_none());
-        /// ```
         pub fn set_regex_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.match_type = std::option::Option::Some(
                 crate::model::http_route::header_match::MatchType::RegexMatch(v.into()),
@@ -11140,18 +8346,6 @@ pub mod http_route {
         ///
         /// Note that all the setters affecting `match_type` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::HeaderMatch;
-        /// let x = HeaderMatch::new().set_prefix_match("example");
-        /// assert!(x.prefix_match().is_some());
-        /// assert!(x.exact_match().is_none());
-        /// assert!(x.regex_match().is_none());
-        /// assert!(x.present_match().is_none());
-        /// assert!(x.suffix_match().is_none());
-        /// assert!(x.range_match().is_none());
-        /// ```
         pub fn set_prefix_match<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -11180,18 +8374,6 @@ pub mod http_route {
         ///
         /// Note that all the setters affecting `match_type` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::HeaderMatch;
-        /// let x = HeaderMatch::new().set_present_match(true);
-        /// assert!(x.present_match().is_some());
-        /// assert!(x.exact_match().is_none());
-        /// assert!(x.regex_match().is_none());
-        /// assert!(x.prefix_match().is_none());
-        /// assert!(x.suffix_match().is_none());
-        /// assert!(x.range_match().is_none());
-        /// ```
         pub fn set_present_match<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.match_type = std::option::Option::Some(
                 crate::model::http_route::header_match::MatchType::PresentMatch(v.into()),
@@ -11217,18 +8399,6 @@ pub mod http_route {
         ///
         /// Note that all the setters affecting `match_type` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::HeaderMatch;
-        /// let x = HeaderMatch::new().set_suffix_match("example");
-        /// assert!(x.suffix_match().is_some());
-        /// assert!(x.exact_match().is_none());
-        /// assert!(x.regex_match().is_none());
-        /// assert!(x.prefix_match().is_none());
-        /// assert!(x.present_match().is_none());
-        /// assert!(x.range_match().is_none());
-        /// ```
         pub fn set_suffix_match<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -11261,19 +8431,6 @@ pub mod http_route {
         ///
         /// Note that all the setters affecting `match_type` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::HeaderMatch;
-        /// use google_cloud_networkservices_v1::model::http_route::header_match::IntegerRange;
-        /// let x = HeaderMatch::new().set_range_match(IntegerRange::default()/* use setters */);
-        /// assert!(x.range_match().is_some());
-        /// assert!(x.exact_match().is_none());
-        /// assert!(x.regex_match().is_none());
-        /// assert!(x.prefix_match().is_none());
-        /// assert!(x.present_match().is_none());
-        /// assert!(x.suffix_match().is_none());
-        /// ```
         pub fn set_range_match<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::http_route::header_match::IntegerRange>,
@@ -11319,24 +8476,12 @@ pub mod http_route {
             }
 
             /// Sets the value of [start][crate::model::http_route::header_match::IntegerRange::start].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_networkservices_v1::model::http_route::header_match::IntegerRange;
-            /// let x = IntegerRange::new().set_start(42);
-            /// ```
             pub fn set_start<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.start = v.into();
                 self
             }
 
             /// Sets the value of [end][crate::model::http_route::header_match::IntegerRange::end].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_networkservices_v1::model::http_route::header_match::IntegerRange;
-            /// let x = IntegerRange::new().set_end(42);
-            /// ```
             pub fn set_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.end = v.into();
                 self
@@ -11391,12 +8536,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [query_parameter][crate::model::http_route::QueryParameterMatch::query_parameter].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::QueryParameterMatch;
-        /// let x = QueryParameterMatch::new().set_query_parameter("example");
-        /// ```
         pub fn set_query_parameter<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -11409,13 +8548,6 @@ pub mod http_route {
         ///
         /// Note that all the setters affecting `match_type` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::QueryParameterMatch;
-        /// use google_cloud_networkservices_v1::model::http_route::query_parameter_match;
-        /// let x = QueryParameterMatch::new().set_match_type(Some(http_route::query_parameter_match::MatchType::ExactMatch("example".to_string())));
-        /// ```
         pub fn set_match_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::http_route::query_parameter_match::MatchType>,
@@ -11446,15 +8578,6 @@ pub mod http_route {
         ///
         /// Note that all the setters affecting `match_type` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::QueryParameterMatch;
-        /// let x = QueryParameterMatch::new().set_exact_match("example");
-        /// assert!(x.exact_match().is_some());
-        /// assert!(x.regex_match().is_none());
-        /// assert!(x.present_match().is_none());
-        /// ```
         pub fn set_exact_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.match_type = std::option::Option::Some(
                 crate::model::http_route::query_parameter_match::MatchType::ExactMatch(v.into()),
@@ -11480,15 +8603,6 @@ pub mod http_route {
         ///
         /// Note that all the setters affecting `match_type` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::QueryParameterMatch;
-        /// let x = QueryParameterMatch::new().set_regex_match("example");
-        /// assert!(x.regex_match().is_some());
-        /// assert!(x.exact_match().is_none());
-        /// assert!(x.present_match().is_none());
-        /// ```
         pub fn set_regex_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.match_type = std::option::Option::Some(
                 crate::model::http_route::query_parameter_match::MatchType::RegexMatch(v.into()),
@@ -11514,15 +8628,6 @@ pub mod http_route {
         ///
         /// Note that all the setters affecting `match_type` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::QueryParameterMatch;
-        /// let x = QueryParameterMatch::new().set_present_match(true);
-        /// assert!(x.present_match().is_some());
-        /// assert!(x.exact_match().is_none());
-        /// assert!(x.regex_match().is_none());
-        /// ```
         pub fn set_present_match<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.match_type = std::option::Option::Some(
                 crate::model::http_route::query_parameter_match::MatchType::PresentMatch(v.into()),
@@ -11594,29 +8699,12 @@ pub mod http_route {
         }
 
         /// Sets the value of [ignore_case][crate::model::http_route::RouteMatch::ignore_case].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteMatch;
-        /// let x = RouteMatch::new().set_ignore_case(true);
-        /// ```
         pub fn set_ignore_case<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.ignore_case = v.into();
             self
         }
 
         /// Sets the value of [headers][crate::model::http_route::RouteMatch::headers].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteMatch;
-        /// use google_cloud_networkservices_v1::model::http_route::HeaderMatch;
-        /// let x = RouteMatch::new()
-        ///     .set_headers([
-        ///         HeaderMatch::default()/* use setters */,
-        ///         HeaderMatch::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_headers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11628,17 +8716,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [query_parameters][crate::model::http_route::RouteMatch::query_parameters].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteMatch;
-        /// use google_cloud_networkservices_v1::model::http_route::QueryParameterMatch;
-        /// let x = RouteMatch::new()
-        ///     .set_query_parameters([
-        ///         QueryParameterMatch::default()/* use setters */,
-        ///         QueryParameterMatch::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_query_parameters<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11653,13 +8730,6 @@ pub mod http_route {
         ///
         /// Note that all the setters affecting `path_match` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteMatch;
-        /// use google_cloud_networkservices_v1::model::http_route::route_match;
-        /// let x = RouteMatch::new().set_path_match(Some(http_route::route_match::PathMatch::FullPathMatch("example".to_string())));
-        /// ```
         pub fn set_path_match<
             T: std::convert::Into<
                     std::option::Option<crate::model::http_route::route_match::PathMatch>,
@@ -11690,15 +8760,6 @@ pub mod http_route {
         ///
         /// Note that all the setters affecting `path_match` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteMatch;
-        /// let x = RouteMatch::new().set_full_path_match("example");
-        /// assert!(x.full_path_match().is_some());
-        /// assert!(x.prefix_match().is_none());
-        /// assert!(x.regex_match().is_none());
-        /// ```
         pub fn set_full_path_match<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -11727,15 +8788,6 @@ pub mod http_route {
         ///
         /// Note that all the setters affecting `path_match` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteMatch;
-        /// let x = RouteMatch::new().set_prefix_match("example");
-        /// assert!(x.prefix_match().is_some());
-        /// assert!(x.full_path_match().is_none());
-        /// assert!(x.regex_match().is_none());
-        /// ```
         pub fn set_prefix_match<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -11764,15 +8816,6 @@ pub mod http_route {
         ///
         /// Note that all the setters affecting `path_match` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteMatch;
-        /// let x = RouteMatch::new().set_regex_match("example");
-        /// assert!(x.regex_match().is_some());
-        /// assert!(x.full_path_match().is_none());
-        /// assert!(x.prefix_match().is_none());
-        /// ```
         pub fn set_regex_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path_match = std::option::Option::Some(
                 crate::model::http_route::route_match::PathMatch::RegexMatch(v.into()),
@@ -11863,12 +8906,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [service_name][crate::model::http_route::Destination::service_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::Destination;
-        /// let x = Destination::new().set_service_name("example");
-        /// ```
         pub fn set_service_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -11878,25 +8915,12 @@ pub mod http_route {
         }
 
         /// Sets the value of [weight][crate::model::http_route::Destination::weight].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::Destination;
-        /// let x = Destination::new().set_weight(42);
-        /// ```
         pub fn set_weight<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.weight = v.into();
             self
         }
 
         /// Sets the value of [request_header_modifier][crate::model::http_route::Destination::request_header_modifier].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::Destination;
-        /// use google_cloud_networkservices_v1::model::http_route::HeaderModifier;
-        /// let x = Destination::new().set_request_header_modifier(HeaderModifier::default()/* use setters */);
-        /// ```
         pub fn set_request_header_modifier<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::http_route::HeaderModifier>,
@@ -11906,14 +8930,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [request_header_modifier][crate::model::http_route::Destination::request_header_modifier].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::Destination;
-        /// use google_cloud_networkservices_v1::model::http_route::HeaderModifier;
-        /// let x = Destination::new().set_or_clear_request_header_modifier(Some(HeaderModifier::default()/* use setters */));
-        /// let x = Destination::new().set_or_clear_request_header_modifier(None::<HeaderModifier>);
-        /// ```
         pub fn set_or_clear_request_header_modifier<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::HeaderModifier>,
@@ -11923,13 +8939,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [response_header_modifier][crate::model::http_route::Destination::response_header_modifier].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::Destination;
-        /// use google_cloud_networkservices_v1::model::http_route::HeaderModifier;
-        /// let x = Destination::new().set_response_header_modifier(HeaderModifier::default()/* use setters */);
-        /// ```
         pub fn set_response_header_modifier<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::http_route::HeaderModifier>,
@@ -11939,14 +8948,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [response_header_modifier][crate::model::http_route::Destination::response_header_modifier].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::Destination;
-        /// use google_cloud_networkservices_v1::model::http_route::HeaderModifier;
-        /// let x = Destination::new().set_or_clear_response_header_modifier(Some(HeaderModifier::default()/* use setters */));
-        /// let x = Destination::new().set_or_clear_response_header_modifier(None::<HeaderModifier>);
-        /// ```
         pub fn set_or_clear_response_header_modifier<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::HeaderModifier>,
@@ -12012,12 +9013,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [host_redirect][crate::model::http_route::Redirect::host_redirect].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::Redirect;
-        /// let x = Redirect::new().set_host_redirect("example");
-        /// ```
         pub fn set_host_redirect<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -12027,12 +9022,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [path_redirect][crate::model::http_route::Redirect::path_redirect].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::Redirect;
-        /// let x = Redirect::new().set_path_redirect("example");
-        /// ```
         pub fn set_path_redirect<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -12042,12 +9031,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [prefix_rewrite][crate::model::http_route::Redirect::prefix_rewrite].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::Redirect;
-        /// let x = Redirect::new().set_prefix_rewrite("example");
-        /// ```
         pub fn set_prefix_rewrite<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -12057,15 +9040,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [response_code][crate::model::http_route::Redirect::response_code].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::Redirect;
-        /// use google_cloud_networkservices_v1::model::http_route::redirect::ResponseCode;
-        /// let x0 = Redirect::new().set_response_code(ResponseCode::MovedPermanentlyDefault);
-        /// let x1 = Redirect::new().set_response_code(ResponseCode::Found);
-        /// let x2 = Redirect::new().set_response_code(ResponseCode::SeeOther);
-        /// ```
         pub fn set_response_code<
             T: std::convert::Into<crate::model::http_route::redirect::ResponseCode>,
         >(
@@ -12077,36 +9051,18 @@ pub mod http_route {
         }
 
         /// Sets the value of [https_redirect][crate::model::http_route::Redirect::https_redirect].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::Redirect;
-        /// let x = Redirect::new().set_https_redirect(true);
-        /// ```
         pub fn set_https_redirect<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.https_redirect = v.into();
             self
         }
 
         /// Sets the value of [strip_query][crate::model::http_route::Redirect::strip_query].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::Redirect;
-        /// let x = Redirect::new().set_strip_query(true);
-        /// ```
         pub fn set_strip_query<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.strip_query = v.into();
             self
         }
 
         /// Sets the value of [port_redirect][crate::model::http_route::Redirect::port_redirect].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::Redirect;
-        /// let x = Redirect::new().set_port_redirect(42);
-        /// ```
         pub fn set_port_redirect<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.port_redirect = v.into();
             self
@@ -12307,13 +9263,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [delay][crate::model::http_route::FaultInjectionPolicy::delay].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::FaultInjectionPolicy;
-        /// use google_cloud_networkservices_v1::model::http_route::fault_injection_policy::Delay;
-        /// let x = FaultInjectionPolicy::new().set_delay(Delay::default()/* use setters */);
-        /// ```
         pub fn set_delay<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::http_route::fault_injection_policy::Delay>,
@@ -12323,14 +9272,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [delay][crate::model::http_route::FaultInjectionPolicy::delay].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::FaultInjectionPolicy;
-        /// use google_cloud_networkservices_v1::model::http_route::fault_injection_policy::Delay;
-        /// let x = FaultInjectionPolicy::new().set_or_clear_delay(Some(Delay::default()/* use setters */));
-        /// let x = FaultInjectionPolicy::new().set_or_clear_delay(None::<Delay>);
-        /// ```
         pub fn set_or_clear_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::fault_injection_policy::Delay>,
@@ -12340,13 +9281,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [abort][crate::model::http_route::FaultInjectionPolicy::abort].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::FaultInjectionPolicy;
-        /// use google_cloud_networkservices_v1::model::http_route::fault_injection_policy::Abort;
-        /// let x = FaultInjectionPolicy::new().set_abort(Abort::default()/* use setters */);
-        /// ```
         pub fn set_abort<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::http_route::fault_injection_policy::Abort>,
@@ -12356,14 +9290,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [abort][crate::model::http_route::FaultInjectionPolicy::abort].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::FaultInjectionPolicy;
-        /// use google_cloud_networkservices_v1::model::http_route::fault_injection_policy::Abort;
-        /// let x = FaultInjectionPolicy::new().set_or_clear_abort(Some(Abort::default()/* use setters */));
-        /// let x = FaultInjectionPolicy::new().set_or_clear_abort(None::<Abort>);
-        /// ```
         pub fn set_or_clear_abort<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::fault_injection_policy::Abort>,
@@ -12406,13 +9332,6 @@ pub mod http_route {
             }
 
             /// Sets the value of [fixed_delay][crate::model::http_route::fault_injection_policy::Delay::fixed_delay].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_networkservices_v1::model::http_route::fault_injection_policy::Delay;
-            /// use wkt::Duration;
-            /// let x = Delay::new().set_fixed_delay(Duration::default()/* use setters */);
-            /// ```
             pub fn set_fixed_delay<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -12422,14 +9341,6 @@ pub mod http_route {
             }
 
             /// Sets or clears the value of [fixed_delay][crate::model::http_route::fault_injection_policy::Delay::fixed_delay].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_networkservices_v1::model::http_route::fault_injection_policy::Delay;
-            /// use wkt::Duration;
-            /// let x = Delay::new().set_or_clear_fixed_delay(Some(Duration::default()/* use setters */));
-            /// let x = Delay::new().set_or_clear_fixed_delay(None::<Duration>);
-            /// ```
             pub fn set_or_clear_fixed_delay<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -12439,12 +9350,6 @@ pub mod http_route {
             }
 
             /// Sets the value of [percentage][crate::model::http_route::fault_injection_policy::Delay::percentage].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_networkservices_v1::model::http_route::fault_injection_policy::Delay;
-            /// let x = Delay::new().set_percentage(42);
-            /// ```
             pub fn set_percentage<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.percentage = v.into();
                 self
@@ -12481,24 +9386,12 @@ pub mod http_route {
             }
 
             /// Sets the value of [http_status][crate::model::http_route::fault_injection_policy::Abort::http_status].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_networkservices_v1::model::http_route::fault_injection_policy::Abort;
-            /// let x = Abort::new().set_http_status(42);
-            /// ```
             pub fn set_http_status<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.http_status = v.into();
                 self
             }
 
             /// Sets the value of [percentage][crate::model::http_route::fault_injection_policy::Abort::percentage].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_networkservices_v1::model::http_route::fault_injection_policy::Abort;
-            /// let x = Abort::new().set_percentage(42);
-            /// ```
             pub fn set_percentage<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.percentage = v.into();
                 self
@@ -12540,13 +9433,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [cookie_ttl][crate::model::http_route::StatefulSessionAffinityPolicy::cookie_ttl].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::StatefulSessionAffinityPolicy;
-        /// use wkt::Duration;
-        /// let x = StatefulSessionAffinityPolicy::new().set_cookie_ttl(Duration::default()/* use setters */);
-        /// ```
         pub fn set_cookie_ttl<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -12556,14 +9442,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [cookie_ttl][crate::model::http_route::StatefulSessionAffinityPolicy::cookie_ttl].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::StatefulSessionAffinityPolicy;
-        /// use wkt::Duration;
-        /// let x = StatefulSessionAffinityPolicy::new().set_or_clear_cookie_ttl(Some(Duration::default()/* use setters */));
-        /// let x = StatefulSessionAffinityPolicy::new().set_or_clear_cookie_ttl(None::<Duration>);
-        /// ```
         pub fn set_or_clear_cookie_ttl<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -12604,15 +9482,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [set][crate::model::http_route::HeaderModifier::set].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::HeaderModifier;
-        /// let x = HeaderModifier::new().set_set([
-        ///     ("key0", "abc"),
-        ///     ("key1", "xyz"),
-        /// ]);
-        /// ```
         pub fn set_set<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -12625,15 +9494,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [add][crate::model::http_route::HeaderModifier::add].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::HeaderModifier;
-        /// let x = HeaderModifier::new().set_add([
-        ///     ("key0", "abc"),
-        ///     ("key1", "xyz"),
-        /// ]);
-        /// ```
         pub fn set_add<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -12646,12 +9506,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [remove][crate::model::http_route::HeaderModifier::remove].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::HeaderModifier;
-        /// let x = HeaderModifier::new().set_remove(["a", "b", "c"]);
-        /// ```
         pub fn set_remove<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -12691,12 +9545,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [path_prefix_rewrite][crate::model::http_route::URLRewrite::path_prefix_rewrite].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::URLRewrite;
-        /// let x = URLRewrite::new().set_path_prefix_rewrite("example");
-        /// ```
         pub fn set_path_prefix_rewrite<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -12706,12 +9554,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [host_rewrite][crate::model::http_route::URLRewrite::host_rewrite].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::URLRewrite;
-        /// let x = URLRewrite::new().set_host_rewrite("example");
-        /// ```
         pub fn set_host_rewrite<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -12771,12 +9613,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [retry_conditions][crate::model::http_route::RetryPolicy::retry_conditions].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RetryPolicy;
-        /// let x = RetryPolicy::new().set_retry_conditions(["a", "b", "c"]);
-        /// ```
         pub fn set_retry_conditions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -12788,25 +9624,12 @@ pub mod http_route {
         }
 
         /// Sets the value of [num_retries][crate::model::http_route::RetryPolicy::num_retries].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RetryPolicy;
-        /// let x = RetryPolicy::new().set_num_retries(42);
-        /// ```
         pub fn set_num_retries<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.num_retries = v.into();
             self
         }
 
         /// Sets the value of [per_try_timeout][crate::model::http_route::RetryPolicy::per_try_timeout].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RetryPolicy;
-        /// use wkt::Duration;
-        /// let x = RetryPolicy::new().set_per_try_timeout(Duration::default()/* use setters */);
-        /// ```
         pub fn set_per_try_timeout<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -12816,14 +9639,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [per_try_timeout][crate::model::http_route::RetryPolicy::per_try_timeout].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RetryPolicy;
-        /// use wkt::Duration;
-        /// let x = RetryPolicy::new().set_or_clear_per_try_timeout(Some(Duration::default()/* use setters */));
-        /// let x = RetryPolicy::new().set_or_clear_per_try_timeout(None::<Duration>);
-        /// ```
         pub fn set_or_clear_per_try_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -12864,13 +9679,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [destination][crate::model::http_route::RequestMirrorPolicy::destination].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RequestMirrorPolicy;
-        /// use google_cloud_networkservices_v1::model::http_route::Destination;
-        /// let x = RequestMirrorPolicy::new().set_destination(Destination::default()/* use setters */);
-        /// ```
         pub fn set_destination<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::http_route::Destination>,
@@ -12880,14 +9688,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [destination][crate::model::http_route::RequestMirrorPolicy::destination].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RequestMirrorPolicy;
-        /// use google_cloud_networkservices_v1::model::http_route::Destination;
-        /// let x = RequestMirrorPolicy::new().set_or_clear_destination(Some(Destination::default()/* use setters */));
-        /// let x = RequestMirrorPolicy::new().set_or_clear_destination(None::<Destination>);
-        /// ```
         pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::Destination>,
@@ -12897,12 +9697,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [mirror_percent][crate::model::http_route::RequestMirrorPolicy::mirror_percent].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RequestMirrorPolicy;
-        /// let x = RequestMirrorPolicy::new().set_mirror_percent(42.0);
-        /// ```
         pub fn set_mirror_percent<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.mirror_percent = v.into();
             self
@@ -12962,12 +9756,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [allow_origins][crate::model::http_route::CorsPolicy::allow_origins].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::CorsPolicy;
-        /// let x = CorsPolicy::new().set_allow_origins(["a", "b", "c"]);
-        /// ```
         pub fn set_allow_origins<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -12979,12 +9767,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [allow_origin_regexes][crate::model::http_route::CorsPolicy::allow_origin_regexes].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::CorsPolicy;
-        /// let x = CorsPolicy::new().set_allow_origin_regexes(["a", "b", "c"]);
-        /// ```
         pub fn set_allow_origin_regexes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -12996,12 +9778,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [allow_methods][crate::model::http_route::CorsPolicy::allow_methods].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::CorsPolicy;
-        /// let x = CorsPolicy::new().set_allow_methods(["a", "b", "c"]);
-        /// ```
         pub fn set_allow_methods<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -13013,12 +9789,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [allow_headers][crate::model::http_route::CorsPolicy::allow_headers].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::CorsPolicy;
-        /// let x = CorsPolicy::new().set_allow_headers(["a", "b", "c"]);
-        /// ```
         pub fn set_allow_headers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -13030,12 +9800,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [expose_headers][crate::model::http_route::CorsPolicy::expose_headers].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::CorsPolicy;
-        /// let x = CorsPolicy::new().set_expose_headers(["a", "b", "c"]);
-        /// ```
         pub fn set_expose_headers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -13047,36 +9811,18 @@ pub mod http_route {
         }
 
         /// Sets the value of [max_age][crate::model::http_route::CorsPolicy::max_age].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::CorsPolicy;
-        /// let x = CorsPolicy::new().set_max_age("example");
-        /// ```
         pub fn set_max_age<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.max_age = v.into();
             self
         }
 
         /// Sets the value of [allow_credentials][crate::model::http_route::CorsPolicy::allow_credentials].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::CorsPolicy;
-        /// let x = CorsPolicy::new().set_allow_credentials(true);
-        /// ```
         pub fn set_allow_credentials<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.allow_credentials = v.into();
             self
         }
 
         /// Sets the value of [disabled][crate::model::http_route::CorsPolicy::disabled].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::CorsPolicy;
-        /// let x = CorsPolicy::new().set_disabled(true);
-        /// ```
         pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.disabled = v.into();
             self
@@ -13110,12 +9856,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [status][crate::model::http_route::HttpDirectResponse::status].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::HttpDirectResponse;
-        /// let x = HttpDirectResponse::new().set_status(42);
-        /// ```
         pub fn set_status<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.status = v.into();
             self
@@ -13125,13 +9865,6 @@ pub mod http_route {
         ///
         /// Note that all the setters affecting `http_body` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::HttpDirectResponse;
-        /// use google_cloud_networkservices_v1::model::http_route::http_direct_response;
-        /// let x = HttpDirectResponse::new().set_http_body(Some(http_route::http_direct_response::HttpBody::StringBody("example".to_string())));
-        /// ```
         pub fn set_http_body<
             T: std::convert::Into<
                     std::option::Option<crate::model::http_route::http_direct_response::HttpBody>,
@@ -13162,14 +9895,6 @@ pub mod http_route {
         ///
         /// Note that all the setters affecting `http_body` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::HttpDirectResponse;
-        /// let x = HttpDirectResponse::new().set_string_body("example");
-        /// assert!(x.string_body().is_some());
-        /// assert!(x.bytes_body().is_none());
-        /// ```
         pub fn set_string_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.http_body = std::option::Option::Some(
                 crate::model::http_route::http_direct_response::HttpBody::StringBody(v.into()),
@@ -13195,14 +9920,6 @@ pub mod http_route {
         ///
         /// Note that all the setters affecting `http_body` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::HttpDirectResponse;
-        /// let x = HttpDirectResponse::new().set_bytes_body(bytes::Bytes::from_static(b"example"));
-        /// assert!(x.bytes_body().is_some());
-        /// assert!(x.string_body().is_none());
-        /// ```
         pub fn set_bytes_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.http_body = std::option::Option::Some(
                 crate::model::http_route::http_direct_response::HttpBody::BytesBody(v.into()),
@@ -13315,17 +10032,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [destinations][crate::model::http_route::RouteAction::destinations].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::Destination;
-        /// let x = RouteAction::new()
-        ///     .set_destinations([
-        ///         Destination::default()/* use setters */,
-        ///         Destination::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_destinations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -13337,13 +10043,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [redirect][crate::model::http_route::RouteAction::redirect].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::Redirect;
-        /// let x = RouteAction::new().set_redirect(Redirect::default()/* use setters */);
-        /// ```
         pub fn set_redirect<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::http_route::Redirect>,
@@ -13353,14 +10052,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [redirect][crate::model::http_route::RouteAction::redirect].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::Redirect;
-        /// let x = RouteAction::new().set_or_clear_redirect(Some(Redirect::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_redirect(None::<Redirect>);
-        /// ```
         pub fn set_or_clear_redirect<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::Redirect>,
@@ -13370,13 +10061,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [fault_injection_policy][crate::model::http_route::RouteAction::fault_injection_policy].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::FaultInjectionPolicy;
-        /// let x = RouteAction::new().set_fault_injection_policy(FaultInjectionPolicy::default()/* use setters */);
-        /// ```
         pub fn set_fault_injection_policy<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::http_route::FaultInjectionPolicy>,
@@ -13386,14 +10070,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [fault_injection_policy][crate::model::http_route::RouteAction::fault_injection_policy].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::FaultInjectionPolicy;
-        /// let x = RouteAction::new().set_or_clear_fault_injection_policy(Some(FaultInjectionPolicy::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_fault_injection_policy(None::<FaultInjectionPolicy>);
-        /// ```
         pub fn set_or_clear_fault_injection_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::FaultInjectionPolicy>,
@@ -13403,13 +10079,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [request_header_modifier][crate::model::http_route::RouteAction::request_header_modifier].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::HeaderModifier;
-        /// let x = RouteAction::new().set_request_header_modifier(HeaderModifier::default()/* use setters */);
-        /// ```
         pub fn set_request_header_modifier<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::http_route::HeaderModifier>,
@@ -13419,14 +10088,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [request_header_modifier][crate::model::http_route::RouteAction::request_header_modifier].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::HeaderModifier;
-        /// let x = RouteAction::new().set_or_clear_request_header_modifier(Some(HeaderModifier::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_request_header_modifier(None::<HeaderModifier>);
-        /// ```
         pub fn set_or_clear_request_header_modifier<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::HeaderModifier>,
@@ -13436,13 +10097,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [response_header_modifier][crate::model::http_route::RouteAction::response_header_modifier].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::HeaderModifier;
-        /// let x = RouteAction::new().set_response_header_modifier(HeaderModifier::default()/* use setters */);
-        /// ```
         pub fn set_response_header_modifier<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::http_route::HeaderModifier>,
@@ -13452,14 +10106,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [response_header_modifier][crate::model::http_route::RouteAction::response_header_modifier].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::HeaderModifier;
-        /// let x = RouteAction::new().set_or_clear_response_header_modifier(Some(HeaderModifier::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_response_header_modifier(None::<HeaderModifier>);
-        /// ```
         pub fn set_or_clear_response_header_modifier<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::HeaderModifier>,
@@ -13469,13 +10115,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [url_rewrite][crate::model::http_route::RouteAction::url_rewrite].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::URLRewrite;
-        /// let x = RouteAction::new().set_url_rewrite(URLRewrite::default()/* use setters */);
-        /// ```
         pub fn set_url_rewrite<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::http_route::URLRewrite>,
@@ -13485,14 +10124,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [url_rewrite][crate::model::http_route::RouteAction::url_rewrite].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::URLRewrite;
-        /// let x = RouteAction::new().set_or_clear_url_rewrite(Some(URLRewrite::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_url_rewrite(None::<URLRewrite>);
-        /// ```
         pub fn set_or_clear_url_rewrite<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::URLRewrite>,
@@ -13502,13 +10133,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [timeout][crate::model::http_route::RouteAction::timeout].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use wkt::Duration;
-        /// let x = RouteAction::new().set_timeout(Duration::default()/* use setters */);
-        /// ```
         pub fn set_timeout<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -13518,14 +10142,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [timeout][crate::model::http_route::RouteAction::timeout].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use wkt::Duration;
-        /// let x = RouteAction::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_timeout(None::<Duration>);
-        /// ```
         pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -13535,13 +10151,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [retry_policy][crate::model::http_route::RouteAction::retry_policy].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::RetryPolicy;
-        /// let x = RouteAction::new().set_retry_policy(RetryPolicy::default()/* use setters */);
-        /// ```
         pub fn set_retry_policy<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::http_route::RetryPolicy>,
@@ -13551,14 +10160,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [retry_policy][crate::model::http_route::RouteAction::retry_policy].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::RetryPolicy;
-        /// let x = RouteAction::new().set_or_clear_retry_policy(Some(RetryPolicy::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_retry_policy(None::<RetryPolicy>);
-        /// ```
         pub fn set_or_clear_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::RetryPolicy>,
@@ -13568,13 +10169,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [request_mirror_policy][crate::model::http_route::RouteAction::request_mirror_policy].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::RequestMirrorPolicy;
-        /// let x = RouteAction::new().set_request_mirror_policy(RequestMirrorPolicy::default()/* use setters */);
-        /// ```
         pub fn set_request_mirror_policy<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::http_route::RequestMirrorPolicy>,
@@ -13584,14 +10178,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [request_mirror_policy][crate::model::http_route::RouteAction::request_mirror_policy].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::RequestMirrorPolicy;
-        /// let x = RouteAction::new().set_or_clear_request_mirror_policy(Some(RequestMirrorPolicy::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_request_mirror_policy(None::<RequestMirrorPolicy>);
-        /// ```
         pub fn set_or_clear_request_mirror_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::RequestMirrorPolicy>,
@@ -13601,13 +10187,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [cors_policy][crate::model::http_route::RouteAction::cors_policy].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::CorsPolicy;
-        /// let x = RouteAction::new().set_cors_policy(CorsPolicy::default()/* use setters */);
-        /// ```
         pub fn set_cors_policy<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::http_route::CorsPolicy>,
@@ -13617,14 +10196,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [cors_policy][crate::model::http_route::RouteAction::cors_policy].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::CorsPolicy;
-        /// let x = RouteAction::new().set_or_clear_cors_policy(Some(CorsPolicy::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_cors_policy(None::<CorsPolicy>);
-        /// ```
         pub fn set_or_clear_cors_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::CorsPolicy>,
@@ -13634,13 +10205,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [stateful_session_affinity][crate::model::http_route::RouteAction::stateful_session_affinity].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::StatefulSessionAffinityPolicy;
-        /// let x = RouteAction::new().set_stateful_session_affinity(StatefulSessionAffinityPolicy::default()/* use setters */);
-        /// ```
         pub fn set_stateful_session_affinity<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::http_route::StatefulSessionAffinityPolicy>,
@@ -13650,14 +10214,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [stateful_session_affinity][crate::model::http_route::RouteAction::stateful_session_affinity].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::StatefulSessionAffinityPolicy;
-        /// let x = RouteAction::new().set_or_clear_stateful_session_affinity(Some(StatefulSessionAffinityPolicy::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_stateful_session_affinity(None::<StatefulSessionAffinityPolicy>);
-        /// ```
         pub fn set_or_clear_stateful_session_affinity<T>(
             mut self,
             v: std::option::Option<T>,
@@ -13670,13 +10226,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [direct_response][crate::model::http_route::RouteAction::direct_response].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::HttpDirectResponse;
-        /// let x = RouteAction::new().set_direct_response(HttpDirectResponse::default()/* use setters */);
-        /// ```
         pub fn set_direct_response<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::http_route::HttpDirectResponse>,
@@ -13686,14 +10235,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [direct_response][crate::model::http_route::RouteAction::direct_response].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::http_route::HttpDirectResponse;
-        /// let x = RouteAction::new().set_or_clear_direct_response(Some(HttpDirectResponse::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_direct_response(None::<HttpDirectResponse>);
-        /// ```
         pub fn set_or_clear_direct_response<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::HttpDirectResponse>,
@@ -13703,13 +10244,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [idle_timeout][crate::model::http_route::RouteAction::idle_timeout].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use wkt::Duration;
-        /// let x = RouteAction::new().set_idle_timeout(Duration::default()/* use setters */);
-        /// ```
         pub fn set_idle_timeout<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -13719,14 +10253,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [idle_timeout][crate::model::http_route::RouteAction::idle_timeout].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// use wkt::Duration;
-        /// let x = RouteAction::new().set_or_clear_idle_timeout(Some(Duration::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_idle_timeout(None::<Duration>);
-        /// ```
         pub fn set_or_clear_idle_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -13770,17 +10296,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [matches][crate::model::http_route::RouteRule::matches].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteRule;
-        /// use google_cloud_networkservices_v1::model::http_route::RouteMatch;
-        /// let x = RouteRule::new()
-        ///     .set_matches([
-        ///         RouteMatch::default()/* use setters */,
-        ///         RouteMatch::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_matches<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -13792,13 +10307,6 @@ pub mod http_route {
         }
 
         /// Sets the value of [action][crate::model::http_route::RouteRule::action].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteRule;
-        /// use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// let x = RouteRule::new().set_action(RouteAction::default()/* use setters */);
-        /// ```
         pub fn set_action<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::http_route::RouteAction>,
@@ -13808,14 +10316,6 @@ pub mod http_route {
         }
 
         /// Sets or clears the value of [action][crate::model::http_route::RouteRule::action].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::http_route::RouteRule;
-        /// use google_cloud_networkservices_v1::model::http_route::RouteAction;
-        /// let x = RouteRule::new().set_or_clear_action(Some(RouteAction::default()/* use setters */));
-        /// let x = RouteRule::new().set_or_clear_action(None::<RouteAction>);
-        /// ```
         pub fn set_or_clear_action<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::RouteAction>,
@@ -13862,48 +10362,24 @@ impl ListHttpRoutesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListHttpRoutesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListHttpRoutesRequest;
-    /// let x = ListHttpRoutesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListHttpRoutesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListHttpRoutesRequest;
-    /// let x = ListHttpRoutesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListHttpRoutesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListHttpRoutesRequest;
-    /// let x = ListHttpRoutesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [return_partial_success][crate::model::ListHttpRoutesRequest::return_partial_success].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListHttpRoutesRequest;
-    /// let x = ListHttpRoutesRequest::new().set_return_partial_success(true);
-    /// ```
     pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.return_partial_success = v.into();
         self
@@ -13945,17 +10421,6 @@ impl ListHttpRoutesResponse {
     }
 
     /// Sets the value of [http_routes][crate::model::ListHttpRoutesResponse::http_routes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListHttpRoutesResponse;
-    /// use google_cloud_networkservices_v1::model::HttpRoute;
-    /// let x = ListHttpRoutesResponse::new()
-    ///     .set_http_routes([
-    ///         HttpRoute::default()/* use setters */,
-    ///         HttpRoute::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_http_routes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13967,24 +10432,12 @@ impl ListHttpRoutesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListHttpRoutesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListHttpRoutesResponse;
-    /// let x = ListHttpRoutesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListHttpRoutesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListHttpRoutesResponse;
-    /// let x = ListHttpRoutesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14033,12 +10486,6 @@ impl GetHttpRouteRequest {
     }
 
     /// Sets the value of [name][crate::model::GetHttpRouteRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GetHttpRouteRequest;
-    /// let x = GetHttpRouteRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14074,37 +10521,18 @@ impl CreateHttpRouteRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateHttpRouteRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateHttpRouteRequest;
-    /// let x = CreateHttpRouteRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [http_route_id][crate::model::CreateHttpRouteRequest::http_route_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateHttpRouteRequest;
-    /// let x = CreateHttpRouteRequest::new().set_http_route_id("example");
-    /// ```
     pub fn set_http_route_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.http_route_id = v.into();
         self
     }
 
     /// Sets the value of [http_route][crate::model::CreateHttpRouteRequest::http_route].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateHttpRouteRequest;
-    /// use google_cloud_networkservices_v1::model::HttpRoute;
-    /// let x = CreateHttpRouteRequest::new().set_http_route(HttpRoute::default()/* use setters */);
-    /// ```
     pub fn set_http_route<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HttpRoute>,
@@ -14114,14 +10542,6 @@ impl CreateHttpRouteRequest {
     }
 
     /// Sets or clears the value of [http_route][crate::model::CreateHttpRouteRequest::http_route].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateHttpRouteRequest;
-    /// use google_cloud_networkservices_v1::model::HttpRoute;
-    /// let x = CreateHttpRouteRequest::new().set_or_clear_http_route(Some(HttpRoute::default()/* use setters */));
-    /// let x = CreateHttpRouteRequest::new().set_or_clear_http_route(None::<HttpRoute>);
-    /// ```
     pub fn set_or_clear_http_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HttpRoute>,
@@ -14160,13 +10580,6 @@ impl UpdateHttpRouteRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateHttpRouteRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateHttpRouteRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateHttpRouteRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -14176,14 +10589,6 @@ impl UpdateHttpRouteRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateHttpRouteRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateHttpRouteRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateHttpRouteRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateHttpRouteRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -14193,13 +10598,6 @@ impl UpdateHttpRouteRequest {
     }
 
     /// Sets the value of [http_route][crate::model::UpdateHttpRouteRequest::http_route].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateHttpRouteRequest;
-    /// use google_cloud_networkservices_v1::model::HttpRoute;
-    /// let x = UpdateHttpRouteRequest::new().set_http_route(HttpRoute::default()/* use setters */);
-    /// ```
     pub fn set_http_route<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HttpRoute>,
@@ -14209,14 +10607,6 @@ impl UpdateHttpRouteRequest {
     }
 
     /// Sets or clears the value of [http_route][crate::model::UpdateHttpRouteRequest::http_route].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateHttpRouteRequest;
-    /// use google_cloud_networkservices_v1::model::HttpRoute;
-    /// let x = UpdateHttpRouteRequest::new().set_or_clear_http_route(Some(HttpRoute::default()/* use setters */));
-    /// let x = UpdateHttpRouteRequest::new().set_or_clear_http_route(None::<HttpRoute>);
-    /// ```
     pub fn set_or_clear_http_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HttpRoute>,
@@ -14249,12 +10639,6 @@ impl DeleteHttpRouteRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteHttpRouteRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteHttpRouteRequest;
-    /// let x = DeleteHttpRouteRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14315,37 +10699,18 @@ impl Mesh {
     }
 
     /// Sets the value of [name][crate::model::Mesh::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Mesh;
-    /// let x = Mesh::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [self_link][crate::model::Mesh::self_link].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Mesh;
-    /// let x = Mesh::new().set_self_link("example");
-    /// ```
     pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.self_link = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Mesh::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Mesh;
-    /// use wkt::Timestamp;
-    /// let x = Mesh::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14355,14 +10720,6 @@ impl Mesh {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Mesh::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Mesh;
-    /// use wkt::Timestamp;
-    /// let x = Mesh::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Mesh::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14372,13 +10729,6 @@ impl Mesh {
     }
 
     /// Sets the value of [update_time][crate::model::Mesh::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Mesh;
-    /// use wkt::Timestamp;
-    /// let x = Mesh::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14388,14 +10738,6 @@ impl Mesh {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Mesh::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Mesh;
-    /// use wkt::Timestamp;
-    /// let x = Mesh::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Mesh::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14405,15 +10747,6 @@ impl Mesh {
     }
 
     /// Sets the value of [labels][crate::model::Mesh::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Mesh;
-    /// let x = Mesh::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -14426,38 +10759,18 @@ impl Mesh {
     }
 
     /// Sets the value of [description][crate::model::Mesh::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Mesh;
-    /// let x = Mesh::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [interception_port][crate::model::Mesh::interception_port].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Mesh;
-    /// let x = Mesh::new().set_interception_port(42);
-    /// ```
     pub fn set_interception_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.interception_port = v.into();
         self
     }
 
     /// Sets the value of [envoy_headers][crate::model::Mesh::envoy_headers].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Mesh;
-    /// use google_cloud_networkservices_v1::model::EnvoyHeaders;
-    /// let x0 = Mesh::new().set_envoy_headers(EnvoyHeaders::None);
-    /// let x1 = Mesh::new().set_envoy_headers(EnvoyHeaders::DebugHeaders);
-    /// ```
     pub fn set_envoy_headers<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EnvoyHeaders>,
@@ -14467,15 +10780,6 @@ impl Mesh {
     }
 
     /// Sets or clears the value of [envoy_headers][crate::model::Mesh::envoy_headers].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::Mesh;
-    /// use google_cloud_networkservices_v1::model::EnvoyHeaders;
-    /// let x0 = Mesh::new().set_or_clear_envoy_headers(Some(EnvoyHeaders::None));
-    /// let x1 = Mesh::new().set_or_clear_envoy_headers(Some(EnvoyHeaders::DebugHeaders));
-    /// let x_none = Mesh::new().set_or_clear_envoy_headers(None::<EnvoyHeaders>);
-    /// ```
     pub fn set_or_clear_envoy_headers<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EnvoyHeaders>,
@@ -14521,48 +10825,24 @@ impl ListMeshesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListMeshesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListMeshesRequest;
-    /// let x = ListMeshesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListMeshesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListMeshesRequest;
-    /// let x = ListMeshesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListMeshesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListMeshesRequest;
-    /// let x = ListMeshesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [return_partial_success][crate::model::ListMeshesRequest::return_partial_success].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListMeshesRequest;
-    /// let x = ListMeshesRequest::new().set_return_partial_success(true);
-    /// ```
     pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.return_partial_success = v.into();
         self
@@ -14601,17 +10881,6 @@ impl ListMeshesResponse {
     }
 
     /// Sets the value of [meshes][crate::model::ListMeshesResponse::meshes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListMeshesResponse;
-    /// use google_cloud_networkservices_v1::model::Mesh;
-    /// let x = ListMeshesResponse::new()
-    ///     .set_meshes([
-    ///         Mesh::default()/* use setters */,
-    ///         Mesh::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_meshes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14623,24 +10892,12 @@ impl ListMeshesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListMeshesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListMeshesResponse;
-    /// let x = ListMeshesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListMeshesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListMeshesResponse;
-    /// let x = ListMeshesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14689,12 +10946,6 @@ impl GetMeshRequest {
     }
 
     /// Sets the value of [name][crate::model::GetMeshRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GetMeshRequest;
-    /// let x = GetMeshRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14730,37 +10981,18 @@ impl CreateMeshRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateMeshRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateMeshRequest;
-    /// let x = CreateMeshRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [mesh_id][crate::model::CreateMeshRequest::mesh_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateMeshRequest;
-    /// let x = CreateMeshRequest::new().set_mesh_id("example");
-    /// ```
     pub fn set_mesh_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mesh_id = v.into();
         self
     }
 
     /// Sets the value of [mesh][crate::model::CreateMeshRequest::mesh].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateMeshRequest;
-    /// use google_cloud_networkservices_v1::model::Mesh;
-    /// let x = CreateMeshRequest::new().set_mesh(Mesh::default()/* use setters */);
-    /// ```
     pub fn set_mesh<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Mesh>,
@@ -14770,14 +11002,6 @@ impl CreateMeshRequest {
     }
 
     /// Sets or clears the value of [mesh][crate::model::CreateMeshRequest::mesh].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateMeshRequest;
-    /// use google_cloud_networkservices_v1::model::Mesh;
-    /// let x = CreateMeshRequest::new().set_or_clear_mesh(Some(Mesh::default()/* use setters */));
-    /// let x = CreateMeshRequest::new().set_or_clear_mesh(None::<Mesh>);
-    /// ```
     pub fn set_or_clear_mesh<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Mesh>,
@@ -14816,13 +11040,6 @@ impl UpdateMeshRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateMeshRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateMeshRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateMeshRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -14832,14 +11049,6 @@ impl UpdateMeshRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateMeshRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateMeshRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateMeshRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateMeshRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -14849,13 +11058,6 @@ impl UpdateMeshRequest {
     }
 
     /// Sets the value of [mesh][crate::model::UpdateMeshRequest::mesh].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateMeshRequest;
-    /// use google_cloud_networkservices_v1::model::Mesh;
-    /// let x = UpdateMeshRequest::new().set_mesh(Mesh::default()/* use setters */);
-    /// ```
     pub fn set_mesh<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Mesh>,
@@ -14865,14 +11067,6 @@ impl UpdateMeshRequest {
     }
 
     /// Sets or clears the value of [mesh][crate::model::UpdateMeshRequest::mesh].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateMeshRequest;
-    /// use google_cloud_networkservices_v1::model::Mesh;
-    /// let x = UpdateMeshRequest::new().set_or_clear_mesh(Some(Mesh::default()/* use setters */));
-    /// let x = UpdateMeshRequest::new().set_or_clear_mesh(None::<Mesh>);
-    /// ```
     pub fn set_or_clear_mesh<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Mesh>,
@@ -14905,12 +11099,6 @@ impl DeleteMeshRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteMeshRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteMeshRequest;
-    /// let x = DeleteMeshRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14953,60 +11141,30 @@ impl GatewayRouteView {
     }
 
     /// Sets the value of [name][crate::model::GatewayRouteView::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GatewayRouteView;
-    /// let x = GatewayRouteView::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [route_project_number][crate::model::GatewayRouteView::route_project_number].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GatewayRouteView;
-    /// let x = GatewayRouteView::new().set_route_project_number(42);
-    /// ```
     pub fn set_route_project_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.route_project_number = v.into();
         self
     }
 
     /// Sets the value of [route_location][crate::model::GatewayRouteView::route_location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GatewayRouteView;
-    /// let x = GatewayRouteView::new().set_route_location("example");
-    /// ```
     pub fn set_route_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.route_location = v.into();
         self
     }
 
     /// Sets the value of [route_type][crate::model::GatewayRouteView::route_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GatewayRouteView;
-    /// let x = GatewayRouteView::new().set_route_type("example");
-    /// ```
     pub fn set_route_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.route_type = v.into();
         self
     }
 
     /// Sets the value of [route_id][crate::model::GatewayRouteView::route_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GatewayRouteView;
-    /// let x = GatewayRouteView::new().set_route_id("example");
-    /// ```
     pub fn set_route_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.route_id = v.into();
         self
@@ -15049,60 +11207,30 @@ impl MeshRouteView {
     }
 
     /// Sets the value of [name][crate::model::MeshRouteView::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::MeshRouteView;
-    /// let x = MeshRouteView::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [route_project_number][crate::model::MeshRouteView::route_project_number].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::MeshRouteView;
-    /// let x = MeshRouteView::new().set_route_project_number(42);
-    /// ```
     pub fn set_route_project_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.route_project_number = v.into();
         self
     }
 
     /// Sets the value of [route_location][crate::model::MeshRouteView::route_location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::MeshRouteView;
-    /// let x = MeshRouteView::new().set_route_location("example");
-    /// ```
     pub fn set_route_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.route_location = v.into();
         self
     }
 
     /// Sets the value of [route_type][crate::model::MeshRouteView::route_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::MeshRouteView;
-    /// let x = MeshRouteView::new().set_route_type("example");
-    /// ```
     pub fn set_route_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.route_type = v.into();
         self
     }
 
     /// Sets the value of [route_id][crate::model::MeshRouteView::route_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::MeshRouteView;
-    /// let x = MeshRouteView::new().set_route_id("example");
-    /// ```
     pub fn set_route_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.route_id = v.into();
         self
@@ -15133,12 +11261,6 @@ impl GetGatewayRouteViewRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGatewayRouteViewRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GetGatewayRouteViewRequest;
-    /// let x = GetGatewayRouteViewRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -15169,12 +11291,6 @@ impl GetMeshRouteViewRequest {
     }
 
     /// Sets the value of [name][crate::model::GetMeshRouteViewRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GetMeshRouteViewRequest;
-    /// let x = GetMeshRouteViewRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -15213,36 +11329,18 @@ impl ListGatewayRouteViewsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListGatewayRouteViewsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGatewayRouteViewsRequest;
-    /// let x = ListGatewayRouteViewsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListGatewayRouteViewsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGatewayRouteViewsRequest;
-    /// let x = ListGatewayRouteViewsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListGatewayRouteViewsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGatewayRouteViewsRequest;
-    /// let x = ListGatewayRouteViewsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -15281,36 +11379,18 @@ impl ListMeshRouteViewsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListMeshRouteViewsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListMeshRouteViewsRequest;
-    /// let x = ListMeshRouteViewsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListMeshRouteViewsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListMeshRouteViewsRequest;
-    /// let x = ListMeshRouteViewsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListMeshRouteViewsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListMeshRouteViewsRequest;
-    /// let x = ListMeshRouteViewsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -15348,17 +11428,6 @@ impl ListGatewayRouteViewsResponse {
     }
 
     /// Sets the value of [gateway_route_views][crate::model::ListGatewayRouteViewsResponse::gateway_route_views].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGatewayRouteViewsResponse;
-    /// use google_cloud_networkservices_v1::model::GatewayRouteView;
-    /// let x = ListGatewayRouteViewsResponse::new()
-    ///     .set_gateway_route_views([
-    ///         GatewayRouteView::default()/* use setters */,
-    ///         GatewayRouteView::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_gateway_route_views<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15370,24 +11439,12 @@ impl ListGatewayRouteViewsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListGatewayRouteViewsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGatewayRouteViewsResponse;
-    /// let x = ListGatewayRouteViewsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListGatewayRouteViewsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListGatewayRouteViewsResponse;
-    /// let x = ListGatewayRouteViewsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15444,17 +11501,6 @@ impl ListMeshRouteViewsResponse {
     }
 
     /// Sets the value of [mesh_route_views][crate::model::ListMeshRouteViewsResponse::mesh_route_views].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListMeshRouteViewsResponse;
-    /// use google_cloud_networkservices_v1::model::MeshRouteView;
-    /// let x = ListMeshRouteViewsResponse::new()
-    ///     .set_mesh_route_views([
-    ///         MeshRouteView::default()/* use setters */,
-    ///         MeshRouteView::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_mesh_route_views<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15466,24 +11512,12 @@ impl ListMeshRouteViewsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListMeshRouteViewsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListMeshRouteViewsResponse;
-    /// let x = ListMeshRouteViewsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListMeshRouteViewsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListMeshRouteViewsResponse;
-    /// let x = ListMeshRouteViewsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15567,37 +11601,18 @@ impl ServiceBinding {
     }
 
     /// Sets the value of [name][crate::model::ServiceBinding::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceBinding;
-    /// let x = ServiceBinding::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::ServiceBinding::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceBinding;
-    /// let x = ServiceBinding::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ServiceBinding::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceBinding;
-    /// use wkt::Timestamp;
-    /// let x = ServiceBinding::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15607,14 +11622,6 @@ impl ServiceBinding {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ServiceBinding::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceBinding;
-    /// use wkt::Timestamp;
-    /// let x = ServiceBinding::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ServiceBinding::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15624,13 +11631,6 @@ impl ServiceBinding {
     }
 
     /// Sets the value of [update_time][crate::model::ServiceBinding::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceBinding;
-    /// use wkt::Timestamp;
-    /// let x = ServiceBinding::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15640,14 +11640,6 @@ impl ServiceBinding {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ServiceBinding::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceBinding;
-    /// use wkt::Timestamp;
-    /// let x = ServiceBinding::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ServiceBinding::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15657,12 +11649,6 @@ impl ServiceBinding {
     }
 
     /// Sets the value of [service][crate::model::ServiceBinding::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceBinding;
-    /// let x = ServiceBinding::new().set_service("example");
-    /// ```
     #[deprecated]
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
@@ -15670,12 +11656,6 @@ impl ServiceBinding {
     }
 
     /// Sets the value of [service_id][crate::model::ServiceBinding::service_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceBinding;
-    /// let x = ServiceBinding::new().set_service_id("example");
-    /// ```
     #[deprecated]
     pub fn set_service_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_id = v.into();
@@ -15683,15 +11663,6 @@ impl ServiceBinding {
     }
 
     /// Sets the value of [labels][crate::model::ServiceBinding::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceBinding;
-    /// let x = ServiceBinding::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -15735,36 +11706,18 @@ impl ListServiceBindingsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListServiceBindingsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListServiceBindingsRequest;
-    /// let x = ListServiceBindingsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListServiceBindingsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListServiceBindingsRequest;
-    /// let x = ListServiceBindingsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListServiceBindingsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListServiceBindingsRequest;
-    /// let x = ListServiceBindingsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -15803,17 +11756,6 @@ impl ListServiceBindingsResponse {
     }
 
     /// Sets the value of [service_bindings][crate::model::ListServiceBindingsResponse::service_bindings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListServiceBindingsResponse;
-    /// use google_cloud_networkservices_v1::model::ServiceBinding;
-    /// let x = ListServiceBindingsResponse::new()
-    ///     .set_service_bindings([
-    ///         ServiceBinding::default()/* use setters */,
-    ///         ServiceBinding::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_service_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15825,24 +11767,12 @@ impl ListServiceBindingsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListServiceBindingsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListServiceBindingsResponse;
-    /// let x = ListServiceBindingsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListServiceBindingsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListServiceBindingsResponse;
-    /// let x = ListServiceBindingsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15891,12 +11821,6 @@ impl GetServiceBindingRequest {
     }
 
     /// Sets the value of [name][crate::model::GetServiceBindingRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GetServiceBindingRequest;
-    /// let x = GetServiceBindingRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -15932,24 +11856,12 @@ impl CreateServiceBindingRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateServiceBindingRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateServiceBindingRequest;
-    /// let x = CreateServiceBindingRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [service_binding_id][crate::model::CreateServiceBindingRequest::service_binding_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateServiceBindingRequest;
-    /// let x = CreateServiceBindingRequest::new().set_service_binding_id("example");
-    /// ```
     pub fn set_service_binding_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -15959,13 +11871,6 @@ impl CreateServiceBindingRequest {
     }
 
     /// Sets the value of [service_binding][crate::model::CreateServiceBindingRequest::service_binding].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateServiceBindingRequest;
-    /// use google_cloud_networkservices_v1::model::ServiceBinding;
-    /// let x = CreateServiceBindingRequest::new().set_service_binding(ServiceBinding::default()/* use setters */);
-    /// ```
     pub fn set_service_binding<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceBinding>,
@@ -15975,14 +11880,6 @@ impl CreateServiceBindingRequest {
     }
 
     /// Sets or clears the value of [service_binding][crate::model::CreateServiceBindingRequest::service_binding].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateServiceBindingRequest;
-    /// use google_cloud_networkservices_v1::model::ServiceBinding;
-    /// let x = CreateServiceBindingRequest::new().set_or_clear_service_binding(Some(ServiceBinding::default()/* use setters */));
-    /// let x = CreateServiceBindingRequest::new().set_or_clear_service_binding(None::<ServiceBinding>);
-    /// ```
     pub fn set_or_clear_service_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceBinding>,
@@ -16021,13 +11918,6 @@ impl UpdateServiceBindingRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateServiceBindingRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateServiceBindingRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateServiceBindingRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16037,14 +11927,6 @@ impl UpdateServiceBindingRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateServiceBindingRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateServiceBindingRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateServiceBindingRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateServiceBindingRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16054,13 +11936,6 @@ impl UpdateServiceBindingRequest {
     }
 
     /// Sets the value of [service_binding][crate::model::UpdateServiceBindingRequest::service_binding].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateServiceBindingRequest;
-    /// use google_cloud_networkservices_v1::model::ServiceBinding;
-    /// let x = UpdateServiceBindingRequest::new().set_service_binding(ServiceBinding::default()/* use setters */);
-    /// ```
     pub fn set_service_binding<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceBinding>,
@@ -16070,14 +11945,6 @@ impl UpdateServiceBindingRequest {
     }
 
     /// Sets or clears the value of [service_binding][crate::model::UpdateServiceBindingRequest::service_binding].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateServiceBindingRequest;
-    /// use google_cloud_networkservices_v1::model::ServiceBinding;
-    /// let x = UpdateServiceBindingRequest::new().set_or_clear_service_binding(Some(ServiceBinding::default()/* use setters */));
-    /// let x = UpdateServiceBindingRequest::new().set_or_clear_service_binding(None::<ServiceBinding>);
-    /// ```
     pub fn set_or_clear_service_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceBinding>,
@@ -16110,12 +11977,6 @@ impl DeleteServiceBindingRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteServiceBindingRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteServiceBindingRequest;
-    /// let x = DeleteServiceBindingRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -16175,25 +12036,12 @@ impl ServiceLbPolicy {
     }
 
     /// Sets the value of [name][crate::model::ServiceLbPolicy::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// let x = ServiceLbPolicy::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ServiceLbPolicy::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// use wkt::Timestamp;
-    /// let x = ServiceLbPolicy::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16203,14 +12051,6 @@ impl ServiceLbPolicy {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ServiceLbPolicy::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// use wkt::Timestamp;
-    /// let x = ServiceLbPolicy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ServiceLbPolicy::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16220,13 +12060,6 @@ impl ServiceLbPolicy {
     }
 
     /// Sets the value of [update_time][crate::model::ServiceLbPolicy::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// use wkt::Timestamp;
-    /// let x = ServiceLbPolicy::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16236,14 +12069,6 @@ impl ServiceLbPolicy {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ServiceLbPolicy::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// use wkt::Timestamp;
-    /// let x = ServiceLbPolicy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ServiceLbPolicy::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16253,15 +12078,6 @@ impl ServiceLbPolicy {
     }
 
     /// Sets the value of [labels][crate::model::ServiceLbPolicy::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// let x = ServiceLbPolicy::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -16274,27 +12090,12 @@ impl ServiceLbPolicy {
     }
 
     /// Sets the value of [description][crate::model::ServiceLbPolicy::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// let x = ServiceLbPolicy::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [load_balancing_algorithm][crate::model::ServiceLbPolicy::load_balancing_algorithm].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// use google_cloud_networkservices_v1::model::service_lb_policy::LoadBalancingAlgorithm;
-    /// let x0 = ServiceLbPolicy::new().set_load_balancing_algorithm(LoadBalancingAlgorithm::SprayToWorld);
-    /// let x1 = ServiceLbPolicy::new().set_load_balancing_algorithm(LoadBalancingAlgorithm::SprayToRegion);
-    /// let x2 = ServiceLbPolicy::new().set_load_balancing_algorithm(LoadBalancingAlgorithm::WaterfallByRegion);
-    /// ```
     pub fn set_load_balancing_algorithm<
         T: std::convert::Into<crate::model::service_lb_policy::LoadBalancingAlgorithm>,
     >(
@@ -16306,13 +12107,6 @@ impl ServiceLbPolicy {
     }
 
     /// Sets the value of [auto_capacity_drain][crate::model::ServiceLbPolicy::auto_capacity_drain].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// use google_cloud_networkservices_v1::model::service_lb_policy::AutoCapacityDrain;
-    /// let x = ServiceLbPolicy::new().set_auto_capacity_drain(AutoCapacityDrain::default()/* use setters */);
-    /// ```
     pub fn set_auto_capacity_drain<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::service_lb_policy::AutoCapacityDrain>,
@@ -16322,14 +12116,6 @@ impl ServiceLbPolicy {
     }
 
     /// Sets or clears the value of [auto_capacity_drain][crate::model::ServiceLbPolicy::auto_capacity_drain].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// use google_cloud_networkservices_v1::model::service_lb_policy::AutoCapacityDrain;
-    /// let x = ServiceLbPolicy::new().set_or_clear_auto_capacity_drain(Some(AutoCapacityDrain::default()/* use setters */));
-    /// let x = ServiceLbPolicy::new().set_or_clear_auto_capacity_drain(None::<AutoCapacityDrain>);
-    /// ```
     pub fn set_or_clear_auto_capacity_drain<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::service_lb_policy::AutoCapacityDrain>,
@@ -16339,13 +12125,6 @@ impl ServiceLbPolicy {
     }
 
     /// Sets the value of [failover_config][crate::model::ServiceLbPolicy::failover_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// use google_cloud_networkservices_v1::model::service_lb_policy::FailoverConfig;
-    /// let x = ServiceLbPolicy::new().set_failover_config(FailoverConfig::default()/* use setters */);
-    /// ```
     pub fn set_failover_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::service_lb_policy::FailoverConfig>,
@@ -16355,14 +12134,6 @@ impl ServiceLbPolicy {
     }
 
     /// Sets or clears the value of [failover_config][crate::model::ServiceLbPolicy::failover_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// use google_cloud_networkservices_v1::model::service_lb_policy::FailoverConfig;
-    /// let x = ServiceLbPolicy::new().set_or_clear_failover_config(Some(FailoverConfig::default()/* use setters */));
-    /// let x = ServiceLbPolicy::new().set_or_clear_failover_config(None::<FailoverConfig>);
-    /// ```
     pub fn set_or_clear_failover_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::service_lb_policy::FailoverConfig>,
@@ -16372,13 +12143,6 @@ impl ServiceLbPolicy {
     }
 
     /// Sets the value of [isolation_config][crate::model::ServiceLbPolicy::isolation_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// use google_cloud_networkservices_v1::model::service_lb_policy::IsolationConfig;
-    /// let x = ServiceLbPolicy::new().set_isolation_config(IsolationConfig::default()/* use setters */);
-    /// ```
     pub fn set_isolation_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::service_lb_policy::IsolationConfig>,
@@ -16388,14 +12152,6 @@ impl ServiceLbPolicy {
     }
 
     /// Sets or clears the value of [isolation_config][crate::model::ServiceLbPolicy::isolation_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// use google_cloud_networkservices_v1::model::service_lb_policy::IsolationConfig;
-    /// let x = ServiceLbPolicy::new().set_or_clear_isolation_config(Some(IsolationConfig::default()/* use setters */));
-    /// let x = ServiceLbPolicy::new().set_or_clear_isolation_config(None::<IsolationConfig>);
-    /// ```
     pub fn set_or_clear_isolation_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::service_lb_policy::IsolationConfig>,
@@ -16438,12 +12194,6 @@ pub mod service_lb_policy {
         }
 
         /// Sets the value of [enable][crate::model::service_lb_policy::AutoCapacityDrain::enable].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::service_lb_policy::AutoCapacityDrain;
-        /// let x = AutoCapacityDrain::new().set_enable(true);
-        /// ```
         pub fn set_enable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable = v.into();
             self
@@ -16478,12 +12228,6 @@ pub mod service_lb_policy {
         }
 
         /// Sets the value of [failover_health_threshold][crate::model::service_lb_policy::FailoverConfig::failover_health_threshold].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::service_lb_policy::FailoverConfig;
-        /// let x = FailoverConfig::new().set_failover_health_threshold(42);
-        /// ```
         pub fn set_failover_health_threshold<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.failover_health_threshold = v.into();
             self
@@ -16516,13 +12260,6 @@ pub mod service_lb_policy {
         }
 
         /// Sets the value of [isolation_granularity][crate::model::service_lb_policy::IsolationConfig::isolation_granularity].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::service_lb_policy::IsolationConfig;
-        /// use google_cloud_networkservices_v1::model::service_lb_policy::IsolationGranularity;
-        /// let x0 = IsolationConfig::new().set_isolation_granularity(IsolationGranularity::Region);
-        /// ```
         pub fn set_isolation_granularity<
             T: std::convert::Into<crate::model::service_lb_policy::IsolationGranularity>,
         >(
@@ -16534,14 +12271,6 @@ pub mod service_lb_policy {
         }
 
         /// Sets the value of [isolation_mode][crate::model::service_lb_policy::IsolationConfig::isolation_mode].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::service_lb_policy::IsolationConfig;
-        /// use google_cloud_networkservices_v1::model::service_lb_policy::IsolationMode;
-        /// let x0 = IsolationConfig::new().set_isolation_mode(IsolationMode::Nearest);
-        /// let x1 = IsolationConfig::new().set_isolation_mode(IsolationMode::Strict);
-        /// ```
         pub fn set_isolation_mode<
             T: std::convert::Into<crate::model::service_lb_policy::IsolationMode>,
         >(
@@ -17001,36 +12730,18 @@ impl ListServiceLbPoliciesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListServiceLbPoliciesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListServiceLbPoliciesRequest;
-    /// let x = ListServiceLbPoliciesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListServiceLbPoliciesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListServiceLbPoliciesRequest;
-    /// let x = ListServiceLbPoliciesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListServiceLbPoliciesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListServiceLbPoliciesRequest;
-    /// let x = ListServiceLbPoliciesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -17069,17 +12780,6 @@ impl ListServiceLbPoliciesResponse {
     }
 
     /// Sets the value of [service_lb_policies][crate::model::ListServiceLbPoliciesResponse::service_lb_policies].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListServiceLbPoliciesResponse;
-    /// use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// let x = ListServiceLbPoliciesResponse::new()
-    ///     .set_service_lb_policies([
-    ///         ServiceLbPolicy::default()/* use setters */,
-    ///         ServiceLbPolicy::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_service_lb_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17091,24 +12791,12 @@ impl ListServiceLbPoliciesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListServiceLbPoliciesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListServiceLbPoliciesResponse;
-    /// let x = ListServiceLbPoliciesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListServiceLbPoliciesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListServiceLbPoliciesResponse;
-    /// let x = ListServiceLbPoliciesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17157,12 +12845,6 @@ impl GetServiceLbPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetServiceLbPolicyRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GetServiceLbPolicyRequest;
-    /// let x = GetServiceLbPolicyRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -17201,24 +12883,12 @@ impl CreateServiceLbPolicyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateServiceLbPolicyRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateServiceLbPolicyRequest;
-    /// let x = CreateServiceLbPolicyRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [service_lb_policy_id][crate::model::CreateServiceLbPolicyRequest::service_lb_policy_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateServiceLbPolicyRequest;
-    /// let x = CreateServiceLbPolicyRequest::new().set_service_lb_policy_id("example");
-    /// ```
     pub fn set_service_lb_policy_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -17228,13 +12898,6 @@ impl CreateServiceLbPolicyRequest {
     }
 
     /// Sets the value of [service_lb_policy][crate::model::CreateServiceLbPolicyRequest::service_lb_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateServiceLbPolicyRequest;
-    /// use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// let x = CreateServiceLbPolicyRequest::new().set_service_lb_policy(ServiceLbPolicy::default()/* use setters */);
-    /// ```
     pub fn set_service_lb_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceLbPolicy>,
@@ -17244,14 +12907,6 @@ impl CreateServiceLbPolicyRequest {
     }
 
     /// Sets or clears the value of [service_lb_policy][crate::model::CreateServiceLbPolicyRequest::service_lb_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateServiceLbPolicyRequest;
-    /// use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// let x = CreateServiceLbPolicyRequest::new().set_or_clear_service_lb_policy(Some(ServiceLbPolicy::default()/* use setters */));
-    /// let x = CreateServiceLbPolicyRequest::new().set_or_clear_service_lb_policy(None::<ServiceLbPolicy>);
-    /// ```
     pub fn set_or_clear_service_lb_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceLbPolicy>,
@@ -17290,13 +12945,6 @@ impl UpdateServiceLbPolicyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateServiceLbPolicyRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateServiceLbPolicyRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateServiceLbPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -17306,14 +12954,6 @@ impl UpdateServiceLbPolicyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateServiceLbPolicyRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateServiceLbPolicyRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateServiceLbPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateServiceLbPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -17323,13 +12963,6 @@ impl UpdateServiceLbPolicyRequest {
     }
 
     /// Sets the value of [service_lb_policy][crate::model::UpdateServiceLbPolicyRequest::service_lb_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateServiceLbPolicyRequest;
-    /// use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// let x = UpdateServiceLbPolicyRequest::new().set_service_lb_policy(ServiceLbPolicy::default()/* use setters */);
-    /// ```
     pub fn set_service_lb_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceLbPolicy>,
@@ -17339,14 +12972,6 @@ impl UpdateServiceLbPolicyRequest {
     }
 
     /// Sets or clears the value of [service_lb_policy][crate::model::UpdateServiceLbPolicyRequest::service_lb_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateServiceLbPolicyRequest;
-    /// use google_cloud_networkservices_v1::model::ServiceLbPolicy;
-    /// let x = UpdateServiceLbPolicyRequest::new().set_or_clear_service_lb_policy(Some(ServiceLbPolicy::default()/* use setters */));
-    /// let x = UpdateServiceLbPolicyRequest::new().set_or_clear_service_lb_policy(None::<ServiceLbPolicy>);
-    /// ```
     pub fn set_or_clear_service_lb_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceLbPolicy>,
@@ -17379,12 +13004,6 @@ impl DeleteServiceLbPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteServiceLbPolicyRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteServiceLbPolicyRequest;
-    /// let x = DeleteServiceLbPolicyRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -17452,37 +13071,18 @@ impl TcpRoute {
     }
 
     /// Sets the value of [name][crate::model::TcpRoute::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TcpRoute;
-    /// let x = TcpRoute::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [self_link][crate::model::TcpRoute::self_link].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TcpRoute;
-    /// let x = TcpRoute::new().set_self_link("example");
-    /// ```
     pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.self_link = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::TcpRoute::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TcpRoute;
-    /// use wkt::Timestamp;
-    /// let x = TcpRoute::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17492,14 +13092,6 @@ impl TcpRoute {
     }
 
     /// Sets or clears the value of [create_time][crate::model::TcpRoute::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TcpRoute;
-    /// use wkt::Timestamp;
-    /// let x = TcpRoute::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TcpRoute::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17509,13 +13101,6 @@ impl TcpRoute {
     }
 
     /// Sets the value of [update_time][crate::model::TcpRoute::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TcpRoute;
-    /// use wkt::Timestamp;
-    /// let x = TcpRoute::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17525,14 +13110,6 @@ impl TcpRoute {
     }
 
     /// Sets or clears the value of [update_time][crate::model::TcpRoute::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TcpRoute;
-    /// use wkt::Timestamp;
-    /// let x = TcpRoute::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TcpRoute::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17542,29 +13119,12 @@ impl TcpRoute {
     }
 
     /// Sets the value of [description][crate::model::TcpRoute::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TcpRoute;
-    /// let x = TcpRoute::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [rules][crate::model::TcpRoute::rules].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TcpRoute;
-    /// use google_cloud_networkservices_v1::model::tcp_route::RouteRule;
-    /// let x = TcpRoute::new()
-    ///     .set_rules([
-    ///         RouteRule::default()/* use setters */,
-    ///         RouteRule::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17576,12 +13136,6 @@ impl TcpRoute {
     }
 
     /// Sets the value of [meshes][crate::model::TcpRoute::meshes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TcpRoute;
-    /// let x = TcpRoute::new().set_meshes(["a", "b", "c"]);
-    /// ```
     pub fn set_meshes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17593,12 +13147,6 @@ impl TcpRoute {
     }
 
     /// Sets the value of [gateways][crate::model::TcpRoute::gateways].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TcpRoute;
-    /// let x = TcpRoute::new().set_gateways(["a", "b", "c"]);
-    /// ```
     pub fn set_gateways<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17610,15 +13158,6 @@ impl TcpRoute {
     }
 
     /// Sets the value of [labels][crate::model::TcpRoute::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TcpRoute;
-    /// let x = TcpRoute::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -17665,17 +13204,6 @@ pub mod tcp_route {
         }
 
         /// Sets the value of [matches][crate::model::tcp_route::RouteRule::matches].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tcp_route::RouteRule;
-        /// use google_cloud_networkservices_v1::model::tcp_route::RouteMatch;
-        /// let x = RouteRule::new()
-        ///     .set_matches([
-        ///         RouteMatch::default()/* use setters */,
-        ///         RouteMatch::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_matches<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -17687,13 +13215,6 @@ pub mod tcp_route {
         }
 
         /// Sets the value of [action][crate::model::tcp_route::RouteRule::action].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tcp_route::RouteRule;
-        /// use google_cloud_networkservices_v1::model::tcp_route::RouteAction;
-        /// let x = RouteRule::new().set_action(RouteAction::default()/* use setters */);
-        /// ```
         pub fn set_action<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::tcp_route::RouteAction>,
@@ -17703,14 +13224,6 @@ pub mod tcp_route {
         }
 
         /// Sets or clears the value of [action][crate::model::tcp_route::RouteRule::action].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tcp_route::RouteRule;
-        /// use google_cloud_networkservices_v1::model::tcp_route::RouteAction;
-        /// let x = RouteRule::new().set_or_clear_action(Some(RouteAction::default()/* use setters */));
-        /// let x = RouteRule::new().set_or_clear_action(None::<RouteAction>);
-        /// ```
         pub fn set_or_clear_action<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::tcp_route::RouteAction>,
@@ -17755,24 +13268,12 @@ pub mod tcp_route {
         }
 
         /// Sets the value of [address][crate::model::tcp_route::RouteMatch::address].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tcp_route::RouteMatch;
-        /// let x = RouteMatch::new().set_address("example");
-        /// ```
         pub fn set_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.address = v.into();
             self
         }
 
         /// Sets the value of [port][crate::model::tcp_route::RouteMatch::port].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tcp_route::RouteMatch;
-        /// let x = RouteMatch::new().set_port("example");
-        /// ```
         pub fn set_port<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.port = v.into();
             self
@@ -17815,17 +13316,6 @@ pub mod tcp_route {
         }
 
         /// Sets the value of [destinations][crate::model::tcp_route::RouteAction::destinations].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tcp_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::tcp_route::RouteDestination;
-        /// let x = RouteAction::new()
-        ///     .set_destinations([
-        ///         RouteDestination::default()/* use setters */,
-        ///         RouteDestination::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_destinations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -17837,25 +13327,12 @@ pub mod tcp_route {
         }
 
         /// Sets the value of [original_destination][crate::model::tcp_route::RouteAction::original_destination].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tcp_route::RouteAction;
-        /// let x = RouteAction::new().set_original_destination(true);
-        /// ```
         pub fn set_original_destination<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.original_destination = v.into();
             self
         }
 
         /// Sets the value of [idle_timeout][crate::model::tcp_route::RouteAction::idle_timeout].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tcp_route::RouteAction;
-        /// use wkt::Duration;
-        /// let x = RouteAction::new().set_idle_timeout(Duration::default()/* use setters */);
-        /// ```
         pub fn set_idle_timeout<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -17865,14 +13342,6 @@ pub mod tcp_route {
         }
 
         /// Sets or clears the value of [idle_timeout][crate::model::tcp_route::RouteAction::idle_timeout].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tcp_route::RouteAction;
-        /// use wkt::Duration;
-        /// let x = RouteAction::new().set_or_clear_idle_timeout(Some(Duration::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_idle_timeout(None::<Duration>);
-        /// ```
         pub fn set_or_clear_idle_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -17921,12 +13390,6 @@ pub mod tcp_route {
         }
 
         /// Sets the value of [service_name][crate::model::tcp_route::RouteDestination::service_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tcp_route::RouteDestination;
-        /// let x = RouteDestination::new().set_service_name("example");
-        /// ```
         pub fn set_service_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -17936,12 +13399,6 @@ pub mod tcp_route {
         }
 
         /// Sets the value of [weight][crate::model::tcp_route::RouteDestination::weight].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tcp_route::RouteDestination;
-        /// let x = RouteDestination::new().set_weight(42);
-        /// ```
         pub fn set_weight<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.weight = v.into();
             self
@@ -17985,48 +13442,24 @@ impl ListTcpRoutesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTcpRoutesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListTcpRoutesRequest;
-    /// let x = ListTcpRoutesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTcpRoutesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListTcpRoutesRequest;
-    /// let x = ListTcpRoutesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTcpRoutesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListTcpRoutesRequest;
-    /// let x = ListTcpRoutesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [return_partial_success][crate::model::ListTcpRoutesRequest::return_partial_success].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListTcpRoutesRequest;
-    /// let x = ListTcpRoutesRequest::new().set_return_partial_success(true);
-    /// ```
     pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.return_partial_success = v.into();
         self
@@ -18068,17 +13501,6 @@ impl ListTcpRoutesResponse {
     }
 
     /// Sets the value of [tcp_routes][crate::model::ListTcpRoutesResponse::tcp_routes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListTcpRoutesResponse;
-    /// use google_cloud_networkservices_v1::model::TcpRoute;
-    /// let x = ListTcpRoutesResponse::new()
-    ///     .set_tcp_routes([
-    ///         TcpRoute::default()/* use setters */,
-    ///         TcpRoute::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_tcp_routes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18090,24 +13512,12 @@ impl ListTcpRoutesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTcpRoutesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListTcpRoutesResponse;
-    /// let x = ListTcpRoutesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListTcpRoutesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListTcpRoutesResponse;
-    /// let x = ListTcpRoutesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18156,12 +13566,6 @@ impl GetTcpRouteRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTcpRouteRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GetTcpRouteRequest;
-    /// let x = GetTcpRouteRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -18197,37 +13601,18 @@ impl CreateTcpRouteRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTcpRouteRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateTcpRouteRequest;
-    /// let x = CreateTcpRouteRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [tcp_route_id][crate::model::CreateTcpRouteRequest::tcp_route_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateTcpRouteRequest;
-    /// let x = CreateTcpRouteRequest::new().set_tcp_route_id("example");
-    /// ```
     pub fn set_tcp_route_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tcp_route_id = v.into();
         self
     }
 
     /// Sets the value of [tcp_route][crate::model::CreateTcpRouteRequest::tcp_route].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateTcpRouteRequest;
-    /// use google_cloud_networkservices_v1::model::TcpRoute;
-    /// let x = CreateTcpRouteRequest::new().set_tcp_route(TcpRoute::default()/* use setters */);
-    /// ```
     pub fn set_tcp_route<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TcpRoute>,
@@ -18237,14 +13622,6 @@ impl CreateTcpRouteRequest {
     }
 
     /// Sets or clears the value of [tcp_route][crate::model::CreateTcpRouteRequest::tcp_route].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateTcpRouteRequest;
-    /// use google_cloud_networkservices_v1::model::TcpRoute;
-    /// let x = CreateTcpRouteRequest::new().set_or_clear_tcp_route(Some(TcpRoute::default()/* use setters */));
-    /// let x = CreateTcpRouteRequest::new().set_or_clear_tcp_route(None::<TcpRoute>);
-    /// ```
     pub fn set_or_clear_tcp_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TcpRoute>,
@@ -18283,13 +13660,6 @@ impl UpdateTcpRouteRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTcpRouteRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateTcpRouteRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTcpRouteRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -18299,14 +13669,6 @@ impl UpdateTcpRouteRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTcpRouteRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateTcpRouteRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTcpRouteRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateTcpRouteRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -18316,13 +13678,6 @@ impl UpdateTcpRouteRequest {
     }
 
     /// Sets the value of [tcp_route][crate::model::UpdateTcpRouteRequest::tcp_route].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateTcpRouteRequest;
-    /// use google_cloud_networkservices_v1::model::TcpRoute;
-    /// let x = UpdateTcpRouteRequest::new().set_tcp_route(TcpRoute::default()/* use setters */);
-    /// ```
     pub fn set_tcp_route<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TcpRoute>,
@@ -18332,14 +13687,6 @@ impl UpdateTcpRouteRequest {
     }
 
     /// Sets or clears the value of [tcp_route][crate::model::UpdateTcpRouteRequest::tcp_route].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateTcpRouteRequest;
-    /// use google_cloud_networkservices_v1::model::TcpRoute;
-    /// let x = UpdateTcpRouteRequest::new().set_or_clear_tcp_route(Some(TcpRoute::default()/* use setters */));
-    /// let x = UpdateTcpRouteRequest::new().set_or_clear_tcp_route(None::<TcpRoute>);
-    /// ```
     pub fn set_or_clear_tcp_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TcpRoute>,
@@ -18372,12 +13719,6 @@ impl DeleteTcpRouteRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTcpRouteRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteTcpRouteRequest;
-    /// let x = DeleteTcpRouteRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -18445,37 +13786,18 @@ impl TlsRoute {
     }
 
     /// Sets the value of [name][crate::model::TlsRoute::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TlsRoute;
-    /// let x = TlsRoute::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [self_link][crate::model::TlsRoute::self_link].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TlsRoute;
-    /// let x = TlsRoute::new().set_self_link("example");
-    /// ```
     pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.self_link = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::TlsRoute::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TlsRoute;
-    /// use wkt::Timestamp;
-    /// let x = TlsRoute::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18485,14 +13807,6 @@ impl TlsRoute {
     }
 
     /// Sets or clears the value of [create_time][crate::model::TlsRoute::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TlsRoute;
-    /// use wkt::Timestamp;
-    /// let x = TlsRoute::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TlsRoute::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18502,13 +13816,6 @@ impl TlsRoute {
     }
 
     /// Sets the value of [update_time][crate::model::TlsRoute::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TlsRoute;
-    /// use wkt::Timestamp;
-    /// let x = TlsRoute::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18518,14 +13825,6 @@ impl TlsRoute {
     }
 
     /// Sets or clears the value of [update_time][crate::model::TlsRoute::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TlsRoute;
-    /// use wkt::Timestamp;
-    /// let x = TlsRoute::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TlsRoute::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18535,29 +13834,12 @@ impl TlsRoute {
     }
 
     /// Sets the value of [description][crate::model::TlsRoute::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TlsRoute;
-    /// let x = TlsRoute::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [rules][crate::model::TlsRoute::rules].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TlsRoute;
-    /// use google_cloud_networkservices_v1::model::tls_route::RouteRule;
-    /// let x = TlsRoute::new()
-    ///     .set_rules([
-    ///         RouteRule::default()/* use setters */,
-    ///         RouteRule::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18569,12 +13851,6 @@ impl TlsRoute {
     }
 
     /// Sets the value of [meshes][crate::model::TlsRoute::meshes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TlsRoute;
-    /// let x = TlsRoute::new().set_meshes(["a", "b", "c"]);
-    /// ```
     pub fn set_meshes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18586,12 +13862,6 @@ impl TlsRoute {
     }
 
     /// Sets the value of [gateways][crate::model::TlsRoute::gateways].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TlsRoute;
-    /// let x = TlsRoute::new().set_gateways(["a", "b", "c"]);
-    /// ```
     pub fn set_gateways<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18603,15 +13873,6 @@ impl TlsRoute {
     }
 
     /// Sets the value of [labels][crate::model::TlsRoute::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::TlsRoute;
-    /// let x = TlsRoute::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -18657,17 +13918,6 @@ pub mod tls_route {
         }
 
         /// Sets the value of [matches][crate::model::tls_route::RouteRule::matches].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tls_route::RouteRule;
-        /// use google_cloud_networkservices_v1::model::tls_route::RouteMatch;
-        /// let x = RouteRule::new()
-        ///     .set_matches([
-        ///         RouteMatch::default()/* use setters */,
-        ///         RouteMatch::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_matches<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -18679,13 +13929,6 @@ pub mod tls_route {
         }
 
         /// Sets the value of [action][crate::model::tls_route::RouteRule::action].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tls_route::RouteRule;
-        /// use google_cloud_networkservices_v1::model::tls_route::RouteAction;
-        /// let x = RouteRule::new().set_action(RouteAction::default()/* use setters */);
-        /// ```
         pub fn set_action<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::tls_route::RouteAction>,
@@ -18695,14 +13938,6 @@ pub mod tls_route {
         }
 
         /// Sets or clears the value of [action][crate::model::tls_route::RouteRule::action].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tls_route::RouteRule;
-        /// use google_cloud_networkservices_v1::model::tls_route::RouteAction;
-        /// let x = RouteRule::new().set_or_clear_action(Some(RouteAction::default()/* use setters */));
-        /// let x = RouteRule::new().set_or_clear_action(None::<RouteAction>);
-        /// ```
         pub fn set_or_clear_action<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::tls_route::RouteAction>,
@@ -18748,12 +13983,6 @@ pub mod tls_route {
         }
 
         /// Sets the value of [sni_host][crate::model::tls_route::RouteMatch::sni_host].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tls_route::RouteMatch;
-        /// let x = RouteMatch::new().set_sni_host(["a", "b", "c"]);
-        /// ```
         pub fn set_sni_host<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -18765,12 +13994,6 @@ pub mod tls_route {
         }
 
         /// Sets the value of [alpn][crate::model::tls_route::RouteMatch::alpn].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tls_route::RouteMatch;
-        /// let x = RouteMatch::new().set_alpn(["a", "b", "c"]);
-        /// ```
         pub fn set_alpn<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -18812,17 +14035,6 @@ pub mod tls_route {
         }
 
         /// Sets the value of [destinations][crate::model::tls_route::RouteAction::destinations].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tls_route::RouteAction;
-        /// use google_cloud_networkservices_v1::model::tls_route::RouteDestination;
-        /// let x = RouteAction::new()
-        ///     .set_destinations([
-        ///         RouteDestination::default()/* use setters */,
-        ///         RouteDestination::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_destinations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -18834,13 +14046,6 @@ pub mod tls_route {
         }
 
         /// Sets the value of [idle_timeout][crate::model::tls_route::RouteAction::idle_timeout].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tls_route::RouteAction;
-        /// use wkt::Duration;
-        /// let x = RouteAction::new().set_idle_timeout(Duration::default()/* use setters */);
-        /// ```
         pub fn set_idle_timeout<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -18850,14 +14055,6 @@ pub mod tls_route {
         }
 
         /// Sets or clears the value of [idle_timeout][crate::model::tls_route::RouteAction::idle_timeout].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tls_route::RouteAction;
-        /// use wkt::Duration;
-        /// let x = RouteAction::new().set_or_clear_idle_timeout(Some(Duration::default()/* use setters */));
-        /// let x = RouteAction::new().set_or_clear_idle_timeout(None::<Duration>);
-        /// ```
         pub fn set_or_clear_idle_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -18896,12 +14093,6 @@ pub mod tls_route {
         }
 
         /// Sets the value of [service_name][crate::model::tls_route::RouteDestination::service_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tls_route::RouteDestination;
-        /// let x = RouteDestination::new().set_service_name("example");
-        /// ```
         pub fn set_service_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -18911,12 +14102,6 @@ pub mod tls_route {
         }
 
         /// Sets the value of [weight][crate::model::tls_route::RouteDestination::weight].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_networkservices_v1::model::tls_route::RouteDestination;
-        /// let x = RouteDestination::new().set_weight(42);
-        /// ```
         pub fn set_weight<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.weight = v.into();
             self
@@ -18960,48 +14145,24 @@ impl ListTlsRoutesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTlsRoutesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListTlsRoutesRequest;
-    /// let x = ListTlsRoutesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTlsRoutesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListTlsRoutesRequest;
-    /// let x = ListTlsRoutesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTlsRoutesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListTlsRoutesRequest;
-    /// let x = ListTlsRoutesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [return_partial_success][crate::model::ListTlsRoutesRequest::return_partial_success].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListTlsRoutesRequest;
-    /// let x = ListTlsRoutesRequest::new().set_return_partial_success(true);
-    /// ```
     pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.return_partial_success = v.into();
         self
@@ -19043,17 +14204,6 @@ impl ListTlsRoutesResponse {
     }
 
     /// Sets the value of [tls_routes][crate::model::ListTlsRoutesResponse::tls_routes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListTlsRoutesResponse;
-    /// use google_cloud_networkservices_v1::model::TlsRoute;
-    /// let x = ListTlsRoutesResponse::new()
-    ///     .set_tls_routes([
-    ///         TlsRoute::default()/* use setters */,
-    ///         TlsRoute::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_tls_routes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19065,24 +14215,12 @@ impl ListTlsRoutesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTlsRoutesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListTlsRoutesResponse;
-    /// let x = ListTlsRoutesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListTlsRoutesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::ListTlsRoutesResponse;
-    /// let x = ListTlsRoutesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19131,12 +14269,6 @@ impl GetTlsRouteRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTlsRouteRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::GetTlsRouteRequest;
-    /// let x = GetTlsRouteRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -19172,37 +14304,18 @@ impl CreateTlsRouteRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTlsRouteRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateTlsRouteRequest;
-    /// let x = CreateTlsRouteRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [tls_route_id][crate::model::CreateTlsRouteRequest::tls_route_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateTlsRouteRequest;
-    /// let x = CreateTlsRouteRequest::new().set_tls_route_id("example");
-    /// ```
     pub fn set_tls_route_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tls_route_id = v.into();
         self
     }
 
     /// Sets the value of [tls_route][crate::model::CreateTlsRouteRequest::tls_route].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateTlsRouteRequest;
-    /// use google_cloud_networkservices_v1::model::TlsRoute;
-    /// let x = CreateTlsRouteRequest::new().set_tls_route(TlsRoute::default()/* use setters */);
-    /// ```
     pub fn set_tls_route<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TlsRoute>,
@@ -19212,14 +14325,6 @@ impl CreateTlsRouteRequest {
     }
 
     /// Sets or clears the value of [tls_route][crate::model::CreateTlsRouteRequest::tls_route].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::CreateTlsRouteRequest;
-    /// use google_cloud_networkservices_v1::model::TlsRoute;
-    /// let x = CreateTlsRouteRequest::new().set_or_clear_tls_route(Some(TlsRoute::default()/* use setters */));
-    /// let x = CreateTlsRouteRequest::new().set_or_clear_tls_route(None::<TlsRoute>);
-    /// ```
     pub fn set_or_clear_tls_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TlsRoute>,
@@ -19258,13 +14363,6 @@ impl UpdateTlsRouteRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTlsRouteRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateTlsRouteRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTlsRouteRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -19274,14 +14372,6 @@ impl UpdateTlsRouteRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTlsRouteRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateTlsRouteRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTlsRouteRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateTlsRouteRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -19291,13 +14381,6 @@ impl UpdateTlsRouteRequest {
     }
 
     /// Sets the value of [tls_route][crate::model::UpdateTlsRouteRequest::tls_route].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateTlsRouteRequest;
-    /// use google_cloud_networkservices_v1::model::TlsRoute;
-    /// let x = UpdateTlsRouteRequest::new().set_tls_route(TlsRoute::default()/* use setters */);
-    /// ```
     pub fn set_tls_route<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TlsRoute>,
@@ -19307,14 +14390,6 @@ impl UpdateTlsRouteRequest {
     }
 
     /// Sets or clears the value of [tls_route][crate::model::UpdateTlsRouteRequest::tls_route].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::UpdateTlsRouteRequest;
-    /// use google_cloud_networkservices_v1::model::TlsRoute;
-    /// let x = UpdateTlsRouteRequest::new().set_or_clear_tls_route(Some(TlsRoute::default()/* use setters */));
-    /// let x = UpdateTlsRouteRequest::new().set_or_clear_tls_route(None::<TlsRoute>);
-    /// ```
     pub fn set_or_clear_tls_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TlsRoute>,
@@ -19347,12 +14422,6 @@ impl DeleteTlsRouteRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTlsRouteRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_networkservices_v1::model::DeleteTlsRouteRequest;
-    /// let x = DeleteTlsRouteRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self

@@ -114,73 +114,36 @@ impl AutonomousDatabase {
     }
 
     /// Sets the value of [name][crate::model::AutonomousDatabase::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = AutonomousDatabase::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [database][crate::model::AutonomousDatabase::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = AutonomousDatabase::new().set_database("example");
-    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::AutonomousDatabase::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = AutonomousDatabase::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [entitlement_id][crate::model::AutonomousDatabase::entitlement_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = AutonomousDatabase::new().set_entitlement_id("example");
-    /// ```
     pub fn set_entitlement_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entitlement_id = v.into();
         self
     }
 
     /// Sets the value of [admin_password][crate::model::AutonomousDatabase::admin_password].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = AutonomousDatabase::new().set_admin_password("example");
-    /// ```
     pub fn set_admin_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.admin_password = v.into();
         self
     }
 
     /// Sets the value of [properties][crate::model::AutonomousDatabase::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabase::new().set_properties(AutonomousDatabaseProperties::default()/* use setters */);
-    /// ```
     pub fn set_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabaseProperties>,
@@ -190,14 +153,6 @@ impl AutonomousDatabase {
     }
 
     /// Sets or clears the value of [properties][crate::model::AutonomousDatabase::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabase::new().set_or_clear_properties(Some(AutonomousDatabaseProperties::default()/* use setters */));
-    /// let x = AutonomousDatabase::new().set_or_clear_properties(None::<AutonomousDatabaseProperties>);
-    /// ```
     pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabaseProperties>,
@@ -207,15 +162,6 @@ impl AutonomousDatabase {
     }
 
     /// Sets the value of [labels][crate::model::AutonomousDatabase::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = AutonomousDatabase::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -228,61 +174,30 @@ impl AutonomousDatabase {
     }
 
     /// Sets the value of [network][crate::model::AutonomousDatabase::network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = AutonomousDatabase::new().set_network("example");
-    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [cidr][crate::model::AutonomousDatabase::cidr].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = AutonomousDatabase::new().set_cidr("example");
-    /// ```
     pub fn set_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cidr = v.into();
         self
     }
 
     /// Sets the value of [odb_network][crate::model::AutonomousDatabase::odb_network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = AutonomousDatabase::new().set_odb_network("example");
-    /// ```
     pub fn set_odb_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.odb_network = v.into();
         self
     }
 
     /// Sets the value of [odb_subnet][crate::model::AutonomousDatabase::odb_subnet].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = AutonomousDatabase::new().set_odb_subnet("example");
-    /// ```
     pub fn set_odb_subnet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.odb_subnet = v.into();
         self
     }
 
     /// Sets the value of [source_config][crate::model::AutonomousDatabase::source_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// use google_cloud_oracledatabase_v1::model::SourceConfig;
-    /// let x = AutonomousDatabase::new().set_source_config(SourceConfig::default()/* use setters */);
-    /// ```
     pub fn set_source_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SourceConfig>,
@@ -292,14 +207,6 @@ impl AutonomousDatabase {
     }
 
     /// Sets or clears the value of [source_config][crate::model::AutonomousDatabase::source_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// use google_cloud_oracledatabase_v1::model::SourceConfig;
-    /// let x = AutonomousDatabase::new().set_or_clear_source_config(Some(SourceConfig::default()/* use setters */));
-    /// let x = AutonomousDatabase::new().set_or_clear_source_config(None::<SourceConfig>);
-    /// ```
     pub fn set_or_clear_source_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceConfig>,
@@ -309,12 +216,6 @@ impl AutonomousDatabase {
     }
 
     /// Sets the value of [peer_autonomous_databases][crate::model::AutonomousDatabase::peer_autonomous_databases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = AutonomousDatabase::new().set_peer_autonomous_databases(["a", "b", "c"]);
-    /// ```
     pub fn set_peer_autonomous_databases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -326,13 +227,6 @@ impl AutonomousDatabase {
     }
 
     /// Sets the value of [create_time][crate::model::AutonomousDatabase::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabase::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -342,14 +236,6 @@ impl AutonomousDatabase {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AutonomousDatabase::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabase::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AutonomousDatabase::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -359,12 +245,6 @@ impl AutonomousDatabase {
     }
 
     /// Sets the value of [disaster_recovery_supported_locations][crate::model::AutonomousDatabase::disaster_recovery_supported_locations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = AutonomousDatabase::new().set_disaster_recovery_supported_locations(["a", "b", "c"]);
-    /// ```
     pub fn set_disaster_recovery_supported_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -403,12 +283,6 @@ impl SourceConfig {
     }
 
     /// Sets the value of [autonomous_database][crate::model::SourceConfig::autonomous_database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::SourceConfig;
-    /// let x = SourceConfig::new().set_autonomous_database("example");
-    /// ```
     pub fn set_autonomous_database<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -418,12 +292,6 @@ impl SourceConfig {
     }
 
     /// Sets the value of [automatic_backups_replication_enabled][crate::model::SourceConfig::automatic_backups_replication_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::SourceConfig;
-    /// let x = SourceConfig::new().set_automatic_backups_replication_enabled(true);
-    /// ```
     pub fn set_automatic_backups_replication_enabled<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -684,75 +552,36 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [ocid][crate::model::AutonomousDatabaseProperties::ocid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_ocid("example");
-    /// ```
     pub fn set_ocid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ocid = v.into();
         self
     }
 
     /// Sets the value of [compute_count][crate::model::AutonomousDatabaseProperties::compute_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_compute_count(42.0);
-    /// ```
     pub fn set_compute_count<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.compute_count = v.into();
         self
     }
 
     /// Sets the value of [cpu_core_count][crate::model::AutonomousDatabaseProperties::cpu_core_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_cpu_core_count(42);
-    /// ```
     pub fn set_cpu_core_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.cpu_core_count = v.into();
         self
     }
 
     /// Sets the value of [data_storage_size_tb][crate::model::AutonomousDatabaseProperties::data_storage_size_tb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_data_storage_size_tb(42);
-    /// ```
     pub fn set_data_storage_size_tb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.data_storage_size_tb = v.into();
         self
     }
 
     /// Sets the value of [data_storage_size_gb][crate::model::AutonomousDatabaseProperties::data_storage_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_data_storage_size_gb(42);
-    /// ```
     pub fn set_data_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.data_storage_size_gb = v.into();
         self
     }
 
     /// Sets the value of [db_workload][crate::model::AutonomousDatabaseProperties::db_workload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::DBWorkload;
-    /// let x0 = AutonomousDatabaseProperties::new().set_db_workload(DBWorkload::Oltp);
-    /// let x1 = AutonomousDatabaseProperties::new().set_db_workload(DBWorkload::Dw);
-    /// let x2 = AutonomousDatabaseProperties::new().set_db_workload(DBWorkload::Ajd);
-    /// ```
     pub fn set_db_workload<T: std::convert::Into<crate::model::DBWorkload>>(
         mut self,
         v: T,
@@ -762,14 +591,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [db_edition][crate::model::AutonomousDatabaseProperties::db_edition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::autonomous_database_properties::DatabaseEdition;
-    /// let x0 = AutonomousDatabaseProperties::new().set_db_edition(DatabaseEdition::StandardEdition);
-    /// let x1 = AutonomousDatabaseProperties::new().set_db_edition(DatabaseEdition::EnterpriseEdition);
-    /// ```
     pub fn set_db_edition<
         T: std::convert::Into<crate::model::autonomous_database_properties::DatabaseEdition>,
     >(
@@ -781,36 +602,18 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [character_set][crate::model::AutonomousDatabaseProperties::character_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_character_set("example");
-    /// ```
     pub fn set_character_set<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.character_set = v.into();
         self
     }
 
     /// Sets the value of [n_character_set][crate::model::AutonomousDatabaseProperties::n_character_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_n_character_set("example");
-    /// ```
     pub fn set_n_character_set<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.n_character_set = v.into();
         self
     }
 
     /// Sets the value of [private_endpoint_ip][crate::model::AutonomousDatabaseProperties::private_endpoint_ip].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_private_endpoint_ip("example");
-    /// ```
     pub fn set_private_endpoint_ip<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -820,12 +623,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [private_endpoint_label][crate::model::AutonomousDatabaseProperties::private_endpoint_label].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_private_endpoint_label("example");
-    /// ```
     pub fn set_private_endpoint_label<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -835,36 +632,18 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [db_version][crate::model::AutonomousDatabaseProperties::db_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_db_version("example");
-    /// ```
     pub fn set_db_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.db_version = v.into();
         self
     }
 
     /// Sets the value of [is_auto_scaling_enabled][crate::model::AutonomousDatabaseProperties::is_auto_scaling_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_is_auto_scaling_enabled(true);
-    /// ```
     pub fn set_is_auto_scaling_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_auto_scaling_enabled = v.into();
         self
     }
 
     /// Sets the value of [is_storage_auto_scaling_enabled][crate::model::AutonomousDatabaseProperties::is_storage_auto_scaling_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_is_storage_auto_scaling_enabled(true);
-    /// ```
     pub fn set_is_storage_auto_scaling_enabled<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -874,14 +653,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [license_type][crate::model::AutonomousDatabaseProperties::license_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::autonomous_database_properties::LicenseType;
-    /// let x0 = AutonomousDatabaseProperties::new().set_license_type(LicenseType::LicenseIncluded);
-    /// let x1 = AutonomousDatabaseProperties::new().set_license_type(LicenseType::BringYourOwnLicense);
-    /// ```
     pub fn set_license_type<
         T: std::convert::Into<crate::model::autonomous_database_properties::LicenseType>,
     >(
@@ -893,17 +664,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [customer_contacts][crate::model::AutonomousDatabaseProperties::customer_contacts].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::CustomerContact;
-    /// let x = AutonomousDatabaseProperties::new()
-    ///     .set_customer_contacts([
-    ///         CustomerContact::default()/* use setters */,
-    ///         CustomerContact::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_customer_contacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -915,38 +675,18 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [secret_id][crate::model::AutonomousDatabaseProperties::secret_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_secret_id("example");
-    /// ```
     pub fn set_secret_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret_id = v.into();
         self
     }
 
     /// Sets the value of [vault_id][crate::model::AutonomousDatabaseProperties::vault_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_vault_id("example");
-    /// ```
     pub fn set_vault_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vault_id = v.into();
         self
     }
 
     /// Sets the value of [maintenance_schedule_type][crate::model::AutonomousDatabaseProperties::maintenance_schedule_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::autonomous_database_properties::MaintenanceScheduleType;
-    /// let x0 = AutonomousDatabaseProperties::new().set_maintenance_schedule_type(MaintenanceScheduleType::Early);
-    /// let x1 = AutonomousDatabaseProperties::new().set_maintenance_schedule_type(MaintenanceScheduleType::Regular);
-    /// ```
     pub fn set_maintenance_schedule_type<
         T: std::convert::Into<crate::model::autonomous_database_properties::MaintenanceScheduleType>,
     >(
@@ -958,36 +698,18 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [mtls_connection_required][crate::model::AutonomousDatabaseProperties::mtls_connection_required].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_mtls_connection_required(true);
-    /// ```
     pub fn set_mtls_connection_required<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.mtls_connection_required = v.into();
         self
     }
 
     /// Sets the value of [backup_retention_period_days][crate::model::AutonomousDatabaseProperties::backup_retention_period_days].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_backup_retention_period_days(42);
-    /// ```
     pub fn set_backup_retention_period_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.backup_retention_period_days = v.into();
         self
     }
 
     /// Sets the value of [actual_used_data_storage_size_tb][crate::model::AutonomousDatabaseProperties::actual_used_data_storage_size_tb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_actual_used_data_storage_size_tb(42.0);
-    /// ```
     pub fn set_actual_used_data_storage_size_tb<T: std::convert::Into<f64>>(
         mut self,
         v: T,
@@ -997,25 +719,12 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [allocated_storage_size_tb][crate::model::AutonomousDatabaseProperties::allocated_storage_size_tb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_allocated_storage_size_tb(42.0);
-    /// ```
     pub fn set_allocated_storage_size_tb<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.allocated_storage_size_tb = v.into();
         self
     }
 
     /// Sets the value of [apex_details][crate::model::AutonomousDatabaseProperties::apex_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabaseApex;
-    /// let x = AutonomousDatabaseProperties::new().set_apex_details(AutonomousDatabaseApex::default()/* use setters */);
-    /// ```
     pub fn set_apex_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabaseApex>,
@@ -1025,14 +734,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clears the value of [apex_details][crate::model::AutonomousDatabaseProperties::apex_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabaseApex;
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_apex_details(Some(AutonomousDatabaseApex::default()/* use setters */));
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_apex_details(None::<AutonomousDatabaseApex>);
-    /// ```
     pub fn set_or_clear_apex_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabaseApex>,
@@ -1042,12 +743,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [are_primary_allowlisted_ips_used][crate::model::AutonomousDatabaseProperties::are_primary_allowlisted_ips_used].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_are_primary_allowlisted_ips_used(true);
-    /// ```
     pub fn set_are_primary_allowlisted_ips_used<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1057,13 +752,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clears the value of [are_primary_allowlisted_ips_used][crate::model::AutonomousDatabaseProperties::are_primary_allowlisted_ips_used].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_are_primary_allowlisted_ips_used(Some(false));
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_are_primary_allowlisted_ips_used(None::<bool>);
-    /// ```
     pub fn set_or_clear_are_primary_allowlisted_ips_used<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1076,12 +764,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [lifecycle_details][crate::model::AutonomousDatabaseProperties::lifecycle_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_lifecycle_details("example");
-    /// ```
     pub fn set_lifecycle_details<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1091,27 +773,12 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [state][crate::model::AutonomousDatabaseProperties::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::State;
-    /// let x0 = AutonomousDatabaseProperties::new().set_state(State::Provisioning);
-    /// let x1 = AutonomousDatabaseProperties::new().set_state(State::Available);
-    /// let x2 = AutonomousDatabaseProperties::new().set_state(State::Stopping);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [autonomous_container_database_id][crate::model::AutonomousDatabaseProperties::autonomous_container_database_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_autonomous_container_database_id("example");
-    /// ```
     pub fn set_autonomous_container_database_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1121,12 +788,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [available_upgrade_versions][crate::model::AutonomousDatabaseProperties::available_upgrade_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_available_upgrade_versions(["a", "b", "c"]);
-    /// ```
     pub fn set_available_upgrade_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1138,13 +799,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [connection_strings][crate::model::AutonomousDatabaseProperties::connection_strings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionStrings;
-    /// let x = AutonomousDatabaseProperties::new().set_connection_strings(AutonomousDatabaseConnectionStrings::default()/* use setters */);
-    /// ```
     pub fn set_connection_strings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabaseConnectionStrings>,
@@ -1154,14 +808,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clears the value of [connection_strings][crate::model::AutonomousDatabaseProperties::connection_strings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionStrings;
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_connection_strings(Some(AutonomousDatabaseConnectionStrings::default()/* use setters */));
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_connection_strings(None::<AutonomousDatabaseConnectionStrings>);
-    /// ```
     pub fn set_or_clear_connection_strings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabaseConnectionStrings>,
@@ -1171,13 +817,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [connection_urls][crate::model::AutonomousDatabaseProperties::connection_urls].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionUrls;
-    /// let x = AutonomousDatabaseProperties::new().set_connection_urls(AutonomousDatabaseConnectionUrls::default()/* use setters */);
-    /// ```
     pub fn set_connection_urls<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabaseConnectionUrls>,
@@ -1187,14 +826,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clears the value of [connection_urls][crate::model::AutonomousDatabaseProperties::connection_urls].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionUrls;
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_connection_urls(Some(AutonomousDatabaseConnectionUrls::default()/* use setters */));
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_connection_urls(None::<AutonomousDatabaseConnectionUrls>);
-    /// ```
     pub fn set_or_clear_connection_urls<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabaseConnectionUrls>,
@@ -1204,13 +835,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [failed_data_recovery_duration][crate::model::AutonomousDatabaseProperties::failed_data_recovery_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use wkt::Duration;
-    /// let x = AutonomousDatabaseProperties::new().set_failed_data_recovery_duration(Duration::default()/* use setters */);
-    /// ```
     pub fn set_failed_data_recovery_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1220,14 +844,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clears the value of [failed_data_recovery_duration][crate::model::AutonomousDatabaseProperties::failed_data_recovery_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use wkt::Duration;
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_failed_data_recovery_duration(Some(Duration::default()/* use setters */));
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_failed_data_recovery_duration(None::<Duration>);
-    /// ```
     pub fn set_or_clear_failed_data_recovery_duration<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1240,36 +856,18 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [memory_table_gbs][crate::model::AutonomousDatabaseProperties::memory_table_gbs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_memory_table_gbs(42);
-    /// ```
     pub fn set_memory_table_gbs<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.memory_table_gbs = v.into();
         self
     }
 
     /// Sets the value of [is_local_data_guard_enabled][crate::model::AutonomousDatabaseProperties::is_local_data_guard_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_is_local_data_guard_enabled(true);
-    /// ```
     pub fn set_is_local_data_guard_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_local_data_guard_enabled = v.into();
         self
     }
 
     /// Sets the value of [local_adg_auto_failover_max_data_loss_limit][crate::model::AutonomousDatabaseProperties::local_adg_auto_failover_max_data_loss_limit].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_local_adg_auto_failover_max_data_loss_limit(42);
-    /// ```
     pub fn set_local_adg_auto_failover_max_data_loss_limit<T: std::convert::Into<i32>>(
         mut self,
         v: T,
@@ -1279,13 +877,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [local_standby_db][crate::model::AutonomousDatabaseProperties::local_standby_db].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabaseStandbySummary;
-    /// let x = AutonomousDatabaseProperties::new().set_local_standby_db(AutonomousDatabaseStandbySummary::default()/* use setters */);
-    /// ```
     pub fn set_local_standby_db<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabaseStandbySummary>,
@@ -1295,14 +886,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clears the value of [local_standby_db][crate::model::AutonomousDatabaseProperties::local_standby_db].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabaseStandbySummary;
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_local_standby_db(Some(AutonomousDatabaseStandbySummary::default()/* use setters */));
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_local_standby_db(None::<AutonomousDatabaseStandbySummary>);
-    /// ```
     pub fn set_or_clear_local_standby_db<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabaseStandbySummary>,
@@ -1312,12 +895,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [memory_per_oracle_compute_unit_gbs][crate::model::AutonomousDatabaseProperties::memory_per_oracle_compute_unit_gbs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_memory_per_oracle_compute_unit_gbs(42);
-    /// ```
     pub fn set_memory_per_oracle_compute_unit_gbs<T: std::convert::Into<i32>>(
         mut self,
         v: T,
@@ -1327,14 +904,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [local_disaster_recovery_type][crate::model::AutonomousDatabaseProperties::local_disaster_recovery_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::autonomous_database_properties::LocalDisasterRecoveryType;
-    /// let x0 = AutonomousDatabaseProperties::new().set_local_disaster_recovery_type(LocalDisasterRecoveryType::Adg);
-    /// let x1 = AutonomousDatabaseProperties::new().set_local_disaster_recovery_type(LocalDisasterRecoveryType::BackupBased);
-    /// ```
     pub fn set_local_disaster_recovery_type<
         T: std::convert::Into<crate::model::autonomous_database_properties::LocalDisasterRecoveryType>,
     >(
@@ -1346,15 +915,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [data_safe_state][crate::model::AutonomousDatabaseProperties::data_safe_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::autonomous_database_properties::DataSafeState;
-    /// let x0 = AutonomousDatabaseProperties::new().set_data_safe_state(DataSafeState::Registering);
-    /// let x1 = AutonomousDatabaseProperties::new().set_data_safe_state(DataSafeState::Registered);
-    /// let x2 = AutonomousDatabaseProperties::new().set_data_safe_state(DataSafeState::Deregistering);
-    /// ```
     pub fn set_data_safe_state<
         T: std::convert::Into<crate::model::autonomous_database_properties::DataSafeState>,
     >(
@@ -1366,15 +926,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [database_management_state][crate::model::AutonomousDatabaseProperties::database_management_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::autonomous_database_properties::DatabaseManagementState;
-    /// let x0 = AutonomousDatabaseProperties::new().set_database_management_state(DatabaseManagementState::Enabling);
-    /// let x1 = AutonomousDatabaseProperties::new().set_database_management_state(DatabaseManagementState::Enabled);
-    /// let x2 = AutonomousDatabaseProperties::new().set_database_management_state(DatabaseManagementState::Disabling);
-    /// ```
     pub fn set_database_management_state<
         T: std::convert::Into<crate::model::autonomous_database_properties::DatabaseManagementState>,
     >(
@@ -1386,14 +937,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [open_mode][crate::model::AutonomousDatabaseProperties::open_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::autonomous_database_properties::OpenMode;
-    /// let x0 = AutonomousDatabaseProperties::new().set_open_mode(OpenMode::ReadOnly);
-    /// let x1 = AutonomousDatabaseProperties::new().set_open_mode(OpenMode::ReadWrite);
-    /// ```
     pub fn set_open_mode<
         T: std::convert::Into<crate::model::autonomous_database_properties::OpenMode>,
     >(
@@ -1405,15 +948,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [operations_insights_state][crate::model::AutonomousDatabaseProperties::operations_insights_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::OperationsInsightsState;
-    /// let x0 = AutonomousDatabaseProperties::new().set_operations_insights_state(OperationsInsightsState::Enabling);
-    /// let x1 = AutonomousDatabaseProperties::new().set_operations_insights_state(OperationsInsightsState::Enabled);
-    /// let x2 = AutonomousDatabaseProperties::new().set_operations_insights_state(OperationsInsightsState::Disabling);
-    /// ```
     pub fn set_operations_insights_state<
         T: std::convert::Into<crate::model::OperationsInsightsState>,
     >(
@@ -1425,12 +959,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [peer_db_ids][crate::model::AutonomousDatabaseProperties::peer_db_ids].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_peer_db_ids(["a", "b", "c"]);
-    /// ```
     pub fn set_peer_db_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1442,14 +970,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [permission_level][crate::model::AutonomousDatabaseProperties::permission_level].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::autonomous_database_properties::PermissionLevel;
-    /// let x0 = AutonomousDatabaseProperties::new().set_permission_level(PermissionLevel::Restricted);
-    /// let x1 = AutonomousDatabaseProperties::new().set_permission_level(PermissionLevel::Unrestricted);
-    /// ```
     pub fn set_permission_level<
         T: std::convert::Into<crate::model::autonomous_database_properties::PermissionLevel>,
     >(
@@ -1461,12 +981,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [private_endpoint][crate::model::AutonomousDatabaseProperties::private_endpoint].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_private_endpoint("example");
-    /// ```
     pub fn set_private_endpoint<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1476,14 +990,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [refreshable_mode][crate::model::AutonomousDatabaseProperties::refreshable_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::autonomous_database_properties::RefreshableMode;
-    /// let x0 = AutonomousDatabaseProperties::new().set_refreshable_mode(RefreshableMode::Automatic);
-    /// let x1 = AutonomousDatabaseProperties::new().set_refreshable_mode(RefreshableMode::Manual);
-    /// ```
     pub fn set_refreshable_mode<
         T: std::convert::Into<crate::model::autonomous_database_properties::RefreshableMode>,
     >(
@@ -1495,14 +1001,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [refreshable_state][crate::model::AutonomousDatabaseProperties::refreshable_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::autonomous_database_properties::RefreshableState;
-    /// let x0 = AutonomousDatabaseProperties::new().set_refreshable_state(RefreshableState::Refreshing);
-    /// let x1 = AutonomousDatabaseProperties::new().set_refreshable_state(RefreshableState::NotRefreshing);
-    /// ```
     pub fn set_refreshable_state<
         T: std::convert::Into<crate::model::autonomous_database_properties::RefreshableState>,
     >(
@@ -1514,15 +1012,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [role][crate::model::AutonomousDatabaseProperties::role].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::autonomous_database_properties::Role;
-    /// let x0 = AutonomousDatabaseProperties::new().set_role(Role::Primary);
-    /// let x1 = AutonomousDatabaseProperties::new().set_role(Role::Standby);
-    /// let x2 = AutonomousDatabaseProperties::new().set_role(Role::DisabledStandby);
-    /// ```
     pub fn set_role<T: std::convert::Into<crate::model::autonomous_database_properties::Role>>(
         mut self,
         v: T,
@@ -1532,17 +1021,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [scheduled_operation_details][crate::model::AutonomousDatabaseProperties::scheduled_operation_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::ScheduledOperationDetails;
-    /// let x = AutonomousDatabaseProperties::new()
-    ///     .set_scheduled_operation_details([
-    ///         ScheduledOperationDetails::default()/* use setters */,
-    ///         ScheduledOperationDetails::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_scheduled_operation_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1554,12 +1032,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [sql_web_developer_url][crate::model::AutonomousDatabaseProperties::sql_web_developer_url].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_sql_web_developer_url("example");
-    /// ```
     pub fn set_sql_web_developer_url<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1569,12 +1041,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [supported_clone_regions][crate::model::AutonomousDatabaseProperties::supported_clone_regions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_supported_clone_regions(["a", "b", "c"]);
-    /// ```
     pub fn set_supported_clone_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1586,36 +1052,18 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [used_data_storage_size_tbs][crate::model::AutonomousDatabaseProperties::used_data_storage_size_tbs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_used_data_storage_size_tbs(42);
-    /// ```
     pub fn set_used_data_storage_size_tbs<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.used_data_storage_size_tbs = v.into();
         self
     }
 
     /// Sets the value of [oci_url][crate::model::AutonomousDatabaseProperties::oci_url].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_oci_url("example");
-    /// ```
     pub fn set_oci_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.oci_url = v.into();
         self
     }
 
     /// Sets the value of [total_auto_backup_storage_size_gbs][crate::model::AutonomousDatabaseProperties::total_auto_backup_storage_size_gbs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_total_auto_backup_storage_size_gbs(42.0);
-    /// ```
     pub fn set_total_auto_backup_storage_size_gbs<T: std::convert::Into<f32>>(
         mut self,
         v: T,
@@ -1625,13 +1073,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [next_long_term_backup_time][crate::model::AutonomousDatabaseProperties::next_long_term_backup_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseProperties::new().set_next_long_term_backup_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_next_long_term_backup_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1641,14 +1082,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clears the value of [next_long_term_backup_time][crate::model::AutonomousDatabaseProperties::next_long_term_backup_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_next_long_term_backup_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_next_long_term_backup_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_next_long_term_backup_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1658,13 +1091,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [data_guard_role_changed_time][crate::model::AutonomousDatabaseProperties::data_guard_role_changed_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseProperties::new().set_data_guard_role_changed_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_data_guard_role_changed_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1674,14 +1100,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clears the value of [data_guard_role_changed_time][crate::model::AutonomousDatabaseProperties::data_guard_role_changed_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_data_guard_role_changed_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_data_guard_role_changed_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_data_guard_role_changed_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1691,13 +1109,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [disaster_recovery_role_changed_time][crate::model::AutonomousDatabaseProperties::disaster_recovery_role_changed_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseProperties::new().set_disaster_recovery_role_changed_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_disaster_recovery_role_changed_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1707,14 +1118,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clears the value of [disaster_recovery_role_changed_time][crate::model::AutonomousDatabaseProperties::disaster_recovery_role_changed_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_disaster_recovery_role_changed_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_disaster_recovery_role_changed_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_disaster_recovery_role_changed_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1727,13 +1130,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [maintenance_begin_time][crate::model::AutonomousDatabaseProperties::maintenance_begin_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseProperties::new().set_maintenance_begin_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_maintenance_begin_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1743,14 +1139,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clears the value of [maintenance_begin_time][crate::model::AutonomousDatabaseProperties::maintenance_begin_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_maintenance_begin_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_maintenance_begin_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_maintenance_begin_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1760,13 +1148,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [maintenance_end_time][crate::model::AutonomousDatabaseProperties::maintenance_end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseProperties::new().set_maintenance_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_maintenance_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1776,14 +1157,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clears the value of [maintenance_end_time][crate::model::AutonomousDatabaseProperties::maintenance_end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_maintenance_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_maintenance_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_maintenance_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1793,12 +1166,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [allowlisted_ips][crate::model::AutonomousDatabaseProperties::allowlisted_ips].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_allowlisted_ips(["a", "b", "c"]);
-    /// ```
     pub fn set_allowlisted_ips<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1810,13 +1177,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [encryption_key][crate::model::AutonomousDatabaseProperties::encryption_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::EncryptionKey;
-    /// let x = AutonomousDatabaseProperties::new().set_encryption_key(EncryptionKey::default()/* use setters */);
-    /// ```
     pub fn set_encryption_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionKey>,
@@ -1826,14 +1186,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clears the value of [encryption_key][crate::model::AutonomousDatabaseProperties::encryption_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::EncryptionKey;
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_encryption_key(Some(EncryptionKey::default()/* use setters */));
-    /// let x = AutonomousDatabaseProperties::new().set_or_clear_encryption_key(None::<EncryptionKey>);
-    /// ```
     pub fn set_or_clear_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionKey>,
@@ -1843,17 +1195,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [encryption_key_history_entries][crate::model::AutonomousDatabaseProperties::encryption_key_history_entries].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::EncryptionKeyHistoryEntry;
-    /// let x = AutonomousDatabaseProperties::new()
-    ///     .set_encryption_key_history_entries([
-    ///         EncryptionKeyHistoryEntry::default()/* use setters */,
-    ///         EncryptionKeyHistoryEntry::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_encryption_key_history_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1865,12 +1206,6 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [service_agent_email][crate::model::AutonomousDatabaseProperties::service_agent_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
-    /// let x = AutonomousDatabaseProperties::new().set_service_agent_email("example");
-    /// ```
     pub fn set_service_agent_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3440,13 +2775,6 @@ impl EncryptionKeyHistoryEntry {
     }
 
     /// Sets the value of [encryption_key][crate::model::EncryptionKeyHistoryEntry::encryption_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::EncryptionKeyHistoryEntry;
-    /// use google_cloud_oracledatabase_v1::model::EncryptionKey;
-    /// let x = EncryptionKeyHistoryEntry::new().set_encryption_key(EncryptionKey::default()/* use setters */);
-    /// ```
     pub fn set_encryption_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionKey>,
@@ -3456,14 +2784,6 @@ impl EncryptionKeyHistoryEntry {
     }
 
     /// Sets or clears the value of [encryption_key][crate::model::EncryptionKeyHistoryEntry::encryption_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::EncryptionKeyHistoryEntry;
-    /// use google_cloud_oracledatabase_v1::model::EncryptionKey;
-    /// let x = EncryptionKeyHistoryEntry::new().set_or_clear_encryption_key(Some(EncryptionKey::default()/* use setters */));
-    /// let x = EncryptionKeyHistoryEntry::new().set_or_clear_encryption_key(None::<EncryptionKey>);
-    /// ```
     pub fn set_or_clear_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionKey>,
@@ -3473,13 +2793,6 @@ impl EncryptionKeyHistoryEntry {
     }
 
     /// Sets the value of [activation_time][crate::model::EncryptionKeyHistoryEntry::activation_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::EncryptionKeyHistoryEntry;
-    /// use wkt::Timestamp;
-    /// let x = EncryptionKeyHistoryEntry::new().set_activation_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_activation_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3489,14 +2802,6 @@ impl EncryptionKeyHistoryEntry {
     }
 
     /// Sets or clears the value of [activation_time][crate::model::EncryptionKeyHistoryEntry::activation_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::EncryptionKeyHistoryEntry;
-    /// use wkt::Timestamp;
-    /// let x = EncryptionKeyHistoryEntry::new().set_or_clear_activation_time(Some(Timestamp::default()/* use setters */));
-    /// let x = EncryptionKeyHistoryEntry::new().set_or_clear_activation_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_activation_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3534,14 +2839,6 @@ impl EncryptionKey {
     }
 
     /// Sets the value of [provider][crate::model::EncryptionKey::provider].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::EncryptionKey;
-    /// use google_cloud_oracledatabase_v1::model::encryption_key::Provider;
-    /// let x0 = EncryptionKey::new().set_provider(Provider::GoogleManaged);
-    /// let x1 = EncryptionKey::new().set_provider(Provider::OracleManaged);
-    /// ```
     pub fn set_provider<T: std::convert::Into<crate::model::encryption_key::Provider>>(
         mut self,
         v: T,
@@ -3551,12 +2848,6 @@ impl EncryptionKey {
     }
 
     /// Sets the value of [kms_key][crate::model::EncryptionKey::kms_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::EncryptionKey;
-    /// let x = EncryptionKey::new().set_kms_key("example");
-    /// ```
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
@@ -3727,24 +3018,12 @@ impl AutonomousDatabaseApex {
     }
 
     /// Sets the value of [apex_version][crate::model::AutonomousDatabaseApex::apex_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseApex;
-    /// let x = AutonomousDatabaseApex::new().set_apex_version("example");
-    /// ```
     pub fn set_apex_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.apex_version = v.into();
         self
     }
 
     /// Sets the value of [ords_version][crate::model::AutonomousDatabaseApex::ords_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseApex;
-    /// let x = AutonomousDatabaseApex::new().set_ords_version("example");
-    /// ```
     pub fn set_ords_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ords_version = v.into();
         self
@@ -3796,13 +3075,6 @@ impl AutonomousDatabaseConnectionStrings {
     }
 
     /// Sets the value of [all_connection_strings][crate::model::AutonomousDatabaseConnectionStrings::all_connection_strings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionStrings;
-    /// use google_cloud_oracledatabase_v1::model::AllConnectionStrings;
-    /// let x = AutonomousDatabaseConnectionStrings::new().set_all_connection_strings(AllConnectionStrings::default()/* use setters */);
-    /// ```
     pub fn set_all_connection_strings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AllConnectionStrings>,
@@ -3812,14 +3084,6 @@ impl AutonomousDatabaseConnectionStrings {
     }
 
     /// Sets or clears the value of [all_connection_strings][crate::model::AutonomousDatabaseConnectionStrings::all_connection_strings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionStrings;
-    /// use google_cloud_oracledatabase_v1::model::AllConnectionStrings;
-    /// let x = AutonomousDatabaseConnectionStrings::new().set_or_clear_all_connection_strings(Some(AllConnectionStrings::default()/* use setters */));
-    /// let x = AutonomousDatabaseConnectionStrings::new().set_or_clear_all_connection_strings(None::<AllConnectionStrings>);
-    /// ```
     pub fn set_or_clear_all_connection_strings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AllConnectionStrings>,
@@ -3829,65 +3093,30 @@ impl AutonomousDatabaseConnectionStrings {
     }
 
     /// Sets the value of [dedicated][crate::model::AutonomousDatabaseConnectionStrings::dedicated].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionStrings;
-    /// let x = AutonomousDatabaseConnectionStrings::new().set_dedicated("example");
-    /// ```
     pub fn set_dedicated<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dedicated = v.into();
         self
     }
 
     /// Sets the value of [high][crate::model::AutonomousDatabaseConnectionStrings::high].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionStrings;
-    /// let x = AutonomousDatabaseConnectionStrings::new().set_high("example");
-    /// ```
     pub fn set_high<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.high = v.into();
         self
     }
 
     /// Sets the value of [low][crate::model::AutonomousDatabaseConnectionStrings::low].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionStrings;
-    /// let x = AutonomousDatabaseConnectionStrings::new().set_low("example");
-    /// ```
     pub fn set_low<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.low = v.into();
         self
     }
 
     /// Sets the value of [medium][crate::model::AutonomousDatabaseConnectionStrings::medium].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionStrings;
-    /// let x = AutonomousDatabaseConnectionStrings::new().set_medium("example");
-    /// ```
     pub fn set_medium<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.medium = v.into();
         self
     }
 
     /// Sets the value of [profiles][crate::model::AutonomousDatabaseConnectionStrings::profiles].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionStrings;
-    /// use google_cloud_oracledatabase_v1::model::DatabaseConnectionStringProfile;
-    /// let x = AutonomousDatabaseConnectionStrings::new()
-    ///     .set_profiles([
-    ///         DatabaseConnectionStringProfile::default()/* use setters */,
-    ///         DatabaseConnectionStringProfile::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_profiles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3949,15 +3178,6 @@ impl DatabaseConnectionStringProfile {
     }
 
     /// Sets the value of [consumer_group][crate::model::DatabaseConnectionStringProfile::consumer_group].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnectionStringProfile;
-    /// use google_cloud_oracledatabase_v1::model::database_connection_string_profile::ConsumerGroup;
-    /// let x0 = DatabaseConnectionStringProfile::new().set_consumer_group(ConsumerGroup::High);
-    /// let x1 = DatabaseConnectionStringProfile::new().set_consumer_group(ConsumerGroup::Medium);
-    /// let x2 = DatabaseConnectionStringProfile::new().set_consumer_group(ConsumerGroup::Low);
-    /// ```
     pub fn set_consumer_group<
         T: std::convert::Into<crate::model::database_connection_string_profile::ConsumerGroup>,
     >(
@@ -3969,26 +3189,12 @@ impl DatabaseConnectionStringProfile {
     }
 
     /// Sets the value of [display_name][crate::model::DatabaseConnectionStringProfile::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnectionStringProfile;
-    /// let x = DatabaseConnectionStringProfile::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [host_format][crate::model::DatabaseConnectionStringProfile::host_format].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnectionStringProfile;
-    /// use google_cloud_oracledatabase_v1::model::database_connection_string_profile::HostFormat;
-    /// let x0 = DatabaseConnectionStringProfile::new().set_host_format(HostFormat::Fqdn);
-    /// let x1 = DatabaseConnectionStringProfile::new().set_host_format(HostFormat::Ip);
-    /// ```
     pub fn set_host_format<
         T: std::convert::Into<crate::model::database_connection_string_profile::HostFormat>,
     >(
@@ -4000,26 +3206,12 @@ impl DatabaseConnectionStringProfile {
     }
 
     /// Sets the value of [is_regional][crate::model::DatabaseConnectionStringProfile::is_regional].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnectionStringProfile;
-    /// let x = DatabaseConnectionStringProfile::new().set_is_regional(true);
-    /// ```
     pub fn set_is_regional<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_regional = v.into();
         self
     }
 
     /// Sets the value of [protocol][crate::model::DatabaseConnectionStringProfile::protocol].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnectionStringProfile;
-    /// use google_cloud_oracledatabase_v1::model::database_connection_string_profile::Protocol;
-    /// let x0 = DatabaseConnectionStringProfile::new().set_protocol(Protocol::Tcp);
-    /// let x1 = DatabaseConnectionStringProfile::new().set_protocol(Protocol::Tcps);
-    /// ```
     pub fn set_protocol<
         T: std::convert::Into<crate::model::database_connection_string_profile::Protocol>,
     >(
@@ -4031,14 +3223,6 @@ impl DatabaseConnectionStringProfile {
     }
 
     /// Sets the value of [session_mode][crate::model::DatabaseConnectionStringProfile::session_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnectionStringProfile;
-    /// use google_cloud_oracledatabase_v1::model::database_connection_string_profile::SessionMode;
-    /// let x0 = DatabaseConnectionStringProfile::new().set_session_mode(SessionMode::Direct);
-    /// let x1 = DatabaseConnectionStringProfile::new().set_session_mode(SessionMode::Indirect);
-    /// ```
     pub fn set_session_mode<
         T: std::convert::Into<crate::model::database_connection_string_profile::SessionMode>,
     >(
@@ -4050,15 +3234,6 @@ impl DatabaseConnectionStringProfile {
     }
 
     /// Sets the value of [syntax_format][crate::model::DatabaseConnectionStringProfile::syntax_format].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnectionStringProfile;
-    /// use google_cloud_oracledatabase_v1::model::database_connection_string_profile::SyntaxFormat;
-    /// let x0 = DatabaseConnectionStringProfile::new().set_syntax_format(SyntaxFormat::Long);
-    /// let x1 = DatabaseConnectionStringProfile::new().set_syntax_format(SyntaxFormat::Ezconnect);
-    /// let x2 = DatabaseConnectionStringProfile::new().set_syntax_format(SyntaxFormat::Ezconnectplus);
-    /// ```
     pub fn set_syntax_format<
         T: std::convert::Into<crate::model::database_connection_string_profile::SyntaxFormat>,
     >(
@@ -4070,14 +3245,6 @@ impl DatabaseConnectionStringProfile {
     }
 
     /// Sets the value of [tls_authentication][crate::model::DatabaseConnectionStringProfile::tls_authentication].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnectionStringProfile;
-    /// use google_cloud_oracledatabase_v1::model::database_connection_string_profile::TLSAuthentication;
-    /// let x0 = DatabaseConnectionStringProfile::new().set_tls_authentication(TLSAuthentication::Server);
-    /// let x1 = DatabaseConnectionStringProfile::new().set_tls_authentication(TLSAuthentication::Mutual);
-    /// ```
     pub fn set_tls_authentication<
         T: std::convert::Into<crate::model::database_connection_string_profile::TLSAuthentication>,
     >(
@@ -4089,12 +3256,6 @@ impl DatabaseConnectionStringProfile {
     }
 
     /// Sets the value of [value][crate::model::DatabaseConnectionStringProfile::value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnectionStringProfile;
-    /// let x = DatabaseConnectionStringProfile::new().set_value("example");
-    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -4959,36 +4120,18 @@ impl AllConnectionStrings {
     }
 
     /// Sets the value of [high][crate::model::AllConnectionStrings::high].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AllConnectionStrings;
-    /// let x = AllConnectionStrings::new().set_high("example");
-    /// ```
     pub fn set_high<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.high = v.into();
         self
     }
 
     /// Sets the value of [low][crate::model::AllConnectionStrings::low].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AllConnectionStrings;
-    /// let x = AllConnectionStrings::new().set_low("example");
-    /// ```
     pub fn set_low<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.low = v.into();
         self
     }
 
     /// Sets the value of [medium][crate::model::AllConnectionStrings::medium].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AllConnectionStrings;
-    /// let x = AllConnectionStrings::new().set_medium("example");
-    /// ```
     pub fn set_medium<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.medium = v.into();
         self
@@ -5045,24 +4188,12 @@ impl AutonomousDatabaseConnectionUrls {
     }
 
     /// Sets the value of [apex_uri][crate::model::AutonomousDatabaseConnectionUrls::apex_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionUrls;
-    /// let x = AutonomousDatabaseConnectionUrls::new().set_apex_uri("example");
-    /// ```
     pub fn set_apex_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.apex_uri = v.into();
         self
     }
 
     /// Sets the value of [database_transforms_uri][crate::model::AutonomousDatabaseConnectionUrls::database_transforms_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionUrls;
-    /// let x = AutonomousDatabaseConnectionUrls::new().set_database_transforms_uri("example");
-    /// ```
     pub fn set_database_transforms_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5072,12 +4203,6 @@ impl AutonomousDatabaseConnectionUrls {
     }
 
     /// Sets the value of [graph_studio_uri][crate::model::AutonomousDatabaseConnectionUrls::graph_studio_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionUrls;
-    /// let x = AutonomousDatabaseConnectionUrls::new().set_graph_studio_uri("example");
-    /// ```
     pub fn set_graph_studio_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5087,12 +4212,6 @@ impl AutonomousDatabaseConnectionUrls {
     }
 
     /// Sets the value of [machine_learning_notebook_uri][crate::model::AutonomousDatabaseConnectionUrls::machine_learning_notebook_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionUrls;
-    /// let x = AutonomousDatabaseConnectionUrls::new().set_machine_learning_notebook_uri("example");
-    /// ```
     pub fn set_machine_learning_notebook_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5102,12 +4221,6 @@ impl AutonomousDatabaseConnectionUrls {
     }
 
     /// Sets the value of [machine_learning_user_management_uri][crate::model::AutonomousDatabaseConnectionUrls::machine_learning_user_management_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionUrls;
-    /// let x = AutonomousDatabaseConnectionUrls::new().set_machine_learning_user_management_uri("example");
-    /// ```
     pub fn set_machine_learning_user_management_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5117,36 +4230,18 @@ impl AutonomousDatabaseConnectionUrls {
     }
 
     /// Sets the value of [mongo_db_uri][crate::model::AutonomousDatabaseConnectionUrls::mongo_db_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionUrls;
-    /// let x = AutonomousDatabaseConnectionUrls::new().set_mongo_db_uri("example");
-    /// ```
     pub fn set_mongo_db_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mongo_db_uri = v.into();
         self
     }
 
     /// Sets the value of [ords_uri][crate::model::AutonomousDatabaseConnectionUrls::ords_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionUrls;
-    /// let x = AutonomousDatabaseConnectionUrls::new().set_ords_uri("example");
-    /// ```
     pub fn set_ords_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ords_uri = v.into();
         self
     }
 
     /// Sets the value of [sql_dev_web_uri][crate::model::AutonomousDatabaseConnectionUrls::sql_dev_web_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseConnectionUrls;
-    /// let x = AutonomousDatabaseConnectionUrls::new().set_sql_dev_web_uri("example");
-    /// ```
     pub fn set_sql_dev_web_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sql_dev_web_uri = v.into();
         self
@@ -5192,13 +4287,6 @@ impl AutonomousDatabaseStandbySummary {
     }
 
     /// Sets the value of [lag_time_duration][crate::model::AutonomousDatabaseStandbySummary::lag_time_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseStandbySummary;
-    /// use wkt::Duration;
-    /// let x = AutonomousDatabaseStandbySummary::new().set_lag_time_duration(Duration::default()/* use setters */);
-    /// ```
     pub fn set_lag_time_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5208,14 +4296,6 @@ impl AutonomousDatabaseStandbySummary {
     }
 
     /// Sets or clears the value of [lag_time_duration][crate::model::AutonomousDatabaseStandbySummary::lag_time_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseStandbySummary;
-    /// use wkt::Duration;
-    /// let x = AutonomousDatabaseStandbySummary::new().set_or_clear_lag_time_duration(Some(Duration::default()/* use setters */));
-    /// let x = AutonomousDatabaseStandbySummary::new().set_or_clear_lag_time_duration(None::<Duration>);
-    /// ```
     pub fn set_or_clear_lag_time_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5225,12 +4305,6 @@ impl AutonomousDatabaseStandbySummary {
     }
 
     /// Sets the value of [lifecycle_details][crate::model::AutonomousDatabaseStandbySummary::lifecycle_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseStandbySummary;
-    /// let x = AutonomousDatabaseStandbySummary::new().set_lifecycle_details("example");
-    /// ```
     pub fn set_lifecycle_details<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5240,28 +4314,12 @@ impl AutonomousDatabaseStandbySummary {
     }
 
     /// Sets the value of [state][crate::model::AutonomousDatabaseStandbySummary::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseStandbySummary;
-    /// use google_cloud_oracledatabase_v1::model::State;
-    /// let x0 = AutonomousDatabaseStandbySummary::new().set_state(State::Provisioning);
-    /// let x1 = AutonomousDatabaseStandbySummary::new().set_state(State::Available);
-    /// let x2 = AutonomousDatabaseStandbySummary::new().set_state(State::Stopping);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [data_guard_role_changed_time][crate::model::AutonomousDatabaseStandbySummary::data_guard_role_changed_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseStandbySummary;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseStandbySummary::new().set_data_guard_role_changed_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_data_guard_role_changed_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5271,14 +4329,6 @@ impl AutonomousDatabaseStandbySummary {
     }
 
     /// Sets or clears the value of [data_guard_role_changed_time][crate::model::AutonomousDatabaseStandbySummary::data_guard_role_changed_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseStandbySummary;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseStandbySummary::new().set_or_clear_data_guard_role_changed_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AutonomousDatabaseStandbySummary::new().set_or_clear_data_guard_role_changed_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_data_guard_role_changed_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5288,13 +4338,6 @@ impl AutonomousDatabaseStandbySummary {
     }
 
     /// Sets the value of [disaster_recovery_role_changed_time][crate::model::AutonomousDatabaseStandbySummary::disaster_recovery_role_changed_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseStandbySummary;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseStandbySummary::new().set_disaster_recovery_role_changed_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_disaster_recovery_role_changed_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5304,14 +4347,6 @@ impl AutonomousDatabaseStandbySummary {
     }
 
     /// Sets or clears the value of [disaster_recovery_role_changed_time][crate::model::AutonomousDatabaseStandbySummary::disaster_recovery_role_changed_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseStandbySummary;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseStandbySummary::new().set_or_clear_disaster_recovery_role_changed_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AutonomousDatabaseStandbySummary::new().set_or_clear_disaster_recovery_role_changed_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_disaster_recovery_role_changed_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5353,28 +4388,12 @@ impl ScheduledOperationDetails {
     }
 
     /// Sets the value of [day_of_week][crate::model::ScheduledOperationDetails::day_of_week].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ScheduledOperationDetails;
-    /// use gtype::model::DayOfWeek;
-    /// let x0 = ScheduledOperationDetails::new().set_day_of_week(DayOfWeek::Monday);
-    /// let x1 = ScheduledOperationDetails::new().set_day_of_week(DayOfWeek::Tuesday);
-    /// let x2 = ScheduledOperationDetails::new().set_day_of_week(DayOfWeek::Wednesday);
-    /// ```
     pub fn set_day_of_week<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
         self.day_of_week = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::ScheduledOperationDetails::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ScheduledOperationDetails;
-    /// use gtype::model::TimeOfDay;
-    /// let x = ScheduledOperationDetails::new().set_start_time(TimeOfDay::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -5384,14 +4403,6 @@ impl ScheduledOperationDetails {
     }
 
     /// Sets or clears the value of [start_time][crate::model::ScheduledOperationDetails::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ScheduledOperationDetails;
-    /// use gtype::model::TimeOfDay;
-    /// let x = ScheduledOperationDetails::new().set_or_clear_start_time(Some(TimeOfDay::default()/* use setters */));
-    /// let x = ScheduledOperationDetails::new().set_or_clear_start_time(None::<TimeOfDay>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -5401,13 +4412,6 @@ impl ScheduledOperationDetails {
     }
 
     /// Sets the value of [stop_time][crate::model::ScheduledOperationDetails::stop_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ScheduledOperationDetails;
-    /// use gtype::model::TimeOfDay;
-    /// let x = ScheduledOperationDetails::new().set_stop_time(TimeOfDay::default()/* use setters */);
-    /// ```
     pub fn set_stop_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -5417,14 +4421,6 @@ impl ScheduledOperationDetails {
     }
 
     /// Sets or clears the value of [stop_time][crate::model::ScheduledOperationDetails::stop_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ScheduledOperationDetails;
-    /// use gtype::model::TimeOfDay;
-    /// let x = ScheduledOperationDetails::new().set_or_clear_stop_time(Some(TimeOfDay::default()/* use setters */));
-    /// let x = ScheduledOperationDetails::new().set_or_clear_stop_time(None::<TimeOfDay>);
-    /// ```
     pub fn set_or_clear_stop_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -5466,26 +4462,12 @@ impl AutonomousDatabaseCharacterSet {
     }
 
     /// Sets the value of [name][crate::model::AutonomousDatabaseCharacterSet::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseCharacterSet;
-    /// let x = AutonomousDatabaseCharacterSet::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [character_set_type][crate::model::AutonomousDatabaseCharacterSet::character_set_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseCharacterSet;
-    /// use google_cloud_oracledatabase_v1::model::autonomous_database_character_set::CharacterSetType;
-    /// let x0 = AutonomousDatabaseCharacterSet::new().set_character_set_type(CharacterSetType::Database);
-    /// let x1 = AutonomousDatabaseCharacterSet::new().set_character_set_type(CharacterSetType::National);
-    /// ```
     pub fn set_character_set_type<
         T: std::convert::Into<crate::model::autonomous_database_character_set::CharacterSetType>,
     >(
@@ -5497,12 +4479,6 @@ impl AutonomousDatabaseCharacterSet {
     }
 
     /// Sets the value of [character_set][crate::model::AutonomousDatabaseCharacterSet::character_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseCharacterSet;
-    /// let x = AutonomousDatabaseCharacterSet::new().set_character_set("example");
-    /// ```
     pub fn set_character_set<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.character_set = v.into();
         self
@@ -5687,24 +4663,12 @@ impl AutonomousDatabaseBackup {
     }
 
     /// Sets the value of [name][crate::model::AutonomousDatabaseBackup::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackup;
-    /// let x = AutonomousDatabaseBackup::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [autonomous_database][crate::model::AutonomousDatabaseBackup::autonomous_database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackup;
-    /// let x = AutonomousDatabaseBackup::new().set_autonomous_database("example");
-    /// ```
     pub fn set_autonomous_database<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5714,25 +4678,12 @@ impl AutonomousDatabaseBackup {
     }
 
     /// Sets the value of [display_name][crate::model::AutonomousDatabaseBackup::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackup;
-    /// let x = AutonomousDatabaseBackup::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [properties][crate::model::AutonomousDatabaseBackup::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackup;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// let x = AutonomousDatabaseBackup::new().set_properties(AutonomousDatabaseBackupProperties::default()/* use setters */);
-    /// ```
     pub fn set_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabaseBackupProperties>,
@@ -5742,14 +4693,6 @@ impl AutonomousDatabaseBackup {
     }
 
     /// Sets or clears the value of [properties][crate::model::AutonomousDatabaseBackup::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackup;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// let x = AutonomousDatabaseBackup::new().set_or_clear_properties(Some(AutonomousDatabaseBackupProperties::default()/* use setters */));
-    /// let x = AutonomousDatabaseBackup::new().set_or_clear_properties(None::<AutonomousDatabaseBackupProperties>);
-    /// ```
     pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabaseBackupProperties>,
@@ -5759,15 +4702,6 @@ impl AutonomousDatabaseBackup {
     }
 
     /// Sets the value of [labels][crate::model::AutonomousDatabaseBackup::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackup;
-    /// let x = AutonomousDatabaseBackup::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5867,120 +4801,60 @@ impl AutonomousDatabaseBackupProperties {
     }
 
     /// Sets the value of [ocid][crate::model::AutonomousDatabaseBackupProperties::ocid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_ocid("example");
-    /// ```
     pub fn set_ocid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ocid = v.into();
         self
     }
 
     /// Sets the value of [retention_period_days][crate::model::AutonomousDatabaseBackupProperties::retention_period_days].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_retention_period_days(42);
-    /// ```
     pub fn set_retention_period_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.retention_period_days = v.into();
         self
     }
 
     /// Sets the value of [compartment_id][crate::model::AutonomousDatabaseBackupProperties::compartment_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_compartment_id("example");
-    /// ```
     pub fn set_compartment_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.compartment_id = v.into();
         self
     }
 
     /// Sets the value of [database_size_tb][crate::model::AutonomousDatabaseBackupProperties::database_size_tb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_database_size_tb(42.0);
-    /// ```
     pub fn set_database_size_tb<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.database_size_tb = v.into();
         self
     }
 
     /// Sets the value of [db_version][crate::model::AutonomousDatabaseBackupProperties::db_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_db_version("example");
-    /// ```
     pub fn set_db_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.db_version = v.into();
         self
     }
 
     /// Sets the value of [is_long_term_backup][crate::model::AutonomousDatabaseBackupProperties::is_long_term_backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_is_long_term_backup(true);
-    /// ```
     pub fn set_is_long_term_backup<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_long_term_backup = v.into();
         self
     }
 
     /// Sets the value of [is_automatic_backup][crate::model::AutonomousDatabaseBackupProperties::is_automatic_backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_is_automatic_backup(true);
-    /// ```
     pub fn set_is_automatic_backup<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_automatic_backup = v.into();
         self
     }
 
     /// Sets the value of [is_restorable][crate::model::AutonomousDatabaseBackupProperties::is_restorable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_is_restorable(true);
-    /// ```
     pub fn set_is_restorable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_restorable = v.into();
         self
     }
 
     /// Sets the value of [key_store_id][crate::model::AutonomousDatabaseBackupProperties::key_store_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_key_store_id("example");
-    /// ```
     pub fn set_key_store_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_store_id = v.into();
         self
     }
 
     /// Sets the value of [key_store_wallet][crate::model::AutonomousDatabaseBackupProperties::key_store_wallet].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_key_store_wallet("example");
-    /// ```
     pub fn set_key_store_wallet<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5990,24 +4864,12 @@ impl AutonomousDatabaseBackupProperties {
     }
 
     /// Sets the value of [kms_key_id][crate::model::AutonomousDatabaseBackupProperties::kms_key_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_kms_key_id("example");
-    /// ```
     pub fn set_kms_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_id = v.into();
         self
     }
 
     /// Sets the value of [kms_key_version_id][crate::model::AutonomousDatabaseBackupProperties::kms_key_version_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_kms_key_version_id("example");
-    /// ```
     pub fn set_kms_key_version_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6017,12 +4879,6 @@ impl AutonomousDatabaseBackupProperties {
     }
 
     /// Sets the value of [lifecycle_details][crate::model::AutonomousDatabaseBackupProperties::lifecycle_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_lifecycle_details("example");
-    /// ```
     pub fn set_lifecycle_details<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6032,15 +4888,6 @@ impl AutonomousDatabaseBackupProperties {
     }
 
     /// Sets the value of [lifecycle_state][crate::model::AutonomousDatabaseBackupProperties::lifecycle_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// use google_cloud_oracledatabase_v1::model::autonomous_database_backup_properties::State;
-    /// let x0 = AutonomousDatabaseBackupProperties::new().set_lifecycle_state(State::Creating);
-    /// let x1 = AutonomousDatabaseBackupProperties::new().set_lifecycle_state(State::Active);
-    /// let x2 = AutonomousDatabaseBackupProperties::new().set_lifecycle_state(State::Deleting);
-    /// ```
     pub fn set_lifecycle_state<
         T: std::convert::Into<crate::model::autonomous_database_backup_properties::State>,
     >(
@@ -6052,25 +4899,12 @@ impl AutonomousDatabaseBackupProperties {
     }
 
     /// Sets the value of [size_tb][crate::model::AutonomousDatabaseBackupProperties::size_tb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_size_tb(42.0);
-    /// ```
     pub fn set_size_tb<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.size_tb = v.into();
         self
     }
 
     /// Sets the value of [available_till_time][crate::model::AutonomousDatabaseBackupProperties::available_till_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_available_till_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_available_till_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6080,14 +4914,6 @@ impl AutonomousDatabaseBackupProperties {
     }
 
     /// Sets or clears the value of [available_till_time][crate::model::AutonomousDatabaseBackupProperties::available_till_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_or_clear_available_till_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AutonomousDatabaseBackupProperties::new().set_or_clear_available_till_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_available_till_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6097,13 +4923,6 @@ impl AutonomousDatabaseBackupProperties {
     }
 
     /// Sets the value of [end_time][crate::model::AutonomousDatabaseBackupProperties::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6113,14 +4932,6 @@ impl AutonomousDatabaseBackupProperties {
     }
 
     /// Sets or clears the value of [end_time][crate::model::AutonomousDatabaseBackupProperties::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AutonomousDatabaseBackupProperties::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6130,13 +4941,6 @@ impl AutonomousDatabaseBackupProperties {
     }
 
     /// Sets the value of [start_time][crate::model::AutonomousDatabaseBackupProperties::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6146,14 +4950,6 @@ impl AutonomousDatabaseBackupProperties {
     }
 
     /// Sets or clears the value of [start_time][crate::model::AutonomousDatabaseBackupProperties::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// use wkt::Timestamp;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AutonomousDatabaseBackupProperties::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6163,15 +4959,6 @@ impl AutonomousDatabaseBackupProperties {
     }
 
     /// Sets the value of [r#type][crate::model::AutonomousDatabaseBackupProperties::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// use google_cloud_oracledatabase_v1::model::autonomous_database_backup_properties::Type;
-    /// let x0 = AutonomousDatabaseBackupProperties::new().set_type(Type::Incremental);
-    /// let x1 = AutonomousDatabaseBackupProperties::new().set_type(Type::Full);
-    /// let x2 = AutonomousDatabaseBackupProperties::new().set_type(Type::LongTerm);
-    /// ```
     pub fn set_type<
         T: std::convert::Into<crate::model::autonomous_database_backup_properties::Type>,
     >(
@@ -6183,12 +4970,6 @@ impl AutonomousDatabaseBackupProperties {
     }
 
     /// Sets the value of [vault_id][crate::model::AutonomousDatabaseBackupProperties::vault_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackupProperties;
-    /// let x = AutonomousDatabaseBackupProperties::new().set_vault_id("example");
-    /// ```
     pub fn set_vault_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vault_id = v.into();
         self
@@ -6535,39 +5316,18 @@ impl AutonomousDbVersion {
     }
 
     /// Sets the value of [name][crate::model::AutonomousDbVersion::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDbVersion;
-    /// let x = AutonomousDbVersion::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::AutonomousDbVersion::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDbVersion;
-    /// let x = AutonomousDbVersion::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [db_workload][crate::model::AutonomousDbVersion::db_workload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDbVersion;
-    /// use google_cloud_oracledatabase_v1::model::DBWorkload;
-    /// let x0 = AutonomousDbVersion::new().set_db_workload(DBWorkload::Oltp);
-    /// let x1 = AutonomousDbVersion::new().set_db_workload(DBWorkload::Dw);
-    /// let x2 = AutonomousDbVersion::new().set_db_workload(DBWorkload::Ajd);
-    /// ```
     pub fn set_db_workload<T: std::convert::Into<crate::model::DBWorkload>>(
         mut self,
         v: T,
@@ -6577,12 +5337,6 @@ impl AutonomousDbVersion {
     }
 
     /// Sets the value of [workload_uri][crate::model::AutonomousDbVersion::workload_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::AutonomousDbVersion;
-    /// let x = AutonomousDbVersion::new().set_workload_uri("example");
-    /// ```
     pub fn set_workload_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workload_uri = v.into();
         self
@@ -6613,12 +5367,6 @@ impl CustomerContact {
     }
 
     /// Sets the value of [email][crate::model::CustomerContact::email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CustomerContact;
-    /// let x = CustomerContact::new().set_email("example");
-    /// ```
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
         self
@@ -6653,12 +5401,6 @@ impl IdentityConnector {
     }
 
     /// Sets the value of [service_agent_email][crate::model::IdentityConnector::service_agent_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::IdentityConnector;
-    /// let x = IdentityConnector::new().set_service_agent_email("example");
-    /// ```
     pub fn set_service_agent_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6668,15 +5410,6 @@ impl IdentityConnector {
     }
 
     /// Sets the value of [connection_state][crate::model::IdentityConnector::connection_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::IdentityConnector;
-    /// use google_cloud_oracledatabase_v1::model::identity_connector::ConnectionState;
-    /// let x0 = IdentityConnector::new().set_connection_state(ConnectionState::Connected);
-    /// let x1 = IdentityConnector::new().set_connection_state(ConnectionState::PartiallyConnected);
-    /// let x2 = IdentityConnector::new().set_connection_state(ConnectionState::Disconnected);
-    /// ```
     pub fn set_connection_state<
         T: std::convert::Into<crate::model::identity_connector::ConnectionState>,
     >(
@@ -6869,36 +5602,18 @@ impl DataCollectionOptionsCommon {
     }
 
     /// Sets the value of [is_diagnostics_events_enabled][crate::model::DataCollectionOptionsCommon::is_diagnostics_events_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DataCollectionOptionsCommon;
-    /// let x = DataCollectionOptionsCommon::new().set_is_diagnostics_events_enabled(true);
-    /// ```
     pub fn set_is_diagnostics_events_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_diagnostics_events_enabled = v.into();
         self
     }
 
     /// Sets the value of [is_health_monitoring_enabled][crate::model::DataCollectionOptionsCommon::is_health_monitoring_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DataCollectionOptionsCommon;
-    /// let x = DataCollectionOptionsCommon::new().set_is_health_monitoring_enabled(true);
-    /// ```
     pub fn set_is_health_monitoring_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_health_monitoring_enabled = v.into();
         self
     }
 
     /// Sets the value of [is_incident_logs_enabled][crate::model::DataCollectionOptionsCommon::is_incident_logs_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DataCollectionOptionsCommon;
-    /// let x = DataCollectionOptionsCommon::new().set_is_incident_logs_enabled(true);
-    /// ```
     pub fn set_is_incident_logs_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_incident_logs_enabled = v.into();
         self
@@ -6972,60 +5687,30 @@ impl Database {
     }
 
     /// Sets the value of [name][crate::model::Database::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Database;
-    /// let x = Database::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [db_name][crate::model::Database::db_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Database;
-    /// let x = Database::new().set_db_name("example");
-    /// ```
     pub fn set_db_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.db_name = v.into();
         self
     }
 
     /// Sets the value of [db_unique_name][crate::model::Database::db_unique_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Database;
-    /// let x = Database::new().set_db_unique_name("example");
-    /// ```
     pub fn set_db_unique_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.db_unique_name = v.into();
         self
     }
 
     /// Sets the value of [admin_password][crate::model::Database::admin_password].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Database;
-    /// let x = Database::new().set_admin_password("example");
-    /// ```
     pub fn set_admin_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.admin_password = v.into();
         self
     }
 
     /// Sets the value of [tde_wallet_password][crate::model::Database::tde_wallet_password].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Database;
-    /// let x = Database::new().set_tde_wallet_password("example");
-    /// ```
     pub fn set_tde_wallet_password<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7035,49 +5720,24 @@ impl Database {
     }
 
     /// Sets the value of [character_set][crate::model::Database::character_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Database;
-    /// let x = Database::new().set_character_set("example");
-    /// ```
     pub fn set_character_set<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.character_set = v.into();
         self
     }
 
     /// Sets the value of [ncharacter_set][crate::model::Database::ncharacter_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Database;
-    /// let x = Database::new().set_ncharacter_set("example");
-    /// ```
     pub fn set_ncharacter_set<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ncharacter_set = v.into();
         self
     }
 
     /// Sets the value of [oci_url][crate::model::Database::oci_url].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Database;
-    /// let x = Database::new().set_oci_url("example");
-    /// ```
     pub fn set_oci_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.oci_url = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Database::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Database;
-    /// use wkt::Timestamp;
-    /// let x = Database::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7087,14 +5747,6 @@ impl Database {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Database::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Database;
-    /// use wkt::Timestamp;
-    /// let x = Database::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Database::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7104,13 +5756,6 @@ impl Database {
     }
 
     /// Sets the value of [properties][crate::model::Database::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Database;
-    /// use google_cloud_oracledatabase_v1::model::DatabaseProperties;
-    /// let x = Database::new().set_properties(DatabaseProperties::default()/* use setters */);
-    /// ```
     pub fn set_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseProperties>,
@@ -7120,14 +5765,6 @@ impl Database {
     }
 
     /// Sets or clears the value of [properties][crate::model::Database::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Database;
-    /// use google_cloud_oracledatabase_v1::model::DatabaseProperties;
-    /// let x = Database::new().set_or_clear_properties(Some(DatabaseProperties::default()/* use setters */));
-    /// let x = Database::new().set_or_clear_properties(None::<DatabaseProperties>);
-    /// ```
     pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseProperties>,
@@ -7137,51 +5774,24 @@ impl Database {
     }
 
     /// Sets the value of [database_id][crate::model::Database::database_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Database;
-    /// let x = Database::new().set_database_id("example");
-    /// ```
     pub fn set_database_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database_id = v.into();
         self
     }
 
     /// Sets the value of [db_home_name][crate::model::Database::db_home_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Database;
-    /// let x = Database::new().set_db_home_name("example");
-    /// ```
     pub fn set_db_home_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.db_home_name = v.into();
         self
     }
 
     /// Sets the value of [gcp_oracle_zone][crate::model::Database::gcp_oracle_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Database;
-    /// let x = Database::new().set_gcp_oracle_zone("example");
-    /// ```
     pub fn set_gcp_oracle_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcp_oracle_zone = v.into();
         self
     }
 
     /// Sets the value of [ops_insights_status][crate::model::Database::ops_insights_status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Database;
-    /// use google_cloud_oracledatabase_v1::model::database::OperationsInsightsStatus;
-    /// let x0 = Database::new().set_ops_insights_status(OperationsInsightsStatus::Enabling);
-    /// let x1 = Database::new().set_ops_insights_status(OperationsInsightsStatus::Enabled);
-    /// let x2 = Database::new().set_ops_insights_status(OperationsInsightsStatus::Disabling);
-    /// ```
     pub fn set_ops_insights_status<
         T: std::convert::Into<crate::model::database::OperationsInsightsStatus>,
     >(
@@ -7394,15 +6004,6 @@ impl DatabaseProperties {
     }
 
     /// Sets the value of [state][crate::model::DatabaseProperties::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::database_properties::DatabaseLifecycleState;
-    /// let x0 = DatabaseProperties::new().set_state(DatabaseLifecycleState::Provisioning);
-    /// let x1 = DatabaseProperties::new().set_state(DatabaseLifecycleState::Available);
-    /// let x2 = DatabaseProperties::new().set_state(DatabaseLifecycleState::Updating);
-    /// ```
     pub fn set_state<
         T: std::convert::Into<crate::model::database_properties::DatabaseLifecycleState>,
     >(
@@ -7414,25 +6015,12 @@ impl DatabaseProperties {
     }
 
     /// Sets the value of [db_version][crate::model::DatabaseProperties::db_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseProperties;
-    /// let x = DatabaseProperties::new().set_db_version("example");
-    /// ```
     pub fn set_db_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.db_version = v.into();
         self
     }
 
     /// Sets the value of [db_backup_config][crate::model::DatabaseProperties::db_backup_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::DbBackupConfig;
-    /// let x = DatabaseProperties::new().set_db_backup_config(DbBackupConfig::default()/* use setters */);
-    /// ```
     pub fn set_db_backup_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DbBackupConfig>,
@@ -7442,14 +6030,6 @@ impl DatabaseProperties {
     }
 
     /// Sets or clears the value of [db_backup_config][crate::model::DatabaseProperties::db_backup_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::DbBackupConfig;
-    /// let x = DatabaseProperties::new().set_or_clear_db_backup_config(Some(DbBackupConfig::default()/* use setters */));
-    /// let x = DatabaseProperties::new().set_or_clear_db_backup_config(None::<DbBackupConfig>);
-    /// ```
     pub fn set_or_clear_db_backup_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DbBackupConfig>,
@@ -7459,13 +6039,6 @@ impl DatabaseProperties {
     }
 
     /// Sets the value of [database_management_config][crate::model::DatabaseProperties::database_management_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::DatabaseManagementConfig;
-    /// let x = DatabaseProperties::new().set_database_management_config(DatabaseManagementConfig::default()/* use setters */);
-    /// ```
     pub fn set_database_management_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseManagementConfig>,
@@ -7475,14 +6048,6 @@ impl DatabaseProperties {
     }
 
     /// Sets or clears the value of [database_management_config][crate::model::DatabaseProperties::database_management_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::DatabaseManagementConfig;
-    /// let x = DatabaseProperties::new().set_or_clear_database_management_config(Some(DatabaseManagementConfig::default()/* use setters */));
-    /// let x = DatabaseProperties::new().set_or_clear_database_management_config(None::<DatabaseManagementConfig>);
-    /// ```
     pub fn set_or_clear_database_management_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseManagementConfig>,
@@ -7736,29 +6301,12 @@ impl DbBackupConfig {
     }
 
     /// Sets the value of [auto_backup_enabled][crate::model::DbBackupConfig::auto_backup_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbBackupConfig;
-    /// let x = DbBackupConfig::new().set_auto_backup_enabled(true);
-    /// ```
     pub fn set_auto_backup_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.auto_backup_enabled = v.into();
         self
     }
 
     /// Sets the value of [backup_destination_details][crate::model::DbBackupConfig::backup_destination_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbBackupConfig;
-    /// use google_cloud_oracledatabase_v1::model::db_backup_config::BackupDestinationDetails;
-    /// let x = DbBackupConfig::new()
-    ///     .set_backup_destination_details([
-    ///         BackupDestinationDetails::default()/* use setters */,
-    ///         BackupDestinationDetails::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_backup_destination_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7770,26 +6318,12 @@ impl DbBackupConfig {
     }
 
     /// Sets the value of [retention_period_days][crate::model::DbBackupConfig::retention_period_days].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbBackupConfig;
-    /// let x = DbBackupConfig::new().set_retention_period_days(42);
-    /// ```
     pub fn set_retention_period_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.retention_period_days = v.into();
         self
     }
 
     /// Sets the value of [backup_deletion_policy][crate::model::DbBackupConfig::backup_deletion_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbBackupConfig;
-    /// use google_cloud_oracledatabase_v1::model::db_backup_config::BackupDeletionPolicy;
-    /// let x0 = DbBackupConfig::new().set_backup_deletion_policy(BackupDeletionPolicy::DeleteImmediately);
-    /// let x1 = DbBackupConfig::new().set_backup_deletion_policy(BackupDeletionPolicy::DeleteAfterRetentionPeriod);
-    /// ```
     pub fn set_backup_deletion_policy<
         T: std::convert::Into<crate::model::db_backup_config::BackupDeletionPolicy>,
     >(
@@ -7801,15 +6335,6 @@ impl DbBackupConfig {
     }
 
     /// Sets the value of [auto_full_backup_day][crate::model::DbBackupConfig::auto_full_backup_day].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbBackupConfig;
-    /// use gtype::model::DayOfWeek;
-    /// let x0 = DbBackupConfig::new().set_auto_full_backup_day(DayOfWeek::Monday);
-    /// let x1 = DbBackupConfig::new().set_auto_full_backup_day(DayOfWeek::Tuesday);
-    /// let x2 = DbBackupConfig::new().set_auto_full_backup_day(DayOfWeek::Wednesday);
-    /// ```
     pub fn set_auto_full_backup_day<T: std::convert::Into<gtype::model::DayOfWeek>>(
         mut self,
         v: T,
@@ -7819,15 +6344,6 @@ impl DbBackupConfig {
     }
 
     /// Sets the value of [auto_full_backup_window][crate::model::DbBackupConfig::auto_full_backup_window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbBackupConfig;
-    /// use google_cloud_oracledatabase_v1::model::db_backup_config::BackupWindow;
-    /// let x0 = DbBackupConfig::new().set_auto_full_backup_window(BackupWindow::SlotOne);
-    /// let x1 = DbBackupConfig::new().set_auto_full_backup_window(BackupWindow::SlotTwo);
-    /// let x2 = DbBackupConfig::new().set_auto_full_backup_window(BackupWindow::SlotThree);
-    /// ```
     pub fn set_auto_full_backup_window<
         T: std::convert::Into<crate::model::db_backup_config::BackupWindow>,
     >(
@@ -7839,15 +6355,6 @@ impl DbBackupConfig {
     }
 
     /// Sets the value of [auto_incremental_backup_window][crate::model::DbBackupConfig::auto_incremental_backup_window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbBackupConfig;
-    /// use google_cloud_oracledatabase_v1::model::db_backup_config::BackupWindow;
-    /// let x0 = DbBackupConfig::new().set_auto_incremental_backup_window(BackupWindow::SlotOne);
-    /// let x1 = DbBackupConfig::new().set_auto_incremental_backup_window(BackupWindow::SlotTwo);
-    /// let x2 = DbBackupConfig::new().set_auto_incremental_backup_window(BackupWindow::SlotThree);
-    /// ```
     pub fn set_auto_incremental_backup_window<
         T: std::convert::Into<crate::model::db_backup_config::BackupWindow>,
     >(
@@ -7886,15 +6393,6 @@ pub mod db_backup_config {
         }
 
         /// Sets the value of [r#type][crate::model::db_backup_config::BackupDestinationDetails::type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_oracledatabase_v1::model::db_backup_config::BackupDestinationDetails;
-        /// use google_cloud_oracledatabase_v1::model::db_backup_config::BackupDestinationType;
-        /// let x0 = BackupDestinationDetails::new().set_type(BackupDestinationType::Nfs);
-        /// let x1 = BackupDestinationDetails::new().set_type(BackupDestinationType::RecoveryAppliance);
-        /// let x2 = BackupDestinationDetails::new().set_type(BackupDestinationType::ObjectStore);
-        /// ```
         pub fn set_type<
             T: std::convert::Into<crate::model::db_backup_config::BackupDestinationType>,
         >(
@@ -8425,12 +6923,6 @@ impl GetDatabaseRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDatabaseRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::GetDatabaseRequest;
-    /// let x = GetDatabaseRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8476,48 +6968,24 @@ impl ListDatabasesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDatabasesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDatabasesRequest;
-    /// let x = ListDatabasesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDatabasesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDatabasesRequest;
-    /// let x = ListDatabasesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDatabasesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDatabasesRequest;
-    /// let x = ListDatabasesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDatabasesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDatabasesRequest;
-    /// let x = ListDatabasesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -8549,17 +7017,6 @@ impl ListDatabasesResponse {
     }
 
     /// Sets the value of [databases][crate::model::ListDatabasesResponse::databases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDatabasesResponse;
-    /// use google_cloud_oracledatabase_v1::model::Database;
-    /// let x = ListDatabasesResponse::new()
-    ///     .set_databases([
-    ///         Database::default()/* use setters */,
-    ///         Database::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_databases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8571,12 +7028,6 @@ impl ListDatabasesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDatabasesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDatabasesResponse;
-    /// let x = ListDatabasesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -8628,26 +7079,12 @@ impl DatabaseCharacterSet {
     }
 
     /// Sets the value of [name][crate::model::DatabaseCharacterSet::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseCharacterSet;
-    /// let x = DatabaseCharacterSet::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [character_set_type][crate::model::DatabaseCharacterSet::character_set_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseCharacterSet;
-    /// use google_cloud_oracledatabase_v1::model::database_character_set::CharacterSetType;
-    /// let x0 = DatabaseCharacterSet::new().set_character_set_type(CharacterSetType::Database);
-    /// let x1 = DatabaseCharacterSet::new().set_character_set_type(CharacterSetType::National);
-    /// ```
     pub fn set_character_set_type<
         T: std::convert::Into<crate::model::database_character_set::CharacterSetType>,
     >(
@@ -8659,12 +7096,6 @@ impl DatabaseCharacterSet {
     }
 
     /// Sets the value of [character_set][crate::model::DatabaseCharacterSet::character_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseCharacterSet;
-    /// let x = DatabaseCharacterSet::new().set_character_set("example");
-    /// ```
     pub fn set_character_set<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.character_set = v.into();
         self
@@ -8853,48 +7284,24 @@ impl ListDatabaseCharacterSetsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDatabaseCharacterSetsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDatabaseCharacterSetsRequest;
-    /// let x = ListDatabaseCharacterSetsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDatabaseCharacterSetsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDatabaseCharacterSetsRequest;
-    /// let x = ListDatabaseCharacterSetsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDatabaseCharacterSetsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDatabaseCharacterSetsRequest;
-    /// let x = ListDatabaseCharacterSetsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDatabaseCharacterSetsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDatabaseCharacterSetsRequest;
-    /// let x = ListDatabaseCharacterSetsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -8926,17 +7333,6 @@ impl ListDatabaseCharacterSetsResponse {
     }
 
     /// Sets the value of [database_character_sets][crate::model::ListDatabaseCharacterSetsResponse::database_character_sets].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDatabaseCharacterSetsResponse;
-    /// use google_cloud_oracledatabase_v1::model::DatabaseCharacterSet;
-    /// let x = ListDatabaseCharacterSetsResponse::new()
-    ///     .set_database_character_sets([
-    ///         DatabaseCharacterSet::default()/* use setters */,
-    ///         DatabaseCharacterSet::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_database_character_sets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8948,12 +7344,6 @@ impl ListDatabaseCharacterSetsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDatabaseCharacterSetsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDatabaseCharacterSetsResponse;
-    /// let x = ListDatabaseCharacterSetsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -9001,25 +7391,12 @@ impl DbNode {
     }
 
     /// Sets the value of [name][crate::model::DbNode::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbNode;
-    /// let x = DbNode::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [properties][crate::model::DbNode::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbNode;
-    /// use google_cloud_oracledatabase_v1::model::DbNodeProperties;
-    /// let x = DbNode::new().set_properties(DbNodeProperties::default()/* use setters */);
-    /// ```
     pub fn set_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DbNodeProperties>,
@@ -9029,14 +7406,6 @@ impl DbNode {
     }
 
     /// Sets or clears the value of [properties][crate::model::DbNode::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbNode;
-    /// use google_cloud_oracledatabase_v1::model::DbNodeProperties;
-    /// let x = DbNode::new().set_or_clear_properties(Some(DbNodeProperties::default()/* use setters */));
-    /// let x = DbNode::new().set_or_clear_properties(None::<DbNodeProperties>);
-    /// ```
     pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DbNodeProperties>,
@@ -9092,87 +7461,42 @@ impl DbNodeProperties {
     }
 
     /// Sets the value of [ocid][crate::model::DbNodeProperties::ocid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbNodeProperties;
-    /// let x = DbNodeProperties::new().set_ocid("example");
-    /// ```
     pub fn set_ocid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ocid = v.into();
         self
     }
 
     /// Sets the value of [ocpu_count][crate::model::DbNodeProperties::ocpu_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbNodeProperties;
-    /// let x = DbNodeProperties::new().set_ocpu_count(42);
-    /// ```
     pub fn set_ocpu_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.ocpu_count = v.into();
         self
     }
 
     /// Sets the value of [memory_size_gb][crate::model::DbNodeProperties::memory_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbNodeProperties;
-    /// let x = DbNodeProperties::new().set_memory_size_gb(42);
-    /// ```
     pub fn set_memory_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.memory_size_gb = v.into();
         self
     }
 
     /// Sets the value of [db_node_storage_size_gb][crate::model::DbNodeProperties::db_node_storage_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbNodeProperties;
-    /// let x = DbNodeProperties::new().set_db_node_storage_size_gb(42);
-    /// ```
     pub fn set_db_node_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.db_node_storage_size_gb = v.into();
         self
     }
 
     /// Sets the value of [db_server_ocid][crate::model::DbNodeProperties::db_server_ocid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbNodeProperties;
-    /// let x = DbNodeProperties::new().set_db_server_ocid("example");
-    /// ```
     pub fn set_db_server_ocid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.db_server_ocid = v.into();
         self
     }
 
     /// Sets the value of [hostname][crate::model::DbNodeProperties::hostname].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbNodeProperties;
-    /// let x = DbNodeProperties::new().set_hostname("example");
-    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::DbNodeProperties::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbNodeProperties;
-    /// use google_cloud_oracledatabase_v1::model::db_node_properties::State;
-    /// let x0 = DbNodeProperties::new().set_state(State::Provisioning);
-    /// let x1 = DbNodeProperties::new().set_state(State::Available);
-    /// let x2 = DbNodeProperties::new().set_state(State::Updating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::db_node_properties::State>>(
         mut self,
         v: T,
@@ -9182,25 +7506,12 @@ impl DbNodeProperties {
     }
 
     /// Sets the value of [total_cpu_core_count][crate::model::DbNodeProperties::total_cpu_core_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbNodeProperties;
-    /// let x = DbNodeProperties::new().set_total_cpu_core_count(42);
-    /// ```
     pub fn set_total_cpu_core_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_cpu_core_count = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::DbNodeProperties::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbNodeProperties;
-    /// use wkt::Timestamp;
-    /// let x = DbNodeProperties::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9210,14 +7521,6 @@ impl DbNodeProperties {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DbNodeProperties::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbNodeProperties;
-    /// use wkt::Timestamp;
-    /// let x = DbNodeProperties::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = DbNodeProperties::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9444,37 +7747,18 @@ impl DbServer {
     }
 
     /// Sets the value of [name][crate::model::DbServer::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbServer;
-    /// let x = DbServer::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::DbServer::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbServer;
-    /// let x = DbServer::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [properties][crate::model::DbServer::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbServer;
-    /// use google_cloud_oracledatabase_v1::model::DbServerProperties;
-    /// let x = DbServer::new().set_properties(DbServerProperties::default()/* use setters */);
-    /// ```
     pub fn set_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DbServerProperties>,
@@ -9484,14 +7768,6 @@ impl DbServer {
     }
 
     /// Sets or clears the value of [properties][crate::model::DbServer::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbServer;
-    /// use google_cloud_oracledatabase_v1::model::DbServerProperties;
-    /// let x = DbServer::new().set_or_clear_properties(Some(DbServerProperties::default()/* use setters */));
-    /// let x = DbServer::new().set_or_clear_properties(None::<DbServerProperties>);
-    /// ```
     pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DbServerProperties>,
@@ -9550,111 +7826,54 @@ impl DbServerProperties {
     }
 
     /// Sets the value of [ocid][crate::model::DbServerProperties::ocid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbServerProperties;
-    /// let x = DbServerProperties::new().set_ocid("example");
-    /// ```
     pub fn set_ocid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ocid = v.into();
         self
     }
 
     /// Sets the value of [ocpu_count][crate::model::DbServerProperties::ocpu_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbServerProperties;
-    /// let x = DbServerProperties::new().set_ocpu_count(42);
-    /// ```
     pub fn set_ocpu_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.ocpu_count = v.into();
         self
     }
 
     /// Sets the value of [max_ocpu_count][crate::model::DbServerProperties::max_ocpu_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbServerProperties;
-    /// let x = DbServerProperties::new().set_max_ocpu_count(42);
-    /// ```
     pub fn set_max_ocpu_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_ocpu_count = v.into();
         self
     }
 
     /// Sets the value of [memory_size_gb][crate::model::DbServerProperties::memory_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbServerProperties;
-    /// let x = DbServerProperties::new().set_memory_size_gb(42);
-    /// ```
     pub fn set_memory_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.memory_size_gb = v.into();
         self
     }
 
     /// Sets the value of [max_memory_size_gb][crate::model::DbServerProperties::max_memory_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbServerProperties;
-    /// let x = DbServerProperties::new().set_max_memory_size_gb(42);
-    /// ```
     pub fn set_max_memory_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_memory_size_gb = v.into();
         self
     }
 
     /// Sets the value of [db_node_storage_size_gb][crate::model::DbServerProperties::db_node_storage_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbServerProperties;
-    /// let x = DbServerProperties::new().set_db_node_storage_size_gb(42);
-    /// ```
     pub fn set_db_node_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.db_node_storage_size_gb = v.into();
         self
     }
 
     /// Sets the value of [max_db_node_storage_size_gb][crate::model::DbServerProperties::max_db_node_storage_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbServerProperties;
-    /// let x = DbServerProperties::new().set_max_db_node_storage_size_gb(42);
-    /// ```
     pub fn set_max_db_node_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_db_node_storage_size_gb = v.into();
         self
     }
 
     /// Sets the value of [vm_count][crate::model::DbServerProperties::vm_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbServerProperties;
-    /// let x = DbServerProperties::new().set_vm_count(42);
-    /// ```
     pub fn set_vm_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.vm_count = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::DbServerProperties::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbServerProperties;
-    /// use google_cloud_oracledatabase_v1::model::db_server_properties::State;
-    /// let x0 = DbServerProperties::new().set_state(State::Creating);
-    /// let x1 = DbServerProperties::new().set_state(State::Available);
-    /// let x2 = DbServerProperties::new().set_state(State::Unavailable);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::db_server_properties::State>>(
         mut self,
         v: T,
@@ -9664,12 +7883,6 @@ impl DbServerProperties {
     }
 
     /// Sets the value of [db_node_ids][crate::model::DbServerProperties::db_node_ids].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbServerProperties;
-    /// let x = DbServerProperties::new().set_db_node_ids(["a", "b", "c"]);
-    /// ```
     pub fn set_db_node_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9901,25 +8114,12 @@ impl DbSystem {
     }
 
     /// Sets the value of [name][crate::model::DbSystem::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystem;
-    /// let x = DbSystem::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [properties][crate::model::DbSystem::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystem;
-    /// use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// let x = DbSystem::new().set_properties(DbSystemProperties::default()/* use setters */);
-    /// ```
     pub fn set_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DbSystemProperties>,
@@ -9929,14 +8129,6 @@ impl DbSystem {
     }
 
     /// Sets or clears the value of [properties][crate::model::DbSystem::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystem;
-    /// use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// let x = DbSystem::new().set_or_clear_properties(Some(DbSystemProperties::default()/* use setters */));
-    /// let x = DbSystem::new().set_or_clear_properties(None::<DbSystemProperties>);
-    /// ```
     pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DbSystemProperties>,
@@ -9946,27 +8138,12 @@ impl DbSystem {
     }
 
     /// Sets the value of [gcp_oracle_zone][crate::model::DbSystem::gcp_oracle_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystem;
-    /// let x = DbSystem::new().set_gcp_oracle_zone("example");
-    /// ```
     pub fn set_gcp_oracle_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcp_oracle_zone = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::DbSystem::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystem;
-    /// let x = DbSystem::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -9979,61 +8156,30 @@ impl DbSystem {
     }
 
     /// Sets the value of [odb_network][crate::model::DbSystem::odb_network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystem;
-    /// let x = DbSystem::new().set_odb_network("example");
-    /// ```
     pub fn set_odb_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.odb_network = v.into();
         self
     }
 
     /// Sets the value of [odb_subnet][crate::model::DbSystem::odb_subnet].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystem;
-    /// let x = DbSystem::new().set_odb_subnet("example");
-    /// ```
     pub fn set_odb_subnet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.odb_subnet = v.into();
         self
     }
 
     /// Sets the value of [entitlement_id][crate::model::DbSystem::entitlement_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystem;
-    /// let x = DbSystem::new().set_entitlement_id("example");
-    /// ```
     pub fn set_entitlement_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entitlement_id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::DbSystem::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystem;
-    /// let x = DbSystem::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::DbSystem::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystem;
-    /// use wkt::Timestamp;
-    /// let x = DbSystem::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10043,14 +8189,6 @@ impl DbSystem {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DbSystem::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystem;
-    /// use wkt::Timestamp;
-    /// let x = DbSystem::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = DbSystem::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10060,12 +8198,6 @@ impl DbSystem {
     }
 
     /// Sets the value of [oci_url][crate::model::DbSystem::oci_url].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystem;
-    /// let x = DbSystem::new().set_oci_url("example");
-    /// ```
     pub fn set_oci_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.oci_url = v.into();
         self
@@ -10155,51 +8287,24 @@ impl DbSystemProperties {
     }
 
     /// Sets the value of [shape][crate::model::DbSystemProperties::shape].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// let x = DbSystemProperties::new().set_shape("example");
-    /// ```
     pub fn set_shape<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.shape = v.into();
         self
     }
 
     /// Sets the value of [compute_count][crate::model::DbSystemProperties::compute_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// let x = DbSystemProperties::new().set_compute_count(42);
-    /// ```
     pub fn set_compute_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.compute_count = v.into();
         self
     }
 
     /// Sets the value of [initial_data_storage_size_gb][crate::model::DbSystemProperties::initial_data_storage_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// let x = DbSystemProperties::new().set_initial_data_storage_size_gb(42);
-    /// ```
     pub fn set_initial_data_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.initial_data_storage_size_gb = v.into();
         self
     }
 
     /// Sets the value of [database_edition][crate::model::DbSystemProperties::database_edition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// use google_cloud_oracledatabase_v1::model::db_system_properties::DbSystemDatabaseEdition;
-    /// let x0 = DbSystemProperties::new().set_database_edition(DbSystemDatabaseEdition::StandardEdition);
-    /// let x1 = DbSystemProperties::new().set_database_edition(DbSystemDatabaseEdition::EnterpriseEdition);
-    /// let x2 = DbSystemProperties::new().set_database_edition(DbSystemDatabaseEdition::EnterpriseEditionHighPerformance);
-    /// ```
     pub fn set_database_edition<
         T: std::convert::Into<crate::model::db_system_properties::DbSystemDatabaseEdition>,
     >(
@@ -10211,14 +8316,6 @@ impl DbSystemProperties {
     }
 
     /// Sets the value of [license_model][crate::model::DbSystemProperties::license_model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// use google_cloud_oracledatabase_v1::model::db_system_properties::LicenseModel;
-    /// let x0 = DbSystemProperties::new().set_license_model(LicenseModel::LicenseIncluded);
-    /// let x1 = DbSystemProperties::new().set_license_model(LicenseModel::BringYourOwnLicense);
-    /// ```
     pub fn set_license_model<
         T: std::convert::Into<crate::model::db_system_properties::LicenseModel>,
     >(
@@ -10230,12 +8327,6 @@ impl DbSystemProperties {
     }
 
     /// Sets the value of [ssh_public_keys][crate::model::DbSystemProperties::ssh_public_keys].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// let x = DbSystemProperties::new().set_ssh_public_keys(["a", "b", "c"]);
-    /// ```
     pub fn set_ssh_public_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10247,49 +8338,24 @@ impl DbSystemProperties {
     }
 
     /// Sets the value of [hostname_prefix][crate::model::DbSystemProperties::hostname_prefix].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// let x = DbSystemProperties::new().set_hostname_prefix("example");
-    /// ```
     pub fn set_hostname_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname_prefix = v.into();
         self
     }
 
     /// Sets the value of [hostname][crate::model::DbSystemProperties::hostname].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// let x = DbSystemProperties::new().set_hostname("example");
-    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname = v.into();
         self
     }
 
     /// Sets the value of [private_ip][crate::model::DbSystemProperties::private_ip].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// let x = DbSystemProperties::new().set_private_ip("example");
-    /// ```
     pub fn set_private_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.private_ip = v.into();
         self
     }
 
     /// Sets the value of [data_collection_options][crate::model::DbSystemProperties::data_collection_options].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// use google_cloud_oracledatabase_v1::model::DataCollectionOptionsDbSystem;
-    /// let x = DbSystemProperties::new().set_data_collection_options(DataCollectionOptionsDbSystem::default()/* use setters */);
-    /// ```
     pub fn set_data_collection_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataCollectionOptionsDbSystem>,
@@ -10299,14 +8365,6 @@ impl DbSystemProperties {
     }
 
     /// Sets or clears the value of [data_collection_options][crate::model::DbSystemProperties::data_collection_options].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// use google_cloud_oracledatabase_v1::model::DataCollectionOptionsDbSystem;
-    /// let x = DbSystemProperties::new().set_or_clear_data_collection_options(Some(DataCollectionOptionsDbSystem::default()/* use setters */));
-    /// let x = DbSystemProperties::new().set_or_clear_data_collection_options(None::<DataCollectionOptionsDbSystem>);
-    /// ```
     pub fn set_or_clear_data_collection_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataCollectionOptionsDbSystem>,
@@ -10316,13 +8374,6 @@ impl DbSystemProperties {
     }
 
     /// Sets the value of [time_zone][crate::model::DbSystemProperties::time_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// use gtype::model::TimeZone;
-    /// let x = DbSystemProperties::new().set_time_zone(TimeZone::default()/* use setters */);
-    /// ```
     pub fn set_time_zone<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::TimeZone>,
@@ -10332,14 +8383,6 @@ impl DbSystemProperties {
     }
 
     /// Sets or clears the value of [time_zone][crate::model::DbSystemProperties::time_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// use gtype::model::TimeZone;
-    /// let x = DbSystemProperties::new().set_or_clear_time_zone(Some(TimeZone::default()/* use setters */));
-    /// let x = DbSystemProperties::new().set_or_clear_time_zone(None::<TimeZone>);
-    /// ```
     pub fn set_or_clear_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeZone>,
@@ -10349,15 +8392,6 @@ impl DbSystemProperties {
     }
 
     /// Sets the value of [lifecycle_state][crate::model::DbSystemProperties::lifecycle_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// use google_cloud_oracledatabase_v1::model::db_system_properties::DbSystemLifecycleState;
-    /// let x0 = DbSystemProperties::new().set_lifecycle_state(DbSystemLifecycleState::Provisioning);
-    /// let x1 = DbSystemProperties::new().set_lifecycle_state(DbSystemLifecycleState::Available);
-    /// let x2 = DbSystemProperties::new().set_lifecycle_state(DbSystemLifecycleState::Updating);
-    /// ```
     pub fn set_lifecycle_state<
         T: std::convert::Into<crate::model::db_system_properties::DbSystemLifecycleState>,
     >(
@@ -10369,13 +8403,6 @@ impl DbSystemProperties {
     }
 
     /// Sets the value of [db_home][crate::model::DbSystemProperties::db_home].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// use google_cloud_oracledatabase_v1::model::DbHome;
-    /// let x = DbSystemProperties::new().set_db_home(DbHome::default()/* use setters */);
-    /// ```
     pub fn set_db_home<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DbHome>,
@@ -10385,14 +8412,6 @@ impl DbSystemProperties {
     }
 
     /// Sets or clears the value of [db_home][crate::model::DbSystemProperties::db_home].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// use google_cloud_oracledatabase_v1::model::DbHome;
-    /// let x = DbSystemProperties::new().set_or_clear_db_home(Some(DbHome::default()/* use setters */));
-    /// let x = DbSystemProperties::new().set_or_clear_db_home(None::<DbHome>);
-    /// ```
     pub fn set_or_clear_db_home<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DbHome>,
@@ -10402,38 +8421,18 @@ impl DbSystemProperties {
     }
 
     /// Sets the value of [ocid][crate::model::DbSystemProperties::ocid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// let x = DbSystemProperties::new().set_ocid("example");
-    /// ```
     pub fn set_ocid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ocid = v.into();
         self
     }
 
     /// Sets the value of [memory_size_gb][crate::model::DbSystemProperties::memory_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// let x = DbSystemProperties::new().set_memory_size_gb(42);
-    /// ```
     pub fn set_memory_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.memory_size_gb = v.into();
         self
     }
 
     /// Sets the value of [compute_model][crate::model::DbSystemProperties::compute_model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// use google_cloud_oracledatabase_v1::model::db_system_properties::ComputeModel;
-    /// let x0 = DbSystemProperties::new().set_compute_model(ComputeModel::Ecpu);
-    /// let x1 = DbSystemProperties::new().set_compute_model(ComputeModel::Ocpu);
-    /// ```
     pub fn set_compute_model<
         T: std::convert::Into<crate::model::db_system_properties::ComputeModel>,
     >(
@@ -10445,61 +8444,30 @@ impl DbSystemProperties {
     }
 
     /// Sets the value of [data_storage_size_gb][crate::model::DbSystemProperties::data_storage_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// let x = DbSystemProperties::new().set_data_storage_size_gb(42);
-    /// ```
     pub fn set_data_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.data_storage_size_gb = v.into();
         self
     }
 
     /// Sets the value of [reco_storage_size_gb][crate::model::DbSystemProperties::reco_storage_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// let x = DbSystemProperties::new().set_reco_storage_size_gb(42);
-    /// ```
     pub fn set_reco_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.reco_storage_size_gb = v.into();
         self
     }
 
     /// Sets the value of [domain][crate::model::DbSystemProperties::domain].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// let x = DbSystemProperties::new().set_domain("example");
-    /// ```
     pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.domain = v.into();
         self
     }
 
     /// Sets the value of [node_count][crate::model::DbSystemProperties::node_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// let x = DbSystemProperties::new().set_node_count(42);
-    /// ```
     pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.node_count = v.into();
         self
     }
 
     /// Sets the value of [db_system_options][crate::model::DbSystemProperties::db_system_options].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// use google_cloud_oracledatabase_v1::model::DbSystemOptions;
-    /// let x = DbSystemProperties::new().set_db_system_options(DbSystemOptions::default()/* use setters */);
-    /// ```
     pub fn set_db_system_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DbSystemOptions>,
@@ -10509,14 +8477,6 @@ impl DbSystemProperties {
     }
 
     /// Sets or clears the value of [db_system_options][crate::model::DbSystemProperties::db_system_options].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// use google_cloud_oracledatabase_v1::model::DbSystemOptions;
-    /// let x = DbSystemProperties::new().set_or_clear_db_system_options(Some(DbSystemOptions::default()/* use setters */));
-    /// let x = DbSystemProperties::new().set_or_clear_db_system_options(None::<DbSystemOptions>);
-    /// ```
     pub fn set_or_clear_db_system_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DbSystemOptions>,
@@ -11156,24 +9116,12 @@ impl DataCollectionOptionsDbSystem {
     }
 
     /// Sets the value of [is_diagnostics_events_enabled][crate::model::DataCollectionOptionsDbSystem::is_diagnostics_events_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DataCollectionOptionsDbSystem;
-    /// let x = DataCollectionOptionsDbSystem::new().set_is_diagnostics_events_enabled(true);
-    /// ```
     pub fn set_is_diagnostics_events_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_diagnostics_events_enabled = v.into();
         self
     }
 
     /// Sets the value of [is_incident_logs_enabled][crate::model::DataCollectionOptionsDbSystem::is_incident_logs_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DataCollectionOptionsDbSystem;
-    /// let x = DataCollectionOptionsDbSystem::new().set_is_incident_logs_enabled(true);
-    /// ```
     pub fn set_is_incident_logs_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_incident_logs_enabled = v.into();
         self
@@ -11202,14 +9150,6 @@ impl DbSystemOptions {
     }
 
     /// Sets the value of [storage_management][crate::model::DbSystemOptions::storage_management].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemOptions;
-    /// use google_cloud_oracledatabase_v1::model::db_system_options::StorageManagement;
-    /// let x0 = DbSystemOptions::new().set_storage_management(StorageManagement::Asm);
-    /// let x1 = DbSystemOptions::new().set_storage_management(StorageManagement::Lvm);
-    /// ```
     pub fn set_storage_management<
         T: std::convert::Into<crate::model::db_system_options::StorageManagement>,
     >(
@@ -11392,37 +9332,18 @@ impl DbHome {
     }
 
     /// Sets the value of [display_name][crate::model::DbHome::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbHome;
-    /// let x = DbHome::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [db_version][crate::model::DbHome::db_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbHome;
-    /// let x = DbHome::new().set_db_version("example");
-    /// ```
     pub fn set_db_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.db_version = v.into();
         self
     }
 
     /// Sets the value of [database][crate::model::DbHome::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbHome;
-    /// use google_cloud_oracledatabase_v1::model::Database;
-    /// let x = DbHome::new().set_database(Database::default()/* use setters */);
-    /// ```
     pub fn set_database<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Database>,
@@ -11432,14 +9353,6 @@ impl DbHome {
     }
 
     /// Sets or clears the value of [database][crate::model::DbHome::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbHome;
-    /// use google_cloud_oracledatabase_v1::model::Database;
-    /// let x = DbHome::new().set_or_clear_database(Some(Database::default()/* use setters */));
-    /// let x = DbHome::new().set_or_clear_database(None::<Database>);
-    /// ```
     pub fn set_or_clear_database<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Database>,
@@ -11449,12 +9362,6 @@ impl DbHome {
     }
 
     /// Sets the value of [is_unified_auditing_enabled][crate::model::DbHome::is_unified_auditing_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbHome;
-    /// let x = DbHome::new().set_is_unified_auditing_enabled(true);
-    /// ```
     pub fn set_is_unified_auditing_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_unified_auditing_enabled = v.into();
         self
@@ -11508,37 +9415,18 @@ impl CreateDbSystemRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDbSystemRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateDbSystemRequest;
-    /// let x = CreateDbSystemRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [db_system_id][crate::model::CreateDbSystemRequest::db_system_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateDbSystemRequest;
-    /// let x = CreateDbSystemRequest::new().set_db_system_id("example");
-    /// ```
     pub fn set_db_system_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.db_system_id = v.into();
         self
     }
 
     /// Sets the value of [db_system][crate::model::CreateDbSystemRequest::db_system].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateDbSystemRequest;
-    /// use google_cloud_oracledatabase_v1::model::DbSystem;
-    /// let x = CreateDbSystemRequest::new().set_db_system(DbSystem::default()/* use setters */);
-    /// ```
     pub fn set_db_system<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DbSystem>,
@@ -11548,14 +9436,6 @@ impl CreateDbSystemRequest {
     }
 
     /// Sets or clears the value of [db_system][crate::model::CreateDbSystemRequest::db_system].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateDbSystemRequest;
-    /// use google_cloud_oracledatabase_v1::model::DbSystem;
-    /// let x = CreateDbSystemRequest::new().set_or_clear_db_system(Some(DbSystem::default()/* use setters */));
-    /// let x = CreateDbSystemRequest::new().set_or_clear_db_system(None::<DbSystem>);
-    /// ```
     pub fn set_or_clear_db_system<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DbSystem>,
@@ -11565,12 +9445,6 @@ impl CreateDbSystemRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateDbSystemRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateDbSystemRequest;
-    /// let x = CreateDbSystemRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -11610,24 +9484,12 @@ impl DeleteDbSystemRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDbSystemRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DeleteDbSystemRequest;
-    /// let x = DeleteDbSystemRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteDbSystemRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DeleteDbSystemRequest;
-    /// let x = DeleteDbSystemRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -11657,12 +9519,6 @@ impl GetDbSystemRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDbSystemRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::GetDbSystemRequest;
-    /// let x = GetDbSystemRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -11706,60 +9562,30 @@ impl ListDbSystemsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDbSystemsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemsRequest;
-    /// let x = ListDbSystemsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDbSystemsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemsRequest;
-    /// let x = ListDbSystemsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDbSystemsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemsRequest;
-    /// let x = ListDbSystemsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDbSystemsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemsRequest;
-    /// let x = ListDbSystemsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDbSystemsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemsRequest;
-    /// let x = ListDbSystemsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -11791,17 +9617,6 @@ impl ListDbSystemsResponse {
     }
 
     /// Sets the value of [db_systems][crate::model::ListDbSystemsResponse::db_systems].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemsResponse;
-    /// use google_cloud_oracledatabase_v1::model::DbSystem;
-    /// let x = ListDbSystemsResponse::new()
-    ///     .set_db_systems([
-    ///         DbSystem::default()/* use setters */,
-    ///         DbSystem::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_db_systems<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11813,12 +9628,6 @@ impl ListDbSystemsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDbSystemsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemsResponse;
-    /// let x = ListDbSystemsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -11864,25 +9673,12 @@ impl DbSystemInitialStorageSize {
     }
 
     /// Sets the value of [name][crate::model::DbSystemInitialStorageSize::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemInitialStorageSize;
-    /// let x = DbSystemInitialStorageSize::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [properties][crate::model::DbSystemInitialStorageSize::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemInitialStorageSize;
-    /// use google_cloud_oracledatabase_v1::model::DbSystemInitialStorageSizeProperties;
-    /// let x = DbSystemInitialStorageSize::new().set_properties(DbSystemInitialStorageSizeProperties::default()/* use setters */);
-    /// ```
     pub fn set_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DbSystemInitialStorageSizeProperties>,
@@ -11892,14 +9688,6 @@ impl DbSystemInitialStorageSize {
     }
 
     /// Sets or clears the value of [properties][crate::model::DbSystemInitialStorageSize::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemInitialStorageSize;
-    /// use google_cloud_oracledatabase_v1::model::DbSystemInitialStorageSizeProperties;
-    /// let x = DbSystemInitialStorageSize::new().set_or_clear_properties(Some(DbSystemInitialStorageSizeProperties::default()/* use setters */));
-    /// let x = DbSystemInitialStorageSize::new().set_or_clear_properties(None::<DbSystemInitialStorageSizeProperties>);
-    /// ```
     pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DbSystemInitialStorageSizeProperties>,
@@ -11942,14 +9730,6 @@ impl DbSystemInitialStorageSizeProperties {
     }
 
     /// Sets the value of [storage_management][crate::model::DbSystemInitialStorageSizeProperties::storage_management].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemInitialStorageSizeProperties;
-    /// use google_cloud_oracledatabase_v1::model::db_system_initial_storage_size_properties::StorageManagement;
-    /// let x0 = DbSystemInitialStorageSizeProperties::new().set_storage_management(StorageManagement::Asm);
-    /// let x1 = DbSystemInitialStorageSizeProperties::new().set_storage_management(StorageManagement::Lvm);
-    /// ```
     pub fn set_storage_management<
         T: std::convert::Into<
                 crate::model::db_system_initial_storage_size_properties::StorageManagement,
@@ -11963,13 +9743,6 @@ impl DbSystemInitialStorageSizeProperties {
     }
 
     /// Sets the value of [shape_type][crate::model::DbSystemInitialStorageSizeProperties::shape_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemInitialStorageSizeProperties;
-    /// use google_cloud_oracledatabase_v1::model::db_system_initial_storage_size_properties::ShapeType;
-    /// let x0 = DbSystemInitialStorageSizeProperties::new().set_shape_type(ShapeType::StandardX86);
-    /// ```
     pub fn set_shape_type<
         T: std::convert::Into<crate::model::db_system_initial_storage_size_properties::ShapeType>,
     >(
@@ -11981,17 +9754,6 @@ impl DbSystemInitialStorageSizeProperties {
     }
 
     /// Sets the value of [storage_size_details][crate::model::DbSystemInitialStorageSizeProperties::storage_size_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemInitialStorageSizeProperties;
-    /// use google_cloud_oracledatabase_v1::model::StorageSizeDetails;
-    /// let x = DbSystemInitialStorageSizeProperties::new()
-    ///     .set_storage_size_details([
-    ///         StorageSizeDetails::default()/* use setters */,
-    ///         StorageSizeDetails::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_storage_size_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12003,17 +9765,6 @@ impl DbSystemInitialStorageSizeProperties {
     }
 
     /// Sets the value of [launch_from_backup_storage_size_details][crate::model::DbSystemInitialStorageSizeProperties::launch_from_backup_storage_size_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemInitialStorageSizeProperties;
-    /// use google_cloud_oracledatabase_v1::model::StorageSizeDetails;
-    /// let x = DbSystemInitialStorageSizeProperties::new()
-    ///     .set_launch_from_backup_storage_size_details([
-    ///         StorageSizeDetails::default()/* use setters */,
-    ///         StorageSizeDetails::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_launch_from_backup_storage_size_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12315,24 +10066,12 @@ impl StorageSizeDetails {
     }
 
     /// Sets the value of [data_storage_size_in_gbs][crate::model::StorageSizeDetails::data_storage_size_in_gbs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::StorageSizeDetails;
-    /// let x = StorageSizeDetails::new().set_data_storage_size_in_gbs(42);
-    /// ```
     pub fn set_data_storage_size_in_gbs<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.data_storage_size_in_gbs = v.into();
         self
     }
 
     /// Sets the value of [reco_storage_size_in_gbs][crate::model::StorageSizeDetails::reco_storage_size_in_gbs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::StorageSizeDetails;
-    /// let x = StorageSizeDetails::new().set_reco_storage_size_in_gbs(42);
-    /// ```
     pub fn set_reco_storage_size_in_gbs<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.reco_storage_size_in_gbs = v.into();
         self
@@ -12373,36 +10112,18 @@ impl ListDbSystemInitialStorageSizesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDbSystemInitialStorageSizesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemInitialStorageSizesRequest;
-    /// let x = ListDbSystemInitialStorageSizesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDbSystemInitialStorageSizesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemInitialStorageSizesRequest;
-    /// let x = ListDbSystemInitialStorageSizesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDbSystemInitialStorageSizesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemInitialStorageSizesRequest;
-    /// let x = ListDbSystemInitialStorageSizesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -12434,17 +10155,6 @@ impl ListDbSystemInitialStorageSizesResponse {
     }
 
     /// Sets the value of [db_system_initial_storage_sizes][crate::model::ListDbSystemInitialStorageSizesResponse::db_system_initial_storage_sizes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemInitialStorageSizesResponse;
-    /// use google_cloud_oracledatabase_v1::model::DbSystemInitialStorageSize;
-    /// let x = ListDbSystemInitialStorageSizesResponse::new()
-    ///     .set_db_system_initial_storage_sizes([
-    ///         DbSystemInitialStorageSize::default()/* use setters */,
-    ///         DbSystemInitialStorageSize::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_db_system_initial_storage_sizes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12456,12 +10166,6 @@ impl ListDbSystemInitialStorageSizesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDbSystemInitialStorageSizesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemInitialStorageSizesResponse;
-    /// let x = ListDbSystemInitialStorageSizesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -12539,144 +10243,72 @@ impl DbSystemShape {
     }
 
     /// Sets the value of [name][crate::model::DbSystemShape::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemShape;
-    /// let x = DbSystemShape::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [shape][crate::model::DbSystemShape::shape].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemShape;
-    /// let x = DbSystemShape::new().set_shape("example");
-    /// ```
     pub fn set_shape<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.shape = v.into();
         self
     }
 
     /// Sets the value of [min_node_count][crate::model::DbSystemShape::min_node_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemShape;
-    /// let x = DbSystemShape::new().set_min_node_count(42);
-    /// ```
     pub fn set_min_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_node_count = v.into();
         self
     }
 
     /// Sets the value of [max_node_count][crate::model::DbSystemShape::max_node_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemShape;
-    /// let x = DbSystemShape::new().set_max_node_count(42);
-    /// ```
     pub fn set_max_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_node_count = v.into();
         self
     }
 
     /// Sets the value of [min_storage_count][crate::model::DbSystemShape::min_storage_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemShape;
-    /// let x = DbSystemShape::new().set_min_storage_count(42);
-    /// ```
     pub fn set_min_storage_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_storage_count = v.into();
         self
     }
 
     /// Sets the value of [max_storage_count][crate::model::DbSystemShape::max_storage_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemShape;
-    /// let x = DbSystemShape::new().set_max_storage_count(42);
-    /// ```
     pub fn set_max_storage_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_storage_count = v.into();
         self
     }
 
     /// Sets the value of [available_core_count_per_node][crate::model::DbSystemShape::available_core_count_per_node].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemShape;
-    /// let x = DbSystemShape::new().set_available_core_count_per_node(42);
-    /// ```
     pub fn set_available_core_count_per_node<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.available_core_count_per_node = v.into();
         self
     }
 
     /// Sets the value of [available_memory_per_node_gb][crate::model::DbSystemShape::available_memory_per_node_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemShape;
-    /// let x = DbSystemShape::new().set_available_memory_per_node_gb(42);
-    /// ```
     pub fn set_available_memory_per_node_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.available_memory_per_node_gb = v.into();
         self
     }
 
     /// Sets the value of [available_data_storage_tb][crate::model::DbSystemShape::available_data_storage_tb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemShape;
-    /// let x = DbSystemShape::new().set_available_data_storage_tb(42);
-    /// ```
     pub fn set_available_data_storage_tb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.available_data_storage_tb = v.into();
         self
     }
 
     /// Sets the value of [min_core_count_per_node][crate::model::DbSystemShape::min_core_count_per_node].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemShape;
-    /// let x = DbSystemShape::new().set_min_core_count_per_node(42);
-    /// ```
     pub fn set_min_core_count_per_node<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_core_count_per_node = v.into();
         self
     }
 
     /// Sets the value of [min_memory_per_node_gb][crate::model::DbSystemShape::min_memory_per_node_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemShape;
-    /// let x = DbSystemShape::new().set_min_memory_per_node_gb(42);
-    /// ```
     pub fn set_min_memory_per_node_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_memory_per_node_gb = v.into();
         self
     }
 
     /// Sets the value of [min_db_node_storage_per_node_gb][crate::model::DbSystemShape::min_db_node_storage_per_node_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbSystemShape;
-    /// let x = DbSystemShape::new().set_min_db_node_storage_per_node_gb(42);
-    /// ```
     pub fn set_min_db_node_storage_per_node_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_db_node_storage_per_node_gb = v.into();
         self
@@ -12709,25 +10341,12 @@ impl DbVersion {
     }
 
     /// Sets the value of [name][crate::model::DbVersion::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbVersion;
-    /// let x = DbVersion::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [properties][crate::model::DbVersion::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbVersion;
-    /// use google_cloud_oracledatabase_v1::model::DbVersionProperties;
-    /// let x = DbVersion::new().set_properties(DbVersionProperties::default()/* use setters */);
-    /// ```
     pub fn set_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DbVersionProperties>,
@@ -12737,14 +10356,6 @@ impl DbVersion {
     }
 
     /// Sets or clears the value of [properties][crate::model::DbVersion::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbVersion;
-    /// use google_cloud_oracledatabase_v1::model::DbVersionProperties;
-    /// let x = DbVersion::new().set_or_clear_properties(Some(DbVersionProperties::default()/* use setters */));
-    /// let x = DbVersion::new().set_or_clear_properties(None::<DbVersionProperties>);
-    /// ```
     pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DbVersionProperties>,
@@ -12792,60 +10403,30 @@ impl DbVersionProperties {
     }
 
     /// Sets the value of [version][crate::model::DbVersionProperties::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbVersionProperties;
-    /// let x = DbVersionProperties::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [is_latest_for_major_version][crate::model::DbVersionProperties::is_latest_for_major_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbVersionProperties;
-    /// let x = DbVersionProperties::new().set_is_latest_for_major_version(true);
-    /// ```
     pub fn set_is_latest_for_major_version<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_latest_for_major_version = v.into();
         self
     }
 
     /// Sets the value of [supports_pdb][crate::model::DbVersionProperties::supports_pdb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbVersionProperties;
-    /// let x = DbVersionProperties::new().set_supports_pdb(true);
-    /// ```
     pub fn set_supports_pdb<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.supports_pdb = v.into();
         self
     }
 
     /// Sets the value of [is_preview_db_version][crate::model::DbVersionProperties::is_preview_db_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbVersionProperties;
-    /// let x = DbVersionProperties::new().set_is_preview_db_version(true);
-    /// ```
     pub fn set_is_preview_db_version<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_preview_db_version = v.into();
         self
     }
 
     /// Sets the value of [is_upgrade_supported][crate::model::DbVersionProperties::is_upgrade_supported].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DbVersionProperties;
-    /// let x = DbVersionProperties::new().set_is_upgrade_supported(true);
-    /// ```
     pub fn set_is_upgrade_supported<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_upgrade_supported = v.into();
         self
@@ -12891,48 +10472,24 @@ impl ListDbVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDbVersionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbVersionsRequest;
-    /// let x = ListDbVersionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDbVersionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbVersionsRequest;
-    /// let x = ListDbVersionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDbVersionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbVersionsRequest;
-    /// let x = ListDbVersionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDbVersionsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbVersionsRequest;
-    /// let x = ListDbVersionsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -12964,17 +10521,6 @@ impl ListDbVersionsResponse {
     }
 
     /// Sets the value of [db_versions][crate::model::ListDbVersionsResponse::db_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbVersionsResponse;
-    /// use google_cloud_oracledatabase_v1::model::DbVersion;
-    /// let x = ListDbVersionsResponse::new()
-    ///     .set_db_versions([
-    ///         DbVersion::default()/* use setters */,
-    ///         DbVersion::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_db_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12986,12 +10532,6 @@ impl ListDbVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDbVersionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbVersionsResponse;
-    /// let x = ListDbVersionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -13044,25 +10584,12 @@ impl Entitlement {
     }
 
     /// Sets the value of [name][crate::model::Entitlement::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Entitlement;
-    /// let x = Entitlement::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [cloud_account_details][crate::model::Entitlement::cloud_account_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Entitlement;
-    /// use google_cloud_oracledatabase_v1::model::CloudAccountDetails;
-    /// let x = Entitlement::new().set_cloud_account_details(CloudAccountDetails::default()/* use setters */);
-    /// ```
     pub fn set_cloud_account_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudAccountDetails>,
@@ -13072,14 +10599,6 @@ impl Entitlement {
     }
 
     /// Sets or clears the value of [cloud_account_details][crate::model::Entitlement::cloud_account_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Entitlement;
-    /// use google_cloud_oracledatabase_v1::model::CloudAccountDetails;
-    /// let x = Entitlement::new().set_or_clear_cloud_account_details(Some(CloudAccountDetails::default()/* use setters */));
-    /// let x = Entitlement::new().set_or_clear_cloud_account_details(None::<CloudAccountDetails>);
-    /// ```
     pub fn set_or_clear_cloud_account_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudAccountDetails>,
@@ -13089,27 +10608,12 @@ impl Entitlement {
     }
 
     /// Sets the value of [entitlement_id][crate::model::Entitlement::entitlement_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Entitlement;
-    /// let x = Entitlement::new().set_entitlement_id("example");
-    /// ```
     pub fn set_entitlement_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entitlement_id = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Entitlement::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::Entitlement;
-    /// use google_cloud_oracledatabase_v1::model::entitlement::State;
-    /// let x0 = Entitlement::new().set_state(State::AccountNotLinked);
-    /// let x1 = Entitlement::new().set_state(State::AccountNotActive);
-    /// let x2 = Entitlement::new().set_state(State::Active);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::entitlement::State>>(
         mut self,
         v: T,
@@ -13311,24 +10815,12 @@ impl CloudAccountDetails {
     }
 
     /// Sets the value of [cloud_account][crate::model::CloudAccountDetails::cloud_account].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudAccountDetails;
-    /// let x = CloudAccountDetails::new().set_cloud_account("example");
-    /// ```
     pub fn set_cloud_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cloud_account = v.into();
         self
     }
 
     /// Sets the value of [cloud_account_home_region][crate::model::CloudAccountDetails::cloud_account_home_region].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudAccountDetails;
-    /// let x = CloudAccountDetails::new().set_cloud_account_home_region("example");
-    /// ```
     pub fn set_cloud_account_home_region<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13338,12 +10830,6 @@ impl CloudAccountDetails {
     }
 
     /// Sets the value of [link_existing_account_uri][crate::model::CloudAccountDetails::link_existing_account_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudAccountDetails;
-    /// let x = CloudAccountDetails::new().set_link_existing_account_uri("example");
-    /// ```
     pub fn set_link_existing_account_uri<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13353,14 +10839,6 @@ impl CloudAccountDetails {
     }
 
     /// Sets or clears the value of [link_existing_account_uri][crate::model::CloudAccountDetails::link_existing_account_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudAccountDetails;
-    /// let x = CloudAccountDetails::new().set_or_clear_link_existing_account_uri("example");
-    /// let x = CloudAccountDetails::new().set_or_clear_link_existing_account_uri(Some("example"));
-    /// let x = CloudAccountDetails::new().set_or_clear_link_existing_account_uri(None::<String>);
-    /// ```
     pub fn set_or_clear_link_existing_account_uri<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13370,12 +10848,6 @@ impl CloudAccountDetails {
     }
 
     /// Sets the value of [account_creation_uri][crate::model::CloudAccountDetails::account_creation_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudAccountDetails;
-    /// let x = CloudAccountDetails::new().set_account_creation_uri("example");
-    /// ```
     pub fn set_account_creation_uri<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13385,14 +10857,6 @@ impl CloudAccountDetails {
     }
 
     /// Sets or clears the value of [account_creation_uri][crate::model::CloudAccountDetails::account_creation_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudAccountDetails;
-    /// let x = CloudAccountDetails::new().set_or_clear_account_creation_uri("example");
-    /// let x = CloudAccountDetails::new().set_or_clear_account_creation_uri(Some("example"));
-    /// let x = CloudAccountDetails::new().set_or_clear_account_creation_uri(None::<String>);
-    /// ```
     pub fn set_or_clear_account_creation_uri<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13448,61 +10912,30 @@ impl CloudExadataInfrastructure {
     }
 
     /// Sets the value of [name][crate::model::CloudExadataInfrastructure::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructure;
-    /// let x = CloudExadataInfrastructure::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::CloudExadataInfrastructure::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructure;
-    /// let x = CloudExadataInfrastructure::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [gcp_oracle_zone][crate::model::CloudExadataInfrastructure::gcp_oracle_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructure;
-    /// let x = CloudExadataInfrastructure::new().set_gcp_oracle_zone("example");
-    /// ```
     pub fn set_gcp_oracle_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcp_oracle_zone = v.into();
         self
     }
 
     /// Sets the value of [entitlement_id][crate::model::CloudExadataInfrastructure::entitlement_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructure;
-    /// let x = CloudExadataInfrastructure::new().set_entitlement_id("example");
-    /// ```
     pub fn set_entitlement_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entitlement_id = v.into();
         self
     }
 
     /// Sets the value of [properties][crate::model::CloudExadataInfrastructure::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructure;
-    /// use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructure::new().set_properties(CloudExadataInfrastructureProperties::default()/* use setters */);
-    /// ```
     pub fn set_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudExadataInfrastructureProperties>,
@@ -13512,14 +10945,6 @@ impl CloudExadataInfrastructure {
     }
 
     /// Sets or clears the value of [properties][crate::model::CloudExadataInfrastructure::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructure;
-    /// use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructure::new().set_or_clear_properties(Some(CloudExadataInfrastructureProperties::default()/* use setters */));
-    /// let x = CloudExadataInfrastructure::new().set_or_clear_properties(None::<CloudExadataInfrastructureProperties>);
-    /// ```
     pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudExadataInfrastructureProperties>,
@@ -13529,15 +10954,6 @@ impl CloudExadataInfrastructure {
     }
 
     /// Sets the value of [labels][crate::model::CloudExadataInfrastructure::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructure;
-    /// let x = CloudExadataInfrastructure::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -13550,13 +10966,6 @@ impl CloudExadataInfrastructure {
     }
 
     /// Sets the value of [create_time][crate::model::CloudExadataInfrastructure::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructure;
-    /// use wkt::Timestamp;
-    /// let x = CloudExadataInfrastructure::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13566,14 +10975,6 @@ impl CloudExadataInfrastructure {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CloudExadataInfrastructure::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructure;
-    /// use wkt::Timestamp;
-    /// let x = CloudExadataInfrastructure::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CloudExadataInfrastructure::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13703,73 +11104,36 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets the value of [ocid][crate::model::CloudExadataInfrastructureProperties::ocid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_ocid("example");
-    /// ```
     pub fn set_ocid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ocid = v.into();
         self
     }
 
     /// Sets the value of [compute_count][crate::model::CloudExadataInfrastructureProperties::compute_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_compute_count(42);
-    /// ```
     pub fn set_compute_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.compute_count = v.into();
         self
     }
 
     /// Sets the value of [storage_count][crate::model::CloudExadataInfrastructureProperties::storage_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_storage_count(42);
-    /// ```
     pub fn set_storage_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.storage_count = v.into();
         self
     }
 
     /// Sets the value of [total_storage_size_gb][crate::model::CloudExadataInfrastructureProperties::total_storage_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_total_storage_size_gb(42);
-    /// ```
     pub fn set_total_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_storage_size_gb = v.into();
         self
     }
 
     /// Sets the value of [available_storage_size_gb][crate::model::CloudExadataInfrastructureProperties::available_storage_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_available_storage_size_gb(42);
-    /// ```
     pub fn set_available_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.available_storage_size_gb = v.into();
         self
     }
 
     /// Sets the value of [maintenance_window][crate::model::CloudExadataInfrastructureProperties::maintenance_window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// use google_cloud_oracledatabase_v1::model::MaintenanceWindow;
-    /// let x = CloudExadataInfrastructureProperties::new().set_maintenance_window(MaintenanceWindow::default()/* use setters */);
-    /// ```
     pub fn set_maintenance_window<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceWindow>,
@@ -13779,14 +11143,6 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets or clears the value of [maintenance_window][crate::model::CloudExadataInfrastructureProperties::maintenance_window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// use google_cloud_oracledatabase_v1::model::MaintenanceWindow;
-    /// let x = CloudExadataInfrastructureProperties::new().set_or_clear_maintenance_window(Some(MaintenanceWindow::default()/* use setters */));
-    /// let x = CloudExadataInfrastructureProperties::new().set_or_clear_maintenance_window(None::<MaintenanceWindow>);
-    /// ```
     pub fn set_or_clear_maintenance_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceWindow>,
@@ -13796,15 +11152,6 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets the value of [state][crate::model::CloudExadataInfrastructureProperties::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// use google_cloud_oracledatabase_v1::model::cloud_exadata_infrastructure_properties::State;
-    /// let x0 = CloudExadataInfrastructureProperties::new().set_state(State::Provisioning);
-    /// let x1 = CloudExadataInfrastructureProperties::new().set_state(State::Available);
-    /// let x2 = CloudExadataInfrastructureProperties::new().set_state(State::Updating);
-    /// ```
     pub fn set_state<
         T: std::convert::Into<crate::model::cloud_exadata_infrastructure_properties::State>,
     >(
@@ -13816,156 +11163,78 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets the value of [shape][crate::model::CloudExadataInfrastructureProperties::shape].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_shape("example");
-    /// ```
     pub fn set_shape<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.shape = v.into();
         self
     }
 
     /// Sets the value of [oci_url][crate::model::CloudExadataInfrastructureProperties::oci_url].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_oci_url("example");
-    /// ```
     pub fn set_oci_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.oci_url = v.into();
         self
     }
 
     /// Sets the value of [cpu_count][crate::model::CloudExadataInfrastructureProperties::cpu_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_cpu_count(42);
-    /// ```
     pub fn set_cpu_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.cpu_count = v.into();
         self
     }
 
     /// Sets the value of [max_cpu_count][crate::model::CloudExadataInfrastructureProperties::max_cpu_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_max_cpu_count(42);
-    /// ```
     pub fn set_max_cpu_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_cpu_count = v.into();
         self
     }
 
     /// Sets the value of [memory_size_gb][crate::model::CloudExadataInfrastructureProperties::memory_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_memory_size_gb(42);
-    /// ```
     pub fn set_memory_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.memory_size_gb = v.into();
         self
     }
 
     /// Sets the value of [max_memory_gb][crate::model::CloudExadataInfrastructureProperties::max_memory_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_max_memory_gb(42);
-    /// ```
     pub fn set_max_memory_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_memory_gb = v.into();
         self
     }
 
     /// Sets the value of [db_node_storage_size_gb][crate::model::CloudExadataInfrastructureProperties::db_node_storage_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_db_node_storage_size_gb(42);
-    /// ```
     pub fn set_db_node_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.db_node_storage_size_gb = v.into();
         self
     }
 
     /// Sets the value of [max_db_node_storage_size_gb][crate::model::CloudExadataInfrastructureProperties::max_db_node_storage_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_max_db_node_storage_size_gb(42);
-    /// ```
     pub fn set_max_db_node_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_db_node_storage_size_gb = v.into();
         self
     }
 
     /// Sets the value of [data_storage_size_tb][crate::model::CloudExadataInfrastructureProperties::data_storage_size_tb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_data_storage_size_tb(42.0);
-    /// ```
     pub fn set_data_storage_size_tb<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.data_storage_size_tb = v.into();
         self
     }
 
     /// Sets the value of [max_data_storage_tb][crate::model::CloudExadataInfrastructureProperties::max_data_storage_tb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_max_data_storage_tb(42.0);
-    /// ```
     pub fn set_max_data_storage_tb<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.max_data_storage_tb = v.into();
         self
     }
 
     /// Sets the value of [activated_storage_count][crate::model::CloudExadataInfrastructureProperties::activated_storage_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_activated_storage_count(42);
-    /// ```
     pub fn set_activated_storage_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.activated_storage_count = v.into();
         self
     }
 
     /// Sets the value of [additional_storage_count][crate::model::CloudExadataInfrastructureProperties::additional_storage_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_additional_storage_count(42);
-    /// ```
     pub fn set_additional_storage_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.additional_storage_count = v.into();
         self
     }
 
     /// Sets the value of [db_server_version][crate::model::CloudExadataInfrastructureProperties::db_server_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_db_server_version("example");
-    /// ```
     pub fn set_db_server_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13975,12 +11244,6 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets the value of [storage_server_version][crate::model::CloudExadataInfrastructureProperties::storage_server_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_storage_server_version("example");
-    /// ```
     pub fn set_storage_server_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13990,12 +11253,6 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets the value of [next_maintenance_run_id][crate::model::CloudExadataInfrastructureProperties::next_maintenance_run_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_next_maintenance_run_id("example");
-    /// ```
     pub fn set_next_maintenance_run_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -14005,13 +11262,6 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets the value of [next_maintenance_run_time][crate::model::CloudExadataInfrastructureProperties::next_maintenance_run_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// use wkt::Timestamp;
-    /// let x = CloudExadataInfrastructureProperties::new().set_next_maintenance_run_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_next_maintenance_run_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14021,14 +11271,6 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets or clears the value of [next_maintenance_run_time][crate::model::CloudExadataInfrastructureProperties::next_maintenance_run_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// use wkt::Timestamp;
-    /// let x = CloudExadataInfrastructureProperties::new().set_or_clear_next_maintenance_run_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CloudExadataInfrastructureProperties::new().set_or_clear_next_maintenance_run_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_next_maintenance_run_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14038,13 +11280,6 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets the value of [next_security_maintenance_run_time][crate::model::CloudExadataInfrastructureProperties::next_security_maintenance_run_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// use wkt::Timestamp;
-    /// let x = CloudExadataInfrastructureProperties::new().set_next_security_maintenance_run_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_next_security_maintenance_run_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14054,14 +11289,6 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets or clears the value of [next_security_maintenance_run_time][crate::model::CloudExadataInfrastructureProperties::next_security_maintenance_run_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// use wkt::Timestamp;
-    /// let x = CloudExadataInfrastructureProperties::new().set_or_clear_next_security_maintenance_run_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CloudExadataInfrastructureProperties::new().set_or_clear_next_security_maintenance_run_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_next_security_maintenance_run_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -14074,17 +11301,6 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets the value of [customer_contacts][crate::model::CloudExadataInfrastructureProperties::customer_contacts].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// use google_cloud_oracledatabase_v1::model::CustomerContact;
-    /// let x = CloudExadataInfrastructureProperties::new()
-    ///     .set_customer_contacts([
-    ///         CustomerContact::default()/* use setters */,
-    ///         CustomerContact::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_customer_contacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14096,12 +11312,6 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets the value of [monthly_storage_server_version][crate::model::CloudExadataInfrastructureProperties::monthly_storage_server_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_monthly_storage_server_version("example");
-    /// ```
     pub fn set_monthly_storage_server_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -14111,12 +11321,6 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets the value of [monthly_db_server_version][crate::model::CloudExadataInfrastructureProperties::monthly_db_server_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_monthly_db_server_version("example");
-    /// ```
     pub fn set_monthly_db_server_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -14126,14 +11330,6 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets the value of [compute_model][crate::model::CloudExadataInfrastructureProperties::compute_model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// use google_cloud_oracledatabase_v1::model::ComputeModel;
-    /// let x0 = CloudExadataInfrastructureProperties::new().set_compute_model(ComputeModel::Ecpu);
-    /// let x1 = CloudExadataInfrastructureProperties::new().set_compute_model(ComputeModel::Ocpu);
-    /// ```
     pub fn set_compute_model<T: std::convert::Into<crate::model::ComputeModel>>(
         mut self,
         v: T,
@@ -14143,12 +11339,6 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets the value of [database_server_type][crate::model::CloudExadataInfrastructureProperties::database_server_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_database_server_type("example");
-    /// ```
     pub fn set_database_server_type<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -14158,12 +11348,6 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets the value of [storage_server_type][crate::model::CloudExadataInfrastructureProperties::storage_server_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
-    /// let x = CloudExadataInfrastructureProperties::new().set_storage_server_type("example");
-    /// ```
     pub fn set_storage_server_type<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -14408,14 +11592,6 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [preference][crate::model::MaintenanceWindow::preference].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::MaintenanceWindow;
-    /// use google_cloud_oracledatabase_v1::model::maintenance_window::MaintenanceWindowPreference;
-    /// let x0 = MaintenanceWindow::new().set_preference(MaintenanceWindowPreference::CustomPreference);
-    /// let x1 = MaintenanceWindow::new().set_preference(MaintenanceWindowPreference::NoPreference);
-    /// ```
     pub fn set_preference<
         T: std::convert::Into<crate::model::maintenance_window::MaintenanceWindowPreference>,
     >(
@@ -14427,17 +11603,6 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [months][crate::model::MaintenanceWindow::months].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::MaintenanceWindow;
-    /// use gtype::model::Month;
-    /// let x = MaintenanceWindow::new().set_months([
-    ///     Month::January,
-    ///     Month::February,
-    ///     Month::March,
-    /// ]);
-    /// ```
     pub fn set_months<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14449,12 +11614,6 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [weeks_of_month][crate::model::MaintenanceWindow::weeks_of_month].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::MaintenanceWindow;
-    /// let x = MaintenanceWindow::new().set_weeks_of_month([1, 2, 3]);
-    /// ```
     pub fn set_weeks_of_month<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14466,17 +11625,6 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [days_of_week][crate::model::MaintenanceWindow::days_of_week].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::MaintenanceWindow;
-    /// use gtype::model::DayOfWeek;
-    /// let x = MaintenanceWindow::new().set_days_of_week([
-    ///     DayOfWeek::Monday,
-    ///     DayOfWeek::Tuesday,
-    ///     DayOfWeek::Wednesday,
-    /// ]);
-    /// ```
     pub fn set_days_of_week<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14488,12 +11636,6 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [hours_of_day][crate::model::MaintenanceWindow::hours_of_day].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::MaintenanceWindow;
-    /// let x = MaintenanceWindow::new().set_hours_of_day([1, 2, 3]);
-    /// ```
     pub fn set_hours_of_day<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14505,26 +11647,12 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [lead_time_week][crate::model::MaintenanceWindow::lead_time_week].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::MaintenanceWindow;
-    /// let x = MaintenanceWindow::new().set_lead_time_week(42);
-    /// ```
     pub fn set_lead_time_week<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.lead_time_week = v.into();
         self
     }
 
     /// Sets the value of [patching_mode][crate::model::MaintenanceWindow::patching_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::MaintenanceWindow;
-    /// use google_cloud_oracledatabase_v1::model::maintenance_window::PatchingMode;
-    /// let x0 = MaintenanceWindow::new().set_patching_mode(PatchingMode::Rolling);
-    /// let x1 = MaintenanceWindow::new().set_patching_mode(PatchingMode::NonRolling);
-    /// ```
     pub fn set_patching_mode<
         T: std::convert::Into<crate::model::maintenance_window::PatchingMode>,
     >(
@@ -14536,24 +11664,12 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [custom_action_timeout_mins][crate::model::MaintenanceWindow::custom_action_timeout_mins].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::MaintenanceWindow;
-    /// let x = MaintenanceWindow::new().set_custom_action_timeout_mins(42);
-    /// ```
     pub fn set_custom_action_timeout_mins<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.custom_action_timeout_mins = v.into();
         self
     }
 
     /// Sets the value of [is_custom_action_timeout_enabled][crate::model::MaintenanceWindow::is_custom_action_timeout_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::MaintenanceWindow;
-    /// let x = MaintenanceWindow::new().set_is_custom_action_timeout_enabled(true);
-    /// ```
     pub fn set_is_custom_action_timeout_enabled<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -14904,25 +12020,12 @@ impl ExadbVmCluster {
     }
 
     /// Sets the value of [name][crate::model::ExadbVmCluster::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// let x = ExadbVmCluster::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [properties][crate::model::ExadbVmCluster::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// let x = ExadbVmCluster::new().set_properties(ExadbVmClusterProperties::default()/* use setters */);
-    /// ```
     pub fn set_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExadbVmClusterProperties>,
@@ -14932,14 +12035,6 @@ impl ExadbVmCluster {
     }
 
     /// Sets or clears the value of [properties][crate::model::ExadbVmCluster::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// let x = ExadbVmCluster::new().set_or_clear_properties(Some(ExadbVmClusterProperties::default()/* use setters */));
-    /// let x = ExadbVmCluster::new().set_or_clear_properties(None::<ExadbVmClusterProperties>);
-    /// ```
     pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExadbVmClusterProperties>,
@@ -14949,27 +12044,12 @@ impl ExadbVmCluster {
     }
 
     /// Sets the value of [gcp_oracle_zone][crate::model::ExadbVmCluster::gcp_oracle_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// let x = ExadbVmCluster::new().set_gcp_oracle_zone("example");
-    /// ```
     pub fn set_gcp_oracle_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcp_oracle_zone = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::ExadbVmCluster::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// let x = ExadbVmCluster::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -14982,36 +12062,18 @@ impl ExadbVmCluster {
     }
 
     /// Sets the value of [odb_network][crate::model::ExadbVmCluster::odb_network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// let x = ExadbVmCluster::new().set_odb_network("example");
-    /// ```
     pub fn set_odb_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.odb_network = v.into();
         self
     }
 
     /// Sets the value of [odb_subnet][crate::model::ExadbVmCluster::odb_subnet].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// let x = ExadbVmCluster::new().set_odb_subnet("example");
-    /// ```
     pub fn set_odb_subnet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.odb_subnet = v.into();
         self
     }
 
     /// Sets the value of [backup_odb_subnet][crate::model::ExadbVmCluster::backup_odb_subnet].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// let x = ExadbVmCluster::new().set_backup_odb_subnet("example");
-    /// ```
     pub fn set_backup_odb_subnet<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -15021,25 +12083,12 @@ impl ExadbVmCluster {
     }
 
     /// Sets the value of [display_name][crate::model::ExadbVmCluster::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// let x = ExadbVmCluster::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ExadbVmCluster::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// use wkt::Timestamp;
-    /// let x = ExadbVmCluster::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15049,14 +12098,6 @@ impl ExadbVmCluster {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ExadbVmCluster::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// use wkt::Timestamp;
-    /// let x = ExadbVmCluster::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ExadbVmCluster::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15066,12 +12107,6 @@ impl ExadbVmCluster {
     }
 
     /// Sets the value of [entitlement_id][crate::model::ExadbVmCluster::entitlement_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// let x = ExadbVmCluster::new().set_entitlement_id("example");
-    /// ```
     pub fn set_entitlement_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entitlement_id = v.into();
         self
@@ -15102,12 +12137,6 @@ impl ExadbVmClusterStorageDetails {
     }
 
     /// Sets the value of [size_in_gbs_per_node][crate::model::ExadbVmClusterStorageDetails::size_in_gbs_per_node].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterStorageDetails;
-    /// let x = ExadbVmClusterStorageDetails::new().set_size_in_gbs_per_node(42);
-    /// ```
     pub fn set_size_in_gbs_per_node<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.size_in_gbs_per_node = v.into();
         self
@@ -15204,73 +12233,36 @@ impl ExadbVmClusterProperties {
     }
 
     /// Sets the value of [cluster_name][crate::model::ExadbVmClusterProperties::cluster_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// let x = ExadbVmClusterProperties::new().set_cluster_name("example");
-    /// ```
     pub fn set_cluster_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_name = v.into();
         self
     }
 
     /// Sets the value of [grid_image_id][crate::model::ExadbVmClusterProperties::grid_image_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// let x = ExadbVmClusterProperties::new().set_grid_image_id("example");
-    /// ```
     pub fn set_grid_image_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.grid_image_id = v.into();
         self
     }
 
     /// Sets the value of [node_count][crate::model::ExadbVmClusterProperties::node_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// let x = ExadbVmClusterProperties::new().set_node_count(42);
-    /// ```
     pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.node_count = v.into();
         self
     }
 
     /// Sets the value of [enabled_ecpu_count_per_node][crate::model::ExadbVmClusterProperties::enabled_ecpu_count_per_node].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// let x = ExadbVmClusterProperties::new().set_enabled_ecpu_count_per_node(42);
-    /// ```
     pub fn set_enabled_ecpu_count_per_node<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.enabled_ecpu_count_per_node = v.into();
         self
     }
 
     /// Sets the value of [additional_ecpu_count_per_node][crate::model::ExadbVmClusterProperties::additional_ecpu_count_per_node].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// let x = ExadbVmClusterProperties::new().set_additional_ecpu_count_per_node(42);
-    /// ```
     pub fn set_additional_ecpu_count_per_node<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.additional_ecpu_count_per_node = v.into();
         self
     }
 
     /// Sets the value of [vm_file_system_storage][crate::model::ExadbVmClusterProperties::vm_file_system_storage].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// use google_cloud_oracledatabase_v1::model::ExadbVmClusterStorageDetails;
-    /// let x = ExadbVmClusterProperties::new().set_vm_file_system_storage(ExadbVmClusterStorageDetails::default()/* use setters */);
-    /// ```
     pub fn set_vm_file_system_storage<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExadbVmClusterStorageDetails>,
@@ -15280,14 +12272,6 @@ impl ExadbVmClusterProperties {
     }
 
     /// Sets or clears the value of [vm_file_system_storage][crate::model::ExadbVmClusterProperties::vm_file_system_storage].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// use google_cloud_oracledatabase_v1::model::ExadbVmClusterStorageDetails;
-    /// let x = ExadbVmClusterProperties::new().set_or_clear_vm_file_system_storage(Some(ExadbVmClusterStorageDetails::default()/* use setters */));
-    /// let x = ExadbVmClusterProperties::new().set_or_clear_vm_file_system_storage(None::<ExadbVmClusterStorageDetails>);
-    /// ```
     pub fn set_or_clear_vm_file_system_storage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExadbVmClusterStorageDetails>,
@@ -15297,14 +12281,6 @@ impl ExadbVmClusterProperties {
     }
 
     /// Sets the value of [license_model][crate::model::ExadbVmClusterProperties::license_model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// use google_cloud_oracledatabase_v1::model::exadb_vm_cluster_properties::LicenseModel;
-    /// let x0 = ExadbVmClusterProperties::new().set_license_model(LicenseModel::LicenseIncluded);
-    /// let x1 = ExadbVmClusterProperties::new().set_license_model(LicenseModel::BringYourOwnLicense);
-    /// ```
     pub fn set_license_model<
         T: std::convert::Into<crate::model::exadb_vm_cluster_properties::LicenseModel>,
     >(
@@ -15316,12 +12292,6 @@ impl ExadbVmClusterProperties {
     }
 
     /// Sets the value of [exascale_db_storage_vault][crate::model::ExadbVmClusterProperties::exascale_db_storage_vault].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// let x = ExadbVmClusterProperties::new().set_exascale_db_storage_vault("example");
-    /// ```
     pub fn set_exascale_db_storage_vault<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -15331,36 +12301,18 @@ impl ExadbVmClusterProperties {
     }
 
     /// Sets the value of [hostname_prefix][crate::model::ExadbVmClusterProperties::hostname_prefix].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// let x = ExadbVmClusterProperties::new().set_hostname_prefix("example");
-    /// ```
     pub fn set_hostname_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname_prefix = v.into();
         self
     }
 
     /// Sets the value of [hostname][crate::model::ExadbVmClusterProperties::hostname].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// let x = ExadbVmClusterProperties::new().set_hostname("example");
-    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname = v.into();
         self
     }
 
     /// Sets the value of [ssh_public_keys][crate::model::ExadbVmClusterProperties::ssh_public_keys].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// let x = ExadbVmClusterProperties::new().set_ssh_public_keys(["a", "b", "c"]);
-    /// ```
     pub fn set_ssh_public_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15372,13 +12324,6 @@ impl ExadbVmClusterProperties {
     }
 
     /// Sets the value of [data_collection_options][crate::model::ExadbVmClusterProperties::data_collection_options].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// use google_cloud_oracledatabase_v1::model::DataCollectionOptionsCommon;
-    /// let x = ExadbVmClusterProperties::new().set_data_collection_options(DataCollectionOptionsCommon::default()/* use setters */);
-    /// ```
     pub fn set_data_collection_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataCollectionOptionsCommon>,
@@ -15388,14 +12333,6 @@ impl ExadbVmClusterProperties {
     }
 
     /// Sets or clears the value of [data_collection_options][crate::model::ExadbVmClusterProperties::data_collection_options].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// use google_cloud_oracledatabase_v1::model::DataCollectionOptionsCommon;
-    /// let x = ExadbVmClusterProperties::new().set_or_clear_data_collection_options(Some(DataCollectionOptionsCommon::default()/* use setters */));
-    /// let x = ExadbVmClusterProperties::new().set_or_clear_data_collection_options(None::<DataCollectionOptionsCommon>);
-    /// ```
     pub fn set_or_clear_data_collection_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataCollectionOptionsCommon>,
@@ -15405,13 +12342,6 @@ impl ExadbVmClusterProperties {
     }
 
     /// Sets the value of [time_zone][crate::model::ExadbVmClusterProperties::time_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// use gtype::model::TimeZone;
-    /// let x = ExadbVmClusterProperties::new().set_time_zone(TimeZone::default()/* use setters */);
-    /// ```
     pub fn set_time_zone<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::TimeZone>,
@@ -15421,14 +12351,6 @@ impl ExadbVmClusterProperties {
     }
 
     /// Sets or clears the value of [time_zone][crate::model::ExadbVmClusterProperties::time_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// use gtype::model::TimeZone;
-    /// let x = ExadbVmClusterProperties::new().set_or_clear_time_zone(Some(TimeZone::default()/* use setters */));
-    /// let x = ExadbVmClusterProperties::new().set_or_clear_time_zone(None::<TimeZone>);
-    /// ```
     pub fn set_or_clear_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeZone>,
@@ -15438,15 +12360,6 @@ impl ExadbVmClusterProperties {
     }
 
     /// Sets the value of [lifecycle_state][crate::model::ExadbVmClusterProperties::lifecycle_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// use google_cloud_oracledatabase_v1::model::exadb_vm_cluster_properties::ExadbVmClusterLifecycleState;
-    /// let x0 = ExadbVmClusterProperties::new().set_lifecycle_state(ExadbVmClusterLifecycleState::Provisioning);
-    /// let x1 = ExadbVmClusterProperties::new().set_lifecycle_state(ExadbVmClusterLifecycleState::Available);
-    /// let x2 = ExadbVmClusterProperties::new().set_lifecycle_state(ExadbVmClusterLifecycleState::Updating);
-    /// ```
     pub fn set_lifecycle_state<
         T: std::convert::Into<crate::model::exadb_vm_cluster_properties::ExadbVmClusterLifecycleState>,
     >(
@@ -15458,14 +12371,6 @@ impl ExadbVmClusterProperties {
     }
 
     /// Sets the value of [shape_attribute][crate::model::ExadbVmClusterProperties::shape_attribute].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// use google_cloud_oracledatabase_v1::model::exadb_vm_cluster_properties::ShapeAttribute;
-    /// let x0 = ExadbVmClusterProperties::new().set_shape_attribute(ShapeAttribute::SmartStorage);
-    /// let x1 = ExadbVmClusterProperties::new().set_shape_attribute(ShapeAttribute::BlockStorage);
-    /// ```
     pub fn set_shape_attribute<
         T: std::convert::Into<crate::model::exadb_vm_cluster_properties::ShapeAttribute>,
     >(
@@ -15477,48 +12382,24 @@ impl ExadbVmClusterProperties {
     }
 
     /// Sets the value of [memory_size_gb][crate::model::ExadbVmClusterProperties::memory_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// let x = ExadbVmClusterProperties::new().set_memory_size_gb(42);
-    /// ```
     pub fn set_memory_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.memory_size_gb = v.into();
         self
     }
 
     /// Sets the value of [scan_listener_port_tcp][crate::model::ExadbVmClusterProperties::scan_listener_port_tcp].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// let x = ExadbVmClusterProperties::new().set_scan_listener_port_tcp(42);
-    /// ```
     pub fn set_scan_listener_port_tcp<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.scan_listener_port_tcp = v.into();
         self
     }
 
     /// Sets the value of [oci_uri][crate::model::ExadbVmClusterProperties::oci_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// let x = ExadbVmClusterProperties::new().set_oci_uri("example");
-    /// ```
     pub fn set_oci_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.oci_uri = v.into();
         self
     }
 
     /// Sets the value of [gi_version][crate::model::ExadbVmClusterProperties::gi_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// let x = ExadbVmClusterProperties::new().set_gi_version("example");
-    /// ```
     pub fn set_gi_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gi_version = v.into();
         self
@@ -16013,49 +12894,24 @@ impl ExascaleDbStorageVault {
     }
 
     /// Sets the value of [name][crate::model::ExascaleDbStorageVault::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
-    /// let x = ExascaleDbStorageVault::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::ExascaleDbStorageVault::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
-    /// let x = ExascaleDbStorageVault::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [gcp_oracle_zone][crate::model::ExascaleDbStorageVault::gcp_oracle_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
-    /// let x = ExascaleDbStorageVault::new().set_gcp_oracle_zone("example");
-    /// ```
     pub fn set_gcp_oracle_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcp_oracle_zone = v.into();
         self
     }
 
     /// Sets the value of [properties][crate::model::ExascaleDbStorageVault::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
-    /// use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVaultProperties;
-    /// let x = ExascaleDbStorageVault::new().set_properties(ExascaleDbStorageVaultProperties::default()/* use setters */);
-    /// ```
     pub fn set_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExascaleDbStorageVaultProperties>,
@@ -16065,14 +12921,6 @@ impl ExascaleDbStorageVault {
     }
 
     /// Sets or clears the value of [properties][crate::model::ExascaleDbStorageVault::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
-    /// use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVaultProperties;
-    /// let x = ExascaleDbStorageVault::new().set_or_clear_properties(Some(ExascaleDbStorageVaultProperties::default()/* use setters */));
-    /// let x = ExascaleDbStorageVault::new().set_or_clear_properties(None::<ExascaleDbStorageVaultProperties>);
-    /// ```
     pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExascaleDbStorageVaultProperties>,
@@ -16082,13 +12930,6 @@ impl ExascaleDbStorageVault {
     }
 
     /// Sets the value of [create_time][crate::model::ExascaleDbStorageVault::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
-    /// use wkt::Timestamp;
-    /// let x = ExascaleDbStorageVault::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16098,14 +12939,6 @@ impl ExascaleDbStorageVault {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ExascaleDbStorageVault::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
-    /// use wkt::Timestamp;
-    /// let x = ExascaleDbStorageVault::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ExascaleDbStorageVault::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16115,27 +12948,12 @@ impl ExascaleDbStorageVault {
     }
 
     /// Sets the value of [entitlement_id][crate::model::ExascaleDbStorageVault::entitlement_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
-    /// let x = ExascaleDbStorageVault::new().set_entitlement_id("example");
-    /// ```
     pub fn set_entitlement_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entitlement_id = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::ExascaleDbStorageVault::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
-    /// let x = ExascaleDbStorageVault::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -16208,25 +13026,12 @@ impl ExascaleDbStorageVaultProperties {
     }
 
     /// Sets the value of [ocid][crate::model::ExascaleDbStorageVaultProperties::ocid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVaultProperties;
-    /// let x = ExascaleDbStorageVaultProperties::new().set_ocid("example");
-    /// ```
     pub fn set_ocid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ocid = v.into();
         self
     }
 
     /// Sets the value of [time_zone][crate::model::ExascaleDbStorageVaultProperties::time_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVaultProperties;
-    /// use gtype::model::TimeZone;
-    /// let x = ExascaleDbStorageVaultProperties::new().set_time_zone(TimeZone::default()/* use setters */);
-    /// ```
     pub fn set_time_zone<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::TimeZone>,
@@ -16236,14 +13041,6 @@ impl ExascaleDbStorageVaultProperties {
     }
 
     /// Sets or clears the value of [time_zone][crate::model::ExascaleDbStorageVaultProperties::time_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVaultProperties;
-    /// use gtype::model::TimeZone;
-    /// let x = ExascaleDbStorageVaultProperties::new().set_or_clear_time_zone(Some(TimeZone::default()/* use setters */));
-    /// let x = ExascaleDbStorageVaultProperties::new().set_or_clear_time_zone(None::<TimeZone>);
-    /// ```
     pub fn set_or_clear_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeZone>,
@@ -16253,13 +13050,6 @@ impl ExascaleDbStorageVaultProperties {
     }
 
     /// Sets the value of [exascale_db_storage_details][crate::model::ExascaleDbStorageVaultProperties::exascale_db_storage_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVaultProperties;
-    /// use google_cloud_oracledatabase_v1::model::ExascaleDbStorageDetails;
-    /// let x = ExascaleDbStorageVaultProperties::new().set_exascale_db_storage_details(ExascaleDbStorageDetails::default()/* use setters */);
-    /// ```
     pub fn set_exascale_db_storage_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExascaleDbStorageDetails>,
@@ -16269,14 +13059,6 @@ impl ExascaleDbStorageVaultProperties {
     }
 
     /// Sets or clears the value of [exascale_db_storage_details][crate::model::ExascaleDbStorageVaultProperties::exascale_db_storage_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVaultProperties;
-    /// use google_cloud_oracledatabase_v1::model::ExascaleDbStorageDetails;
-    /// let x = ExascaleDbStorageVaultProperties::new().set_or_clear_exascale_db_storage_details(Some(ExascaleDbStorageDetails::default()/* use setters */));
-    /// let x = ExascaleDbStorageVaultProperties::new().set_or_clear_exascale_db_storage_details(None::<ExascaleDbStorageDetails>);
-    /// ```
     pub fn set_or_clear_exascale_db_storage_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExascaleDbStorageDetails>,
@@ -16286,15 +13068,6 @@ impl ExascaleDbStorageVaultProperties {
     }
 
     /// Sets the value of [state][crate::model::ExascaleDbStorageVaultProperties::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVaultProperties;
-    /// use google_cloud_oracledatabase_v1::model::exascale_db_storage_vault_properties::State;
-    /// let x0 = ExascaleDbStorageVaultProperties::new().set_state(State::Provisioning);
-    /// let x1 = ExascaleDbStorageVaultProperties::new().set_state(State::Available);
-    /// let x2 = ExascaleDbStorageVaultProperties::new().set_state(State::Updating);
-    /// ```
     pub fn set_state<
         T: std::convert::Into<crate::model::exascale_db_storage_vault_properties::State>,
     >(
@@ -16306,24 +13079,12 @@ impl ExascaleDbStorageVaultProperties {
     }
 
     /// Sets the value of [description][crate::model::ExascaleDbStorageVaultProperties::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVaultProperties;
-    /// let x = ExascaleDbStorageVaultProperties::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [vm_cluster_ids][crate::model::ExascaleDbStorageVaultProperties::vm_cluster_ids].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVaultProperties;
-    /// let x = ExascaleDbStorageVaultProperties::new().set_vm_cluster_ids(["a", "b", "c"]);
-    /// ```
     pub fn set_vm_cluster_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16335,52 +13096,24 @@ impl ExascaleDbStorageVaultProperties {
     }
 
     /// Sets the value of [vm_cluster_count][crate::model::ExascaleDbStorageVaultProperties::vm_cluster_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVaultProperties;
-    /// let x = ExascaleDbStorageVaultProperties::new().set_vm_cluster_count(42);
-    /// ```
     pub fn set_vm_cluster_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.vm_cluster_count = v.into();
         self
     }
 
     /// Sets the value of [additional_flash_cache_percent][crate::model::ExascaleDbStorageVaultProperties::additional_flash_cache_percent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVaultProperties;
-    /// let x = ExascaleDbStorageVaultProperties::new().set_additional_flash_cache_percent(42);
-    /// ```
     pub fn set_additional_flash_cache_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.additional_flash_cache_percent = v.into();
         self
     }
 
     /// Sets the value of [oci_uri][crate::model::ExascaleDbStorageVaultProperties::oci_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVaultProperties;
-    /// let x = ExascaleDbStorageVaultProperties::new().set_oci_uri("example");
-    /// ```
     pub fn set_oci_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.oci_uri = v.into();
         self
     }
 
     /// Sets the value of [attached_shape_attributes][crate::model::ExascaleDbStorageVaultProperties::attached_shape_attributes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVaultProperties;
-    /// use google_cloud_oracledatabase_v1::model::exascale_db_storage_vault_properties::ShapeAttribute;
-    /// let x = ExascaleDbStorageVaultProperties::new().set_attached_shape_attributes([
-    ///     ShapeAttribute::SmartStorage,
-    ///     ShapeAttribute::BlockStorage,
-    /// ]);
-    /// ```
     pub fn set_attached_shape_attributes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16392,16 +13125,6 @@ impl ExascaleDbStorageVaultProperties {
     }
 
     /// Sets the value of [available_shape_attributes][crate::model::ExascaleDbStorageVaultProperties::available_shape_attributes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVaultProperties;
-    /// use google_cloud_oracledatabase_v1::model::exascale_db_storage_vault_properties::ShapeAttribute;
-    /// let x = ExascaleDbStorageVaultProperties::new().set_available_shape_attributes([
-    ///     ShapeAttribute::SmartStorage,
-    ///     ShapeAttribute::BlockStorage,
-    /// ]);
-    /// ```
     pub fn set_available_shape_attributes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16739,24 +13462,12 @@ impl ExascaleDbStorageDetails {
     }
 
     /// Sets the value of [available_size_gbs][crate::model::ExascaleDbStorageDetails::available_size_gbs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageDetails;
-    /// let x = ExascaleDbStorageDetails::new().set_available_size_gbs(42);
-    /// ```
     pub fn set_available_size_gbs<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.available_size_gbs = v.into();
         self
     }
 
     /// Sets the value of [total_size_gbs][crate::model::ExascaleDbStorageDetails::total_size_gbs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageDetails;
-    /// let x = ExascaleDbStorageDetails::new().set_total_size_gbs(42);
-    /// ```
     pub fn set_total_size_gbs<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size_gbs = v.into();
         self
@@ -16786,12 +13497,6 @@ impl GetExascaleDbStorageVaultRequest {
     }
 
     /// Sets the value of [name][crate::model::GetExascaleDbStorageVaultRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::GetExascaleDbStorageVaultRequest;
-    /// let x = GetExascaleDbStorageVaultRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -16837,60 +13542,30 @@ impl ListExascaleDbStorageVaultsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListExascaleDbStorageVaultsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListExascaleDbStorageVaultsRequest;
-    /// let x = ListExascaleDbStorageVaultsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListExascaleDbStorageVaultsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListExascaleDbStorageVaultsRequest;
-    /// let x = ListExascaleDbStorageVaultsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListExascaleDbStorageVaultsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListExascaleDbStorageVaultsRequest;
-    /// let x = ListExascaleDbStorageVaultsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListExascaleDbStorageVaultsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListExascaleDbStorageVaultsRequest;
-    /// let x = ListExascaleDbStorageVaultsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListExascaleDbStorageVaultsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListExascaleDbStorageVaultsRequest;
-    /// let x = ListExascaleDbStorageVaultsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -16925,17 +13600,6 @@ impl ListExascaleDbStorageVaultsResponse {
     }
 
     /// Sets the value of [exascale_db_storage_vaults][crate::model::ListExascaleDbStorageVaultsResponse::exascale_db_storage_vaults].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListExascaleDbStorageVaultsResponse;
-    /// use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
-    /// let x = ListExascaleDbStorageVaultsResponse::new()
-    ///     .set_exascale_db_storage_vaults([
-    ///         ExascaleDbStorageVault::default()/* use setters */,
-    ///         ExascaleDbStorageVault::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_exascale_db_storage_vaults<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16947,12 +13611,6 @@ impl ListExascaleDbStorageVaultsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListExascaleDbStorageVaultsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListExascaleDbStorageVaultsResponse;
-    /// let x = ListExascaleDbStorageVaultsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -17020,24 +13678,12 @@ impl CreateExascaleDbStorageVaultRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateExascaleDbStorageVaultRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateExascaleDbStorageVaultRequest;
-    /// let x = CreateExascaleDbStorageVaultRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [exascale_db_storage_vault_id][crate::model::CreateExascaleDbStorageVaultRequest::exascale_db_storage_vault_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateExascaleDbStorageVaultRequest;
-    /// let x = CreateExascaleDbStorageVaultRequest::new().set_exascale_db_storage_vault_id("example");
-    /// ```
     pub fn set_exascale_db_storage_vault_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -17047,13 +13693,6 @@ impl CreateExascaleDbStorageVaultRequest {
     }
 
     /// Sets the value of [exascale_db_storage_vault][crate::model::CreateExascaleDbStorageVaultRequest::exascale_db_storage_vault].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateExascaleDbStorageVaultRequest;
-    /// use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
-    /// let x = CreateExascaleDbStorageVaultRequest::new().set_exascale_db_storage_vault(ExascaleDbStorageVault::default()/* use setters */);
-    /// ```
     pub fn set_exascale_db_storage_vault<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExascaleDbStorageVault>,
@@ -17063,14 +13702,6 @@ impl CreateExascaleDbStorageVaultRequest {
     }
 
     /// Sets or clears the value of [exascale_db_storage_vault][crate::model::CreateExascaleDbStorageVaultRequest::exascale_db_storage_vault].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateExascaleDbStorageVaultRequest;
-    /// use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
-    /// let x = CreateExascaleDbStorageVaultRequest::new().set_or_clear_exascale_db_storage_vault(Some(ExascaleDbStorageVault::default()/* use setters */));
-    /// let x = CreateExascaleDbStorageVaultRequest::new().set_or_clear_exascale_db_storage_vault(None::<ExascaleDbStorageVault>);
-    /// ```
     pub fn set_or_clear_exascale_db_storage_vault<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExascaleDbStorageVault>,
@@ -17080,12 +13711,6 @@ impl CreateExascaleDbStorageVaultRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateExascaleDbStorageVaultRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateExascaleDbStorageVaultRequest;
-    /// let x = CreateExascaleDbStorageVaultRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -17125,24 +13750,12 @@ impl DeleteExascaleDbStorageVaultRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteExascaleDbStorageVaultRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DeleteExascaleDbStorageVaultRequest;
-    /// let x = DeleteExascaleDbStorageVaultRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteExascaleDbStorageVaultRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DeleteExascaleDbStorageVaultRequest;
-    /// let x = DeleteExascaleDbStorageVaultRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -17177,24 +13790,12 @@ impl GiVersion {
     }
 
     /// Sets the value of [name][crate::model::GiVersion::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::GiVersion;
-    /// let x = GiVersion::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::GiVersion::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::GiVersion;
-    /// let x = GiVersion::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -17225,12 +13826,6 @@ impl LocationMetadata {
     }
 
     /// Sets the value of [gcp_oracle_zones][crate::model::LocationMetadata::gcp_oracle_zones].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::LocationMetadata;
-    /// let x = LocationMetadata::new().set_gcp_oracle_zones(["a", "b", "c"]);
-    /// ```
     pub fn set_gcp_oracle_zones<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17272,36 +13867,18 @@ impl MinorVersion {
     }
 
     /// Sets the value of [name][crate::model::MinorVersion::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::MinorVersion;
-    /// let x = MinorVersion::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [grid_image_id][crate::model::MinorVersion::grid_image_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::MinorVersion;
-    /// let x = MinorVersion::new().set_grid_image_id("example");
-    /// ```
     pub fn set_grid_image_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.grid_image_id = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::MinorVersion::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::MinorVersion;
-    /// let x = MinorVersion::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -17347,48 +13924,24 @@ impl ListMinorVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListMinorVersionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListMinorVersionsRequest;
-    /// let x = ListMinorVersionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListMinorVersionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListMinorVersionsRequest;
-    /// let x = ListMinorVersionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListMinorVersionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListMinorVersionsRequest;
-    /// let x = ListMinorVersionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListMinorVersionsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListMinorVersionsRequest;
-    /// let x = ListMinorVersionsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -17420,17 +13973,6 @@ impl ListMinorVersionsResponse {
     }
 
     /// Sets the value of [minor_versions][crate::model::ListMinorVersionsResponse::minor_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListMinorVersionsResponse;
-    /// use google_cloud_oracledatabase_v1::model::MinorVersion;
-    /// let x = ListMinorVersionsResponse::new()
-    ///     .set_minor_versions([
-    ///         MinorVersion::default()/* use setters */,
-    ///         MinorVersion::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_minor_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17442,12 +13984,6 @@ impl ListMinorVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListMinorVersionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListMinorVersionsResponse;
-    /// let x = ListMinorVersionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -17513,39 +14049,18 @@ impl OdbNetwork {
     }
 
     /// Sets the value of [name][crate::model::OdbNetwork::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OdbNetwork;
-    /// let x = OdbNetwork::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [network][crate::model::OdbNetwork::network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OdbNetwork;
-    /// let x = OdbNetwork::new().set_network("example");
-    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::OdbNetwork::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OdbNetwork;
-    /// let x = OdbNetwork::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -17558,13 +14073,6 @@ impl OdbNetwork {
     }
 
     /// Sets the value of [create_time][crate::model::OdbNetwork::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OdbNetwork;
-    /// use wkt::Timestamp;
-    /// let x = OdbNetwork::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17574,14 +14082,6 @@ impl OdbNetwork {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OdbNetwork::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OdbNetwork;
-    /// use wkt::Timestamp;
-    /// let x = OdbNetwork::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OdbNetwork::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17591,15 +14091,6 @@ impl OdbNetwork {
     }
 
     /// Sets the value of [state][crate::model::OdbNetwork::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OdbNetwork;
-    /// use google_cloud_oracledatabase_v1::model::odb_network::State;
-    /// let x0 = OdbNetwork::new().set_state(State::Provisioning);
-    /// let x1 = OdbNetwork::new().set_state(State::Available);
-    /// let x2 = OdbNetwork::new().set_state(State::Terminating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::odb_network::State>>(
         mut self,
         v: T,
@@ -17609,24 +14100,12 @@ impl OdbNetwork {
     }
 
     /// Sets the value of [entitlement_id][crate::model::OdbNetwork::entitlement_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OdbNetwork;
-    /// let x = OdbNetwork::new().set_entitlement_id("example");
-    /// ```
     pub fn set_entitlement_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entitlement_id = v.into();
         self
     }
 
     /// Sets the value of [gcp_oracle_zone][crate::model::OdbNetwork::gcp_oracle_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OdbNetwork;
-    /// let x = OdbNetwork::new().set_gcp_oracle_zone("example");
-    /// ```
     pub fn set_gcp_oracle_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcp_oracle_zone = v.into();
         self
@@ -17827,37 +14306,18 @@ impl CreateOdbNetworkRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateOdbNetworkRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateOdbNetworkRequest;
-    /// let x = CreateOdbNetworkRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [odb_network_id][crate::model::CreateOdbNetworkRequest::odb_network_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateOdbNetworkRequest;
-    /// let x = CreateOdbNetworkRequest::new().set_odb_network_id("example");
-    /// ```
     pub fn set_odb_network_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.odb_network_id = v.into();
         self
     }
 
     /// Sets the value of [odb_network][crate::model::CreateOdbNetworkRequest::odb_network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateOdbNetworkRequest;
-    /// use google_cloud_oracledatabase_v1::model::OdbNetwork;
-    /// let x = CreateOdbNetworkRequest::new().set_odb_network(OdbNetwork::default()/* use setters */);
-    /// ```
     pub fn set_odb_network<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OdbNetwork>,
@@ -17867,14 +14327,6 @@ impl CreateOdbNetworkRequest {
     }
 
     /// Sets or clears the value of [odb_network][crate::model::CreateOdbNetworkRequest::odb_network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateOdbNetworkRequest;
-    /// use google_cloud_oracledatabase_v1::model::OdbNetwork;
-    /// let x = CreateOdbNetworkRequest::new().set_or_clear_odb_network(Some(OdbNetwork::default()/* use setters */));
-    /// let x = CreateOdbNetworkRequest::new().set_or_clear_odb_network(None::<OdbNetwork>);
-    /// ```
     pub fn set_or_clear_odb_network<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OdbNetwork>,
@@ -17884,12 +14336,6 @@ impl CreateOdbNetworkRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateOdbNetworkRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateOdbNetworkRequest;
-    /// let x = CreateOdbNetworkRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -17929,24 +14375,12 @@ impl DeleteOdbNetworkRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteOdbNetworkRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DeleteOdbNetworkRequest;
-    /// let x = DeleteOdbNetworkRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteOdbNetworkRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DeleteOdbNetworkRequest;
-    /// let x = DeleteOdbNetworkRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -17990,60 +14424,30 @@ impl ListOdbNetworksRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListOdbNetworksRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListOdbNetworksRequest;
-    /// let x = ListOdbNetworksRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListOdbNetworksRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListOdbNetworksRequest;
-    /// let x = ListOdbNetworksRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListOdbNetworksRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListOdbNetworksRequest;
-    /// let x = ListOdbNetworksRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListOdbNetworksRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListOdbNetworksRequest;
-    /// let x = ListOdbNetworksRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListOdbNetworksRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListOdbNetworksRequest;
-    /// let x = ListOdbNetworksRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -18079,17 +14483,6 @@ impl ListOdbNetworksResponse {
     }
 
     /// Sets the value of [odb_networks][crate::model::ListOdbNetworksResponse::odb_networks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListOdbNetworksResponse;
-    /// use google_cloud_oracledatabase_v1::model::OdbNetwork;
-    /// let x = ListOdbNetworksResponse::new()
-    ///     .set_odb_networks([
-    ///         OdbNetwork::default()/* use setters */,
-    ///         OdbNetwork::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_odb_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18101,24 +14494,12 @@ impl ListOdbNetworksResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListOdbNetworksResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListOdbNetworksResponse;
-    /// let x = ListOdbNetworksResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListOdbNetworksResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListOdbNetworksResponse;
-    /// let x = ListOdbNetworksResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18167,12 +14548,6 @@ impl GetOdbNetworkRequest {
     }
 
     /// Sets the value of [name][crate::model::GetOdbNetworkRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::GetOdbNetworkRequest;
-    /// let x = GetOdbNetworkRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -18217,38 +14592,18 @@ impl OdbSubnet {
     }
 
     /// Sets the value of [name][crate::model::OdbSubnet::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OdbSubnet;
-    /// let x = OdbSubnet::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [cidr_range][crate::model::OdbSubnet::cidr_range].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OdbSubnet;
-    /// let x = OdbSubnet::new().set_cidr_range("example");
-    /// ```
     pub fn set_cidr_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cidr_range = v.into();
         self
     }
 
     /// Sets the value of [purpose][crate::model::OdbSubnet::purpose].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OdbSubnet;
-    /// use google_cloud_oracledatabase_v1::model::odb_subnet::Purpose;
-    /// let x0 = OdbSubnet::new().set_purpose(Purpose::ClientSubnet);
-    /// let x1 = OdbSubnet::new().set_purpose(Purpose::BackupSubnet);
-    /// ```
     pub fn set_purpose<T: std::convert::Into<crate::model::odb_subnet::Purpose>>(
         mut self,
         v: T,
@@ -18258,15 +14613,6 @@ impl OdbSubnet {
     }
 
     /// Sets the value of [labels][crate::model::OdbSubnet::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OdbSubnet;
-    /// let x = OdbSubnet::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -18279,13 +14625,6 @@ impl OdbSubnet {
     }
 
     /// Sets the value of [create_time][crate::model::OdbSubnet::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OdbSubnet;
-    /// use wkt::Timestamp;
-    /// let x = OdbSubnet::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18295,14 +14634,6 @@ impl OdbSubnet {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OdbSubnet::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OdbSubnet;
-    /// use wkt::Timestamp;
-    /// let x = OdbSubnet::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OdbSubnet::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18312,15 +14643,6 @@ impl OdbSubnet {
     }
 
     /// Sets the value of [state][crate::model::OdbSubnet::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OdbSubnet;
-    /// use google_cloud_oracledatabase_v1::model::odb_subnet::State;
-    /// let x0 = OdbSubnet::new().set_state(State::Provisioning);
-    /// let x1 = OdbSubnet::new().set_state(State::Available);
-    /// let x2 = OdbSubnet::new().set_state(State::Terminating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::odb_subnet::State>>(
         mut self,
         v: T,
@@ -18656,37 +14978,18 @@ impl CreateOdbSubnetRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateOdbSubnetRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateOdbSubnetRequest;
-    /// let x = CreateOdbSubnetRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [odb_subnet_id][crate::model::CreateOdbSubnetRequest::odb_subnet_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateOdbSubnetRequest;
-    /// let x = CreateOdbSubnetRequest::new().set_odb_subnet_id("example");
-    /// ```
     pub fn set_odb_subnet_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.odb_subnet_id = v.into();
         self
     }
 
     /// Sets the value of [odb_subnet][crate::model::CreateOdbSubnetRequest::odb_subnet].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateOdbSubnetRequest;
-    /// use google_cloud_oracledatabase_v1::model::OdbSubnet;
-    /// let x = CreateOdbSubnetRequest::new().set_odb_subnet(OdbSubnet::default()/* use setters */);
-    /// ```
     pub fn set_odb_subnet<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OdbSubnet>,
@@ -18696,14 +14999,6 @@ impl CreateOdbSubnetRequest {
     }
 
     /// Sets or clears the value of [odb_subnet][crate::model::CreateOdbSubnetRequest::odb_subnet].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateOdbSubnetRequest;
-    /// use google_cloud_oracledatabase_v1::model::OdbSubnet;
-    /// let x = CreateOdbSubnetRequest::new().set_or_clear_odb_subnet(Some(OdbSubnet::default()/* use setters */));
-    /// let x = CreateOdbSubnetRequest::new().set_or_clear_odb_subnet(None::<OdbSubnet>);
-    /// ```
     pub fn set_or_clear_odb_subnet<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OdbSubnet>,
@@ -18713,12 +15008,6 @@ impl CreateOdbSubnetRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateOdbSubnetRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateOdbSubnetRequest;
-    /// let x = CreateOdbSubnetRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -18758,24 +15047,12 @@ impl DeleteOdbSubnetRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteOdbSubnetRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DeleteOdbSubnetRequest;
-    /// let x = DeleteOdbSubnetRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteOdbSubnetRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DeleteOdbSubnetRequest;
-    /// let x = DeleteOdbSubnetRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -18819,60 +15096,30 @@ impl ListOdbSubnetsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListOdbSubnetsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListOdbSubnetsRequest;
-    /// let x = ListOdbSubnetsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListOdbSubnetsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListOdbSubnetsRequest;
-    /// let x = ListOdbSubnetsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListOdbSubnetsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListOdbSubnetsRequest;
-    /// let x = ListOdbSubnetsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListOdbSubnetsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListOdbSubnetsRequest;
-    /// let x = ListOdbSubnetsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListOdbSubnetsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListOdbSubnetsRequest;
-    /// let x = ListOdbSubnetsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -18908,17 +15155,6 @@ impl ListOdbSubnetsResponse {
     }
 
     /// Sets the value of [odb_subnets][crate::model::ListOdbSubnetsResponse::odb_subnets].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListOdbSubnetsResponse;
-    /// use google_cloud_oracledatabase_v1::model::OdbSubnet;
-    /// let x = ListOdbSubnetsResponse::new()
-    ///     .set_odb_subnets([
-    ///         OdbSubnet::default()/* use setters */,
-    ///         OdbSubnet::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_odb_subnets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18930,24 +15166,12 @@ impl ListOdbSubnetsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListOdbSubnetsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListOdbSubnetsResponse;
-    /// let x = ListOdbSubnetsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListOdbSubnetsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListOdbSubnetsResponse;
-    /// let x = ListOdbSubnetsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18996,12 +15220,6 @@ impl GetOdbSubnetRequest {
     }
 
     /// Sets the value of [name][crate::model::GetOdbSubnetRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::GetOdbSubnetRequest;
-    /// let x = GetOdbSubnetRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -19045,60 +15263,30 @@ impl ListCloudExadataInfrastructuresRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCloudExadataInfrastructuresRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListCloudExadataInfrastructuresRequest;
-    /// let x = ListCloudExadataInfrastructuresRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCloudExadataInfrastructuresRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListCloudExadataInfrastructuresRequest;
-    /// let x = ListCloudExadataInfrastructuresRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCloudExadataInfrastructuresRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListCloudExadataInfrastructuresRequest;
-    /// let x = ListCloudExadataInfrastructuresRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCloudExadataInfrastructuresRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListCloudExadataInfrastructuresRequest;
-    /// let x = ListCloudExadataInfrastructuresRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCloudExadataInfrastructuresRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListCloudExadataInfrastructuresRequest;
-    /// let x = ListCloudExadataInfrastructuresRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -19130,17 +15318,6 @@ impl ListCloudExadataInfrastructuresResponse {
     }
 
     /// Sets the value of [cloud_exadata_infrastructures][crate::model::ListCloudExadataInfrastructuresResponse::cloud_exadata_infrastructures].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListCloudExadataInfrastructuresResponse;
-    /// use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructure;
-    /// let x = ListCloudExadataInfrastructuresResponse::new()
-    ///     .set_cloud_exadata_infrastructures([
-    ///         CloudExadataInfrastructure::default()/* use setters */,
-    ///         CloudExadataInfrastructure::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_cloud_exadata_infrastructures<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19152,12 +15329,6 @@ impl ListCloudExadataInfrastructuresResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCloudExadataInfrastructuresResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListCloudExadataInfrastructuresResponse;
-    /// let x = ListCloudExadataInfrastructuresResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -19202,12 +15373,6 @@ impl GetCloudExadataInfrastructureRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCloudExadataInfrastructureRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::GetCloudExadataInfrastructureRequest;
-    /// let x = GetCloudExadataInfrastructureRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -19256,24 +15421,12 @@ impl CreateCloudExadataInfrastructureRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCloudExadataInfrastructureRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateCloudExadataInfrastructureRequest;
-    /// let x = CreateCloudExadataInfrastructureRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [cloud_exadata_infrastructure_id][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateCloudExadataInfrastructureRequest;
-    /// let x = CreateCloudExadataInfrastructureRequest::new().set_cloud_exadata_infrastructure_id("example");
-    /// ```
     pub fn set_cloud_exadata_infrastructure_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -19283,13 +15436,6 @@ impl CreateCloudExadataInfrastructureRequest {
     }
 
     /// Sets the value of [cloud_exadata_infrastructure][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateCloudExadataInfrastructureRequest;
-    /// use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructure;
-    /// let x = CreateCloudExadataInfrastructureRequest::new().set_cloud_exadata_infrastructure(CloudExadataInfrastructure::default()/* use setters */);
-    /// ```
     pub fn set_cloud_exadata_infrastructure<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudExadataInfrastructure>,
@@ -19299,14 +15445,6 @@ impl CreateCloudExadataInfrastructureRequest {
     }
 
     /// Sets or clears the value of [cloud_exadata_infrastructure][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateCloudExadataInfrastructureRequest;
-    /// use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructure;
-    /// let x = CreateCloudExadataInfrastructureRequest::new().set_or_clear_cloud_exadata_infrastructure(Some(CloudExadataInfrastructure::default()/* use setters */));
-    /// let x = CreateCloudExadataInfrastructureRequest::new().set_or_clear_cloud_exadata_infrastructure(None::<CloudExadataInfrastructure>);
-    /// ```
     pub fn set_or_clear_cloud_exadata_infrastructure<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudExadataInfrastructure>,
@@ -19316,12 +15454,6 @@ impl CreateCloudExadataInfrastructureRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateCloudExadataInfrastructureRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateCloudExadataInfrastructureRequest;
-    /// let x = CreateCloudExadataInfrastructureRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -19367,36 +15499,18 @@ impl DeleteCloudExadataInfrastructureRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteCloudExadataInfrastructureRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DeleteCloudExadataInfrastructureRequest;
-    /// let x = DeleteCloudExadataInfrastructureRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteCloudExadataInfrastructureRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DeleteCloudExadataInfrastructureRequest;
-    /// let x = DeleteCloudExadataInfrastructureRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteCloudExadataInfrastructureRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DeleteCloudExadataInfrastructureRequest;
-    /// let x = DeleteCloudExadataInfrastructureRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -19437,48 +15551,24 @@ impl ListCloudVmClustersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCloudVmClustersRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListCloudVmClustersRequest;
-    /// let x = ListCloudVmClustersRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCloudVmClustersRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListCloudVmClustersRequest;
-    /// let x = ListCloudVmClustersRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCloudVmClustersRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListCloudVmClustersRequest;
-    /// let x = ListCloudVmClustersRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCloudVmClustersRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListCloudVmClustersRequest;
-    /// let x = ListCloudVmClustersRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -19510,17 +15600,6 @@ impl ListCloudVmClustersResponse {
     }
 
     /// Sets the value of [cloud_vm_clusters][crate::model::ListCloudVmClustersResponse::cloud_vm_clusters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListCloudVmClustersResponse;
-    /// use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = ListCloudVmClustersResponse::new()
-    ///     .set_cloud_vm_clusters([
-    ///         CloudVmCluster::default()/* use setters */,
-    ///         CloudVmCluster::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_cloud_vm_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19532,12 +15611,6 @@ impl ListCloudVmClustersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCloudVmClustersResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListCloudVmClustersResponse;
-    /// let x = ListCloudVmClustersResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -19581,12 +15654,6 @@ impl GetCloudVmClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCloudVmClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::GetCloudVmClusterRequest;
-    /// let x = GetCloudVmClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -19635,24 +15702,12 @@ impl CreateCloudVmClusterRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCloudVmClusterRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateCloudVmClusterRequest;
-    /// let x = CreateCloudVmClusterRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [cloud_vm_cluster_id][crate::model::CreateCloudVmClusterRequest::cloud_vm_cluster_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateCloudVmClusterRequest;
-    /// let x = CreateCloudVmClusterRequest::new().set_cloud_vm_cluster_id("example");
-    /// ```
     pub fn set_cloud_vm_cluster_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -19662,13 +15717,6 @@ impl CreateCloudVmClusterRequest {
     }
 
     /// Sets the value of [cloud_vm_cluster][crate::model::CreateCloudVmClusterRequest::cloud_vm_cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateCloudVmClusterRequest;
-    /// use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = CreateCloudVmClusterRequest::new().set_cloud_vm_cluster(CloudVmCluster::default()/* use setters */);
-    /// ```
     pub fn set_cloud_vm_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudVmCluster>,
@@ -19678,14 +15726,6 @@ impl CreateCloudVmClusterRequest {
     }
 
     /// Sets or clears the value of [cloud_vm_cluster][crate::model::CreateCloudVmClusterRequest::cloud_vm_cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateCloudVmClusterRequest;
-    /// use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = CreateCloudVmClusterRequest::new().set_or_clear_cloud_vm_cluster(Some(CloudVmCluster::default()/* use setters */));
-    /// let x = CreateCloudVmClusterRequest::new().set_or_clear_cloud_vm_cluster(None::<CloudVmCluster>);
-    /// ```
     pub fn set_or_clear_cloud_vm_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudVmCluster>,
@@ -19695,12 +15735,6 @@ impl CreateCloudVmClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateCloudVmClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateCloudVmClusterRequest;
-    /// let x = CreateCloudVmClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -19745,36 +15779,18 @@ impl DeleteCloudVmClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteCloudVmClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DeleteCloudVmClusterRequest;
-    /// let x = DeleteCloudVmClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteCloudVmClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DeleteCloudVmClusterRequest;
-    /// let x = DeleteCloudVmClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteCloudVmClusterRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DeleteCloudVmClusterRequest;
-    /// let x = DeleteCloudVmClusterRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -19812,36 +15828,18 @@ impl ListEntitlementsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEntitlementsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListEntitlementsRequest;
-    /// let x = ListEntitlementsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEntitlementsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListEntitlementsRequest;
-    /// let x = ListEntitlementsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEntitlementsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListEntitlementsRequest;
-    /// let x = ListEntitlementsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -19873,17 +15871,6 @@ impl ListEntitlementsResponse {
     }
 
     /// Sets the value of [entitlements][crate::model::ListEntitlementsResponse::entitlements].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListEntitlementsResponse;
-    /// use google_cloud_oracledatabase_v1::model::Entitlement;
-    /// let x = ListEntitlementsResponse::new()
-    ///     .set_entitlements([
-    ///         Entitlement::default()/* use setters */,
-    ///         Entitlement::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_entitlements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19895,12 +15882,6 @@ impl ListEntitlementsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEntitlementsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListEntitlementsResponse;
-    /// let x = ListEntitlementsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -19952,36 +15933,18 @@ impl ListDbServersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDbServersRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbServersRequest;
-    /// let x = ListDbServersRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDbServersRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbServersRequest;
-    /// let x = ListDbServersRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDbServersRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbServersRequest;
-    /// let x = ListDbServersRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -20013,17 +15976,6 @@ impl ListDbServersResponse {
     }
 
     /// Sets the value of [db_servers][crate::model::ListDbServersResponse::db_servers].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbServersResponse;
-    /// use google_cloud_oracledatabase_v1::model::DbServer;
-    /// let x = ListDbServersResponse::new()
-    ///     .set_db_servers([
-    ///         DbServer::default()/* use setters */,
-    ///         DbServer::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_db_servers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -20035,12 +15987,6 @@ impl ListDbServersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDbServersResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbServersResponse;
-    /// let x = ListDbServersResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -20093,36 +16039,18 @@ impl ListDbNodesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDbNodesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbNodesRequest;
-    /// let x = ListDbNodesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDbNodesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbNodesRequest;
-    /// let x = ListDbNodesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDbNodesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbNodesRequest;
-    /// let x = ListDbNodesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -20154,17 +16082,6 @@ impl ListDbNodesResponse {
     }
 
     /// Sets the value of [db_nodes][crate::model::ListDbNodesResponse::db_nodes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbNodesResponse;
-    /// use google_cloud_oracledatabase_v1::model::DbNode;
-    /// let x = ListDbNodesResponse::new()
-    ///     .set_db_nodes([
-    ///         DbNode::default()/* use setters */,
-    ///         DbNode::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_db_nodes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -20176,12 +16093,6 @@ impl ListDbNodesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDbNodesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbNodesResponse;
-    /// let x = ListDbNodesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -20239,48 +16150,24 @@ impl ListGiVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListGiVersionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListGiVersionsRequest;
-    /// let x = ListGiVersionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListGiVersionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListGiVersionsRequest;
-    /// let x = ListGiVersionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListGiVersionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListGiVersionsRequest;
-    /// let x = ListGiVersionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListGiVersionsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListGiVersionsRequest;
-    /// let x = ListGiVersionsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -20312,17 +16199,6 @@ impl ListGiVersionsResponse {
     }
 
     /// Sets the value of [gi_versions][crate::model::ListGiVersionsResponse::gi_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListGiVersionsResponse;
-    /// use google_cloud_oracledatabase_v1::model::GiVersion;
-    /// let x = ListGiVersionsResponse::new()
-    ///     .set_gi_versions([
-    ///         GiVersion::default()/* use setters */,
-    ///         GiVersion::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_gi_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -20334,12 +16210,6 @@ impl ListGiVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListGiVersionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListGiVersionsResponse;
-    /// let x = ListGiVersionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -20396,48 +16266,24 @@ impl ListDbSystemShapesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDbSystemShapesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemShapesRequest;
-    /// let x = ListDbSystemShapesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDbSystemShapesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemShapesRequest;
-    /// let x = ListDbSystemShapesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDbSystemShapesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemShapesRequest;
-    /// let x = ListDbSystemShapesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDbSystemShapesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemShapesRequest;
-    /// let x = ListDbSystemShapesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -20469,17 +16315,6 @@ impl ListDbSystemShapesResponse {
     }
 
     /// Sets the value of [db_system_shapes][crate::model::ListDbSystemShapesResponse::db_system_shapes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemShapesResponse;
-    /// use google_cloud_oracledatabase_v1::model::DbSystemShape;
-    /// let x = ListDbSystemShapesResponse::new()
-    ///     .set_db_system_shapes([
-    ///         DbSystemShape::default()/* use setters */,
-    ///         DbSystemShape::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_db_system_shapes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -20491,12 +16326,6 @@ impl ListDbSystemShapesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDbSystemShapesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemShapesResponse;
-    /// let x = ListDbSystemShapesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -20567,13 +16396,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -20583,14 +16405,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -20600,13 +16414,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -20616,14 +16423,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -20633,72 +16432,36 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
     }
 
     /// Sets the value of [percent_complete][crate::model::OperationMetadata::percent_complete].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_percent_complete(42.0);
-    /// ```
     pub fn set_percent_complete<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.percent_complete = v.into();
         self
@@ -20742,60 +16505,30 @@ impl ListAutonomousDatabasesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAutonomousDatabasesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabasesRequest;
-    /// let x = ListAutonomousDatabasesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAutonomousDatabasesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabasesRequest;
-    /// let x = ListAutonomousDatabasesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAutonomousDatabasesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabasesRequest;
-    /// let x = ListAutonomousDatabasesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAutonomousDatabasesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabasesRequest;
-    /// let x = ListAutonomousDatabasesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListAutonomousDatabasesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabasesRequest;
-    /// let x = ListAutonomousDatabasesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -20827,17 +16560,6 @@ impl ListAutonomousDatabasesResponse {
     }
 
     /// Sets the value of [autonomous_databases][crate::model::ListAutonomousDatabasesResponse::autonomous_databases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabasesResponse;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = ListAutonomousDatabasesResponse::new()
-    ///     .set_autonomous_databases([
-    ///         AutonomousDatabase::default()/* use setters */,
-    ///         AutonomousDatabase::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_autonomous_databases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -20849,12 +16571,6 @@ impl ListAutonomousDatabasesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAutonomousDatabasesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabasesResponse;
-    /// let x = ListAutonomousDatabasesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -20898,12 +16614,6 @@ impl GetAutonomousDatabaseRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAutonomousDatabaseRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::GetAutonomousDatabaseRequest;
-    /// let x = GetAutonomousDatabaseRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -20952,24 +16662,12 @@ impl CreateAutonomousDatabaseRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAutonomousDatabaseRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateAutonomousDatabaseRequest;
-    /// let x = CreateAutonomousDatabaseRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [autonomous_database_id][crate::model::CreateAutonomousDatabaseRequest::autonomous_database_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateAutonomousDatabaseRequest;
-    /// let x = CreateAutonomousDatabaseRequest::new().set_autonomous_database_id("example");
-    /// ```
     pub fn set_autonomous_database_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -20979,13 +16677,6 @@ impl CreateAutonomousDatabaseRequest {
     }
 
     /// Sets the value of [autonomous_database][crate::model::CreateAutonomousDatabaseRequest::autonomous_database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateAutonomousDatabaseRequest;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = CreateAutonomousDatabaseRequest::new().set_autonomous_database(AutonomousDatabase::default()/* use setters */);
-    /// ```
     pub fn set_autonomous_database<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabase>,
@@ -20995,14 +16686,6 @@ impl CreateAutonomousDatabaseRequest {
     }
 
     /// Sets or clears the value of [autonomous_database][crate::model::CreateAutonomousDatabaseRequest::autonomous_database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateAutonomousDatabaseRequest;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = CreateAutonomousDatabaseRequest::new().set_or_clear_autonomous_database(Some(AutonomousDatabase::default()/* use setters */));
-    /// let x = CreateAutonomousDatabaseRequest::new().set_or_clear_autonomous_database(None::<AutonomousDatabase>);
-    /// ```
     pub fn set_or_clear_autonomous_database<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabase>,
@@ -21012,12 +16695,6 @@ impl CreateAutonomousDatabaseRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateAutonomousDatabaseRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateAutonomousDatabaseRequest;
-    /// let x = CreateAutonomousDatabaseRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -21063,13 +16740,6 @@ impl UpdateAutonomousDatabaseRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAutonomousDatabaseRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::UpdateAutonomousDatabaseRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateAutonomousDatabaseRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -21079,14 +16749,6 @@ impl UpdateAutonomousDatabaseRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAutonomousDatabaseRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::UpdateAutonomousDatabaseRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateAutonomousDatabaseRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateAutonomousDatabaseRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -21096,13 +16758,6 @@ impl UpdateAutonomousDatabaseRequest {
     }
 
     /// Sets the value of [autonomous_database][crate::model::UpdateAutonomousDatabaseRequest::autonomous_database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::UpdateAutonomousDatabaseRequest;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = UpdateAutonomousDatabaseRequest::new().set_autonomous_database(AutonomousDatabase::default()/* use setters */);
-    /// ```
     pub fn set_autonomous_database<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabase>,
@@ -21112,14 +16767,6 @@ impl UpdateAutonomousDatabaseRequest {
     }
 
     /// Sets or clears the value of [autonomous_database][crate::model::UpdateAutonomousDatabaseRequest::autonomous_database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::UpdateAutonomousDatabaseRequest;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
-    /// let x = UpdateAutonomousDatabaseRequest::new().set_or_clear_autonomous_database(Some(AutonomousDatabase::default()/* use setters */));
-    /// let x = UpdateAutonomousDatabaseRequest::new().set_or_clear_autonomous_database(None::<AutonomousDatabase>);
-    /// ```
     pub fn set_or_clear_autonomous_database<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabase>,
@@ -21129,12 +16776,6 @@ impl UpdateAutonomousDatabaseRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateAutonomousDatabaseRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::UpdateAutonomousDatabaseRequest;
-    /// let x = UpdateAutonomousDatabaseRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -21174,24 +16815,12 @@ impl DeleteAutonomousDatabaseRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAutonomousDatabaseRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DeleteAutonomousDatabaseRequest;
-    /// let x = DeleteAutonomousDatabaseRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteAutonomousDatabaseRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DeleteAutonomousDatabaseRequest;
-    /// let x = DeleteAutonomousDatabaseRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -21224,25 +16853,12 @@ impl RestoreAutonomousDatabaseRequest {
     }
 
     /// Sets the value of [name][crate::model::RestoreAutonomousDatabaseRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::RestoreAutonomousDatabaseRequest;
-    /// let x = RestoreAutonomousDatabaseRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [restore_time][crate::model::RestoreAutonomousDatabaseRequest::restore_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::RestoreAutonomousDatabaseRequest;
-    /// use wkt::Timestamp;
-    /// let x = RestoreAutonomousDatabaseRequest::new().set_restore_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_restore_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -21252,14 +16868,6 @@ impl RestoreAutonomousDatabaseRequest {
     }
 
     /// Sets or clears the value of [restore_time][crate::model::RestoreAutonomousDatabaseRequest::restore_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::RestoreAutonomousDatabaseRequest;
-    /// use wkt::Timestamp;
-    /// let x = RestoreAutonomousDatabaseRequest::new().set_or_clear_restore_time(Some(Timestamp::default()/* use setters */));
-    /// let x = RestoreAutonomousDatabaseRequest::new().set_or_clear_restore_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_restore_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -21292,12 +16900,6 @@ impl StopAutonomousDatabaseRequest {
     }
 
     /// Sets the value of [name][crate::model::StopAutonomousDatabaseRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::StopAutonomousDatabaseRequest;
-    /// let x = StopAutonomousDatabaseRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -21327,12 +16929,6 @@ impl StartAutonomousDatabaseRequest {
     }
 
     /// Sets the value of [name][crate::model::StartAutonomousDatabaseRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::StartAutonomousDatabaseRequest;
-    /// let x = StartAutonomousDatabaseRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -21362,12 +16958,6 @@ impl RestartAutonomousDatabaseRequest {
     }
 
     /// Sets the value of [name][crate::model::RestartAutonomousDatabaseRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::RestartAutonomousDatabaseRequest;
-    /// let x = RestartAutonomousDatabaseRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -21400,24 +16990,12 @@ impl SwitchoverAutonomousDatabaseRequest {
     }
 
     /// Sets the value of [name][crate::model::SwitchoverAutonomousDatabaseRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::SwitchoverAutonomousDatabaseRequest;
-    /// let x = SwitchoverAutonomousDatabaseRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [peer_autonomous_database][crate::model::SwitchoverAutonomousDatabaseRequest::peer_autonomous_database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::SwitchoverAutonomousDatabaseRequest;
-    /// let x = SwitchoverAutonomousDatabaseRequest::new().set_peer_autonomous_database("example");
-    /// ```
     pub fn set_peer_autonomous_database<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -21453,24 +17031,12 @@ impl FailoverAutonomousDatabaseRequest {
     }
 
     /// Sets the value of [name][crate::model::FailoverAutonomousDatabaseRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::FailoverAutonomousDatabaseRequest;
-    /// let x = FailoverAutonomousDatabaseRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [peer_autonomous_database][crate::model::FailoverAutonomousDatabaseRequest::peer_autonomous_database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::FailoverAutonomousDatabaseRequest;
-    /// let x = FailoverAutonomousDatabaseRequest::new().set_peer_autonomous_database("example");
-    /// ```
     pub fn set_peer_autonomous_database<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -21515,50 +17081,24 @@ impl GenerateAutonomousDatabaseWalletRequest {
     }
 
     /// Sets the value of [name][crate::model::GenerateAutonomousDatabaseWalletRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::GenerateAutonomousDatabaseWalletRequest;
-    /// let x = GenerateAutonomousDatabaseWalletRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::GenerateAutonomousDatabaseWalletRequest::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::GenerateAutonomousDatabaseWalletRequest;
-    /// use google_cloud_oracledatabase_v1::model::GenerateType;
-    /// let x0 = GenerateAutonomousDatabaseWalletRequest::new().set_type(GenerateType::All);
-    /// let x1 = GenerateAutonomousDatabaseWalletRequest::new().set_type(GenerateType::Single);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::GenerateType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [is_regional][crate::model::GenerateAutonomousDatabaseWalletRequest::is_regional].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::GenerateAutonomousDatabaseWalletRequest;
-    /// let x = GenerateAutonomousDatabaseWalletRequest::new().set_is_regional(true);
-    /// ```
     pub fn set_is_regional<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_regional = v.into();
         self
     }
 
     /// Sets the value of [password][crate::model::GenerateAutonomousDatabaseWalletRequest::password].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::GenerateAutonomousDatabaseWalletRequest;
-    /// let x = GenerateAutonomousDatabaseWalletRequest::new().set_password("example");
-    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
@@ -21587,12 +17127,6 @@ impl GenerateAutonomousDatabaseWalletResponse {
     }
 
     /// Sets the value of [archive_content][crate::model::GenerateAutonomousDatabaseWalletResponse::archive_content].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::GenerateAutonomousDatabaseWalletResponse;
-    /// let x = GenerateAutonomousDatabaseWalletResponse::new().set_archive_content(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_archive_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.archive_content = v.into();
         self
@@ -21630,36 +17164,18 @@ impl ListAutonomousDbVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAutonomousDbVersionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDbVersionsRequest;
-    /// let x = ListAutonomousDbVersionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAutonomousDbVersionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDbVersionsRequest;
-    /// let x = ListAutonomousDbVersionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAutonomousDbVersionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDbVersionsRequest;
-    /// let x = ListAutonomousDbVersionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -21691,17 +17207,6 @@ impl ListAutonomousDbVersionsResponse {
     }
 
     /// Sets the value of [autonomous_db_versions][crate::model::ListAutonomousDbVersionsResponse::autonomous_db_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDbVersionsResponse;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDbVersion;
-    /// let x = ListAutonomousDbVersionsResponse::new()
-    ///     .set_autonomous_db_versions([
-    ///         AutonomousDbVersion::default()/* use setters */,
-    ///         AutonomousDbVersion::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_autonomous_db_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -21713,12 +17218,6 @@ impl ListAutonomousDbVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAutonomousDbVersionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDbVersionsResponse;
-    /// let x = ListAutonomousDbVersionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -21776,48 +17275,24 @@ impl ListAutonomousDatabaseCharacterSetsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAutonomousDatabaseCharacterSetsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabaseCharacterSetsRequest;
-    /// let x = ListAutonomousDatabaseCharacterSetsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAutonomousDatabaseCharacterSetsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabaseCharacterSetsRequest;
-    /// let x = ListAutonomousDatabaseCharacterSetsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAutonomousDatabaseCharacterSetsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabaseCharacterSetsRequest;
-    /// let x = ListAutonomousDatabaseCharacterSetsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAutonomousDatabaseCharacterSetsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabaseCharacterSetsRequest;
-    /// let x = ListAutonomousDatabaseCharacterSetsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -21850,17 +17325,6 @@ impl ListAutonomousDatabaseCharacterSetsResponse {
     }
 
     /// Sets the value of [autonomous_database_character_sets][crate::model::ListAutonomousDatabaseCharacterSetsResponse::autonomous_database_character_sets].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabaseCharacterSetsResponse;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabaseCharacterSet;
-    /// let x = ListAutonomousDatabaseCharacterSetsResponse::new()
-    ///     .set_autonomous_database_character_sets([
-    ///         AutonomousDatabaseCharacterSet::default()/* use setters */,
-    ///         AutonomousDatabaseCharacterSet::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_autonomous_database_character_sets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -21872,12 +17336,6 @@ impl ListAutonomousDatabaseCharacterSetsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAutonomousDatabaseCharacterSetsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabaseCharacterSetsResponse;
-    /// let x = ListAutonomousDatabaseCharacterSetsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -21938,48 +17396,24 @@ impl ListAutonomousDatabaseBackupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAutonomousDatabaseBackupsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabaseBackupsRequest;
-    /// let x = ListAutonomousDatabaseBackupsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAutonomousDatabaseBackupsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabaseBackupsRequest;
-    /// let x = ListAutonomousDatabaseBackupsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAutonomousDatabaseBackupsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabaseBackupsRequest;
-    /// let x = ListAutonomousDatabaseBackupsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAutonomousDatabaseBackupsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabaseBackupsRequest;
-    /// let x = ListAutonomousDatabaseBackupsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -22011,17 +17445,6 @@ impl ListAutonomousDatabaseBackupsResponse {
     }
 
     /// Sets the value of [autonomous_database_backups][crate::model::ListAutonomousDatabaseBackupsResponse::autonomous_database_backups].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabaseBackupsResponse;
-    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabaseBackup;
-    /// let x = ListAutonomousDatabaseBackupsResponse::new()
-    ///     .set_autonomous_database_backups([
-    ///         AutonomousDatabaseBackup::default()/* use setters */,
-    ///         AutonomousDatabaseBackup::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_autonomous_database_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -22033,12 +17456,6 @@ impl ListAutonomousDatabaseBackupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAutonomousDatabaseBackupsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListAutonomousDatabaseBackupsResponse;
-    /// let x = ListAutonomousDatabaseBackupsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -22106,24 +17523,12 @@ impl CreateExadbVmClusterRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateExadbVmClusterRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateExadbVmClusterRequest;
-    /// let x = CreateExadbVmClusterRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [exadb_vm_cluster_id][crate::model::CreateExadbVmClusterRequest::exadb_vm_cluster_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateExadbVmClusterRequest;
-    /// let x = CreateExadbVmClusterRequest::new().set_exadb_vm_cluster_id("example");
-    /// ```
     pub fn set_exadb_vm_cluster_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -22133,13 +17538,6 @@ impl CreateExadbVmClusterRequest {
     }
 
     /// Sets the value of [exadb_vm_cluster][crate::model::CreateExadbVmClusterRequest::exadb_vm_cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateExadbVmClusterRequest;
-    /// use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// let x = CreateExadbVmClusterRequest::new().set_exadb_vm_cluster(ExadbVmCluster::default()/* use setters */);
-    /// ```
     pub fn set_exadb_vm_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExadbVmCluster>,
@@ -22149,14 +17547,6 @@ impl CreateExadbVmClusterRequest {
     }
 
     /// Sets or clears the value of [exadb_vm_cluster][crate::model::CreateExadbVmClusterRequest::exadb_vm_cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateExadbVmClusterRequest;
-    /// use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// let x = CreateExadbVmClusterRequest::new().set_or_clear_exadb_vm_cluster(Some(ExadbVmCluster::default()/* use setters */));
-    /// let x = CreateExadbVmClusterRequest::new().set_or_clear_exadb_vm_cluster(None::<ExadbVmCluster>);
-    /// ```
     pub fn set_or_clear_exadb_vm_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExadbVmCluster>,
@@ -22166,12 +17556,6 @@ impl CreateExadbVmClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateExadbVmClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CreateExadbVmClusterRequest;
-    /// let x = CreateExadbVmClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -22211,24 +17595,12 @@ impl DeleteExadbVmClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteExadbVmClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DeleteExadbVmClusterRequest;
-    /// let x = DeleteExadbVmClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteExadbVmClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DeleteExadbVmClusterRequest;
-    /// let x = DeleteExadbVmClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -22258,12 +17630,6 @@ impl GetExadbVmClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::GetExadbVmClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::GetExadbVmClusterRequest;
-    /// let x = GetExadbVmClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -22307,60 +17673,30 @@ impl ListExadbVmClustersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListExadbVmClustersRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListExadbVmClustersRequest;
-    /// let x = ListExadbVmClustersRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListExadbVmClustersRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListExadbVmClustersRequest;
-    /// let x = ListExadbVmClustersRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListExadbVmClustersRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListExadbVmClustersRequest;
-    /// let x = ListExadbVmClustersRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListExadbVmClustersRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListExadbVmClustersRequest;
-    /// let x = ListExadbVmClustersRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListExadbVmClustersRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListExadbVmClustersRequest;
-    /// let x = ListExadbVmClustersRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -22392,17 +17728,6 @@ impl ListExadbVmClustersResponse {
     }
 
     /// Sets the value of [exadb_vm_clusters][crate::model::ListExadbVmClustersResponse::exadb_vm_clusters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListExadbVmClustersResponse;
-    /// use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// let x = ListExadbVmClustersResponse::new()
-    ///     .set_exadb_vm_clusters([
-    ///         ExadbVmCluster::default()/* use setters */,
-    ///         ExadbVmCluster::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_exadb_vm_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -22414,12 +17739,6 @@ impl ListExadbVmClustersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListExadbVmClustersResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListExadbVmClustersResponse;
-    /// let x = ListExadbVmClustersResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -22479,13 +17798,6 @@ impl UpdateExadbVmClusterRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateExadbVmClusterRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::UpdateExadbVmClusterRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateExadbVmClusterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -22495,14 +17807,6 @@ impl UpdateExadbVmClusterRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateExadbVmClusterRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::UpdateExadbVmClusterRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateExadbVmClusterRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateExadbVmClusterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -22512,13 +17816,6 @@ impl UpdateExadbVmClusterRequest {
     }
 
     /// Sets the value of [exadb_vm_cluster][crate::model::UpdateExadbVmClusterRequest::exadb_vm_cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::UpdateExadbVmClusterRequest;
-    /// use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// let x = UpdateExadbVmClusterRequest::new().set_exadb_vm_cluster(ExadbVmCluster::default()/* use setters */);
-    /// ```
     pub fn set_exadb_vm_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExadbVmCluster>,
@@ -22528,14 +17825,6 @@ impl UpdateExadbVmClusterRequest {
     }
 
     /// Sets or clears the value of [exadb_vm_cluster][crate::model::UpdateExadbVmClusterRequest::exadb_vm_cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::UpdateExadbVmClusterRequest;
-    /// use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
-    /// let x = UpdateExadbVmClusterRequest::new().set_or_clear_exadb_vm_cluster(Some(ExadbVmCluster::default()/* use setters */));
-    /// let x = UpdateExadbVmClusterRequest::new().set_or_clear_exadb_vm_cluster(None::<ExadbVmCluster>);
-    /// ```
     pub fn set_or_clear_exadb_vm_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExadbVmCluster>,
@@ -22545,12 +17834,6 @@ impl UpdateExadbVmClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateExadbVmClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::UpdateExadbVmClusterRequest;
-    /// let x = UpdateExadbVmClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -22594,36 +17877,18 @@ impl RemoveVirtualMachineExadbVmClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::RemoveVirtualMachineExadbVmClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::RemoveVirtualMachineExadbVmClusterRequest;
-    /// let x = RemoveVirtualMachineExadbVmClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::RemoveVirtualMachineExadbVmClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::RemoveVirtualMachineExadbVmClusterRequest;
-    /// let x = RemoveVirtualMachineExadbVmClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [hostnames][crate::model::RemoveVirtualMachineExadbVmClusterRequest::hostnames].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::RemoveVirtualMachineExadbVmClusterRequest;
-    /// let x = RemoveVirtualMachineExadbVmClusterRequest::new().set_hostnames(["a", "b", "c"]);
-    /// ```
     pub fn set_hostnames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -22670,25 +17935,12 @@ impl PluggableDatabase {
     }
 
     /// Sets the value of [name][crate::model::PluggableDatabase::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabase;
-    /// let x = PluggableDatabase::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [properties][crate::model::PluggableDatabase::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabase;
-    /// use google_cloud_oracledatabase_v1::model::PluggableDatabaseProperties;
-    /// let x = PluggableDatabase::new().set_properties(PluggableDatabaseProperties::default()/* use setters */);
-    /// ```
     pub fn set_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PluggableDatabaseProperties>,
@@ -22698,14 +17950,6 @@ impl PluggableDatabase {
     }
 
     /// Sets or clears the value of [properties][crate::model::PluggableDatabase::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabase;
-    /// use google_cloud_oracledatabase_v1::model::PluggableDatabaseProperties;
-    /// let x = PluggableDatabase::new().set_or_clear_properties(Some(PluggableDatabaseProperties::default()/* use setters */));
-    /// let x = PluggableDatabase::new().set_or_clear_properties(None::<PluggableDatabaseProperties>);
-    /// ```
     pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PluggableDatabaseProperties>,
@@ -22715,25 +17959,12 @@ impl PluggableDatabase {
     }
 
     /// Sets the value of [oci_url][crate::model::PluggableDatabase::oci_url].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabase;
-    /// let x = PluggableDatabase::new().set_oci_url("example");
-    /// ```
     pub fn set_oci_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.oci_url = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::PluggableDatabase::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabase;
-    /// use wkt::Timestamp;
-    /// let x = PluggableDatabase::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -22743,14 +17974,6 @@ impl PluggableDatabase {
     }
 
     /// Sets or clears the value of [create_time][crate::model::PluggableDatabase::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabase;
-    /// use wkt::Timestamp;
-    /// let x = PluggableDatabase::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PluggableDatabase::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -22827,25 +18050,12 @@ impl PluggableDatabaseProperties {
     }
 
     /// Sets the value of [compartment_id][crate::model::PluggableDatabaseProperties::compartment_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseProperties;
-    /// let x = PluggableDatabaseProperties::new().set_compartment_id("example");
-    /// ```
     pub fn set_compartment_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.compartment_id = v.into();
         self
     }
 
     /// Sets the value of [connection_strings][crate::model::PluggableDatabaseProperties::connection_strings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::PluggableDatabaseConnectionStrings;
-    /// let x = PluggableDatabaseProperties::new().set_connection_strings(PluggableDatabaseConnectionStrings::default()/* use setters */);
-    /// ```
     pub fn set_connection_strings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PluggableDatabaseConnectionStrings>,
@@ -22855,14 +18065,6 @@ impl PluggableDatabaseProperties {
     }
 
     /// Sets or clears the value of [connection_strings][crate::model::PluggableDatabaseProperties::connection_strings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::PluggableDatabaseConnectionStrings;
-    /// let x = PluggableDatabaseProperties::new().set_or_clear_connection_strings(Some(PluggableDatabaseConnectionStrings::default()/* use setters */));
-    /// let x = PluggableDatabaseProperties::new().set_or_clear_connection_strings(None::<PluggableDatabaseConnectionStrings>);
-    /// ```
     pub fn set_or_clear_connection_strings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PluggableDatabaseConnectionStrings>,
@@ -22872,12 +18074,6 @@ impl PluggableDatabaseProperties {
     }
 
     /// Sets the value of [container_database_ocid][crate::model::PluggableDatabaseProperties::container_database_ocid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseProperties;
-    /// let x = PluggableDatabaseProperties::new().set_container_database_ocid("example");
-    /// ```
     pub fn set_container_database_ocid<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -22887,16 +18083,6 @@ impl PluggableDatabaseProperties {
     }
 
     /// Sets the value of [defined_tags][crate::model::PluggableDatabaseProperties::defined_tags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::pluggable_database_properties::DefinedTagValue;
-    /// let x = PluggableDatabaseProperties::new().set_defined_tags([
-    ///     ("key0", DefinedTagValue::default()/* use setters */),
-    ///     ("key1", DefinedTagValue::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_defined_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -22909,15 +18095,6 @@ impl PluggableDatabaseProperties {
     }
 
     /// Sets the value of [freeform_tags][crate::model::PluggableDatabaseProperties::freeform_tags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseProperties;
-    /// let x = PluggableDatabaseProperties::new().set_freeform_tags([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_freeform_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -22930,36 +18107,18 @@ impl PluggableDatabaseProperties {
     }
 
     /// Sets the value of [ocid][crate::model::PluggableDatabaseProperties::ocid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseProperties;
-    /// let x = PluggableDatabaseProperties::new().set_ocid("example");
-    /// ```
     pub fn set_ocid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ocid = v.into();
         self
     }
 
     /// Sets the value of [is_restricted][crate::model::PluggableDatabaseProperties::is_restricted].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseProperties;
-    /// let x = PluggableDatabaseProperties::new().set_is_restricted(true);
-    /// ```
     pub fn set_is_restricted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_restricted = v.into();
         self
     }
 
     /// Sets the value of [lifecycle_details][crate::model::PluggableDatabaseProperties::lifecycle_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseProperties;
-    /// let x = PluggableDatabaseProperties::new().set_lifecycle_details("example");
-    /// ```
     pub fn set_lifecycle_details<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -22969,15 +18128,6 @@ impl PluggableDatabaseProperties {
     }
 
     /// Sets the value of [lifecycle_state][crate::model::PluggableDatabaseProperties::lifecycle_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::pluggable_database_properties::PluggableDatabaseLifecycleState;
-    /// let x0 = PluggableDatabaseProperties::new().set_lifecycle_state(PluggableDatabaseLifecycleState::Provisioning);
-    /// let x1 = PluggableDatabaseProperties::new().set_lifecycle_state(PluggableDatabaseLifecycleState::Available);
-    /// let x2 = PluggableDatabaseProperties::new().set_lifecycle_state(PluggableDatabaseLifecycleState::Terminating);
-    /// ```
     pub fn set_lifecycle_state<
         T: std::convert::Into<
                 crate::model::pluggable_database_properties::PluggableDatabaseLifecycleState,
@@ -22991,29 +18141,12 @@ impl PluggableDatabaseProperties {
     }
 
     /// Sets the value of [pdb_name][crate::model::PluggableDatabaseProperties::pdb_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseProperties;
-    /// let x = PluggableDatabaseProperties::new().set_pdb_name("example");
-    /// ```
     pub fn set_pdb_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pdb_name = v.into();
         self
     }
 
     /// Sets the value of [pdb_node_level_details][crate::model::PluggableDatabaseProperties::pdb_node_level_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::PluggableDatabaseNodeLevelDetails;
-    /// let x = PluggableDatabaseProperties::new()
-    ///     .set_pdb_node_level_details([
-    ///         PluggableDatabaseNodeLevelDetails::default()/* use setters */,
-    ///         PluggableDatabaseNodeLevelDetails::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_pdb_node_level_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -23025,13 +18158,6 @@ impl PluggableDatabaseProperties {
     }
 
     /// Sets the value of [database_management_config][crate::model::PluggableDatabaseProperties::database_management_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::DatabaseManagementConfig;
-    /// let x = PluggableDatabaseProperties::new().set_database_management_config(DatabaseManagementConfig::default()/* use setters */);
-    /// ```
     pub fn set_database_management_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseManagementConfig>,
@@ -23041,14 +18167,6 @@ impl PluggableDatabaseProperties {
     }
 
     /// Sets or clears the value of [database_management_config][crate::model::PluggableDatabaseProperties::database_management_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::DatabaseManagementConfig;
-    /// let x = PluggableDatabaseProperties::new().set_or_clear_database_management_config(Some(DatabaseManagementConfig::default()/* use setters */));
-    /// let x = PluggableDatabaseProperties::new().set_or_clear_database_management_config(None::<DatabaseManagementConfig>);
-    /// ```
     pub fn set_or_clear_database_management_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseManagementConfig>,
@@ -23058,15 +18176,6 @@ impl PluggableDatabaseProperties {
     }
 
     /// Sets the value of [operations_insights_state][crate::model::PluggableDatabaseProperties::operations_insights_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseProperties;
-    /// use google_cloud_oracledatabase_v1::model::pluggable_database_properties::OperationsInsightsState;
-    /// let x0 = PluggableDatabaseProperties::new().set_operations_insights_state(OperationsInsightsState::Enabling);
-    /// let x1 = PluggableDatabaseProperties::new().set_operations_insights_state(OperationsInsightsState::Enabled);
-    /// let x2 = PluggableDatabaseProperties::new().set_operations_insights_state(OperationsInsightsState::Disabling);
-    /// ```
     pub fn set_operations_insights_state<
         T: std::convert::Into<crate::model::pluggable_database_properties::OperationsInsightsState>,
     >(
@@ -23105,15 +18214,6 @@ pub mod pluggable_database_properties {
         }
 
         /// Sets the value of [tags][crate::model::pluggable_database_properties::DefinedTagValue::tags].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_oracledatabase_v1::model::pluggable_database_properties::DefinedTagValue;
-        /// let x = DefinedTagValue::new().set_tags([
-        ///     ("key0", "abc"),
-        ///     ("key1", "xyz"),
-        /// ]);
-        /// ```
         pub fn set_tags<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -23529,15 +18629,6 @@ impl PluggableDatabaseConnectionStrings {
     }
 
     /// Sets the value of [all_connection_strings][crate::model::PluggableDatabaseConnectionStrings::all_connection_strings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseConnectionStrings;
-    /// let x = PluggableDatabaseConnectionStrings::new().set_all_connection_strings([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_all_connection_strings<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -23550,24 +18641,12 @@ impl PluggableDatabaseConnectionStrings {
     }
 
     /// Sets the value of [pdb_default][crate::model::PluggableDatabaseConnectionStrings::pdb_default].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseConnectionStrings;
-    /// let x = PluggableDatabaseConnectionStrings::new().set_pdb_default("example");
-    /// ```
     pub fn set_pdb_default<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pdb_default = v.into();
         self
     }
 
     /// Sets the value of [pdb_ip_default][crate::model::PluggableDatabaseConnectionStrings::pdb_ip_default].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseConnectionStrings;
-    /// let x = PluggableDatabaseConnectionStrings::new().set_pdb_ip_default("example");
-    /// ```
     pub fn set_pdb_ip_default<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pdb_ip_default = v.into();
         self
@@ -23602,27 +18681,12 @@ impl PluggableDatabaseNodeLevelDetails {
     }
 
     /// Sets the value of [node_name][crate::model::PluggableDatabaseNodeLevelDetails::node_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseNodeLevelDetails;
-    /// let x = PluggableDatabaseNodeLevelDetails::new().set_node_name("example");
-    /// ```
     pub fn set_node_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_name = v.into();
         self
     }
 
     /// Sets the value of [open_mode][crate::model::PluggableDatabaseNodeLevelDetails::open_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseNodeLevelDetails;
-    /// use google_cloud_oracledatabase_v1::model::pluggable_database_node_level_details::PluggableDatabaseOpenMode;
-    /// let x0 = PluggableDatabaseNodeLevelDetails::new().set_open_mode(PluggableDatabaseOpenMode::ReadOnly);
-    /// let x1 = PluggableDatabaseNodeLevelDetails::new().set_open_mode(PluggableDatabaseOpenMode::ReadWrite);
-    /// let x2 = PluggableDatabaseNodeLevelDetails::new().set_open_mode(PluggableDatabaseOpenMode::Mounted);
-    /// ```
     pub fn set_open_mode<
         T: std::convert::Into<
                 crate::model::pluggable_database_node_level_details::PluggableDatabaseOpenMode,
@@ -23636,12 +18700,6 @@ impl PluggableDatabaseNodeLevelDetails {
     }
 
     /// Sets the value of [pluggable_database_id][crate::model::PluggableDatabaseNodeLevelDetails::pluggable_database_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::PluggableDatabaseNodeLevelDetails;
-    /// let x = PluggableDatabaseNodeLevelDetails::new().set_pluggable_database_id("example");
-    /// ```
     pub fn set_pluggable_database_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -23829,15 +18887,6 @@ impl DatabaseManagementConfig {
     }
 
     /// Sets the value of [management_state][crate::model::DatabaseManagementConfig::management_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseManagementConfig;
-    /// use google_cloud_oracledatabase_v1::model::database_management_config::ManagementState;
-    /// let x0 = DatabaseManagementConfig::new().set_management_state(ManagementState::Enabling);
-    /// let x1 = DatabaseManagementConfig::new().set_management_state(ManagementState::Enabled);
-    /// let x2 = DatabaseManagementConfig::new().set_management_state(ManagementState::Disabling);
-    /// ```
     pub fn set_management_state<
         T: std::convert::Into<crate::model::database_management_config::ManagementState>,
     >(
@@ -23849,14 +18898,6 @@ impl DatabaseManagementConfig {
     }
 
     /// Sets the value of [management_type][crate::model::DatabaseManagementConfig::management_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DatabaseManagementConfig;
-    /// use google_cloud_oracledatabase_v1::model::database_management_config::ManagementType;
-    /// let x0 = DatabaseManagementConfig::new().set_management_type(ManagementType::Basic);
-    /// let x1 = DatabaseManagementConfig::new().set_management_type(ManagementType::Advanced);
-    /// ```
     pub fn set_management_type<
         T: std::convert::Into<crate::model::database_management_config::ManagementType>,
     >(
@@ -24204,12 +19245,6 @@ impl GetPluggableDatabaseRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPluggableDatabaseRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::GetPluggableDatabaseRequest;
-    /// let x = GetPluggableDatabaseRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -24256,48 +19291,24 @@ impl ListPluggableDatabasesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPluggableDatabasesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListPluggableDatabasesRequest;
-    /// let x = ListPluggableDatabasesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPluggableDatabasesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListPluggableDatabasesRequest;
-    /// let x = ListPluggableDatabasesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPluggableDatabasesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListPluggableDatabasesRequest;
-    /// let x = ListPluggableDatabasesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListPluggableDatabasesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListPluggableDatabasesRequest;
-    /// let x = ListPluggableDatabasesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -24329,17 +19340,6 @@ impl ListPluggableDatabasesResponse {
     }
 
     /// Sets the value of [pluggable_databases][crate::model::ListPluggableDatabasesResponse::pluggable_databases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListPluggableDatabasesResponse;
-    /// use google_cloud_oracledatabase_v1::model::PluggableDatabase;
-    /// let x = ListPluggableDatabasesResponse::new()
-    ///     .set_pluggable_databases([
-    ///         PluggableDatabase::default()/* use setters */,
-    ///         PluggableDatabase::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_pluggable_databases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -24351,12 +19351,6 @@ impl ListPluggableDatabasesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPluggableDatabasesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::ListPluggableDatabasesResponse;
-    /// let x = ListPluggableDatabasesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -24454,24 +19448,12 @@ impl CloudVmCluster {
     }
 
     /// Sets the value of [name][crate::model::CloudVmCluster::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = CloudVmCluster::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [exadata_infrastructure][crate::model::CloudVmCluster::exadata_infrastructure].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = CloudVmCluster::new().set_exadata_infrastructure("example");
-    /// ```
     pub fn set_exadata_infrastructure<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -24481,25 +19463,12 @@ impl CloudVmCluster {
     }
 
     /// Sets the value of [display_name][crate::model::CloudVmCluster::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = CloudVmCluster::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [properties][crate::model::CloudVmCluster::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmCluster::new().set_properties(CloudVmClusterProperties::default()/* use setters */);
-    /// ```
     pub fn set_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudVmClusterProperties>,
@@ -24509,14 +19478,6 @@ impl CloudVmCluster {
     }
 
     /// Sets or clears the value of [properties][crate::model::CloudVmCluster::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmCluster::new().set_or_clear_properties(Some(CloudVmClusterProperties::default()/* use setters */));
-    /// let x = CloudVmCluster::new().set_or_clear_properties(None::<CloudVmClusterProperties>);
-    /// ```
     pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudVmClusterProperties>,
@@ -24526,15 +19487,6 @@ impl CloudVmCluster {
     }
 
     /// Sets the value of [labels][crate::model::CloudVmCluster::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = CloudVmCluster::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -24547,13 +19499,6 @@ impl CloudVmCluster {
     }
 
     /// Sets the value of [create_time][crate::model::CloudVmCluster::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// use wkt::Timestamp;
-    /// let x = CloudVmCluster::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -24563,14 +19508,6 @@ impl CloudVmCluster {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CloudVmCluster::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// use wkt::Timestamp;
-    /// let x = CloudVmCluster::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CloudVmCluster::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -24580,24 +19517,12 @@ impl CloudVmCluster {
     }
 
     /// Sets the value of [cidr][crate::model::CloudVmCluster::cidr].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = CloudVmCluster::new().set_cidr("example");
-    /// ```
     pub fn set_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cidr = v.into();
         self
     }
 
     /// Sets the value of [backup_subnet_cidr][crate::model::CloudVmCluster::backup_subnet_cidr].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = CloudVmCluster::new().set_backup_subnet_cidr("example");
-    /// ```
     pub fn set_backup_subnet_cidr<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -24607,60 +19532,30 @@ impl CloudVmCluster {
     }
 
     /// Sets the value of [network][crate::model::CloudVmCluster::network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = CloudVmCluster::new().set_network("example");
-    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [gcp_oracle_zone][crate::model::CloudVmCluster::gcp_oracle_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = CloudVmCluster::new().set_gcp_oracle_zone("example");
-    /// ```
     pub fn set_gcp_oracle_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcp_oracle_zone = v.into();
         self
     }
 
     /// Sets the value of [odb_network][crate::model::CloudVmCluster::odb_network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = CloudVmCluster::new().set_odb_network("example");
-    /// ```
     pub fn set_odb_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.odb_network = v.into();
         self
     }
 
     /// Sets the value of [odb_subnet][crate::model::CloudVmCluster::odb_subnet].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = CloudVmCluster::new().set_odb_subnet("example");
-    /// ```
     pub fn set_odb_subnet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.odb_subnet = v.into();
         self
     }
 
     /// Sets the value of [backup_odb_subnet][crate::model::CloudVmCluster::backup_odb_subnet].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// let x = CloudVmCluster::new().set_backup_odb_subnet("example");
-    /// ```
     pub fn set_backup_odb_subnet<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -24670,13 +19565,6 @@ impl CloudVmCluster {
     }
 
     /// Sets the value of [identity_connector][crate::model::CloudVmCluster::identity_connector].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// use google_cloud_oracledatabase_v1::model::IdentityConnector;
-    /// let x = CloudVmCluster::new().set_identity_connector(IdentityConnector::default()/* use setters */);
-    /// ```
     pub fn set_identity_connector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IdentityConnector>,
@@ -24686,14 +19574,6 @@ impl CloudVmCluster {
     }
 
     /// Sets or clears the value of [identity_connector][crate::model::CloudVmCluster::identity_connector].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
-    /// use google_cloud_oracledatabase_v1::model::IdentityConnector;
-    /// let x = CloudVmCluster::new().set_or_clear_identity_connector(Some(IdentityConnector::default()/* use setters */));
-    /// let x = CloudVmCluster::new().set_or_clear_identity_connector(None::<IdentityConnector>);
-    /// ```
     pub fn set_or_clear_identity_connector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IdentityConnector>,
@@ -24826,26 +19706,12 @@ impl CloudVmClusterProperties {
     }
 
     /// Sets the value of [ocid][crate::model::CloudVmClusterProperties::ocid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_ocid("example");
-    /// ```
     pub fn set_ocid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ocid = v.into();
         self
     }
 
     /// Sets the value of [license_type][crate::model::CloudVmClusterProperties::license_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// use google_cloud_oracledatabase_v1::model::cloud_vm_cluster_properties::LicenseType;
-    /// let x0 = CloudVmClusterProperties::new().set_license_type(LicenseType::LicenseIncluded);
-    /// let x1 = CloudVmClusterProperties::new().set_license_type(LicenseType::BringYourOwnLicense);
-    /// ```
     pub fn set_license_type<
         T: std::convert::Into<crate::model::cloud_vm_cluster_properties::LicenseType>,
     >(
@@ -24857,25 +19723,12 @@ impl CloudVmClusterProperties {
     }
 
     /// Sets the value of [gi_version][crate::model::CloudVmClusterProperties::gi_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_gi_version("example");
-    /// ```
     pub fn set_gi_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gi_version = v.into();
         self
     }
 
     /// Sets the value of [time_zone][crate::model::CloudVmClusterProperties::time_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// use gtype::model::TimeZone;
-    /// let x = CloudVmClusterProperties::new().set_time_zone(TimeZone::default()/* use setters */);
-    /// ```
     pub fn set_time_zone<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::TimeZone>,
@@ -24885,14 +19738,6 @@ impl CloudVmClusterProperties {
     }
 
     /// Sets or clears the value of [time_zone][crate::model::CloudVmClusterProperties::time_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// use gtype::model::TimeZone;
-    /// let x = CloudVmClusterProperties::new().set_or_clear_time_zone(Some(TimeZone::default()/* use setters */));
-    /// let x = CloudVmClusterProperties::new().set_or_clear_time_zone(None::<TimeZone>);
-    /// ```
     pub fn set_or_clear_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeZone>,
@@ -24902,12 +19747,6 @@ impl CloudVmClusterProperties {
     }
 
     /// Sets the value of [ssh_public_keys][crate::model::CloudVmClusterProperties::ssh_public_keys].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_ssh_public_keys(["a", "b", "c"]);
-    /// ```
     pub fn set_ssh_public_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -24919,98 +19758,48 @@ impl CloudVmClusterProperties {
     }
 
     /// Sets the value of [node_count][crate::model::CloudVmClusterProperties::node_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_node_count(42);
-    /// ```
     pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.node_count = v.into();
         self
     }
 
     /// Sets the value of [shape][crate::model::CloudVmClusterProperties::shape].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_shape("example");
-    /// ```
     pub fn set_shape<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.shape = v.into();
         self
     }
 
     /// Sets the value of [ocpu_count][crate::model::CloudVmClusterProperties::ocpu_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_ocpu_count(42.0);
-    /// ```
     pub fn set_ocpu_count<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.ocpu_count = v.into();
         self
     }
 
     /// Sets the value of [memory_size_gb][crate::model::CloudVmClusterProperties::memory_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_memory_size_gb(42);
-    /// ```
     pub fn set_memory_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.memory_size_gb = v.into();
         self
     }
 
     /// Sets the value of [db_node_storage_size_gb][crate::model::CloudVmClusterProperties::db_node_storage_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_db_node_storage_size_gb(42);
-    /// ```
     pub fn set_db_node_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.db_node_storage_size_gb = v.into();
         self
     }
 
     /// Sets the value of [storage_size_gb][crate::model::CloudVmClusterProperties::storage_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_storage_size_gb(42);
-    /// ```
     pub fn set_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.storage_size_gb = v.into();
         self
     }
 
     /// Sets the value of [data_storage_size_tb][crate::model::CloudVmClusterProperties::data_storage_size_tb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_data_storage_size_tb(42.0);
-    /// ```
     pub fn set_data_storage_size_tb<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.data_storage_size_tb = v.into();
         self
     }
 
     /// Sets the value of [disk_redundancy][crate::model::CloudVmClusterProperties::disk_redundancy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// use google_cloud_oracledatabase_v1::model::cloud_vm_cluster_properties::DiskRedundancy;
-    /// let x0 = CloudVmClusterProperties::new().set_disk_redundancy(DiskRedundancy::High);
-    /// let x1 = CloudVmClusterProperties::new().set_disk_redundancy(DiskRedundancy::Normal);
-    /// ```
     pub fn set_disk_redundancy<
         T: std::convert::Into<crate::model::cloud_vm_cluster_properties::DiskRedundancy>,
     >(
@@ -25022,49 +19811,24 @@ impl CloudVmClusterProperties {
     }
 
     /// Sets the value of [sparse_diskgroup_enabled][crate::model::CloudVmClusterProperties::sparse_diskgroup_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_sparse_diskgroup_enabled(true);
-    /// ```
     pub fn set_sparse_diskgroup_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.sparse_diskgroup_enabled = v.into();
         self
     }
 
     /// Sets the value of [local_backup_enabled][crate::model::CloudVmClusterProperties::local_backup_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_local_backup_enabled(true);
-    /// ```
     pub fn set_local_backup_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.local_backup_enabled = v.into();
         self
     }
 
     /// Sets the value of [hostname_prefix][crate::model::CloudVmClusterProperties::hostname_prefix].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_hostname_prefix("example");
-    /// ```
     pub fn set_hostname_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname_prefix = v.into();
         self
     }
 
     /// Sets the value of [diagnostics_data_collection_options][crate::model::CloudVmClusterProperties::diagnostics_data_collection_options].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// use google_cloud_oracledatabase_v1::model::DataCollectionOptions;
-    /// let x = CloudVmClusterProperties::new().set_diagnostics_data_collection_options(DataCollectionOptions::default()/* use setters */);
-    /// ```
     pub fn set_diagnostics_data_collection_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataCollectionOptions>,
@@ -25074,14 +19838,6 @@ impl CloudVmClusterProperties {
     }
 
     /// Sets or clears the value of [diagnostics_data_collection_options][crate::model::CloudVmClusterProperties::diagnostics_data_collection_options].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// use google_cloud_oracledatabase_v1::model::DataCollectionOptions;
-    /// let x = CloudVmClusterProperties::new().set_or_clear_diagnostics_data_collection_options(Some(DataCollectionOptions::default()/* use setters */));
-    /// let x = CloudVmClusterProperties::new().set_or_clear_diagnostics_data_collection_options(None::<DataCollectionOptions>);
-    /// ```
     pub fn set_or_clear_diagnostics_data_collection_options<T>(
         mut self,
         v: std::option::Option<T>,
@@ -25094,15 +19850,6 @@ impl CloudVmClusterProperties {
     }
 
     /// Sets the value of [state][crate::model::CloudVmClusterProperties::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// use google_cloud_oracledatabase_v1::model::cloud_vm_cluster_properties::State;
-    /// let x0 = CloudVmClusterProperties::new().set_state(State::Provisioning);
-    /// let x1 = CloudVmClusterProperties::new().set_state(State::Available);
-    /// let x2 = CloudVmClusterProperties::new().set_state(State::Updating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::cloud_vm_cluster_properties::State>>(
         mut self,
         v: T,
@@ -25112,96 +19859,48 @@ impl CloudVmClusterProperties {
     }
 
     /// Sets the value of [scan_listener_port_tcp][crate::model::CloudVmClusterProperties::scan_listener_port_tcp].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_scan_listener_port_tcp(42);
-    /// ```
     pub fn set_scan_listener_port_tcp<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.scan_listener_port_tcp = v.into();
         self
     }
 
     /// Sets the value of [scan_listener_port_tcp_ssl][crate::model::CloudVmClusterProperties::scan_listener_port_tcp_ssl].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_scan_listener_port_tcp_ssl(42);
-    /// ```
     pub fn set_scan_listener_port_tcp_ssl<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.scan_listener_port_tcp_ssl = v.into();
         self
     }
 
     /// Sets the value of [domain][crate::model::CloudVmClusterProperties::domain].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_domain("example");
-    /// ```
     pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.domain = v.into();
         self
     }
 
     /// Sets the value of [scan_dns][crate::model::CloudVmClusterProperties::scan_dns].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_scan_dns("example");
-    /// ```
     pub fn set_scan_dns<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scan_dns = v.into();
         self
     }
 
     /// Sets the value of [hostname][crate::model::CloudVmClusterProperties::hostname].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_hostname("example");
-    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname = v.into();
         self
     }
 
     /// Sets the value of [cpu_core_count][crate::model::CloudVmClusterProperties::cpu_core_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_cpu_core_count(42);
-    /// ```
     pub fn set_cpu_core_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.cpu_core_count = v.into();
         self
     }
 
     /// Sets the value of [system_version][crate::model::CloudVmClusterProperties::system_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_system_version("example");
-    /// ```
     pub fn set_system_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.system_version = v.into();
         self
     }
 
     /// Sets the value of [scan_ip_ids][crate::model::CloudVmClusterProperties::scan_ip_ids].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_scan_ip_ids(["a", "b", "c"]);
-    /// ```
     pub fn set_scan_ip_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -25213,12 +19912,6 @@ impl CloudVmClusterProperties {
     }
 
     /// Sets the value of [scan_dns_record_id][crate::model::CloudVmClusterProperties::scan_dns_record_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_scan_dns_record_id("example");
-    /// ```
     pub fn set_scan_dns_record_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -25228,24 +19921,12 @@ impl CloudVmClusterProperties {
     }
 
     /// Sets the value of [oci_url][crate::model::CloudVmClusterProperties::oci_url].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_oci_url("example");
-    /// ```
     pub fn set_oci_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.oci_url = v.into();
         self
     }
 
     /// Sets the value of [db_server_ocids][crate::model::CloudVmClusterProperties::db_server_ocids].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_db_server_ocids(["a", "b", "c"]);
-    /// ```
     pub fn set_db_server_ocids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -25257,50 +19938,24 @@ impl CloudVmClusterProperties {
     }
 
     /// Sets the value of [compartment_id][crate::model::CloudVmClusterProperties::compartment_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_compartment_id("example");
-    /// ```
     pub fn set_compartment_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.compartment_id = v.into();
         self
     }
 
     /// Sets the value of [dns_listener_ip][crate::model::CloudVmClusterProperties::dns_listener_ip].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_dns_listener_ip("example");
-    /// ```
     pub fn set_dns_listener_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dns_listener_ip = v.into();
         self
     }
 
     /// Sets the value of [cluster_name][crate::model::CloudVmClusterProperties::cluster_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// let x = CloudVmClusterProperties::new().set_cluster_name("example");
-    /// ```
     pub fn set_cluster_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_name = v.into();
         self
     }
 
     /// Sets the value of [compute_model][crate::model::CloudVmClusterProperties::compute_model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// use google_cloud_oracledatabase_v1::model::ComputeModel;
-    /// let x0 = CloudVmClusterProperties::new().set_compute_model(ComputeModel::Ecpu);
-    /// let x1 = CloudVmClusterProperties::new().set_compute_model(ComputeModel::Ocpu);
-    /// ```
     pub fn set_compute_model<T: std::convert::Into<crate::model::ComputeModel>>(
         mut self,
         v: T,
@@ -25777,36 +20432,18 @@ impl DataCollectionOptions {
     }
 
     /// Sets the value of [diagnostics_events_enabled][crate::model::DataCollectionOptions::diagnostics_events_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DataCollectionOptions;
-    /// let x = DataCollectionOptions::new().set_diagnostics_events_enabled(true);
-    /// ```
     pub fn set_diagnostics_events_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.diagnostics_events_enabled = v.into();
         self
     }
 
     /// Sets the value of [health_monitoring_enabled][crate::model::DataCollectionOptions::health_monitoring_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DataCollectionOptions;
-    /// let x = DataCollectionOptions::new().set_health_monitoring_enabled(true);
-    /// ```
     pub fn set_health_monitoring_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.health_monitoring_enabled = v.into();
         self
     }
 
     /// Sets the value of [incident_logs_enabled][crate::model::DataCollectionOptions::incident_logs_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::model::DataCollectionOptions;
-    /// let x = DataCollectionOptions::new().set_incident_logs_enabled(true);
-    /// ```
     pub fn set_incident_logs_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.incident_logs_enabled = v.into();
         self

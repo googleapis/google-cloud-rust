@@ -65,15 +65,6 @@ impl ComputeThreatListDiffRequest {
     }
 
     /// Sets the value of [threat_type][crate::model::ComputeThreatListDiffRequest::threat_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ComputeThreatListDiffRequest;
-    /// use google_cloud_webrisk_v1::model::ThreatType;
-    /// let x0 = ComputeThreatListDiffRequest::new().set_threat_type(ThreatType::Malware);
-    /// let x1 = ComputeThreatListDiffRequest::new().set_threat_type(ThreatType::SocialEngineering);
-    /// let x2 = ComputeThreatListDiffRequest::new().set_threat_type(ThreatType::UnwantedSoftware);
-    /// ```
     pub fn set_threat_type<T: std::convert::Into<crate::model::ThreatType>>(
         mut self,
         v: T,
@@ -83,25 +74,12 @@ impl ComputeThreatListDiffRequest {
     }
 
     /// Sets the value of [version_token][crate::model::ComputeThreatListDiffRequest::version_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ComputeThreatListDiffRequest;
-    /// let x = ComputeThreatListDiffRequest::new().set_version_token(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_version_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.version_token = v.into();
         self
     }
 
     /// Sets the value of [constraints][crate::model::ComputeThreatListDiffRequest::constraints].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ComputeThreatListDiffRequest;
-    /// use google_cloud_webrisk_v1::model::compute_threat_list_diff_request::Constraints;
-    /// let x = ComputeThreatListDiffRequest::new().set_constraints(Constraints::default()/* use setters */);
-    /// ```
     pub fn set_constraints<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::compute_threat_list_diff_request::Constraints>,
@@ -111,14 +89,6 @@ impl ComputeThreatListDiffRequest {
     }
 
     /// Sets or clears the value of [constraints][crate::model::ComputeThreatListDiffRequest::constraints].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ComputeThreatListDiffRequest;
-    /// use google_cloud_webrisk_v1::model::compute_threat_list_diff_request::Constraints;
-    /// let x = ComputeThreatListDiffRequest::new().set_or_clear_constraints(Some(Constraints::default()/* use setters */));
-    /// let x = ComputeThreatListDiffRequest::new().set_or_clear_constraints(None::<Constraints>);
-    /// ```
     pub fn set_or_clear_constraints<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::compute_threat_list_diff_request::Constraints>,
@@ -165,40 +135,18 @@ pub mod compute_threat_list_diff_request {
         }
 
         /// Sets the value of [max_diff_entries][crate::model::compute_threat_list_diff_request::Constraints::max_diff_entries].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_webrisk_v1::model::compute_threat_list_diff_request::Constraints;
-        /// let x = Constraints::new().set_max_diff_entries(42);
-        /// ```
         pub fn set_max_diff_entries<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.max_diff_entries = v.into();
             self
         }
 
         /// Sets the value of [max_database_entries][crate::model::compute_threat_list_diff_request::Constraints::max_database_entries].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_webrisk_v1::model::compute_threat_list_diff_request::Constraints;
-        /// let x = Constraints::new().set_max_database_entries(42);
-        /// ```
         pub fn set_max_database_entries<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.max_database_entries = v.into();
             self
         }
 
         /// Sets the value of [supported_compressions][crate::model::compute_threat_list_diff_request::Constraints::supported_compressions].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_webrisk_v1::model::compute_threat_list_diff_request::Constraints;
-        /// use google_cloud_webrisk_v1::model::CompressionType;
-        /// let x = Constraints::new().set_supported_compressions([
-        ///     CompressionType::Raw,
-        ///     CompressionType::Rice,
-        /// ]);
-        /// ```
         pub fn set_supported_compressions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -257,14 +205,6 @@ impl ComputeThreatListDiffResponse {
     }
 
     /// Sets the value of [response_type][crate::model::ComputeThreatListDiffResponse::response_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ComputeThreatListDiffResponse;
-    /// use google_cloud_webrisk_v1::model::compute_threat_list_diff_response::ResponseType;
-    /// let x0 = ComputeThreatListDiffResponse::new().set_response_type(ResponseType::Diff);
-    /// let x1 = ComputeThreatListDiffResponse::new().set_response_type(ResponseType::Reset);
-    /// ```
     pub fn set_response_type<
         T: std::convert::Into<crate::model::compute_threat_list_diff_response::ResponseType>,
     >(
@@ -276,13 +216,6 @@ impl ComputeThreatListDiffResponse {
     }
 
     /// Sets the value of [additions][crate::model::ComputeThreatListDiffResponse::additions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ComputeThreatListDiffResponse;
-    /// use google_cloud_webrisk_v1::model::ThreatEntryAdditions;
-    /// let x = ComputeThreatListDiffResponse::new().set_additions(ThreatEntryAdditions::default()/* use setters */);
-    /// ```
     pub fn set_additions<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ThreatEntryAdditions>,
@@ -292,14 +225,6 @@ impl ComputeThreatListDiffResponse {
     }
 
     /// Sets or clears the value of [additions][crate::model::ComputeThreatListDiffResponse::additions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ComputeThreatListDiffResponse;
-    /// use google_cloud_webrisk_v1::model::ThreatEntryAdditions;
-    /// let x = ComputeThreatListDiffResponse::new().set_or_clear_additions(Some(ThreatEntryAdditions::default()/* use setters */));
-    /// let x = ComputeThreatListDiffResponse::new().set_or_clear_additions(None::<ThreatEntryAdditions>);
-    /// ```
     pub fn set_or_clear_additions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ThreatEntryAdditions>,
@@ -309,13 +234,6 @@ impl ComputeThreatListDiffResponse {
     }
 
     /// Sets the value of [removals][crate::model::ComputeThreatListDiffResponse::removals].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ComputeThreatListDiffResponse;
-    /// use google_cloud_webrisk_v1::model::ThreatEntryRemovals;
-    /// let x = ComputeThreatListDiffResponse::new().set_removals(ThreatEntryRemovals::default()/* use setters */);
-    /// ```
     pub fn set_removals<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ThreatEntryRemovals>,
@@ -325,14 +243,6 @@ impl ComputeThreatListDiffResponse {
     }
 
     /// Sets or clears the value of [removals][crate::model::ComputeThreatListDiffResponse::removals].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ComputeThreatListDiffResponse;
-    /// use google_cloud_webrisk_v1::model::ThreatEntryRemovals;
-    /// let x = ComputeThreatListDiffResponse::new().set_or_clear_removals(Some(ThreatEntryRemovals::default()/* use setters */));
-    /// let x = ComputeThreatListDiffResponse::new().set_or_clear_removals(None::<ThreatEntryRemovals>);
-    /// ```
     pub fn set_or_clear_removals<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ThreatEntryRemovals>,
@@ -342,25 +252,12 @@ impl ComputeThreatListDiffResponse {
     }
 
     /// Sets the value of [new_version_token][crate::model::ComputeThreatListDiffResponse::new_version_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ComputeThreatListDiffResponse;
-    /// let x = ComputeThreatListDiffResponse::new().set_new_version_token(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_new_version_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.new_version_token = v.into();
         self
     }
 
     /// Sets the value of [checksum][crate::model::ComputeThreatListDiffResponse::checksum].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ComputeThreatListDiffResponse;
-    /// use google_cloud_webrisk_v1::model::compute_threat_list_diff_response::Checksum;
-    /// let x = ComputeThreatListDiffResponse::new().set_checksum(Checksum::default()/* use setters */);
-    /// ```
     pub fn set_checksum<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::compute_threat_list_diff_response::Checksum>,
@@ -370,14 +267,6 @@ impl ComputeThreatListDiffResponse {
     }
 
     /// Sets or clears the value of [checksum][crate::model::ComputeThreatListDiffResponse::checksum].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ComputeThreatListDiffResponse;
-    /// use google_cloud_webrisk_v1::model::compute_threat_list_diff_response::Checksum;
-    /// let x = ComputeThreatListDiffResponse::new().set_or_clear_checksum(Some(Checksum::default()/* use setters */));
-    /// let x = ComputeThreatListDiffResponse::new().set_or_clear_checksum(None::<Checksum>);
-    /// ```
     pub fn set_or_clear_checksum<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::compute_threat_list_diff_response::Checksum>,
@@ -387,13 +276,6 @@ impl ComputeThreatListDiffResponse {
     }
 
     /// Sets the value of [recommended_next_diff][crate::model::ComputeThreatListDiffResponse::recommended_next_diff].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ComputeThreatListDiffResponse;
-    /// use wkt::Timestamp;
-    /// let x = ComputeThreatListDiffResponse::new().set_recommended_next_diff(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_recommended_next_diff<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -403,14 +285,6 @@ impl ComputeThreatListDiffResponse {
     }
 
     /// Sets or clears the value of [recommended_next_diff][crate::model::ComputeThreatListDiffResponse::recommended_next_diff].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ComputeThreatListDiffResponse;
-    /// use wkt::Timestamp;
-    /// let x = ComputeThreatListDiffResponse::new().set_or_clear_recommended_next_diff(Some(Timestamp::default()/* use setters */));
-    /// let x = ComputeThreatListDiffResponse::new().set_or_clear_recommended_next_diff(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_recommended_next_diff<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -448,12 +322,6 @@ pub mod compute_threat_list_diff_response {
         }
 
         /// Sets the value of [sha256][crate::model::compute_threat_list_diff_response::Checksum::sha256].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_webrisk_v1::model::compute_threat_list_diff_response::Checksum;
-        /// let x = Checksum::new().set_sha256(bytes::Bytes::from_static(b"example"));
-        /// ```
         pub fn set_sha256<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.sha256 = v.into();
             self
@@ -621,29 +489,12 @@ impl SearchUrisRequest {
     }
 
     /// Sets the value of [uri][crate::model::SearchUrisRequest::uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SearchUrisRequest;
-    /// let x = SearchUrisRequest::new().set_uri("example");
-    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [threat_types][crate::model::SearchUrisRequest::threat_types].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SearchUrisRequest;
-    /// use google_cloud_webrisk_v1::model::ThreatType;
-    /// let x = SearchUrisRequest::new().set_threat_types([
-    ///     ThreatType::Malware,
-    ///     ThreatType::SocialEngineering,
-    ///     ThreatType::UnwantedSoftware,
-    /// ]);
-    /// ```
     pub fn set_threat_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -676,13 +527,6 @@ impl SearchUrisResponse {
     }
 
     /// Sets the value of [threat][crate::model::SearchUrisResponse::threat].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SearchUrisResponse;
-    /// use google_cloud_webrisk_v1::model::search_uris_response::ThreatUri;
-    /// let x = SearchUrisResponse::new().set_threat(ThreatUri::default()/* use setters */);
-    /// ```
     pub fn set_threat<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::search_uris_response::ThreatUri>,
@@ -692,14 +536,6 @@ impl SearchUrisResponse {
     }
 
     /// Sets or clears the value of [threat][crate::model::SearchUrisResponse::threat].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SearchUrisResponse;
-    /// use google_cloud_webrisk_v1::model::search_uris_response::ThreatUri;
-    /// let x = SearchUrisResponse::new().set_or_clear_threat(Some(ThreatUri::default()/* use setters */));
-    /// let x = SearchUrisResponse::new().set_or_clear_threat(None::<ThreatUri>);
-    /// ```
     pub fn set_or_clear_threat<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::search_uris_response::ThreatUri>,
@@ -740,17 +576,6 @@ pub mod search_uris_response {
         }
 
         /// Sets the value of [threat_types][crate::model::search_uris_response::ThreatUri::threat_types].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_webrisk_v1::model::search_uris_response::ThreatUri;
-        /// use google_cloud_webrisk_v1::model::ThreatType;
-        /// let x = ThreatUri::new().set_threat_types([
-        ///     ThreatType::Malware,
-        ///     ThreatType::SocialEngineering,
-        ///     ThreatType::UnwantedSoftware,
-        /// ]);
-        /// ```
         pub fn set_threat_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -762,13 +587,6 @@ pub mod search_uris_response {
         }
 
         /// Sets the value of [expire_time][crate::model::search_uris_response::ThreatUri::expire_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_webrisk_v1::model::search_uris_response::ThreatUri;
-        /// use wkt::Timestamp;
-        /// let x = ThreatUri::new().set_expire_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_expire_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -778,14 +596,6 @@ pub mod search_uris_response {
         }
 
         /// Sets or clears the value of [expire_time][crate::model::search_uris_response::ThreatUri::expire_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_webrisk_v1::model::search_uris_response::ThreatUri;
-        /// use wkt::Timestamp;
-        /// let x = ThreatUri::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
-        /// let x = ThreatUri::new().set_or_clear_expire_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -825,29 +635,12 @@ impl SearchHashesRequest {
     }
 
     /// Sets the value of [hash_prefix][crate::model::SearchHashesRequest::hash_prefix].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SearchHashesRequest;
-    /// let x = SearchHashesRequest::new().set_hash_prefix(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_hash_prefix<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.hash_prefix = v.into();
         self
     }
 
     /// Sets the value of [threat_types][crate::model::SearchHashesRequest::threat_types].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SearchHashesRequest;
-    /// use google_cloud_webrisk_v1::model::ThreatType;
-    /// let x = SearchHashesRequest::new().set_threat_types([
-    ///     ThreatType::Malware,
-    ///     ThreatType::SocialEngineering,
-    ///     ThreatType::UnwantedSoftware,
-    /// ]);
-    /// ```
     pub fn set_threat_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -885,17 +678,6 @@ impl SearchHashesResponse {
     }
 
     /// Sets the value of [threats][crate::model::SearchHashesResponse::threats].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SearchHashesResponse;
-    /// use google_cloud_webrisk_v1::model::search_hashes_response::ThreatHash;
-    /// let x = SearchHashesResponse::new()
-    ///     .set_threats([
-    ///         ThreatHash::default()/* use setters */,
-    ///         ThreatHash::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_threats<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -907,13 +689,6 @@ impl SearchHashesResponse {
     }
 
     /// Sets the value of [negative_expire_time][crate::model::SearchHashesResponse::negative_expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SearchHashesResponse;
-    /// use wkt::Timestamp;
-    /// let x = SearchHashesResponse::new().set_negative_expire_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_negative_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -923,14 +698,6 @@ impl SearchHashesResponse {
     }
 
     /// Sets or clears the value of [negative_expire_time][crate::model::SearchHashesResponse::negative_expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SearchHashesResponse;
-    /// use wkt::Timestamp;
-    /// let x = SearchHashesResponse::new().set_or_clear_negative_expire_time(Some(Timestamp::default()/* use setters */));
-    /// let x = SearchHashesResponse::new().set_or_clear_negative_expire_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_negative_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -976,17 +743,6 @@ pub mod search_hashes_response {
         }
 
         /// Sets the value of [threat_types][crate::model::search_hashes_response::ThreatHash::threat_types].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_webrisk_v1::model::search_hashes_response::ThreatHash;
-        /// use google_cloud_webrisk_v1::model::ThreatType;
-        /// let x = ThreatHash::new().set_threat_types([
-        ///     ThreatType::Malware,
-        ///     ThreatType::SocialEngineering,
-        ///     ThreatType::UnwantedSoftware,
-        /// ]);
-        /// ```
         pub fn set_threat_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -998,25 +754,12 @@ pub mod search_hashes_response {
         }
 
         /// Sets the value of [hash][crate::model::search_hashes_response::ThreatHash::hash].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_webrisk_v1::model::search_hashes_response::ThreatHash;
-        /// let x = ThreatHash::new().set_hash(bytes::Bytes::from_static(b"example"));
-        /// ```
         pub fn set_hash<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.hash = v.into();
             self
         }
 
         /// Sets the value of [expire_time][crate::model::search_hashes_response::ThreatHash::expire_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_webrisk_v1::model::search_hashes_response::ThreatHash;
-        /// use wkt::Timestamp;
-        /// let x = ThreatHash::new().set_expire_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_expire_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1026,14 +769,6 @@ pub mod search_hashes_response {
         }
 
         /// Sets or clears the value of [expire_time][crate::model::search_hashes_response::ThreatHash::expire_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_webrisk_v1::model::search_hashes_response::ThreatHash;
-        /// use wkt::Timestamp;
-        /// let x = ThreatHash::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
-        /// let x = ThreatHash::new().set_or_clear_expire_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1073,17 +808,6 @@ impl ThreatEntryAdditions {
     }
 
     /// Sets the value of [raw_hashes][crate::model::ThreatEntryAdditions::raw_hashes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ThreatEntryAdditions;
-    /// use google_cloud_webrisk_v1::model::RawHashes;
-    /// let x = ThreatEntryAdditions::new()
-    ///     .set_raw_hashes([
-    ///         RawHashes::default()/* use setters */,
-    ///         RawHashes::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_raw_hashes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1095,13 +819,6 @@ impl ThreatEntryAdditions {
     }
 
     /// Sets the value of [rice_hashes][crate::model::ThreatEntryAdditions::rice_hashes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ThreatEntryAdditions;
-    /// use google_cloud_webrisk_v1::model::RiceDeltaEncoding;
-    /// let x = ThreatEntryAdditions::new().set_rice_hashes(RiceDeltaEncoding::default()/* use setters */);
-    /// ```
     pub fn set_rice_hashes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RiceDeltaEncoding>,
@@ -1111,14 +828,6 @@ impl ThreatEntryAdditions {
     }
 
     /// Sets or clears the value of [rice_hashes][crate::model::ThreatEntryAdditions::rice_hashes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ThreatEntryAdditions;
-    /// use google_cloud_webrisk_v1::model::RiceDeltaEncoding;
-    /// let x = ThreatEntryAdditions::new().set_or_clear_rice_hashes(Some(RiceDeltaEncoding::default()/* use setters */));
-    /// let x = ThreatEntryAdditions::new().set_or_clear_rice_hashes(None::<RiceDeltaEncoding>);
-    /// ```
     pub fn set_or_clear_rice_hashes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RiceDeltaEncoding>,
@@ -1156,13 +865,6 @@ impl ThreatEntryRemovals {
     }
 
     /// Sets the value of [raw_indices][crate::model::ThreatEntryRemovals::raw_indices].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ThreatEntryRemovals;
-    /// use google_cloud_webrisk_v1::model::RawIndices;
-    /// let x = ThreatEntryRemovals::new().set_raw_indices(RawIndices::default()/* use setters */);
-    /// ```
     pub fn set_raw_indices<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RawIndices>,
@@ -1172,14 +874,6 @@ impl ThreatEntryRemovals {
     }
 
     /// Sets or clears the value of [raw_indices][crate::model::ThreatEntryRemovals::raw_indices].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ThreatEntryRemovals;
-    /// use google_cloud_webrisk_v1::model::RawIndices;
-    /// let x = ThreatEntryRemovals::new().set_or_clear_raw_indices(Some(RawIndices::default()/* use setters */));
-    /// let x = ThreatEntryRemovals::new().set_or_clear_raw_indices(None::<RawIndices>);
-    /// ```
     pub fn set_or_clear_raw_indices<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RawIndices>,
@@ -1189,13 +883,6 @@ impl ThreatEntryRemovals {
     }
 
     /// Sets the value of [rice_indices][crate::model::ThreatEntryRemovals::rice_indices].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ThreatEntryRemovals;
-    /// use google_cloud_webrisk_v1::model::RiceDeltaEncoding;
-    /// let x = ThreatEntryRemovals::new().set_rice_indices(RiceDeltaEncoding::default()/* use setters */);
-    /// ```
     pub fn set_rice_indices<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RiceDeltaEncoding>,
@@ -1205,14 +892,6 @@ impl ThreatEntryRemovals {
     }
 
     /// Sets or clears the value of [rice_indices][crate::model::ThreatEntryRemovals::rice_indices].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ThreatEntryRemovals;
-    /// use google_cloud_webrisk_v1::model::RiceDeltaEncoding;
-    /// let x = ThreatEntryRemovals::new().set_or_clear_rice_indices(Some(RiceDeltaEncoding::default()/* use setters */));
-    /// let x = ThreatEntryRemovals::new().set_or_clear_rice_indices(None::<RiceDeltaEncoding>);
-    /// ```
     pub fn set_or_clear_rice_indices<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RiceDeltaEncoding>,
@@ -1244,12 +923,6 @@ impl RawIndices {
     }
 
     /// Sets the value of [indices][crate::model::RawIndices::indices].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::RawIndices;
-    /// let x = RawIndices::new().set_indices([1, 2, 3]);
-    /// ```
     pub fn set_indices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1297,24 +970,12 @@ impl RawHashes {
     }
 
     /// Sets the value of [prefix_size][crate::model::RawHashes::prefix_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::RawHashes;
-    /// let x = RawHashes::new().set_prefix_size(42);
-    /// ```
     pub fn set_prefix_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.prefix_size = v.into();
         self
     }
 
     /// Sets the value of [raw_hashes][crate::model::RawHashes::raw_hashes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::RawHashes;
-    /// let x = RawHashes::new().set_raw_hashes(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_raw_hashes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.raw_hashes = v.into();
         self
@@ -1358,48 +1019,24 @@ impl RiceDeltaEncoding {
     }
 
     /// Sets the value of [first_value][crate::model::RiceDeltaEncoding::first_value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::RiceDeltaEncoding;
-    /// let x = RiceDeltaEncoding::new().set_first_value(42);
-    /// ```
     pub fn set_first_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.first_value = v.into();
         self
     }
 
     /// Sets the value of [rice_parameter][crate::model::RiceDeltaEncoding::rice_parameter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::RiceDeltaEncoding;
-    /// let x = RiceDeltaEncoding::new().set_rice_parameter(42);
-    /// ```
     pub fn set_rice_parameter<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.rice_parameter = v.into();
         self
     }
 
     /// Sets the value of [entry_count][crate::model::RiceDeltaEncoding::entry_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::RiceDeltaEncoding;
-    /// let x = RiceDeltaEncoding::new().set_entry_count(42);
-    /// ```
     pub fn set_entry_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.entry_count = v.into();
         self
     }
 
     /// Sets the value of [encoded_data][crate::model::RiceDeltaEncoding::encoded_data].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::RiceDeltaEncoding;
-    /// let x = RiceDeltaEncoding::new().set_encoded_data(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_encoded_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.encoded_data = v.into();
         self
@@ -1434,29 +1071,12 @@ impl Submission {
     }
 
     /// Sets the value of [uri][crate::model::Submission::uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::Submission;
-    /// let x = Submission::new().set_uri("example");
-    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [threat_types][crate::model::Submission::threat_types].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::Submission;
-    /// use google_cloud_webrisk_v1::model::ThreatType;
-    /// let x = Submission::new().set_threat_types([
-    ///     ThreatType::Malware,
-    ///     ThreatType::SocialEngineering,
-    ///     ThreatType::UnwantedSoftware,
-    /// ]);
-    /// ```
     pub fn set_threat_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1497,15 +1117,6 @@ impl ThreatInfo {
     }
 
     /// Sets the value of [abuse_type][crate::model::ThreatInfo::abuse_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ThreatInfo;
-    /// use google_cloud_webrisk_v1::model::threat_info::AbuseType;
-    /// let x0 = ThreatInfo::new().set_abuse_type(AbuseType::Malware);
-    /// let x1 = ThreatInfo::new().set_abuse_type(AbuseType::SocialEngineering);
-    /// let x2 = ThreatInfo::new().set_abuse_type(AbuseType::UnwantedSoftware);
-    /// ```
     pub fn set_abuse_type<T: std::convert::Into<crate::model::threat_info::AbuseType>>(
         mut self,
         v: T,
@@ -1515,13 +1126,6 @@ impl ThreatInfo {
     }
 
     /// Sets the value of [threat_confidence][crate::model::ThreatInfo::threat_confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ThreatInfo;
-    /// use google_cloud_webrisk_v1::model::threat_info::Confidence;
-    /// let x = ThreatInfo::new().set_threat_confidence(Confidence::default()/* use setters */);
-    /// ```
     pub fn set_threat_confidence<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::threat_info::Confidence>,
@@ -1531,14 +1135,6 @@ impl ThreatInfo {
     }
 
     /// Sets or clears the value of [threat_confidence][crate::model::ThreatInfo::threat_confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ThreatInfo;
-    /// use google_cloud_webrisk_v1::model::threat_info::Confidence;
-    /// let x = ThreatInfo::new().set_or_clear_threat_confidence(Some(Confidence::default()/* use setters */));
-    /// let x = ThreatInfo::new().set_or_clear_threat_confidence(None::<Confidence>);
-    /// ```
     pub fn set_or_clear_threat_confidence<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::threat_info::Confidence>,
@@ -1548,13 +1144,6 @@ impl ThreatInfo {
     }
 
     /// Sets the value of [threat_justification][crate::model::ThreatInfo::threat_justification].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ThreatInfo;
-    /// use google_cloud_webrisk_v1::model::threat_info::ThreatJustification;
-    /// let x = ThreatInfo::new().set_threat_justification(ThreatJustification::default()/* use setters */);
-    /// ```
     pub fn set_threat_justification<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::threat_info::ThreatJustification>,
@@ -1564,14 +1153,6 @@ impl ThreatInfo {
     }
 
     /// Sets or clears the value of [threat_justification][crate::model::ThreatInfo::threat_justification].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ThreatInfo;
-    /// use google_cloud_webrisk_v1::model::threat_info::ThreatJustification;
-    /// let x = ThreatInfo::new().set_or_clear_threat_justification(Some(ThreatJustification::default()/* use setters */));
-    /// let x = ThreatInfo::new().set_or_clear_threat_justification(None::<ThreatJustification>);
-    /// ```
     pub fn set_or_clear_threat_justification<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::threat_info::ThreatJustification>,
@@ -1610,13 +1191,6 @@ pub mod threat_info {
         ///
         /// Note that all the setters affecting `value` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_webrisk_v1::model::threat_info::Confidence;
-        /// use google_cloud_webrisk_v1::model::threat_info::confidence;
-        /// let x = Confidence::new().set_value(Some(threat_info::confidence::Value::Score(42.0)));
-        /// ```
         pub fn set_value<
             T: std::convert::Into<std::option::Option<crate::model::threat_info::confidence::Value>>,
         >(
@@ -1645,14 +1219,6 @@ pub mod threat_info {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_webrisk_v1::model::threat_info::Confidence;
-        /// let x = Confidence::new().set_score(42.0);
-        /// assert!(x.score().is_some());
-        /// assert!(x.level().is_none());
-        /// ```
         pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.value = std::option::Option::Some(
                 crate::model::threat_info::confidence::Value::Score(v.into()),
@@ -1680,17 +1246,6 @@ pub mod threat_info {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_webrisk_v1::model::threat_info::Confidence;
-        /// use google_cloud_webrisk_v1::model::threat_info::confidence::ConfidenceLevel;
-        /// let x0 = Confidence::new().set_level(ConfidenceLevel::Low);
-        /// let x1 = Confidence::new().set_level(ConfidenceLevel::Medium);
-        /// let x2 = Confidence::new().set_level(ConfidenceLevel::High);
-        /// assert!(x.level().is_some());
-        /// assert!(x.score().is_none());
-        /// ```
         pub fn set_level<
             T: std::convert::Into<crate::model::threat_info::confidence::ConfidenceLevel>,
         >(
@@ -1889,17 +1444,6 @@ pub mod threat_info {
         }
 
         /// Sets the value of [labels][crate::model::threat_info::ThreatJustification::labels].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_webrisk_v1::model::threat_info::ThreatJustification;
-        /// use google_cloud_webrisk_v1::model::threat_info::threat_justification::JustificationLabel;
-        /// let x = ThreatJustification::new().set_labels([
-        ///     JustificationLabel::ManualVerification,
-        ///     JustificationLabel::UserReport,
-        ///     JustificationLabel::AutomatedReport,
-        /// ]);
-        /// ```
         pub fn set_labels<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1913,12 +1457,6 @@ pub mod threat_info {
         }
 
         /// Sets the value of [comments][crate::model::threat_info::ThreatJustification::comments].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_webrisk_v1::model::threat_info::ThreatJustification;
-        /// let x = ThreatJustification::new().set_comments(["a", "b", "c"]);
-        /// ```
         pub fn set_comments<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2246,15 +1784,6 @@ impl ThreatDiscovery {
     }
 
     /// Sets the value of [platform][crate::model::ThreatDiscovery::platform].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ThreatDiscovery;
-    /// use google_cloud_webrisk_v1::model::threat_discovery::Platform;
-    /// let x0 = ThreatDiscovery::new().set_platform(Platform::Android);
-    /// let x1 = ThreatDiscovery::new().set_platform(Platform::Ios);
-    /// let x2 = ThreatDiscovery::new().set_platform(Platform::Macos);
-    /// ```
     pub fn set_platform<T: std::convert::Into<crate::model::threat_discovery::Platform>>(
         mut self,
         v: T,
@@ -2264,12 +1793,6 @@ impl ThreatDiscovery {
     }
 
     /// Sets the value of [region_codes][crate::model::ThreatDiscovery::region_codes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::ThreatDiscovery;
-    /// let x = ThreatDiscovery::new().set_region_codes(["a", "b", "c"]);
-    /// ```
     pub fn set_region_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2459,25 +1982,12 @@ impl CreateSubmissionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSubmissionRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::CreateSubmissionRequest;
-    /// let x = CreateSubmissionRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [submission][crate::model::CreateSubmissionRequest::submission].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::CreateSubmissionRequest;
-    /// use google_cloud_webrisk_v1::model::Submission;
-    /// let x = CreateSubmissionRequest::new().set_submission(Submission::default()/* use setters */);
-    /// ```
     pub fn set_submission<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Submission>,
@@ -2487,14 +1997,6 @@ impl CreateSubmissionRequest {
     }
 
     /// Sets or clears the value of [submission][crate::model::CreateSubmissionRequest::submission].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::CreateSubmissionRequest;
-    /// use google_cloud_webrisk_v1::model::Submission;
-    /// let x = CreateSubmissionRequest::new().set_or_clear_submission(Some(Submission::default()/* use setters */));
-    /// let x = CreateSubmissionRequest::new().set_or_clear_submission(None::<Submission>);
-    /// ```
     pub fn set_or_clear_submission<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Submission>,
@@ -2536,25 +2038,12 @@ impl SubmitUriRequest {
     }
 
     /// Sets the value of [parent][crate::model::SubmitUriRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SubmitUriRequest;
-    /// let x = SubmitUriRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [submission][crate::model::SubmitUriRequest::submission].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SubmitUriRequest;
-    /// use google_cloud_webrisk_v1::model::Submission;
-    /// let x = SubmitUriRequest::new().set_submission(Submission::default()/* use setters */);
-    /// ```
     pub fn set_submission<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Submission>,
@@ -2564,14 +2053,6 @@ impl SubmitUriRequest {
     }
 
     /// Sets or clears the value of [submission][crate::model::SubmitUriRequest::submission].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SubmitUriRequest;
-    /// use google_cloud_webrisk_v1::model::Submission;
-    /// let x = SubmitUriRequest::new().set_or_clear_submission(Some(Submission::default()/* use setters */));
-    /// let x = SubmitUriRequest::new().set_or_clear_submission(None::<Submission>);
-    /// ```
     pub fn set_or_clear_submission<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Submission>,
@@ -2581,13 +2062,6 @@ impl SubmitUriRequest {
     }
 
     /// Sets the value of [threat_info][crate::model::SubmitUriRequest::threat_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SubmitUriRequest;
-    /// use google_cloud_webrisk_v1::model::ThreatInfo;
-    /// let x = SubmitUriRequest::new().set_threat_info(ThreatInfo::default()/* use setters */);
-    /// ```
     pub fn set_threat_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ThreatInfo>,
@@ -2597,14 +2071,6 @@ impl SubmitUriRequest {
     }
 
     /// Sets or clears the value of [threat_info][crate::model::SubmitUriRequest::threat_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SubmitUriRequest;
-    /// use google_cloud_webrisk_v1::model::ThreatInfo;
-    /// let x = SubmitUriRequest::new().set_or_clear_threat_info(Some(ThreatInfo::default()/* use setters */));
-    /// let x = SubmitUriRequest::new().set_or_clear_threat_info(None::<ThreatInfo>);
-    /// ```
     pub fn set_or_clear_threat_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ThreatInfo>,
@@ -2614,13 +2080,6 @@ impl SubmitUriRequest {
     }
 
     /// Sets the value of [threat_discovery][crate::model::SubmitUriRequest::threat_discovery].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SubmitUriRequest;
-    /// use google_cloud_webrisk_v1::model::ThreatDiscovery;
-    /// let x = SubmitUriRequest::new().set_threat_discovery(ThreatDiscovery::default()/* use setters */);
-    /// ```
     pub fn set_threat_discovery<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ThreatDiscovery>,
@@ -2630,14 +2089,6 @@ impl SubmitUriRequest {
     }
 
     /// Sets or clears the value of [threat_discovery][crate::model::SubmitUriRequest::threat_discovery].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SubmitUriRequest;
-    /// use google_cloud_webrisk_v1::model::ThreatDiscovery;
-    /// let x = SubmitUriRequest::new().set_or_clear_threat_discovery(Some(ThreatDiscovery::default()/* use setters */));
-    /// let x = SubmitUriRequest::new().set_or_clear_threat_discovery(None::<ThreatDiscovery>);
-    /// ```
     pub fn set_or_clear_threat_discovery<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ThreatDiscovery>,
@@ -2675,15 +2126,6 @@ impl SubmitUriMetadata {
     }
 
     /// Sets the value of [state][crate::model::SubmitUriMetadata::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SubmitUriMetadata;
-    /// use google_cloud_webrisk_v1::model::submit_uri_metadata::State;
-    /// let x0 = SubmitUriMetadata::new().set_state(State::Running);
-    /// let x1 = SubmitUriMetadata::new().set_state(State::Succeeded);
-    /// let x2 = SubmitUriMetadata::new().set_state(State::Cancelled);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::submit_uri_metadata::State>>(
         mut self,
         v: T,
@@ -2693,13 +2135,6 @@ impl SubmitUriMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::SubmitUriMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SubmitUriMetadata;
-    /// use wkt::Timestamp;
-    /// let x = SubmitUriMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2709,14 +2144,6 @@ impl SubmitUriMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::SubmitUriMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SubmitUriMetadata;
-    /// use wkt::Timestamp;
-    /// let x = SubmitUriMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = SubmitUriMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2726,13 +2153,6 @@ impl SubmitUriMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::SubmitUriMetadata::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SubmitUriMetadata;
-    /// use wkt::Timestamp;
-    /// let x = SubmitUriMetadata::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2742,14 +2162,6 @@ impl SubmitUriMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::SubmitUriMetadata::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_webrisk_v1::model::SubmitUriMetadata;
-    /// use wkt::Timestamp;
-    /// let x = SubmitUriMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = SubmitUriMetadata::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

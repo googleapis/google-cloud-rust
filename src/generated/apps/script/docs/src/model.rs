@@ -50,13 +50,6 @@ impl DocsAddOnManifest {
     }
 
     /// Sets the value of [homepage_trigger][crate::model::DocsAddOnManifest::homepage_trigger].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apps_script_type_docs::model::DocsAddOnManifest;
-    /// use apps_script_type::model::HomepageExtensionPoint;
-    /// let x = DocsAddOnManifest::new().set_homepage_trigger(HomepageExtensionPoint::default()/* use setters */);
-    /// ```
     pub fn set_homepage_trigger<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
@@ -66,14 +59,6 @@ impl DocsAddOnManifest {
     }
 
     /// Sets or clears the value of [homepage_trigger][crate::model::DocsAddOnManifest::homepage_trigger].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apps_script_type_docs::model::DocsAddOnManifest;
-    /// use apps_script_type::model::HomepageExtensionPoint;
-    /// let x = DocsAddOnManifest::new().set_or_clear_homepage_trigger(Some(HomepageExtensionPoint::default()/* use setters */));
-    /// let x = DocsAddOnManifest::new().set_or_clear_homepage_trigger(None::<HomepageExtensionPoint>);
-    /// ```
     pub fn set_or_clear_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
@@ -83,13 +68,6 @@ impl DocsAddOnManifest {
     }
 
     /// Sets the value of [on_file_scope_granted_trigger][crate::model::DocsAddOnManifest::on_file_scope_granted_trigger].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apps_script_type_docs::model::DocsAddOnManifest;
-    /// use google_cloud_apps_script_type_docs::model::DocsExtensionPoint;
-    /// let x = DocsAddOnManifest::new().set_on_file_scope_granted_trigger(DocsExtensionPoint::default()/* use setters */);
-    /// ```
     pub fn set_on_file_scope_granted_trigger<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DocsExtensionPoint>,
@@ -99,14 +77,6 @@ impl DocsAddOnManifest {
     }
 
     /// Sets or clears the value of [on_file_scope_granted_trigger][crate::model::DocsAddOnManifest::on_file_scope_granted_trigger].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apps_script_type_docs::model::DocsAddOnManifest;
-    /// use google_cloud_apps_script_type_docs::model::DocsExtensionPoint;
-    /// let x = DocsAddOnManifest::new().set_or_clear_on_file_scope_granted_trigger(Some(DocsExtensionPoint::default()/* use setters */));
-    /// let x = DocsAddOnManifest::new().set_or_clear_on_file_scope_granted_trigger(None::<DocsExtensionPoint>);
-    /// ```
     pub fn set_or_clear_on_file_scope_granted_trigger<T>(
         mut self,
         v: std::option::Option<T>,
@@ -141,12 +111,6 @@ impl DocsExtensionPoint {
     }
 
     /// Sets the value of [run_function][crate::model::DocsExtensionPoint::run_function].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apps_script_type_docs::model::DocsExtensionPoint;
-    /// let x = DocsExtensionPoint::new().set_run_function("example");
-    /// ```
     pub fn set_run_function<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.run_function = v.into();
         self

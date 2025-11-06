@@ -62,36 +62,18 @@ impl CloudSQLBackupRunSource {
     }
 
     /// Sets the value of [project][crate::model::CloudSQLBackupRunSource::project].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CloudSQLBackupRunSource;
-    /// let x = CloudSQLBackupRunSource::new().set_project("example");
-    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [instance_id][crate::model::CloudSQLBackupRunSource::instance_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CloudSQLBackupRunSource;
-    /// let x = CloudSQLBackupRunSource::new().set_instance_id("example");
-    /// ```
     pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_id = v.into();
         self
     }
 
     /// Sets the value of [backup_run_id][crate::model::CloudSQLBackupRunSource::backup_run_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CloudSQLBackupRunSource;
-    /// let x = CloudSQLBackupRunSource::new().set_backup_run_id(42);
-    /// ```
     pub fn set_backup_run_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.backup_run_id = v.into();
         self
@@ -130,37 +112,18 @@ impl RestoreFromCloudSQLRequest {
     }
 
     /// Sets the value of [parent][crate::model::RestoreFromCloudSQLRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestoreFromCloudSQLRequest;
-    /// let x = RestoreFromCloudSQLRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::RestoreFromCloudSQLRequest::cluster_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestoreFromCloudSQLRequest;
-    /// let x = RestoreFromCloudSQLRequest::new().set_cluster_id("example");
-    /// ```
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
     }
 
     /// Sets the value of [cluster][crate::model::RestoreFromCloudSQLRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestoreFromCloudSQLRequest;
-    /// use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = RestoreFromCloudSQLRequest::new().set_cluster(Cluster::default()/* use setters */);
-    /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -170,14 +133,6 @@ impl RestoreFromCloudSQLRequest {
     }
 
     /// Sets or clears the value of [cluster][crate::model::RestoreFromCloudSQLRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestoreFromCloudSQLRequest;
-    /// use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = RestoreFromCloudSQLRequest::new().set_or_clear_cluster(Some(Cluster::default()/* use setters */));
-    /// let x = RestoreFromCloudSQLRequest::new().set_or_clear_cluster(None::<Cluster>);
-    /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -190,14 +145,6 @@ impl RestoreFromCloudSQLRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestoreFromCloudSQLRequest;
-    /// use google_cloud_alloydb_v1::model::restore_from_cloud_sql_request;
-    /// use google_cloud_alloydb_v1::model::CloudSQLBackupRunSource;
-    /// let x = RestoreFromCloudSQLRequest::new().set_source(Some(restore_from_cloud_sql_request::Source::CloudsqlBackupRunSource(CloudSQLBackupRunSource::default().into())));
-    /// ```
     pub fn set_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::restore_from_cloud_sql_request::Source>,
@@ -230,14 +177,6 @@ impl RestoreFromCloudSQLRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestoreFromCloudSQLRequest;
-    /// use google_cloud_alloydb_v1::model::CloudSQLBackupRunSource;
-    /// let x = RestoreFromCloudSQLRequest::new().set_cloudsql_backup_run_source(CloudSQLBackupRunSource::default()/* use setters */);
-    /// assert!(x.cloudsql_backup_run_source().is_some());
-    /// ```
     pub fn set_cloudsql_backup_run_source<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudSQLBackupRunSource>>,
     >(
@@ -291,17 +230,6 @@ impl SqlResult {
     }
 
     /// Sets the value of [columns][crate::model::SqlResult::columns].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SqlResult;
-    /// use google_cloud_alloydb_v1::model::SqlResultColumn;
-    /// let x = SqlResult::new()
-    ///     .set_columns([
-    ///         SqlResultColumn::default()/* use setters */,
-    ///         SqlResultColumn::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -313,17 +241,6 @@ impl SqlResult {
     }
 
     /// Sets the value of [rows][crate::model::SqlResult::rows].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SqlResult;
-    /// use google_cloud_alloydb_v1::model::SqlResultRow;
-    /// let x = SqlResult::new()
-    ///     .set_rows([
-    ///         SqlResultRow::default()/* use setters */,
-    ///         SqlResultRow::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_rows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -362,24 +279,12 @@ impl SqlResultColumn {
     }
 
     /// Sets the value of [name][crate::model::SqlResultColumn::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SqlResultColumn;
-    /// let x = SqlResultColumn::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::SqlResultColumn::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SqlResultColumn;
-    /// let x = SqlResultColumn::new().set_type("example");
-    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
@@ -408,17 +313,6 @@ impl SqlResultRow {
     }
 
     /// Sets the value of [values][crate::model::SqlResultRow::values].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SqlResultRow;
-    /// use google_cloud_alloydb_v1::model::SqlResultValue;
-    /// let x = SqlResultRow::new()
-    ///     .set_values([
-    ///         SqlResultValue::default()/* use setters */,
-    ///         SqlResultValue::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -456,12 +350,6 @@ impl SqlResultValue {
     }
 
     /// Sets the value of [value][crate::model::SqlResultValue::value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SqlResultValue;
-    /// let x = SqlResultValue::new().set_value("example");
-    /// ```
     pub fn set_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -471,14 +359,6 @@ impl SqlResultValue {
     }
 
     /// Sets or clears the value of [value][crate::model::SqlResultValue::value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SqlResultValue;
-    /// let x = SqlResultValue::new().set_or_clear_value("example");
-    /// let x = SqlResultValue::new().set_or_clear_value(Some("example"));
-    /// let x = SqlResultValue::new().set_or_clear_value(None::<String>);
-    /// ```
     pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -488,12 +368,6 @@ impl SqlResultValue {
     }
 
     /// Sets the value of [null_value][crate::model::SqlResultValue::null_value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SqlResultValue;
-    /// let x = SqlResultValue::new().set_null_value(true);
-    /// ```
     pub fn set_null_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -503,13 +377,6 @@ impl SqlResultValue {
     }
 
     /// Sets or clears the value of [null_value][crate::model::SqlResultValue::null_value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SqlResultValue;
-    /// let x = SqlResultValue::new().set_or_clear_null_value(Some(false));
-    /// let x = SqlResultValue::new().set_or_clear_null_value(None::<bool>);
-    /// ```
     pub fn set_or_clear_null_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -545,24 +412,12 @@ impl UserPassword {
     }
 
     /// Sets the value of [user][crate::model::UserPassword::user].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UserPassword;
-    /// let x = UserPassword::new().set_user("example");
-    /// ```
     pub fn set_user<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user = v.into();
         self
     }
 
     /// Sets the value of [password][crate::model::UserPassword::password].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UserPassword;
-    /// let x = UserPassword::new().set_password("example");
-    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
@@ -600,37 +455,18 @@ impl MigrationSource {
     }
 
     /// Sets the value of [host_port][crate::model::MigrationSource::host_port].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::MigrationSource;
-    /// let x = MigrationSource::new().set_host_port("example");
-    /// ```
     pub fn set_host_port<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host_port = v.into();
         self
     }
 
     /// Sets the value of [reference_id][crate::model::MigrationSource::reference_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::MigrationSource;
-    /// let x = MigrationSource::new().set_reference_id("example");
-    /// ```
     pub fn set_reference_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reference_id = v.into();
         self
     }
 
     /// Sets the value of [source_type][crate::model::MigrationSource::source_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::MigrationSource;
-    /// use google_cloud_alloydb_v1::model::migration_source::MigrationSourceType;
-    /// let x0 = MigrationSource::new().set_source_type(MigrationSourceType::Dms);
-    /// ```
     pub fn set_source_type<
         T: std::convert::Into<crate::model::migration_source::MigrationSourceType>,
     >(
@@ -798,12 +634,6 @@ impl EncryptionConfig {
     }
 
     /// Sets the value of [kms_key_name][crate::model::EncryptionConfig::kms_key_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::EncryptionConfig;
-    /// let x = EncryptionConfig::new().set_kms_key_name("example");
-    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
@@ -836,14 +666,6 @@ impl EncryptionInfo {
     }
 
     /// Sets the value of [encryption_type][crate::model::EncryptionInfo::encryption_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::EncryptionInfo;
-    /// use google_cloud_alloydb_v1::model::encryption_info::Type;
-    /// let x0 = EncryptionInfo::new().set_encryption_type(Type::GoogleDefaultEncryption);
-    /// let x1 = EncryptionInfo::new().set_encryption_type(Type::CustomerManagedEncryption);
-    /// ```
     pub fn set_encryption_type<T: std::convert::Into<crate::model::encryption_info::Type>>(
         mut self,
         v: T,
@@ -853,12 +675,6 @@ impl EncryptionInfo {
     }
 
     /// Sets the value of [kms_key_versions][crate::model::EncryptionInfo::kms_key_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::EncryptionInfo;
-    /// let x = EncryptionInfo::new().set_kms_key_versions(["a", "b", "c"]);
-    /// ```
     pub fn set_kms_key_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1040,14 +856,6 @@ impl SslConfig {
     }
 
     /// Sets the value of [ssl_mode][crate::model::SslConfig::ssl_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SslConfig;
-    /// use google_cloud_alloydb_v1::model::ssl_config::SslMode;
-    /// let x0 = SslConfig::new().set_ssl_mode(SslMode::AllowUnencryptedAndEncrypted);
-    /// let x1 = SslConfig::new().set_ssl_mode(SslMode::EncryptedOnly);
-    /// ```
     pub fn set_ssl_mode<T: std::convert::Into<crate::model::ssl_config::SslMode>>(
         mut self,
         v: T,
@@ -1057,13 +865,6 @@ impl SslConfig {
     }
 
     /// Sets the value of [ca_source][crate::model::SslConfig::ca_source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SslConfig;
-    /// use google_cloud_alloydb_v1::model::ssl_config::CaSource;
-    /// let x0 = SslConfig::new().set_ca_source(CaSource::Managed);
-    /// ```
     pub fn set_ca_source<T: std::convert::Into<crate::model::ssl_config::CaSource>>(
         mut self,
         v: T,
@@ -1435,12 +1236,6 @@ impl AutomatedBackupPolicy {
     }
 
     /// Sets the value of [enabled][crate::model::AutomatedBackupPolicy::enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::AutomatedBackupPolicy;
-    /// let x = AutomatedBackupPolicy::new().set_enabled(true);
-    /// ```
     pub fn set_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1450,13 +1245,6 @@ impl AutomatedBackupPolicy {
     }
 
     /// Sets or clears the value of [enabled][crate::model::AutomatedBackupPolicy::enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::AutomatedBackupPolicy;
-    /// let x = AutomatedBackupPolicy::new().set_or_clear_enabled(Some(false));
-    /// let x = AutomatedBackupPolicy::new().set_or_clear_enabled(None::<bool>);
-    /// ```
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1466,13 +1254,6 @@ impl AutomatedBackupPolicy {
     }
 
     /// Sets the value of [backup_window][crate::model::AutomatedBackupPolicy::backup_window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::AutomatedBackupPolicy;
-    /// use wkt::Duration;
-    /// let x = AutomatedBackupPolicy::new().set_backup_window(Duration::default()/* use setters */);
-    /// ```
     pub fn set_backup_window<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1482,14 +1263,6 @@ impl AutomatedBackupPolicy {
     }
 
     /// Sets or clears the value of [backup_window][crate::model::AutomatedBackupPolicy::backup_window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::AutomatedBackupPolicy;
-    /// use wkt::Duration;
-    /// let x = AutomatedBackupPolicy::new().set_or_clear_backup_window(Some(Duration::default()/* use setters */));
-    /// let x = AutomatedBackupPolicy::new().set_or_clear_backup_window(None::<Duration>);
-    /// ```
     pub fn set_or_clear_backup_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1499,13 +1272,6 @@ impl AutomatedBackupPolicy {
     }
 
     /// Sets the value of [encryption_config][crate::model::AutomatedBackupPolicy::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::AutomatedBackupPolicy;
-    /// use google_cloud_alloydb_v1::model::EncryptionConfig;
-    /// let x = AutomatedBackupPolicy::new().set_encryption_config(EncryptionConfig::default()/* use setters */);
-    /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -1515,14 +1281,6 @@ impl AutomatedBackupPolicy {
     }
 
     /// Sets or clears the value of [encryption_config][crate::model::AutomatedBackupPolicy::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::AutomatedBackupPolicy;
-    /// use google_cloud_alloydb_v1::model::EncryptionConfig;
-    /// let x = AutomatedBackupPolicy::new().set_or_clear_encryption_config(Some(EncryptionConfig::default()/* use setters */));
-    /// let x = AutomatedBackupPolicy::new().set_or_clear_encryption_config(None::<EncryptionConfig>);
-    /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -1532,27 +1290,12 @@ impl AutomatedBackupPolicy {
     }
 
     /// Sets the value of [location][crate::model::AutomatedBackupPolicy::location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::AutomatedBackupPolicy;
-    /// let x = AutomatedBackupPolicy::new().set_location("example");
-    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::AutomatedBackupPolicy::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::AutomatedBackupPolicy;
-    /// let x = AutomatedBackupPolicy::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1568,14 +1311,6 @@ impl AutomatedBackupPolicy {
     ///
     /// Note that all the setters affecting `schedule` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::AutomatedBackupPolicy;
-    /// use google_cloud_alloydb_v1::model::automated_backup_policy;
-    /// use google_cloud_alloydb_v1::model::automated_backup_policy::WeeklySchedule;
-    /// let x = AutomatedBackupPolicy::new().set_schedule(Some(automated_backup_policy::Schedule::WeeklySchedule(WeeklySchedule::default().into())));
-    /// ```
     pub fn set_schedule<
         T: std::convert::Into<std::option::Option<crate::model::automated_backup_policy::Schedule>>,
     >(
@@ -1607,14 +1342,6 @@ impl AutomatedBackupPolicy {
     ///
     /// Note that all the setters affecting `schedule` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::AutomatedBackupPolicy;
-    /// use google_cloud_alloydb_v1::model::automated_backup_policy::WeeklySchedule;
-    /// let x = AutomatedBackupPolicy::new().set_weekly_schedule(WeeklySchedule::default()/* use setters */);
-    /// assert!(x.weekly_schedule().is_some());
-    /// ```
     pub fn set_weekly_schedule<
         T: std::convert::Into<std::boxed::Box<crate::model::automated_backup_policy::WeeklySchedule>>,
     >(
@@ -1631,14 +1358,6 @@ impl AutomatedBackupPolicy {
     ///
     /// Note that all the setters affecting `retention` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::AutomatedBackupPolicy;
-    /// use google_cloud_alloydb_v1::model::automated_backup_policy;
-    /// use google_cloud_alloydb_v1::model::automated_backup_policy::TimeBasedRetention;
-    /// let x = AutomatedBackupPolicy::new().set_retention(Some(automated_backup_policy::Retention::TimeBasedRetention(TimeBasedRetention::default().into())));
-    /// ```
     pub fn set_retention<
         T: std::convert::Into<std::option::Option<crate::model::automated_backup_policy::Retention>>,
     >(
@@ -1671,15 +1390,6 @@ impl AutomatedBackupPolicy {
     ///
     /// Note that all the setters affecting `retention` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::AutomatedBackupPolicy;
-    /// use google_cloud_alloydb_v1::model::automated_backup_policy::TimeBasedRetention;
-    /// let x = AutomatedBackupPolicy::new().set_time_based_retention(TimeBasedRetention::default()/* use setters */);
-    /// assert!(x.time_based_retention().is_some());
-    /// assert!(x.quantity_based_retention().is_none());
-    /// ```
     pub fn set_time_based_retention<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::automated_backup_policy::TimeBasedRetention>,
@@ -1716,15 +1426,6 @@ impl AutomatedBackupPolicy {
     ///
     /// Note that all the setters affecting `retention` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::AutomatedBackupPolicy;
-    /// use google_cloud_alloydb_v1::model::automated_backup_policy::QuantityBasedRetention;
-    /// let x = AutomatedBackupPolicy::new().set_quantity_based_retention(QuantityBasedRetention::default()/* use setters */);
-    /// assert!(x.quantity_based_retention().is_some());
-    /// assert!(x.time_based_retention().is_none());
-    /// ```
     pub fn set_quantity_based_retention<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::automated_backup_policy::QuantityBasedRetention>,
@@ -1783,17 +1484,6 @@ pub mod automated_backup_policy {
         }
 
         /// Sets the value of [start_times][crate::model::automated_backup_policy::WeeklySchedule::start_times].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::automated_backup_policy::WeeklySchedule;
-        /// use gtype::model::TimeOfDay;
-        /// let x = WeeklySchedule::new()
-        ///     .set_start_times([
-        ///         TimeOfDay::default()/* use setters */,
-        ///         TimeOfDay::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_start_times<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1805,17 +1495,6 @@ pub mod automated_backup_policy {
         }
 
         /// Sets the value of [days_of_week][crate::model::automated_backup_policy::WeeklySchedule::days_of_week].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::automated_backup_policy::WeeklySchedule;
-        /// use gtype::model::DayOfWeek;
-        /// let x = WeeklySchedule::new().set_days_of_week([
-        ///     DayOfWeek::Monday,
-        ///     DayOfWeek::Tuesday,
-        ///     DayOfWeek::Wednesday,
-        /// ]);
-        /// ```
         pub fn set_days_of_week<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1850,13 +1529,6 @@ pub mod automated_backup_policy {
         }
 
         /// Sets the value of [retention_period][crate::model::automated_backup_policy::TimeBasedRetention::retention_period].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::automated_backup_policy::TimeBasedRetention;
-        /// use wkt::Duration;
-        /// let x = TimeBasedRetention::new().set_retention_period(Duration::default()/* use setters */);
-        /// ```
         pub fn set_retention_period<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -1866,14 +1538,6 @@ pub mod automated_backup_policy {
         }
 
         /// Sets or clears the value of [retention_period][crate::model::automated_backup_policy::TimeBasedRetention::retention_period].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::automated_backup_policy::TimeBasedRetention;
-        /// use wkt::Duration;
-        /// let x = TimeBasedRetention::new().set_or_clear_retention_period(Some(Duration::default()/* use setters */));
-        /// let x = TimeBasedRetention::new().set_or_clear_retention_period(None::<Duration>);
-        /// ```
         pub fn set_or_clear_retention_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -1906,12 +1570,6 @@ pub mod automated_backup_policy {
         }
 
         /// Sets the value of [count][crate::model::automated_backup_policy::QuantityBasedRetention::count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::automated_backup_policy::QuantityBasedRetention;
-        /// let x = QuantityBasedRetention::new().set_count(42);
-        /// ```
         pub fn set_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.count = v.into();
             self
@@ -1988,12 +1646,6 @@ impl ContinuousBackupConfig {
     }
 
     /// Sets the value of [enabled][crate::model::ContinuousBackupConfig::enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ContinuousBackupConfig;
-    /// let x = ContinuousBackupConfig::new().set_enabled(true);
-    /// ```
     pub fn set_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2003,13 +1655,6 @@ impl ContinuousBackupConfig {
     }
 
     /// Sets or clears the value of [enabled][crate::model::ContinuousBackupConfig::enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ContinuousBackupConfig;
-    /// let x = ContinuousBackupConfig::new().set_or_clear_enabled(Some(false));
-    /// let x = ContinuousBackupConfig::new().set_or_clear_enabled(None::<bool>);
-    /// ```
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2019,25 +1664,12 @@ impl ContinuousBackupConfig {
     }
 
     /// Sets the value of [recovery_window_days][crate::model::ContinuousBackupConfig::recovery_window_days].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ContinuousBackupConfig;
-    /// let x = ContinuousBackupConfig::new().set_recovery_window_days(42);
-    /// ```
     pub fn set_recovery_window_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.recovery_window_days = v.into();
         self
     }
 
     /// Sets the value of [encryption_config][crate::model::ContinuousBackupConfig::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ContinuousBackupConfig;
-    /// use google_cloud_alloydb_v1::model::EncryptionConfig;
-    /// let x = ContinuousBackupConfig::new().set_encryption_config(EncryptionConfig::default()/* use setters */);
-    /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -2047,14 +1679,6 @@ impl ContinuousBackupConfig {
     }
 
     /// Sets or clears the value of [encryption_config][crate::model::ContinuousBackupConfig::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ContinuousBackupConfig;
-    /// use google_cloud_alloydb_v1::model::EncryptionConfig;
-    /// let x = ContinuousBackupConfig::new().set_or_clear_encryption_config(Some(EncryptionConfig::default()/* use setters */));
-    /// let x = ContinuousBackupConfig::new().set_or_clear_encryption_config(None::<EncryptionConfig>);
-    /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -2107,13 +1731,6 @@ impl ContinuousBackupInfo {
     }
 
     /// Sets the value of [encryption_info][crate::model::ContinuousBackupInfo::encryption_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ContinuousBackupInfo;
-    /// use google_cloud_alloydb_v1::model::EncryptionInfo;
-    /// let x = ContinuousBackupInfo::new().set_encryption_info(EncryptionInfo::default()/* use setters */);
-    /// ```
     pub fn set_encryption_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -2123,14 +1740,6 @@ impl ContinuousBackupInfo {
     }
 
     /// Sets or clears the value of [encryption_info][crate::model::ContinuousBackupInfo::encryption_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ContinuousBackupInfo;
-    /// use google_cloud_alloydb_v1::model::EncryptionInfo;
-    /// let x = ContinuousBackupInfo::new().set_or_clear_encryption_info(Some(EncryptionInfo::default()/* use setters */));
-    /// let x = ContinuousBackupInfo::new().set_or_clear_encryption_info(None::<EncryptionInfo>);
-    /// ```
     pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -2140,13 +1749,6 @@ impl ContinuousBackupInfo {
     }
 
     /// Sets the value of [enabled_time][crate::model::ContinuousBackupInfo::enabled_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ContinuousBackupInfo;
-    /// use wkt::Timestamp;
-    /// let x = ContinuousBackupInfo::new().set_enabled_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_enabled_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2156,14 +1758,6 @@ impl ContinuousBackupInfo {
     }
 
     /// Sets or clears the value of [enabled_time][crate::model::ContinuousBackupInfo::enabled_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ContinuousBackupInfo;
-    /// use wkt::Timestamp;
-    /// let x = ContinuousBackupInfo::new().set_or_clear_enabled_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ContinuousBackupInfo::new().set_or_clear_enabled_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_enabled_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2173,17 +1767,6 @@ impl ContinuousBackupInfo {
     }
 
     /// Sets the value of [schedule][crate::model::ContinuousBackupInfo::schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ContinuousBackupInfo;
-    /// use gtype::model::DayOfWeek;
-    /// let x = ContinuousBackupInfo::new().set_schedule([
-    ///     DayOfWeek::Monday,
-    ///     DayOfWeek::Tuesday,
-    ///     DayOfWeek::Wednesday,
-    /// ]);
-    /// ```
     pub fn set_schedule<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2195,13 +1778,6 @@ impl ContinuousBackupInfo {
     }
 
     /// Sets the value of [earliest_restorable_time][crate::model::ContinuousBackupInfo::earliest_restorable_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ContinuousBackupInfo;
-    /// use wkt::Timestamp;
-    /// let x = ContinuousBackupInfo::new().set_earliest_restorable_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_earliest_restorable_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2211,14 +1787,6 @@ impl ContinuousBackupInfo {
     }
 
     /// Sets or clears the value of [earliest_restorable_time][crate::model::ContinuousBackupInfo::earliest_restorable_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ContinuousBackupInfo;
-    /// use wkt::Timestamp;
-    /// let x = ContinuousBackupInfo::new().set_or_clear_earliest_restorable_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ContinuousBackupInfo::new().set_or_clear_earliest_restorable_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_earliest_restorable_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2257,24 +1825,12 @@ impl BackupSource {
     }
 
     /// Sets the value of [backup_uid][crate::model::BackupSource::backup_uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::BackupSource;
-    /// let x = BackupSource::new().set_backup_uid("example");
-    /// ```
     pub fn set_backup_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_uid = v.into();
         self
     }
 
     /// Sets the value of [backup_name][crate::model::BackupSource::backup_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::BackupSource;
-    /// let x = BackupSource::new().set_backup_name("example");
-    /// ```
     pub fn set_backup_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_name = v.into();
         self
@@ -2308,25 +1864,12 @@ impl ContinuousBackupSource {
     }
 
     /// Sets the value of [cluster][crate::model::ContinuousBackupSource::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ContinuousBackupSource;
-    /// let x = ContinuousBackupSource::new().set_cluster("example");
-    /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
         self
     }
 
     /// Sets the value of [point_in_time][crate::model::ContinuousBackupSource::point_in_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ContinuousBackupSource;
-    /// use wkt::Timestamp;
-    /// let x = ContinuousBackupSource::new().set_point_in_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_point_in_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2336,14 +1879,6 @@ impl ContinuousBackupSource {
     }
 
     /// Sets or clears the value of [point_in_time][crate::model::ContinuousBackupSource::point_in_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ContinuousBackupSource;
-    /// use wkt::Timestamp;
-    /// let x = ContinuousBackupSource::new().set_or_clear_point_in_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ContinuousBackupSource::new().set_or_clear_point_in_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_point_in_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2380,17 +1915,6 @@ impl MaintenanceUpdatePolicy {
     }
 
     /// Sets the value of [maintenance_windows][crate::model::MaintenanceUpdatePolicy::maintenance_windows].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::MaintenanceUpdatePolicy;
-    /// use google_cloud_alloydb_v1::model::maintenance_update_policy::MaintenanceWindow;
-    /// let x = MaintenanceUpdatePolicy::new()
-    ///     .set_maintenance_windows([
-    ///         MaintenanceWindow::default()/* use setters */,
-    ///         MaintenanceWindow::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_maintenance_windows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2402,17 +1926,6 @@ impl MaintenanceUpdatePolicy {
     }
 
     /// Sets the value of [deny_maintenance_periods][crate::model::MaintenanceUpdatePolicy::deny_maintenance_periods].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::MaintenanceUpdatePolicy;
-    /// use google_cloud_alloydb_v1::model::maintenance_update_policy::DenyMaintenancePeriod;
-    /// let x = MaintenanceUpdatePolicy::new()
-    ///     .set_deny_maintenance_periods([
-    ///         DenyMaintenancePeriod::default()/* use setters */,
-    ///         DenyMaintenancePeriod::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_deny_maintenance_periods<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2455,28 +1968,12 @@ pub mod maintenance_update_policy {
         }
 
         /// Sets the value of [day][crate::model::maintenance_update_policy::MaintenanceWindow::day].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::maintenance_update_policy::MaintenanceWindow;
-        /// use gtype::model::DayOfWeek;
-        /// let x0 = MaintenanceWindow::new().set_day(DayOfWeek::Monday);
-        /// let x1 = MaintenanceWindow::new().set_day(DayOfWeek::Tuesday);
-        /// let x2 = MaintenanceWindow::new().set_day(DayOfWeek::Wednesday);
-        /// ```
         pub fn set_day<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
             self.day = v.into();
             self
         }
 
         /// Sets the value of [start_time][crate::model::maintenance_update_policy::MaintenanceWindow::start_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::maintenance_update_policy::MaintenanceWindow;
-        /// use gtype::model::TimeOfDay;
-        /// let x = MaintenanceWindow::new().set_start_time(TimeOfDay::default()/* use setters */);
-        /// ```
         pub fn set_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -2486,14 +1983,6 @@ pub mod maintenance_update_policy {
         }
 
         /// Sets or clears the value of [start_time][crate::model::maintenance_update_policy::MaintenanceWindow::start_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::maintenance_update_policy::MaintenanceWindow;
-        /// use gtype::model::TimeOfDay;
-        /// let x = MaintenanceWindow::new().set_or_clear_start_time(Some(TimeOfDay::default()/* use setters */));
-        /// let x = MaintenanceWindow::new().set_or_clear_start_time(None::<TimeOfDay>);
-        /// ```
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -2545,13 +2034,6 @@ pub mod maintenance_update_policy {
         }
 
         /// Sets the value of [start_date][crate::model::maintenance_update_policy::DenyMaintenancePeriod::start_date].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::maintenance_update_policy::DenyMaintenancePeriod;
-        /// use gtype::model::Date;
-        /// let x = DenyMaintenancePeriod::new().set_start_date(Date::default()/* use setters */);
-        /// ```
         pub fn set_start_date<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
@@ -2561,14 +2043,6 @@ pub mod maintenance_update_policy {
         }
 
         /// Sets or clears the value of [start_date][crate::model::maintenance_update_policy::DenyMaintenancePeriod::start_date].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::maintenance_update_policy::DenyMaintenancePeriod;
-        /// use gtype::model::Date;
-        /// let x = DenyMaintenancePeriod::new().set_or_clear_start_date(Some(Date::default()/* use setters */));
-        /// let x = DenyMaintenancePeriod::new().set_or_clear_start_date(None::<Date>);
-        /// ```
         pub fn set_or_clear_start_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
@@ -2578,13 +2052,6 @@ pub mod maintenance_update_policy {
         }
 
         /// Sets the value of [end_date][crate::model::maintenance_update_policy::DenyMaintenancePeriod::end_date].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::maintenance_update_policy::DenyMaintenancePeriod;
-        /// use gtype::model::Date;
-        /// let x = DenyMaintenancePeriod::new().set_end_date(Date::default()/* use setters */);
-        /// ```
         pub fn set_end_date<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
@@ -2594,14 +2061,6 @@ pub mod maintenance_update_policy {
         }
 
         /// Sets or clears the value of [end_date][crate::model::maintenance_update_policy::DenyMaintenancePeriod::end_date].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::maintenance_update_policy::DenyMaintenancePeriod;
-        /// use gtype::model::Date;
-        /// let x = DenyMaintenancePeriod::new().set_or_clear_end_date(Some(Date::default()/* use setters */));
-        /// let x = DenyMaintenancePeriod::new().set_or_clear_end_date(None::<Date>);
-        /// ```
         pub fn set_or_clear_end_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
@@ -2611,13 +2070,6 @@ pub mod maintenance_update_policy {
         }
 
         /// Sets the value of [time][crate::model::maintenance_update_policy::DenyMaintenancePeriod::time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::maintenance_update_policy::DenyMaintenancePeriod;
-        /// use gtype::model::TimeOfDay;
-        /// let x = DenyMaintenancePeriod::new().set_time(TimeOfDay::default()/* use setters */);
-        /// ```
         pub fn set_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -2627,14 +2079,6 @@ pub mod maintenance_update_policy {
         }
 
         /// Sets or clears the value of [time][crate::model::maintenance_update_policy::DenyMaintenancePeriod::time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::maintenance_update_policy::DenyMaintenancePeriod;
-        /// use gtype::model::TimeOfDay;
-        /// let x = DenyMaintenancePeriod::new().set_or_clear_time(Some(TimeOfDay::default()/* use setters */));
-        /// let x = DenyMaintenancePeriod::new().set_or_clear_time(None::<TimeOfDay>);
-        /// ```
         pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -2671,13 +2115,6 @@ impl MaintenanceSchedule {
     }
 
     /// Sets the value of [start_time][crate::model::MaintenanceSchedule::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::MaintenanceSchedule;
-    /// use wkt::Timestamp;
-    /// let x = MaintenanceSchedule::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2687,14 +2124,6 @@ impl MaintenanceSchedule {
     }
 
     /// Sets or clears the value of [start_time][crate::model::MaintenanceSchedule::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::MaintenanceSchedule;
-    /// use wkt::Timestamp;
-    /// let x = MaintenanceSchedule::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MaintenanceSchedule::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2866,49 +2295,24 @@ impl Cluster {
     }
 
     /// Sets the value of [name][crate::model::Cluster::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = Cluster::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Cluster::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = Cluster::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Cluster::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = Cluster::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Cluster::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use wkt::Timestamp;
-    /// let x = Cluster::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2918,14 +2322,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Cluster::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use wkt::Timestamp;
-    /// let x = Cluster::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2935,13 +2331,6 @@ impl Cluster {
     }
 
     /// Sets the value of [update_time][crate::model::Cluster::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use wkt::Timestamp;
-    /// let x = Cluster::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2951,14 +2340,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Cluster::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use wkt::Timestamp;
-    /// let x = Cluster::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2968,13 +2349,6 @@ impl Cluster {
     }
 
     /// Sets the value of [delete_time][crate::model::Cluster::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use wkt::Timestamp;
-    /// let x = Cluster::new().set_delete_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2984,14 +2358,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Cluster::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use wkt::Timestamp;
-    /// let x = Cluster::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_delete_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3001,15 +2367,6 @@ impl Cluster {
     }
 
     /// Sets the value of [labels][crate::model::Cluster::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = Cluster::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3022,29 +2379,12 @@ impl Cluster {
     }
 
     /// Sets the value of [state][crate::model::Cluster::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::cluster::State;
-    /// let x0 = Cluster::new().set_state(State::Ready);
-    /// let x1 = Cluster::new().set_state(State::Stopped);
-    /// let x2 = Cluster::new().set_state(State::Empty);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::cluster::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [cluster_type][crate::model::Cluster::cluster_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::cluster::ClusterType;
-    /// let x0 = Cluster::new().set_cluster_type(ClusterType::Primary);
-    /// let x1 = Cluster::new().set_cluster_type(ClusterType::Secondary);
-    /// ```
     pub fn set_cluster_type<T: std::convert::Into<crate::model::cluster::ClusterType>>(
         mut self,
         v: T,
@@ -3054,15 +2394,6 @@ impl Cluster {
     }
 
     /// Sets the value of [database_version][crate::model::Cluster::database_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::DatabaseVersion;
-    /// let x0 = Cluster::new().set_database_version(DatabaseVersion::Postgres14);
-    /// let x1 = Cluster::new().set_database_version(DatabaseVersion::Postgres15);
-    /// let x2 = Cluster::new().set_database_version(DatabaseVersion::Postgres16);
-    /// ```
     pub fn set_database_version<T: std::convert::Into<crate::model::DatabaseVersion>>(
         mut self,
         v: T,
@@ -3072,13 +2403,6 @@ impl Cluster {
     }
 
     /// Sets the value of [network_config][crate::model::Cluster::network_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::cluster::NetworkConfig;
-    /// let x = Cluster::new().set_network_config(NetworkConfig::default()/* use setters */);
-    /// ```
     pub fn set_network_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cluster::NetworkConfig>,
@@ -3088,14 +2412,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [network_config][crate::model::Cluster::network_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::cluster::NetworkConfig;
-    /// let x = Cluster::new().set_or_clear_network_config(Some(NetworkConfig::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_network_config(None::<NetworkConfig>);
-    /// ```
     pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster::NetworkConfig>,
@@ -3105,12 +2421,6 @@ impl Cluster {
     }
 
     /// Sets the value of [network][crate::model::Cluster::network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = Cluster::new().set_network("example");
-    /// ```
     #[deprecated]
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
@@ -3118,27 +2428,12 @@ impl Cluster {
     }
 
     /// Sets the value of [etag][crate::model::Cluster::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = Cluster::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::Cluster::annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = Cluster::new().set_annotations([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3151,25 +2446,12 @@ impl Cluster {
     }
 
     /// Sets the value of [reconciling][crate::model::Cluster::reconciling].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = Cluster::new().set_reconciling(true);
-    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [initial_user][crate::model::Cluster::initial_user].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::UserPassword;
-    /// let x = Cluster::new().set_initial_user(UserPassword::default()/* use setters */);
-    /// ```
     pub fn set_initial_user<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserPassword>,
@@ -3179,14 +2461,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [initial_user][crate::model::Cluster::initial_user].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::UserPassword;
-    /// let x = Cluster::new().set_or_clear_initial_user(Some(UserPassword::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_initial_user(None::<UserPassword>);
-    /// ```
     pub fn set_or_clear_initial_user<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserPassword>,
@@ -3196,13 +2470,6 @@ impl Cluster {
     }
 
     /// Sets the value of [automated_backup_policy][crate::model::Cluster::automated_backup_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::AutomatedBackupPolicy;
-    /// let x = Cluster::new().set_automated_backup_policy(AutomatedBackupPolicy::default()/* use setters */);
-    /// ```
     pub fn set_automated_backup_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutomatedBackupPolicy>,
@@ -3212,14 +2479,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [automated_backup_policy][crate::model::Cluster::automated_backup_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::AutomatedBackupPolicy;
-    /// let x = Cluster::new().set_or_clear_automated_backup_policy(Some(AutomatedBackupPolicy::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_automated_backup_policy(None::<AutomatedBackupPolicy>);
-    /// ```
     pub fn set_or_clear_automated_backup_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutomatedBackupPolicy>,
@@ -3229,13 +2488,6 @@ impl Cluster {
     }
 
     /// Sets the value of [ssl_config][crate::model::Cluster::ssl_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::SslConfig;
-    /// let x = Cluster::new().set_ssl_config(SslConfig::default()/* use setters */);
-    /// ```
     #[deprecated]
     pub fn set_ssl_config<T>(mut self, v: T) -> Self
     where
@@ -3246,14 +2498,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [ssl_config][crate::model::Cluster::ssl_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::SslConfig;
-    /// let x = Cluster::new().set_or_clear_ssl_config(Some(SslConfig::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_ssl_config(None::<SslConfig>);
-    /// ```
     #[deprecated]
     pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -3264,13 +2508,6 @@ impl Cluster {
     }
 
     /// Sets the value of [encryption_config][crate::model::Cluster::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::EncryptionConfig;
-    /// let x = Cluster::new().set_encryption_config(EncryptionConfig::default()/* use setters */);
-    /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -3280,14 +2517,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [encryption_config][crate::model::Cluster::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::EncryptionConfig;
-    /// let x = Cluster::new().set_or_clear_encryption_config(Some(EncryptionConfig::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_encryption_config(None::<EncryptionConfig>);
-    /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -3297,13 +2526,6 @@ impl Cluster {
     }
 
     /// Sets the value of [encryption_info][crate::model::Cluster::encryption_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::EncryptionInfo;
-    /// let x = Cluster::new().set_encryption_info(EncryptionInfo::default()/* use setters */);
-    /// ```
     pub fn set_encryption_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -3313,14 +2535,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [encryption_info][crate::model::Cluster::encryption_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::EncryptionInfo;
-    /// let x = Cluster::new().set_or_clear_encryption_info(Some(EncryptionInfo::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_encryption_info(None::<EncryptionInfo>);
-    /// ```
     pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -3330,13 +2544,6 @@ impl Cluster {
     }
 
     /// Sets the value of [continuous_backup_config][crate::model::Cluster::continuous_backup_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::ContinuousBackupConfig;
-    /// let x = Cluster::new().set_continuous_backup_config(ContinuousBackupConfig::default()/* use setters */);
-    /// ```
     pub fn set_continuous_backup_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ContinuousBackupConfig>,
@@ -3346,14 +2553,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [continuous_backup_config][crate::model::Cluster::continuous_backup_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::ContinuousBackupConfig;
-    /// let x = Cluster::new().set_or_clear_continuous_backup_config(Some(ContinuousBackupConfig::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_continuous_backup_config(None::<ContinuousBackupConfig>);
-    /// ```
     pub fn set_or_clear_continuous_backup_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContinuousBackupConfig>,
@@ -3363,13 +2562,6 @@ impl Cluster {
     }
 
     /// Sets the value of [continuous_backup_info][crate::model::Cluster::continuous_backup_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::ContinuousBackupInfo;
-    /// let x = Cluster::new().set_continuous_backup_info(ContinuousBackupInfo::default()/* use setters */);
-    /// ```
     pub fn set_continuous_backup_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ContinuousBackupInfo>,
@@ -3379,14 +2571,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [continuous_backup_info][crate::model::Cluster::continuous_backup_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::ContinuousBackupInfo;
-    /// let x = Cluster::new().set_or_clear_continuous_backup_info(Some(ContinuousBackupInfo::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_continuous_backup_info(None::<ContinuousBackupInfo>);
-    /// ```
     pub fn set_or_clear_continuous_backup_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContinuousBackupInfo>,
@@ -3396,13 +2580,6 @@ impl Cluster {
     }
 
     /// Sets the value of [secondary_config][crate::model::Cluster::secondary_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::cluster::SecondaryConfig;
-    /// let x = Cluster::new().set_secondary_config(SecondaryConfig::default()/* use setters */);
-    /// ```
     pub fn set_secondary_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cluster::SecondaryConfig>,
@@ -3412,14 +2589,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [secondary_config][crate::model::Cluster::secondary_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::cluster::SecondaryConfig;
-    /// let x = Cluster::new().set_or_clear_secondary_config(Some(SecondaryConfig::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_secondary_config(None::<SecondaryConfig>);
-    /// ```
     pub fn set_or_clear_secondary_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster::SecondaryConfig>,
@@ -3429,13 +2598,6 @@ impl Cluster {
     }
 
     /// Sets the value of [primary_config][crate::model::Cluster::primary_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::cluster::PrimaryConfig;
-    /// let x = Cluster::new().set_primary_config(PrimaryConfig::default()/* use setters */);
-    /// ```
     pub fn set_primary_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cluster::PrimaryConfig>,
@@ -3445,14 +2607,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [primary_config][crate::model::Cluster::primary_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::cluster::PrimaryConfig;
-    /// let x = Cluster::new().set_or_clear_primary_config(Some(PrimaryConfig::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_primary_config(None::<PrimaryConfig>);
-    /// ```
     pub fn set_or_clear_primary_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster::PrimaryConfig>,
@@ -3462,25 +2616,12 @@ impl Cluster {
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Cluster::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = Cluster::new().set_satisfies_pzs(true);
-    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [psc_config][crate::model::Cluster::psc_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::cluster::PscConfig;
-    /// let x = Cluster::new().set_psc_config(PscConfig::default()/* use setters */);
-    /// ```
     pub fn set_psc_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cluster::PscConfig>,
@@ -3490,14 +2631,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [psc_config][crate::model::Cluster::psc_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::cluster::PscConfig;
-    /// let x = Cluster::new().set_or_clear_psc_config(Some(PscConfig::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_psc_config(None::<PscConfig>);
-    /// ```
     pub fn set_or_clear_psc_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster::PscConfig>,
@@ -3507,13 +2640,6 @@ impl Cluster {
     }
 
     /// Sets the value of [maintenance_update_policy][crate::model::Cluster::maintenance_update_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::MaintenanceUpdatePolicy;
-    /// let x = Cluster::new().set_maintenance_update_policy(MaintenanceUpdatePolicy::default()/* use setters */);
-    /// ```
     pub fn set_maintenance_update_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceUpdatePolicy>,
@@ -3523,14 +2649,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [maintenance_update_policy][crate::model::Cluster::maintenance_update_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::MaintenanceUpdatePolicy;
-    /// let x = Cluster::new().set_or_clear_maintenance_update_policy(Some(MaintenanceUpdatePolicy::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_maintenance_update_policy(None::<MaintenanceUpdatePolicy>);
-    /// ```
     pub fn set_or_clear_maintenance_update_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceUpdatePolicy>,
@@ -3540,13 +2658,6 @@ impl Cluster {
     }
 
     /// Sets the value of [maintenance_schedule][crate::model::Cluster::maintenance_schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::MaintenanceSchedule;
-    /// let x = Cluster::new().set_maintenance_schedule(MaintenanceSchedule::default()/* use setters */);
-    /// ```
     pub fn set_maintenance_schedule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceSchedule>,
@@ -3556,14 +2667,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [maintenance_schedule][crate::model::Cluster::maintenance_schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::MaintenanceSchedule;
-    /// let x = Cluster::new().set_or_clear_maintenance_schedule(Some(MaintenanceSchedule::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_maintenance_schedule(None::<MaintenanceSchedule>);
-    /// ```
     pub fn set_or_clear_maintenance_schedule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceSchedule>,
@@ -3573,14 +2676,6 @@ impl Cluster {
     }
 
     /// Sets the value of [subscription_type][crate::model::Cluster::subscription_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::SubscriptionType;
-    /// let x0 = Cluster::new().set_subscription_type(SubscriptionType::Standard);
-    /// let x1 = Cluster::new().set_subscription_type(SubscriptionType::Trial);
-    /// ```
     pub fn set_subscription_type<T: std::convert::Into<crate::model::SubscriptionType>>(
         mut self,
         v: T,
@@ -3590,13 +2685,6 @@ impl Cluster {
     }
 
     /// Sets the value of [trial_metadata][crate::model::Cluster::trial_metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::cluster::TrialMetadata;
-    /// let x = Cluster::new().set_trial_metadata(TrialMetadata::default()/* use setters */);
-    /// ```
     pub fn set_trial_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cluster::TrialMetadata>,
@@ -3606,14 +2694,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [trial_metadata][crate::model::Cluster::trial_metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::cluster::TrialMetadata;
-    /// let x = Cluster::new().set_or_clear_trial_metadata(Some(TrialMetadata::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_trial_metadata(None::<TrialMetadata>);
-    /// ```
     pub fn set_or_clear_trial_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster::TrialMetadata>,
@@ -3623,15 +2703,6 @@ impl Cluster {
     }
 
     /// Sets the value of [tags][crate::model::Cluster::tags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = Cluster::new().set_tags([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3647,14 +2718,6 @@ impl Cluster {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::cluster;
-    /// use google_cloud_alloydb_v1::model::BackupSource;
-    /// let x = Cluster::new().set_source(Some(cluster::Source::BackupSource(BackupSource::default().into())));
-    /// ```
     pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::cluster::Source>>>(
         mut self,
         v: T,
@@ -3681,16 +2744,6 @@ impl Cluster {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::BackupSource;
-    /// let x = Cluster::new().set_backup_source(BackupSource::default()/* use setters */);
-    /// assert!(x.backup_source().is_some());
-    /// assert!(x.migration_source().is_none());
-    /// assert!(x.cloudsql_backup_run_source().is_none());
-    /// ```
     pub fn set_backup_source<T: std::convert::Into<std::boxed::Box<crate::model::BackupSource>>>(
         mut self,
         v: T,
@@ -3718,16 +2771,6 @@ impl Cluster {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::MigrationSource;
-    /// let x = Cluster::new().set_migration_source(MigrationSource::default()/* use setters */);
-    /// assert!(x.migration_source().is_some());
-    /// assert!(x.backup_source().is_none());
-    /// assert!(x.cloudsql_backup_run_source().is_none());
-    /// ```
     pub fn set_migration_source<
         T: std::convert::Into<std::boxed::Box<crate::model::MigrationSource>>,
     >(
@@ -3759,16 +2802,6 @@ impl Cluster {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Cluster;
-    /// use google_cloud_alloydb_v1::model::CloudSQLBackupRunSource;
-    /// let x = Cluster::new().set_cloudsql_backup_run_source(CloudSQLBackupRunSource::default()/* use setters */);
-    /// assert!(x.cloudsql_backup_run_source().is_some());
-    /// assert!(x.backup_source().is_none());
-    /// assert!(x.migration_source().is_none());
-    /// ```
     pub fn set_cloudsql_backup_run_source<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudSQLBackupRunSource>>,
     >(
@@ -3823,24 +2856,12 @@ pub mod cluster {
         }
 
         /// Sets the value of [network][crate::model::cluster::NetworkConfig::network].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::cluster::NetworkConfig;
-        /// let x = NetworkConfig::new().set_network("example");
-        /// ```
         pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.network = v.into();
             self
         }
 
         /// Sets the value of [allocated_ip_range][crate::model::cluster::NetworkConfig::allocated_ip_range].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::cluster::NetworkConfig;
-        /// let x = NetworkConfig::new().set_allocated_ip_range("example");
-        /// ```
         pub fn set_allocated_ip_range<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3875,12 +2896,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [primary_cluster_name][crate::model::cluster::SecondaryConfig::primary_cluster_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::cluster::SecondaryConfig;
-        /// let x = SecondaryConfig::new().set_primary_cluster_name("example");
-        /// ```
         pub fn set_primary_cluster_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3915,12 +2930,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [secondary_cluster_names][crate::model::cluster::PrimaryConfig::secondary_cluster_names].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::cluster::PrimaryConfig;
-        /// let x = PrimaryConfig::new().set_secondary_cluster_names(["a", "b", "c"]);
-        /// ```
         pub fn set_secondary_cluster_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3959,24 +2968,12 @@ pub mod cluster {
         }
 
         /// Sets the value of [psc_enabled][crate::model::cluster::PscConfig::psc_enabled].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::cluster::PscConfig;
-        /// let x = PscConfig::new().set_psc_enabled(true);
-        /// ```
         pub fn set_psc_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.psc_enabled = v.into();
             self
         }
 
         /// Sets the value of [service_owned_project_number][crate::model::cluster::PscConfig::service_owned_project_number].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::cluster::PscConfig;
-        /// let x = PscConfig::new().set_service_owned_project_number(42);
-        /// ```
         pub fn set_service_owned_project_number<T: std::convert::Into<i64>>(
             mut self,
             v: T,
@@ -4017,13 +3014,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [start_time][crate::model::cluster::TrialMetadata::start_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::cluster::TrialMetadata;
-        /// use wkt::Timestamp;
-        /// let x = TrialMetadata::new().set_start_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4033,14 +3023,6 @@ pub mod cluster {
         }
 
         /// Sets or clears the value of [start_time][crate::model::cluster::TrialMetadata::start_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::cluster::TrialMetadata;
-        /// use wkt::Timestamp;
-        /// let x = TrialMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-        /// let x = TrialMetadata::new().set_or_clear_start_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4050,13 +3032,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [end_time][crate::model::cluster::TrialMetadata::end_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::cluster::TrialMetadata;
-        /// use wkt::Timestamp;
-        /// let x = TrialMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_end_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4066,14 +3041,6 @@ pub mod cluster {
         }
 
         /// Sets or clears the value of [end_time][crate::model::cluster::TrialMetadata::end_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::cluster::TrialMetadata;
-        /// use wkt::Timestamp;
-        /// let x = TrialMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-        /// let x = TrialMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4083,13 +3050,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [upgrade_time][crate::model::cluster::TrialMetadata::upgrade_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::cluster::TrialMetadata;
-        /// use wkt::Timestamp;
-        /// let x = TrialMetadata::new().set_upgrade_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_upgrade_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4099,14 +3059,6 @@ pub mod cluster {
         }
 
         /// Sets or clears the value of [upgrade_time][crate::model::cluster::TrialMetadata::upgrade_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::cluster::TrialMetadata;
-        /// use wkt::Timestamp;
-        /// let x = TrialMetadata::new().set_or_clear_upgrade_time(Some(Timestamp::default()/* use setters */));
-        /// let x = TrialMetadata::new().set_or_clear_upgrade_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_upgrade_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4116,13 +3068,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [grace_end_time][crate::model::cluster::TrialMetadata::grace_end_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::cluster::TrialMetadata;
-        /// use wkt::Timestamp;
-        /// let x = TrialMetadata::new().set_grace_end_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_grace_end_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4132,14 +3077,6 @@ pub mod cluster {
         }
 
         /// Sets or clears the value of [grace_end_time][crate::model::cluster::TrialMetadata::grace_end_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::cluster::TrialMetadata;
-        /// use wkt::Timestamp;
-        /// let x = TrialMetadata::new().set_or_clear_grace_end_time(Some(Timestamp::default()/* use setters */));
-        /// let x = TrialMetadata::new().set_or_clear_grace_end_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_grace_end_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4649,49 +3586,24 @@ impl Instance {
     }
 
     /// Sets the value of [name][crate::model::Instance::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// let x = Instance::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Instance::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// let x = Instance::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Instance::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// let x = Instance::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Instance::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4701,14 +3613,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4718,13 +3622,6 @@ impl Instance {
     }
 
     /// Sets the value of [update_time][crate::model::Instance::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4734,14 +3631,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Instance::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4751,13 +3640,6 @@ impl Instance {
     }
 
     /// Sets the value of [delete_time][crate::model::Instance::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_delete_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4767,14 +3649,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Instance::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_delete_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4784,15 +3658,6 @@ impl Instance {
     }
 
     /// Sets the value of [labels][crate::model::Instance::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// let x = Instance::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4805,30 +3670,12 @@ impl Instance {
     }
 
     /// Sets the value of [state][crate::model::Instance::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::State;
-    /// let x0 = Instance::new().set_state(State::Ready);
-    /// let x1 = Instance::new().set_state(State::Stopped);
-    /// let x2 = Instance::new().set_state(State::Creating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::instance::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [instance_type][crate::model::Instance::instance_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::InstanceType;
-    /// let x0 = Instance::new().set_instance_type(InstanceType::Primary);
-    /// let x1 = Instance::new().set_instance_type(InstanceType::ReadPool);
-    /// let x2 = Instance::new().set_instance_type(InstanceType::Secondary);
-    /// ```
     pub fn set_instance_type<T: std::convert::Into<crate::model::instance::InstanceType>>(
         mut self,
         v: T,
@@ -4838,13 +3685,6 @@ impl Instance {
     }
 
     /// Sets the value of [machine_config][crate::model::Instance::machine_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::MachineConfig;
-    /// let x = Instance::new().set_machine_config(MachineConfig::default()/* use setters */);
-    /// ```
     pub fn set_machine_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::instance::MachineConfig>,
@@ -4854,14 +3694,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [machine_config][crate::model::Instance::machine_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::MachineConfig;
-    /// let x = Instance::new().set_or_clear_machine_config(Some(MachineConfig::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_machine_config(None::<MachineConfig>);
-    /// ```
     pub fn set_or_clear_machine_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::MachineConfig>,
@@ -4871,14 +3703,6 @@ impl Instance {
     }
 
     /// Sets the value of [availability_type][crate::model::Instance::availability_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::AvailabilityType;
-    /// let x0 = Instance::new().set_availability_type(AvailabilityType::Zonal);
-    /// let x1 = Instance::new().set_availability_type(AvailabilityType::Regional);
-    /// ```
     pub fn set_availability_type<
         T: std::convert::Into<crate::model::instance::AvailabilityType>,
     >(
@@ -4890,27 +3714,12 @@ impl Instance {
     }
 
     /// Sets the value of [gce_zone][crate::model::Instance::gce_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// let x = Instance::new().set_gce_zone("example");
-    /// ```
     pub fn set_gce_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gce_zone = v.into();
         self
     }
 
     /// Sets the value of [database_flags][crate::model::Instance::database_flags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// let x = Instance::new().set_database_flags([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_database_flags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4923,13 +3732,6 @@ impl Instance {
     }
 
     /// Sets the value of [writable_node][crate::model::Instance::writable_node].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::Node;
-    /// let x = Instance::new().set_writable_node(Node::default()/* use setters */);
-    /// ```
     pub fn set_writable_node<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::instance::Node>,
@@ -4939,14 +3741,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [writable_node][crate::model::Instance::writable_node].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::Node;
-    /// let x = Instance::new().set_or_clear_writable_node(Some(Node::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_writable_node(None::<Node>);
-    /// ```
     pub fn set_or_clear_writable_node<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::Node>,
@@ -4956,17 +3750,6 @@ impl Instance {
     }
 
     /// Sets the value of [nodes][crate::model::Instance::nodes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::Node;
-    /// let x = Instance::new()
-    ///     .set_nodes([
-    ///         Node::default()/* use setters */,
-    ///         Node::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_nodes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4978,13 +3761,6 @@ impl Instance {
     }
 
     /// Sets the value of [query_insights_config][crate::model::Instance::query_insights_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::QueryInsightsInstanceConfig;
-    /// let x = Instance::new().set_query_insights_config(QueryInsightsInstanceConfig::default()/* use setters */);
-    /// ```
     pub fn set_query_insights_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::instance::QueryInsightsInstanceConfig>,
@@ -4994,14 +3770,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [query_insights_config][crate::model::Instance::query_insights_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::QueryInsightsInstanceConfig;
-    /// let x = Instance::new().set_or_clear_query_insights_config(Some(QueryInsightsInstanceConfig::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_query_insights_config(None::<QueryInsightsInstanceConfig>);
-    /// ```
     pub fn set_or_clear_query_insights_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::QueryInsightsInstanceConfig>,
@@ -5011,13 +3779,6 @@ impl Instance {
     }
 
     /// Sets the value of [observability_config][crate::model::Instance::observability_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceConfig;
-    /// let x = Instance::new().set_observability_config(ObservabilityInstanceConfig::default()/* use setters */);
-    /// ```
     pub fn set_observability_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::instance::ObservabilityInstanceConfig>,
@@ -5027,14 +3788,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [observability_config][crate::model::Instance::observability_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceConfig;
-    /// let x = Instance::new().set_or_clear_observability_config(Some(ObservabilityInstanceConfig::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_observability_config(None::<ObservabilityInstanceConfig>);
-    /// ```
     pub fn set_or_clear_observability_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::ObservabilityInstanceConfig>,
@@ -5044,13 +3797,6 @@ impl Instance {
     }
 
     /// Sets the value of [read_pool_config][crate::model::Instance::read_pool_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::ReadPoolConfig;
-    /// let x = Instance::new().set_read_pool_config(ReadPoolConfig::default()/* use setters */);
-    /// ```
     pub fn set_read_pool_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::instance::ReadPoolConfig>,
@@ -5060,14 +3806,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [read_pool_config][crate::model::Instance::read_pool_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::ReadPoolConfig;
-    /// let x = Instance::new().set_or_clear_read_pool_config(Some(ReadPoolConfig::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_read_pool_config(None::<ReadPoolConfig>);
-    /// ```
     pub fn set_or_clear_read_pool_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::ReadPoolConfig>,
@@ -5077,24 +3815,12 @@ impl Instance {
     }
 
     /// Sets the value of [ip_address][crate::model::Instance::ip_address].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// let x = Instance::new().set_ip_address("example");
-    /// ```
     pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_address = v.into();
         self
     }
 
     /// Sets the value of [public_ip_address][crate::model::Instance::public_ip_address].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// let x = Instance::new().set_public_ip_address("example");
-    /// ```
     pub fn set_public_ip_address<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5104,39 +3830,18 @@ impl Instance {
     }
 
     /// Sets the value of [reconciling][crate::model::Instance::reconciling].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// let x = Instance::new().set_reconciling(true);
-    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Instance::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// let x = Instance::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::Instance::annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// let x = Instance::new().set_annotations([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5149,13 +3854,6 @@ impl Instance {
     }
 
     /// Sets the value of [client_connection_config][crate::model::Instance::client_connection_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::ClientConnectionConfig;
-    /// let x = Instance::new().set_client_connection_config(ClientConnectionConfig::default()/* use setters */);
-    /// ```
     pub fn set_client_connection_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::instance::ClientConnectionConfig>,
@@ -5165,14 +3863,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [client_connection_config][crate::model::Instance::client_connection_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::ClientConnectionConfig;
-    /// let x = Instance::new().set_or_clear_client_connection_config(Some(ClientConnectionConfig::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_client_connection_config(None::<ClientConnectionConfig>);
-    /// ```
     pub fn set_or_clear_client_connection_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::ClientConnectionConfig>,
@@ -5182,25 +3872,12 @@ impl Instance {
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// let x = Instance::new().set_satisfies_pzs(true);
-    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [psc_instance_config][crate::model::Instance::psc_instance_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::PscInstanceConfig;
-    /// let x = Instance::new().set_psc_instance_config(PscInstanceConfig::default()/* use setters */);
-    /// ```
     pub fn set_psc_instance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::instance::PscInstanceConfig>,
@@ -5210,14 +3887,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [psc_instance_config][crate::model::Instance::psc_instance_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::PscInstanceConfig;
-    /// let x = Instance::new().set_or_clear_psc_instance_config(Some(PscInstanceConfig::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_psc_instance_config(None::<PscInstanceConfig>);
-    /// ```
     pub fn set_or_clear_psc_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::PscInstanceConfig>,
@@ -5227,13 +3896,6 @@ impl Instance {
     }
 
     /// Sets the value of [network_config][crate::model::Instance::network_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::InstanceNetworkConfig;
-    /// let x = Instance::new().set_network_config(InstanceNetworkConfig::default()/* use setters */);
-    /// ```
     pub fn set_network_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::instance::InstanceNetworkConfig>,
@@ -5243,14 +3905,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [network_config][crate::model::Instance::network_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::InstanceNetworkConfig;
-    /// let x = Instance::new().set_or_clear_network_config(Some(InstanceNetworkConfig::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_network_config(None::<InstanceNetworkConfig>);
-    /// ```
     pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::InstanceNetworkConfig>,
@@ -5260,12 +3914,6 @@ impl Instance {
     }
 
     /// Sets the value of [outbound_public_ip_addresses][crate::model::Instance::outbound_public_ip_addresses].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// let x = Instance::new().set_outbound_public_ip_addresses(["a", "b", "c"]);
-    /// ```
     pub fn set_outbound_public_ip_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5277,14 +3925,6 @@ impl Instance {
     }
 
     /// Sets the value of [activation_policy][crate::model::Instance::activation_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::ActivationPolicy;
-    /// let x0 = Instance::new().set_activation_policy(ActivationPolicy::Always);
-    /// let x1 = Instance::new().set_activation_policy(ActivationPolicy::Never);
-    /// ```
     pub fn set_activation_policy<
         T: std::convert::Into<crate::model::instance::ActivationPolicy>,
     >(
@@ -5296,13 +3936,6 @@ impl Instance {
     }
 
     /// Sets the value of [connection_pool_config][crate::model::Instance::connection_pool_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::ConnectionPoolConfig;
-    /// let x = Instance::new().set_connection_pool_config(ConnectionPoolConfig::default()/* use setters */);
-    /// ```
     pub fn set_connection_pool_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::instance::ConnectionPoolConfig>,
@@ -5312,14 +3945,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [connection_pool_config][crate::model::Instance::connection_pool_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Instance;
-    /// use google_cloud_alloydb_v1::model::instance::ConnectionPoolConfig;
-    /// let x = Instance::new().set_or_clear_connection_pool_config(Some(ConnectionPoolConfig::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_connection_pool_config(None::<ConnectionPoolConfig>);
-    /// ```
     pub fn set_or_clear_connection_pool_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::ConnectionPoolConfig>,
@@ -5361,24 +3986,12 @@ pub mod instance {
         }
 
         /// Sets the value of [cpu_count][crate::model::instance::MachineConfig::cpu_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::MachineConfig;
-        /// let x = MachineConfig::new().set_cpu_count(42);
-        /// ```
         pub fn set_cpu_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.cpu_count = v.into();
             self
         }
 
         /// Sets the value of [machine_type][crate::model::instance::MachineConfig::machine_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::MachineConfig;
-        /// let x = MachineConfig::new().set_machine_type("example");
-        /// ```
         pub fn set_machine_type<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5425,48 +4038,24 @@ pub mod instance {
         }
 
         /// Sets the value of [zone_id][crate::model::instance::Node::zone_id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::Node;
-        /// let x = Node::new().set_zone_id("example");
-        /// ```
         pub fn set_zone_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.zone_id = v.into();
             self
         }
 
         /// Sets the value of [id][crate::model::instance::Node::id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::Node;
-        /// let x = Node::new().set_id("example");
-        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [ip][crate::model::instance::Node::ip].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::Node;
-        /// let x = Node::new().set_ip("example");
-        /// ```
         pub fn set_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ip = v.into();
             self
         }
 
         /// Sets the value of [state][crate::model::instance::Node::state].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::Node;
-        /// let x = Node::new().set_state("example");
-        /// ```
         pub fn set_state<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.state = v.into();
             self
@@ -5509,12 +4098,6 @@ pub mod instance {
         }
 
         /// Sets the value of [record_application_tags][crate::model::instance::QueryInsightsInstanceConfig::record_application_tags].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::QueryInsightsInstanceConfig;
-        /// let x = QueryInsightsInstanceConfig::new().set_record_application_tags(true);
-        /// ```
         pub fn set_record_application_tags<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -5524,13 +4107,6 @@ pub mod instance {
         }
 
         /// Sets or clears the value of [record_application_tags][crate::model::instance::QueryInsightsInstanceConfig::record_application_tags].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::QueryInsightsInstanceConfig;
-        /// let x = QueryInsightsInstanceConfig::new().set_or_clear_record_application_tags(Some(false));
-        /// let x = QueryInsightsInstanceConfig::new().set_or_clear_record_application_tags(None::<bool>);
-        /// ```
         pub fn set_or_clear_record_application_tags<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -5540,12 +4116,6 @@ pub mod instance {
         }
 
         /// Sets the value of [record_client_address][crate::model::instance::QueryInsightsInstanceConfig::record_client_address].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::QueryInsightsInstanceConfig;
-        /// let x = QueryInsightsInstanceConfig::new().set_record_client_address(true);
-        /// ```
         pub fn set_record_client_address<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -5555,13 +4125,6 @@ pub mod instance {
         }
 
         /// Sets or clears the value of [record_client_address][crate::model::instance::QueryInsightsInstanceConfig::record_client_address].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::QueryInsightsInstanceConfig;
-        /// let x = QueryInsightsInstanceConfig::new().set_or_clear_record_client_address(Some(false));
-        /// let x = QueryInsightsInstanceConfig::new().set_or_clear_record_client_address(None::<bool>);
-        /// ```
         pub fn set_or_clear_record_client_address<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -5571,24 +4134,12 @@ pub mod instance {
         }
 
         /// Sets the value of [query_string_length][crate::model::instance::QueryInsightsInstanceConfig::query_string_length].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::QueryInsightsInstanceConfig;
-        /// let x = QueryInsightsInstanceConfig::new().set_query_string_length(42);
-        /// ```
         pub fn set_query_string_length<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
             self.query_string_length = v.into();
             self
         }
 
         /// Sets the value of [query_plans_per_minute][crate::model::instance::QueryInsightsInstanceConfig::query_plans_per_minute].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::QueryInsightsInstanceConfig;
-        /// let x = QueryInsightsInstanceConfig::new().set_query_plans_per_minute(42);
-        /// ```
         pub fn set_query_plans_per_minute<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<u32>,
@@ -5598,13 +4149,6 @@ pub mod instance {
         }
 
         /// Sets or clears the value of [query_plans_per_minute][crate::model::instance::QueryInsightsInstanceConfig::query_plans_per_minute].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::QueryInsightsInstanceConfig;
-        /// let x = QueryInsightsInstanceConfig::new().set_or_clear_query_plans_per_minute(Some(42));
-        /// let x = QueryInsightsInstanceConfig::new().set_or_clear_query_plans_per_minute(None::<i32>);
-        /// ```
         pub fn set_or_clear_query_plans_per_minute<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<u32>,
@@ -5668,12 +4212,6 @@ pub mod instance {
         }
 
         /// Sets the value of [enabled][crate::model::instance::ObservabilityInstanceConfig::enabled].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceConfig;
-        /// let x = ObservabilityInstanceConfig::new().set_enabled(true);
-        /// ```
         pub fn set_enabled<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -5683,13 +4221,6 @@ pub mod instance {
         }
 
         /// Sets or clears the value of [enabled][crate::model::instance::ObservabilityInstanceConfig::enabled].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceConfig;
-        /// let x = ObservabilityInstanceConfig::new().set_or_clear_enabled(Some(false));
-        /// let x = ObservabilityInstanceConfig::new().set_or_clear_enabled(None::<bool>);
-        /// ```
         pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -5699,12 +4230,6 @@ pub mod instance {
         }
 
         /// Sets the value of [preserve_comments][crate::model::instance::ObservabilityInstanceConfig::preserve_comments].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceConfig;
-        /// let x = ObservabilityInstanceConfig::new().set_preserve_comments(true);
-        /// ```
         pub fn set_preserve_comments<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -5714,13 +4239,6 @@ pub mod instance {
         }
 
         /// Sets or clears the value of [preserve_comments][crate::model::instance::ObservabilityInstanceConfig::preserve_comments].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceConfig;
-        /// let x = ObservabilityInstanceConfig::new().set_or_clear_preserve_comments(Some(false));
-        /// let x = ObservabilityInstanceConfig::new().set_or_clear_preserve_comments(None::<bool>);
-        /// ```
         pub fn set_or_clear_preserve_comments<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -5730,12 +4248,6 @@ pub mod instance {
         }
 
         /// Sets the value of [track_wait_events][crate::model::instance::ObservabilityInstanceConfig::track_wait_events].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceConfig;
-        /// let x = ObservabilityInstanceConfig::new().set_track_wait_events(true);
-        /// ```
         pub fn set_track_wait_events<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -5745,13 +4257,6 @@ pub mod instance {
         }
 
         /// Sets or clears the value of [track_wait_events][crate::model::instance::ObservabilityInstanceConfig::track_wait_events].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceConfig;
-        /// let x = ObservabilityInstanceConfig::new().set_or_clear_track_wait_events(Some(false));
-        /// let x = ObservabilityInstanceConfig::new().set_or_clear_track_wait_events(None::<bool>);
-        /// ```
         pub fn set_or_clear_track_wait_events<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -5761,12 +4266,6 @@ pub mod instance {
         }
 
         /// Sets the value of [track_wait_event_types][crate::model::instance::ObservabilityInstanceConfig::track_wait_event_types].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceConfig;
-        /// let x = ObservabilityInstanceConfig::new().set_track_wait_event_types(true);
-        /// ```
         pub fn set_track_wait_event_types<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -5776,13 +4275,6 @@ pub mod instance {
         }
 
         /// Sets or clears the value of [track_wait_event_types][crate::model::instance::ObservabilityInstanceConfig::track_wait_event_types].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceConfig;
-        /// let x = ObservabilityInstanceConfig::new().set_or_clear_track_wait_event_types(Some(false));
-        /// let x = ObservabilityInstanceConfig::new().set_or_clear_track_wait_event_types(None::<bool>);
-        /// ```
         pub fn set_or_clear_track_wait_event_types<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -5792,12 +4284,6 @@ pub mod instance {
         }
 
         /// Sets the value of [max_query_string_length][crate::model::instance::ObservabilityInstanceConfig::max_query_string_length].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceConfig;
-        /// let x = ObservabilityInstanceConfig::new().set_max_query_string_length(42);
-        /// ```
         pub fn set_max_query_string_length<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -5807,13 +4293,6 @@ pub mod instance {
         }
 
         /// Sets or clears the value of [max_query_string_length][crate::model::instance::ObservabilityInstanceConfig::max_query_string_length].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceConfig;
-        /// let x = ObservabilityInstanceConfig::new().set_or_clear_max_query_string_length(Some(42));
-        /// let x = ObservabilityInstanceConfig::new().set_or_clear_max_query_string_length(None::<i32>);
-        /// ```
         pub fn set_or_clear_max_query_string_length<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -5823,12 +4302,6 @@ pub mod instance {
         }
 
         /// Sets the value of [record_application_tags][crate::model::instance::ObservabilityInstanceConfig::record_application_tags].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceConfig;
-        /// let x = ObservabilityInstanceConfig::new().set_record_application_tags(true);
-        /// ```
         pub fn set_record_application_tags<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -5838,13 +4311,6 @@ pub mod instance {
         }
 
         /// Sets or clears the value of [record_application_tags][crate::model::instance::ObservabilityInstanceConfig::record_application_tags].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceConfig;
-        /// let x = ObservabilityInstanceConfig::new().set_or_clear_record_application_tags(Some(false));
-        /// let x = ObservabilityInstanceConfig::new().set_or_clear_record_application_tags(None::<bool>);
-        /// ```
         pub fn set_or_clear_record_application_tags<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -5854,12 +4320,6 @@ pub mod instance {
         }
 
         /// Sets the value of [query_plans_per_minute][crate::model::instance::ObservabilityInstanceConfig::query_plans_per_minute].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceConfig;
-        /// let x = ObservabilityInstanceConfig::new().set_query_plans_per_minute(42);
-        /// ```
         pub fn set_query_plans_per_minute<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -5869,13 +4329,6 @@ pub mod instance {
         }
 
         /// Sets or clears the value of [query_plans_per_minute][crate::model::instance::ObservabilityInstanceConfig::query_plans_per_minute].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceConfig;
-        /// let x = ObservabilityInstanceConfig::new().set_or_clear_query_plans_per_minute(Some(42));
-        /// let x = ObservabilityInstanceConfig::new().set_or_clear_query_plans_per_minute(None::<i32>);
-        /// ```
         pub fn set_or_clear_query_plans_per_minute<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -5885,12 +4338,6 @@ pub mod instance {
         }
 
         /// Sets the value of [track_active_queries][crate::model::instance::ObservabilityInstanceConfig::track_active_queries].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceConfig;
-        /// let x = ObservabilityInstanceConfig::new().set_track_active_queries(true);
-        /// ```
         pub fn set_track_active_queries<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -5900,13 +4347,6 @@ pub mod instance {
         }
 
         /// Sets or clears the value of [track_active_queries][crate::model::instance::ObservabilityInstanceConfig::track_active_queries].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ObservabilityInstanceConfig;
-        /// let x = ObservabilityInstanceConfig::new().set_or_clear_track_active_queries(Some(false));
-        /// let x = ObservabilityInstanceConfig::new().set_or_clear_track_active_queries(None::<bool>);
-        /// ```
         pub fn set_or_clear_track_active_queries<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -5938,12 +4378,6 @@ pub mod instance {
         }
 
         /// Sets the value of [node_count][crate::model::instance::ReadPoolConfig::node_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ReadPoolConfig;
-        /// let x = ReadPoolConfig::new().set_node_count(42);
-        /// ```
         pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.node_count = v.into();
             self
@@ -5976,25 +4410,12 @@ pub mod instance {
         }
 
         /// Sets the value of [require_connectors][crate::model::instance::ClientConnectionConfig::require_connectors].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ClientConnectionConfig;
-        /// let x = ClientConnectionConfig::new().set_require_connectors(true);
-        /// ```
         pub fn set_require_connectors<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.require_connectors = v.into();
             self
         }
 
         /// Sets the value of [ssl_config][crate::model::instance::ClientConnectionConfig::ssl_config].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ClientConnectionConfig;
-        /// use google_cloud_alloydb_v1::model::SslConfig;
-        /// let x = ClientConnectionConfig::new().set_ssl_config(SslConfig::default()/* use setters */);
-        /// ```
         pub fn set_ssl_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::SslConfig>,
@@ -6004,14 +4425,6 @@ pub mod instance {
         }
 
         /// Sets or clears the value of [ssl_config][crate::model::instance::ClientConnectionConfig::ssl_config].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ClientConnectionConfig;
-        /// use google_cloud_alloydb_v1::model::SslConfig;
-        /// let x = ClientConnectionConfig::new().set_or_clear_ssl_config(Some(SslConfig::default()/* use setters */));
-        /// let x = ClientConnectionConfig::new().set_or_clear_ssl_config(None::<SslConfig>);
-        /// ```
         pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SslConfig>,
@@ -6047,12 +4460,6 @@ pub mod instance {
         }
 
         /// Sets the value of [network_attachment_resource][crate::model::instance::PscInterfaceConfig::network_attachment_resource].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::PscInterfaceConfig;
-        /// let x = PscInterfaceConfig::new().set_network_attachment_resource("example");
-        /// ```
         pub fn set_network_attachment_resource<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6125,12 +4532,6 @@ pub mod instance {
         }
 
         /// Sets the value of [consumer_project][crate::model::instance::PscAutoConnectionConfig::consumer_project].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::PscAutoConnectionConfig;
-        /// let x = PscAutoConnectionConfig::new().set_consumer_project("example");
-        /// ```
         pub fn set_consumer_project<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6140,12 +4541,6 @@ pub mod instance {
         }
 
         /// Sets the value of [consumer_network][crate::model::instance::PscAutoConnectionConfig::consumer_network].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::PscAutoConnectionConfig;
-        /// let x = PscAutoConnectionConfig::new().set_consumer_network("example");
-        /// ```
         pub fn set_consumer_network<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6155,36 +4550,18 @@ pub mod instance {
         }
 
         /// Sets the value of [ip_address][crate::model::instance::PscAutoConnectionConfig::ip_address].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::PscAutoConnectionConfig;
-        /// let x = PscAutoConnectionConfig::new().set_ip_address("example");
-        /// ```
         pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ip_address = v.into();
             self
         }
 
         /// Sets the value of [status][crate::model::instance::PscAutoConnectionConfig::status].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::PscAutoConnectionConfig;
-        /// let x = PscAutoConnectionConfig::new().set_status("example");
-        /// ```
         pub fn set_status<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.status = v.into();
             self
         }
 
         /// Sets the value of [consumer_network_status][crate::model::instance::PscAutoConnectionConfig::consumer_network_status].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::PscAutoConnectionConfig;
-        /// let x = PscAutoConnectionConfig::new().set_consumer_network_status("example");
-        /// ```
         pub fn set_consumer_network_status<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6237,12 +4614,6 @@ pub mod instance {
         }
 
         /// Sets the value of [service_attachment_link][crate::model::instance::PscInstanceConfig::service_attachment_link].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::PscInstanceConfig;
-        /// let x = PscInstanceConfig::new().set_service_attachment_link("example");
-        /// ```
         pub fn set_service_attachment_link<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6252,12 +4623,6 @@ pub mod instance {
         }
 
         /// Sets the value of [allowed_consumer_projects][crate::model::instance::PscInstanceConfig::allowed_consumer_projects].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::PscInstanceConfig;
-        /// let x = PscInstanceConfig::new().set_allowed_consumer_projects(["a", "b", "c"]);
-        /// ```
         pub fn set_allowed_consumer_projects<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6269,12 +4634,6 @@ pub mod instance {
         }
 
         /// Sets the value of [psc_dns_name][crate::model::instance::PscInstanceConfig::psc_dns_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::PscInstanceConfig;
-        /// let x = PscInstanceConfig::new().set_psc_dns_name("example");
-        /// ```
         pub fn set_psc_dns_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6284,17 +4643,6 @@ pub mod instance {
         }
 
         /// Sets the value of [psc_interface_configs][crate::model::instance::PscInstanceConfig::psc_interface_configs].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::PscInstanceConfig;
-        /// use google_cloud_alloydb_v1::model::instance::PscInterfaceConfig;
-        /// let x = PscInstanceConfig::new()
-        ///     .set_psc_interface_configs([
-        ///         PscInterfaceConfig::default()/* use setters */,
-        ///         PscInterfaceConfig::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_psc_interface_configs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6306,17 +4654,6 @@ pub mod instance {
         }
 
         /// Sets the value of [psc_auto_connections][crate::model::instance::PscInstanceConfig::psc_auto_connections].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::PscInstanceConfig;
-        /// use google_cloud_alloydb_v1::model::instance::PscAutoConnectionConfig;
-        /// let x = PscInstanceConfig::new()
-        ///     .set_psc_auto_connections([
-        ///         PscAutoConnectionConfig::default()/* use setters */,
-        ///         PscAutoConnectionConfig::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_psc_auto_connections<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6374,17 +4711,6 @@ pub mod instance {
         }
 
         /// Sets the value of [authorized_external_networks][crate::model::instance::InstanceNetworkConfig::authorized_external_networks].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::InstanceNetworkConfig;
-        /// use google_cloud_alloydb_v1::model::instance::instance_network_config::AuthorizedNetwork;
-        /// let x = InstanceNetworkConfig::new()
-        ///     .set_authorized_external_networks([
-        ///         AuthorizedNetwork::default()/* use setters */,
-        ///         AuthorizedNetwork::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_authorized_external_networks<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6398,48 +4724,24 @@ pub mod instance {
         }
 
         /// Sets the value of [enable_public_ip][crate::model::instance::InstanceNetworkConfig::enable_public_ip].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::InstanceNetworkConfig;
-        /// let x = InstanceNetworkConfig::new().set_enable_public_ip(true);
-        /// ```
         pub fn set_enable_public_ip<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_public_ip = v.into();
             self
         }
 
         /// Sets the value of [enable_outbound_public_ip][crate::model::instance::InstanceNetworkConfig::enable_outbound_public_ip].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::InstanceNetworkConfig;
-        /// let x = InstanceNetworkConfig::new().set_enable_outbound_public_ip(true);
-        /// ```
         pub fn set_enable_outbound_public_ip<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_outbound_public_ip = v.into();
             self
         }
 
         /// Sets the value of [network][crate::model::instance::InstanceNetworkConfig::network].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::InstanceNetworkConfig;
-        /// let x = InstanceNetworkConfig::new().set_network("example");
-        /// ```
         pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.network = v.into();
             self
         }
 
         /// Sets the value of [allocated_ip_range_override][crate::model::instance::InstanceNetworkConfig::allocated_ip_range_override].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::InstanceNetworkConfig;
-        /// let x = InstanceNetworkConfig::new().set_allocated_ip_range_override("example");
-        /// ```
         pub fn set_allocated_ip_range_override<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6476,12 +4778,6 @@ pub mod instance {
             }
 
             /// Sets the value of [cidr_range][crate::model::instance::instance_network_config::AuthorizedNetwork::cidr_range].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_alloydb_v1::model::instance::instance_network_config::AuthorizedNetwork;
-            /// let x = AuthorizedNetwork::new().set_cidr_range("example");
-            /// ```
             pub fn set_cidr_range<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -6520,27 +4816,12 @@ pub mod instance {
         }
 
         /// Sets the value of [enabled][crate::model::instance::ConnectionPoolConfig::enabled].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ConnectionPoolConfig;
-        /// let x = ConnectionPoolConfig::new().set_enabled(true);
-        /// ```
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
             self
         }
 
         /// Sets the value of [flags][crate::model::instance::ConnectionPoolConfig::flags].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ConnectionPoolConfig;
-        /// let x = ConnectionPoolConfig::new().set_flags([
-        ///     ("key0", "abc"),
-        ///     ("key1", "xyz"),
-        /// ]);
-        /// ```
         pub fn set_flags<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6553,12 +4834,6 @@ pub mod instance {
         }
 
         /// Sets the value of [pooler_count][crate::model::instance::ConnectionPoolConfig::pooler_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::instance::ConnectionPoolConfig;
-        /// let x = ConnectionPoolConfig::new().set_pooler_count(42);
-        /// ```
         pub fn set_pooler_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.pooler_count = v.into();
             self
@@ -7198,36 +5473,18 @@ impl ConnectionInfo {
     }
 
     /// Sets the value of [name][crate::model::ConnectionInfo::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ConnectionInfo;
-    /// let x = ConnectionInfo::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ip_address][crate::model::ConnectionInfo::ip_address].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ConnectionInfo;
-    /// let x = ConnectionInfo::new().set_ip_address("example");
-    /// ```
     pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_address = v.into();
         self
     }
 
     /// Sets the value of [public_ip_address][crate::model::ConnectionInfo::public_ip_address].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ConnectionInfo;
-    /// let x = ConnectionInfo::new().set_public_ip_address("example");
-    /// ```
     pub fn set_public_ip_address<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7237,12 +5494,6 @@ impl ConnectionInfo {
     }
 
     /// Sets the value of [instance_uid][crate::model::ConnectionInfo::instance_uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ConnectionInfo;
-    /// let x = ConnectionInfo::new().set_instance_uid("example");
-    /// ```
     pub fn set_instance_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_uid = v.into();
         self
@@ -7375,49 +5626,24 @@ impl Backup {
     }
 
     /// Sets the value of [name][crate::model::Backup::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// let x = Backup::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Backup::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// let x = Backup::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Backup::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// let x = Backup::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Backup::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7427,14 +5653,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Backup::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7444,13 +5662,6 @@ impl Backup {
     }
 
     /// Sets the value of [update_time][crate::model::Backup::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7460,14 +5671,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Backup::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7477,13 +5680,6 @@ impl Backup {
     }
 
     /// Sets the value of [delete_time][crate::model::Backup::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_delete_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7493,14 +5689,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Backup::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_delete_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7510,13 +5698,6 @@ impl Backup {
     }
 
     /// Sets the value of [create_completion_time][crate::model::Backup::create_completion_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_create_completion_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_completion_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7526,14 +5707,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [create_completion_time][crate::model::Backup::create_completion_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_create_completion_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_create_completion_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_completion_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7543,15 +5716,6 @@ impl Backup {
     }
 
     /// Sets the value of [labels][crate::model::Backup::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// let x = Backup::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7564,91 +5728,42 @@ impl Backup {
     }
 
     /// Sets the value of [state][crate::model::Backup::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use google_cloud_alloydb_v1::model::backup::State;
-    /// let x0 = Backup::new().set_state(State::Ready);
-    /// let x1 = Backup::new().set_state(State::Creating);
-    /// let x2 = Backup::new().set_state(State::Failed);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Backup::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use google_cloud_alloydb_v1::model::backup::Type;
-    /// let x0 = Backup::new().set_type(Type::OnDemand);
-    /// let x1 = Backup::new().set_type(Type::Automated);
-    /// let x2 = Backup::new().set_type(Type::Continuous);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::backup::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Backup::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// let x = Backup::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [cluster_uid][crate::model::Backup::cluster_uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// let x = Backup::new().set_cluster_uid("example");
-    /// ```
     pub fn set_cluster_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_uid = v.into();
         self
     }
 
     /// Sets the value of [cluster_name][crate::model::Backup::cluster_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// let x = Backup::new().set_cluster_name("example");
-    /// ```
     pub fn set_cluster_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_name = v.into();
         self
     }
 
     /// Sets the value of [reconciling][crate::model::Backup::reconciling].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// let x = Backup::new().set_reconciling(true);
-    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [encryption_config][crate::model::Backup::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use google_cloud_alloydb_v1::model::EncryptionConfig;
-    /// let x = Backup::new().set_encryption_config(EncryptionConfig::default()/* use setters */);
-    /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -7658,14 +5773,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [encryption_config][crate::model::Backup::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use google_cloud_alloydb_v1::model::EncryptionConfig;
-    /// let x = Backup::new().set_or_clear_encryption_config(Some(EncryptionConfig::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_encryption_config(None::<EncryptionConfig>);
-    /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -7675,13 +5782,6 @@ impl Backup {
     }
 
     /// Sets the value of [encryption_info][crate::model::Backup::encryption_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use google_cloud_alloydb_v1::model::EncryptionInfo;
-    /// let x = Backup::new().set_encryption_info(EncryptionInfo::default()/* use setters */);
-    /// ```
     pub fn set_encryption_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -7691,14 +5791,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [encryption_info][crate::model::Backup::encryption_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use google_cloud_alloydb_v1::model::EncryptionInfo;
-    /// let x = Backup::new().set_or_clear_encryption_info(Some(EncryptionInfo::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_encryption_info(None::<EncryptionInfo>);
-    /// ```
     pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -7708,27 +5800,12 @@ impl Backup {
     }
 
     /// Sets the value of [etag][crate::model::Backup::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// let x = Backup::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::Backup::annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// let x = Backup::new().set_annotations([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7741,25 +5818,12 @@ impl Backup {
     }
 
     /// Sets the value of [size_bytes][crate::model::Backup::size_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// let x = Backup::new().set_size_bytes(42);
-    /// ```
     pub fn set_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size_bytes = v.into();
         self
     }
 
     /// Sets the value of [expiry_time][crate::model::Backup::expiry_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_expiry_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_expiry_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7769,14 +5833,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [expiry_time][crate::model::Backup::expiry_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_expiry_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_expiry_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_expiry_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7786,13 +5842,6 @@ impl Backup {
     }
 
     /// Sets the value of [expiry_quantity][crate::model::Backup::expiry_quantity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use google_cloud_alloydb_v1::model::backup::QuantityBasedExpiry;
-    /// let x = Backup::new().set_expiry_quantity(QuantityBasedExpiry::default()/* use setters */);
-    /// ```
     pub fn set_expiry_quantity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::backup::QuantityBasedExpiry>,
@@ -7802,14 +5851,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [expiry_quantity][crate::model::Backup::expiry_quantity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use google_cloud_alloydb_v1::model::backup::QuantityBasedExpiry;
-    /// let x = Backup::new().set_or_clear_expiry_quantity(Some(QuantityBasedExpiry::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_expiry_quantity(None::<QuantityBasedExpiry>);
-    /// ```
     pub fn set_or_clear_expiry_quantity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::backup::QuantityBasedExpiry>,
@@ -7819,27 +5860,12 @@ impl Backup {
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Backup::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// let x = Backup::new().set_satisfies_pzs(true);
-    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [database_version][crate::model::Backup::database_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// use google_cloud_alloydb_v1::model::DatabaseVersion;
-    /// let x0 = Backup::new().set_database_version(DatabaseVersion::Postgres14);
-    /// let x1 = Backup::new().set_database_version(DatabaseVersion::Postgres15);
-    /// let x2 = Backup::new().set_database_version(DatabaseVersion::Postgres16);
-    /// ```
     pub fn set_database_version<T: std::convert::Into<crate::model::DatabaseVersion>>(
         mut self,
         v: T,
@@ -7849,15 +5875,6 @@ impl Backup {
     }
 
     /// Sets the value of [tags][crate::model::Backup::tags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Backup;
-    /// let x = Backup::new().set_tags([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7914,24 +5931,12 @@ pub mod backup {
         }
 
         /// Sets the value of [retention_count][crate::model::backup::QuantityBasedExpiry::retention_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::backup::QuantityBasedExpiry;
-        /// let x = QuantityBasedExpiry::new().set_retention_count(42);
-        /// ```
         pub fn set_retention_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.retention_count = v.into();
             self
         }
 
         /// Sets the value of [total_retention_count][crate::model::backup::QuantityBasedExpiry::total_retention_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::backup::QuantityBasedExpiry;
-        /// let x = QuantityBasedExpiry::new().set_total_retention_count(42);
-        /// ```
         pub fn set_total_retention_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.total_retention_count = v.into();
             self
@@ -8285,39 +6290,18 @@ impl SupportedDatabaseFlag {
     }
 
     /// Sets the value of [name][crate::model::SupportedDatabaseFlag::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SupportedDatabaseFlag;
-    /// let x = SupportedDatabaseFlag::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [flag_name][crate::model::SupportedDatabaseFlag::flag_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SupportedDatabaseFlag;
-    /// let x = SupportedDatabaseFlag::new().set_flag_name("example");
-    /// ```
     pub fn set_flag_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.flag_name = v.into();
         self
     }
 
     /// Sets the value of [value_type][crate::model::SupportedDatabaseFlag::value_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SupportedDatabaseFlag;
-    /// use google_cloud_alloydb_v1::model::supported_database_flag::ValueType;
-    /// let x0 = SupportedDatabaseFlag::new().set_value_type(ValueType::String);
-    /// let x1 = SupportedDatabaseFlag::new().set_value_type(ValueType::Integer);
-    /// let x2 = SupportedDatabaseFlag::new().set_value_type(ValueType::Float);
-    /// ```
     pub fn set_value_type<
         T: std::convert::Into<crate::model::supported_database_flag::ValueType>,
     >(
@@ -8329,29 +6313,12 @@ impl SupportedDatabaseFlag {
     }
 
     /// Sets the value of [accepts_multiple_values][crate::model::SupportedDatabaseFlag::accepts_multiple_values].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SupportedDatabaseFlag;
-    /// let x = SupportedDatabaseFlag::new().set_accepts_multiple_values(true);
-    /// ```
     pub fn set_accepts_multiple_values<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.accepts_multiple_values = v.into();
         self
     }
 
     /// Sets the value of [supported_db_versions][crate::model::SupportedDatabaseFlag::supported_db_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SupportedDatabaseFlag;
-    /// use google_cloud_alloydb_v1::model::DatabaseVersion;
-    /// let x = SupportedDatabaseFlag::new().set_supported_db_versions([
-    ///     DatabaseVersion::Postgres14,
-    ///     DatabaseVersion::Postgres15,
-    ///     DatabaseVersion::Postgres16,
-    /// ]);
-    /// ```
     pub fn set_supported_db_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8363,26 +6330,12 @@ impl SupportedDatabaseFlag {
     }
 
     /// Sets the value of [requires_db_restart][crate::model::SupportedDatabaseFlag::requires_db_restart].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SupportedDatabaseFlag;
-    /// let x = SupportedDatabaseFlag::new().set_requires_db_restart(true);
-    /// ```
     pub fn set_requires_db_restart<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requires_db_restart = v.into();
         self
     }
 
     /// Sets the value of [scope][crate::model::SupportedDatabaseFlag::scope].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SupportedDatabaseFlag;
-    /// use google_cloud_alloydb_v1::model::supported_database_flag::Scope;
-    /// let x0 = SupportedDatabaseFlag::new().set_scope(Scope::Database);
-    /// let x1 = SupportedDatabaseFlag::new().set_scope(Scope::ConnectionPool);
-    /// ```
     pub fn set_scope<T: std::convert::Into<crate::model::supported_database_flag::Scope>>(
         mut self,
         v: T,
@@ -8395,14 +6348,6 @@ impl SupportedDatabaseFlag {
     ///
     /// Note that all the setters affecting `restrictions` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SupportedDatabaseFlag;
-    /// use google_cloud_alloydb_v1::model::supported_database_flag;
-    /// use google_cloud_alloydb_v1::model::supported_database_flag::StringRestrictions;
-    /// let x = SupportedDatabaseFlag::new().set_restrictions(Some(supported_database_flag::Restrictions::StringRestrictions(StringRestrictions::default().into())));
-    /// ```
     pub fn set_restrictions<
         T: std::convert::Into<
                 std::option::Option<crate::model::supported_database_flag::Restrictions>,
@@ -8437,15 +6382,6 @@ impl SupportedDatabaseFlag {
     ///
     /// Note that all the setters affecting `restrictions` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SupportedDatabaseFlag;
-    /// use google_cloud_alloydb_v1::model::supported_database_flag::StringRestrictions;
-    /// let x = SupportedDatabaseFlag::new().set_string_restrictions(StringRestrictions::default()/* use setters */);
-    /// assert!(x.string_restrictions().is_some());
-    /// assert!(x.integer_restrictions().is_none());
-    /// ```
     pub fn set_string_restrictions<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::supported_database_flag::StringRestrictions>,
@@ -8482,15 +6418,6 @@ impl SupportedDatabaseFlag {
     ///
     /// Note that all the setters affecting `restrictions` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SupportedDatabaseFlag;
-    /// use google_cloud_alloydb_v1::model::supported_database_flag::IntegerRestrictions;
-    /// let x = SupportedDatabaseFlag::new().set_integer_restrictions(IntegerRestrictions::default()/* use setters */);
-    /// assert!(x.integer_restrictions().is_some());
-    /// assert!(x.string_restrictions().is_none());
-    /// ```
     pub fn set_integer_restrictions<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::supported_database_flag::IntegerRestrictions>,
@@ -8509,13 +6436,6 @@ impl SupportedDatabaseFlag {
     ///
     /// Note that all the setters affecting `recommended_value` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SupportedDatabaseFlag;
-    /// use google_cloud_alloydb_v1::model::supported_database_flag;
-    /// let x = SupportedDatabaseFlag::new().set_recommended_value(Some(supported_database_flag::RecommendedValue::RecommendedStringValue("example".to_string())));
-    /// ```
     pub fn set_recommended_value<
         T: std::convert::Into<
                 std::option::Option<crate::model::supported_database_flag::RecommendedValue>,
@@ -8546,14 +6466,6 @@ impl SupportedDatabaseFlag {
     ///
     /// Note that all the setters affecting `recommended_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SupportedDatabaseFlag;
-    /// let x = SupportedDatabaseFlag::new().set_recommended_string_value("example");
-    /// assert!(x.recommended_string_value().is_some());
-    /// assert!(x.recommended_integer_value().is_none());
-    /// ```
     pub fn set_recommended_string_value<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8586,15 +6498,6 @@ impl SupportedDatabaseFlag {
     ///
     /// Note that all the setters affecting `recommended_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SupportedDatabaseFlag;
-    /// use wkt::Int64Value;
-    /// let x = SupportedDatabaseFlag::new().set_recommended_integer_value(Int64Value::default()/* use setters */);
-    /// assert!(x.recommended_integer_value().is_some());
-    /// assert!(x.recommended_string_value().is_none());
-    /// ```
     pub fn set_recommended_integer_value<
         T: std::convert::Into<std::boxed::Box<wkt::Int64Value>>,
     >(
@@ -8638,12 +6541,6 @@ pub mod supported_database_flag {
         }
 
         /// Sets the value of [allowed_values][crate::model::supported_database_flag::StringRestrictions::allowed_values].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::supported_database_flag::StringRestrictions;
-        /// let x = StringRestrictions::new().set_allowed_values(["a", "b", "c"]);
-        /// ```
         pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -8680,13 +6577,6 @@ pub mod supported_database_flag {
         }
 
         /// Sets the value of [min_value][crate::model::supported_database_flag::IntegerRestrictions::min_value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::supported_database_flag::IntegerRestrictions;
-        /// use wkt::Int64Value;
-        /// let x = IntegerRestrictions::new().set_min_value(Int64Value::default()/* use setters */);
-        /// ```
         pub fn set_min_value<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
@@ -8696,14 +6586,6 @@ pub mod supported_database_flag {
         }
 
         /// Sets or clears the value of [min_value][crate::model::supported_database_flag::IntegerRestrictions::min_value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::supported_database_flag::IntegerRestrictions;
-        /// use wkt::Int64Value;
-        /// let x = IntegerRestrictions::new().set_or_clear_min_value(Some(Int64Value::default()/* use setters */));
-        /// let x = IntegerRestrictions::new().set_or_clear_min_value(None::<Int64Value>);
-        /// ```
         pub fn set_or_clear_min_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
@@ -8713,13 +6595,6 @@ pub mod supported_database_flag {
         }
 
         /// Sets the value of [max_value][crate::model::supported_database_flag::IntegerRestrictions::max_value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::supported_database_flag::IntegerRestrictions;
-        /// use wkt::Int64Value;
-        /// let x = IntegerRestrictions::new().set_max_value(Int64Value::default()/* use setters */);
-        /// ```
         pub fn set_max_value<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
@@ -8729,14 +6604,6 @@ pub mod supported_database_flag {
         }
 
         /// Sets or clears the value of [max_value][crate::model::supported_database_flag::IntegerRestrictions::max_value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::supported_database_flag::IntegerRestrictions;
-        /// use wkt::Int64Value;
-        /// let x = IntegerRestrictions::new().set_or_clear_max_value(Some(Int64Value::default()/* use setters */));
-        /// let x = IntegerRestrictions::new().set_or_clear_max_value(None::<Int64Value>);
-        /// ```
         pub fn set_or_clear_max_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
@@ -9088,36 +6955,18 @@ impl User {
     }
 
     /// Sets the value of [name][crate::model::User::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::User;
-    /// let x = User::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [password][crate::model::User::password].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::User;
-    /// let x = User::new().set_password("example");
-    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
     }
 
     /// Sets the value of [database_roles][crate::model::User::database_roles].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::User;
-    /// let x = User::new().set_database_roles(["a", "b", "c"]);
-    /// ```
     pub fn set_database_roles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9129,14 +6978,6 @@ impl User {
     }
 
     /// Sets the value of [user_type][crate::model::User::user_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::User;
-    /// use google_cloud_alloydb_v1::model::user::UserType;
-    /// let x0 = User::new().set_user_type(UserType::AlloydbBuiltIn);
-    /// let x1 = User::new().set_user_type(UserType::AlloydbIamUser);
-    /// ```
     pub fn set_user_type<T: std::convert::Into<crate::model::user::UserType>>(
         mut self,
         v: T,
@@ -9146,12 +6987,6 @@ impl User {
     }
 
     /// Sets the value of [keep_extra_roles][crate::model::User::keep_extra_roles].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::User;
-    /// let x = User::new().set_keep_extra_roles(true);
-    /// ```
     pub fn set_keep_extra_roles<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.keep_extra_roles = v.into();
         self
@@ -9342,60 +7177,30 @@ impl Database {
     }
 
     /// Sets the value of [name][crate::model::Database::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Database;
-    /// let x = Database::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [charset][crate::model::Database::charset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Database;
-    /// let x = Database::new().set_charset("example");
-    /// ```
     pub fn set_charset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.charset = v.into();
         self
     }
 
     /// Sets the value of [collation][crate::model::Database::collation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Database;
-    /// let x = Database::new().set_collation("example");
-    /// ```
     pub fn set_collation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.collation = v.into();
         self
     }
 
     /// Sets the value of [character_type][crate::model::Database::character_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Database;
-    /// let x = Database::new().set_character_type("example");
-    /// ```
     pub fn set_character_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.character_type = v.into();
         self
     }
 
     /// Sets the value of [database_template][crate::model::Database::database_template].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Database;
-    /// let x = Database::new().set_database_template("example");
-    /// ```
     pub fn set_database_template<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9405,12 +7210,6 @@ impl Database {
     }
 
     /// Sets the value of [is_template_database][crate::model::Database::is_template_database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Database;
-    /// let x = Database::new().set_is_template_database(true);
-    /// ```
     pub fn set_is_template_database<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9420,13 +7219,6 @@ impl Database {
     }
 
     /// Sets or clears the value of [is_template_database][crate::model::Database::is_template_database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::Database;
-    /// let x = Database::new().set_or_clear_is_template_database(Some(false));
-    /// let x = Database::new().set_or_clear_is_template_database(None::<bool>);
-    /// ```
     pub fn set_or_clear_is_template_database<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9475,60 +7267,30 @@ impl ListClustersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListClustersRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListClustersRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListClustersRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListClustersRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -9563,17 +7325,6 @@ impl ListClustersResponse {
     }
 
     /// Sets the value of [clusters][crate::model::ListClustersResponse::clusters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListClustersResponse;
-    /// use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = ListClustersResponse::new()
-    ///     .set_clusters([
-    ///         Cluster::default()/* use setters */,
-    ///         Cluster::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9585,24 +7336,12 @@ impl ListClustersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListClustersResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListClustersResponse;
-    /// let x = ListClustersResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListClustersResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListClustersResponse;
-    /// let x = ListClustersResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9655,26 +7394,12 @@ impl GetClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::GetClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::GetClusterRequest;
-    /// let x = GetClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetClusterRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::GetClusterRequest;
-    /// use google_cloud_alloydb_v1::model::ClusterView;
-    /// let x0 = GetClusterRequest::new().set_view(ClusterView::Basic);
-    /// let x1 = GetClusterRequest::new().set_view(ClusterView::ContinuousBackup);
-    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::ClusterView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -9729,37 +7454,18 @@ impl CreateSecondaryClusterRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSecondaryClusterRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateSecondaryClusterRequest;
-    /// let x = CreateSecondaryClusterRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::CreateSecondaryClusterRequest::cluster_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateSecondaryClusterRequest;
-    /// let x = CreateSecondaryClusterRequest::new().set_cluster_id("example");
-    /// ```
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
     }
 
     /// Sets the value of [cluster][crate::model::CreateSecondaryClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateSecondaryClusterRequest;
-    /// use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = CreateSecondaryClusterRequest::new().set_cluster(Cluster::default()/* use setters */);
-    /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -9769,14 +7475,6 @@ impl CreateSecondaryClusterRequest {
     }
 
     /// Sets or clears the value of [cluster][crate::model::CreateSecondaryClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateSecondaryClusterRequest;
-    /// use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = CreateSecondaryClusterRequest::new().set_or_clear_cluster(Some(Cluster::default()/* use setters */));
-    /// let x = CreateSecondaryClusterRequest::new().set_or_clear_cluster(None::<Cluster>);
-    /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -9786,24 +7484,12 @@ impl CreateSecondaryClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateSecondaryClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateSecondaryClusterRequest;
-    /// let x = CreateSecondaryClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateSecondaryClusterRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateSecondaryClusterRequest;
-    /// let x = CreateSecondaryClusterRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -9859,37 +7545,18 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::CreateClusterRequest::cluster_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_cluster_id("example");
-    /// ```
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
     }
 
     /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateClusterRequest;
-    /// use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = CreateClusterRequest::new().set_cluster(Cluster::default()/* use setters */);
-    /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -9899,14 +7566,6 @@ impl CreateClusterRequest {
     }
 
     /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateClusterRequest;
-    /// use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = CreateClusterRequest::new().set_or_clear_cluster(Some(Cluster::default()/* use setters */));
-    /// let x = CreateClusterRequest::new().set_or_clear_cluster(None::<Cluster>);
-    /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -9916,24 +7575,12 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateClusterRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -9993,13 +7640,6 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateClusterRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateClusterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -10009,14 +7649,6 @@ impl UpdateClusterRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateClusterRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateClusterRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateClusterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -10026,13 +7658,6 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateClusterRequest;
-    /// use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = UpdateClusterRequest::new().set_cluster(Cluster::default()/* use setters */);
-    /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -10042,14 +7667,6 @@ impl UpdateClusterRequest {
     }
 
     /// Sets or clears the value of [cluster][crate::model::UpdateClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateClusterRequest;
-    /// use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = UpdateClusterRequest::new().set_or_clear_cluster(Some(Cluster::default()/* use setters */));
-    /// let x = UpdateClusterRequest::new().set_or_clear_cluster(None::<Cluster>);
-    /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -10059,36 +7676,18 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateClusterRequest;
-    /// let x = UpdateClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateClusterRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateClusterRequest;
-    /// let x = UpdateClusterRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateClusterRequest::allow_missing].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateClusterRequest;
-    /// let x = UpdateClusterRequest::new().set_allow_missing(true);
-    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -10118,12 +7717,6 @@ impl GcsDestination {
     }
 
     /// Sets the value of [uri][crate::model::GcsDestination::uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::GcsDestination;
-    /// let x = GcsDestination::new().set_uri("example");
-    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -10163,24 +7756,12 @@ impl ExportClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::ExportClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExportClusterRequest;
-    /// let x = ExportClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [database][crate::model::ExportClusterRequest::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExportClusterRequest;
-    /// let x = ExportClusterRequest::new().set_database("example");
-    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
@@ -10190,14 +7771,6 @@ impl ExportClusterRequest {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExportClusterRequest;
-    /// use google_cloud_alloydb_v1::model::export_cluster_request;
-    /// use google_cloud_alloydb_v1::model::GcsDestination;
-    /// let x = ExportClusterRequest::new().set_destination(Some(export_cluster_request::Destination::GcsDestination(GcsDestination::default().into())));
-    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_cluster_request::Destination>>,
     >(
@@ -10228,14 +7801,6 @@ impl ExportClusterRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExportClusterRequest;
-    /// use google_cloud_alloydb_v1::model::GcsDestination;
-    /// let x = ExportClusterRequest::new().set_gcs_destination(GcsDestination::default()/* use setters */);
-    /// assert!(x.gcs_destination().is_some());
-    /// ```
     pub fn set_gcs_destination<
         T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
     >(
@@ -10252,14 +7817,6 @@ impl ExportClusterRequest {
     ///
     /// Note that all the setters affecting `export_options` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExportClusterRequest;
-    /// use google_cloud_alloydb_v1::model::export_cluster_request;
-    /// use google_cloud_alloydb_v1::model::export_cluster_request::CsvExportOptions;
-    /// let x = ExportClusterRequest::new().set_export_options(Some(export_cluster_request::ExportOptions::CsvExportOptions(CsvExportOptions::default().into())));
-    /// ```
     pub fn set_export_options<
         T: std::convert::Into<
                 std::option::Option<crate::model::export_cluster_request::ExportOptions>,
@@ -10293,15 +7850,6 @@ impl ExportClusterRequest {
     ///
     /// Note that all the setters affecting `export_options` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExportClusterRequest;
-    /// use google_cloud_alloydb_v1::model::export_cluster_request::CsvExportOptions;
-    /// let x = ExportClusterRequest::new().set_csv_export_options(CsvExportOptions::default()/* use setters */);
-    /// assert!(x.csv_export_options().is_some());
-    /// assert!(x.sql_export_options().is_none());
-    /// ```
     pub fn set_csv_export_options<
         T: std::convert::Into<std::boxed::Box<crate::model::export_cluster_request::CsvExportOptions>>,
     >(
@@ -10335,15 +7883,6 @@ impl ExportClusterRequest {
     ///
     /// Note that all the setters affecting `export_options` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExportClusterRequest;
-    /// use google_cloud_alloydb_v1::model::export_cluster_request::SqlExportOptions;
-    /// let x = ExportClusterRequest::new().set_sql_export_options(SqlExportOptions::default()/* use setters */);
-    /// assert!(x.sql_export_options().is_some());
-    /// assert!(x.csv_export_options().is_none());
-    /// ```
     pub fn set_sql_export_options<
         T: std::convert::Into<std::boxed::Box<crate::model::export_cluster_request::SqlExportOptions>>,
     >(
@@ -10400,12 +7939,6 @@ pub mod export_cluster_request {
         }
 
         /// Sets the value of [select_query][crate::model::export_cluster_request::CsvExportOptions::select_query].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::export_cluster_request::CsvExportOptions;
-        /// let x = CsvExportOptions::new().set_select_query("example");
-        /// ```
         pub fn set_select_query<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -10415,12 +7948,6 @@ pub mod export_cluster_request {
         }
 
         /// Sets the value of [field_delimiter][crate::model::export_cluster_request::CsvExportOptions::field_delimiter].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::export_cluster_request::CsvExportOptions;
-        /// let x = CsvExportOptions::new().set_field_delimiter("example");
-        /// ```
         pub fn set_field_delimiter<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -10430,12 +7957,6 @@ pub mod export_cluster_request {
         }
 
         /// Sets the value of [quote_character][crate::model::export_cluster_request::CsvExportOptions::quote_character].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::export_cluster_request::CsvExportOptions;
-        /// let x = CsvExportOptions::new().set_quote_character("example");
-        /// ```
         pub fn set_quote_character<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -10445,12 +7966,6 @@ pub mod export_cluster_request {
         }
 
         /// Sets the value of [escape_character][crate::model::export_cluster_request::CsvExportOptions::escape_character].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::export_cluster_request::CsvExportOptions;
-        /// let x = CsvExportOptions::new().set_escape_character("example");
-        /// ```
         pub fn set_escape_character<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -10493,12 +8008,6 @@ pub mod export_cluster_request {
         }
 
         /// Sets the value of [tables][crate::model::export_cluster_request::SqlExportOptions::tables].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::export_cluster_request::SqlExportOptions;
-        /// let x = SqlExportOptions::new().set_tables(["a", "b", "c"]);
-        /// ```
         pub fn set_tables<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10510,12 +8019,6 @@ pub mod export_cluster_request {
         }
 
         /// Sets the value of [schema_only][crate::model::export_cluster_request::SqlExportOptions::schema_only].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::export_cluster_request::SqlExportOptions;
-        /// let x = SqlExportOptions::new().set_schema_only(true);
-        /// ```
         pub fn set_schema_only<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -10525,13 +8028,6 @@ pub mod export_cluster_request {
         }
 
         /// Sets or clears the value of [schema_only][crate::model::export_cluster_request::SqlExportOptions::schema_only].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::export_cluster_request::SqlExportOptions;
-        /// let x = SqlExportOptions::new().set_or_clear_schema_only(Some(false));
-        /// let x = SqlExportOptions::new().set_or_clear_schema_only(None::<bool>);
-        /// ```
         pub fn set_or_clear_schema_only<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -10541,12 +8037,6 @@ pub mod export_cluster_request {
         }
 
         /// Sets the value of [clean_target_objects][crate::model::export_cluster_request::SqlExportOptions::clean_target_objects].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::export_cluster_request::SqlExportOptions;
-        /// let x = SqlExportOptions::new().set_clean_target_objects(true);
-        /// ```
         pub fn set_clean_target_objects<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -10556,13 +8046,6 @@ pub mod export_cluster_request {
         }
 
         /// Sets or clears the value of [clean_target_objects][crate::model::export_cluster_request::SqlExportOptions::clean_target_objects].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::export_cluster_request::SqlExportOptions;
-        /// let x = SqlExportOptions::new().set_or_clear_clean_target_objects(Some(false));
-        /// let x = SqlExportOptions::new().set_or_clear_clean_target_objects(None::<bool>);
-        /// ```
         pub fn set_or_clear_clean_target_objects<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -10572,12 +8055,6 @@ pub mod export_cluster_request {
         }
 
         /// Sets the value of [if_exist_target_objects][crate::model::export_cluster_request::SqlExportOptions::if_exist_target_objects].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::export_cluster_request::SqlExportOptions;
-        /// let x = SqlExportOptions::new().set_if_exist_target_objects(true);
-        /// ```
         pub fn set_if_exist_target_objects<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -10587,13 +8064,6 @@ pub mod export_cluster_request {
         }
 
         /// Sets or clears the value of [if_exist_target_objects][crate::model::export_cluster_request::SqlExportOptions::if_exist_target_objects].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::export_cluster_request::SqlExportOptions;
-        /// let x = SqlExportOptions::new().set_or_clear_if_exist_target_objects(Some(false));
-        /// let x = SqlExportOptions::new().set_or_clear_if_exist_target_objects(None::<bool>);
-        /// ```
         pub fn set_or_clear_if_exist_target_objects<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -10649,14 +8119,6 @@ impl ExportClusterResponse {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExportClusterResponse;
-    /// use google_cloud_alloydb_v1::model::export_cluster_response;
-    /// use google_cloud_alloydb_v1::model::GcsDestination;
-    /// let x = ExportClusterResponse::new().set_destination(Some(export_cluster_response::Destination::GcsDestination(GcsDestination::default().into())));
-    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_cluster_response::Destination>>,
     >(
@@ -10687,14 +8149,6 @@ impl ExportClusterResponse {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExportClusterResponse;
-    /// use google_cloud_alloydb_v1::model::GcsDestination;
-    /// let x = ExportClusterResponse::new().set_gcs_destination(GcsDestination::default()/* use setters */);
-    /// assert!(x.gcs_destination().is_some());
-    /// ```
     pub fn set_gcs_destination<
         T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
     >(
@@ -10764,48 +8218,24 @@ impl ImportClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::ImportClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ImportClusterRequest;
-    /// let x = ImportClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [gcs_uri][crate::model::ImportClusterRequest::gcs_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ImportClusterRequest;
-    /// let x = ImportClusterRequest::new().set_gcs_uri("example");
-    /// ```
     pub fn set_gcs_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcs_uri = v.into();
         self
     }
 
     /// Sets the value of [database][crate::model::ImportClusterRequest::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ImportClusterRequest;
-    /// let x = ImportClusterRequest::new().set_database("example");
-    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [user][crate::model::ImportClusterRequest::user].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ImportClusterRequest;
-    /// let x = ImportClusterRequest::new().set_user("example");
-    /// ```
     pub fn set_user<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user = v.into();
         self
@@ -10815,14 +8245,6 @@ impl ImportClusterRequest {
     ///
     /// Note that all the setters affecting `import_options` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ImportClusterRequest;
-    /// use google_cloud_alloydb_v1::model::import_cluster_request;
-    /// use google_cloud_alloydb_v1::model::import_cluster_request::SqlImportOptions;
-    /// let x = ImportClusterRequest::new().set_import_options(Some(import_cluster_request::ImportOptions::SqlImportOptions(SqlImportOptions::default().into())));
-    /// ```
     pub fn set_import_options<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_cluster_request::ImportOptions>,
@@ -10856,15 +8278,6 @@ impl ImportClusterRequest {
     ///
     /// Note that all the setters affecting `import_options` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ImportClusterRequest;
-    /// use google_cloud_alloydb_v1::model::import_cluster_request::SqlImportOptions;
-    /// let x = ImportClusterRequest::new().set_sql_import_options(SqlImportOptions::default()/* use setters */);
-    /// assert!(x.sql_import_options().is_some());
-    /// assert!(x.csv_import_options().is_none());
-    /// ```
     pub fn set_sql_import_options<
         T: std::convert::Into<std::boxed::Box<crate::model::import_cluster_request::SqlImportOptions>>,
     >(
@@ -10898,15 +8311,6 @@ impl ImportClusterRequest {
     ///
     /// Note that all the setters affecting `import_options` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ImportClusterRequest;
-    /// use google_cloud_alloydb_v1::model::import_cluster_request::CsvImportOptions;
-    /// let x = ImportClusterRequest::new().set_csv_import_options(CsvImportOptions::default()/* use setters */);
-    /// assert!(x.csv_import_options().is_some());
-    /// assert!(x.sql_import_options().is_none());
-    /// ```
     pub fn set_csv_import_options<
         T: std::convert::Into<std::boxed::Box<crate::model::import_cluster_request::CsvImportOptions>>,
     >(
@@ -10986,24 +8390,12 @@ pub mod import_cluster_request {
         }
 
         /// Sets the value of [table][crate::model::import_cluster_request::CsvImportOptions::table].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::import_cluster_request::CsvImportOptions;
-        /// let x = CsvImportOptions::new().set_table("example");
-        /// ```
         pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.table = v.into();
             self
         }
 
         /// Sets the value of [columns][crate::model::import_cluster_request::CsvImportOptions::columns].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::import_cluster_request::CsvImportOptions;
-        /// let x = CsvImportOptions::new().set_columns(["a", "b", "c"]);
-        /// ```
         pub fn set_columns<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11015,12 +8407,6 @@ pub mod import_cluster_request {
         }
 
         /// Sets the value of [field_delimiter][crate::model::import_cluster_request::CsvImportOptions::field_delimiter].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::import_cluster_request::CsvImportOptions;
-        /// let x = CsvImportOptions::new().set_field_delimiter("example");
-        /// ```
         pub fn set_field_delimiter<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -11030,12 +8416,6 @@ pub mod import_cluster_request {
         }
 
         /// Sets the value of [quote_character][crate::model::import_cluster_request::CsvImportOptions::quote_character].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::import_cluster_request::CsvImportOptions;
-        /// let x = CsvImportOptions::new().set_quote_character("example");
-        /// ```
         pub fn set_quote_character<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -11045,12 +8425,6 @@ pub mod import_cluster_request {
         }
 
         /// Sets the value of [escape_character][crate::model::import_cluster_request::CsvImportOptions::escape_character].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::import_cluster_request::CsvImportOptions;
-        /// let x = CsvImportOptions::new().set_escape_character("example");
-        /// ```
         pub fn set_escape_character<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -11093,12 +8467,6 @@ impl ImportClusterResponse {
     }
 
     /// Sets the value of [bytes_downloaded][crate::model::ImportClusterResponse::bytes_downloaded].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ImportClusterResponse;
-    /// let x = ImportClusterResponse::new().set_bytes_downloaded(42);
-    /// ```
     pub fn set_bytes_downloaded<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.bytes_downloaded = v.into();
         self
@@ -11155,27 +8523,12 @@ impl UpgradeClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::UpgradeClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpgradeClusterRequest;
-    /// let x = UpgradeClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::UpgradeClusterRequest::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpgradeClusterRequest;
-    /// use google_cloud_alloydb_v1::model::DatabaseVersion;
-    /// let x0 = UpgradeClusterRequest::new().set_version(DatabaseVersion::Postgres14);
-    /// let x1 = UpgradeClusterRequest::new().set_version(DatabaseVersion::Postgres15);
-    /// let x2 = UpgradeClusterRequest::new().set_version(DatabaseVersion::Postgres16);
-    /// ```
     pub fn set_version<T: std::convert::Into<crate::model::DatabaseVersion>>(
         mut self,
         v: T,
@@ -11185,36 +8538,18 @@ impl UpgradeClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpgradeClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpgradeClusterRequest;
-    /// let x = UpgradeClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpgradeClusterRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpgradeClusterRequest;
-    /// let x = UpgradeClusterRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::UpgradeClusterRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpgradeClusterRequest;
-    /// let x = UpgradeClusterRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -11252,15 +8587,6 @@ impl UpgradeClusterResponse {
     }
 
     /// Sets the value of [status][crate::model::UpgradeClusterResponse::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpgradeClusterResponse;
-    /// use google_cloud_alloydb_v1::model::upgrade_cluster_response::Status;
-    /// let x0 = UpgradeClusterResponse::new().set_status(Status::NotStarted);
-    /// let x1 = UpgradeClusterResponse::new().set_status(Status::InProgress);
-    /// let x2 = UpgradeClusterResponse::new().set_status(Status::Success);
-    /// ```
     pub fn set_status<T: std::convert::Into<crate::model::upgrade_cluster_response::Status>>(
         mut self,
         v: T,
@@ -11270,29 +8596,12 @@ impl UpgradeClusterResponse {
     }
 
     /// Sets the value of [message][crate::model::UpgradeClusterResponse::message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpgradeClusterResponse;
-    /// let x = UpgradeClusterResponse::new().set_message("example");
-    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [cluster_upgrade_details][crate::model::UpgradeClusterResponse::cluster_upgrade_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpgradeClusterResponse;
-    /// use google_cloud_alloydb_v1::model::upgrade_cluster_response::ClusterUpgradeDetails;
-    /// let x = UpgradeClusterResponse::new()
-    ///     .set_cluster_upgrade_details([
-    ///         ClusterUpgradeDetails::default()/* use setters */,
-    ///         ClusterUpgradeDetails::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_cluster_upgrade_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11339,15 +8648,6 @@ pub mod upgrade_cluster_response {
         }
 
         /// Sets the value of [stage][crate::model::upgrade_cluster_response::StageInfo::stage].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_response::StageInfo;
-        /// use google_cloud_alloydb_v1::model::upgrade_cluster_response::Stage;
-        /// let x0 = StageInfo::new().set_stage(Stage::AlloydbPrecheck);
-        /// let x1 = StageInfo::new().set_stage(Stage::PgUpgradeCheck);
-        /// let x2 = StageInfo::new().set_stage(Stage::PrepareForUpgrade);
-        /// ```
         pub fn set_stage<T: std::convert::Into<crate::model::upgrade_cluster_response::Stage>>(
             mut self,
             v: T,
@@ -11357,15 +8657,6 @@ pub mod upgrade_cluster_response {
         }
 
         /// Sets the value of [status][crate::model::upgrade_cluster_response::StageInfo::status].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_response::StageInfo;
-        /// use google_cloud_alloydb_v1::model::upgrade_cluster_response::Status;
-        /// let x0 = StageInfo::new().set_status(Status::NotStarted);
-        /// let x1 = StageInfo::new().set_status(Status::InProgress);
-        /// let x2 = StageInfo::new().set_status(Status::Success);
-        /// ```
         pub fn set_status<T: std::convert::Into<crate::model::upgrade_cluster_response::Status>>(
             mut self,
             v: T,
@@ -11375,12 +8666,6 @@ pub mod upgrade_cluster_response {
         }
 
         /// Sets the value of [logs_url][crate::model::upgrade_cluster_response::StageInfo::logs_url].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_response::StageInfo;
-        /// let x = StageInfo::new().set_logs_url("example");
-        /// ```
         pub fn set_logs_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.logs_url = v.into();
             self
@@ -11415,27 +8700,12 @@ pub mod upgrade_cluster_response {
         }
 
         /// Sets the value of [name][crate::model::upgrade_cluster_response::InstanceUpgradeDetails::name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_response::InstanceUpgradeDetails;
-        /// let x = InstanceUpgradeDetails::new().set_name("example");
-        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [upgrade_status][crate::model::upgrade_cluster_response::InstanceUpgradeDetails::upgrade_status].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_response::InstanceUpgradeDetails;
-        /// use google_cloud_alloydb_v1::model::upgrade_cluster_response::Status;
-        /// let x0 = InstanceUpgradeDetails::new().set_upgrade_status(Status::NotStarted);
-        /// let x1 = InstanceUpgradeDetails::new().set_upgrade_status(Status::InProgress);
-        /// let x2 = InstanceUpgradeDetails::new().set_upgrade_status(Status::Success);
-        /// ```
         pub fn set_upgrade_status<
             T: std::convert::Into<crate::model::upgrade_cluster_response::Status>,
         >(
@@ -11447,15 +8717,6 @@ pub mod upgrade_cluster_response {
         }
 
         /// Sets the value of [instance_type][crate::model::upgrade_cluster_response::InstanceUpgradeDetails::instance_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_response::InstanceUpgradeDetails;
-        /// use google_cloud_alloydb_v1::model::instance::InstanceType;
-        /// let x0 = InstanceUpgradeDetails::new().set_instance_type(InstanceType::Primary);
-        /// let x1 = InstanceUpgradeDetails::new().set_instance_type(InstanceType::ReadPool);
-        /// let x2 = InstanceUpgradeDetails::new().set_instance_type(InstanceType::Secondary);
-        /// ```
         pub fn set_instance_type<T: std::convert::Into<crate::model::instance::InstanceType>>(
             mut self,
             v: T,
@@ -11505,27 +8766,12 @@ pub mod upgrade_cluster_response {
         }
 
         /// Sets the value of [name][crate::model::upgrade_cluster_response::ClusterUpgradeDetails::name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_response::ClusterUpgradeDetails;
-        /// let x = ClusterUpgradeDetails::new().set_name("example");
-        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [upgrade_status][crate::model::upgrade_cluster_response::ClusterUpgradeDetails::upgrade_status].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_response::ClusterUpgradeDetails;
-        /// use google_cloud_alloydb_v1::model::upgrade_cluster_response::Status;
-        /// let x0 = ClusterUpgradeDetails::new().set_upgrade_status(Status::NotStarted);
-        /// let x1 = ClusterUpgradeDetails::new().set_upgrade_status(Status::InProgress);
-        /// let x2 = ClusterUpgradeDetails::new().set_upgrade_status(Status::Success);
-        /// ```
         pub fn set_upgrade_status<
             T: std::convert::Into<crate::model::upgrade_cluster_response::Status>,
         >(
@@ -11537,14 +8783,6 @@ pub mod upgrade_cluster_response {
         }
 
         /// Sets the value of [cluster_type][crate::model::upgrade_cluster_response::ClusterUpgradeDetails::cluster_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_response::ClusterUpgradeDetails;
-        /// use google_cloud_alloydb_v1::model::cluster::ClusterType;
-        /// let x0 = ClusterUpgradeDetails::new().set_cluster_type(ClusterType::Primary);
-        /// let x1 = ClusterUpgradeDetails::new().set_cluster_type(ClusterType::Secondary);
-        /// ```
         pub fn set_cluster_type<T: std::convert::Into<crate::model::cluster::ClusterType>>(
             mut self,
             v: T,
@@ -11554,15 +8792,6 @@ pub mod upgrade_cluster_response {
         }
 
         /// Sets the value of [database_version][crate::model::upgrade_cluster_response::ClusterUpgradeDetails::database_version].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_response::ClusterUpgradeDetails;
-        /// use google_cloud_alloydb_v1::model::DatabaseVersion;
-        /// let x0 = ClusterUpgradeDetails::new().set_database_version(DatabaseVersion::Postgres14);
-        /// let x1 = ClusterUpgradeDetails::new().set_database_version(DatabaseVersion::Postgres15);
-        /// let x2 = ClusterUpgradeDetails::new().set_database_version(DatabaseVersion::Postgres16);
-        /// ```
         pub fn set_database_version<T: std::convert::Into<crate::model::DatabaseVersion>>(
             mut self,
             v: T,
@@ -11572,17 +8801,6 @@ pub mod upgrade_cluster_response {
         }
 
         /// Sets the value of [stage_info][crate::model::upgrade_cluster_response::ClusterUpgradeDetails::stage_info].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_response::ClusterUpgradeDetails;
-        /// use google_cloud_alloydb_v1::model::upgrade_cluster_response::StageInfo;
-        /// let x = ClusterUpgradeDetails::new()
-        ///     .set_stage_info([
-        ///         StageInfo::default()/* use setters */,
-        ///         StageInfo::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_stage_info<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11594,17 +8812,6 @@ pub mod upgrade_cluster_response {
         }
 
         /// Sets the value of [instance_upgrade_details][crate::model::upgrade_cluster_response::ClusterUpgradeDetails::instance_upgrade_details].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_response::ClusterUpgradeDetails;
-        /// use google_cloud_alloydb_v1::model::upgrade_cluster_response::InstanceUpgradeDetails;
-        /// let x = ClusterUpgradeDetails::new()
-        ///     .set_instance_upgrade_details([
-        ///         InstanceUpgradeDetails::default()/* use setters */,
-        ///         InstanceUpgradeDetails::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_instance_upgrade_details<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -12006,60 +9213,30 @@ impl DeleteClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::DeleteClusterRequest;
-    /// let x = DeleteClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::DeleteClusterRequest;
-    /// let x = DeleteClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteClusterRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::DeleteClusterRequest;
-    /// let x = DeleteClusterRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteClusterRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::DeleteClusterRequest;
-    /// let x = DeleteClusterRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteClusterRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::DeleteClusterRequest;
-    /// let x = DeleteClusterRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -12109,36 +9286,18 @@ impl SwitchoverClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::SwitchoverClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SwitchoverClusterRequest;
-    /// let x = SwitchoverClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::SwitchoverClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SwitchoverClusterRequest;
-    /// let x = SwitchoverClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::SwitchoverClusterRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::SwitchoverClusterRequest;
-    /// let x = SwitchoverClusterRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -12193,48 +9352,24 @@ impl PromoteClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::PromoteClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::PromoteClusterRequest;
-    /// let x = PromoteClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::PromoteClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::PromoteClusterRequest;
-    /// let x = PromoteClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::PromoteClusterRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::PromoteClusterRequest;
-    /// let x = PromoteClusterRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::PromoteClusterRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::PromoteClusterRequest;
-    /// let x = PromoteClusterRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -12296,37 +9431,18 @@ impl RestoreClusterRequest {
     }
 
     /// Sets the value of [parent][crate::model::RestoreClusterRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestoreClusterRequest;
-    /// let x = RestoreClusterRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::RestoreClusterRequest::cluster_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestoreClusterRequest;
-    /// let x = RestoreClusterRequest::new().set_cluster_id("example");
-    /// ```
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
     }
 
     /// Sets the value of [cluster][crate::model::RestoreClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestoreClusterRequest;
-    /// use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = RestoreClusterRequest::new().set_cluster(Cluster::default()/* use setters */);
-    /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -12336,14 +9452,6 @@ impl RestoreClusterRequest {
     }
 
     /// Sets or clears the value of [cluster][crate::model::RestoreClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestoreClusterRequest;
-    /// use google_cloud_alloydb_v1::model::Cluster;
-    /// let x = RestoreClusterRequest::new().set_or_clear_cluster(Some(Cluster::default()/* use setters */));
-    /// let x = RestoreClusterRequest::new().set_or_clear_cluster(None::<Cluster>);
-    /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -12353,24 +9461,12 @@ impl RestoreClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::RestoreClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestoreClusterRequest;
-    /// let x = RestoreClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::RestoreClusterRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestoreClusterRequest;
-    /// let x = RestoreClusterRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -12380,14 +9476,6 @@ impl RestoreClusterRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestoreClusterRequest;
-    /// use google_cloud_alloydb_v1::model::restore_cluster_request;
-    /// use google_cloud_alloydb_v1::model::BackupSource;
-    /// let x = RestoreClusterRequest::new().set_source(Some(restore_cluster_request::Source::BackupSource(BackupSource::default().into())));
-    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::restore_cluster_request::Source>>,
     >(
@@ -12418,15 +9506,6 @@ impl RestoreClusterRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestoreClusterRequest;
-    /// use google_cloud_alloydb_v1::model::BackupSource;
-    /// let x = RestoreClusterRequest::new().set_backup_source(BackupSource::default()/* use setters */);
-    /// assert!(x.backup_source().is_some());
-    /// assert!(x.continuous_backup_source().is_none());
-    /// ```
     pub fn set_backup_source<T: std::convert::Into<std::boxed::Box<crate::model::BackupSource>>>(
         mut self,
         v: T,
@@ -12457,15 +9536,6 @@ impl RestoreClusterRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestoreClusterRequest;
-    /// use google_cloud_alloydb_v1::model::ContinuousBackupSource;
-    /// let x = RestoreClusterRequest::new().set_continuous_backup_source(ContinuousBackupSource::default()/* use setters */);
-    /// assert!(x.continuous_backup_source().is_some());
-    /// assert!(x.backup_source().is_none());
-    /// ```
     pub fn set_continuous_backup_source<
         T: std::convert::Into<std::boxed::Box<crate::model::ContinuousBackupSource>>,
     >(
@@ -12538,60 +9608,30 @@ impl ListInstancesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInstancesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInstancesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInstancesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListInstancesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -12626,17 +9666,6 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListInstancesResponse;
-    /// use google_cloud_alloydb_v1::model::Instance;
-    /// let x = ListInstancesResponse::new()
-    ///     .set_instances([
-    ///         Instance::default()/* use setters */,
-    ///         Instance::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12648,24 +9677,12 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListInstancesResponse;
-    /// let x = ListInstancesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListInstancesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListInstancesResponse;
-    /// let x = ListInstancesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12717,26 +9734,12 @@ impl GetInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::GetInstanceRequest;
-    /// let x = GetInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetInstanceRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::GetInstanceRequest;
-    /// use google_cloud_alloydb_v1::model::InstanceView;
-    /// let x0 = GetInstanceRequest::new().set_view(InstanceView::Basic);
-    /// let x1 = GetInstanceRequest::new().set_view(InstanceView::Full);
-    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::InstanceView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -12792,37 +9795,18 @@ impl CreateInstanceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_instance_id("example");
-    /// ```
     pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_id = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateInstanceRequest;
-    /// use google_cloud_alloydb_v1::model::Instance;
-    /// let x = CreateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
-    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -12832,14 +9816,6 @@ impl CreateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateInstanceRequest;
-    /// use google_cloud_alloydb_v1::model::Instance;
-    /// let x = CreateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
-    /// let x = CreateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
-    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -12849,24 +9825,12 @@ impl CreateInstanceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateInstanceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateInstanceRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -12922,37 +9886,18 @@ impl CreateSecondaryInstanceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSecondaryInstanceRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateSecondaryInstanceRequest;
-    /// let x = CreateSecondaryInstanceRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [instance_id][crate::model::CreateSecondaryInstanceRequest::instance_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateSecondaryInstanceRequest;
-    /// let x = CreateSecondaryInstanceRequest::new().set_instance_id("example");
-    /// ```
     pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_id = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::CreateSecondaryInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateSecondaryInstanceRequest;
-    /// use google_cloud_alloydb_v1::model::Instance;
-    /// let x = CreateSecondaryInstanceRequest::new().set_instance(Instance::default()/* use setters */);
-    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -12962,14 +9907,6 @@ impl CreateSecondaryInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::CreateSecondaryInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateSecondaryInstanceRequest;
-    /// use google_cloud_alloydb_v1::model::Instance;
-    /// let x = CreateSecondaryInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
-    /// let x = CreateSecondaryInstanceRequest::new().set_or_clear_instance(None::<Instance>);
-    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -12979,24 +9916,12 @@ impl CreateSecondaryInstanceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateSecondaryInstanceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateSecondaryInstanceRequest;
-    /// let x = CreateSecondaryInstanceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateSecondaryInstanceRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateSecondaryInstanceRequest;
-    /// let x = CreateSecondaryInstanceRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -13026,17 +9951,6 @@ impl CreateInstanceRequests {
     }
 
     /// Sets the value of [create_instance_requests][crate::model::CreateInstanceRequests::create_instance_requests].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateInstanceRequests;
-    /// use google_cloud_alloydb_v1::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequests::new()
-    ///     .set_create_instance_requests([
-    ///         CreateInstanceRequest::default()/* use setters */,
-    ///         CreateInstanceRequest::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_create_instance_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13088,25 +10002,12 @@ impl BatchCreateInstancesRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchCreateInstancesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::BatchCreateInstancesRequest;
-    /// let x = BatchCreateInstancesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [requests][crate::model::BatchCreateInstancesRequest::requests].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::BatchCreateInstancesRequest;
-    /// use google_cloud_alloydb_v1::model::CreateInstanceRequests;
-    /// let x = BatchCreateInstancesRequest::new().set_requests(CreateInstanceRequests::default()/* use setters */);
-    /// ```
     pub fn set_requests<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CreateInstanceRequests>,
@@ -13116,14 +10017,6 @@ impl BatchCreateInstancesRequest {
     }
 
     /// Sets or clears the value of [requests][crate::model::BatchCreateInstancesRequest::requests].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::BatchCreateInstancesRequest;
-    /// use google_cloud_alloydb_v1::model::CreateInstanceRequests;
-    /// let x = BatchCreateInstancesRequest::new().set_or_clear_requests(Some(CreateInstanceRequests::default()/* use setters */));
-    /// let x = BatchCreateInstancesRequest::new().set_or_clear_requests(None::<CreateInstanceRequests>);
-    /// ```
     pub fn set_or_clear_requests<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CreateInstanceRequests>,
@@ -13133,12 +10026,6 @@ impl BatchCreateInstancesRequest {
     }
 
     /// Sets the value of [request_id][crate::model::BatchCreateInstancesRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::BatchCreateInstancesRequest;
-    /// let x = BatchCreateInstancesRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -13167,17 +10054,6 @@ impl BatchCreateInstancesResponse {
     }
 
     /// Sets the value of [instances][crate::model::BatchCreateInstancesResponse::instances].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::BatchCreateInstancesResponse;
-    /// use google_cloud_alloydb_v1::model::Instance;
-    /// let x = BatchCreateInstancesResponse::new()
-    ///     .set_instances([
-    ///         Instance::default()/* use setters */,
-    ///         Instance::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13224,12 +10100,6 @@ impl BatchCreateInstancesMetadata {
     }
 
     /// Sets the value of [instance_targets][crate::model::BatchCreateInstancesMetadata::instance_targets].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::BatchCreateInstancesMetadata;
-    /// let x = BatchCreateInstancesMetadata::new().set_instance_targets(["a", "b", "c"]);
-    /// ```
     pub fn set_instance_targets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13241,16 +10111,6 @@ impl BatchCreateInstancesMetadata {
     }
 
     /// Sets the value of [instance_statuses][crate::model::BatchCreateInstancesMetadata::instance_statuses].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::BatchCreateInstancesMetadata;
-    /// use google_cloud_alloydb_v1::model::BatchCreateInstanceStatus;
-    /// let x = BatchCreateInstancesMetadata::new().set_instance_statuses([
-    ///     ("key0", BatchCreateInstanceStatus::default()/* use setters */),
-    ///     ("key1", BatchCreateInstanceStatus::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_instance_statuses<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -13318,15 +10178,6 @@ impl BatchCreateInstanceStatus {
     }
 
     /// Sets the value of [state][crate::model::BatchCreateInstanceStatus::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::BatchCreateInstanceStatus;
-    /// use google_cloud_alloydb_v1::model::batch_create_instance_status::State;
-    /// let x0 = BatchCreateInstanceStatus::new().set_state(State::PendingCreate);
-    /// let x1 = BatchCreateInstanceStatus::new().set_state(State::Ready);
-    /// let x2 = BatchCreateInstanceStatus::new().set_state(State::Creating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::batch_create_instance_status::State>>(
         mut self,
         v: T,
@@ -13336,25 +10187,12 @@ impl BatchCreateInstanceStatus {
     }
 
     /// Sets the value of [error_msg][crate::model::BatchCreateInstanceStatus::error_msg].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::BatchCreateInstanceStatus;
-    /// let x = BatchCreateInstanceStatus::new().set_error_msg("example");
-    /// ```
     pub fn set_error_msg<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_msg = v.into();
         self
     }
 
     /// Sets the value of [error][crate::model::BatchCreateInstanceStatus::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::BatchCreateInstanceStatus;
-    /// use rpc::model::Status;
-    /// let x = BatchCreateInstanceStatus::new().set_error(Status::default()/* use setters */);
-    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -13364,14 +10202,6 @@ impl BatchCreateInstanceStatus {
     }
 
     /// Sets or clears the value of [error][crate::model::BatchCreateInstanceStatus::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::BatchCreateInstanceStatus;
-    /// use rpc::model::Status;
-    /// let x = BatchCreateInstanceStatus::new().set_or_clear_error(Some(Status::default()/* use setters */));
-    /// let x = BatchCreateInstanceStatus::new().set_or_clear_error(None::<Status>);
-    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -13381,15 +10211,6 @@ impl BatchCreateInstanceStatus {
     }
 
     /// Sets the value of [r#type][crate::model::BatchCreateInstanceStatus::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::BatchCreateInstanceStatus;
-    /// use google_cloud_alloydb_v1::model::instance::InstanceType;
-    /// let x0 = BatchCreateInstanceStatus::new().set_type(InstanceType::Primary);
-    /// let x1 = BatchCreateInstanceStatus::new().set_type(InstanceType::ReadPool);
-    /// let x2 = BatchCreateInstanceStatus::new().set_type(InstanceType::Secondary);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::instance::InstanceType>>(
         mut self,
         v: T,
@@ -13623,13 +10444,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateInstanceRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateInstanceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -13639,14 +10453,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateInstanceRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -13656,13 +10462,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateInstanceRequest;
-    /// use google_cloud_alloydb_v1::model::Instance;
-    /// let x = UpdateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
-    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -13672,14 +10471,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateInstanceRequest;
-    /// use google_cloud_alloydb_v1::model::Instance;
-    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
-    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
-    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -13689,36 +10480,18 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateInstanceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateInstanceRequest;
-    /// let x = UpdateInstanceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateInstanceRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateInstanceRequest;
-    /// let x = UpdateInstanceRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateInstanceRequest::allow_missing].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateInstanceRequest;
-    /// let x = UpdateInstanceRequest::new().set_allow_missing(true);
-    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -13773,48 +10546,24 @@ impl DeleteInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteInstanceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteInstanceRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteInstanceRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -13864,36 +10613,18 @@ impl FailoverInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::FailoverInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::FailoverInstanceRequest;
-    /// let x = FailoverInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::FailoverInstanceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::FailoverInstanceRequest;
-    /// let x = FailoverInstanceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::FailoverInstanceRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::FailoverInstanceRequest;
-    /// let x = FailoverInstanceRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -13946,13 +10677,6 @@ impl InjectFaultRequest {
     }
 
     /// Sets the value of [fault_type][crate::model::InjectFaultRequest::fault_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::InjectFaultRequest;
-    /// use google_cloud_alloydb_v1::model::inject_fault_request::FaultType;
-    /// let x0 = InjectFaultRequest::new().set_fault_type(FaultType::StopVm);
-    /// ```
     pub fn set_fault_type<T: std::convert::Into<crate::model::inject_fault_request::FaultType>>(
         mut self,
         v: T,
@@ -13962,36 +10686,18 @@ impl InjectFaultRequest {
     }
 
     /// Sets the value of [name][crate::model::InjectFaultRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::InjectFaultRequest;
-    /// let x = InjectFaultRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::InjectFaultRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::InjectFaultRequest;
-    /// let x = InjectFaultRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::InjectFaultRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::InjectFaultRequest;
-    /// let x = InjectFaultRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -14176,48 +10882,24 @@ impl RestartInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::RestartInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestartInstanceRequest;
-    /// let x = RestartInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::RestartInstanceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestartInstanceRequest;
-    /// let x = RestartInstanceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::RestartInstanceRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestartInstanceRequest;
-    /// let x = RestartInstanceRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [node_ids][crate::model::RestartInstanceRequest::node_ids].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::RestartInstanceRequest;
-    /// let x = RestartInstanceRequest::new().set_node_ids(["a", "b", "c"]);
-    /// ```
     pub fn set_node_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14274,60 +10956,30 @@ impl ExecuteSqlRequest {
     }
 
     /// Sets the value of [instance][crate::model::ExecuteSqlRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExecuteSqlRequest;
-    /// let x = ExecuteSqlRequest::new().set_instance("example");
-    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [database][crate::model::ExecuteSqlRequest::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExecuteSqlRequest;
-    /// let x = ExecuteSqlRequest::new().set_database("example");
-    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [user][crate::model::ExecuteSqlRequest::user].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExecuteSqlRequest;
-    /// let x = ExecuteSqlRequest::new().set_user("example");
-    /// ```
     pub fn set_user<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user = v.into();
         self
     }
 
     /// Sets the value of [sql_statement][crate::model::ExecuteSqlRequest::sql_statement].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExecuteSqlRequest;
-    /// let x = ExecuteSqlRequest::new().set_sql_statement("example");
-    /// ```
     pub fn set_sql_statement<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sql_statement = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::ExecuteSqlRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExecuteSqlRequest;
-    /// let x = ExecuteSqlRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -14337,13 +10989,6 @@ impl ExecuteSqlRequest {
     ///
     /// Note that all the setters affecting `user_credential` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExecuteSqlRequest;
-    /// use google_cloud_alloydb_v1::model::execute_sql_request;
-    /// let x = ExecuteSqlRequest::new().set_user_credential(Some(execute_sql_request::UserCredential::Password("example".to_string())));
-    /// ```
     pub fn set_user_credential<
         T: std::convert::Into<std::option::Option<crate::model::execute_sql_request::UserCredential>>,
     >(
@@ -14372,13 +11017,6 @@ impl ExecuteSqlRequest {
     ///
     /// Note that all the setters affecting `user_credential` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExecuteSqlRequest;
-    /// let x = ExecuteSqlRequest::new().set_password("example");
-    /// assert!(x.password().is_some());
-    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_credential = std::option::Option::Some(
             crate::model::execute_sql_request::UserCredential::Password(v.into()),
@@ -14428,17 +11066,6 @@ impl ExecuteSqlResponse {
     }
 
     /// Sets the value of [sql_results][crate::model::ExecuteSqlResponse::sql_results].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExecuteSqlResponse;
-    /// use google_cloud_alloydb_v1::model::SqlResult;
-    /// let x = ExecuteSqlResponse::new()
-    ///     .set_sql_results([
-    ///         SqlResult::default()/* use setters */,
-    ///         SqlResult::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_sql_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14450,13 +11077,6 @@ impl ExecuteSqlResponse {
     }
 
     /// Sets the value of [metadata][crate::model::ExecuteSqlResponse::metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExecuteSqlResponse;
-    /// use google_cloud_alloydb_v1::model::ExecuteSqlMetadata;
-    /// let x = ExecuteSqlResponse::new().set_metadata(ExecuteSqlMetadata::default()/* use setters */);
-    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExecuteSqlMetadata>,
@@ -14466,14 +11086,6 @@ impl ExecuteSqlResponse {
     }
 
     /// Sets or clears the value of [metadata][crate::model::ExecuteSqlResponse::metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExecuteSqlResponse;
-    /// use google_cloud_alloydb_v1::model::ExecuteSqlMetadata;
-    /// let x = ExecuteSqlResponse::new().set_or_clear_metadata(Some(ExecuteSqlMetadata::default()/* use setters */));
-    /// let x = ExecuteSqlResponse::new().set_or_clear_metadata(None::<ExecuteSqlMetadata>);
-    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExecuteSqlMetadata>,
@@ -14518,37 +11130,18 @@ impl ExecuteSqlMetadata {
     }
 
     /// Sets the value of [message][crate::model::ExecuteSqlMetadata::message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExecuteSqlMetadata;
-    /// let x = ExecuteSqlMetadata::new().set_message("example");
-    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [partial_result][crate::model::ExecuteSqlMetadata::partial_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExecuteSqlMetadata;
-    /// let x = ExecuteSqlMetadata::new().set_partial_result(true);
-    /// ```
     pub fn set_partial_result<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.partial_result = v.into();
         self
     }
 
     /// Sets the value of [sql_statement_execution_duration][crate::model::ExecuteSqlMetadata::sql_statement_execution_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExecuteSqlMetadata;
-    /// use wkt::Duration;
-    /// let x = ExecuteSqlMetadata::new().set_sql_statement_execution_duration(Duration::default()/* use setters */);
-    /// ```
     pub fn set_sql_statement_execution_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -14558,14 +11151,6 @@ impl ExecuteSqlMetadata {
     }
 
     /// Sets or clears the value of [sql_statement_execution_duration][crate::model::ExecuteSqlMetadata::sql_statement_execution_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExecuteSqlMetadata;
-    /// use wkt::Duration;
-    /// let x = ExecuteSqlMetadata::new().set_or_clear_sql_statement_execution_duration(Some(Duration::default()/* use setters */));
-    /// let x = ExecuteSqlMetadata::new().set_or_clear_sql_statement_execution_duration(None::<Duration>);
-    /// ```
     pub fn set_or_clear_sql_statement_execution_duration<T>(
         mut self,
         v: std::option::Option<T>,
@@ -14578,15 +11163,6 @@ impl ExecuteSqlMetadata {
     }
 
     /// Sets the value of [status][crate::model::ExecuteSqlMetadata::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ExecuteSqlMetadata;
-    /// use google_cloud_alloydb_v1::model::execute_sql_metadata::Status;
-    /// let x0 = ExecuteSqlMetadata::new().set_status(Status::Ok);
-    /// let x1 = ExecuteSqlMetadata::new().set_status(Status::Partial);
-    /// let x2 = ExecuteSqlMetadata::new().set_status(Status::Error);
-    /// ```
     pub fn set_status<T: std::convert::Into<crate::model::execute_sql_metadata::Status>>(
         mut self,
         v: T,
@@ -14784,60 +11360,30 @@ impl ListBackupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBackupsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListBackupsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -14872,17 +11418,6 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListBackupsResponse;
-    /// use google_cloud_alloydb_v1::model::Backup;
-    /// let x = ListBackupsResponse::new()
-    ///     .set_backups([
-    ///         Backup::default()/* use setters */,
-    ///         Backup::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14894,24 +11429,12 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListBackupsResponse;
-    /// let x = ListBackupsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListBackupsResponse;
-    /// let x = ListBackupsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14959,12 +11482,6 @@ impl GetBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::GetBackupRequest;
-    /// let x = GetBackupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -15018,37 +11535,18 @@ impl CreateBackupRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_backup_id("example");
-    /// ```
     pub fn set_backup_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_id = v.into();
         self
     }
 
     /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateBackupRequest;
-    /// use google_cloud_alloydb_v1::model::Backup;
-    /// let x = CreateBackupRequest::new().set_backup(Backup::default()/* use setters */);
-    /// ```
     pub fn set_backup<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -15058,14 +11556,6 @@ impl CreateBackupRequest {
     }
 
     /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateBackupRequest;
-    /// use google_cloud_alloydb_v1::model::Backup;
-    /// let x = CreateBackupRequest::new().set_or_clear_backup(Some(Backup::default()/* use setters */));
-    /// let x = CreateBackupRequest::new().set_or_clear_backup(None::<Backup>);
-    /// ```
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -15075,24 +11565,12 @@ impl CreateBackupRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateBackupRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateBackupRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -15151,13 +11629,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateBackupRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBackupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -15167,14 +11638,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateBackupRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBackupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateBackupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -15184,13 +11647,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateBackupRequest;
-    /// use google_cloud_alloydb_v1::model::Backup;
-    /// let x = UpdateBackupRequest::new().set_backup(Backup::default()/* use setters */);
-    /// ```
     pub fn set_backup<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -15200,14 +11656,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateBackupRequest;
-    /// use google_cloud_alloydb_v1::model::Backup;
-    /// let x = UpdateBackupRequest::new().set_or_clear_backup(Some(Backup::default()/* use setters */));
-    /// let x = UpdateBackupRequest::new().set_or_clear_backup(None::<Backup>);
-    /// ```
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -15217,36 +11665,18 @@ impl UpdateBackupRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateBackupRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateBackupRequest;
-    /// let x = UpdateBackupRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateBackupRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateBackupRequest;
-    /// let x = UpdateBackupRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateBackupRequest::allow_missing].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateBackupRequest;
-    /// let x = UpdateBackupRequest::new().set_allow_missing(true);
-    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -15300,48 +11730,24 @@ impl DeleteBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteBackupRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteBackupRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteBackupRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -15388,50 +11794,24 @@ impl ListSupportedDatabaseFlagsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSupportedDatabaseFlagsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListSupportedDatabaseFlagsRequest;
-    /// let x = ListSupportedDatabaseFlagsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSupportedDatabaseFlagsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListSupportedDatabaseFlagsRequest;
-    /// let x = ListSupportedDatabaseFlagsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSupportedDatabaseFlagsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListSupportedDatabaseFlagsRequest;
-    /// let x = ListSupportedDatabaseFlagsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [scope][crate::model::ListSupportedDatabaseFlagsRequest::scope].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListSupportedDatabaseFlagsRequest;
-    /// use google_cloud_alloydb_v1::model::supported_database_flag::Scope;
-    /// let x0 = ListSupportedDatabaseFlagsRequest::new().set_scope(Scope::Database);
-    /// let x1 = ListSupportedDatabaseFlagsRequest::new().set_scope(Scope::ConnectionPool);
-    /// ```
     pub fn set_scope<T: std::convert::Into<crate::model::supported_database_flag::Scope>>(
         mut self,
         v: T,
@@ -15466,17 +11846,6 @@ impl ListSupportedDatabaseFlagsResponse {
     }
 
     /// Sets the value of [supported_database_flags][crate::model::ListSupportedDatabaseFlagsResponse::supported_database_flags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListSupportedDatabaseFlagsResponse;
-    /// use google_cloud_alloydb_v1::model::SupportedDatabaseFlag;
-    /// let x = ListSupportedDatabaseFlagsResponse::new()
-    ///     .set_supported_database_flags([
-    ///         SupportedDatabaseFlag::default()/* use setters */,
-    ///         SupportedDatabaseFlag::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_supported_database_flags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15488,12 +11857,6 @@ impl ListSupportedDatabaseFlagsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSupportedDatabaseFlagsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListSupportedDatabaseFlagsResponse;
-    /// let x = ListSupportedDatabaseFlagsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -15569,37 +11932,18 @@ impl GenerateClientCertificateRequest {
     }
 
     /// Sets the value of [parent][crate::model::GenerateClientCertificateRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::GenerateClientCertificateRequest;
-    /// let x = GenerateClientCertificateRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::GenerateClientCertificateRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::GenerateClientCertificateRequest;
-    /// let x = GenerateClientCertificateRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [cert_duration][crate::model::GenerateClientCertificateRequest::cert_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::GenerateClientCertificateRequest;
-    /// use wkt::Duration;
-    /// let x = GenerateClientCertificateRequest::new().set_cert_duration(Duration::default()/* use setters */);
-    /// ```
     pub fn set_cert_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -15609,14 +11953,6 @@ impl GenerateClientCertificateRequest {
     }
 
     /// Sets or clears the value of [cert_duration][crate::model::GenerateClientCertificateRequest::cert_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::GenerateClientCertificateRequest;
-    /// use wkt::Duration;
-    /// let x = GenerateClientCertificateRequest::new().set_or_clear_cert_duration(Some(Duration::default()/* use setters */));
-    /// let x = GenerateClientCertificateRequest::new().set_or_clear_cert_duration(None::<Duration>);
-    /// ```
     pub fn set_or_clear_cert_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -15626,24 +11962,12 @@ impl GenerateClientCertificateRequest {
     }
 
     /// Sets the value of [public_key][crate::model::GenerateClientCertificateRequest::public_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::GenerateClientCertificateRequest;
-    /// let x = GenerateClientCertificateRequest::new().set_public_key("example");
-    /// ```
     pub fn set_public_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.public_key = v.into();
         self
     }
 
     /// Sets the value of [use_metadata_exchange][crate::model::GenerateClientCertificateRequest::use_metadata_exchange].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::GenerateClientCertificateRequest;
-    /// let x = GenerateClientCertificateRequest::new().set_use_metadata_exchange(true);
-    /// ```
     pub fn set_use_metadata_exchange<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_metadata_exchange = v.into();
         self
@@ -15676,12 +12000,6 @@ impl GenerateClientCertificateResponse {
     }
 
     /// Sets the value of [pem_certificate_chain][crate::model::GenerateClientCertificateResponse::pem_certificate_chain].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::GenerateClientCertificateResponse;
-    /// let x = GenerateClientCertificateResponse::new().set_pem_certificate_chain(["a", "b", "c"]);
-    /// ```
     pub fn set_pem_certificate_chain<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15693,12 +12011,6 @@ impl GenerateClientCertificateResponse {
     }
 
     /// Sets the value of [ca_cert][crate::model::GenerateClientCertificateResponse::ca_cert].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::GenerateClientCertificateResponse;
-    /// let x = GenerateClientCertificateResponse::new().set_ca_cert("example");
-    /// ```
     pub fn set_ca_cert<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ca_cert = v.into();
         self
@@ -15743,24 +12055,12 @@ impl GetConnectionInfoRequest {
     }
 
     /// Sets the value of [parent][crate::model::GetConnectionInfoRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::GetConnectionInfoRequest;
-    /// let x = GetConnectionInfoRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::GetConnectionInfoRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::GetConnectionInfoRequest;
-    /// let x = GetConnectionInfoRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -15818,13 +12118,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15834,14 +12127,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15851,13 +12136,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15867,14 +12145,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15884,60 +12154,30 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -15947,14 +12187,6 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request_specific` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::OperationMetadata;
-    /// use google_cloud_alloydb_v1::model::operation_metadata;
-    /// use google_cloud_alloydb_v1::model::BatchCreateInstancesMetadata;
-    /// let x = OperationMetadata::new().set_request_specific(Some(operation_metadata::RequestSpecific::BatchCreateInstancesMetadata(BatchCreateInstancesMetadata::default().into())));
-    /// ```
     pub fn set_request_specific<
         T: std::convert::Into<std::option::Option<crate::model::operation_metadata::RequestSpecific>>,
     >(
@@ -15985,15 +12217,6 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request_specific` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::OperationMetadata;
-    /// use google_cloud_alloydb_v1::model::BatchCreateInstancesMetadata;
-    /// let x = OperationMetadata::new().set_batch_create_instances_metadata(BatchCreateInstancesMetadata::default()/* use setters */);
-    /// assert!(x.batch_create_instances_metadata().is_some());
-    /// assert!(x.upgrade_cluster_status().is_none());
-    /// ```
     pub fn set_batch_create_instances_metadata<
         T: std::convert::Into<std::boxed::Box<crate::model::BatchCreateInstancesMetadata>>,
     >(
@@ -16028,15 +12251,6 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request_specific` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::OperationMetadata;
-    /// use google_cloud_alloydb_v1::model::UpgradeClusterStatus;
-    /// let x = OperationMetadata::new().set_upgrade_cluster_status(UpgradeClusterStatus::default()/* use setters */);
-    /// assert!(x.upgrade_cluster_status().is_some());
-    /// assert!(x.batch_create_instances_metadata().is_none());
-    /// ```
     pub fn set_upgrade_cluster_status<
         T: std::convert::Into<std::boxed::Box<crate::model::UpgradeClusterStatus>>,
     >(
@@ -16100,15 +12314,6 @@ impl UpgradeClusterStatus {
     }
 
     /// Sets the value of [state][crate::model::UpgradeClusterStatus::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpgradeClusterStatus;
-    /// use google_cloud_alloydb_v1::model::upgrade_cluster_response::Status;
-    /// let x0 = UpgradeClusterStatus::new().set_state(Status::NotStarted);
-    /// let x1 = UpgradeClusterStatus::new().set_state(Status::InProgress);
-    /// let x2 = UpgradeClusterStatus::new().set_state(Status::Success);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::upgrade_cluster_response::Status>>(
         mut self,
         v: T,
@@ -16118,27 +12323,12 @@ impl UpgradeClusterStatus {
     }
 
     /// Sets the value of [cancellable][crate::model::UpgradeClusterStatus::cancellable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpgradeClusterStatus;
-    /// let x = UpgradeClusterStatus::new().set_cancellable(true);
-    /// ```
     pub fn set_cancellable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.cancellable = v.into();
         self
     }
 
     /// Sets the value of [source_version][crate::model::UpgradeClusterStatus::source_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpgradeClusterStatus;
-    /// use google_cloud_alloydb_v1::model::DatabaseVersion;
-    /// let x0 = UpgradeClusterStatus::new().set_source_version(DatabaseVersion::Postgres14);
-    /// let x1 = UpgradeClusterStatus::new().set_source_version(DatabaseVersion::Postgres15);
-    /// let x2 = UpgradeClusterStatus::new().set_source_version(DatabaseVersion::Postgres16);
-    /// ```
     pub fn set_source_version<T: std::convert::Into<crate::model::DatabaseVersion>>(
         mut self,
         v: T,
@@ -16148,15 +12338,6 @@ impl UpgradeClusterStatus {
     }
 
     /// Sets the value of [target_version][crate::model::UpgradeClusterStatus::target_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpgradeClusterStatus;
-    /// use google_cloud_alloydb_v1::model::DatabaseVersion;
-    /// let x0 = UpgradeClusterStatus::new().set_target_version(DatabaseVersion::Postgres14);
-    /// let x1 = UpgradeClusterStatus::new().set_target_version(DatabaseVersion::Postgres15);
-    /// let x2 = UpgradeClusterStatus::new().set_target_version(DatabaseVersion::Postgres16);
-    /// ```
     pub fn set_target_version<T: std::convert::Into<crate::model::DatabaseVersion>>(
         mut self,
         v: T,
@@ -16166,17 +12347,6 @@ impl UpgradeClusterStatus {
     }
 
     /// Sets the value of [stages][crate::model::UpgradeClusterStatus::stages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpgradeClusterStatus;
-    /// use google_cloud_alloydb_v1::model::upgrade_cluster_status::StageStatus;
-    /// let x = UpgradeClusterStatus::new()
-    ///     .set_stages([
-    ///         StageStatus::default()/* use setters */,
-    ///         StageStatus::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_stages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16227,15 +12397,6 @@ pub mod upgrade_cluster_status {
         }
 
         /// Sets the value of [stage][crate::model::upgrade_cluster_status::StageStatus::stage].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::StageStatus;
-        /// use google_cloud_alloydb_v1::model::upgrade_cluster_response::Stage;
-        /// let x0 = StageStatus::new().set_stage(Stage::AlloydbPrecheck);
-        /// let x1 = StageStatus::new().set_stage(Stage::PgUpgradeCheck);
-        /// let x2 = StageStatus::new().set_stage(Stage::PrepareForUpgrade);
-        /// ```
         pub fn set_stage<T: std::convert::Into<crate::model::upgrade_cluster_response::Stage>>(
             mut self,
             v: T,
@@ -16245,15 +12406,6 @@ pub mod upgrade_cluster_status {
         }
 
         /// Sets the value of [state][crate::model::upgrade_cluster_status::StageStatus::state].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::StageStatus;
-        /// use google_cloud_alloydb_v1::model::upgrade_cluster_response::Status;
-        /// let x0 = StageStatus::new().set_state(Status::NotStarted);
-        /// let x1 = StageStatus::new().set_state(Status::InProgress);
-        /// let x2 = StageStatus::new().set_state(Status::Success);
-        /// ```
         pub fn set_state<T: std::convert::Into<crate::model::upgrade_cluster_response::Status>>(
             mut self,
             v: T,
@@ -16263,13 +12415,6 @@ pub mod upgrade_cluster_status {
         }
 
         /// Sets the value of [schedule][crate::model::upgrade_cluster_status::StageStatus::schedule].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::StageStatus;
-        /// use google_cloud_alloydb_v1::model::upgrade_cluster_status::stage_status::StageSchedule;
-        /// let x = StageStatus::new().set_schedule(StageSchedule::default()/* use setters */);
-        /// ```
         pub fn set_schedule<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -16281,14 +12426,6 @@ pub mod upgrade_cluster_status {
         }
 
         /// Sets or clears the value of [schedule][crate::model::upgrade_cluster_status::StageStatus::schedule].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::StageStatus;
-        /// use google_cloud_alloydb_v1::model::upgrade_cluster_status::stage_status::StageSchedule;
-        /// let x = StageStatus::new().set_or_clear_schedule(Some(StageSchedule::default()/* use setters */));
-        /// let x = StageStatus::new().set_or_clear_schedule(None::<StageSchedule>);
-        /// ```
         pub fn set_or_clear_schedule<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -16303,14 +12440,6 @@ pub mod upgrade_cluster_status {
         ///
         /// Note that all the setters affecting `stage_specific_status` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::StageStatus;
-        /// use google_cloud_alloydb_v1::model::upgrade_cluster_status::stage_status;
-        /// use google_cloud_alloydb_v1::model::upgrade_cluster_status::ReadPoolInstancesUpgradeStageStatus;
-        /// let x = StageStatus::new().set_stage_specific_status(Some(upgrade_cluster_status::stage_status::StageSpecificStatus::ReadPoolInstancesUpgrade(ReadPoolInstancesUpgradeStageStatus::default().into())));
-        /// ```
         pub fn set_stage_specific_status<
             T: std::convert::Into<
                     std::option::Option<
@@ -16347,14 +12476,6 @@ pub mod upgrade_cluster_status {
         ///
         /// Note that all the setters affecting `stage_specific_status` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::StageStatus;
-        /// use google_cloud_alloydb_v1::model::upgrade_cluster_status::ReadPoolInstancesUpgradeStageStatus;
-        /// let x = StageStatus::new().set_read_pool_instances_upgrade(ReadPoolInstancesUpgradeStageStatus::default()/* use setters */);
-        /// assert!(x.read_pool_instances_upgrade().is_some());
-        /// ```
         pub fn set_read_pool_instances_upgrade<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -16412,13 +12533,6 @@ pub mod upgrade_cluster_status {
             }
 
             /// Sets the value of [estimated_start_time][crate::model::upgrade_cluster_status::stage_status::StageSchedule::estimated_start_time].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::stage_status::StageSchedule;
-            /// use wkt::Timestamp;
-            /// let x = StageSchedule::new().set_estimated_start_time(Timestamp::default()/* use setters */);
-            /// ```
             pub fn set_estimated_start_time<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -16428,14 +12542,6 @@ pub mod upgrade_cluster_status {
             }
 
             /// Sets or clears the value of [estimated_start_time][crate::model::upgrade_cluster_status::stage_status::StageSchedule::estimated_start_time].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::stage_status::StageSchedule;
-            /// use wkt::Timestamp;
-            /// let x = StageSchedule::new().set_or_clear_estimated_start_time(Some(Timestamp::default()/* use setters */));
-            /// let x = StageSchedule::new().set_or_clear_estimated_start_time(None::<Timestamp>);
-            /// ```
             pub fn set_or_clear_estimated_start_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -16445,13 +12551,6 @@ pub mod upgrade_cluster_status {
             }
 
             /// Sets the value of [actual_start_time][crate::model::upgrade_cluster_status::stage_status::StageSchedule::actual_start_time].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::stage_status::StageSchedule;
-            /// use wkt::Timestamp;
-            /// let x = StageSchedule::new().set_actual_start_time(Timestamp::default()/* use setters */);
-            /// ```
             pub fn set_actual_start_time<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -16461,14 +12560,6 @@ pub mod upgrade_cluster_status {
             }
 
             /// Sets or clears the value of [actual_start_time][crate::model::upgrade_cluster_status::stage_status::StageSchedule::actual_start_time].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::stage_status::StageSchedule;
-            /// use wkt::Timestamp;
-            /// let x = StageSchedule::new().set_or_clear_actual_start_time(Some(Timestamp::default()/* use setters */));
-            /// let x = StageSchedule::new().set_or_clear_actual_start_time(None::<Timestamp>);
-            /// ```
             pub fn set_or_clear_actual_start_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -16478,13 +12569,6 @@ pub mod upgrade_cluster_status {
             }
 
             /// Sets the value of [estimated_end_time][crate::model::upgrade_cluster_status::stage_status::StageSchedule::estimated_end_time].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::stage_status::StageSchedule;
-            /// use wkt::Timestamp;
-            /// let x = StageSchedule::new().set_estimated_end_time(Timestamp::default()/* use setters */);
-            /// ```
             pub fn set_estimated_end_time<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -16494,14 +12578,6 @@ pub mod upgrade_cluster_status {
             }
 
             /// Sets or clears the value of [estimated_end_time][crate::model::upgrade_cluster_status::stage_status::StageSchedule::estimated_end_time].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::stage_status::StageSchedule;
-            /// use wkt::Timestamp;
-            /// let x = StageSchedule::new().set_or_clear_estimated_end_time(Some(Timestamp::default()/* use setters */));
-            /// let x = StageSchedule::new().set_or_clear_estimated_end_time(None::<Timestamp>);
-            /// ```
             pub fn set_or_clear_estimated_end_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -16511,13 +12587,6 @@ pub mod upgrade_cluster_status {
             }
 
             /// Sets the value of [actual_end_time][crate::model::upgrade_cluster_status::stage_status::StageSchedule::actual_end_time].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::stage_status::StageSchedule;
-            /// use wkt::Timestamp;
-            /// let x = StageSchedule::new().set_actual_end_time(Timestamp::default()/* use setters */);
-            /// ```
             pub fn set_actual_end_time<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -16527,14 +12596,6 @@ pub mod upgrade_cluster_status {
             }
 
             /// Sets or clears the value of [actual_end_time][crate::model::upgrade_cluster_status::stage_status::StageSchedule::actual_end_time].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::stage_status::StageSchedule;
-            /// use wkt::Timestamp;
-            /// let x = StageSchedule::new().set_or_clear_actual_end_time(Some(Timestamp::default()/* use setters */));
-            /// let x = StageSchedule::new().set_or_clear_actual_end_time(None::<Timestamp>);
-            /// ```
             pub fn set_or_clear_actual_end_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -16581,13 +12642,6 @@ pub mod upgrade_cluster_status {
         }
 
         /// Sets the value of [upgrade_stats][crate::model::upgrade_cluster_status::ReadPoolInstancesUpgradeStageStatus::upgrade_stats].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::ReadPoolInstancesUpgradeStageStatus;
-        /// use google_cloud_alloydb_v1::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats;
-        /// let x = ReadPoolInstancesUpgradeStageStatus::new().set_upgrade_stats(Stats::default()/* use setters */);
-        /// ```
         pub fn set_upgrade_stats<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats>
         {
@@ -16596,14 +12650,6 @@ pub mod upgrade_cluster_status {
         }
 
         /// Sets or clears the value of [upgrade_stats][crate::model::upgrade_cluster_status::ReadPoolInstancesUpgradeStageStatus::upgrade_stats].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::ReadPoolInstancesUpgradeStageStatus;
-        /// use google_cloud_alloydb_v1::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats;
-        /// let x = ReadPoolInstancesUpgradeStageStatus::new().set_or_clear_upgrade_stats(Some(Stats::default()/* use setters */));
-        /// let x = ReadPoolInstancesUpgradeStageStatus::new().set_or_clear_upgrade_stats(None::<Stats>);
-        /// ```
         pub fn set_or_clear_upgrade_stats<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats>
         {
@@ -16648,48 +12694,24 @@ pub mod upgrade_cluster_status {
             }
 
             /// Sets the value of [not_started][crate::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats::not_started].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats;
-            /// let x = Stats::new().set_not_started(42);
-            /// ```
             pub fn set_not_started<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.not_started = v.into();
                 self
             }
 
             /// Sets the value of [ongoing][crate::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats::ongoing].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats;
-            /// let x = Stats::new().set_ongoing(42);
-            /// ```
             pub fn set_ongoing<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.ongoing = v.into();
                 self
             }
 
             /// Sets the value of [success][crate::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats::success].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats;
-            /// let x = Stats::new().set_success(42);
-            /// ```
             pub fn set_success<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.success = v.into();
                 self
             }
 
             /// Sets the value of [failed][crate::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats::failed].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_alloydb_v1::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats;
-            /// let x = Stats::new().set_failed(42);
-            /// ```
             pub fn set_failed<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.failed = v.into();
                 self
@@ -16733,60 +12755,30 @@ impl ListUsersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListUsersRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListUsersRequest;
-    /// let x = ListUsersRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListUsersRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListUsersRequest;
-    /// let x = ListUsersRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListUsersRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListUsersRequest;
-    /// let x = ListUsersRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListUsersRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListUsersRequest;
-    /// let x = ListUsersRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListUsersRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListUsersRequest;
-    /// let x = ListUsersRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -16821,17 +12813,6 @@ impl ListUsersResponse {
     }
 
     /// Sets the value of [users][crate::model::ListUsersResponse::users].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListUsersResponse;
-    /// use google_cloud_alloydb_v1::model::User;
-    /// let x = ListUsersResponse::new()
-    ///     .set_users([
-    ///         User::default()/* use setters */,
-    ///         User::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_users<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16843,24 +12824,12 @@ impl ListUsersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListUsersResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListUsersResponse;
-    /// let x = ListUsersResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListUsersResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListUsersResponse;
-    /// let x = ListUsersResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16909,12 +12878,6 @@ impl GetUserRequest {
     }
 
     /// Sets the value of [name][crate::model::GetUserRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::GetUserRequest;
-    /// let x = GetUserRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -16968,37 +12931,18 @@ impl CreateUserRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateUserRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateUserRequest;
-    /// let x = CreateUserRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [user_id][crate::model::CreateUserRequest::user_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateUserRequest;
-    /// let x = CreateUserRequest::new().set_user_id("example");
-    /// ```
     pub fn set_user_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_id = v.into();
         self
     }
 
     /// Sets the value of [user][crate::model::CreateUserRequest::user].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateUserRequest;
-    /// use google_cloud_alloydb_v1::model::User;
-    /// let x = CreateUserRequest::new().set_user(User::default()/* use setters */);
-    /// ```
     pub fn set_user<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::User>,
@@ -17008,14 +12952,6 @@ impl CreateUserRequest {
     }
 
     /// Sets or clears the value of [user][crate::model::CreateUserRequest::user].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateUserRequest;
-    /// use google_cloud_alloydb_v1::model::User;
-    /// let x = CreateUserRequest::new().set_or_clear_user(Some(User::default()/* use setters */));
-    /// let x = CreateUserRequest::new().set_or_clear_user(None::<User>);
-    /// ```
     pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::User>,
@@ -17025,24 +12961,12 @@ impl CreateUserRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateUserRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateUserRequest;
-    /// let x = CreateUserRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateUserRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::CreateUserRequest;
-    /// let x = CreateUserRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -17100,13 +13024,6 @@ impl UpdateUserRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateUserRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateUserRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateUserRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -17116,14 +13033,6 @@ impl UpdateUserRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateUserRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateUserRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateUserRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateUserRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -17133,13 +13042,6 @@ impl UpdateUserRequest {
     }
 
     /// Sets the value of [user][crate::model::UpdateUserRequest::user].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateUserRequest;
-    /// use google_cloud_alloydb_v1::model::User;
-    /// let x = UpdateUserRequest::new().set_user(User::default()/* use setters */);
-    /// ```
     pub fn set_user<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::User>,
@@ -17149,14 +13051,6 @@ impl UpdateUserRequest {
     }
 
     /// Sets or clears the value of [user][crate::model::UpdateUserRequest::user].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateUserRequest;
-    /// use google_cloud_alloydb_v1::model::User;
-    /// let x = UpdateUserRequest::new().set_or_clear_user(Some(User::default()/* use setters */));
-    /// let x = UpdateUserRequest::new().set_or_clear_user(None::<User>);
-    /// ```
     pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::User>,
@@ -17166,36 +13060,18 @@ impl UpdateUserRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateUserRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateUserRequest;
-    /// let x = UpdateUserRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateUserRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateUserRequest;
-    /// let x = UpdateUserRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateUserRequest::allow_missing].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::UpdateUserRequest;
-    /// let x = UpdateUserRequest::new().set_allow_missing(true);
-    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -17244,36 +13120,18 @@ impl DeleteUserRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteUserRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::DeleteUserRequest;
-    /// let x = DeleteUserRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteUserRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::DeleteUserRequest;
-    /// let x = DeleteUserRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteUserRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::DeleteUserRequest;
-    /// let x = DeleteUserRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -17317,48 +13175,24 @@ impl ListDatabasesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDatabasesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListDatabasesRequest;
-    /// let x = ListDatabasesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDatabasesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListDatabasesRequest;
-    /// let x = ListDatabasesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDatabasesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListDatabasesRequest;
-    /// let x = ListDatabasesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDatabasesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListDatabasesRequest;
-    /// let x = ListDatabasesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -17391,17 +13225,6 @@ impl ListDatabasesResponse {
     }
 
     /// Sets the value of [databases][crate::model::ListDatabasesResponse::databases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListDatabasesResponse;
-    /// use google_cloud_alloydb_v1::model::Database;
-    /// let x = ListDatabasesResponse::new()
-    ///     .set_databases([
-    ///         Database::default()/* use setters */,
-    ///         Database::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_databases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17413,12 +13236,6 @@ impl ListDatabasesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDatabasesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_alloydb_v1::model::ListDatabasesResponse;
-    /// let x = ListDatabasesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self

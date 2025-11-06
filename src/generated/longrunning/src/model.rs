@@ -71,25 +71,12 @@ impl Operation {
     }
 
     /// Sets the value of [name][crate::model::Operation::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::Operation;
-    /// let x = Operation::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::Operation::metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::Operation;
-    /// use wkt::Any;
-    /// let x = Operation::new().set_metadata(Any::default()/* use setters */);
-    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -99,14 +86,6 @@ impl Operation {
     }
 
     /// Sets or clears the value of [metadata][crate::model::Operation::metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::Operation;
-    /// use wkt::Any;
-    /// let x = Operation::new().set_or_clear_metadata(Some(Any::default()/* use setters */));
-    /// let x = Operation::new().set_or_clear_metadata(None::<Any>);
-    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -116,12 +95,6 @@ impl Operation {
     }
 
     /// Sets the value of [done][crate::model::Operation::done].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::Operation;
-    /// let x = Operation::new().set_done(true);
-    /// ```
     pub fn set_done<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.done = v.into();
         self
@@ -131,14 +104,6 @@ impl Operation {
     ///
     /// Note that all the setters affecting `result` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::Operation;
-    /// use google_cloud_longrunning::model::operation;
-    /// use rpc::model::Status;
-    /// let x = Operation::new().set_result(Some(operation::Result::Error(Status::default().into())));
-    /// ```
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::operation::Result>>,
     >(
@@ -165,15 +130,6 @@ impl Operation {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::Operation;
-    /// use rpc::model::Status;
-    /// let x = Operation::new().set_error(Status::default()/* use setters */);
-    /// assert!(x.error().is_some());
-    /// assert!(x.response().is_none());
-    /// ```
     pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
         mut self,
         v: T,
@@ -198,15 +154,6 @@ impl Operation {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::Operation;
-    /// use wkt::Any;
-    /// let x = Operation::new().set_response(Any::default()/* use setters */);
-    /// assert!(x.response().is_some());
-    /// assert!(x.error().is_none());
-    /// ```
     pub fn set_response<T: std::convert::Into<std::boxed::Box<wkt::Any>>>(mut self, v: T) -> Self {
         self.result =
             std::option::Option::Some(crate::model::operation::Result::Response(v.into()));
@@ -265,12 +212,6 @@ impl GetOperationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetOperationRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::GetOperationRequest;
-    /// let x = GetOperationRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -323,60 +264,30 @@ impl ListOperationsRequest {
     }
 
     /// Sets the value of [name][crate::model::ListOperationsRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::ListOperationsRequest;
-    /// let x = ListOperationsRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListOperationsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::ListOperationsRequest;
-    /// let x = ListOperationsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListOperationsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::ListOperationsRequest;
-    /// let x = ListOperationsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListOperationsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::ListOperationsRequest;
-    /// let x = ListOperationsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [return_partial_success][crate::model::ListOperationsRequest::return_partial_success].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::ListOperationsRequest;
-    /// let x = ListOperationsRequest::new().set_return_partial_success(true);
-    /// ```
     pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.return_partial_success = v.into();
         self
@@ -417,17 +328,6 @@ impl ListOperationsResponse {
     }
 
     /// Sets the value of [operations][crate::model::ListOperationsResponse::operations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::ListOperationsResponse;
-    /// use google_cloud_longrunning::model::Operation;
-    /// let x = ListOperationsResponse::new()
-    ///     .set_operations([
-    ///         Operation::default()/* use setters */,
-    ///         Operation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -439,24 +339,12 @@ impl ListOperationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListOperationsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::ListOperationsResponse;
-    /// let x = ListOperationsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListOperationsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::ListOperationsResponse;
-    /// let x = ListOperationsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -507,12 +395,6 @@ impl CancelOperationRequest {
     }
 
     /// Sets the value of [name][crate::model::CancelOperationRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::CancelOperationRequest;
-    /// let x = CancelOperationRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -544,12 +426,6 @@ impl DeleteOperationRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteOperationRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::DeleteOperationRequest;
-    /// let x = DeleteOperationRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -584,25 +460,12 @@ impl WaitOperationRequest {
     }
 
     /// Sets the value of [name][crate::model::WaitOperationRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::WaitOperationRequest;
-    /// let x = WaitOperationRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [timeout][crate::model::WaitOperationRequest::timeout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::WaitOperationRequest;
-    /// use wkt::Duration;
-    /// let x = WaitOperationRequest::new().set_timeout(Duration::default()/* use setters */);
-    /// ```
     pub fn set_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -612,14 +475,6 @@ impl WaitOperationRequest {
     }
 
     /// Sets or clears the value of [timeout][crate::model::WaitOperationRequest::timeout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::WaitOperationRequest;
-    /// use wkt::Duration;
-    /// let x = WaitOperationRequest::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
-    /// let x = WaitOperationRequest::new().set_or_clear_timeout(None::<Duration>);
-    /// ```
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -678,24 +533,12 @@ impl OperationInfo {
     }
 
     /// Sets the value of [response_type][crate::model::OperationInfo::response_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::OperationInfo;
-    /// let x = OperationInfo::new().set_response_type("example");
-    /// ```
     pub fn set_response_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.response_type = v.into();
         self
     }
 
     /// Sets the value of [metadata_type][crate::model::OperationInfo::metadata_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_longrunning::model::OperationInfo;
-    /// let x = OperationInfo::new().set_metadata_type("example");
-    /// ```
     pub fn set_metadata_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metadata_type = v.into();
         self

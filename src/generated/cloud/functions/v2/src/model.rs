@@ -104,37 +104,18 @@ impl Function {
     }
 
     /// Sets the value of [name][crate::model::Function::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// let x = Function::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Function::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// let x = Function::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [build_config][crate::model::Function::build_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// use google_cloud_functions_v2::model::BuildConfig;
-    /// let x = Function::new().set_build_config(BuildConfig::default()/* use setters */);
-    /// ```
     pub fn set_build_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BuildConfig>,
@@ -144,14 +125,6 @@ impl Function {
     }
 
     /// Sets or clears the value of [build_config][crate::model::Function::build_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// use google_cloud_functions_v2::model::BuildConfig;
-    /// let x = Function::new().set_or_clear_build_config(Some(BuildConfig::default()/* use setters */));
-    /// let x = Function::new().set_or_clear_build_config(None::<BuildConfig>);
-    /// ```
     pub fn set_or_clear_build_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BuildConfig>,
@@ -161,13 +134,6 @@ impl Function {
     }
 
     /// Sets the value of [service_config][crate::model::Function::service_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// use google_cloud_functions_v2::model::ServiceConfig;
-    /// let x = Function::new().set_service_config(ServiceConfig::default()/* use setters */);
-    /// ```
     pub fn set_service_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceConfig>,
@@ -177,14 +143,6 @@ impl Function {
     }
 
     /// Sets or clears the value of [service_config][crate::model::Function::service_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// use google_cloud_functions_v2::model::ServiceConfig;
-    /// let x = Function::new().set_or_clear_service_config(Some(ServiceConfig::default()/* use setters */));
-    /// let x = Function::new().set_or_clear_service_config(None::<ServiceConfig>);
-    /// ```
     pub fn set_or_clear_service_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceConfig>,
@@ -194,13 +152,6 @@ impl Function {
     }
 
     /// Sets the value of [event_trigger][crate::model::Function::event_trigger].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// use google_cloud_functions_v2::model::EventTrigger;
-    /// let x = Function::new().set_event_trigger(EventTrigger::default()/* use setters */);
-    /// ```
     pub fn set_event_trigger<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EventTrigger>,
@@ -210,14 +161,6 @@ impl Function {
     }
 
     /// Sets or clears the value of [event_trigger][crate::model::Function::event_trigger].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// use google_cloud_functions_v2::model::EventTrigger;
-    /// let x = Function::new().set_or_clear_event_trigger(Some(EventTrigger::default()/* use setters */));
-    /// let x = Function::new().set_or_clear_event_trigger(None::<EventTrigger>);
-    /// ```
     pub fn set_or_clear_event_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EventTrigger>,
@@ -227,28 +170,12 @@ impl Function {
     }
 
     /// Sets the value of [state][crate::model::Function::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// use google_cloud_functions_v2::model::function::State;
-    /// let x0 = Function::new().set_state(State::Active);
-    /// let x1 = Function::new().set_state(State::Failed);
-    /// let x2 = Function::new().set_state(State::Deploying);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::function::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::Function::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// use wkt::Timestamp;
-    /// let x = Function::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -258,14 +185,6 @@ impl Function {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Function::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// use wkt::Timestamp;
-    /// let x = Function::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Function::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -275,15 +194,6 @@ impl Function {
     }
 
     /// Sets the value of [labels][crate::model::Function::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// let x = Function::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -296,17 +206,6 @@ impl Function {
     }
 
     /// Sets the value of [state_messages][crate::model::Function::state_messages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// use google_cloud_functions_v2::model::StateMessage;
-    /// let x = Function::new()
-    ///     .set_state_messages([
-    ///         StateMessage::default()/* use setters */,
-    ///         StateMessage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_state_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -318,14 +217,6 @@ impl Function {
     }
 
     /// Sets the value of [environment][crate::model::Function::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// use google_cloud_functions_v2::model::Environment;
-    /// let x0 = Function::new().set_environment(Environment::Gen1);
-    /// let x1 = Function::new().set_environment(Environment::Gen2);
-    /// ```
     pub fn set_environment<T: std::convert::Into<crate::model::Environment>>(
         mut self,
         v: T,
@@ -335,49 +226,24 @@ impl Function {
     }
 
     /// Sets the value of [url][crate::model::Function::url].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// let x = Function::new().set_url("example");
-    /// ```
     pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.url = v.into();
         self
     }
 
     /// Sets the value of [kms_key_name][crate::model::Function::kms_key_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// let x = Function::new().set_kms_key_name("example");
-    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Function::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// let x = Function::new().set_satisfies_pzs(true);
-    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Function::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// use wkt::Timestamp;
-    /// let x = Function::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -387,14 +253,6 @@ impl Function {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Function::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Function;
-    /// use wkt::Timestamp;
-    /// let x = Function::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Function::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -592,15 +450,6 @@ impl StateMessage {
     }
 
     /// Sets the value of [severity][crate::model::StateMessage::severity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::StateMessage;
-    /// use google_cloud_functions_v2::model::state_message::Severity;
-    /// let x0 = StateMessage::new().set_severity(Severity::Error);
-    /// let x1 = StateMessage::new().set_severity(Severity::Warning);
-    /// let x2 = StateMessage::new().set_severity(Severity::Info);
-    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::state_message::Severity>>(
         mut self,
         v: T,
@@ -610,24 +459,12 @@ impl StateMessage {
     }
 
     /// Sets the value of [r#type][crate::model::StateMessage::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::StateMessage;
-    /// let x = StateMessage::new().set_type("example");
-    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [message][crate::model::StateMessage::message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::StateMessage;
-    /// let x = StateMessage::new().set_message("example");
-    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
@@ -818,48 +655,24 @@ impl StorageSource {
     }
 
     /// Sets the value of [bucket][crate::model::StorageSource::bucket].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::StorageSource;
-    /// let x = StorageSource::new().set_bucket("example");
-    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
     }
 
     /// Sets the value of [object][crate::model::StorageSource::object].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::StorageSource;
-    /// let x = StorageSource::new().set_object("example");
-    /// ```
     pub fn set_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.object = v.into();
         self
     }
 
     /// Sets the value of [generation][crate::model::StorageSource::generation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::StorageSource;
-    /// let x = StorageSource::new().set_generation(42);
-    /// ```
     pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.generation = v.into();
         self
     }
 
     /// Sets the value of [source_upload_url][crate::model::StorageSource::source_upload_url].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::StorageSource;
-    /// let x = StorageSource::new().set_source_upload_url("example");
-    /// ```
     pub fn set_source_upload_url<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -910,48 +723,24 @@ impl RepoSource {
     }
 
     /// Sets the value of [project_id][crate::model::RepoSource::project_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::RepoSource;
-    /// let x = RepoSource::new().set_project_id("example");
-    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [repo_name][crate::model::RepoSource::repo_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::RepoSource;
-    /// let x = RepoSource::new().set_repo_name("example");
-    /// ```
     pub fn set_repo_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repo_name = v.into();
         self
     }
 
     /// Sets the value of [dir][crate::model::RepoSource::dir].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::RepoSource;
-    /// let x = RepoSource::new().set_dir("example");
-    /// ```
     pub fn set_dir<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dir = v.into();
         self
     }
 
     /// Sets the value of [invert_regex][crate::model::RepoSource::invert_regex].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::RepoSource;
-    /// let x = RepoSource::new().set_invert_regex(true);
-    /// ```
     pub fn set_invert_regex<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.invert_regex = v.into();
         self
@@ -961,13 +750,6 @@ impl RepoSource {
     ///
     /// Note that all the setters affecting `revision` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::RepoSource;
-    /// use google_cloud_functions_v2::model::repo_source;
-    /// let x = RepoSource::new().set_revision(Some(repo_source::Revision::BranchName("example".to_string())));
-    /// ```
     pub fn set_revision<
         T: std::convert::Into<std::option::Option<crate::model::repo_source::Revision>>,
     >(
@@ -994,15 +776,6 @@ impl RepoSource {
     ///
     /// Note that all the setters affecting `revision` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::RepoSource;
-    /// let x = RepoSource::new().set_branch_name("example");
-    /// assert!(x.branch_name().is_some());
-    /// assert!(x.tag_name().is_none());
-    /// assert!(x.commit_sha().is_none());
-    /// ```
     pub fn set_branch_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision =
             std::option::Option::Some(crate::model::repo_source::Revision::BranchName(v.into()));
@@ -1025,15 +798,6 @@ impl RepoSource {
     ///
     /// Note that all the setters affecting `revision` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::RepoSource;
-    /// let x = RepoSource::new().set_tag_name("example");
-    /// assert!(x.tag_name().is_some());
-    /// assert!(x.branch_name().is_none());
-    /// assert!(x.commit_sha().is_none());
-    /// ```
     pub fn set_tag_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision =
             std::option::Option::Some(crate::model::repo_source::Revision::TagName(v.into()));
@@ -1056,15 +820,6 @@ impl RepoSource {
     ///
     /// Note that all the setters affecting `revision` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::RepoSource;
-    /// let x = RepoSource::new().set_commit_sha("example");
-    /// assert!(x.commit_sha().is_some());
-    /// assert!(x.branch_name().is_none());
-    /// assert!(x.tag_name().is_none());
-    /// ```
     pub fn set_commit_sha<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision =
             std::option::Option::Some(crate::model::repo_source::Revision::CommitSha(v.into()));
@@ -1123,13 +878,6 @@ impl Source {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Source;
-    /// use google_cloud_functions_v2::model::source;
-    /// let x = Source::new().set_source(Some(source::Source::GitUri("example".to_string())));
-    /// ```
     pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::source::Source>>>(
         mut self,
         v: T,
@@ -1156,16 +904,6 @@ impl Source {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Source;
-    /// use google_cloud_functions_v2::model::StorageSource;
-    /// let x = Source::new().set_storage_source(StorageSource::default()/* use setters */);
-    /// assert!(x.storage_source().is_some());
-    /// assert!(x.repo_source().is_none());
-    /// assert!(x.git_uri().is_none());
-    /// ```
     pub fn set_storage_source<
         T: std::convert::Into<std::boxed::Box<crate::model::StorageSource>>,
     >(
@@ -1193,16 +931,6 @@ impl Source {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Source;
-    /// use google_cloud_functions_v2::model::RepoSource;
-    /// let x = Source::new().set_repo_source(RepoSource::default()/* use setters */);
-    /// assert!(x.repo_source().is_some());
-    /// assert!(x.storage_source().is_none());
-    /// assert!(x.git_uri().is_none());
-    /// ```
     pub fn set_repo_source<T: std::convert::Into<std::boxed::Box<crate::model::RepoSource>>>(
         mut self,
         v: T,
@@ -1227,15 +955,6 @@ impl Source {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Source;
-    /// let x = Source::new().set_git_uri("example");
-    /// assert!(x.git_uri().is_some());
-    /// assert!(x.storage_source().is_none());
-    /// assert!(x.repo_source().is_none());
-    /// ```
     pub fn set_git_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(crate::model::source::Source::GitUri(v.into()));
         self
@@ -1296,13 +1015,6 @@ impl SourceProvenance {
     }
 
     /// Sets the value of [resolved_storage_source][crate::model::SourceProvenance::resolved_storage_source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::SourceProvenance;
-    /// use google_cloud_functions_v2::model::StorageSource;
-    /// let x = SourceProvenance::new().set_resolved_storage_source(StorageSource::default()/* use setters */);
-    /// ```
     pub fn set_resolved_storage_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StorageSource>,
@@ -1312,14 +1024,6 @@ impl SourceProvenance {
     }
 
     /// Sets or clears the value of [resolved_storage_source][crate::model::SourceProvenance::resolved_storage_source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::SourceProvenance;
-    /// use google_cloud_functions_v2::model::StorageSource;
-    /// let x = SourceProvenance::new().set_or_clear_resolved_storage_source(Some(StorageSource::default()/* use setters */));
-    /// let x = SourceProvenance::new().set_or_clear_resolved_storage_source(None::<StorageSource>);
-    /// ```
     pub fn set_or_clear_resolved_storage_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StorageSource>,
@@ -1329,13 +1033,6 @@ impl SourceProvenance {
     }
 
     /// Sets the value of [resolved_repo_source][crate::model::SourceProvenance::resolved_repo_source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::SourceProvenance;
-    /// use google_cloud_functions_v2::model::RepoSource;
-    /// let x = SourceProvenance::new().set_resolved_repo_source(RepoSource::default()/* use setters */);
-    /// ```
     pub fn set_resolved_repo_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RepoSource>,
@@ -1345,14 +1042,6 @@ impl SourceProvenance {
     }
 
     /// Sets or clears the value of [resolved_repo_source][crate::model::SourceProvenance::resolved_repo_source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::SourceProvenance;
-    /// use google_cloud_functions_v2::model::RepoSource;
-    /// let x = SourceProvenance::new().set_or_clear_resolved_repo_source(Some(RepoSource::default()/* use setters */));
-    /// let x = SourceProvenance::new().set_or_clear_resolved_repo_source(None::<RepoSource>);
-    /// ```
     pub fn set_or_clear_resolved_repo_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RepoSource>,
@@ -1362,12 +1051,6 @@ impl SourceProvenance {
     }
 
     /// Sets the value of [git_uri][crate::model::SourceProvenance::git_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::SourceProvenance;
-    /// let x = SourceProvenance::new().set_git_uri("example");
-    /// ```
     pub fn set_git_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.git_uri = v.into();
         self
@@ -1468,49 +1151,24 @@ impl BuildConfig {
     }
 
     /// Sets the value of [build][crate::model::BuildConfig::build].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::BuildConfig;
-    /// let x = BuildConfig::new().set_build("example");
-    /// ```
     pub fn set_build<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.build = v.into();
         self
     }
 
     /// Sets the value of [runtime][crate::model::BuildConfig::runtime].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::BuildConfig;
-    /// let x = BuildConfig::new().set_runtime("example");
-    /// ```
     pub fn set_runtime<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.runtime = v.into();
         self
     }
 
     /// Sets the value of [entry_point][crate::model::BuildConfig::entry_point].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::BuildConfig;
-    /// let x = BuildConfig::new().set_entry_point("example");
-    /// ```
     pub fn set_entry_point<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entry_point = v.into();
         self
     }
 
     /// Sets the value of [source][crate::model::BuildConfig::source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::BuildConfig;
-    /// use google_cloud_functions_v2::model::Source;
-    /// let x = BuildConfig::new().set_source(Source::default()/* use setters */);
-    /// ```
     pub fn set_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Source>,
@@ -1520,14 +1178,6 @@ impl BuildConfig {
     }
 
     /// Sets or clears the value of [source][crate::model::BuildConfig::source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::BuildConfig;
-    /// use google_cloud_functions_v2::model::Source;
-    /// let x = BuildConfig::new().set_or_clear_source(Some(Source::default()/* use setters */));
-    /// let x = BuildConfig::new().set_or_clear_source(None::<Source>);
-    /// ```
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Source>,
@@ -1537,13 +1187,6 @@ impl BuildConfig {
     }
 
     /// Sets the value of [source_provenance][crate::model::BuildConfig::source_provenance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::BuildConfig;
-    /// use google_cloud_functions_v2::model::SourceProvenance;
-    /// let x = BuildConfig::new().set_source_provenance(SourceProvenance::default()/* use setters */);
-    /// ```
     pub fn set_source_provenance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SourceProvenance>,
@@ -1553,14 +1196,6 @@ impl BuildConfig {
     }
 
     /// Sets or clears the value of [source_provenance][crate::model::BuildConfig::source_provenance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::BuildConfig;
-    /// use google_cloud_functions_v2::model::SourceProvenance;
-    /// let x = BuildConfig::new().set_or_clear_source_provenance(Some(SourceProvenance::default()/* use setters */));
-    /// let x = BuildConfig::new().set_or_clear_source_provenance(None::<SourceProvenance>);
-    /// ```
     pub fn set_or_clear_source_provenance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceProvenance>,
@@ -1570,27 +1205,12 @@ impl BuildConfig {
     }
 
     /// Sets the value of [worker_pool][crate::model::BuildConfig::worker_pool].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::BuildConfig;
-    /// let x = BuildConfig::new().set_worker_pool("example");
-    /// ```
     pub fn set_worker_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.worker_pool = v.into();
         self
     }
 
     /// Sets the value of [environment_variables][crate::model::BuildConfig::environment_variables].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::BuildConfig;
-    /// let x = BuildConfig::new().set_environment_variables([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_environment_variables<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1603,14 +1223,6 @@ impl BuildConfig {
     }
 
     /// Sets the value of [docker_registry][crate::model::BuildConfig::docker_registry].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::BuildConfig;
-    /// use google_cloud_functions_v2::model::build_config::DockerRegistry;
-    /// let x0 = BuildConfig::new().set_docker_registry(DockerRegistry::ContainerRegistry);
-    /// let x1 = BuildConfig::new().set_docker_registry(DockerRegistry::ArtifactRegistry);
-    /// ```
     #[deprecated]
     pub fn set_docker_registry<
         T: std::convert::Into<crate::model::build_config::DockerRegistry>,
@@ -1623,12 +1235,6 @@ impl BuildConfig {
     }
 
     /// Sets the value of [docker_repository][crate::model::BuildConfig::docker_repository].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::BuildConfig;
-    /// let x = BuildConfig::new().set_docker_repository("example");
-    /// ```
     pub fn set_docker_repository<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1638,12 +1244,6 @@ impl BuildConfig {
     }
 
     /// Sets the value of [service_account][crate::model::BuildConfig::service_account].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::BuildConfig;
-    /// let x = BuildConfig::new().set_service_account("example");
-    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
@@ -1653,14 +1253,6 @@ impl BuildConfig {
     ///
     /// Note that all the setters affecting `runtime_update_policy` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::BuildConfig;
-    /// use google_cloud_functions_v2::model::build_config;
-    /// use google_cloud_functions_v2::model::AutomaticUpdatePolicy;
-    /// let x = BuildConfig::new().set_runtime_update_policy(Some(build_config::RuntimeUpdatePolicy::AutomaticUpdatePolicy(AutomaticUpdatePolicy::default().into())));
-    /// ```
     pub fn set_runtime_update_policy<
         T: std::convert::Into<std::option::Option<crate::model::build_config::RuntimeUpdatePolicy>>,
     >(
@@ -1691,15 +1283,6 @@ impl BuildConfig {
     ///
     /// Note that all the setters affecting `runtime_update_policy` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::BuildConfig;
-    /// use google_cloud_functions_v2::model::AutomaticUpdatePolicy;
-    /// let x = BuildConfig::new().set_automatic_update_policy(AutomaticUpdatePolicy::default()/* use setters */);
-    /// assert!(x.automatic_update_policy().is_some());
-    /// assert!(x.on_deploy_update_policy().is_none());
-    /// ```
     pub fn set_automatic_update_policy<
         T: std::convert::Into<std::boxed::Box<crate::model::AutomaticUpdatePolicy>>,
     >(
@@ -1732,15 +1315,6 @@ impl BuildConfig {
     ///
     /// Note that all the setters affecting `runtime_update_policy` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::BuildConfig;
-    /// use google_cloud_functions_v2::model::OnDeployUpdatePolicy;
-    /// let x = BuildConfig::new().set_on_deploy_update_policy(OnDeployUpdatePolicy::default()/* use setters */);
-    /// assert!(x.on_deploy_update_policy().is_some());
-    /// assert!(x.automatic_update_policy().is_none());
-    /// ```
     pub fn set_on_deploy_update_policy<
         T: std::convert::Into<std::boxed::Box<crate::model::OnDeployUpdatePolicy>>,
     >(
@@ -2027,36 +1601,18 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [service][crate::model::ServiceConfig::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// let x = ServiceConfig::new().set_service("example");
-    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [timeout_seconds][crate::model::ServiceConfig::timeout_seconds].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// let x = ServiceConfig::new().set_timeout_seconds(42);
-    /// ```
     pub fn set_timeout_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.timeout_seconds = v.into();
         self
     }
 
     /// Sets the value of [available_memory][crate::model::ServiceConfig::available_memory].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// let x = ServiceConfig::new().set_available_memory("example");
-    /// ```
     pub fn set_available_memory<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2066,27 +1622,12 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [available_cpu][crate::model::ServiceConfig::available_cpu].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// let x = ServiceConfig::new().set_available_cpu("example");
-    /// ```
     pub fn set_available_cpu<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.available_cpu = v.into();
         self
     }
 
     /// Sets the value of [environment_variables][crate::model::ServiceConfig::environment_variables].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// let x = ServiceConfig::new().set_environment_variables([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_environment_variables<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2099,50 +1640,24 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [max_instance_count][crate::model::ServiceConfig::max_instance_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// let x = ServiceConfig::new().set_max_instance_count(42);
-    /// ```
     pub fn set_max_instance_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_instance_count = v.into();
         self
     }
 
     /// Sets the value of [min_instance_count][crate::model::ServiceConfig::min_instance_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// let x = ServiceConfig::new().set_min_instance_count(42);
-    /// ```
     pub fn set_min_instance_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_instance_count = v.into();
         self
     }
 
     /// Sets the value of [vpc_connector][crate::model::ServiceConfig::vpc_connector].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// let x = ServiceConfig::new().set_vpc_connector("example");
-    /// ```
     pub fn set_vpc_connector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vpc_connector = v.into();
         self
     }
 
     /// Sets the value of [vpc_connector_egress_settings][crate::model::ServiceConfig::vpc_connector_egress_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// use google_cloud_functions_v2::model::service_config::VpcConnectorEgressSettings;
-    /// let x0 = ServiceConfig::new().set_vpc_connector_egress_settings(VpcConnectorEgressSettings::PrivateRangesOnly);
-    /// let x1 = ServiceConfig::new().set_vpc_connector_egress_settings(VpcConnectorEgressSettings::AllTraffic);
-    /// ```
     pub fn set_vpc_connector_egress_settings<
         T: std::convert::Into<crate::model::service_config::VpcConnectorEgressSettings>,
     >(
@@ -2154,15 +1669,6 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [ingress_settings][crate::model::ServiceConfig::ingress_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// use google_cloud_functions_v2::model::service_config::IngressSettings;
-    /// let x0 = ServiceConfig::new().set_ingress_settings(IngressSettings::AllowAll);
-    /// let x1 = ServiceConfig::new().set_ingress_settings(IngressSettings::AllowInternalOnly);
-    /// let x2 = ServiceConfig::new().set_ingress_settings(IngressSettings::AllowInternalAndGclb);
-    /// ```
     pub fn set_ingress_settings<
         T: std::convert::Into<crate::model::service_config::IngressSettings>,
     >(
@@ -2174,24 +1680,12 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [uri][crate::model::ServiceConfig::uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// let x = ServiceConfig::new().set_uri("example");
-    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [service_account_email][crate::model::ServiceConfig::service_account_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// let x = ServiceConfig::new().set_service_account_email("example");
-    /// ```
     pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2201,29 +1695,12 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [all_traffic_on_latest_revision][crate::model::ServiceConfig::all_traffic_on_latest_revision].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// let x = ServiceConfig::new().set_all_traffic_on_latest_revision(true);
-    /// ```
     pub fn set_all_traffic_on_latest_revision<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.all_traffic_on_latest_revision = v.into();
         self
     }
 
     /// Sets the value of [secret_environment_variables][crate::model::ServiceConfig::secret_environment_variables].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// use google_cloud_functions_v2::model::SecretEnvVar;
-    /// let x = ServiceConfig::new()
-    ///     .set_secret_environment_variables([
-    ///         SecretEnvVar::default()/* use setters */,
-    ///         SecretEnvVar::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_secret_environment_variables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2235,17 +1712,6 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [secret_volumes][crate::model::ServiceConfig::secret_volumes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// use google_cloud_functions_v2::model::SecretVolume;
-    /// let x = ServiceConfig::new()
-    ///     .set_secret_volumes([
-    ///         SecretVolume::default()/* use setters */,
-    ///         SecretVolume::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_secret_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2257,24 +1723,12 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [revision][crate::model::ServiceConfig::revision].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// let x = ServiceConfig::new().set_revision("example");
-    /// ```
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
         self
     }
 
     /// Sets the value of [max_instance_request_concurrency][crate::model::ServiceConfig::max_instance_request_concurrency].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// let x = ServiceConfig::new().set_max_instance_request_concurrency(42);
-    /// ```
     pub fn set_max_instance_request_concurrency<T: std::convert::Into<i32>>(
         mut self,
         v: T,
@@ -2284,14 +1738,6 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [security_level][crate::model::ServiceConfig::security_level].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// use google_cloud_functions_v2::model::service_config::SecurityLevel;
-    /// let x0 = ServiceConfig::new().set_security_level(SecurityLevel::SecureAlways);
-    /// let x1 = ServiceConfig::new().set_security_level(SecurityLevel::SecureOptional);
-    /// ```
     pub fn set_security_level<
         T: std::convert::Into<crate::model::service_config::SecurityLevel>,
     >(
@@ -2303,12 +1749,6 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [binary_authorization_policy][crate::model::ServiceConfig::binary_authorization_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ServiceConfig;
-    /// let x = ServiceConfig::new().set_binary_authorization_policy("example");
-    /// ```
     pub fn set_binary_authorization_policy<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2786,48 +2226,24 @@ impl SecretEnvVar {
     }
 
     /// Sets the value of [key][crate::model::SecretEnvVar::key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::SecretEnvVar;
-    /// let x = SecretEnvVar::new().set_key("example");
-    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [project_id][crate::model::SecretEnvVar::project_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::SecretEnvVar;
-    /// let x = SecretEnvVar::new().set_project_id("example");
-    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [secret][crate::model::SecretEnvVar::secret].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::SecretEnvVar;
-    /// let x = SecretEnvVar::new().set_secret("example");
-    /// ```
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::SecretEnvVar::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::SecretEnvVar;
-    /// let x = SecretEnvVar::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -2875,53 +2291,24 @@ impl SecretVolume {
     }
 
     /// Sets the value of [mount_path][crate::model::SecretVolume::mount_path].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::SecretVolume;
-    /// let x = SecretVolume::new().set_mount_path("example");
-    /// ```
     pub fn set_mount_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mount_path = v.into();
         self
     }
 
     /// Sets the value of [project_id][crate::model::SecretVolume::project_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::SecretVolume;
-    /// let x = SecretVolume::new().set_project_id("example");
-    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [secret][crate::model::SecretVolume::secret].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::SecretVolume;
-    /// let x = SecretVolume::new().set_secret("example");
-    /// ```
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of [versions][crate::model::SecretVolume::versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::SecretVolume;
-    /// use google_cloud_functions_v2::model::secret_volume::SecretVersion;
-    /// let x = SecretVolume::new()
-    ///     .set_versions([
-    ///         SecretVersion::default()/* use setters */,
-    ///         SecretVersion::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2968,24 +2355,12 @@ pub mod secret_volume {
         }
 
         /// Sets the value of [version][crate::model::secret_volume::SecretVersion::version].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_functions_v2::model::secret_volume::SecretVersion;
-        /// let x = SecretVersion::new().set_version("example");
-        /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
         }
 
         /// Sets the value of [path][crate::model::secret_volume::SecretVersion::path].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_functions_v2::model::secret_volume::SecretVersion;
-        /// let x = SecretVersion::new().set_path("example");
-        /// ```
         pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path = v.into();
             self
@@ -3066,53 +2441,24 @@ impl EventTrigger {
     }
 
     /// Sets the value of [trigger][crate::model::EventTrigger::trigger].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::EventTrigger;
-    /// let x = EventTrigger::new().set_trigger("example");
-    /// ```
     pub fn set_trigger<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trigger = v.into();
         self
     }
 
     /// Sets the value of [trigger_region][crate::model::EventTrigger::trigger_region].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::EventTrigger;
-    /// let x = EventTrigger::new().set_trigger_region("example");
-    /// ```
     pub fn set_trigger_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trigger_region = v.into();
         self
     }
 
     /// Sets the value of [event_type][crate::model::EventTrigger::event_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::EventTrigger;
-    /// let x = EventTrigger::new().set_event_type("example");
-    /// ```
     pub fn set_event_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.event_type = v.into();
         self
     }
 
     /// Sets the value of [event_filters][crate::model::EventTrigger::event_filters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::EventTrigger;
-    /// use google_cloud_functions_v2::model::EventFilter;
-    /// let x = EventTrigger::new()
-    ///     .set_event_filters([
-    ///         EventFilter::default()/* use setters */,
-    ///         EventFilter::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_event_filters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3124,24 +2470,12 @@ impl EventTrigger {
     }
 
     /// Sets the value of [pubsub_topic][crate::model::EventTrigger::pubsub_topic].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::EventTrigger;
-    /// let x = EventTrigger::new().set_pubsub_topic("example");
-    /// ```
     pub fn set_pubsub_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pubsub_topic = v.into();
         self
     }
 
     /// Sets the value of [service_account_email][crate::model::EventTrigger::service_account_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::EventTrigger;
-    /// let x = EventTrigger::new().set_service_account_email("example");
-    /// ```
     pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3151,14 +2485,6 @@ impl EventTrigger {
     }
 
     /// Sets the value of [retry_policy][crate::model::EventTrigger::retry_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::EventTrigger;
-    /// use google_cloud_functions_v2::model::event_trigger::RetryPolicy;
-    /// let x0 = EventTrigger::new().set_retry_policy(RetryPolicy::DoNotRetry);
-    /// let x1 = EventTrigger::new().set_retry_policy(RetryPolicy::Retry);
-    /// ```
     pub fn set_retry_policy<T: std::convert::Into<crate::model::event_trigger::RetryPolicy>>(
         mut self,
         v: T,
@@ -3168,24 +2494,12 @@ impl EventTrigger {
     }
 
     /// Sets the value of [channel][crate::model::EventTrigger::channel].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::EventTrigger;
-    /// let x = EventTrigger::new().set_channel("example");
-    /// ```
     pub fn set_channel<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.channel = v.into();
         self
     }
 
     /// Sets the value of [service][crate::model::EventTrigger::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::EventTrigger;
-    /// let x = EventTrigger::new().set_service("example");
-    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
@@ -3363,36 +2677,18 @@ impl EventFilter {
     }
 
     /// Sets the value of [attribute][crate::model::EventFilter::attribute].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::EventFilter;
-    /// let x = EventFilter::new().set_attribute("example");
-    /// ```
     pub fn set_attribute<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attribute = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::EventFilter::value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::EventFilter;
-    /// let x = EventFilter::new().set_value("example");
-    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }
 
     /// Sets the value of [operator][crate::model::EventFilter::operator].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::EventFilter;
-    /// let x = EventFilter::new().set_operator("example");
-    /// ```
     pub fn set_operator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operator = v.into();
         self
@@ -3429,24 +2725,12 @@ impl GetFunctionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFunctionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::GetFunctionRequest;
-    /// let x = GetFunctionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [revision][crate::model::GetFunctionRequest::revision].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::GetFunctionRequest;
-    /// let x = GetFunctionRequest::new().set_revision("example");
-    /// ```
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
         self
@@ -3501,60 +2785,30 @@ impl ListFunctionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFunctionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ListFunctionsRequest;
-    /// let x = ListFunctionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListFunctionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ListFunctionsRequest;
-    /// let x = ListFunctionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListFunctionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ListFunctionsRequest;
-    /// let x = ListFunctionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListFunctionsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ListFunctionsRequest;
-    /// let x = ListFunctionsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListFunctionsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ListFunctionsRequest;
-    /// let x = ListFunctionsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3591,17 +2845,6 @@ impl ListFunctionsResponse {
     }
 
     /// Sets the value of [functions][crate::model::ListFunctionsResponse::functions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ListFunctionsResponse;
-    /// use google_cloud_functions_v2::model::Function;
-    /// let x = ListFunctionsResponse::new()
-    ///     .set_functions([
-    ///         Function::default()/* use setters */,
-    ///         Function::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_functions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3613,24 +2856,12 @@ impl ListFunctionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListFunctionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ListFunctionsResponse;
-    /// let x = ListFunctionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListFunctionsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ListFunctionsResponse;
-    /// let x = ListFunctionsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3689,25 +2920,12 @@ impl CreateFunctionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateFunctionRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::CreateFunctionRequest;
-    /// let x = CreateFunctionRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [function][crate::model::CreateFunctionRequest::function].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::CreateFunctionRequest;
-    /// use google_cloud_functions_v2::model::Function;
-    /// let x = CreateFunctionRequest::new().set_function(Function::default()/* use setters */);
-    /// ```
     pub fn set_function<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Function>,
@@ -3717,14 +2935,6 @@ impl CreateFunctionRequest {
     }
 
     /// Sets or clears the value of [function][crate::model::CreateFunctionRequest::function].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::CreateFunctionRequest;
-    /// use google_cloud_functions_v2::model::Function;
-    /// let x = CreateFunctionRequest::new().set_or_clear_function(Some(Function::default()/* use setters */));
-    /// let x = CreateFunctionRequest::new().set_or_clear_function(None::<Function>);
-    /// ```
     pub fn set_or_clear_function<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Function>,
@@ -3734,12 +2944,6 @@ impl CreateFunctionRequest {
     }
 
     /// Sets the value of [function_id][crate::model::CreateFunctionRequest::function_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::CreateFunctionRequest;
-    /// let x = CreateFunctionRequest::new().set_function_id("example");
-    /// ```
     pub fn set_function_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.function_id = v.into();
         self
@@ -3772,13 +2976,6 @@ impl UpdateFunctionRequest {
     }
 
     /// Sets the value of [function][crate::model::UpdateFunctionRequest::function].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::UpdateFunctionRequest;
-    /// use google_cloud_functions_v2::model::Function;
-    /// let x = UpdateFunctionRequest::new().set_function(Function::default()/* use setters */);
-    /// ```
     pub fn set_function<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Function>,
@@ -3788,14 +2985,6 @@ impl UpdateFunctionRequest {
     }
 
     /// Sets or clears the value of [function][crate::model::UpdateFunctionRequest::function].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::UpdateFunctionRequest;
-    /// use google_cloud_functions_v2::model::Function;
-    /// let x = UpdateFunctionRequest::new().set_or_clear_function(Some(Function::default()/* use setters */));
-    /// let x = UpdateFunctionRequest::new().set_or_clear_function(None::<Function>);
-    /// ```
     pub fn set_or_clear_function<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Function>,
@@ -3805,13 +2994,6 @@ impl UpdateFunctionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateFunctionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::UpdateFunctionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateFunctionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3821,14 +3003,6 @@ impl UpdateFunctionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateFunctionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::UpdateFunctionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateFunctionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateFunctionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3860,12 +3034,6 @@ impl DeleteFunctionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteFunctionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::DeleteFunctionRequest;
-    /// let x = DeleteFunctionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3918,38 +3086,18 @@ impl GenerateUploadUrlRequest {
     }
 
     /// Sets the value of [parent][crate::model::GenerateUploadUrlRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::GenerateUploadUrlRequest;
-    /// let x = GenerateUploadUrlRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [kms_key_name][crate::model::GenerateUploadUrlRequest::kms_key_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::GenerateUploadUrlRequest;
-    /// let x = GenerateUploadUrlRequest::new().set_kms_key_name("example");
-    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [environment][crate::model::GenerateUploadUrlRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::GenerateUploadUrlRequest;
-    /// use google_cloud_functions_v2::model::Environment;
-    /// let x0 = GenerateUploadUrlRequest::new().set_environment(Environment::Gen1);
-    /// let x1 = GenerateUploadUrlRequest::new().set_environment(Environment::Gen2);
-    /// ```
     pub fn set_environment<T: std::convert::Into<crate::model::Environment>>(
         mut self,
         v: T,
@@ -3993,25 +3141,12 @@ impl GenerateUploadUrlResponse {
     }
 
     /// Sets the value of [upload_url][crate::model::GenerateUploadUrlResponse::upload_url].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::GenerateUploadUrlResponse;
-    /// let x = GenerateUploadUrlResponse::new().set_upload_url("example");
-    /// ```
     pub fn set_upload_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.upload_url = v.into();
         self
     }
 
     /// Sets the value of [storage_source][crate::model::GenerateUploadUrlResponse::storage_source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::GenerateUploadUrlResponse;
-    /// use google_cloud_functions_v2::model::StorageSource;
-    /// let x = GenerateUploadUrlResponse::new().set_storage_source(StorageSource::default()/* use setters */);
-    /// ```
     pub fn set_storage_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StorageSource>,
@@ -4021,14 +3156,6 @@ impl GenerateUploadUrlResponse {
     }
 
     /// Sets or clears the value of [storage_source][crate::model::GenerateUploadUrlResponse::storage_source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::GenerateUploadUrlResponse;
-    /// use google_cloud_functions_v2::model::StorageSource;
-    /// let x = GenerateUploadUrlResponse::new().set_or_clear_storage_source(Some(StorageSource::default()/* use setters */));
-    /// let x = GenerateUploadUrlResponse::new().set_or_clear_storage_source(None::<StorageSource>);
-    /// ```
     pub fn set_or_clear_storage_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StorageSource>,
@@ -4061,12 +3188,6 @@ impl GenerateDownloadUrlRequest {
     }
 
     /// Sets the value of [name][crate::model::GenerateDownloadUrlRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::GenerateDownloadUrlRequest;
-    /// let x = GenerateDownloadUrlRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4096,12 +3217,6 @@ impl GenerateDownloadUrlResponse {
     }
 
     /// Sets the value of [download_url][crate::model::GenerateDownloadUrlResponse::download_url].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::GenerateDownloadUrlResponse;
-    /// let x = GenerateDownloadUrlResponse::new().set_download_url("example");
-    /// ```
     pub fn set_download_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.download_url = v.into();
         self
@@ -4135,24 +3250,12 @@ impl ListRuntimesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRuntimesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ListRuntimesRequest;
-    /// let x = ListRuntimesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRuntimesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ListRuntimesRequest;
-    /// let x = ListRuntimesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -4181,17 +3284,6 @@ impl ListRuntimesResponse {
     }
 
     /// Sets the value of [runtimes][crate::model::ListRuntimesResponse::runtimes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::ListRuntimesResponse;
-    /// use google_cloud_functions_v2::model::list_runtimes_response::Runtime;
-    /// let x = ListRuntimesResponse::new()
-    ///     .set_runtimes([
-    ///         Runtime::default()/* use setters */,
-    ///         Runtime::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_runtimes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4249,24 +3341,12 @@ pub mod list_runtimes_response {
         }
 
         /// Sets the value of [name][crate::model::list_runtimes_response::Runtime::name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_functions_v2::model::list_runtimes_response::Runtime;
-        /// let x = Runtime::new().set_name("example");
-        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [display_name][crate::model::list_runtimes_response::Runtime::display_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_functions_v2::model::list_runtimes_response::Runtime;
-        /// let x = Runtime::new().set_display_name("example");
-        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4276,15 +3356,6 @@ pub mod list_runtimes_response {
         }
 
         /// Sets the value of [stage][crate::model::list_runtimes_response::Runtime::stage].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_functions_v2::model::list_runtimes_response::Runtime;
-        /// use google_cloud_functions_v2::model::list_runtimes_response::RuntimeStage;
-        /// let x0 = Runtime::new().set_stage(RuntimeStage::Development);
-        /// let x1 = Runtime::new().set_stage(RuntimeStage::Alpha);
-        /// let x2 = Runtime::new().set_stage(RuntimeStage::Beta);
-        /// ```
         pub fn set_stage<
             T: std::convert::Into<crate::model::list_runtimes_response::RuntimeStage>,
         >(
@@ -4296,12 +3367,6 @@ pub mod list_runtimes_response {
         }
 
         /// Sets the value of [warnings][crate::model::list_runtimes_response::Runtime::warnings].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_functions_v2::model::list_runtimes_response::Runtime;
-        /// let x = Runtime::new().set_warnings(["a", "b", "c"]);
-        /// ```
         pub fn set_warnings<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4313,14 +3378,6 @@ pub mod list_runtimes_response {
         }
 
         /// Sets the value of [environment][crate::model::list_runtimes_response::Runtime::environment].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_functions_v2::model::list_runtimes_response::Runtime;
-        /// use google_cloud_functions_v2::model::Environment;
-        /// let x0 = Runtime::new().set_environment(Environment::Gen1);
-        /// let x1 = Runtime::new().set_environment(Environment::Gen2);
-        /// ```
         pub fn set_environment<T: std::convert::Into<crate::model::Environment>>(
             mut self,
             v: T,
@@ -4330,13 +3387,6 @@ pub mod list_runtimes_response {
         }
 
         /// Sets the value of [deprecation_date][crate::model::list_runtimes_response::Runtime::deprecation_date].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_functions_v2::model::list_runtimes_response::Runtime;
-        /// use gtype::model::Date;
-        /// let x = Runtime::new().set_deprecation_date(Date::default()/* use setters */);
-        /// ```
         pub fn set_deprecation_date<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
@@ -4346,14 +3396,6 @@ pub mod list_runtimes_response {
         }
 
         /// Sets or clears the value of [deprecation_date][crate::model::list_runtimes_response::Runtime::deprecation_date].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_functions_v2::model::list_runtimes_response::Runtime;
-        /// use gtype::model::Date;
-        /// let x = Runtime::new().set_or_clear_deprecation_date(Some(Date::default()/* use setters */));
-        /// let x = Runtime::new().set_or_clear_deprecation_date(None::<Date>);
-        /// ```
         pub fn set_or_clear_deprecation_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
@@ -4363,13 +3405,6 @@ pub mod list_runtimes_response {
         }
 
         /// Sets the value of [decommission_date][crate::model::list_runtimes_response::Runtime::decommission_date].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_functions_v2::model::list_runtimes_response::Runtime;
-        /// use gtype::model::Date;
-        /// let x = Runtime::new().set_decommission_date(Date::default()/* use setters */);
-        /// ```
         pub fn set_decommission_date<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
@@ -4379,14 +3414,6 @@ pub mod list_runtimes_response {
         }
 
         /// Sets or clears the value of [decommission_date][crate::model::list_runtimes_response::Runtime::decommission_date].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_functions_v2::model::list_runtimes_response::Runtime;
-        /// use gtype::model::Date;
-        /// let x = Runtime::new().set_or_clear_decommission_date(Some(Date::default()/* use setters */));
-        /// let x = Runtime::new().set_or_clear_decommission_date(None::<Date>);
-        /// ```
         pub fn set_or_clear_decommission_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
@@ -4600,12 +3627,6 @@ impl OnDeployUpdatePolicy {
     }
 
     /// Sets the value of [runtime_version][crate::model::OnDeployUpdatePolicy::runtime_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::OnDeployUpdatePolicy;
-    /// let x = OnDeployUpdatePolicy::new().set_runtime_version("example");
-    /// ```
     pub fn set_runtime_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.runtime_version = v.into();
         self
@@ -4676,13 +3697,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4692,14 +3706,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4709,13 +3715,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4725,14 +3724,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4742,73 +3733,36 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_detail][crate::model::OperationMetadata::status_detail].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_detail("example");
-    /// ```
     pub fn set_status_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_detail = v.into();
         self
     }
 
     /// Sets the value of [cancel_requested][crate::model::OperationMetadata::cancel_requested].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_cancel_requested(true);
-    /// ```
     pub fn set_cancel_requested<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.cancel_requested = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
     }
 
     /// Sets the value of [request_resource][crate::model::OperationMetadata::request_resource].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::OperationMetadata;
-    /// use wkt::Any;
-    /// let x = OperationMetadata::new().set_request_resource(Any::default()/* use setters */);
-    /// ```
     pub fn set_request_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -4818,14 +3772,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [request_resource][crate::model::OperationMetadata::request_resource].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::OperationMetadata;
-    /// use wkt::Any;
-    /// let x = OperationMetadata::new().set_or_clear_request_resource(Some(Any::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_request_resource(None::<Any>);
-    /// ```
     pub fn set_or_clear_request_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -4835,17 +3781,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [stages][crate::model::OperationMetadata::stages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::OperationMetadata;
-    /// use google_cloud_functions_v2::model::Stage;
-    /// let x = OperationMetadata::new()
-    ///     .set_stages([
-    ///         Stage::default()/* use setters */,
-    ///         Stage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_stages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4857,39 +3792,18 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [source_token][crate::model::OperationMetadata::source_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_source_token("example");
-    /// ```
     pub fn set_source_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_token = v.into();
         self
     }
 
     /// Sets the value of [build_name][crate::model::OperationMetadata::build_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_build_name("example");
-    /// ```
     pub fn set_build_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.build_name = v.into();
         self
     }
 
     /// Sets the value of [operation_type][crate::model::OperationMetadata::operation_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::OperationMetadata;
-    /// use google_cloud_functions_v2::model::OperationType;
-    /// let x0 = OperationMetadata::new().set_operation_type(OperationType::CreateFunction);
-    /// let x1 = OperationMetadata::new().set_operation_type(OperationType::UpdateFunction);
-    /// let x2 = OperationMetadata::new().set_operation_type(OperationType::DeleteFunction);
-    /// ```
     pub fn set_operation_type<T: std::convert::Into<crate::model::OperationType>>(
         mut self,
         v: T,
@@ -4921,16 +3835,6 @@ impl LocationMetadata {
     }
 
     /// Sets the value of [environments][crate::model::LocationMetadata::environments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::LocationMetadata;
-    /// use google_cloud_functions_v2::model::Environment;
-    /// let x = LocationMetadata::new().set_environments([
-    ///     Environment::Gen1,
-    ///     Environment::Gen2,
-    /// ]);
-    /// ```
     pub fn set_environments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4979,83 +3883,36 @@ impl Stage {
     }
 
     /// Sets the value of [name][crate::model::Stage::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Stage;
-    /// use google_cloud_functions_v2::model::stage::Name;
-    /// let x0 = Stage::new().set_name(Name::ArtifactRegistry);
-    /// let x1 = Stage::new().set_name(Name::Build);
-    /// let x2 = Stage::new().set_name(Name::Service);
-    /// ```
     pub fn set_name<T: std::convert::Into<crate::model::stage::Name>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [message][crate::model::Stage::message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Stage;
-    /// let x = Stage::new().set_message("example");
-    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Stage::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Stage;
-    /// use google_cloud_functions_v2::model::stage::State;
-    /// let x0 = Stage::new().set_state(State::NotStarted);
-    /// let x1 = Stage::new().set_state(State::InProgress);
-    /// let x2 = Stage::new().set_state(State::Complete);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::stage::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [resource][crate::model::Stage::resource].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Stage;
-    /// let x = Stage::new().set_resource("example");
-    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [resource_uri][crate::model::Stage::resource_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Stage;
-    /// let x = Stage::new().set_resource_uri("example");
-    /// ```
     pub fn set_resource_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_uri = v.into();
         self
     }
 
     /// Sets the value of [state_messages][crate::model::Stage::state_messages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_functions_v2::model::Stage;
-    /// use google_cloud_functions_v2::model::StateMessage;
-    /// let x = Stage::new()
-    ///     .set_state_messages([
-    ///         StateMessage::default()/* use setters */,
-    ///         StateMessage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_state_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

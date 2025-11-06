@@ -65,24 +65,12 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [network][crate::model::NetworkConfig::network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::NetworkConfig;
-    /// let x = NetworkConfig::new().set_network("example");
-    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [ip_allocation][crate::model::NetworkConfig::ip_allocation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::NetworkConfig;
-    /// let x = NetworkConfig::new().set_ip_allocation("example");
-    /// ```
     pub fn set_ip_allocation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_allocation = v.into();
         self
@@ -121,36 +109,18 @@ impl Version {
     }
 
     /// Sets the value of [version_number][crate::model::Version::version_number].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Version;
-    /// let x = Version::new().set_version_number("example");
-    /// ```
     pub fn set_version_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version_number = v.into();
         self
     }
 
     /// Sets the value of [default_version][crate::model::Version::default_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Version;
-    /// let x = Version::new().set_default_version(true);
-    /// ```
     pub fn set_default_version<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.default_version = v.into();
         self
     }
 
     /// Sets the value of [available_features][crate::model::Version::available_features].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Version;
-    /// let x = Version::new().set_available_features(["a", "b", "c"]);
-    /// ```
     pub fn set_available_features<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -162,14 +132,6 @@ impl Version {
     }
 
     /// Sets the value of [r#type][crate::model::Version::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Version;
-    /// use google_cloud_datafusion_v1::model::version::Type;
-    /// let x0 = Version::new().set_type(Type::Preview);
-    /// let x1 = Version::new().set_type(Type::GeneralAvailability);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::version::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
@@ -339,15 +301,6 @@ impl Accelerator {
     }
 
     /// Sets the value of [accelerator_type][crate::model::Accelerator::accelerator_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Accelerator;
-    /// use google_cloud_datafusion_v1::model::accelerator::AcceleratorType;
-    /// let x0 = Accelerator::new().set_accelerator_type(AcceleratorType::Cdc);
-    /// let x1 = Accelerator::new().set_accelerator_type(AcceleratorType::Healthcare);
-    /// let x2 = Accelerator::new().set_accelerator_type(AcceleratorType::CcaiInsights);
-    /// ```
     pub fn set_accelerator_type<
         T: std::convert::Into<crate::model::accelerator::AcceleratorType>,
     >(
@@ -359,15 +312,6 @@ impl Accelerator {
     }
 
     /// Sets the value of [state][crate::model::Accelerator::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Accelerator;
-    /// use google_cloud_datafusion_v1::model::accelerator::State;
-    /// let x0 = Accelerator::new().set_state(State::Enabled);
-    /// let x1 = Accelerator::new().set_state(State::Disabled);
-    /// let x2 = Accelerator::new().set_state(State::Unknown);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::accelerator::State>>(
         mut self,
         v: T,
@@ -691,12 +635,6 @@ impl CryptoKeyConfig {
     }
 
     /// Sets the value of [key_reference][crate::model::CryptoKeyConfig::key_reference].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::CryptoKeyConfig;
-    /// let x = CryptoKeyConfig::new().set_key_reference("example");
-    /// ```
     pub fn set_key_reference<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_reference = v.into();
         self
@@ -822,88 +760,42 @@ impl Instance {
     }
 
     /// Sets the value of [name][crate::model::Instance::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Instance::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Instance::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// use google_cloud_datafusion_v1::model::instance::Type;
-    /// let x0 = Instance::new().set_type(Type::Basic);
-    /// let x1 = Instance::new().set_type(Type::Enterprise);
-    /// let x2 = Instance::new().set_type(Type::Developer);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::instance::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [enable_stackdriver_logging][crate::model::Instance::enable_stackdriver_logging].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_enable_stackdriver_logging(true);
-    /// ```
     pub fn set_enable_stackdriver_logging<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_stackdriver_logging = v.into();
         self
     }
 
     /// Sets the value of [enable_stackdriver_monitoring][crate::model::Instance::enable_stackdriver_monitoring].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_enable_stackdriver_monitoring(true);
-    /// ```
     pub fn set_enable_stackdriver_monitoring<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_stackdriver_monitoring = v.into();
         self
     }
 
     /// Sets the value of [private_instance][crate::model::Instance::private_instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_private_instance(true);
-    /// ```
     pub fn set_private_instance<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.private_instance = v.into();
         self
     }
 
     /// Sets the value of [network_config][crate::model::Instance::network_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// use google_cloud_datafusion_v1::model::NetworkConfig;
-    /// let x = Instance::new().set_network_config(NetworkConfig::default()/* use setters */);
-    /// ```
     pub fn set_network_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkConfig>,
@@ -913,14 +805,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [network_config][crate::model::Instance::network_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// use google_cloud_datafusion_v1::model::NetworkConfig;
-    /// let x = Instance::new().set_or_clear_network_config(Some(NetworkConfig::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_network_config(None::<NetworkConfig>);
-    /// ```
     pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkConfig>,
@@ -930,15 +814,6 @@ impl Instance {
     }
 
     /// Sets the value of [labels][crate::model::Instance::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -951,15 +826,6 @@ impl Instance {
     }
 
     /// Sets the value of [options][crate::model::Instance::options].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_options([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_options<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -972,13 +838,6 @@ impl Instance {
     }
 
     /// Sets the value of [create_time][crate::model::Instance::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -988,14 +847,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1005,13 +856,6 @@ impl Instance {
     }
 
     /// Sets the value of [update_time][crate::model::Instance::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1021,14 +865,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Instance::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1038,39 +874,18 @@ impl Instance {
     }
 
     /// Sets the value of [state][crate::model::Instance::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// use google_cloud_datafusion_v1::model::instance::State;
-    /// let x0 = Instance::new().set_state(State::Creating);
-    /// let x1 = Instance::new().set_state(State::Active);
-    /// let x2 = Instance::new().set_state(State::Failed);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::instance::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [state_message][crate::model::Instance::state_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_state_message("example");
-    /// ```
     pub fn set_state_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_message = v.into();
         self
     }
 
     /// Sets the value of [service_endpoint][crate::model::Instance::service_endpoint].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_service_endpoint("example");
-    /// ```
     pub fn set_service_endpoint<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1080,36 +895,18 @@ impl Instance {
     }
 
     /// Sets the value of [zone][crate::model::Instance::zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_zone("example");
-    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::Instance::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [service_account][crate::model::Instance::service_account].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_service_account("example");
-    /// ```
     #[deprecated]
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
@@ -1117,29 +914,12 @@ impl Instance {
     }
 
     /// Sets the value of [display_name][crate::model::Instance::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [available_version][crate::model::Instance::available_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// use google_cloud_datafusion_v1::model::Version;
-    /// let x = Instance::new()
-    ///     .set_available_version([
-    ///         Version::default()/* use setters */,
-    ///         Version::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_available_version<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1151,41 +931,18 @@ impl Instance {
     }
 
     /// Sets the value of [api_endpoint][crate::model::Instance::api_endpoint].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_api_endpoint("example");
-    /// ```
     pub fn set_api_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_endpoint = v.into();
         self
     }
 
     /// Sets the value of [gcs_bucket][crate::model::Instance::gcs_bucket].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_gcs_bucket("example");
-    /// ```
     pub fn set_gcs_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcs_bucket = v.into();
         self
     }
 
     /// Sets the value of [accelerators][crate::model::Instance::accelerators].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// use google_cloud_datafusion_v1::model::Accelerator;
-    /// let x = Instance::new()
-    ///     .set_accelerators([
-    ///         Accelerator::default()/* use setters */,
-    ///         Accelerator::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_accelerators<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1197,12 +954,6 @@ impl Instance {
     }
 
     /// Sets the value of [p4_service_account][crate::model::Instance::p4_service_account].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_p4_service_account("example");
-    /// ```
     pub fn set_p4_service_account<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1212,12 +963,6 @@ impl Instance {
     }
 
     /// Sets the value of [tenant_project_id][crate::model::Instance::tenant_project_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_tenant_project_id("example");
-    /// ```
     pub fn set_tenant_project_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1227,12 +972,6 @@ impl Instance {
     }
 
     /// Sets the value of [dataproc_service_account][crate::model::Instance::dataproc_service_account].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_dataproc_service_account("example");
-    /// ```
     pub fn set_dataproc_service_account<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1242,25 +981,12 @@ impl Instance {
     }
 
     /// Sets the value of [enable_rbac][crate::model::Instance::enable_rbac].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// let x = Instance::new().set_enable_rbac(true);
-    /// ```
     pub fn set_enable_rbac<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_rbac = v.into();
         self
     }
 
     /// Sets the value of [crypto_key_config][crate::model::Instance::crypto_key_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// use google_cloud_datafusion_v1::model::CryptoKeyConfig;
-    /// let x = Instance::new().set_crypto_key_config(CryptoKeyConfig::default()/* use setters */);
-    /// ```
     pub fn set_crypto_key_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKeyConfig>,
@@ -1270,14 +996,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [crypto_key_config][crate::model::Instance::crypto_key_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// use google_cloud_datafusion_v1::model::CryptoKeyConfig;
-    /// let x = Instance::new().set_or_clear_crypto_key_config(Some(CryptoKeyConfig::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_crypto_key_config(None::<CryptoKeyConfig>);
-    /// ```
     pub fn set_or_clear_crypto_key_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKeyConfig>,
@@ -1287,15 +1005,6 @@ impl Instance {
     }
 
     /// Sets the value of [disabled_reason][crate::model::Instance::disabled_reason].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::Instance;
-    /// use google_cloud_datafusion_v1::model::instance::DisabledReason;
-    /// let x = Instance::new().set_disabled_reason([
-    ///     DisabledReason::KmsKeyIssue,
-    /// ]);
-    /// ```
     pub fn set_disabled_reason<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1813,60 +1522,30 @@ impl ListInstancesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInstancesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInstancesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInstancesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListInstancesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1902,17 +1581,6 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::ListInstancesResponse;
-    /// use google_cloud_datafusion_v1::model::Instance;
-    /// let x = ListInstancesResponse::new()
-    ///     .set_instances([
-    ///         Instance::default()/* use setters */,
-    ///         Instance::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1924,24 +1592,12 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::ListInstancesResponse;
-    /// let x = ListInstancesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListInstancesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::ListInstancesResponse;
-    /// let x = ListInstancesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2002,48 +1658,24 @@ impl ListAvailableVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAvailableVersionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::ListAvailableVersionsRequest;
-    /// let x = ListAvailableVersionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAvailableVersionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::ListAvailableVersionsRequest;
-    /// let x = ListAvailableVersionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAvailableVersionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::ListAvailableVersionsRequest;
-    /// let x = ListAvailableVersionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [latest_patch_only][crate::model::ListAvailableVersionsRequest::latest_patch_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::ListAvailableVersionsRequest;
-    /// let x = ListAvailableVersionsRequest::new().set_latest_patch_only(true);
-    /// ```
     pub fn set_latest_patch_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.latest_patch_only = v.into();
         self
@@ -2076,17 +1708,6 @@ impl ListAvailableVersionsResponse {
     }
 
     /// Sets the value of [available_versions][crate::model::ListAvailableVersionsResponse::available_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::ListAvailableVersionsResponse;
-    /// use google_cloud_datafusion_v1::model::Version;
-    /// let x = ListAvailableVersionsResponse::new()
-    ///     .set_available_versions([
-    ///         Version::default()/* use setters */,
-    ///         Version::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_available_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2098,12 +1719,6 @@ impl ListAvailableVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAvailableVersionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::ListAvailableVersionsResponse;
-    /// let x = ListAvailableVersionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2147,12 +1762,6 @@ impl GetInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::GetInstanceRequest;
-    /// let x = GetInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2188,37 +1797,18 @@ impl CreateInstanceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_instance_id("example");
-    /// ```
     pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_id = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::CreateInstanceRequest;
-    /// use google_cloud_datafusion_v1::model::Instance;
-    /// let x = CreateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
-    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -2228,14 +1818,6 @@ impl CreateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::CreateInstanceRequest;
-    /// use google_cloud_datafusion_v1::model::Instance;
-    /// let x = CreateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
-    /// let x = CreateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
-    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -2268,12 +1850,6 @@ impl DeleteInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2314,13 +1890,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::UpdateInstanceRequest;
-    /// use google_cloud_datafusion_v1::model::Instance;
-    /// let x = UpdateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
-    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -2330,14 +1899,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::UpdateInstanceRequest;
-    /// use google_cloud_datafusion_v1::model::Instance;
-    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
-    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
-    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -2347,13 +1908,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::UpdateInstanceRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateInstanceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2363,14 +1917,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::UpdateInstanceRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2403,12 +1949,6 @@ impl RestartInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::RestartInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::RestartInstanceRequest;
-    /// let x = RestartInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2466,13 +2006,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2482,14 +2015,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2499,13 +2024,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2515,14 +2033,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2532,75 +2042,36 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_detail][crate::model::OperationMetadata::status_detail].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_detail("example");
-    /// ```
     pub fn set_status_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_detail = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
     }
 
     /// Sets the value of [additional_status][crate::model::OperationMetadata::additional_status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datafusion_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_additional_status([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_additional_status<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,

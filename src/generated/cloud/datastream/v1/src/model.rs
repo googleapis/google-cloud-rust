@@ -65,12 +65,6 @@ impl DiscoverConnectionProfileRequest {
     }
 
     /// Sets the value of [parent][crate::model::DiscoverConnectionProfileRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileRequest;
-    /// let x = DiscoverConnectionProfileRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -80,13 +74,6 @@ impl DiscoverConnectionProfileRequest {
     ///
     /// Note that all the setters affecting `target` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileRequest;
-    /// use google_cloud_datastream_v1::model::discover_connection_profile_request;
-    /// let x = DiscoverConnectionProfileRequest::new().set_target(Some(discover_connection_profile_request::Target::ConnectionProfileName("example".to_string())));
-    /// ```
     pub fn set_target<
         T: std::convert::Into<
                 std::option::Option<crate::model::discover_connection_profile_request::Target>,
@@ -119,15 +106,6 @@ impl DiscoverConnectionProfileRequest {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileRequest;
-    /// use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// let x = DiscoverConnectionProfileRequest::new().set_connection_profile(ConnectionProfile::default()/* use setters */);
-    /// assert!(x.connection_profile().is_some());
-    /// assert!(x.connection_profile_name().is_none());
-    /// ```
     pub fn set_connection_profile<
         T: std::convert::Into<std::boxed::Box<crate::model::ConnectionProfile>>,
     >(
@@ -158,14 +136,6 @@ impl DiscoverConnectionProfileRequest {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileRequest;
-    /// let x = DiscoverConnectionProfileRequest::new().set_connection_profile_name("example");
-    /// assert!(x.connection_profile_name().is_some());
-    /// assert!(x.connection_profile().is_none());
-    /// ```
     pub fn set_connection_profile_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -182,13 +152,6 @@ impl DiscoverConnectionProfileRequest {
     ///
     /// Note that all the setters affecting `hierarchy` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileRequest;
-    /// use google_cloud_datastream_v1::model::discover_connection_profile_request;
-    /// let x = DiscoverConnectionProfileRequest::new().set_hierarchy(Some(discover_connection_profile_request::Hierarchy::FullHierarchy(true)));
-    /// ```
     pub fn set_hierarchy<
         T: std::convert::Into<
                 std::option::Option<crate::model::discover_connection_profile_request::Hierarchy>,
@@ -219,14 +182,6 @@ impl DiscoverConnectionProfileRequest {
     ///
     /// Note that all the setters affecting `hierarchy` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileRequest;
-    /// let x = DiscoverConnectionProfileRequest::new().set_full_hierarchy(true);
-    /// assert!(x.full_hierarchy().is_some());
-    /// assert!(x.hierarchy_depth().is_none());
-    /// ```
     pub fn set_full_hierarchy<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.hierarchy = std::option::Option::Some(
             crate::model::discover_connection_profile_request::Hierarchy::FullHierarchy(v.into()),
@@ -252,14 +207,6 @@ impl DiscoverConnectionProfileRequest {
     ///
     /// Note that all the setters affecting `hierarchy` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileRequest;
-    /// let x = DiscoverConnectionProfileRequest::new().set_hierarchy_depth(42);
-    /// assert!(x.hierarchy_depth().is_some());
-    /// assert!(x.full_hierarchy().is_none());
-    /// ```
     pub fn set_hierarchy_depth<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.hierarchy = std::option::Option::Some(
             crate::model::discover_connection_profile_request::Hierarchy::HierarchyDepth(v.into()),
@@ -271,14 +218,6 @@ impl DiscoverConnectionProfileRequest {
     ///
     /// Note that all the setters affecting `data_object` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileRequest;
-    /// use google_cloud_datastream_v1::model::discover_connection_profile_request;
-    /// use google_cloud_datastream_v1::model::OracleRdbms;
-    /// let x = DiscoverConnectionProfileRequest::new().set_data_object(Some(discover_connection_profile_request::DataObject::OracleRdbms(OracleRdbms::default().into())));
-    /// ```
     pub fn set_data_object<
         T: std::convert::Into<
                 std::option::Option<crate::model::discover_connection_profile_request::DataObject>,
@@ -309,19 +248,6 @@ impl DiscoverConnectionProfileRequest {
     ///
     /// Note that all the setters affecting `data_object` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileRequest;
-    /// use google_cloud_datastream_v1::model::OracleRdbms;
-    /// let x = DiscoverConnectionProfileRequest::new().set_oracle_rdbms(OracleRdbms::default()/* use setters */);
-    /// assert!(x.oracle_rdbms().is_some());
-    /// assert!(x.mysql_rdbms().is_none());
-    /// assert!(x.postgresql_rdbms().is_none());
-    /// assert!(x.sql_server_rdbms().is_none());
-    /// assert!(x.salesforce_org().is_none());
-    /// assert!(x.mongodb_cluster().is_none());
-    /// ```
     pub fn set_oracle_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::OracleRdbms>>>(
         mut self,
         v: T,
@@ -350,19 +276,6 @@ impl DiscoverConnectionProfileRequest {
     ///
     /// Note that all the setters affecting `data_object` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileRequest;
-    /// use google_cloud_datastream_v1::model::MysqlRdbms;
-    /// let x = DiscoverConnectionProfileRequest::new().set_mysql_rdbms(MysqlRdbms::default()/* use setters */);
-    /// assert!(x.mysql_rdbms().is_some());
-    /// assert!(x.oracle_rdbms().is_none());
-    /// assert!(x.postgresql_rdbms().is_none());
-    /// assert!(x.sql_server_rdbms().is_none());
-    /// assert!(x.salesforce_org().is_none());
-    /// assert!(x.mongodb_cluster().is_none());
-    /// ```
     pub fn set_mysql_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::MysqlRdbms>>>(
         mut self,
         v: T,
@@ -393,19 +306,6 @@ impl DiscoverConnectionProfileRequest {
     ///
     /// Note that all the setters affecting `data_object` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileRequest;
-    /// use google_cloud_datastream_v1::model::PostgresqlRdbms;
-    /// let x = DiscoverConnectionProfileRequest::new().set_postgresql_rdbms(PostgresqlRdbms::default()/* use setters */);
-    /// assert!(x.postgresql_rdbms().is_some());
-    /// assert!(x.oracle_rdbms().is_none());
-    /// assert!(x.mysql_rdbms().is_none());
-    /// assert!(x.sql_server_rdbms().is_none());
-    /// assert!(x.salesforce_org().is_none());
-    /// assert!(x.mongodb_cluster().is_none());
-    /// ```
     pub fn set_postgresql_rdbms<
         T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlRdbms>>,
     >(
@@ -440,19 +340,6 @@ impl DiscoverConnectionProfileRequest {
     ///
     /// Note that all the setters affecting `data_object` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileRequest;
-    /// use google_cloud_datastream_v1::model::SqlServerRdbms;
-    /// let x = DiscoverConnectionProfileRequest::new().set_sql_server_rdbms(SqlServerRdbms::default()/* use setters */);
-    /// assert!(x.sql_server_rdbms().is_some());
-    /// assert!(x.oracle_rdbms().is_none());
-    /// assert!(x.mysql_rdbms().is_none());
-    /// assert!(x.postgresql_rdbms().is_none());
-    /// assert!(x.salesforce_org().is_none());
-    /// assert!(x.mongodb_cluster().is_none());
-    /// ```
     pub fn set_sql_server_rdbms<
         T: std::convert::Into<std::boxed::Box<crate::model::SqlServerRdbms>>,
     >(
@@ -485,19 +372,6 @@ impl DiscoverConnectionProfileRequest {
     ///
     /// Note that all the setters affecting `data_object` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileRequest;
-    /// use google_cloud_datastream_v1::model::SalesforceOrg;
-    /// let x = DiscoverConnectionProfileRequest::new().set_salesforce_org(SalesforceOrg::default()/* use setters */);
-    /// assert!(x.salesforce_org().is_some());
-    /// assert!(x.oracle_rdbms().is_none());
-    /// assert!(x.mysql_rdbms().is_none());
-    /// assert!(x.postgresql_rdbms().is_none());
-    /// assert!(x.sql_server_rdbms().is_none());
-    /// assert!(x.mongodb_cluster().is_none());
-    /// ```
     pub fn set_salesforce_org<
         T: std::convert::Into<std::boxed::Box<crate::model::SalesforceOrg>>,
     >(
@@ -530,19 +404,6 @@ impl DiscoverConnectionProfileRequest {
     ///
     /// Note that all the setters affecting `data_object` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileRequest;
-    /// use google_cloud_datastream_v1::model::MongodbCluster;
-    /// let x = DiscoverConnectionProfileRequest::new().set_mongodb_cluster(MongodbCluster::default()/* use setters */);
-    /// assert!(x.mongodb_cluster().is_some());
-    /// assert!(x.oracle_rdbms().is_none());
-    /// assert!(x.mysql_rdbms().is_none());
-    /// assert!(x.postgresql_rdbms().is_none());
-    /// assert!(x.sql_server_rdbms().is_none());
-    /// assert!(x.salesforce_org().is_none());
-    /// ```
     pub fn set_mongodb_cluster<
         T: std::convert::Into<std::boxed::Box<crate::model::MongodbCluster>>,
     >(
@@ -627,14 +488,6 @@ impl DiscoverConnectionProfileResponse {
     ///
     /// Note that all the setters affecting `data_object` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileResponse;
-    /// use google_cloud_datastream_v1::model::discover_connection_profile_response;
-    /// use google_cloud_datastream_v1::model::OracleRdbms;
-    /// let x = DiscoverConnectionProfileResponse::new().set_data_object(Some(discover_connection_profile_response::DataObject::OracleRdbms(OracleRdbms::default().into())));
-    /// ```
     pub fn set_data_object<
         T: std::convert::Into<
                 std::option::Option<crate::model::discover_connection_profile_response::DataObject>,
@@ -665,19 +518,6 @@ impl DiscoverConnectionProfileResponse {
     ///
     /// Note that all the setters affecting `data_object` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileResponse;
-    /// use google_cloud_datastream_v1::model::OracleRdbms;
-    /// let x = DiscoverConnectionProfileResponse::new().set_oracle_rdbms(OracleRdbms::default()/* use setters */);
-    /// assert!(x.oracle_rdbms().is_some());
-    /// assert!(x.mysql_rdbms().is_none());
-    /// assert!(x.postgresql_rdbms().is_none());
-    /// assert!(x.sql_server_rdbms().is_none());
-    /// assert!(x.salesforce_org().is_none());
-    /// assert!(x.mongodb_cluster().is_none());
-    /// ```
     pub fn set_oracle_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::OracleRdbms>>>(
         mut self,
         v: T,
@@ -706,19 +546,6 @@ impl DiscoverConnectionProfileResponse {
     ///
     /// Note that all the setters affecting `data_object` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileResponse;
-    /// use google_cloud_datastream_v1::model::MysqlRdbms;
-    /// let x = DiscoverConnectionProfileResponse::new().set_mysql_rdbms(MysqlRdbms::default()/* use setters */);
-    /// assert!(x.mysql_rdbms().is_some());
-    /// assert!(x.oracle_rdbms().is_none());
-    /// assert!(x.postgresql_rdbms().is_none());
-    /// assert!(x.sql_server_rdbms().is_none());
-    /// assert!(x.salesforce_org().is_none());
-    /// assert!(x.mongodb_cluster().is_none());
-    /// ```
     pub fn set_mysql_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::MysqlRdbms>>>(
         mut self,
         v: T,
@@ -749,19 +576,6 @@ impl DiscoverConnectionProfileResponse {
     ///
     /// Note that all the setters affecting `data_object` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileResponse;
-    /// use google_cloud_datastream_v1::model::PostgresqlRdbms;
-    /// let x = DiscoverConnectionProfileResponse::new().set_postgresql_rdbms(PostgresqlRdbms::default()/* use setters */);
-    /// assert!(x.postgresql_rdbms().is_some());
-    /// assert!(x.oracle_rdbms().is_none());
-    /// assert!(x.mysql_rdbms().is_none());
-    /// assert!(x.sql_server_rdbms().is_none());
-    /// assert!(x.salesforce_org().is_none());
-    /// assert!(x.mongodb_cluster().is_none());
-    /// ```
     pub fn set_postgresql_rdbms<
         T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlRdbms>>,
     >(
@@ -796,19 +610,6 @@ impl DiscoverConnectionProfileResponse {
     ///
     /// Note that all the setters affecting `data_object` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileResponse;
-    /// use google_cloud_datastream_v1::model::SqlServerRdbms;
-    /// let x = DiscoverConnectionProfileResponse::new().set_sql_server_rdbms(SqlServerRdbms::default()/* use setters */);
-    /// assert!(x.sql_server_rdbms().is_some());
-    /// assert!(x.oracle_rdbms().is_none());
-    /// assert!(x.mysql_rdbms().is_none());
-    /// assert!(x.postgresql_rdbms().is_none());
-    /// assert!(x.salesforce_org().is_none());
-    /// assert!(x.mongodb_cluster().is_none());
-    /// ```
     pub fn set_sql_server_rdbms<
         T: std::convert::Into<std::boxed::Box<crate::model::SqlServerRdbms>>,
     >(
@@ -843,19 +644,6 @@ impl DiscoverConnectionProfileResponse {
     ///
     /// Note that all the setters affecting `data_object` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileResponse;
-    /// use google_cloud_datastream_v1::model::SalesforceOrg;
-    /// let x = DiscoverConnectionProfileResponse::new().set_salesforce_org(SalesforceOrg::default()/* use setters */);
-    /// assert!(x.salesforce_org().is_some());
-    /// assert!(x.oracle_rdbms().is_none());
-    /// assert!(x.mysql_rdbms().is_none());
-    /// assert!(x.postgresql_rdbms().is_none());
-    /// assert!(x.sql_server_rdbms().is_none());
-    /// assert!(x.mongodb_cluster().is_none());
-    /// ```
     pub fn set_salesforce_org<
         T: std::convert::Into<std::boxed::Box<crate::model::SalesforceOrg>>,
     >(
@@ -888,19 +676,6 @@ impl DiscoverConnectionProfileResponse {
     ///
     /// Note that all the setters affecting `data_object` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DiscoverConnectionProfileResponse;
-    /// use google_cloud_datastream_v1::model::MongodbCluster;
-    /// let x = DiscoverConnectionProfileResponse::new().set_mongodb_cluster(MongodbCluster::default()/* use setters */);
-    /// assert!(x.mongodb_cluster().is_some());
-    /// assert!(x.oracle_rdbms().is_none());
-    /// assert!(x.mysql_rdbms().is_none());
-    /// assert!(x.postgresql_rdbms().is_none());
-    /// assert!(x.sql_server_rdbms().is_none());
-    /// assert!(x.salesforce_org().is_none());
-    /// ```
     pub fn set_mongodb_cluster<
         T: std::convert::Into<std::boxed::Box<crate::model::MongodbCluster>>,
     >(
@@ -970,36 +745,18 @@ impl FetchStaticIpsRequest {
     }
 
     /// Sets the value of [name][crate::model::FetchStaticIpsRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::FetchStaticIpsRequest;
-    /// let x = FetchStaticIpsRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::FetchStaticIpsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::FetchStaticIpsRequest;
-    /// let x = FetchStaticIpsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::FetchStaticIpsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::FetchStaticIpsRequest;
-    /// let x = FetchStaticIpsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1032,12 +789,6 @@ impl FetchStaticIpsResponse {
     }
 
     /// Sets the value of [static_ips][crate::model::FetchStaticIpsResponse::static_ips].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::FetchStaticIpsResponse;
-    /// let x = FetchStaticIpsResponse::new().set_static_ips(["a", "b", "c"]);
-    /// ```
     pub fn set_static_ips<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1049,12 +800,6 @@ impl FetchStaticIpsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::FetchStaticIpsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::FetchStaticIpsResponse;
-    /// let x = FetchStaticIpsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1101,60 +846,30 @@ impl ListConnectionProfilesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListConnectionProfilesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListConnectionProfilesRequest;
-    /// let x = ListConnectionProfilesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListConnectionProfilesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListConnectionProfilesRequest;
-    /// let x = ListConnectionProfilesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListConnectionProfilesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListConnectionProfilesRequest;
-    /// let x = ListConnectionProfilesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListConnectionProfilesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListConnectionProfilesRequest;
-    /// let x = ListConnectionProfilesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListConnectionProfilesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListConnectionProfilesRequest;
-    /// let x = ListConnectionProfilesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1190,17 +905,6 @@ impl ListConnectionProfilesResponse {
     }
 
     /// Sets the value of [connection_profiles][crate::model::ListConnectionProfilesResponse::connection_profiles].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListConnectionProfilesResponse;
-    /// use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// let x = ListConnectionProfilesResponse::new()
-    ///     .set_connection_profiles([
-    ///         ConnectionProfile::default()/* use setters */,
-    ///         ConnectionProfile::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_connection_profiles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1212,24 +916,12 @@ impl ListConnectionProfilesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListConnectionProfilesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListConnectionProfilesResponse;
-    /// let x = ListConnectionProfilesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListConnectionProfilesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListConnectionProfilesResponse;
-    /// let x = ListConnectionProfilesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1277,12 +969,6 @@ impl GetConnectionProfileRequest {
     }
 
     /// Sets the value of [name][crate::model::GetConnectionProfileRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::GetConnectionProfileRequest;
-    /// let x = GetConnectionProfileRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1339,24 +1025,12 @@ impl CreateConnectionProfileRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateConnectionProfileRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateConnectionProfileRequest;
-    /// let x = CreateConnectionProfileRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [connection_profile_id][crate::model::CreateConnectionProfileRequest::connection_profile_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateConnectionProfileRequest;
-    /// let x = CreateConnectionProfileRequest::new().set_connection_profile_id("example");
-    /// ```
     pub fn set_connection_profile_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1366,13 +1040,6 @@ impl CreateConnectionProfileRequest {
     }
 
     /// Sets the value of [connection_profile][crate::model::CreateConnectionProfileRequest::connection_profile].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateConnectionProfileRequest;
-    /// use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// let x = CreateConnectionProfileRequest::new().set_connection_profile(ConnectionProfile::default()/* use setters */);
-    /// ```
     pub fn set_connection_profile<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConnectionProfile>,
@@ -1382,14 +1049,6 @@ impl CreateConnectionProfileRequest {
     }
 
     /// Sets or clears the value of [connection_profile][crate::model::CreateConnectionProfileRequest::connection_profile].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateConnectionProfileRequest;
-    /// use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// let x = CreateConnectionProfileRequest::new().set_or_clear_connection_profile(Some(ConnectionProfile::default()/* use setters */));
-    /// let x = CreateConnectionProfileRequest::new().set_or_clear_connection_profile(None::<ConnectionProfile>);
-    /// ```
     pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConnectionProfile>,
@@ -1399,36 +1058,18 @@ impl CreateConnectionProfileRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateConnectionProfileRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateConnectionProfileRequest;
-    /// let x = CreateConnectionProfileRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateConnectionProfileRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateConnectionProfileRequest;
-    /// let x = CreateConnectionProfileRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::CreateConnectionProfileRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateConnectionProfileRequest;
-    /// let x = CreateConnectionProfileRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -1486,13 +1127,6 @@ impl UpdateConnectionProfileRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateConnectionProfileRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::UpdateConnectionProfileRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateConnectionProfileRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1502,14 +1136,6 @@ impl UpdateConnectionProfileRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateConnectionProfileRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::UpdateConnectionProfileRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateConnectionProfileRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateConnectionProfileRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1519,13 +1145,6 @@ impl UpdateConnectionProfileRequest {
     }
 
     /// Sets the value of [connection_profile][crate::model::UpdateConnectionProfileRequest::connection_profile].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::UpdateConnectionProfileRequest;
-    /// use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// let x = UpdateConnectionProfileRequest::new().set_connection_profile(ConnectionProfile::default()/* use setters */);
-    /// ```
     pub fn set_connection_profile<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConnectionProfile>,
@@ -1535,14 +1154,6 @@ impl UpdateConnectionProfileRequest {
     }
 
     /// Sets or clears the value of [connection_profile][crate::model::UpdateConnectionProfileRequest::connection_profile].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::UpdateConnectionProfileRequest;
-    /// use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// let x = UpdateConnectionProfileRequest::new().set_or_clear_connection_profile(Some(ConnectionProfile::default()/* use setters */));
-    /// let x = UpdateConnectionProfileRequest::new().set_or_clear_connection_profile(None::<ConnectionProfile>);
-    /// ```
     pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConnectionProfile>,
@@ -1552,36 +1163,18 @@ impl UpdateConnectionProfileRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateConnectionProfileRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::UpdateConnectionProfileRequest;
-    /// let x = UpdateConnectionProfileRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateConnectionProfileRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::UpdateConnectionProfileRequest;
-    /// let x = UpdateConnectionProfileRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::UpdateConnectionProfileRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::UpdateConnectionProfileRequest;
-    /// let x = UpdateConnectionProfileRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -1625,24 +1218,12 @@ impl DeleteConnectionProfileRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteConnectionProfileRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DeleteConnectionProfileRequest;
-    /// let x = DeleteConnectionProfileRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteConnectionProfileRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DeleteConnectionProfileRequest;
-    /// let x = DeleteConnectionProfileRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1689,60 +1270,30 @@ impl ListStreamsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListStreamsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListStreamsRequest;
-    /// let x = ListStreamsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListStreamsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListStreamsRequest;
-    /// let x = ListStreamsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListStreamsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListStreamsRequest;
-    /// let x = ListStreamsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListStreamsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListStreamsRequest;
-    /// let x = ListStreamsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListStreamsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListStreamsRequest;
-    /// let x = ListStreamsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1778,17 +1329,6 @@ impl ListStreamsResponse {
     }
 
     /// Sets the value of [streams][crate::model::ListStreamsResponse::streams].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListStreamsResponse;
-    /// use google_cloud_datastream_v1::model::Stream;
-    /// let x = ListStreamsResponse::new()
-    ///     .set_streams([
-    ///         Stream::default()/* use setters */,
-    ///         Stream::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1800,24 +1340,12 @@ impl ListStreamsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListStreamsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListStreamsResponse;
-    /// let x = ListStreamsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListStreamsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListStreamsResponse;
-    /// let x = ListStreamsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1865,12 +1393,6 @@ impl GetStreamRequest {
     }
 
     /// Sets the value of [name][crate::model::GetStreamRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::GetStreamRequest;
-    /// let x = GetStreamRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1927,37 +1449,18 @@ impl CreateStreamRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateStreamRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateStreamRequest;
-    /// let x = CreateStreamRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [stream_id][crate::model::CreateStreamRequest::stream_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateStreamRequest;
-    /// let x = CreateStreamRequest::new().set_stream_id("example");
-    /// ```
     pub fn set_stream_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.stream_id = v.into();
         self
     }
 
     /// Sets the value of [stream][crate::model::CreateStreamRequest::stream].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateStreamRequest;
-    /// use google_cloud_datastream_v1::model::Stream;
-    /// let x = CreateStreamRequest::new().set_stream(Stream::default()/* use setters */);
-    /// ```
     pub fn set_stream<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Stream>,
@@ -1967,14 +1470,6 @@ impl CreateStreamRequest {
     }
 
     /// Sets or clears the value of [stream][crate::model::CreateStreamRequest::stream].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateStreamRequest;
-    /// use google_cloud_datastream_v1::model::Stream;
-    /// let x = CreateStreamRequest::new().set_or_clear_stream(Some(Stream::default()/* use setters */));
-    /// let x = CreateStreamRequest::new().set_or_clear_stream(None::<Stream>);
-    /// ```
     pub fn set_or_clear_stream<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Stream>,
@@ -1984,36 +1479,18 @@ impl CreateStreamRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateStreamRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateStreamRequest;
-    /// let x = CreateStreamRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateStreamRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateStreamRequest;
-    /// let x = CreateStreamRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::CreateStreamRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateStreamRequest;
-    /// let x = CreateStreamRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -2071,13 +1548,6 @@ impl UpdateStreamRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateStreamRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::UpdateStreamRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateStreamRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2087,14 +1557,6 @@ impl UpdateStreamRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateStreamRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::UpdateStreamRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateStreamRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateStreamRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2104,13 +1566,6 @@ impl UpdateStreamRequest {
     }
 
     /// Sets the value of [stream][crate::model::UpdateStreamRequest::stream].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::UpdateStreamRequest;
-    /// use google_cloud_datastream_v1::model::Stream;
-    /// let x = UpdateStreamRequest::new().set_stream(Stream::default()/* use setters */);
-    /// ```
     pub fn set_stream<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Stream>,
@@ -2120,14 +1575,6 @@ impl UpdateStreamRequest {
     }
 
     /// Sets or clears the value of [stream][crate::model::UpdateStreamRequest::stream].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::UpdateStreamRequest;
-    /// use google_cloud_datastream_v1::model::Stream;
-    /// let x = UpdateStreamRequest::new().set_or_clear_stream(Some(Stream::default()/* use setters */));
-    /// let x = UpdateStreamRequest::new().set_or_clear_stream(None::<Stream>);
-    /// ```
     pub fn set_or_clear_stream<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Stream>,
@@ -2137,36 +1584,18 @@ impl UpdateStreamRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateStreamRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::UpdateStreamRequest;
-    /// let x = UpdateStreamRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateStreamRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::UpdateStreamRequest;
-    /// let x = UpdateStreamRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::UpdateStreamRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::UpdateStreamRequest;
-    /// let x = UpdateStreamRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -2210,24 +1639,12 @@ impl DeleteStreamRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteStreamRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DeleteStreamRequest;
-    /// let x = DeleteStreamRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteStreamRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DeleteStreamRequest;
-    /// let x = DeleteStreamRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2264,25 +1681,12 @@ impl RunStreamRequest {
     }
 
     /// Sets the value of [name][crate::model::RunStreamRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::RunStreamRequest;
-    /// let x = RunStreamRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [cdc_strategy][crate::model::RunStreamRequest::cdc_strategy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::RunStreamRequest;
-    /// use google_cloud_datastream_v1::model::CdcStrategy;
-    /// let x = RunStreamRequest::new().set_cdc_strategy(CdcStrategy::default()/* use setters */);
-    /// ```
     pub fn set_cdc_strategy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CdcStrategy>,
@@ -2292,14 +1696,6 @@ impl RunStreamRequest {
     }
 
     /// Sets or clears the value of [cdc_strategy][crate::model::RunStreamRequest::cdc_strategy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::RunStreamRequest;
-    /// use google_cloud_datastream_v1::model::CdcStrategy;
-    /// let x = RunStreamRequest::new().set_or_clear_cdc_strategy(Some(CdcStrategy::default()/* use setters */));
-    /// let x = RunStreamRequest::new().set_or_clear_cdc_strategy(None::<CdcStrategy>);
-    /// ```
     pub fn set_or_clear_cdc_strategy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CdcStrategy>,
@@ -2309,12 +1705,6 @@ impl RunStreamRequest {
     }
 
     /// Sets the value of [force][crate::model::RunStreamRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::RunStreamRequest;
-    /// let x = RunStreamRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -2343,12 +1733,6 @@ impl GetStreamObjectRequest {
     }
 
     /// Sets the value of [name][crate::model::GetStreamObjectRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::GetStreamObjectRequest;
-    /// let x = GetStreamObjectRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2381,25 +1765,12 @@ impl LookupStreamObjectRequest {
     }
 
     /// Sets the value of [parent][crate::model::LookupStreamObjectRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::LookupStreamObjectRequest;
-    /// let x = LookupStreamObjectRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [source_object_identifier][crate::model::LookupStreamObjectRequest::source_object_identifier].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::LookupStreamObjectRequest;
-    /// use google_cloud_datastream_v1::model::SourceObjectIdentifier;
-    /// let x = LookupStreamObjectRequest::new().set_source_object_identifier(SourceObjectIdentifier::default()/* use setters */);
-    /// ```
     pub fn set_source_object_identifier<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SourceObjectIdentifier>,
@@ -2409,14 +1780,6 @@ impl LookupStreamObjectRequest {
     }
 
     /// Sets or clears the value of [source_object_identifier][crate::model::LookupStreamObjectRequest::source_object_identifier].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::LookupStreamObjectRequest;
-    /// use google_cloud_datastream_v1::model::SourceObjectIdentifier;
-    /// let x = LookupStreamObjectRequest::new().set_or_clear_source_object_identifier(Some(SourceObjectIdentifier::default()/* use setters */));
-    /// let x = LookupStreamObjectRequest::new().set_or_clear_source_object_identifier(None::<SourceObjectIdentifier>);
-    /// ```
     pub fn set_or_clear_source_object_identifier<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceObjectIdentifier>,
@@ -2449,12 +1812,6 @@ impl StartBackfillJobRequest {
     }
 
     /// Sets the value of [object][crate::model::StartBackfillJobRequest::object].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::StartBackfillJobRequest;
-    /// let x = StartBackfillJobRequest::new().set_object("example");
-    /// ```
     pub fn set_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.object = v.into();
         self
@@ -2483,13 +1840,6 @@ impl StartBackfillJobResponse {
     }
 
     /// Sets the value of [object][crate::model::StartBackfillJobResponse::object].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::StartBackfillJobResponse;
-    /// use google_cloud_datastream_v1::model::StreamObject;
-    /// let x = StartBackfillJobResponse::new().set_object(StreamObject::default()/* use setters */);
-    /// ```
     pub fn set_object<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StreamObject>,
@@ -2499,14 +1849,6 @@ impl StartBackfillJobResponse {
     }
 
     /// Sets or clears the value of [object][crate::model::StartBackfillJobResponse::object].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::StartBackfillJobResponse;
-    /// use google_cloud_datastream_v1::model::StreamObject;
-    /// let x = StartBackfillJobResponse::new().set_or_clear_object(Some(StreamObject::default()/* use setters */));
-    /// let x = StartBackfillJobResponse::new().set_or_clear_object(None::<StreamObject>);
-    /// ```
     pub fn set_or_clear_object<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StreamObject>,
@@ -2540,12 +1882,6 @@ impl StopBackfillJobRequest {
     }
 
     /// Sets the value of [object][crate::model::StopBackfillJobRequest::object].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::StopBackfillJobRequest;
-    /// let x = StopBackfillJobRequest::new().set_object("example");
-    /// ```
     pub fn set_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.object = v.into();
         self
@@ -2574,13 +1910,6 @@ impl StopBackfillJobResponse {
     }
 
     /// Sets the value of [object][crate::model::StopBackfillJobResponse::object].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::StopBackfillJobResponse;
-    /// use google_cloud_datastream_v1::model::StreamObject;
-    /// let x = StopBackfillJobResponse::new().set_object(StreamObject::default()/* use setters */);
-    /// ```
     pub fn set_object<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StreamObject>,
@@ -2590,14 +1919,6 @@ impl StopBackfillJobResponse {
     }
 
     /// Sets or clears the value of [object][crate::model::StopBackfillJobResponse::object].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::StopBackfillJobResponse;
-    /// use google_cloud_datastream_v1::model::StreamObject;
-    /// let x = StopBackfillJobResponse::new().set_or_clear_object(Some(StreamObject::default()/* use setters */));
-    /// let x = StopBackfillJobResponse::new().set_or_clear_object(None::<StreamObject>);
-    /// ```
     pub fn set_or_clear_object<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StreamObject>,
@@ -2641,36 +1962,18 @@ impl ListStreamObjectsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListStreamObjectsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListStreamObjectsRequest;
-    /// let x = ListStreamObjectsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListStreamObjectsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListStreamObjectsRequest;
-    /// let x = ListStreamObjectsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListStreamObjectsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListStreamObjectsRequest;
-    /// let x = ListStreamObjectsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2702,17 +2005,6 @@ impl ListStreamObjectsResponse {
     }
 
     /// Sets the value of [stream_objects][crate::model::ListStreamObjectsResponse::stream_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListStreamObjectsResponse;
-    /// use google_cloud_datastream_v1::model::StreamObject;
-    /// let x = ListStreamObjectsResponse::new()
-    ///     .set_stream_objects([
-    ///         StreamObject::default()/* use setters */,
-    ///         StreamObject::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_stream_objects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2724,12 +2016,6 @@ impl ListStreamObjectsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListStreamObjectsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListStreamObjectsResponse;
-    /// let x = ListStreamObjectsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2801,13 +2087,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2817,14 +2096,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2834,13 +2105,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2850,14 +2114,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2867,73 +2123,36 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
     }
 
     /// Sets the value of [validation_result][crate::model::OperationMetadata::validation_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OperationMetadata;
-    /// use google_cloud_datastream_v1::model::ValidationResult;
-    /// let x = OperationMetadata::new().set_validation_result(ValidationResult::default()/* use setters */);
-    /// ```
     pub fn set_validation_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ValidationResult>,
@@ -2943,14 +2162,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [validation_result][crate::model::OperationMetadata::validation_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OperationMetadata;
-    /// use google_cloud_datastream_v1::model::ValidationResult;
-    /// let x = OperationMetadata::new().set_or_clear_validation_result(Some(ValidationResult::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_validation_result(None::<ValidationResult>);
-    /// ```
     pub fn set_or_clear_validation_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ValidationResult>,
@@ -3011,24 +2222,12 @@ impl CreatePrivateConnectionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreatePrivateConnectionRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreatePrivateConnectionRequest;
-    /// let x = CreatePrivateConnectionRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [private_connection_id][crate::model::CreatePrivateConnectionRequest::private_connection_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreatePrivateConnectionRequest;
-    /// let x = CreatePrivateConnectionRequest::new().set_private_connection_id("example");
-    /// ```
     pub fn set_private_connection_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3038,13 +2237,6 @@ impl CreatePrivateConnectionRequest {
     }
 
     /// Sets the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreatePrivateConnectionRequest;
-    /// use google_cloud_datastream_v1::model::PrivateConnection;
-    /// let x = CreatePrivateConnectionRequest::new().set_private_connection(PrivateConnection::default()/* use setters */);
-    /// ```
     pub fn set_private_connection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrivateConnection>,
@@ -3054,14 +2246,6 @@ impl CreatePrivateConnectionRequest {
     }
 
     /// Sets or clears the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreatePrivateConnectionRequest;
-    /// use google_cloud_datastream_v1::model::PrivateConnection;
-    /// let x = CreatePrivateConnectionRequest::new().set_or_clear_private_connection(Some(PrivateConnection::default()/* use setters */));
-    /// let x = CreatePrivateConnectionRequest::new().set_or_clear_private_connection(None::<PrivateConnection>);
-    /// ```
     pub fn set_or_clear_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivateConnection>,
@@ -3071,36 +2255,18 @@ impl CreatePrivateConnectionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreatePrivateConnectionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreatePrivateConnectionRequest;
-    /// let x = CreatePrivateConnectionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::CreatePrivateConnectionRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreatePrivateConnectionRequest;
-    /// let x = CreatePrivateConnectionRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreatePrivateConnectionRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreatePrivateConnectionRequest;
-    /// let x = CreatePrivateConnectionRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -3150,60 +2316,30 @@ impl ListPrivateConnectionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPrivateConnectionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListPrivateConnectionsRequest;
-    /// let x = ListPrivateConnectionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPrivateConnectionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListPrivateConnectionsRequest;
-    /// let x = ListPrivateConnectionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPrivateConnectionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListPrivateConnectionsRequest;
-    /// let x = ListPrivateConnectionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListPrivateConnectionsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListPrivateConnectionsRequest;
-    /// let x = ListPrivateConnectionsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListPrivateConnectionsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListPrivateConnectionsRequest;
-    /// let x = ListPrivateConnectionsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3239,17 +2375,6 @@ impl ListPrivateConnectionsResponse {
     }
 
     /// Sets the value of [private_connections][crate::model::ListPrivateConnectionsResponse::private_connections].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListPrivateConnectionsResponse;
-    /// use google_cloud_datastream_v1::model::PrivateConnection;
-    /// let x = ListPrivateConnectionsResponse::new()
-    ///     .set_private_connections([
-    ///         PrivateConnection::default()/* use setters */,
-    ///         PrivateConnection::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_private_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3261,24 +2386,12 @@ impl ListPrivateConnectionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPrivateConnectionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListPrivateConnectionsResponse;
-    /// let x = ListPrivateConnectionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListPrivateConnectionsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListPrivateConnectionsResponse;
-    /// let x = ListPrivateConnectionsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3345,36 +2458,18 @@ impl DeletePrivateConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePrivateConnectionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DeletePrivateConnectionRequest;
-    /// let x = DeletePrivateConnectionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeletePrivateConnectionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DeletePrivateConnectionRequest;
-    /// let x = DeletePrivateConnectionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeletePrivateConnectionRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DeletePrivateConnectionRequest;
-    /// let x = DeletePrivateConnectionRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -3403,12 +2498,6 @@ impl GetPrivateConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPrivateConnectionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::GetPrivateConnectionRequest;
-    /// let x = GetPrivateConnectionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3458,37 +2547,18 @@ impl CreateRouteRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateRouteRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateRouteRequest;
-    /// let x = CreateRouteRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [route_id][crate::model::CreateRouteRequest::route_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateRouteRequest;
-    /// let x = CreateRouteRequest::new().set_route_id("example");
-    /// ```
     pub fn set_route_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.route_id = v.into();
         self
     }
 
     /// Sets the value of [route][crate::model::CreateRouteRequest::route].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateRouteRequest;
-    /// use google_cloud_datastream_v1::model::Route;
-    /// let x = CreateRouteRequest::new().set_route(Route::default()/* use setters */);
-    /// ```
     pub fn set_route<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Route>,
@@ -3498,14 +2568,6 @@ impl CreateRouteRequest {
     }
 
     /// Sets or clears the value of [route][crate::model::CreateRouteRequest::route].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateRouteRequest;
-    /// use google_cloud_datastream_v1::model::Route;
-    /// let x = CreateRouteRequest::new().set_or_clear_route(Some(Route::default()/* use setters */));
-    /// let x = CreateRouteRequest::new().set_or_clear_route(None::<Route>);
-    /// ```
     pub fn set_or_clear_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Route>,
@@ -3515,12 +2577,6 @@ impl CreateRouteRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateRouteRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CreateRouteRequest;
-    /// let x = CreateRouteRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3569,60 +2625,30 @@ impl ListRoutesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRoutesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListRoutesRequest;
-    /// let x = ListRoutesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRoutesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListRoutesRequest;
-    /// let x = ListRoutesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRoutesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListRoutesRequest;
-    /// let x = ListRoutesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRoutesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListRoutesRequest;
-    /// let x = ListRoutesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListRoutesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListRoutesRequest;
-    /// let x = ListRoutesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3658,17 +2684,6 @@ impl ListRoutesResponse {
     }
 
     /// Sets the value of [routes][crate::model::ListRoutesResponse::routes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListRoutesResponse;
-    /// use google_cloud_datastream_v1::model::Route;
-    /// let x = ListRoutesResponse::new()
-    ///     .set_routes([
-    ///         Route::default()/* use setters */,
-    ///         Route::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_routes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3680,24 +2695,12 @@ impl ListRoutesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRoutesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListRoutesResponse;
-    /// let x = ListRoutesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListRoutesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ListRoutesResponse;
-    /// let x = ListRoutesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3760,24 +2763,12 @@ impl DeleteRouteRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteRouteRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DeleteRouteRequest;
-    /// let x = DeleteRouteRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteRouteRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DeleteRouteRequest;
-    /// let x = DeleteRouteRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3806,12 +2797,6 @@ impl GetRouteRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRouteRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::GetRouteRequest;
-    /// let x = GetRouteRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3866,60 +2851,30 @@ impl OracleProfile {
     }
 
     /// Sets the value of [hostname][crate::model::OracleProfile::hostname].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleProfile;
-    /// let x = OracleProfile::new().set_hostname("example");
-    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname = v.into();
         self
     }
 
     /// Sets the value of [port][crate::model::OracleProfile::port].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleProfile;
-    /// let x = OracleProfile::new().set_port(42);
-    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
         self
     }
 
     /// Sets the value of [username][crate::model::OracleProfile::username].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleProfile;
-    /// let x = OracleProfile::new().set_username("example");
-    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
     }
 
     /// Sets the value of [password][crate::model::OracleProfile::password].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleProfile;
-    /// let x = OracleProfile::new().set_password("example");
-    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
     }
 
     /// Sets the value of [database_service][crate::model::OracleProfile::database_service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleProfile;
-    /// let x = OracleProfile::new().set_database_service("example");
-    /// ```
     pub fn set_database_service<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3929,15 +2884,6 @@ impl OracleProfile {
     }
 
     /// Sets the value of [connection_attributes][crate::model::OracleProfile::connection_attributes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleProfile;
-    /// let x = OracleProfile::new().set_connection_attributes([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_connection_attributes<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3950,13 +2896,6 @@ impl OracleProfile {
     }
 
     /// Sets the value of [oracle_ssl_config][crate::model::OracleProfile::oracle_ssl_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleProfile;
-    /// use google_cloud_datastream_v1::model::OracleSslConfig;
-    /// let x = OracleProfile::new().set_oracle_ssl_config(OracleSslConfig::default()/* use setters */);
-    /// ```
     pub fn set_oracle_ssl_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OracleSslConfig>,
@@ -3966,14 +2905,6 @@ impl OracleProfile {
     }
 
     /// Sets or clears the value of [oracle_ssl_config][crate::model::OracleProfile::oracle_ssl_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleProfile;
-    /// use google_cloud_datastream_v1::model::OracleSslConfig;
-    /// let x = OracleProfile::new().set_or_clear_oracle_ssl_config(Some(OracleSslConfig::default()/* use setters */));
-    /// let x = OracleProfile::new().set_or_clear_oracle_ssl_config(None::<OracleSslConfig>);
-    /// ```
     pub fn set_or_clear_oracle_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OracleSslConfig>,
@@ -3983,13 +2914,6 @@ impl OracleProfile {
     }
 
     /// Sets the value of [oracle_asm_config][crate::model::OracleProfile::oracle_asm_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleProfile;
-    /// use google_cloud_datastream_v1::model::OracleAsmConfig;
-    /// let x = OracleProfile::new().set_oracle_asm_config(OracleAsmConfig::default()/* use setters */);
-    /// ```
     pub fn set_oracle_asm_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OracleAsmConfig>,
@@ -3999,14 +2923,6 @@ impl OracleProfile {
     }
 
     /// Sets or clears the value of [oracle_asm_config][crate::model::OracleProfile::oracle_asm_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleProfile;
-    /// use google_cloud_datastream_v1::model::OracleAsmConfig;
-    /// let x = OracleProfile::new().set_or_clear_oracle_asm_config(Some(OracleAsmConfig::default()/* use setters */));
-    /// let x = OracleProfile::new().set_or_clear_oracle_asm_config(None::<OracleAsmConfig>);
-    /// ```
     pub fn set_or_clear_oracle_asm_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OracleAsmConfig>,
@@ -4016,12 +2932,6 @@ impl OracleProfile {
     }
 
     /// Sets the value of [secret_manager_stored_password][crate::model::OracleProfile::secret_manager_stored_password].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleProfile;
-    /// let x = OracleProfile::new().set_secret_manager_stored_password("example");
-    /// ```
     pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4076,75 +2986,36 @@ impl OracleAsmConfig {
     }
 
     /// Sets the value of [hostname][crate::model::OracleAsmConfig::hostname].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleAsmConfig;
-    /// let x = OracleAsmConfig::new().set_hostname("example");
-    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname = v.into();
         self
     }
 
     /// Sets the value of [port][crate::model::OracleAsmConfig::port].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleAsmConfig;
-    /// let x = OracleAsmConfig::new().set_port(42);
-    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
         self
     }
 
     /// Sets the value of [username][crate::model::OracleAsmConfig::username].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleAsmConfig;
-    /// let x = OracleAsmConfig::new().set_username("example");
-    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
     }
 
     /// Sets the value of [password][crate::model::OracleAsmConfig::password].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleAsmConfig;
-    /// let x = OracleAsmConfig::new().set_password("example");
-    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
     }
 
     /// Sets the value of [asm_service][crate::model::OracleAsmConfig::asm_service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleAsmConfig;
-    /// let x = OracleAsmConfig::new().set_asm_service("example");
-    /// ```
     pub fn set_asm_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asm_service = v.into();
         self
     }
 
     /// Sets the value of [connection_attributes][crate::model::OracleAsmConfig::connection_attributes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleAsmConfig;
-    /// let x = OracleAsmConfig::new().set_connection_attributes([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_connection_attributes<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4157,13 +3028,6 @@ impl OracleAsmConfig {
     }
 
     /// Sets the value of [oracle_ssl_config][crate::model::OracleAsmConfig::oracle_ssl_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleAsmConfig;
-    /// use google_cloud_datastream_v1::model::OracleSslConfig;
-    /// let x = OracleAsmConfig::new().set_oracle_ssl_config(OracleSslConfig::default()/* use setters */);
-    /// ```
     pub fn set_oracle_ssl_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OracleSslConfig>,
@@ -4173,14 +3037,6 @@ impl OracleAsmConfig {
     }
 
     /// Sets or clears the value of [oracle_ssl_config][crate::model::OracleAsmConfig::oracle_ssl_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleAsmConfig;
-    /// use google_cloud_datastream_v1::model::OracleSslConfig;
-    /// let x = OracleAsmConfig::new().set_or_clear_oracle_ssl_config(Some(OracleSslConfig::default()/* use setters */));
-    /// let x = OracleAsmConfig::new().set_or_clear_oracle_ssl_config(None::<OracleSslConfig>);
-    /// ```
     pub fn set_or_clear_oracle_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OracleSslConfig>,
@@ -4190,12 +3046,6 @@ impl OracleAsmConfig {
     }
 
     /// Sets the value of [secret_manager_stored_password][crate::model::OracleAsmConfig::secret_manager_stored_password].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleAsmConfig;
-    /// let x = OracleAsmConfig::new().set_secret_manager_stored_password("example");
-    /// ```
     pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4244,61 +3094,30 @@ impl MysqlProfile {
     }
 
     /// Sets the value of [hostname][crate::model::MysqlProfile::hostname].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlProfile;
-    /// let x = MysqlProfile::new().set_hostname("example");
-    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname = v.into();
         self
     }
 
     /// Sets the value of [port][crate::model::MysqlProfile::port].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlProfile;
-    /// let x = MysqlProfile::new().set_port(42);
-    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
         self
     }
 
     /// Sets the value of [username][crate::model::MysqlProfile::username].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlProfile;
-    /// let x = MysqlProfile::new().set_username("example");
-    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
     }
 
     /// Sets the value of [password][crate::model::MysqlProfile::password].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlProfile;
-    /// let x = MysqlProfile::new().set_password("example");
-    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
     }
 
     /// Sets the value of [ssl_config][crate::model::MysqlProfile::ssl_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlProfile;
-    /// use google_cloud_datastream_v1::model::MysqlSslConfig;
-    /// let x = MysqlProfile::new().set_ssl_config(MysqlSslConfig::default()/* use setters */);
-    /// ```
     pub fn set_ssl_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MysqlSslConfig>,
@@ -4308,14 +3127,6 @@ impl MysqlProfile {
     }
 
     /// Sets or clears the value of [ssl_config][crate::model::MysqlProfile::ssl_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlProfile;
-    /// use google_cloud_datastream_v1::model::MysqlSslConfig;
-    /// let x = MysqlProfile::new().set_or_clear_ssl_config(Some(MysqlSslConfig::default()/* use setters */));
-    /// let x = MysqlProfile::new().set_or_clear_ssl_config(None::<MysqlSslConfig>);
-    /// ```
     pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MysqlSslConfig>,
@@ -4325,12 +3136,6 @@ impl MysqlProfile {
     }
 
     /// Sets the value of [secret_manager_stored_password][crate::model::MysqlProfile::secret_manager_stored_password].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlProfile;
-    /// let x = MysqlProfile::new().set_secret_manager_stored_password("example");
-    /// ```
     pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4386,72 +3191,36 @@ impl PostgresqlProfile {
     }
 
     /// Sets the value of [hostname][crate::model::PostgresqlProfile::hostname].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlProfile;
-    /// let x = PostgresqlProfile::new().set_hostname("example");
-    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname = v.into();
         self
     }
 
     /// Sets the value of [port][crate::model::PostgresqlProfile::port].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlProfile;
-    /// let x = PostgresqlProfile::new().set_port(42);
-    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
         self
     }
 
     /// Sets the value of [username][crate::model::PostgresqlProfile::username].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlProfile;
-    /// let x = PostgresqlProfile::new().set_username("example");
-    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
     }
 
     /// Sets the value of [password][crate::model::PostgresqlProfile::password].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlProfile;
-    /// let x = PostgresqlProfile::new().set_password("example");
-    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
     }
 
     /// Sets the value of [database][crate::model::PostgresqlProfile::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlProfile;
-    /// let x = PostgresqlProfile::new().set_database("example");
-    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [secret_manager_stored_password][crate::model::PostgresqlProfile::secret_manager_stored_password].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlProfile;
-    /// let x = PostgresqlProfile::new().set_secret_manager_stored_password("example");
-    /// ```
     pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4461,13 +3230,6 @@ impl PostgresqlProfile {
     }
 
     /// Sets the value of [ssl_config][crate::model::PostgresqlProfile::ssl_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlProfile;
-    /// use google_cloud_datastream_v1::model::PostgresqlSslConfig;
-    /// let x = PostgresqlProfile::new().set_ssl_config(PostgresqlSslConfig::default()/* use setters */);
-    /// ```
     pub fn set_ssl_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PostgresqlSslConfig>,
@@ -4477,14 +3239,6 @@ impl PostgresqlProfile {
     }
 
     /// Sets or clears the value of [ssl_config][crate::model::PostgresqlProfile::ssl_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlProfile;
-    /// use google_cloud_datastream_v1::model::PostgresqlSslConfig;
-    /// let x = PostgresqlProfile::new().set_or_clear_ssl_config(Some(PostgresqlSslConfig::default()/* use setters */));
-    /// let x = PostgresqlProfile::new().set_or_clear_ssl_config(None::<PostgresqlSslConfig>);
-    /// ```
     pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PostgresqlSslConfig>,
@@ -4534,72 +3288,36 @@ impl SqlServerProfile {
     }
 
     /// Sets the value of [hostname][crate::model::SqlServerProfile::hostname].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerProfile;
-    /// let x = SqlServerProfile::new().set_hostname("example");
-    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname = v.into();
         self
     }
 
     /// Sets the value of [port][crate::model::SqlServerProfile::port].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerProfile;
-    /// let x = SqlServerProfile::new().set_port(42);
-    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
         self
     }
 
     /// Sets the value of [username][crate::model::SqlServerProfile::username].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerProfile;
-    /// let x = SqlServerProfile::new().set_username("example");
-    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
     }
 
     /// Sets the value of [password][crate::model::SqlServerProfile::password].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerProfile;
-    /// let x = SqlServerProfile::new().set_password("example");
-    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
     }
 
     /// Sets the value of [database][crate::model::SqlServerProfile::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerProfile;
-    /// let x = SqlServerProfile::new().set_database("example");
-    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [secret_manager_stored_password][crate::model::SqlServerProfile::secret_manager_stored_password].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerProfile;
-    /// let x = SqlServerProfile::new().set_secret_manager_stored_password("example");
-    /// ```
     pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4634,12 +3352,6 @@ impl SalesforceProfile {
     }
 
     /// Sets the value of [domain][crate::model::SalesforceProfile::domain].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SalesforceProfile;
-    /// let x = SalesforceProfile::new().set_domain("example");
-    /// ```
     pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.domain = v.into();
         self
@@ -4649,14 +3361,6 @@ impl SalesforceProfile {
     ///
     /// Note that all the setters affecting `credentials` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SalesforceProfile;
-    /// use google_cloud_datastream_v1::model::salesforce_profile;
-    /// use google_cloud_datastream_v1::model::salesforce_profile::UserCredentials;
-    /// let x = SalesforceProfile::new().set_credentials(Some(salesforce_profile::Credentials::UserCredentials(UserCredentials::default().into())));
-    /// ```
     pub fn set_credentials<
         T: std::convert::Into<std::option::Option<crate::model::salesforce_profile::Credentials>>,
     >(
@@ -4688,15 +3392,6 @@ impl SalesforceProfile {
     ///
     /// Note that all the setters affecting `credentials` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SalesforceProfile;
-    /// use google_cloud_datastream_v1::model::salesforce_profile::UserCredentials;
-    /// let x = SalesforceProfile::new().set_user_credentials(UserCredentials::default()/* use setters */);
-    /// assert!(x.user_credentials().is_some());
-    /// assert!(x.oauth2_client_credentials().is_none());
-    /// ```
     pub fn set_user_credentials<
         T: std::convert::Into<std::boxed::Box<crate::model::salesforce_profile::UserCredentials>>,
     >(
@@ -4731,15 +3426,6 @@ impl SalesforceProfile {
     ///
     /// Note that all the setters affecting `credentials` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SalesforceProfile;
-    /// use google_cloud_datastream_v1::model::salesforce_profile::Oauth2ClientCredentials;
-    /// let x = SalesforceProfile::new().set_oauth2_client_credentials(Oauth2ClientCredentials::default()/* use setters */);
-    /// assert!(x.oauth2_client_credentials().is_some());
-    /// assert!(x.user_credentials().is_none());
-    /// ```
     pub fn set_oauth2_client_credentials<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::salesforce_profile::Oauth2ClientCredentials>,
@@ -4800,36 +3486,18 @@ pub mod salesforce_profile {
         }
 
         /// Sets the value of [username][crate::model::salesforce_profile::UserCredentials::username].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::salesforce_profile::UserCredentials;
-        /// let x = UserCredentials::new().set_username("example");
-        /// ```
         pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.username = v.into();
             self
         }
 
         /// Sets the value of [password][crate::model::salesforce_profile::UserCredentials::password].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::salesforce_profile::UserCredentials;
-        /// let x = UserCredentials::new().set_password("example");
-        /// ```
         pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.password = v.into();
             self
         }
 
         /// Sets the value of [security_token][crate::model::salesforce_profile::UserCredentials::security_token].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::salesforce_profile::UserCredentials;
-        /// let x = UserCredentials::new().set_security_token("example");
-        /// ```
         pub fn set_security_token<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4839,12 +3507,6 @@ pub mod salesforce_profile {
         }
 
         /// Sets the value of [secret_manager_stored_password][crate::model::salesforce_profile::UserCredentials::secret_manager_stored_password].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::salesforce_profile::UserCredentials;
-        /// let x = UserCredentials::new().set_secret_manager_stored_password("example");
-        /// ```
         pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4854,12 +3516,6 @@ pub mod salesforce_profile {
         }
 
         /// Sets the value of [secret_manager_stored_security_token][crate::model::salesforce_profile::UserCredentials::secret_manager_stored_security_token].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::salesforce_profile::UserCredentials;
-        /// let x = UserCredentials::new().set_secret_manager_stored_security_token("example");
-        /// ```
         pub fn set_secret_manager_stored_security_token<
             T: std::convert::Into<std::string::String>,
         >(
@@ -4902,24 +3558,12 @@ pub mod salesforce_profile {
         }
 
         /// Sets the value of [client_id][crate::model::salesforce_profile::Oauth2ClientCredentials::client_id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::salesforce_profile::Oauth2ClientCredentials;
-        /// let x = Oauth2ClientCredentials::new().set_client_id("example");
-        /// ```
         pub fn set_client_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.client_id = v.into();
             self
         }
 
         /// Sets the value of [client_secret][crate::model::salesforce_profile::Oauth2ClientCredentials::client_secret].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::salesforce_profile::Oauth2ClientCredentials;
-        /// let x = Oauth2ClientCredentials::new().set_client_secret("example");
-        /// ```
         pub fn set_client_secret<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4929,12 +3573,6 @@ pub mod salesforce_profile {
         }
 
         /// Sets the value of [secret_manager_stored_client_secret][crate::model::salesforce_profile::Oauth2ClientCredentials::secret_manager_stored_client_secret].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::salesforce_profile::Oauth2ClientCredentials;
-        /// let x = Oauth2ClientCredentials::new().set_secret_manager_stored_client_secret("example");
-        /// ```
         pub fn set_secret_manager_stored_client_secret<
             T: std::convert::Into<std::string::String>,
         >(
@@ -5009,17 +3647,6 @@ impl MongodbProfile {
     }
 
     /// Sets the value of [host_addresses][crate::model::MongodbProfile::host_addresses].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbProfile;
-    /// use google_cloud_datastream_v1::model::HostAddress;
-    /// let x = MongodbProfile::new()
-    ///     .set_host_addresses([
-    ///         HostAddress::default()/* use setters */,
-    ///         HostAddress::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_host_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5031,48 +3658,24 @@ impl MongodbProfile {
     }
 
     /// Sets the value of [replica_set][crate::model::MongodbProfile::replica_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbProfile;
-    /// let x = MongodbProfile::new().set_replica_set("example");
-    /// ```
     pub fn set_replica_set<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.replica_set = v.into();
         self
     }
 
     /// Sets the value of [username][crate::model::MongodbProfile::username].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbProfile;
-    /// let x = MongodbProfile::new().set_username("example");
-    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
     }
 
     /// Sets the value of [password][crate::model::MongodbProfile::password].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbProfile;
-    /// let x = MongodbProfile::new().set_password("example");
-    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
     }
 
     /// Sets the value of [secret_manager_stored_password][crate::model::MongodbProfile::secret_manager_stored_password].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbProfile;
-    /// let x = MongodbProfile::new().set_secret_manager_stored_password("example");
-    /// ```
     pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5082,13 +3685,6 @@ impl MongodbProfile {
     }
 
     /// Sets the value of [ssl_config][crate::model::MongodbProfile::ssl_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbProfile;
-    /// use google_cloud_datastream_v1::model::MongodbSslConfig;
-    /// let x = MongodbProfile::new().set_ssl_config(MongodbSslConfig::default()/* use setters */);
-    /// ```
     pub fn set_ssl_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MongodbSslConfig>,
@@ -5098,14 +3694,6 @@ impl MongodbProfile {
     }
 
     /// Sets or clears the value of [ssl_config][crate::model::MongodbProfile::ssl_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbProfile;
-    /// use google_cloud_datastream_v1::model::MongodbSslConfig;
-    /// let x = MongodbProfile::new().set_or_clear_ssl_config(Some(MongodbSslConfig::default()/* use setters */));
-    /// let x = MongodbProfile::new().set_or_clear_ssl_config(None::<MongodbSslConfig>);
-    /// ```
     pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MongodbSslConfig>,
@@ -5118,14 +3706,6 @@ impl MongodbProfile {
     ///
     /// Note that all the setters affecting `mongodb_connection_format` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbProfile;
-    /// use google_cloud_datastream_v1::model::mongodb_profile;
-    /// use google_cloud_datastream_v1::model::SrvConnectionFormat;
-    /// let x = MongodbProfile::new().set_mongodb_connection_format(Some(mongodb_profile::MongodbConnectionFormat::SrvConnectionFormat(SrvConnectionFormat::default().into())));
-    /// ```
     pub fn set_mongodb_connection_format<
         T: std::convert::Into<
                 std::option::Option<crate::model::mongodb_profile::MongodbConnectionFormat>,
@@ -5160,15 +3740,6 @@ impl MongodbProfile {
     ///
     /// Note that all the setters affecting `mongodb_connection_format` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbProfile;
-    /// use google_cloud_datastream_v1::model::SrvConnectionFormat;
-    /// let x = MongodbProfile::new().set_srv_connection_format(SrvConnectionFormat::default()/* use setters */);
-    /// assert!(x.srv_connection_format().is_some());
-    /// assert!(x.standard_connection_format().is_none());
-    /// ```
     pub fn set_srv_connection_format<
         T: std::convert::Into<std::boxed::Box<crate::model::SrvConnectionFormat>>,
     >(
@@ -5199,15 +3770,6 @@ impl MongodbProfile {
     ///
     /// Note that all the setters affecting `mongodb_connection_format` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbProfile;
-    /// use google_cloud_datastream_v1::model::StandardConnectionFormat;
-    /// let x = MongodbProfile::new().set_standard_connection_format(StandardConnectionFormat::default()/* use setters */);
-    /// assert!(x.standard_connection_format().is_some());
-    /// assert!(x.srv_connection_format().is_none());
-    /// ```
     pub fn set_standard_connection_format<
         T: std::convert::Into<std::boxed::Box<crate::model::StandardConnectionFormat>>,
     >(
@@ -5266,24 +3828,12 @@ impl HostAddress {
     }
 
     /// Sets the value of [hostname][crate::model::HostAddress::hostname].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::HostAddress;
-    /// let x = HostAddress::new().set_hostname("example");
-    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname = v.into();
         self
     }
 
     /// Sets the value of [port][crate::model::HostAddress::port].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::HostAddress;
-    /// let x = HostAddress::new().set_port(42);
-    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
         self
@@ -5332,12 +3882,6 @@ impl StandardConnectionFormat {
     }
 
     /// Sets the value of [direct_connection][crate::model::StandardConnectionFormat::direct_connection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::StandardConnectionFormat;
-    /// let x = StandardConnectionFormat::new().set_direct_connection(true);
-    /// ```
     pub fn set_direct_connection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.direct_connection = v.into();
         self
@@ -5369,24 +3913,12 @@ impl GcsProfile {
     }
 
     /// Sets the value of [bucket][crate::model::GcsProfile::bucket].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::GcsProfile;
-    /// let x = GcsProfile::new().set_bucket("example");
-    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
     }
 
     /// Sets the value of [root_path][crate::model::GcsProfile::root_path].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::GcsProfile;
-    /// let x = GcsProfile::new().set_root_path("example");
-    /// ```
     pub fn set_root_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.root_path = v.into();
         self
@@ -5464,36 +3996,18 @@ impl ForwardSshTunnelConnectivity {
     }
 
     /// Sets the value of [hostname][crate::model::ForwardSshTunnelConnectivity::hostname].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ForwardSshTunnelConnectivity;
-    /// let x = ForwardSshTunnelConnectivity::new().set_hostname("example");
-    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname = v.into();
         self
     }
 
     /// Sets the value of [username][crate::model::ForwardSshTunnelConnectivity::username].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ForwardSshTunnelConnectivity;
-    /// let x = ForwardSshTunnelConnectivity::new().set_username("example");
-    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
     }
 
     /// Sets the value of [port][crate::model::ForwardSshTunnelConnectivity::port].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ForwardSshTunnelConnectivity;
-    /// let x = ForwardSshTunnelConnectivity::new().set_port(42);
-    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
         self
@@ -5503,13 +4017,6 @@ impl ForwardSshTunnelConnectivity {
     ///
     /// Note that all the setters affecting `authentication_method` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ForwardSshTunnelConnectivity;
-    /// use google_cloud_datastream_v1::model::forward_ssh_tunnel_connectivity;
-    /// let x = ForwardSshTunnelConnectivity::new().set_authentication_method(Some(forward_ssh_tunnel_connectivity::AuthenticationMethod::Password("example".to_string())));
-    /// ```
     pub fn set_authentication_method<
         T: std::convert::Into<
                 std::option::Option<
@@ -5542,14 +4049,6 @@ impl ForwardSshTunnelConnectivity {
     ///
     /// Note that all the setters affecting `authentication_method` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ForwardSshTunnelConnectivity;
-    /// let x = ForwardSshTunnelConnectivity::new().set_password("example");
-    /// assert!(x.password().is_some());
-    /// assert!(x.private_key().is_none());
-    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.authentication_method = std::option::Option::Some(
             crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::Password(v.into()),
@@ -5575,14 +4074,6 @@ impl ForwardSshTunnelConnectivity {
     ///
     /// Note that all the setters affecting `authentication_method` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ForwardSshTunnelConnectivity;
-    /// let x = ForwardSshTunnelConnectivity::new().set_private_key("example");
-    /// assert!(x.private_key().is_some());
-    /// assert!(x.password().is_none());
-    /// ```
     pub fn set_private_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.authentication_method = std::option::Option::Some(
             crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::PrivateKey(
@@ -5635,24 +4126,12 @@ impl VpcPeeringConfig {
     }
 
     /// Sets the value of [vpc][crate::model::VpcPeeringConfig::vpc].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::VpcPeeringConfig;
-    /// let x = VpcPeeringConfig::new().set_vpc("example");
-    /// ```
     pub fn set_vpc<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vpc = v.into();
         self
     }
 
     /// Sets the value of [subnet][crate::model::VpcPeeringConfig::subnet].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::VpcPeeringConfig;
-    /// let x = VpcPeeringConfig::new().set_subnet("example");
-    /// ```
     pub fn set_subnet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnet = v.into();
         self
@@ -5684,12 +4163,6 @@ impl PscInterfaceConfig {
     }
 
     /// Sets the value of [network_attachment][crate::model::PscInterfaceConfig::network_attachment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PscInterfaceConfig;
-    /// let x = PscInterfaceConfig::new().set_network_attachment("example");
-    /// ```
     pub fn set_network_attachment<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5753,25 +4226,12 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [name][crate::model::PrivateConnection::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// let x = PrivateConnection::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::PrivateConnection::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// use wkt::Timestamp;
-    /// let x = PrivateConnection::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5781,14 +4241,6 @@ impl PrivateConnection {
     }
 
     /// Sets or clears the value of [create_time][crate::model::PrivateConnection::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// use wkt::Timestamp;
-    /// let x = PrivateConnection::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PrivateConnection::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5798,13 +4250,6 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [update_time][crate::model::PrivateConnection::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// use wkt::Timestamp;
-    /// let x = PrivateConnection::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5814,14 +4259,6 @@ impl PrivateConnection {
     }
 
     /// Sets or clears the value of [update_time][crate::model::PrivateConnection::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// use wkt::Timestamp;
-    /// let x = PrivateConnection::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PrivateConnection::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5831,15 +4268,6 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [labels][crate::model::PrivateConnection::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// let x = PrivateConnection::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5852,27 +4280,12 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [display_name][crate::model::PrivateConnection::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// let x = PrivateConnection::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::PrivateConnection::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// use google_cloud_datastream_v1::model::private_connection::State;
-    /// let x0 = PrivateConnection::new().set_state(State::Creating);
-    /// let x1 = PrivateConnection::new().set_state(State::Created);
-    /// let x2 = PrivateConnection::new().set_state(State::Failed);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::private_connection::State>>(
         mut self,
         v: T,
@@ -5882,13 +4295,6 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [error][crate::model::PrivateConnection::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// use google_cloud_datastream_v1::model::Error;
-    /// let x = PrivateConnection::new().set_error(Error::default()/* use setters */);
-    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Error>,
@@ -5898,14 +4304,6 @@ impl PrivateConnection {
     }
 
     /// Sets or clears the value of [error][crate::model::PrivateConnection::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// use google_cloud_datastream_v1::model::Error;
-    /// let x = PrivateConnection::new().set_or_clear_error(Some(Error::default()/* use setters */));
-    /// let x = PrivateConnection::new().set_or_clear_error(None::<Error>);
-    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Error>,
@@ -5915,12 +4313,6 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::PrivateConnection::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// let x = PrivateConnection::new().set_satisfies_pzs(true);
-    /// ```
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -5930,13 +4322,6 @@ impl PrivateConnection {
     }
 
     /// Sets or clears the value of [satisfies_pzs][crate::model::PrivateConnection::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// let x = PrivateConnection::new().set_or_clear_satisfies_pzs(Some(false));
-    /// let x = PrivateConnection::new().set_or_clear_satisfies_pzs(None::<bool>);
-    /// ```
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -5946,12 +4331,6 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::PrivateConnection::satisfies_pzi].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// let x = PrivateConnection::new().set_satisfies_pzi(true);
-    /// ```
     pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -5961,13 +4340,6 @@ impl PrivateConnection {
     }
 
     /// Sets or clears the value of [satisfies_pzi][crate::model::PrivateConnection::satisfies_pzi].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// let x = PrivateConnection::new().set_or_clear_satisfies_pzi(Some(false));
-    /// let x = PrivateConnection::new().set_or_clear_satisfies_pzi(None::<bool>);
-    /// ```
     pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -5977,13 +4349,6 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [vpc_peering_config][crate::model::PrivateConnection::vpc_peering_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// use google_cloud_datastream_v1::model::VpcPeeringConfig;
-    /// let x = PrivateConnection::new().set_vpc_peering_config(VpcPeeringConfig::default()/* use setters */);
-    /// ```
     pub fn set_vpc_peering_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VpcPeeringConfig>,
@@ -5993,14 +4358,6 @@ impl PrivateConnection {
     }
 
     /// Sets or clears the value of [vpc_peering_config][crate::model::PrivateConnection::vpc_peering_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// use google_cloud_datastream_v1::model::VpcPeeringConfig;
-    /// let x = PrivateConnection::new().set_or_clear_vpc_peering_config(Some(VpcPeeringConfig::default()/* use setters */));
-    /// let x = PrivateConnection::new().set_or_clear_vpc_peering_config(None::<VpcPeeringConfig>);
-    /// ```
     pub fn set_or_clear_vpc_peering_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VpcPeeringConfig>,
@@ -6010,13 +4367,6 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [psc_interface_config][crate::model::PrivateConnection::psc_interface_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// use google_cloud_datastream_v1::model::PscInterfaceConfig;
-    /// let x = PrivateConnection::new().set_psc_interface_config(PscInterfaceConfig::default()/* use setters */);
-    /// ```
     pub fn set_psc_interface_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PscInterfaceConfig>,
@@ -6026,14 +4376,6 @@ impl PrivateConnection {
     }
 
     /// Sets or clears the value of [psc_interface_config][crate::model::PrivateConnection::psc_interface_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnection;
-    /// use google_cloud_datastream_v1::model::PscInterfaceConfig;
-    /// let x = PrivateConnection::new().set_or_clear_psc_interface_config(Some(PscInterfaceConfig::default()/* use setters */));
-    /// let x = PrivateConnection::new().set_or_clear_psc_interface_config(None::<PscInterfaceConfig>);
-    /// ```
     pub fn set_or_clear_psc_interface_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PscInterfaceConfig>,
@@ -6225,12 +4567,6 @@ impl PrivateConnectivity {
     }
 
     /// Sets the value of [private_connection][crate::model::PrivateConnectivity::private_connection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PrivateConnectivity;
-    /// let x = PrivateConnectivity::new().set_private_connection("example");
-    /// ```
     pub fn set_private_connection<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6281,25 +4617,12 @@ impl Route {
     }
 
     /// Sets the value of [name][crate::model::Route::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Route;
-    /// let x = Route::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Route::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Route;
-    /// use wkt::Timestamp;
-    /// let x = Route::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6309,14 +4632,6 @@ impl Route {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Route::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Route;
-    /// use wkt::Timestamp;
-    /// let x = Route::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Route::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6326,13 +4641,6 @@ impl Route {
     }
 
     /// Sets the value of [update_time][crate::model::Route::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Route;
-    /// use wkt::Timestamp;
-    /// let x = Route::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6342,14 +4650,6 @@ impl Route {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Route::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Route;
-    /// use wkt::Timestamp;
-    /// let x = Route::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Route::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6359,15 +4659,6 @@ impl Route {
     }
 
     /// Sets the value of [labels][crate::model::Route::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Route;
-    /// let x = Route::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6380,24 +4671,12 @@ impl Route {
     }
 
     /// Sets the value of [display_name][crate::model::Route::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Route;
-    /// let x = Route::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [destination_address][crate::model::Route::destination_address].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Route;
-    /// let x = Route::new().set_destination_address("example");
-    /// ```
     pub fn set_destination_address<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6407,12 +4686,6 @@ impl Route {
     }
 
     /// Sets the value of [destination_port][crate::model::Route::destination_port].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Route;
-    /// let x = Route::new().set_destination_port(42);
-    /// ```
     pub fn set_destination_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.destination_port = v.into();
         self
@@ -6468,36 +4741,18 @@ impl MongodbSslConfig {
     }
 
     /// Sets the value of [client_key][crate::model::MongodbSslConfig::client_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbSslConfig;
-    /// let x = MongodbSslConfig::new().set_client_key("example");
-    /// ```
     pub fn set_client_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_key = v.into();
         self
     }
 
     /// Sets the value of [client_key_set][crate::model::MongodbSslConfig::client_key_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbSslConfig;
-    /// let x = MongodbSslConfig::new().set_client_key_set(true);
-    /// ```
     pub fn set_client_key_set<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.client_key_set = v.into();
         self
     }
 
     /// Sets the value of [client_certificate][crate::model::MongodbSslConfig::client_certificate].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbSslConfig;
-    /// let x = MongodbSslConfig::new().set_client_certificate("example");
-    /// ```
     pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6507,48 +4762,24 @@ impl MongodbSslConfig {
     }
 
     /// Sets the value of [client_certificate_set][crate::model::MongodbSslConfig::client_certificate_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbSslConfig;
-    /// let x = MongodbSslConfig::new().set_client_certificate_set(true);
-    /// ```
     pub fn set_client_certificate_set<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.client_certificate_set = v.into();
         self
     }
 
     /// Sets the value of [ca_certificate][crate::model::MongodbSslConfig::ca_certificate].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbSslConfig;
-    /// let x = MongodbSslConfig::new().set_ca_certificate("example");
-    /// ```
     pub fn set_ca_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ca_certificate = v.into();
         self
     }
 
     /// Sets the value of [ca_certificate_set][crate::model::MongodbSslConfig::ca_certificate_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbSslConfig;
-    /// let x = MongodbSslConfig::new().set_ca_certificate_set(true);
-    /// ```
     pub fn set_ca_certificate_set<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ca_certificate_set = v.into();
         self
     }
 
     /// Sets the value of [secret_manager_stored_client_key][crate::model::MongodbSslConfig::secret_manager_stored_client_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbSslConfig;
-    /// let x = MongodbSslConfig::new().set_secret_manager_stored_client_key("example");
-    /// ```
     pub fn set_secret_manager_stored_client_key<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6601,36 +4832,18 @@ impl MysqlSslConfig {
     }
 
     /// Sets the value of [client_key][crate::model::MysqlSslConfig::client_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlSslConfig;
-    /// let x = MysqlSslConfig::new().set_client_key("example");
-    /// ```
     pub fn set_client_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_key = v.into();
         self
     }
 
     /// Sets the value of [client_key_set][crate::model::MysqlSslConfig::client_key_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlSslConfig;
-    /// let x = MysqlSslConfig::new().set_client_key_set(true);
-    /// ```
     pub fn set_client_key_set<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.client_key_set = v.into();
         self
     }
 
     /// Sets the value of [client_certificate][crate::model::MysqlSslConfig::client_certificate].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlSslConfig;
-    /// let x = MysqlSslConfig::new().set_client_certificate("example");
-    /// ```
     pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6640,36 +4853,18 @@ impl MysqlSslConfig {
     }
 
     /// Sets the value of [client_certificate_set][crate::model::MysqlSslConfig::client_certificate_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlSslConfig;
-    /// let x = MysqlSslConfig::new().set_client_certificate_set(true);
-    /// ```
     pub fn set_client_certificate_set<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.client_certificate_set = v.into();
         self
     }
 
     /// Sets the value of [ca_certificate][crate::model::MysqlSslConfig::ca_certificate].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlSslConfig;
-    /// let x = MysqlSslConfig::new().set_ca_certificate("example");
-    /// ```
     pub fn set_ca_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ca_certificate = v.into();
         self
     }
 
     /// Sets the value of [ca_certificate_set][crate::model::MysqlSslConfig::ca_certificate_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlSslConfig;
-    /// let x = MysqlSslConfig::new().set_ca_certificate_set(true);
-    /// ```
     pub fn set_ca_certificate_set<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ca_certificate_set = v.into();
         self
@@ -6710,36 +4905,18 @@ impl OracleSslConfig {
     }
 
     /// Sets the value of [ca_certificate][crate::model::OracleSslConfig::ca_certificate].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleSslConfig;
-    /// let x = OracleSslConfig::new().set_ca_certificate("example");
-    /// ```
     pub fn set_ca_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ca_certificate = v.into();
         self
     }
 
     /// Sets the value of [ca_certificate_set][crate::model::OracleSslConfig::ca_certificate_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleSslConfig;
-    /// let x = OracleSslConfig::new().set_ca_certificate_set(true);
-    /// ```
     pub fn set_ca_certificate_set<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ca_certificate_set = v.into();
         self
     }
 
     /// Sets the value of [server_certificate_distinguished_name][crate::model::OracleSslConfig::server_certificate_distinguished_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleSslConfig;
-    /// let x = OracleSslConfig::new().set_server_certificate_distinguished_name("example");
-    /// ```
     pub fn set_server_certificate_distinguished_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6778,14 +4955,6 @@ impl PostgresqlSslConfig {
     ///
     /// Note that all the setters affecting `encryption_setting` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlSslConfig;
-    /// use google_cloud_datastream_v1::model::postgresql_ssl_config;
-    /// use google_cloud_datastream_v1::model::postgresql_ssl_config::ServerVerification;
-    /// let x = PostgresqlSslConfig::new().set_encryption_setting(Some(postgresql_ssl_config::EncryptionSetting::ServerVerification(ServerVerification::default().into())));
-    /// ```
     pub fn set_encryption_setting<
         T: std::convert::Into<
                 std::option::Option<crate::model::postgresql_ssl_config::EncryptionSetting>,
@@ -6820,15 +4989,6 @@ impl PostgresqlSslConfig {
     ///
     /// Note that all the setters affecting `encryption_setting` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlSslConfig;
-    /// use google_cloud_datastream_v1::model::postgresql_ssl_config::ServerVerification;
-    /// let x = PostgresqlSslConfig::new().set_server_verification(ServerVerification::default()/* use setters */);
-    /// assert!(x.server_verification().is_some());
-    /// assert!(x.server_and_client_verification().is_none());
-    /// ```
     pub fn set_server_verification<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::postgresql_ssl_config::ServerVerification>,
@@ -6865,15 +5025,6 @@ impl PostgresqlSslConfig {
     ///
     /// Note that all the setters affecting `encryption_setting` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlSslConfig;
-    /// use google_cloud_datastream_v1::model::postgresql_ssl_config::ServerAndClientVerification;
-    /// let x = PostgresqlSslConfig::new().set_server_and_client_verification(ServerAndClientVerification::default()/* use setters */);
-    /// assert!(x.server_and_client_verification().is_some());
-    /// assert!(x.server_verification().is_none());
-    /// ```
     pub fn set_server_and_client_verification<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::postgresql_ssl_config::ServerAndClientVerification>,
@@ -6925,12 +5076,6 @@ pub mod postgresql_ssl_config {
         }
 
         /// Sets the value of [ca_certificate][crate::model::postgresql_ssl_config::ServerVerification::ca_certificate].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::postgresql_ssl_config::ServerVerification;
-        /// let x = ServerVerification::new().set_ca_certificate("example");
-        /// ```
         pub fn set_ca_certificate<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6940,12 +5085,6 @@ pub mod postgresql_ssl_config {
         }
 
         /// Sets the value of [server_certificate_hostname][crate::model::postgresql_ssl_config::ServerVerification::server_certificate_hostname].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::postgresql_ssl_config::ServerVerification;
-        /// let x = ServerVerification::new().set_server_certificate_hostname("example");
-        /// ```
         pub fn set_server_certificate_hostname<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6999,12 +5138,6 @@ pub mod postgresql_ssl_config {
         }
 
         /// Sets the value of [client_certificate][crate::model::postgresql_ssl_config::ServerAndClientVerification::client_certificate].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::postgresql_ssl_config::ServerAndClientVerification;
-        /// let x = ServerAndClientVerification::new().set_client_certificate("example");
-        /// ```
         pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7014,24 +5147,12 @@ pub mod postgresql_ssl_config {
         }
 
         /// Sets the value of [client_key][crate::model::postgresql_ssl_config::ServerAndClientVerification::client_key].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::postgresql_ssl_config::ServerAndClientVerification;
-        /// let x = ServerAndClientVerification::new().set_client_key("example");
-        /// ```
         pub fn set_client_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.client_key = v.into();
             self
         }
 
         /// Sets the value of [ca_certificate][crate::model::postgresql_ssl_config::ServerAndClientVerification::ca_certificate].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::postgresql_ssl_config::ServerAndClientVerification;
-        /// let x = ServerAndClientVerification::new().set_ca_certificate("example");
-        /// ```
         pub fn set_ca_certificate<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7041,12 +5162,6 @@ pub mod postgresql_ssl_config {
         }
 
         /// Sets the value of [server_certificate_hostname][crate::model::postgresql_ssl_config::ServerAndClientVerification::server_certificate_hostname].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::postgresql_ssl_config::ServerAndClientVerification;
-        /// let x = ServerAndClientVerification::new().set_server_certificate_hostname("example");
-        /// ```
         pub fn set_server_certificate_hostname<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7124,25 +5239,12 @@ impl ConnectionProfile {
     }
 
     /// Sets the value of [name][crate::model::ConnectionProfile::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// let x = ConnectionProfile::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ConnectionProfile::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// use wkt::Timestamp;
-    /// let x = ConnectionProfile::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7152,14 +5254,6 @@ impl ConnectionProfile {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ConnectionProfile::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// use wkt::Timestamp;
-    /// let x = ConnectionProfile::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ConnectionProfile::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7169,13 +5263,6 @@ impl ConnectionProfile {
     }
 
     /// Sets the value of [update_time][crate::model::ConnectionProfile::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// use wkt::Timestamp;
-    /// let x = ConnectionProfile::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7185,14 +5272,6 @@ impl ConnectionProfile {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ConnectionProfile::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// use wkt::Timestamp;
-    /// let x = ConnectionProfile::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ConnectionProfile::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7202,15 +5281,6 @@ impl ConnectionProfile {
     }
 
     /// Sets the value of [labels][crate::model::ConnectionProfile::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// let x = ConnectionProfile::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7223,24 +5293,12 @@ impl ConnectionProfile {
     }
 
     /// Sets the value of [display_name][crate::model::ConnectionProfile::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// let x = ConnectionProfile::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::ConnectionProfile::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// let x = ConnectionProfile::new().set_satisfies_pzs(true);
-    /// ```
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -7250,13 +5308,6 @@ impl ConnectionProfile {
     }
 
     /// Sets or clears the value of [satisfies_pzs][crate::model::ConnectionProfile::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// let x = ConnectionProfile::new().set_or_clear_satisfies_pzs(Some(false));
-    /// let x = ConnectionProfile::new().set_or_clear_satisfies_pzs(None::<bool>);
-    /// ```
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -7266,12 +5317,6 @@ impl ConnectionProfile {
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::ConnectionProfile::satisfies_pzi].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// let x = ConnectionProfile::new().set_satisfies_pzi(true);
-    /// ```
     pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -7281,13 +5326,6 @@ impl ConnectionProfile {
     }
 
     /// Sets or clears the value of [satisfies_pzi][crate::model::ConnectionProfile::satisfies_pzi].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// let x = ConnectionProfile::new().set_or_clear_satisfies_pzi(Some(false));
-    /// let x = ConnectionProfile::new().set_or_clear_satisfies_pzi(None::<bool>);
-    /// ```
     pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -7300,14 +5338,6 @@ impl ConnectionProfile {
     ///
     /// Note that all the setters affecting `profile` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// use google_cloud_datastream_v1::model::connection_profile;
-    /// use google_cloud_datastream_v1::model::OracleProfile;
-    /// let x = ConnectionProfile::new().set_profile(Some(connection_profile::Profile::OracleProfile(OracleProfile::default().into())));
-    /// ```
     pub fn set_profile<
         T: std::convert::Into<std::option::Option<crate::model::connection_profile::Profile>>,
     >(
@@ -7338,21 +5368,6 @@ impl ConnectionProfile {
     ///
     /// Note that all the setters affecting `profile` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// use google_cloud_datastream_v1::model::OracleProfile;
-    /// let x = ConnectionProfile::new().set_oracle_profile(OracleProfile::default()/* use setters */);
-    /// assert!(x.oracle_profile().is_some());
-    /// assert!(x.gcs_profile().is_none());
-    /// assert!(x.mysql_profile().is_none());
-    /// assert!(x.bigquery_profile().is_none());
-    /// assert!(x.postgresql_profile().is_none());
-    /// assert!(x.sql_server_profile().is_none());
-    /// assert!(x.salesforce_profile().is_none());
-    /// assert!(x.mongodb_profile().is_none());
-    /// ```
     pub fn set_oracle_profile<
         T: std::convert::Into<std::boxed::Box<crate::model::OracleProfile>>,
     >(
@@ -7383,21 +5398,6 @@ impl ConnectionProfile {
     ///
     /// Note that all the setters affecting `profile` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// use google_cloud_datastream_v1::model::GcsProfile;
-    /// let x = ConnectionProfile::new().set_gcs_profile(GcsProfile::default()/* use setters */);
-    /// assert!(x.gcs_profile().is_some());
-    /// assert!(x.oracle_profile().is_none());
-    /// assert!(x.mysql_profile().is_none());
-    /// assert!(x.bigquery_profile().is_none());
-    /// assert!(x.postgresql_profile().is_none());
-    /// assert!(x.sql_server_profile().is_none());
-    /// assert!(x.salesforce_profile().is_none());
-    /// assert!(x.mongodb_profile().is_none());
-    /// ```
     pub fn set_gcs_profile<T: std::convert::Into<std::boxed::Box<crate::model::GcsProfile>>>(
         mut self,
         v: T,
@@ -7428,21 +5428,6 @@ impl ConnectionProfile {
     ///
     /// Note that all the setters affecting `profile` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// use google_cloud_datastream_v1::model::MysqlProfile;
-    /// let x = ConnectionProfile::new().set_mysql_profile(MysqlProfile::default()/* use setters */);
-    /// assert!(x.mysql_profile().is_some());
-    /// assert!(x.oracle_profile().is_none());
-    /// assert!(x.gcs_profile().is_none());
-    /// assert!(x.bigquery_profile().is_none());
-    /// assert!(x.postgresql_profile().is_none());
-    /// assert!(x.sql_server_profile().is_none());
-    /// assert!(x.salesforce_profile().is_none());
-    /// assert!(x.mongodb_profile().is_none());
-    /// ```
     pub fn set_mysql_profile<T: std::convert::Into<std::boxed::Box<crate::model::MysqlProfile>>>(
         mut self,
         v: T,
@@ -7473,21 +5458,6 @@ impl ConnectionProfile {
     ///
     /// Note that all the setters affecting `profile` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// use google_cloud_datastream_v1::model::BigQueryProfile;
-    /// let x = ConnectionProfile::new().set_bigquery_profile(BigQueryProfile::default()/* use setters */);
-    /// assert!(x.bigquery_profile().is_some());
-    /// assert!(x.oracle_profile().is_none());
-    /// assert!(x.gcs_profile().is_none());
-    /// assert!(x.mysql_profile().is_none());
-    /// assert!(x.postgresql_profile().is_none());
-    /// assert!(x.sql_server_profile().is_none());
-    /// assert!(x.salesforce_profile().is_none());
-    /// assert!(x.mongodb_profile().is_none());
-    /// ```
     pub fn set_bigquery_profile<
         T: std::convert::Into<std::boxed::Box<crate::model::BigQueryProfile>>,
     >(
@@ -7520,21 +5490,6 @@ impl ConnectionProfile {
     ///
     /// Note that all the setters affecting `profile` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// use google_cloud_datastream_v1::model::PostgresqlProfile;
-    /// let x = ConnectionProfile::new().set_postgresql_profile(PostgresqlProfile::default()/* use setters */);
-    /// assert!(x.postgresql_profile().is_some());
-    /// assert!(x.oracle_profile().is_none());
-    /// assert!(x.gcs_profile().is_none());
-    /// assert!(x.mysql_profile().is_none());
-    /// assert!(x.bigquery_profile().is_none());
-    /// assert!(x.sql_server_profile().is_none());
-    /// assert!(x.salesforce_profile().is_none());
-    /// assert!(x.mongodb_profile().is_none());
-    /// ```
     pub fn set_postgresql_profile<
         T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlProfile>>,
     >(
@@ -7567,21 +5522,6 @@ impl ConnectionProfile {
     ///
     /// Note that all the setters affecting `profile` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// use google_cloud_datastream_v1::model::SqlServerProfile;
-    /// let x = ConnectionProfile::new().set_sql_server_profile(SqlServerProfile::default()/* use setters */);
-    /// assert!(x.sql_server_profile().is_some());
-    /// assert!(x.oracle_profile().is_none());
-    /// assert!(x.gcs_profile().is_none());
-    /// assert!(x.mysql_profile().is_none());
-    /// assert!(x.bigquery_profile().is_none());
-    /// assert!(x.postgresql_profile().is_none());
-    /// assert!(x.salesforce_profile().is_none());
-    /// assert!(x.mongodb_profile().is_none());
-    /// ```
     pub fn set_sql_server_profile<
         T: std::convert::Into<std::boxed::Box<crate::model::SqlServerProfile>>,
     >(
@@ -7614,21 +5554,6 @@ impl ConnectionProfile {
     ///
     /// Note that all the setters affecting `profile` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// use google_cloud_datastream_v1::model::SalesforceProfile;
-    /// let x = ConnectionProfile::new().set_salesforce_profile(SalesforceProfile::default()/* use setters */);
-    /// assert!(x.salesforce_profile().is_some());
-    /// assert!(x.oracle_profile().is_none());
-    /// assert!(x.gcs_profile().is_none());
-    /// assert!(x.mysql_profile().is_none());
-    /// assert!(x.bigquery_profile().is_none());
-    /// assert!(x.postgresql_profile().is_none());
-    /// assert!(x.sql_server_profile().is_none());
-    /// assert!(x.mongodb_profile().is_none());
-    /// ```
     pub fn set_salesforce_profile<
         T: std::convert::Into<std::boxed::Box<crate::model::SalesforceProfile>>,
     >(
@@ -7661,21 +5586,6 @@ impl ConnectionProfile {
     ///
     /// Note that all the setters affecting `profile` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// use google_cloud_datastream_v1::model::MongodbProfile;
-    /// let x = ConnectionProfile::new().set_mongodb_profile(MongodbProfile::default()/* use setters */);
-    /// assert!(x.mongodb_profile().is_some());
-    /// assert!(x.oracle_profile().is_none());
-    /// assert!(x.gcs_profile().is_none());
-    /// assert!(x.mysql_profile().is_none());
-    /// assert!(x.bigquery_profile().is_none());
-    /// assert!(x.postgresql_profile().is_none());
-    /// assert!(x.sql_server_profile().is_none());
-    /// assert!(x.salesforce_profile().is_none());
-    /// ```
     pub fn set_mongodb_profile<
         T: std::convert::Into<std::boxed::Box<crate::model::MongodbProfile>>,
     >(
@@ -7692,14 +5602,6 @@ impl ConnectionProfile {
     ///
     /// Note that all the setters affecting `connectivity` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// use google_cloud_datastream_v1::model::connection_profile;
-    /// use google_cloud_datastream_v1::model::StaticServiceIpConnectivity;
-    /// let x = ConnectionProfile::new().set_connectivity(Some(connection_profile::Connectivity::StaticServiceIpConnectivity(StaticServiceIpConnectivity::default().into())));
-    /// ```
     pub fn set_connectivity<
         T: std::convert::Into<std::option::Option<crate::model::connection_profile::Connectivity>>,
     >(
@@ -7730,16 +5632,6 @@ impl ConnectionProfile {
     ///
     /// Note that all the setters affecting `connectivity` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// use google_cloud_datastream_v1::model::StaticServiceIpConnectivity;
-    /// let x = ConnectionProfile::new().set_static_service_ip_connectivity(StaticServiceIpConnectivity::default()/* use setters */);
-    /// assert!(x.static_service_ip_connectivity().is_some());
-    /// assert!(x.forward_ssh_connectivity().is_none());
-    /// assert!(x.private_connectivity().is_none());
-    /// ```
     pub fn set_static_service_ip_connectivity<
         T: std::convert::Into<std::boxed::Box<crate::model::StaticServiceIpConnectivity>>,
     >(
@@ -7772,16 +5664,6 @@ impl ConnectionProfile {
     ///
     /// Note that all the setters affecting `connectivity` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// use google_cloud_datastream_v1::model::ForwardSshTunnelConnectivity;
-    /// let x = ConnectionProfile::new().set_forward_ssh_connectivity(ForwardSshTunnelConnectivity::default()/* use setters */);
-    /// assert!(x.forward_ssh_connectivity().is_some());
-    /// assert!(x.static_service_ip_connectivity().is_none());
-    /// assert!(x.private_connectivity().is_none());
-    /// ```
     pub fn set_forward_ssh_connectivity<
         T: std::convert::Into<std::boxed::Box<crate::model::ForwardSshTunnelConnectivity>>,
     >(
@@ -7814,16 +5696,6 @@ impl ConnectionProfile {
     ///
     /// Note that all the setters affecting `connectivity` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ConnectionProfile;
-    /// use google_cloud_datastream_v1::model::PrivateConnectivity;
-    /// let x = ConnectionProfile::new().set_private_connectivity(PrivateConnectivity::default()/* use setters */);
-    /// assert!(x.private_connectivity().is_some());
-    /// assert!(x.static_service_ip_connectivity().is_none());
-    /// assert!(x.forward_ssh_connectivity().is_none());
-    /// ```
     pub fn set_private_connectivity<
         T: std::convert::Into<std::boxed::Box<crate::model::PrivateConnectivity>>,
     >(
@@ -7923,108 +5795,54 @@ impl OracleColumn {
     }
 
     /// Sets the value of [column][crate::model::OracleColumn::column].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleColumn;
-    /// let x = OracleColumn::new().set_column("example");
-    /// ```
     pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.column = v.into();
         self
     }
 
     /// Sets the value of [data_type][crate::model::OracleColumn::data_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleColumn;
-    /// let x = OracleColumn::new().set_data_type("example");
-    /// ```
     pub fn set_data_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_type = v.into();
         self
     }
 
     /// Sets the value of [length][crate::model::OracleColumn::length].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleColumn;
-    /// let x = OracleColumn::new().set_length(42);
-    /// ```
     pub fn set_length<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.length = v.into();
         self
     }
 
     /// Sets the value of [precision][crate::model::OracleColumn::precision].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleColumn;
-    /// let x = OracleColumn::new().set_precision(42);
-    /// ```
     pub fn set_precision<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.precision = v.into();
         self
     }
 
     /// Sets the value of [scale][crate::model::OracleColumn::scale].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleColumn;
-    /// let x = OracleColumn::new().set_scale(42);
-    /// ```
     pub fn set_scale<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.scale = v.into();
         self
     }
 
     /// Sets the value of [encoding][crate::model::OracleColumn::encoding].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleColumn;
-    /// let x = OracleColumn::new().set_encoding("example");
-    /// ```
     pub fn set_encoding<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.encoding = v.into();
         self
     }
 
     /// Sets the value of [primary_key][crate::model::OracleColumn::primary_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleColumn;
-    /// let x = OracleColumn::new().set_primary_key(true);
-    /// ```
     pub fn set_primary_key<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.primary_key = v.into();
         self
     }
 
     /// Sets the value of [nullable][crate::model::OracleColumn::nullable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleColumn;
-    /// let x = OracleColumn::new().set_nullable(true);
-    /// ```
     pub fn set_nullable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.nullable = v.into();
         self
     }
 
     /// Sets the value of [ordinal_position][crate::model::OracleColumn::ordinal_position].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleColumn;
-    /// let x = OracleColumn::new().set_ordinal_position(42);
-    /// ```
     pub fn set_ordinal_position<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.ordinal_position = v.into();
         self
@@ -8058,29 +5876,12 @@ impl OracleTable {
     }
 
     /// Sets the value of [table][crate::model::OracleTable::table].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleTable;
-    /// let x = OracleTable::new().set_table("example");
-    /// ```
     pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table = v.into();
         self
     }
 
     /// Sets the value of [oracle_columns][crate::model::OracleTable::oracle_columns].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleTable;
-    /// use google_cloud_datastream_v1::model::OracleColumn;
-    /// let x = OracleTable::new()
-    ///     .set_oracle_columns([
-    ///         OracleColumn::default()/* use setters */,
-    ///         OracleColumn::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_oracle_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8117,29 +5918,12 @@ impl OracleSchema {
     }
 
     /// Sets the value of [schema][crate::model::OracleSchema::schema].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleSchema;
-    /// let x = OracleSchema::new().set_schema("example");
-    /// ```
     pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema = v.into();
         self
     }
 
     /// Sets the value of [oracle_tables][crate::model::OracleSchema::oracle_tables].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleSchema;
-    /// use google_cloud_datastream_v1::model::OracleTable;
-    /// let x = OracleSchema::new()
-    ///     .set_oracle_tables([
-    ///         OracleTable::default()/* use setters */,
-    ///         OracleTable::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_oracle_tables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8173,17 +5957,6 @@ impl OracleRdbms {
     }
 
     /// Sets the value of [oracle_schemas][crate::model::OracleRdbms::oracle_schemas].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleRdbms;
-    /// use google_cloud_datastream_v1::model::OracleSchema;
-    /// let x = OracleRdbms::new()
-    ///     .set_oracle_schemas([
-    ///         OracleSchema::default()/* use setters */,
-    ///         OracleSchema::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_oracle_schemas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8235,13 +6008,6 @@ impl OracleSourceConfig {
     }
 
     /// Sets the value of [include_objects][crate::model::OracleSourceConfig::include_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleSourceConfig;
-    /// use google_cloud_datastream_v1::model::OracleRdbms;
-    /// let x = OracleSourceConfig::new().set_include_objects(OracleRdbms::default()/* use setters */);
-    /// ```
     pub fn set_include_objects<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OracleRdbms>,
@@ -8251,14 +6017,6 @@ impl OracleSourceConfig {
     }
 
     /// Sets or clears the value of [include_objects][crate::model::OracleSourceConfig::include_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleSourceConfig;
-    /// use google_cloud_datastream_v1::model::OracleRdbms;
-    /// let x = OracleSourceConfig::new().set_or_clear_include_objects(Some(OracleRdbms::default()/* use setters */));
-    /// let x = OracleSourceConfig::new().set_or_clear_include_objects(None::<OracleRdbms>);
-    /// ```
     pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OracleRdbms>,
@@ -8268,13 +6026,6 @@ impl OracleSourceConfig {
     }
 
     /// Sets the value of [exclude_objects][crate::model::OracleSourceConfig::exclude_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleSourceConfig;
-    /// use google_cloud_datastream_v1::model::OracleRdbms;
-    /// let x = OracleSourceConfig::new().set_exclude_objects(OracleRdbms::default()/* use setters */);
-    /// ```
     pub fn set_exclude_objects<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OracleRdbms>,
@@ -8284,14 +6035,6 @@ impl OracleSourceConfig {
     }
 
     /// Sets or clears the value of [exclude_objects][crate::model::OracleSourceConfig::exclude_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleSourceConfig;
-    /// use google_cloud_datastream_v1::model::OracleRdbms;
-    /// let x = OracleSourceConfig::new().set_or_clear_exclude_objects(Some(OracleRdbms::default()/* use setters */));
-    /// let x = OracleSourceConfig::new().set_or_clear_exclude_objects(None::<OracleRdbms>);
-    /// ```
     pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OracleRdbms>,
@@ -8301,24 +6044,12 @@ impl OracleSourceConfig {
     }
 
     /// Sets the value of [max_concurrent_cdc_tasks][crate::model::OracleSourceConfig::max_concurrent_cdc_tasks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleSourceConfig;
-    /// let x = OracleSourceConfig::new().set_max_concurrent_cdc_tasks(42);
-    /// ```
     pub fn set_max_concurrent_cdc_tasks<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_concurrent_cdc_tasks = v.into();
         self
     }
 
     /// Sets the value of [max_concurrent_backfill_tasks][crate::model::OracleSourceConfig::max_concurrent_backfill_tasks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleSourceConfig;
-    /// let x = OracleSourceConfig::new().set_max_concurrent_backfill_tasks(42);
-    /// ```
     pub fn set_max_concurrent_backfill_tasks<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_concurrent_backfill_tasks = v.into();
         self
@@ -8328,14 +6059,6 @@ impl OracleSourceConfig {
     ///
     /// Note that all the setters affecting `large_objects_handling` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleSourceConfig;
-    /// use google_cloud_datastream_v1::model::oracle_source_config;
-    /// use google_cloud_datastream_v1::model::oracle_source_config::DropLargeObjects;
-    /// let x = OracleSourceConfig::new().set_large_objects_handling(Some(oracle_source_config::LargeObjectsHandling::DropLargeObjects(DropLargeObjects::default().into())));
-    /// ```
     pub fn set_large_objects_handling<
         T: std::convert::Into<
                 std::option::Option<crate::model::oracle_source_config::LargeObjectsHandling>,
@@ -8369,15 +6092,6 @@ impl OracleSourceConfig {
     ///
     /// Note that all the setters affecting `large_objects_handling` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleSourceConfig;
-    /// use google_cloud_datastream_v1::model::oracle_source_config::DropLargeObjects;
-    /// let x = OracleSourceConfig::new().set_drop_large_objects(DropLargeObjects::default()/* use setters */);
-    /// assert!(x.drop_large_objects().is_some());
-    /// assert!(x.stream_large_objects().is_none());
-    /// ```
     pub fn set_drop_large_objects<
         T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::DropLargeObjects>>,
     >(
@@ -8411,15 +6125,6 @@ impl OracleSourceConfig {
     ///
     /// Note that all the setters affecting `large_objects_handling` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleSourceConfig;
-    /// use google_cloud_datastream_v1::model::oracle_source_config::StreamLargeObjects;
-    /// let x = OracleSourceConfig::new().set_stream_large_objects(StreamLargeObjects::default()/* use setters */);
-    /// assert!(x.stream_large_objects().is_some());
-    /// assert!(x.drop_large_objects().is_none());
-    /// ```
     pub fn set_stream_large_objects<
         T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::StreamLargeObjects>>,
     >(
@@ -8436,14 +6141,6 @@ impl OracleSourceConfig {
     ///
     /// Note that all the setters affecting `cdc_method` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleSourceConfig;
-    /// use google_cloud_datastream_v1::model::oracle_source_config;
-    /// use google_cloud_datastream_v1::model::oracle_source_config::LogMiner;
-    /// let x = OracleSourceConfig::new().set_cdc_method(Some(oracle_source_config::CdcMethod::LogMiner(LogMiner::default().into())));
-    /// ```
     pub fn set_cdc_method<
         T: std::convert::Into<std::option::Option<crate::model::oracle_source_config::CdcMethod>>,
     >(
@@ -8474,15 +6171,6 @@ impl OracleSourceConfig {
     ///
     /// Note that all the setters affecting `cdc_method` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleSourceConfig;
-    /// use google_cloud_datastream_v1::model::oracle_source_config::LogMiner;
-    /// let x = OracleSourceConfig::new().set_log_miner(LogMiner::default()/* use setters */);
-    /// assert!(x.log_miner().is_some());
-    /// assert!(x.binary_log_parser().is_none());
-    /// ```
     pub fn set_log_miner<
         T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::LogMiner>>,
     >(
@@ -8516,15 +6204,6 @@ impl OracleSourceConfig {
     ///
     /// Note that all the setters affecting `cdc_method` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleSourceConfig;
-    /// use google_cloud_datastream_v1::model::oracle_source_config::BinaryLogParser;
-    /// let x = OracleSourceConfig::new().set_binary_log_parser(BinaryLogParser::default()/* use setters */);
-    /// assert!(x.binary_log_parser().is_some());
-    /// assert!(x.log_miner().is_none());
-    /// ```
     pub fn set_binary_log_parser<
         T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::BinaryLogParser>>,
     >(
@@ -8627,14 +6306,6 @@ pub mod oracle_source_config {
         ///
         /// Note that all the setters affecting `log_file_access` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::oracle_source_config::BinaryLogParser;
-        /// use google_cloud_datastream_v1::model::oracle_source_config::binary_log_parser;
-        /// use google_cloud_datastream_v1::model::oracle_source_config::binary_log_parser::OracleAsmLogFileAccess;
-        /// let x = BinaryLogParser::new().set_log_file_access(Some(oracle_source_config::binary_log_parser::LogFileAccess::OracleAsmLogFileAccess(OracleAsmLogFileAccess::default().into())));
-        /// ```
         pub fn set_log_file_access<
             T: std::convert::Into<
                     std::option::Option<
@@ -8671,15 +6342,6 @@ pub mod oracle_source_config {
         ///
         /// Note that all the setters affecting `log_file_access` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::oracle_source_config::BinaryLogParser;
-        /// use google_cloud_datastream_v1::model::oracle_source_config::binary_log_parser::OracleAsmLogFileAccess;
-        /// let x = BinaryLogParser::new().set_oracle_asm_log_file_access(OracleAsmLogFileAccess::default()/* use setters */);
-        /// assert!(x.oracle_asm_log_file_access().is_some());
-        /// assert!(x.log_file_directories().is_none());
-        /// ```
         pub fn set_oracle_asm_log_file_access<T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::binary_log_parser::OracleAsmLogFileAccess>>>(mut self, v: T) -> Self{
             self.log_file_access = std::option::Option::Some(
                 crate::model::oracle_source_config::binary_log_parser::LogFileAccess::OracleAsmLogFileAccess(
@@ -8711,15 +6373,6 @@ pub mod oracle_source_config {
         ///
         /// Note that all the setters affecting `log_file_access` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::oracle_source_config::BinaryLogParser;
-        /// use google_cloud_datastream_v1::model::oracle_source_config::binary_log_parser::LogFileDirectories;
-        /// let x = BinaryLogParser::new().set_log_file_directories(LogFileDirectories::default()/* use setters */);
-        /// assert!(x.log_file_directories().is_some());
-        /// assert!(x.oracle_asm_log_file_access().is_none());
-        /// ```
         pub fn set_log_file_directories<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -8788,12 +6441,6 @@ pub mod oracle_source_config {
             }
 
             /// Sets the value of [online_log_directory][crate::model::oracle_source_config::binary_log_parser::LogFileDirectories::online_log_directory].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_datastream_v1::model::oracle_source_config::binary_log_parser::LogFileDirectories;
-            /// let x = LogFileDirectories::new().set_online_log_directory("example");
-            /// ```
             pub fn set_online_log_directory<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -8803,12 +6450,6 @@ pub mod oracle_source_config {
             }
 
             /// Sets the value of [archived_log_directory][crate::model::oracle_source_config::binary_log_parser::LogFileDirectories::archived_log_directory].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_datastream_v1::model::oracle_source_config::binary_log_parser::LogFileDirectories;
-            /// let x = LogFileDirectories::new().set_archived_log_directory("example");
-            /// ```
             pub fn set_archived_log_directory<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -8901,96 +6542,48 @@ impl PostgresqlColumn {
     }
 
     /// Sets the value of [column][crate::model::PostgresqlColumn::column].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlColumn;
-    /// let x = PostgresqlColumn::new().set_column("example");
-    /// ```
     pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.column = v.into();
         self
     }
 
     /// Sets the value of [data_type][crate::model::PostgresqlColumn::data_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlColumn;
-    /// let x = PostgresqlColumn::new().set_data_type("example");
-    /// ```
     pub fn set_data_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_type = v.into();
         self
     }
 
     /// Sets the value of [length][crate::model::PostgresqlColumn::length].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlColumn;
-    /// let x = PostgresqlColumn::new().set_length(42);
-    /// ```
     pub fn set_length<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.length = v.into();
         self
     }
 
     /// Sets the value of [precision][crate::model::PostgresqlColumn::precision].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlColumn;
-    /// let x = PostgresqlColumn::new().set_precision(42);
-    /// ```
     pub fn set_precision<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.precision = v.into();
         self
     }
 
     /// Sets the value of [scale][crate::model::PostgresqlColumn::scale].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlColumn;
-    /// let x = PostgresqlColumn::new().set_scale(42);
-    /// ```
     pub fn set_scale<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.scale = v.into();
         self
     }
 
     /// Sets the value of [primary_key][crate::model::PostgresqlColumn::primary_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlColumn;
-    /// let x = PostgresqlColumn::new().set_primary_key(true);
-    /// ```
     pub fn set_primary_key<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.primary_key = v.into();
         self
     }
 
     /// Sets the value of [nullable][crate::model::PostgresqlColumn::nullable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlColumn;
-    /// let x = PostgresqlColumn::new().set_nullable(true);
-    /// ```
     pub fn set_nullable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.nullable = v.into();
         self
     }
 
     /// Sets the value of [ordinal_position][crate::model::PostgresqlColumn::ordinal_position].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlColumn;
-    /// let x = PostgresqlColumn::new().set_ordinal_position(42);
-    /// ```
     pub fn set_ordinal_position<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.ordinal_position = v.into();
         self
@@ -9024,29 +6617,12 @@ impl PostgresqlTable {
     }
 
     /// Sets the value of [table][crate::model::PostgresqlTable::table].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlTable;
-    /// let x = PostgresqlTable::new().set_table("example");
-    /// ```
     pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table = v.into();
         self
     }
 
     /// Sets the value of [postgresql_columns][crate::model::PostgresqlTable::postgresql_columns].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlTable;
-    /// use google_cloud_datastream_v1::model::PostgresqlColumn;
-    /// let x = PostgresqlTable::new()
-    ///     .set_postgresql_columns([
-    ///         PostgresqlColumn::default()/* use setters */,
-    ///         PostgresqlColumn::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_postgresql_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9083,29 +6659,12 @@ impl PostgresqlSchema {
     }
 
     /// Sets the value of [schema][crate::model::PostgresqlSchema::schema].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlSchema;
-    /// let x = PostgresqlSchema::new().set_schema("example");
-    /// ```
     pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema = v.into();
         self
     }
 
     /// Sets the value of [postgresql_tables][crate::model::PostgresqlSchema::postgresql_tables].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlSchema;
-    /// use google_cloud_datastream_v1::model::PostgresqlTable;
-    /// let x = PostgresqlSchema::new()
-    ///     .set_postgresql_tables([
-    ///         PostgresqlTable::default()/* use setters */,
-    ///         PostgresqlTable::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_postgresql_tables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9139,17 +6698,6 @@ impl PostgresqlRdbms {
     }
 
     /// Sets the value of [postgresql_schemas][crate::model::PostgresqlRdbms::postgresql_schemas].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlRdbms;
-    /// use google_cloud_datastream_v1::model::PostgresqlSchema;
-    /// let x = PostgresqlRdbms::new()
-    ///     .set_postgresql_schemas([
-    ///         PostgresqlSchema::default()/* use setters */,
-    ///         PostgresqlSchema::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_postgresql_schemas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9199,13 +6747,6 @@ impl PostgresqlSourceConfig {
     }
 
     /// Sets the value of [include_objects][crate::model::PostgresqlSourceConfig::include_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlSourceConfig;
-    /// use google_cloud_datastream_v1::model::PostgresqlRdbms;
-    /// let x = PostgresqlSourceConfig::new().set_include_objects(PostgresqlRdbms::default()/* use setters */);
-    /// ```
     pub fn set_include_objects<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PostgresqlRdbms>,
@@ -9215,14 +6756,6 @@ impl PostgresqlSourceConfig {
     }
 
     /// Sets or clears the value of [include_objects][crate::model::PostgresqlSourceConfig::include_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlSourceConfig;
-    /// use google_cloud_datastream_v1::model::PostgresqlRdbms;
-    /// let x = PostgresqlSourceConfig::new().set_or_clear_include_objects(Some(PostgresqlRdbms::default()/* use setters */));
-    /// let x = PostgresqlSourceConfig::new().set_or_clear_include_objects(None::<PostgresqlRdbms>);
-    /// ```
     pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PostgresqlRdbms>,
@@ -9232,13 +6765,6 @@ impl PostgresqlSourceConfig {
     }
 
     /// Sets the value of [exclude_objects][crate::model::PostgresqlSourceConfig::exclude_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlSourceConfig;
-    /// use google_cloud_datastream_v1::model::PostgresqlRdbms;
-    /// let x = PostgresqlSourceConfig::new().set_exclude_objects(PostgresqlRdbms::default()/* use setters */);
-    /// ```
     pub fn set_exclude_objects<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PostgresqlRdbms>,
@@ -9248,14 +6774,6 @@ impl PostgresqlSourceConfig {
     }
 
     /// Sets or clears the value of [exclude_objects][crate::model::PostgresqlSourceConfig::exclude_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlSourceConfig;
-    /// use google_cloud_datastream_v1::model::PostgresqlRdbms;
-    /// let x = PostgresqlSourceConfig::new().set_or_clear_exclude_objects(Some(PostgresqlRdbms::default()/* use setters */));
-    /// let x = PostgresqlSourceConfig::new().set_or_clear_exclude_objects(None::<PostgresqlRdbms>);
-    /// ```
     pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PostgresqlRdbms>,
@@ -9265,12 +6783,6 @@ impl PostgresqlSourceConfig {
     }
 
     /// Sets the value of [replication_slot][crate::model::PostgresqlSourceConfig::replication_slot].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlSourceConfig;
-    /// let x = PostgresqlSourceConfig::new().set_replication_slot("example");
-    /// ```
     pub fn set_replication_slot<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9280,24 +6792,12 @@ impl PostgresqlSourceConfig {
     }
 
     /// Sets the value of [publication][crate::model::PostgresqlSourceConfig::publication].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlSourceConfig;
-    /// let x = PostgresqlSourceConfig::new().set_publication("example");
-    /// ```
     pub fn set_publication<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.publication = v.into();
         self
     }
 
     /// Sets the value of [max_concurrent_backfill_tasks][crate::model::PostgresqlSourceConfig::max_concurrent_backfill_tasks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::PostgresqlSourceConfig;
-    /// let x = PostgresqlSourceConfig::new().set_max_concurrent_backfill_tasks(42);
-    /// ```
     pub fn set_max_concurrent_backfill_tasks<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_concurrent_backfill_tasks = v.into();
         self
@@ -9347,96 +6847,48 @@ impl SqlServerColumn {
     }
 
     /// Sets the value of [column][crate::model::SqlServerColumn::column].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerColumn;
-    /// let x = SqlServerColumn::new().set_column("example");
-    /// ```
     pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.column = v.into();
         self
     }
 
     /// Sets the value of [data_type][crate::model::SqlServerColumn::data_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerColumn;
-    /// let x = SqlServerColumn::new().set_data_type("example");
-    /// ```
     pub fn set_data_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_type = v.into();
         self
     }
 
     /// Sets the value of [length][crate::model::SqlServerColumn::length].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerColumn;
-    /// let x = SqlServerColumn::new().set_length(42);
-    /// ```
     pub fn set_length<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.length = v.into();
         self
     }
 
     /// Sets the value of [precision][crate::model::SqlServerColumn::precision].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerColumn;
-    /// let x = SqlServerColumn::new().set_precision(42);
-    /// ```
     pub fn set_precision<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.precision = v.into();
         self
     }
 
     /// Sets the value of [scale][crate::model::SqlServerColumn::scale].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerColumn;
-    /// let x = SqlServerColumn::new().set_scale(42);
-    /// ```
     pub fn set_scale<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.scale = v.into();
         self
     }
 
     /// Sets the value of [primary_key][crate::model::SqlServerColumn::primary_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerColumn;
-    /// let x = SqlServerColumn::new().set_primary_key(true);
-    /// ```
     pub fn set_primary_key<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.primary_key = v.into();
         self
     }
 
     /// Sets the value of [nullable][crate::model::SqlServerColumn::nullable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerColumn;
-    /// let x = SqlServerColumn::new().set_nullable(true);
-    /// ```
     pub fn set_nullable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.nullable = v.into();
         self
     }
 
     /// Sets the value of [ordinal_position][crate::model::SqlServerColumn::ordinal_position].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerColumn;
-    /// let x = SqlServerColumn::new().set_ordinal_position(42);
-    /// ```
     pub fn set_ordinal_position<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.ordinal_position = v.into();
         self
@@ -9470,29 +6922,12 @@ impl SqlServerTable {
     }
 
     /// Sets the value of [table][crate::model::SqlServerTable::table].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerTable;
-    /// let x = SqlServerTable::new().set_table("example");
-    /// ```
     pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table = v.into();
         self
     }
 
     /// Sets the value of [columns][crate::model::SqlServerTable::columns].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerTable;
-    /// use google_cloud_datastream_v1::model::SqlServerColumn;
-    /// let x = SqlServerTable::new()
-    ///     .set_columns([
-    ///         SqlServerColumn::default()/* use setters */,
-    ///         SqlServerColumn::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9529,29 +6964,12 @@ impl SqlServerSchema {
     }
 
     /// Sets the value of [schema][crate::model::SqlServerSchema::schema].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerSchema;
-    /// let x = SqlServerSchema::new().set_schema("example");
-    /// ```
     pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema = v.into();
         self
     }
 
     /// Sets the value of [tables][crate::model::SqlServerSchema::tables].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerSchema;
-    /// use google_cloud_datastream_v1::model::SqlServerTable;
-    /// let x = SqlServerSchema::new()
-    ///     .set_tables([
-    ///         SqlServerTable::default()/* use setters */,
-    ///         SqlServerTable::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_tables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9585,17 +7003,6 @@ impl SqlServerRdbms {
     }
 
     /// Sets the value of [schemas][crate::model::SqlServerRdbms::schemas].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerRdbms;
-    /// use google_cloud_datastream_v1::model::SqlServerSchema;
-    /// let x = SqlServerRdbms::new()
-    ///     .set_schemas([
-    ///         SqlServerSchema::default()/* use setters */,
-    ///         SqlServerSchema::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_schemas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9641,13 +7048,6 @@ impl SqlServerSourceConfig {
     }
 
     /// Sets the value of [include_objects][crate::model::SqlServerSourceConfig::include_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerSourceConfig;
-    /// use google_cloud_datastream_v1::model::SqlServerRdbms;
-    /// let x = SqlServerSourceConfig::new().set_include_objects(SqlServerRdbms::default()/* use setters */);
-    /// ```
     pub fn set_include_objects<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SqlServerRdbms>,
@@ -9657,14 +7057,6 @@ impl SqlServerSourceConfig {
     }
 
     /// Sets or clears the value of [include_objects][crate::model::SqlServerSourceConfig::include_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerSourceConfig;
-    /// use google_cloud_datastream_v1::model::SqlServerRdbms;
-    /// let x = SqlServerSourceConfig::new().set_or_clear_include_objects(Some(SqlServerRdbms::default()/* use setters */));
-    /// let x = SqlServerSourceConfig::new().set_or_clear_include_objects(None::<SqlServerRdbms>);
-    /// ```
     pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SqlServerRdbms>,
@@ -9674,13 +7066,6 @@ impl SqlServerSourceConfig {
     }
 
     /// Sets the value of [exclude_objects][crate::model::SqlServerSourceConfig::exclude_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerSourceConfig;
-    /// use google_cloud_datastream_v1::model::SqlServerRdbms;
-    /// let x = SqlServerSourceConfig::new().set_exclude_objects(SqlServerRdbms::default()/* use setters */);
-    /// ```
     pub fn set_exclude_objects<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SqlServerRdbms>,
@@ -9690,14 +7075,6 @@ impl SqlServerSourceConfig {
     }
 
     /// Sets or clears the value of [exclude_objects][crate::model::SqlServerSourceConfig::exclude_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerSourceConfig;
-    /// use google_cloud_datastream_v1::model::SqlServerRdbms;
-    /// let x = SqlServerSourceConfig::new().set_or_clear_exclude_objects(Some(SqlServerRdbms::default()/* use setters */));
-    /// let x = SqlServerSourceConfig::new().set_or_clear_exclude_objects(None::<SqlServerRdbms>);
-    /// ```
     pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SqlServerRdbms>,
@@ -9707,24 +7084,12 @@ impl SqlServerSourceConfig {
     }
 
     /// Sets the value of [max_concurrent_cdc_tasks][crate::model::SqlServerSourceConfig::max_concurrent_cdc_tasks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerSourceConfig;
-    /// let x = SqlServerSourceConfig::new().set_max_concurrent_cdc_tasks(42);
-    /// ```
     pub fn set_max_concurrent_cdc_tasks<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_concurrent_cdc_tasks = v.into();
         self
     }
 
     /// Sets the value of [max_concurrent_backfill_tasks][crate::model::SqlServerSourceConfig::max_concurrent_backfill_tasks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerSourceConfig;
-    /// let x = SqlServerSourceConfig::new().set_max_concurrent_backfill_tasks(42);
-    /// ```
     pub fn set_max_concurrent_backfill_tasks<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_concurrent_backfill_tasks = v.into();
         self
@@ -9734,14 +7099,6 @@ impl SqlServerSourceConfig {
     ///
     /// Note that all the setters affecting `cdc_method` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerSourceConfig;
-    /// use google_cloud_datastream_v1::model::sql_server_source_config;
-    /// use google_cloud_datastream_v1::model::SqlServerTransactionLogs;
-    /// let x = SqlServerSourceConfig::new().set_cdc_method(Some(sql_server_source_config::CdcMethod::TransactionLogs(SqlServerTransactionLogs::default().into())));
-    /// ```
     pub fn set_cdc_method<
         T: std::convert::Into<std::option::Option<crate::model::sql_server_source_config::CdcMethod>>,
     >(
@@ -9772,15 +7129,6 @@ impl SqlServerSourceConfig {
     ///
     /// Note that all the setters affecting `cdc_method` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerSourceConfig;
-    /// use google_cloud_datastream_v1::model::SqlServerTransactionLogs;
-    /// let x = SqlServerSourceConfig::new().set_transaction_logs(SqlServerTransactionLogs::default()/* use setters */);
-    /// assert!(x.transaction_logs().is_some());
-    /// assert!(x.change_tables().is_none());
-    /// ```
     pub fn set_transaction_logs<
         T: std::convert::Into<std::boxed::Box<crate::model::SqlServerTransactionLogs>>,
     >(
@@ -9813,15 +7161,6 @@ impl SqlServerSourceConfig {
     ///
     /// Note that all the setters affecting `cdc_method` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerSourceConfig;
-    /// use google_cloud_datastream_v1::model::SqlServerChangeTables;
-    /// let x = SqlServerSourceConfig::new().set_change_tables(SqlServerChangeTables::default()/* use setters */);
-    /// assert!(x.change_tables().is_some());
-    /// assert!(x.transaction_logs().is_none());
-    /// ```
     pub fn set_change_tables<
         T: std::convert::Into<std::boxed::Box<crate::model::SqlServerChangeTables>>,
     >(
@@ -9936,108 +7275,54 @@ impl MysqlColumn {
     }
 
     /// Sets the value of [column][crate::model::MysqlColumn::column].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlColumn;
-    /// let x = MysqlColumn::new().set_column("example");
-    /// ```
     pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.column = v.into();
         self
     }
 
     /// Sets the value of [data_type][crate::model::MysqlColumn::data_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlColumn;
-    /// let x = MysqlColumn::new().set_data_type("example");
-    /// ```
     pub fn set_data_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_type = v.into();
         self
     }
 
     /// Sets the value of [length][crate::model::MysqlColumn::length].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlColumn;
-    /// let x = MysqlColumn::new().set_length(42);
-    /// ```
     pub fn set_length<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.length = v.into();
         self
     }
 
     /// Sets the value of [collation][crate::model::MysqlColumn::collation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlColumn;
-    /// let x = MysqlColumn::new().set_collation("example");
-    /// ```
     pub fn set_collation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.collation = v.into();
         self
     }
 
     /// Sets the value of [primary_key][crate::model::MysqlColumn::primary_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlColumn;
-    /// let x = MysqlColumn::new().set_primary_key(true);
-    /// ```
     pub fn set_primary_key<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.primary_key = v.into();
         self
     }
 
     /// Sets the value of [nullable][crate::model::MysqlColumn::nullable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlColumn;
-    /// let x = MysqlColumn::new().set_nullable(true);
-    /// ```
     pub fn set_nullable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.nullable = v.into();
         self
     }
 
     /// Sets the value of [ordinal_position][crate::model::MysqlColumn::ordinal_position].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlColumn;
-    /// let x = MysqlColumn::new().set_ordinal_position(42);
-    /// ```
     pub fn set_ordinal_position<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.ordinal_position = v.into();
         self
     }
 
     /// Sets the value of [precision][crate::model::MysqlColumn::precision].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlColumn;
-    /// let x = MysqlColumn::new().set_precision(42);
-    /// ```
     pub fn set_precision<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.precision = v.into();
         self
     }
 
     /// Sets the value of [scale][crate::model::MysqlColumn::scale].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlColumn;
-    /// let x = MysqlColumn::new().set_scale(42);
-    /// ```
     pub fn set_scale<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.scale = v.into();
         self
@@ -10071,29 +7356,12 @@ impl MysqlTable {
     }
 
     /// Sets the value of [table][crate::model::MysqlTable::table].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlTable;
-    /// let x = MysqlTable::new().set_table("example");
-    /// ```
     pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table = v.into();
         self
     }
 
     /// Sets the value of [mysql_columns][crate::model::MysqlTable::mysql_columns].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlTable;
-    /// use google_cloud_datastream_v1::model::MysqlColumn;
-    /// let x = MysqlTable::new()
-    ///     .set_mysql_columns([
-    ///         MysqlColumn::default()/* use setters */,
-    ///         MysqlColumn::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_mysql_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10130,29 +7398,12 @@ impl MysqlDatabase {
     }
 
     /// Sets the value of [database][crate::model::MysqlDatabase::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlDatabase;
-    /// let x = MysqlDatabase::new().set_database("example");
-    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [mysql_tables][crate::model::MysqlDatabase::mysql_tables].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlDatabase;
-    /// use google_cloud_datastream_v1::model::MysqlTable;
-    /// let x = MysqlDatabase::new()
-    ///     .set_mysql_tables([
-    ///         MysqlTable::default()/* use setters */,
-    ///         MysqlTable::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_mysql_tables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10186,17 +7437,6 @@ impl MysqlRdbms {
     }
 
     /// Sets the value of [mysql_databases][crate::model::MysqlRdbms::mysql_databases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlRdbms;
-    /// use google_cloud_datastream_v1::model::MysqlDatabase;
-    /// let x = MysqlRdbms::new()
-    ///     .set_mysql_databases([
-    ///         MysqlDatabase::default()/* use setters */,
-    ///         MysqlDatabase::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_mysql_databases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10245,13 +7485,6 @@ impl MysqlSourceConfig {
     }
 
     /// Sets the value of [include_objects][crate::model::MysqlSourceConfig::include_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlSourceConfig;
-    /// use google_cloud_datastream_v1::model::MysqlRdbms;
-    /// let x = MysqlSourceConfig::new().set_include_objects(MysqlRdbms::default()/* use setters */);
-    /// ```
     pub fn set_include_objects<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MysqlRdbms>,
@@ -10261,14 +7494,6 @@ impl MysqlSourceConfig {
     }
 
     /// Sets or clears the value of [include_objects][crate::model::MysqlSourceConfig::include_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlSourceConfig;
-    /// use google_cloud_datastream_v1::model::MysqlRdbms;
-    /// let x = MysqlSourceConfig::new().set_or_clear_include_objects(Some(MysqlRdbms::default()/* use setters */));
-    /// let x = MysqlSourceConfig::new().set_or_clear_include_objects(None::<MysqlRdbms>);
-    /// ```
     pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MysqlRdbms>,
@@ -10278,13 +7503,6 @@ impl MysqlSourceConfig {
     }
 
     /// Sets the value of [exclude_objects][crate::model::MysqlSourceConfig::exclude_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlSourceConfig;
-    /// use google_cloud_datastream_v1::model::MysqlRdbms;
-    /// let x = MysqlSourceConfig::new().set_exclude_objects(MysqlRdbms::default()/* use setters */);
-    /// ```
     pub fn set_exclude_objects<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MysqlRdbms>,
@@ -10294,14 +7512,6 @@ impl MysqlSourceConfig {
     }
 
     /// Sets or clears the value of [exclude_objects][crate::model::MysqlSourceConfig::exclude_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlSourceConfig;
-    /// use google_cloud_datastream_v1::model::MysqlRdbms;
-    /// let x = MysqlSourceConfig::new().set_or_clear_exclude_objects(Some(MysqlRdbms::default()/* use setters */));
-    /// let x = MysqlSourceConfig::new().set_or_clear_exclude_objects(None::<MysqlRdbms>);
-    /// ```
     pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MysqlRdbms>,
@@ -10311,24 +7521,12 @@ impl MysqlSourceConfig {
     }
 
     /// Sets the value of [max_concurrent_cdc_tasks][crate::model::MysqlSourceConfig::max_concurrent_cdc_tasks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlSourceConfig;
-    /// let x = MysqlSourceConfig::new().set_max_concurrent_cdc_tasks(42);
-    /// ```
     pub fn set_max_concurrent_cdc_tasks<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_concurrent_cdc_tasks = v.into();
         self
     }
 
     /// Sets the value of [max_concurrent_backfill_tasks][crate::model::MysqlSourceConfig::max_concurrent_backfill_tasks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlSourceConfig;
-    /// let x = MysqlSourceConfig::new().set_max_concurrent_backfill_tasks(42);
-    /// ```
     pub fn set_max_concurrent_backfill_tasks<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_concurrent_backfill_tasks = v.into();
         self
@@ -10338,14 +7536,6 @@ impl MysqlSourceConfig {
     ///
     /// Note that all the setters affecting `cdc_method` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlSourceConfig;
-    /// use google_cloud_datastream_v1::model::mysql_source_config;
-    /// use google_cloud_datastream_v1::model::mysql_source_config::BinaryLogPosition;
-    /// let x = MysqlSourceConfig::new().set_cdc_method(Some(mysql_source_config::CdcMethod::BinaryLogPosition(BinaryLogPosition::default().into())));
-    /// ```
     pub fn set_cdc_method<
         T: std::convert::Into<std::option::Option<crate::model::mysql_source_config::CdcMethod>>,
     >(
@@ -10377,15 +7567,6 @@ impl MysqlSourceConfig {
     ///
     /// Note that all the setters affecting `cdc_method` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlSourceConfig;
-    /// use google_cloud_datastream_v1::model::mysql_source_config::BinaryLogPosition;
-    /// let x = MysqlSourceConfig::new().set_binary_log_position(BinaryLogPosition::default()/* use setters */);
-    /// assert!(x.binary_log_position().is_some());
-    /// assert!(x.gtid().is_none());
-    /// ```
     pub fn set_binary_log_position<
         T: std::convert::Into<std::boxed::Box<crate::model::mysql_source_config::BinaryLogPosition>>,
     >(
@@ -10416,15 +7597,6 @@ impl MysqlSourceConfig {
     ///
     /// Note that all the setters affecting `cdc_method` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlSourceConfig;
-    /// use google_cloud_datastream_v1::model::mysql_source_config::Gtid;
-    /// let x = MysqlSourceConfig::new().set_gtid(Gtid::default()/* use setters */);
-    /// assert!(x.gtid().is_some());
-    /// assert!(x.binary_log_position().is_none());
-    /// ```
     pub fn set_gtid<
         T: std::convert::Into<std::boxed::Box<crate::model::mysql_source_config::Gtid>>,
     >(
@@ -10521,13 +7693,6 @@ impl SalesforceSourceConfig {
     }
 
     /// Sets the value of [include_objects][crate::model::SalesforceSourceConfig::include_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SalesforceSourceConfig;
-    /// use google_cloud_datastream_v1::model::SalesforceOrg;
-    /// let x = SalesforceSourceConfig::new().set_include_objects(SalesforceOrg::default()/* use setters */);
-    /// ```
     pub fn set_include_objects<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SalesforceOrg>,
@@ -10537,14 +7702,6 @@ impl SalesforceSourceConfig {
     }
 
     /// Sets or clears the value of [include_objects][crate::model::SalesforceSourceConfig::include_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SalesforceSourceConfig;
-    /// use google_cloud_datastream_v1::model::SalesforceOrg;
-    /// let x = SalesforceSourceConfig::new().set_or_clear_include_objects(Some(SalesforceOrg::default()/* use setters */));
-    /// let x = SalesforceSourceConfig::new().set_or_clear_include_objects(None::<SalesforceOrg>);
-    /// ```
     pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SalesforceOrg>,
@@ -10554,13 +7711,6 @@ impl SalesforceSourceConfig {
     }
 
     /// Sets the value of [exclude_objects][crate::model::SalesforceSourceConfig::exclude_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SalesforceSourceConfig;
-    /// use google_cloud_datastream_v1::model::SalesforceOrg;
-    /// let x = SalesforceSourceConfig::new().set_exclude_objects(SalesforceOrg::default()/* use setters */);
-    /// ```
     pub fn set_exclude_objects<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SalesforceOrg>,
@@ -10570,14 +7720,6 @@ impl SalesforceSourceConfig {
     }
 
     /// Sets or clears the value of [exclude_objects][crate::model::SalesforceSourceConfig::exclude_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SalesforceSourceConfig;
-    /// use google_cloud_datastream_v1::model::SalesforceOrg;
-    /// let x = SalesforceSourceConfig::new().set_or_clear_exclude_objects(Some(SalesforceOrg::default()/* use setters */));
-    /// let x = SalesforceSourceConfig::new().set_or_clear_exclude_objects(None::<SalesforceOrg>);
-    /// ```
     pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SalesforceOrg>,
@@ -10587,13 +7729,6 @@ impl SalesforceSourceConfig {
     }
 
     /// Sets the value of [polling_interval][crate::model::SalesforceSourceConfig::polling_interval].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SalesforceSourceConfig;
-    /// use wkt::Duration;
-    /// let x = SalesforceSourceConfig::new().set_polling_interval(Duration::default()/* use setters */);
-    /// ```
     pub fn set_polling_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -10603,14 +7738,6 @@ impl SalesforceSourceConfig {
     }
 
     /// Sets or clears the value of [polling_interval][crate::model::SalesforceSourceConfig::polling_interval].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SalesforceSourceConfig;
-    /// use wkt::Duration;
-    /// let x = SalesforceSourceConfig::new().set_or_clear_polling_interval(Some(Duration::default()/* use setters */));
-    /// let x = SalesforceSourceConfig::new().set_or_clear_polling_interval(None::<Duration>);
-    /// ```
     pub fn set_or_clear_polling_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -10642,17 +7769,6 @@ impl SalesforceOrg {
     }
 
     /// Sets the value of [objects][crate::model::SalesforceOrg::objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SalesforceOrg;
-    /// use google_cloud_datastream_v1::model::SalesforceObject;
-    /// let x = SalesforceOrg::new()
-    ///     .set_objects([
-    ///         SalesforceObject::default()/* use setters */,
-    ///         SalesforceObject::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_objects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10692,29 +7808,12 @@ impl SalesforceObject {
     }
 
     /// Sets the value of [object_name][crate::model::SalesforceObject::object_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SalesforceObject;
-    /// let x = SalesforceObject::new().set_object_name("example");
-    /// ```
     pub fn set_object_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.object_name = v.into();
         self
     }
 
     /// Sets the value of [fields][crate::model::SalesforceObject::fields].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SalesforceObject;
-    /// use google_cloud_datastream_v1::model::SalesforceField;
-    /// let x = SalesforceObject::new()
-    ///     .set_fields([
-    ///         SalesforceField::default()/* use setters */,
-    ///         SalesforceField::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10754,36 +7853,18 @@ impl SalesforceField {
     }
 
     /// Sets the value of [name][crate::model::SalesforceField::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SalesforceField;
-    /// let x = SalesforceField::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [data_type][crate::model::SalesforceField::data_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SalesforceField;
-    /// let x = SalesforceField::new().set_data_type("example");
-    /// ```
     pub fn set_data_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_type = v.into();
         self
     }
 
     /// Sets the value of [nillable][crate::model::SalesforceField::nillable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SalesforceField;
-    /// let x = SalesforceField::new().set_nillable(true);
-    /// ```
     pub fn set_nillable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.nillable = v.into();
         self
@@ -10820,13 +7901,6 @@ impl MongodbSourceConfig {
     }
 
     /// Sets the value of [include_objects][crate::model::MongodbSourceConfig::include_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbSourceConfig;
-    /// use google_cloud_datastream_v1::model::MongodbCluster;
-    /// let x = MongodbSourceConfig::new().set_include_objects(MongodbCluster::default()/* use setters */);
-    /// ```
     pub fn set_include_objects<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MongodbCluster>,
@@ -10836,14 +7910,6 @@ impl MongodbSourceConfig {
     }
 
     /// Sets or clears the value of [include_objects][crate::model::MongodbSourceConfig::include_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbSourceConfig;
-    /// use google_cloud_datastream_v1::model::MongodbCluster;
-    /// let x = MongodbSourceConfig::new().set_or_clear_include_objects(Some(MongodbCluster::default()/* use setters */));
-    /// let x = MongodbSourceConfig::new().set_or_clear_include_objects(None::<MongodbCluster>);
-    /// ```
     pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MongodbCluster>,
@@ -10853,13 +7919,6 @@ impl MongodbSourceConfig {
     }
 
     /// Sets the value of [exclude_objects][crate::model::MongodbSourceConfig::exclude_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbSourceConfig;
-    /// use google_cloud_datastream_v1::model::MongodbCluster;
-    /// let x = MongodbSourceConfig::new().set_exclude_objects(MongodbCluster::default()/* use setters */);
-    /// ```
     pub fn set_exclude_objects<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MongodbCluster>,
@@ -10869,14 +7928,6 @@ impl MongodbSourceConfig {
     }
 
     /// Sets or clears the value of [exclude_objects][crate::model::MongodbSourceConfig::exclude_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbSourceConfig;
-    /// use google_cloud_datastream_v1::model::MongodbCluster;
-    /// let x = MongodbSourceConfig::new().set_or_clear_exclude_objects(Some(MongodbCluster::default()/* use setters */));
-    /// let x = MongodbSourceConfig::new().set_or_clear_exclude_objects(None::<MongodbCluster>);
-    /// ```
     pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MongodbCluster>,
@@ -10886,12 +7937,6 @@ impl MongodbSourceConfig {
     }
 
     /// Sets the value of [max_concurrent_backfill_tasks][crate::model::MongodbSourceConfig::max_concurrent_backfill_tasks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbSourceConfig;
-    /// let x = MongodbSourceConfig::new().set_max_concurrent_backfill_tasks(42);
-    /// ```
     pub fn set_max_concurrent_backfill_tasks<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_concurrent_backfill_tasks = v.into();
         self
@@ -10920,17 +7965,6 @@ impl MongodbCluster {
     }
 
     /// Sets the value of [databases][crate::model::MongodbCluster::databases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbCluster;
-    /// use google_cloud_datastream_v1::model::MongodbDatabase;
-    /// let x = MongodbCluster::new()
-    ///     .set_databases([
-    ///         MongodbDatabase::default()/* use setters */,
-    ///         MongodbDatabase::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_databases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10967,29 +8001,12 @@ impl MongodbDatabase {
     }
 
     /// Sets the value of [database][crate::model::MongodbDatabase::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbDatabase;
-    /// let x = MongodbDatabase::new().set_database("example");
-    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [collections][crate::model::MongodbDatabase::collections].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbDatabase;
-    /// use google_cloud_datastream_v1::model::MongodbCollection;
-    /// let x = MongodbDatabase::new()
-    ///     .set_collections([
-    ///         MongodbCollection::default()/* use setters */,
-    ///         MongodbCollection::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_collections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11026,29 +8043,12 @@ impl MongodbCollection {
     }
 
     /// Sets the value of [collection][crate::model::MongodbCollection::collection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbCollection;
-    /// let x = MongodbCollection::new().set_collection("example");
-    /// ```
     pub fn set_collection<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.collection = v.into();
         self
     }
 
     /// Sets the value of [fields][crate::model::MongodbCollection::fields].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbCollection;
-    /// use google_cloud_datastream_v1::model::MongodbField;
-    /// let x = MongodbCollection::new()
-    ///     .set_fields([
-    ///         MongodbField::default()/* use setters */,
-    ///         MongodbField::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11082,12 +8082,6 @@ impl MongodbField {
     }
 
     /// Sets the value of [field][crate::model::MongodbField::field].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MongodbField;
-    /// let x = MongodbField::new().set_field("example");
-    /// ```
     pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.field = v.into();
         self
@@ -11120,12 +8114,6 @@ impl SourceConfig {
     }
 
     /// Sets the value of [source_connection_profile][crate::model::SourceConfig::source_connection_profile].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SourceConfig;
-    /// let x = SourceConfig::new().set_source_connection_profile("example");
-    /// ```
     pub fn set_source_connection_profile<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11138,14 +8126,6 @@ impl SourceConfig {
     ///
     /// Note that all the setters affecting `source_stream_config` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SourceConfig;
-    /// use google_cloud_datastream_v1::model::source_config;
-    /// use google_cloud_datastream_v1::model::OracleSourceConfig;
-    /// let x = SourceConfig::new().set_source_stream_config(Some(source_config::SourceStreamConfig::OracleSourceConfig(OracleSourceConfig::default().into())));
-    /// ```
     pub fn set_source_stream_config<
         T: std::convert::Into<std::option::Option<crate::model::source_config::SourceStreamConfig>>,
     >(
@@ -11176,19 +8156,6 @@ impl SourceConfig {
     ///
     /// Note that all the setters affecting `source_stream_config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SourceConfig;
-    /// use google_cloud_datastream_v1::model::OracleSourceConfig;
-    /// let x = SourceConfig::new().set_oracle_source_config(OracleSourceConfig::default()/* use setters */);
-    /// assert!(x.oracle_source_config().is_some());
-    /// assert!(x.mysql_source_config().is_none());
-    /// assert!(x.postgresql_source_config().is_none());
-    /// assert!(x.sql_server_source_config().is_none());
-    /// assert!(x.salesforce_source_config().is_none());
-    /// assert!(x.mongodb_source_config().is_none());
-    /// ```
     pub fn set_oracle_source_config<
         T: std::convert::Into<std::boxed::Box<crate::model::OracleSourceConfig>>,
     >(
@@ -11221,19 +8188,6 @@ impl SourceConfig {
     ///
     /// Note that all the setters affecting `source_stream_config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SourceConfig;
-    /// use google_cloud_datastream_v1::model::MysqlSourceConfig;
-    /// let x = SourceConfig::new().set_mysql_source_config(MysqlSourceConfig::default()/* use setters */);
-    /// assert!(x.mysql_source_config().is_some());
-    /// assert!(x.oracle_source_config().is_none());
-    /// assert!(x.postgresql_source_config().is_none());
-    /// assert!(x.sql_server_source_config().is_none());
-    /// assert!(x.salesforce_source_config().is_none());
-    /// assert!(x.mongodb_source_config().is_none());
-    /// ```
     pub fn set_mysql_source_config<
         T: std::convert::Into<std::boxed::Box<crate::model::MysqlSourceConfig>>,
     >(
@@ -11266,19 +8220,6 @@ impl SourceConfig {
     ///
     /// Note that all the setters affecting `source_stream_config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SourceConfig;
-    /// use google_cloud_datastream_v1::model::PostgresqlSourceConfig;
-    /// let x = SourceConfig::new().set_postgresql_source_config(PostgresqlSourceConfig::default()/* use setters */);
-    /// assert!(x.postgresql_source_config().is_some());
-    /// assert!(x.oracle_source_config().is_none());
-    /// assert!(x.mysql_source_config().is_none());
-    /// assert!(x.sql_server_source_config().is_none());
-    /// assert!(x.salesforce_source_config().is_none());
-    /// assert!(x.mongodb_source_config().is_none());
-    /// ```
     pub fn set_postgresql_source_config<
         T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlSourceConfig>>,
     >(
@@ -11311,19 +8252,6 @@ impl SourceConfig {
     ///
     /// Note that all the setters affecting `source_stream_config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SourceConfig;
-    /// use google_cloud_datastream_v1::model::SqlServerSourceConfig;
-    /// let x = SourceConfig::new().set_sql_server_source_config(SqlServerSourceConfig::default()/* use setters */);
-    /// assert!(x.sql_server_source_config().is_some());
-    /// assert!(x.oracle_source_config().is_none());
-    /// assert!(x.mysql_source_config().is_none());
-    /// assert!(x.postgresql_source_config().is_none());
-    /// assert!(x.salesforce_source_config().is_none());
-    /// assert!(x.mongodb_source_config().is_none());
-    /// ```
     pub fn set_sql_server_source_config<
         T: std::convert::Into<std::boxed::Box<crate::model::SqlServerSourceConfig>>,
     >(
@@ -11356,19 +8284,6 @@ impl SourceConfig {
     ///
     /// Note that all the setters affecting `source_stream_config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SourceConfig;
-    /// use google_cloud_datastream_v1::model::SalesforceSourceConfig;
-    /// let x = SourceConfig::new().set_salesforce_source_config(SalesforceSourceConfig::default()/* use setters */);
-    /// assert!(x.salesforce_source_config().is_some());
-    /// assert!(x.oracle_source_config().is_none());
-    /// assert!(x.mysql_source_config().is_none());
-    /// assert!(x.postgresql_source_config().is_none());
-    /// assert!(x.sql_server_source_config().is_none());
-    /// assert!(x.mongodb_source_config().is_none());
-    /// ```
     pub fn set_salesforce_source_config<
         T: std::convert::Into<std::boxed::Box<crate::model::SalesforceSourceConfig>>,
     >(
@@ -11401,19 +8316,6 @@ impl SourceConfig {
     ///
     /// Note that all the setters affecting `source_stream_config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SourceConfig;
-    /// use google_cloud_datastream_v1::model::MongodbSourceConfig;
-    /// let x = SourceConfig::new().set_mongodb_source_config(MongodbSourceConfig::default()/* use setters */);
-    /// assert!(x.mongodb_source_config().is_some());
-    /// assert!(x.oracle_source_config().is_none());
-    /// assert!(x.mysql_source_config().is_none());
-    /// assert!(x.postgresql_source_config().is_none());
-    /// assert!(x.sql_server_source_config().is_none());
-    /// assert!(x.salesforce_source_config().is_none());
-    /// ```
     pub fn set_mongodb_source_config<
         T: std::convert::Into<std::boxed::Box<crate::model::MongodbSourceConfig>>,
     >(
@@ -11495,14 +8397,6 @@ impl JsonFileFormat {
     }
 
     /// Sets the value of [schema_file_format][crate::model::JsonFileFormat::schema_file_format].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::JsonFileFormat;
-    /// use google_cloud_datastream_v1::model::json_file_format::SchemaFileFormat;
-    /// let x0 = JsonFileFormat::new().set_schema_file_format(SchemaFileFormat::NoSchemaFile);
-    /// let x1 = JsonFileFormat::new().set_schema_file_format(SchemaFileFormat::AvroSchemaFile);
-    /// ```
     pub fn set_schema_file_format<
         T: std::convert::Into<crate::model::json_file_format::SchemaFileFormat>,
     >(
@@ -11514,14 +8408,6 @@ impl JsonFileFormat {
     }
 
     /// Sets the value of [compression][crate::model::JsonFileFormat::compression].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::JsonFileFormat;
-    /// use google_cloud_datastream_v1::model::json_file_format::JsonCompression;
-    /// let x0 = JsonFileFormat::new().set_compression(JsonCompression::NoCompression);
-    /// let x1 = JsonFileFormat::new().set_compression(JsonCompression::Gzip);
-    /// ```
     pub fn set_compression<
         T: std::convert::Into<crate::model::json_file_format::JsonCompression>,
     >(
@@ -11836,37 +8722,18 @@ impl GcsDestinationConfig {
     }
 
     /// Sets the value of [path][crate::model::GcsDestinationConfig::path].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::GcsDestinationConfig;
-    /// let x = GcsDestinationConfig::new().set_path("example");
-    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [file_rotation_mb][crate::model::GcsDestinationConfig::file_rotation_mb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::GcsDestinationConfig;
-    /// let x = GcsDestinationConfig::new().set_file_rotation_mb(42);
-    /// ```
     pub fn set_file_rotation_mb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.file_rotation_mb = v.into();
         self
     }
 
     /// Sets the value of [file_rotation_interval][crate::model::GcsDestinationConfig::file_rotation_interval].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::GcsDestinationConfig;
-    /// use wkt::Duration;
-    /// let x = GcsDestinationConfig::new().set_file_rotation_interval(Duration::default()/* use setters */);
-    /// ```
     pub fn set_file_rotation_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -11876,14 +8743,6 @@ impl GcsDestinationConfig {
     }
 
     /// Sets or clears the value of [file_rotation_interval][crate::model::GcsDestinationConfig::file_rotation_interval].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::GcsDestinationConfig;
-    /// use wkt::Duration;
-    /// let x = GcsDestinationConfig::new().set_or_clear_file_rotation_interval(Some(Duration::default()/* use setters */));
-    /// let x = GcsDestinationConfig::new().set_or_clear_file_rotation_interval(None::<Duration>);
-    /// ```
     pub fn set_or_clear_file_rotation_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -11896,14 +8755,6 @@ impl GcsDestinationConfig {
     ///
     /// Note that all the setters affecting `file_format` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::GcsDestinationConfig;
-    /// use google_cloud_datastream_v1::model::gcs_destination_config;
-    /// use google_cloud_datastream_v1::model::AvroFileFormat;
-    /// let x = GcsDestinationConfig::new().set_file_format(Some(gcs_destination_config::FileFormat::AvroFileFormat(AvroFileFormat::default().into())));
-    /// ```
     pub fn set_file_format<
         T: std::convert::Into<std::option::Option<crate::model::gcs_destination_config::FileFormat>>,
     >(
@@ -11934,15 +8785,6 @@ impl GcsDestinationConfig {
     ///
     /// Note that all the setters affecting `file_format` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::GcsDestinationConfig;
-    /// use google_cloud_datastream_v1::model::AvroFileFormat;
-    /// let x = GcsDestinationConfig::new().set_avro_file_format(AvroFileFormat::default()/* use setters */);
-    /// assert!(x.avro_file_format().is_some());
-    /// assert!(x.json_file_format().is_none());
-    /// ```
     pub fn set_avro_file_format<
         T: std::convert::Into<std::boxed::Box<crate::model::AvroFileFormat>>,
     >(
@@ -11975,15 +8817,6 @@ impl GcsDestinationConfig {
     ///
     /// Note that all the setters affecting `file_format` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::GcsDestinationConfig;
-    /// use google_cloud_datastream_v1::model::JsonFileFormat;
-    /// let x = GcsDestinationConfig::new().set_json_file_format(JsonFileFormat::default()/* use setters */);
-    /// assert!(x.json_file_format().is_some());
-    /// assert!(x.avro_file_format().is_none());
-    /// ```
     pub fn set_json_file_format<
         T: std::convert::Into<std::boxed::Box<crate::model::JsonFileFormat>>,
     >(
@@ -12047,13 +8880,6 @@ impl BigQueryDestinationConfig {
     }
 
     /// Sets the value of [data_freshness][crate::model::BigQueryDestinationConfig::data_freshness].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::BigQueryDestinationConfig;
-    /// use wkt::Duration;
-    /// let x = BigQueryDestinationConfig::new().set_data_freshness(Duration::default()/* use setters */);
-    /// ```
     pub fn set_data_freshness<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -12063,14 +8889,6 @@ impl BigQueryDestinationConfig {
     }
 
     /// Sets or clears the value of [data_freshness][crate::model::BigQueryDestinationConfig::data_freshness].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::BigQueryDestinationConfig;
-    /// use wkt::Duration;
-    /// let x = BigQueryDestinationConfig::new().set_or_clear_data_freshness(Some(Duration::default()/* use setters */));
-    /// let x = BigQueryDestinationConfig::new().set_or_clear_data_freshness(None::<Duration>);
-    /// ```
     pub fn set_or_clear_data_freshness<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -12080,13 +8898,6 @@ impl BigQueryDestinationConfig {
     }
 
     /// Sets the value of [blmt_config][crate::model::BigQueryDestinationConfig::blmt_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::BigQueryDestinationConfig;
-    /// use google_cloud_datastream_v1::model::big_query_destination_config::BlmtConfig;
-    /// let x = BigQueryDestinationConfig::new().set_blmt_config(BlmtConfig::default()/* use setters */);
-    /// ```
     pub fn set_blmt_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::big_query_destination_config::BlmtConfig>,
@@ -12096,14 +8907,6 @@ impl BigQueryDestinationConfig {
     }
 
     /// Sets or clears the value of [blmt_config][crate::model::BigQueryDestinationConfig::blmt_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::BigQueryDestinationConfig;
-    /// use google_cloud_datastream_v1::model::big_query_destination_config::BlmtConfig;
-    /// let x = BigQueryDestinationConfig::new().set_or_clear_blmt_config(Some(BlmtConfig::default()/* use setters */));
-    /// let x = BigQueryDestinationConfig::new().set_or_clear_blmt_config(None::<BlmtConfig>);
-    /// ```
     pub fn set_or_clear_blmt_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::big_query_destination_config::BlmtConfig>,
@@ -12116,14 +8919,6 @@ impl BigQueryDestinationConfig {
     ///
     /// Note that all the setters affecting `dataset_config` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::BigQueryDestinationConfig;
-    /// use google_cloud_datastream_v1::model::big_query_destination_config;
-    /// use google_cloud_datastream_v1::model::big_query_destination_config::SingleTargetDataset;
-    /// let x = BigQueryDestinationConfig::new().set_dataset_config(Some(big_query_destination_config::DatasetConfig::SingleTargetDataset(SingleTargetDataset::default().into())));
-    /// ```
     pub fn set_dataset_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::big_query_destination_config::DatasetConfig>,
@@ -12158,15 +8953,6 @@ impl BigQueryDestinationConfig {
     ///
     /// Note that all the setters affecting `dataset_config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::BigQueryDestinationConfig;
-    /// use google_cloud_datastream_v1::model::big_query_destination_config::SingleTargetDataset;
-    /// let x = BigQueryDestinationConfig::new().set_single_target_dataset(SingleTargetDataset::default()/* use setters */);
-    /// assert!(x.single_target_dataset().is_some());
-    /// assert!(x.source_hierarchy_datasets().is_none());
-    /// ```
     pub fn set_single_target_dataset<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::big_query_destination_config::SingleTargetDataset>,
@@ -12205,15 +8991,6 @@ impl BigQueryDestinationConfig {
     ///
     /// Note that all the setters affecting `dataset_config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::BigQueryDestinationConfig;
-    /// use google_cloud_datastream_v1::model::big_query_destination_config::SourceHierarchyDatasets;
-    /// let x = BigQueryDestinationConfig::new().set_source_hierarchy_datasets(SourceHierarchyDatasets::default()/* use setters */);
-    /// assert!(x.source_hierarchy_datasets().is_some());
-    /// assert!(x.single_target_dataset().is_none());
-    /// ```
     pub fn set_source_hierarchy_datasets<
         T: std::convert::Into<
                 std::boxed::Box<
@@ -12236,14 +9013,6 @@ impl BigQueryDestinationConfig {
     ///
     /// Note that all the setters affecting `write_mode` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::BigQueryDestinationConfig;
-    /// use google_cloud_datastream_v1::model::big_query_destination_config;
-    /// use google_cloud_datastream_v1::model::big_query_destination_config::Merge;
-    /// let x = BigQueryDestinationConfig::new().set_write_mode(Some(big_query_destination_config::WriteMode::Merge(Merge::default().into())));
-    /// ```
     pub fn set_write_mode<
         T: std::convert::Into<
                 std::option::Option<crate::model::big_query_destination_config::WriteMode>,
@@ -12277,15 +9046,6 @@ impl BigQueryDestinationConfig {
     ///
     /// Note that all the setters affecting `write_mode` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::BigQueryDestinationConfig;
-    /// use google_cloud_datastream_v1::model::big_query_destination_config::Merge;
-    /// let x = BigQueryDestinationConfig::new().set_merge(Merge::default()/* use setters */);
-    /// assert!(x.merge().is_some());
-    /// assert!(x.append_only().is_none());
-    /// ```
     pub fn set_merge<
         T: std::convert::Into<std::boxed::Box<crate::model::big_query_destination_config::Merge>>,
     >(
@@ -12319,15 +9079,6 @@ impl BigQueryDestinationConfig {
     ///
     /// Note that all the setters affecting `write_mode` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::BigQueryDestinationConfig;
-    /// use google_cloud_datastream_v1::model::big_query_destination_config::AppendOnly;
-    /// let x = BigQueryDestinationConfig::new().set_append_only(AppendOnly::default()/* use setters */);
-    /// assert!(x.append_only().is_some());
-    /// assert!(x.merge().is_none());
-    /// ```
     pub fn set_append_only<
         T: std::convert::Into<std::boxed::Box<crate::model::big_query_destination_config::AppendOnly>>,
     >(
@@ -12370,12 +9121,6 @@ pub mod big_query_destination_config {
         }
 
         /// Sets the value of [dataset_id][crate::model::big_query_destination_config::SingleTargetDataset::dataset_id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::big_query_destination_config::SingleTargetDataset;
-        /// let x = SingleTargetDataset::new().set_dataset_id("example");
-        /// ```
         pub fn set_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.dataset_id = v.into();
             self
@@ -12411,13 +9156,6 @@ pub mod big_query_destination_config {
         }
 
         /// Sets the value of [dataset_template][crate::model::big_query_destination_config::SourceHierarchyDatasets::dataset_template].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::big_query_destination_config::SourceHierarchyDatasets;
-        /// use google_cloud_datastream_v1::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate;
-        /// let x = SourceHierarchyDatasets::new().set_dataset_template(DatasetTemplate::default()/* use setters */);
-        /// ```
         pub fn set_dataset_template<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate>
         {
@@ -12426,14 +9164,6 @@ pub mod big_query_destination_config {
         }
 
         /// Sets or clears the value of [dataset_template][crate::model::big_query_destination_config::SourceHierarchyDatasets::dataset_template].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::big_query_destination_config::SourceHierarchyDatasets;
-        /// use google_cloud_datastream_v1::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate;
-        /// let x = SourceHierarchyDatasets::new().set_or_clear_dataset_template(Some(DatasetTemplate::default()/* use setters */));
-        /// let x = SourceHierarchyDatasets::new().set_or_clear_dataset_template(None::<DatasetTemplate>);
-        /// ```
         pub fn set_or_clear_dataset_template<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate>
         {
@@ -12442,12 +9172,6 @@ pub mod big_query_destination_config {
         }
 
         /// Sets the value of [project_id][crate::model::big_query_destination_config::SourceHierarchyDatasets::project_id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::big_query_destination_config::SourceHierarchyDatasets;
-        /// let x = SourceHierarchyDatasets::new().set_project_id("example");
-        /// ```
         pub fn set_project_id<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -12457,14 +9181,6 @@ pub mod big_query_destination_config {
         }
 
         /// Sets or clears the value of [project_id][crate::model::big_query_destination_config::SourceHierarchyDatasets::project_id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::big_query_destination_config::SourceHierarchyDatasets;
-        /// let x = SourceHierarchyDatasets::new().set_or_clear_project_id("example");
-        /// let x = SourceHierarchyDatasets::new().set_or_clear_project_id(Some("example"));
-        /// let x = SourceHierarchyDatasets::new().set_or_clear_project_id(None::<String>);
-        /// ```
         pub fn set_or_clear_project_id<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -12517,12 +9233,6 @@ pub mod big_query_destination_config {
             }
 
             /// Sets the value of [location][crate::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate::location].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_datastream_v1::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate;
-            /// let x = DatasetTemplate::new().set_location("example");
-            /// ```
             pub fn set_location<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -12532,12 +9242,6 @@ pub mod big_query_destination_config {
             }
 
             /// Sets the value of [dataset_id_prefix][crate::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate::dataset_id_prefix].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_datastream_v1::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate;
-            /// let x = DatasetTemplate::new().set_dataset_id_prefix("example");
-            /// ```
             pub fn set_dataset_id_prefix<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -12547,12 +9251,6 @@ pub mod big_query_destination_config {
             }
 
             /// Sets the value of [kms_key_name][crate::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate::kms_key_name].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_datastream_v1::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate;
-            /// let x = DatasetTemplate::new().set_kms_key_name("example");
-            /// ```
             pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -12598,36 +9296,18 @@ pub mod big_query_destination_config {
         }
 
         /// Sets the value of [bucket][crate::model::big_query_destination_config::BlmtConfig::bucket].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::big_query_destination_config::BlmtConfig;
-        /// let x = BlmtConfig::new().set_bucket("example");
-        /// ```
         pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.bucket = v.into();
             self
         }
 
         /// Sets the value of [root_path][crate::model::big_query_destination_config::BlmtConfig::root_path].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::big_query_destination_config::BlmtConfig;
-        /// let x = BlmtConfig::new().set_root_path("example");
-        /// ```
         pub fn set_root_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.root_path = v.into();
             self
         }
 
         /// Sets the value of [connection_name][crate::model::big_query_destination_config::BlmtConfig::connection_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::big_query_destination_config::BlmtConfig;
-        /// let x = BlmtConfig::new().set_connection_name("example");
-        /// ```
         pub fn set_connection_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -12637,13 +9317,6 @@ pub mod big_query_destination_config {
         }
 
         /// Sets the value of [file_format][crate::model::big_query_destination_config::BlmtConfig::file_format].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::big_query_destination_config::BlmtConfig;
-        /// use google_cloud_datastream_v1::model::big_query_destination_config::blmt_config::FileFormat;
-        /// let x0 = BlmtConfig::new().set_file_format(FileFormat::Parquet);
-        /// ```
         pub fn set_file_format<
             T: std::convert::Into<crate::model::big_query_destination_config::blmt_config::FileFormat>,
         >(
@@ -12655,13 +9328,6 @@ pub mod big_query_destination_config {
         }
 
         /// Sets the value of [table_format][crate::model::big_query_destination_config::BlmtConfig::table_format].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::big_query_destination_config::BlmtConfig;
-        /// use google_cloud_datastream_v1::model::big_query_destination_config::blmt_config::TableFormat;
-        /// let x0 = BlmtConfig::new().set_table_format(TableFormat::Iceberg);
-        /// ```
         pub fn set_table_format<
             T: std::convert::Into<
                     crate::model::big_query_destination_config::blmt_config::TableFormat,
@@ -13028,12 +9694,6 @@ impl DestinationConfig {
     }
 
     /// Sets the value of [destination_connection_profile][crate::model::DestinationConfig::destination_connection_profile].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DestinationConfig;
-    /// let x = DestinationConfig::new().set_destination_connection_profile("example");
-    /// ```
     pub fn set_destination_connection_profile<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13046,14 +9706,6 @@ impl DestinationConfig {
     ///
     /// Note that all the setters affecting `destination_stream_config` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DestinationConfig;
-    /// use google_cloud_datastream_v1::model::destination_config;
-    /// use google_cloud_datastream_v1::model::GcsDestinationConfig;
-    /// let x = DestinationConfig::new().set_destination_stream_config(Some(destination_config::DestinationStreamConfig::GcsDestinationConfig(GcsDestinationConfig::default().into())));
-    /// ```
     pub fn set_destination_stream_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::destination_config::DestinationStreamConfig>,
@@ -13088,15 +9740,6 @@ impl DestinationConfig {
     ///
     /// Note that all the setters affecting `destination_stream_config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DestinationConfig;
-    /// use google_cloud_datastream_v1::model::GcsDestinationConfig;
-    /// let x = DestinationConfig::new().set_gcs_destination_config(GcsDestinationConfig::default()/* use setters */);
-    /// assert!(x.gcs_destination_config().is_some());
-    /// assert!(x.bigquery_destination_config().is_none());
-    /// ```
     pub fn set_gcs_destination_config<
         T: std::convert::Into<std::boxed::Box<crate::model::GcsDestinationConfig>>,
     >(
@@ -13129,15 +9772,6 @@ impl DestinationConfig {
     ///
     /// Note that all the setters affecting `destination_stream_config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::DestinationConfig;
-    /// use google_cloud_datastream_v1::model::BigQueryDestinationConfig;
-    /// let x = DestinationConfig::new().set_bigquery_destination_config(BigQueryDestinationConfig::default()/* use setters */);
-    /// assert!(x.bigquery_destination_config().is_some());
-    /// assert!(x.gcs_destination_config().is_none());
-    /// ```
     pub fn set_bigquery_destination_config<
         T: std::convert::Into<std::boxed::Box<crate::model::BigQueryDestinationConfig>>,
     >(
@@ -13234,25 +9868,12 @@ impl Stream {
     }
 
     /// Sets the value of [name][crate::model::Stream::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// let x = Stream::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Stream::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// use wkt::Timestamp;
-    /// let x = Stream::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13262,14 +9883,6 @@ impl Stream {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Stream::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// use wkt::Timestamp;
-    /// let x = Stream::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Stream::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13279,13 +9892,6 @@ impl Stream {
     }
 
     /// Sets the value of [update_time][crate::model::Stream::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// use wkt::Timestamp;
-    /// let x = Stream::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13295,14 +9901,6 @@ impl Stream {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Stream::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// use wkt::Timestamp;
-    /// let x = Stream::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Stream::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13312,15 +9910,6 @@ impl Stream {
     }
 
     /// Sets the value of [labels][crate::model::Stream::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// let x = Stream::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -13333,25 +9922,12 @@ impl Stream {
     }
 
     /// Sets the value of [display_name][crate::model::Stream::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// let x = Stream::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [source_config][crate::model::Stream::source_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// use google_cloud_datastream_v1::model::SourceConfig;
-    /// let x = Stream::new().set_source_config(SourceConfig::default()/* use setters */);
-    /// ```
     pub fn set_source_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SourceConfig>,
@@ -13361,14 +9937,6 @@ impl Stream {
     }
 
     /// Sets or clears the value of [source_config][crate::model::Stream::source_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// use google_cloud_datastream_v1::model::SourceConfig;
-    /// let x = Stream::new().set_or_clear_source_config(Some(SourceConfig::default()/* use setters */));
-    /// let x = Stream::new().set_or_clear_source_config(None::<SourceConfig>);
-    /// ```
     pub fn set_or_clear_source_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceConfig>,
@@ -13378,13 +9946,6 @@ impl Stream {
     }
 
     /// Sets the value of [destination_config][crate::model::Stream::destination_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// use google_cloud_datastream_v1::model::DestinationConfig;
-    /// let x = Stream::new().set_destination_config(DestinationConfig::default()/* use setters */);
-    /// ```
     pub fn set_destination_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DestinationConfig>,
@@ -13394,14 +9955,6 @@ impl Stream {
     }
 
     /// Sets or clears the value of [destination_config][crate::model::Stream::destination_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// use google_cloud_datastream_v1::model::DestinationConfig;
-    /// let x = Stream::new().set_or_clear_destination_config(Some(DestinationConfig::default()/* use setters */));
-    /// let x = Stream::new().set_or_clear_destination_config(None::<DestinationConfig>);
-    /// ```
     pub fn set_or_clear_destination_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DestinationConfig>,
@@ -13411,32 +9964,12 @@ impl Stream {
     }
 
     /// Sets the value of [state][crate::model::Stream::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// use google_cloud_datastream_v1::model::stream::State;
-    /// let x0 = Stream::new().set_state(State::NotStarted);
-    /// let x1 = Stream::new().set_state(State::Running);
-    /// let x2 = Stream::new().set_state(State::Paused);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::stream::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [errors][crate::model::Stream::errors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// use google_cloud_datastream_v1::model::Error;
-    /// let x = Stream::new()
-    ///     .set_errors([
-    ///         Error::default()/* use setters */,
-    ///         Error::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13448,12 +9981,6 @@ impl Stream {
     }
 
     /// Sets the value of [customer_managed_encryption_key][crate::model::Stream::customer_managed_encryption_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// let x = Stream::new().set_customer_managed_encryption_key("example");
-    /// ```
     pub fn set_customer_managed_encryption_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13463,14 +9990,6 @@ impl Stream {
     }
 
     /// Sets or clears the value of [customer_managed_encryption_key][crate::model::Stream::customer_managed_encryption_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// let x = Stream::new().set_or_clear_customer_managed_encryption_key("example");
-    /// let x = Stream::new().set_or_clear_customer_managed_encryption_key(Some("example"));
-    /// let x = Stream::new().set_or_clear_customer_managed_encryption_key(None::<String>);
-    /// ```
     pub fn set_or_clear_customer_managed_encryption_key<T>(
         mut self,
         v: std::option::Option<T>,
@@ -13483,13 +10002,6 @@ impl Stream {
     }
 
     /// Sets the value of [last_recovery_time][crate::model::Stream::last_recovery_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// use wkt::Timestamp;
-    /// let x = Stream::new().set_last_recovery_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_last_recovery_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13499,14 +10011,6 @@ impl Stream {
     }
 
     /// Sets or clears the value of [last_recovery_time][crate::model::Stream::last_recovery_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// use wkt::Timestamp;
-    /// let x = Stream::new().set_or_clear_last_recovery_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Stream::new().set_or_clear_last_recovery_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_last_recovery_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13516,12 +10020,6 @@ impl Stream {
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Stream::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// let x = Stream::new().set_satisfies_pzs(true);
-    /// ```
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -13531,13 +10029,6 @@ impl Stream {
     }
 
     /// Sets or clears the value of [satisfies_pzs][crate::model::Stream::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// let x = Stream::new().set_or_clear_satisfies_pzs(Some(false));
-    /// let x = Stream::new().set_or_clear_satisfies_pzs(None::<bool>);
-    /// ```
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -13547,12 +10038,6 @@ impl Stream {
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::Stream::satisfies_pzi].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// let x = Stream::new().set_satisfies_pzi(true);
-    /// ```
     pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -13562,13 +10047,6 @@ impl Stream {
     }
 
     /// Sets or clears the value of [satisfies_pzi][crate::model::Stream::satisfies_pzi].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// let x = Stream::new().set_or_clear_satisfies_pzi(Some(false));
-    /// let x = Stream::new().set_or_clear_satisfies_pzi(None::<bool>);
-    /// ```
     pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -13581,14 +10059,6 @@ impl Stream {
     ///
     /// Note that all the setters affecting `backfill_strategy` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// use google_cloud_datastream_v1::model::stream;
-    /// use google_cloud_datastream_v1::model::stream::BackfillAllStrategy;
-    /// let x = Stream::new().set_backfill_strategy(Some(stream::BackfillStrategy::BackfillAll(BackfillAllStrategy::default().into())));
-    /// ```
     pub fn set_backfill_strategy<
         T: std::convert::Into<std::option::Option<crate::model::stream::BackfillStrategy>>,
     >(
@@ -13617,15 +10087,6 @@ impl Stream {
     ///
     /// Note that all the setters affecting `backfill_strategy` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// use google_cloud_datastream_v1::model::stream::BackfillAllStrategy;
-    /// let x = Stream::new().set_backfill_all(BackfillAllStrategy::default()/* use setters */);
-    /// assert!(x.backfill_all().is_some());
-    /// assert!(x.backfill_none().is_none());
-    /// ```
     pub fn set_backfill_all<
         T: std::convert::Into<std::boxed::Box<crate::model::stream::BackfillAllStrategy>>,
     >(
@@ -13656,15 +10117,6 @@ impl Stream {
     ///
     /// Note that all the setters affecting `backfill_strategy` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Stream;
-    /// use google_cloud_datastream_v1::model::stream::BackfillNoneStrategy;
-    /// let x = Stream::new().set_backfill_none(BackfillNoneStrategy::default()/* use setters */);
-    /// assert!(x.backfill_none().is_some());
-    /// assert!(x.backfill_all().is_none());
-    /// ```
     pub fn set_backfill_none<
         T: std::convert::Into<std::boxed::Box<crate::model::stream::BackfillNoneStrategy>>,
     >(
@@ -13710,14 +10162,6 @@ pub mod stream {
         ///
         /// Note that all the setters affecting `excluded_objects` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::stream::BackfillAllStrategy;
-        /// use google_cloud_datastream_v1::model::stream::backfill_all_strategy;
-        /// use google_cloud_datastream_v1::model::OracleRdbms;
-        /// let x = BackfillAllStrategy::new().set_excluded_objects(Some(stream::backfill_all_strategy::ExcludedObjects::OracleExcludedObjects(OracleRdbms::default().into())));
-        /// ```
         pub fn set_excluded_objects<
             T: std::convert::Into<
                     std::option::Option<
@@ -13750,19 +10194,6 @@ pub mod stream {
         ///
         /// Note that all the setters affecting `excluded_objects` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::stream::BackfillAllStrategy;
-        /// use google_cloud_datastream_v1::model::OracleRdbms;
-        /// let x = BackfillAllStrategy::new().set_oracle_excluded_objects(OracleRdbms::default()/* use setters */);
-        /// assert!(x.oracle_excluded_objects().is_some());
-        /// assert!(x.mysql_excluded_objects().is_none());
-        /// assert!(x.postgresql_excluded_objects().is_none());
-        /// assert!(x.sql_server_excluded_objects().is_none());
-        /// assert!(x.salesforce_excluded_objects().is_none());
-        /// assert!(x.mongodb_excluded_objects().is_none());
-        /// ```
         pub fn set_oracle_excluded_objects<
             T: std::convert::Into<std::boxed::Box<crate::model::OracleRdbms>>,
         >(
@@ -13795,19 +10226,6 @@ pub mod stream {
         ///
         /// Note that all the setters affecting `excluded_objects` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::stream::BackfillAllStrategy;
-        /// use google_cloud_datastream_v1::model::MysqlRdbms;
-        /// let x = BackfillAllStrategy::new().set_mysql_excluded_objects(MysqlRdbms::default()/* use setters */);
-        /// assert!(x.mysql_excluded_objects().is_some());
-        /// assert!(x.oracle_excluded_objects().is_none());
-        /// assert!(x.postgresql_excluded_objects().is_none());
-        /// assert!(x.sql_server_excluded_objects().is_none());
-        /// assert!(x.salesforce_excluded_objects().is_none());
-        /// assert!(x.mongodb_excluded_objects().is_none());
-        /// ```
         pub fn set_mysql_excluded_objects<
             T: std::convert::Into<std::boxed::Box<crate::model::MysqlRdbms>>,
         >(
@@ -13840,19 +10258,6 @@ pub mod stream {
         ///
         /// Note that all the setters affecting `excluded_objects` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::stream::BackfillAllStrategy;
-        /// use google_cloud_datastream_v1::model::PostgresqlRdbms;
-        /// let x = BackfillAllStrategy::new().set_postgresql_excluded_objects(PostgresqlRdbms::default()/* use setters */);
-        /// assert!(x.postgresql_excluded_objects().is_some());
-        /// assert!(x.oracle_excluded_objects().is_none());
-        /// assert!(x.mysql_excluded_objects().is_none());
-        /// assert!(x.sql_server_excluded_objects().is_none());
-        /// assert!(x.salesforce_excluded_objects().is_none());
-        /// assert!(x.mongodb_excluded_objects().is_none());
-        /// ```
         pub fn set_postgresql_excluded_objects<
             T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlRdbms>>,
         >(
@@ -13885,19 +10290,6 @@ pub mod stream {
         ///
         /// Note that all the setters affecting `excluded_objects` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::stream::BackfillAllStrategy;
-        /// use google_cloud_datastream_v1::model::SqlServerRdbms;
-        /// let x = BackfillAllStrategy::new().set_sql_server_excluded_objects(SqlServerRdbms::default()/* use setters */);
-        /// assert!(x.sql_server_excluded_objects().is_some());
-        /// assert!(x.oracle_excluded_objects().is_none());
-        /// assert!(x.mysql_excluded_objects().is_none());
-        /// assert!(x.postgresql_excluded_objects().is_none());
-        /// assert!(x.salesforce_excluded_objects().is_none());
-        /// assert!(x.mongodb_excluded_objects().is_none());
-        /// ```
         pub fn set_sql_server_excluded_objects<
             T: std::convert::Into<std::boxed::Box<crate::model::SqlServerRdbms>>,
         >(
@@ -13930,19 +10322,6 @@ pub mod stream {
         ///
         /// Note that all the setters affecting `excluded_objects` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::stream::BackfillAllStrategy;
-        /// use google_cloud_datastream_v1::model::SalesforceOrg;
-        /// let x = BackfillAllStrategy::new().set_salesforce_excluded_objects(SalesforceOrg::default()/* use setters */);
-        /// assert!(x.salesforce_excluded_objects().is_some());
-        /// assert!(x.oracle_excluded_objects().is_none());
-        /// assert!(x.mysql_excluded_objects().is_none());
-        /// assert!(x.postgresql_excluded_objects().is_none());
-        /// assert!(x.sql_server_excluded_objects().is_none());
-        /// assert!(x.mongodb_excluded_objects().is_none());
-        /// ```
         pub fn set_salesforce_excluded_objects<
             T: std::convert::Into<std::boxed::Box<crate::model::SalesforceOrg>>,
         >(
@@ -13975,19 +10354,6 @@ pub mod stream {
         ///
         /// Note that all the setters affecting `excluded_objects` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::stream::BackfillAllStrategy;
-        /// use google_cloud_datastream_v1::model::MongodbCluster;
-        /// let x = BackfillAllStrategy::new().set_mongodb_excluded_objects(MongodbCluster::default()/* use setters */);
-        /// assert!(x.mongodb_excluded_objects().is_some());
-        /// assert!(x.oracle_excluded_objects().is_none());
-        /// assert!(x.mysql_excluded_objects().is_none());
-        /// assert!(x.postgresql_excluded_objects().is_none());
-        /// assert!(x.sql_server_excluded_objects().is_none());
-        /// assert!(x.salesforce_excluded_objects().is_none());
-        /// ```
         pub fn set_mongodb_excluded_objects<
             T: std::convert::Into<std::boxed::Box<crate::model::MongodbCluster>>,
         >(
@@ -14276,25 +10642,12 @@ impl StreamObject {
     }
 
     /// Sets the value of [name][crate::model::StreamObject::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::StreamObject;
-    /// let x = StreamObject::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::StreamObject::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::StreamObject;
-    /// use wkt::Timestamp;
-    /// let x = StreamObject::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14304,14 +10657,6 @@ impl StreamObject {
     }
 
     /// Sets or clears the value of [create_time][crate::model::StreamObject::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::StreamObject;
-    /// use wkt::Timestamp;
-    /// let x = StreamObject::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = StreamObject::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14321,13 +10666,6 @@ impl StreamObject {
     }
 
     /// Sets the value of [update_time][crate::model::StreamObject::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::StreamObject;
-    /// use wkt::Timestamp;
-    /// let x = StreamObject::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14337,14 +10675,6 @@ impl StreamObject {
     }
 
     /// Sets or clears the value of [update_time][crate::model::StreamObject::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::StreamObject;
-    /// use wkt::Timestamp;
-    /// let x = StreamObject::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = StreamObject::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14354,29 +10684,12 @@ impl StreamObject {
     }
 
     /// Sets the value of [display_name][crate::model::StreamObject::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::StreamObject;
-    /// let x = StreamObject::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [errors][crate::model::StreamObject::errors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::StreamObject;
-    /// use google_cloud_datastream_v1::model::Error;
-    /// let x = StreamObject::new()
-    ///     .set_errors([
-    ///         Error::default()/* use setters */,
-    ///         Error::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14388,13 +10701,6 @@ impl StreamObject {
     }
 
     /// Sets the value of [backfill_job][crate::model::StreamObject::backfill_job].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::StreamObject;
-    /// use google_cloud_datastream_v1::model::BackfillJob;
-    /// let x = StreamObject::new().set_backfill_job(BackfillJob::default()/* use setters */);
-    /// ```
     pub fn set_backfill_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackfillJob>,
@@ -14404,14 +10710,6 @@ impl StreamObject {
     }
 
     /// Sets or clears the value of [backfill_job][crate::model::StreamObject::backfill_job].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::StreamObject;
-    /// use google_cloud_datastream_v1::model::BackfillJob;
-    /// let x = StreamObject::new().set_or_clear_backfill_job(Some(BackfillJob::default()/* use setters */));
-    /// let x = StreamObject::new().set_or_clear_backfill_job(None::<BackfillJob>);
-    /// ```
     pub fn set_or_clear_backfill_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackfillJob>,
@@ -14421,13 +10719,6 @@ impl StreamObject {
     }
 
     /// Sets the value of [source_object][crate::model::StreamObject::source_object].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::StreamObject;
-    /// use google_cloud_datastream_v1::model::SourceObjectIdentifier;
-    /// let x = StreamObject::new().set_source_object(SourceObjectIdentifier::default()/* use setters */);
-    /// ```
     pub fn set_source_object<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SourceObjectIdentifier>,
@@ -14437,14 +10728,6 @@ impl StreamObject {
     }
 
     /// Sets or clears the value of [source_object][crate::model::StreamObject::source_object].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::StreamObject;
-    /// use google_cloud_datastream_v1::model::SourceObjectIdentifier;
-    /// let x = StreamObject::new().set_or_clear_source_object(Some(SourceObjectIdentifier::default()/* use setters */));
-    /// let x = StreamObject::new().set_or_clear_source_object(None::<SourceObjectIdentifier>);
-    /// ```
     pub fn set_or_clear_source_object<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceObjectIdentifier>,
@@ -14480,14 +10763,6 @@ impl SourceObjectIdentifier {
     ///
     /// Note that all the setters affecting `source_identifier` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SourceObjectIdentifier;
-    /// use google_cloud_datastream_v1::model::source_object_identifier;
-    /// use google_cloud_datastream_v1::model::source_object_identifier::OracleObjectIdentifier;
-    /// let x = SourceObjectIdentifier::new().set_source_identifier(Some(source_object_identifier::SourceIdentifier::OracleIdentifier(OracleObjectIdentifier::default().into())));
-    /// ```
     pub fn set_source_identifier<
         T: std::convert::Into<
                 std::option::Option<crate::model::source_object_identifier::SourceIdentifier>,
@@ -14522,19 +10797,6 @@ impl SourceObjectIdentifier {
     ///
     /// Note that all the setters affecting `source_identifier` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SourceObjectIdentifier;
-    /// use google_cloud_datastream_v1::model::source_object_identifier::OracleObjectIdentifier;
-    /// let x = SourceObjectIdentifier::new().set_oracle_identifier(OracleObjectIdentifier::default()/* use setters */);
-    /// assert!(x.oracle_identifier().is_some());
-    /// assert!(x.mysql_identifier().is_none());
-    /// assert!(x.postgresql_identifier().is_none());
-    /// assert!(x.sql_server_identifier().is_none());
-    /// assert!(x.salesforce_identifier().is_none());
-    /// assert!(x.mongodb_identifier().is_none());
-    /// ```
     pub fn set_oracle_identifier<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::source_object_identifier::OracleObjectIdentifier>,
@@ -14571,19 +10833,6 @@ impl SourceObjectIdentifier {
     ///
     /// Note that all the setters affecting `source_identifier` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SourceObjectIdentifier;
-    /// use google_cloud_datastream_v1::model::source_object_identifier::MysqlObjectIdentifier;
-    /// let x = SourceObjectIdentifier::new().set_mysql_identifier(MysqlObjectIdentifier::default()/* use setters */);
-    /// assert!(x.mysql_identifier().is_some());
-    /// assert!(x.oracle_identifier().is_none());
-    /// assert!(x.postgresql_identifier().is_none());
-    /// assert!(x.sql_server_identifier().is_none());
-    /// assert!(x.salesforce_identifier().is_none());
-    /// assert!(x.mongodb_identifier().is_none());
-    /// ```
     pub fn set_mysql_identifier<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::source_object_identifier::MysqlObjectIdentifier>,
@@ -14620,19 +10869,6 @@ impl SourceObjectIdentifier {
     ///
     /// Note that all the setters affecting `source_identifier` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SourceObjectIdentifier;
-    /// use google_cloud_datastream_v1::model::source_object_identifier::PostgresqlObjectIdentifier;
-    /// let x = SourceObjectIdentifier::new().set_postgresql_identifier(PostgresqlObjectIdentifier::default()/* use setters */);
-    /// assert!(x.postgresql_identifier().is_some());
-    /// assert!(x.oracle_identifier().is_none());
-    /// assert!(x.mysql_identifier().is_none());
-    /// assert!(x.sql_server_identifier().is_none());
-    /// assert!(x.salesforce_identifier().is_none());
-    /// assert!(x.mongodb_identifier().is_none());
-    /// ```
     pub fn set_postgresql_identifier<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::source_object_identifier::PostgresqlObjectIdentifier>,
@@ -14671,19 +10907,6 @@ impl SourceObjectIdentifier {
     ///
     /// Note that all the setters affecting `source_identifier` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SourceObjectIdentifier;
-    /// use google_cloud_datastream_v1::model::source_object_identifier::SqlServerObjectIdentifier;
-    /// let x = SourceObjectIdentifier::new().set_sql_server_identifier(SqlServerObjectIdentifier::default()/* use setters */);
-    /// assert!(x.sql_server_identifier().is_some());
-    /// assert!(x.oracle_identifier().is_none());
-    /// assert!(x.mysql_identifier().is_none());
-    /// assert!(x.postgresql_identifier().is_none());
-    /// assert!(x.salesforce_identifier().is_none());
-    /// assert!(x.mongodb_identifier().is_none());
-    /// ```
     pub fn set_sql_server_identifier<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::source_object_identifier::SqlServerObjectIdentifier>,
@@ -14720,19 +10943,6 @@ impl SourceObjectIdentifier {
     ///
     /// Note that all the setters affecting `source_identifier` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SourceObjectIdentifier;
-    /// use google_cloud_datastream_v1::model::source_object_identifier::SalesforceObjectIdentifier;
-    /// let x = SourceObjectIdentifier::new().set_salesforce_identifier(SalesforceObjectIdentifier::default()/* use setters */);
-    /// assert!(x.salesforce_identifier().is_some());
-    /// assert!(x.oracle_identifier().is_none());
-    /// assert!(x.mysql_identifier().is_none());
-    /// assert!(x.postgresql_identifier().is_none());
-    /// assert!(x.sql_server_identifier().is_none());
-    /// assert!(x.mongodb_identifier().is_none());
-    /// ```
     pub fn set_salesforce_identifier<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::source_object_identifier::SalesforceObjectIdentifier>,
@@ -14771,19 +10981,6 @@ impl SourceObjectIdentifier {
     ///
     /// Note that all the setters affecting `source_identifier` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SourceObjectIdentifier;
-    /// use google_cloud_datastream_v1::model::source_object_identifier::MongodbObjectIdentifier;
-    /// let x = SourceObjectIdentifier::new().set_mongodb_identifier(MongodbObjectIdentifier::default()/* use setters */);
-    /// assert!(x.mongodb_identifier().is_some());
-    /// assert!(x.oracle_identifier().is_none());
-    /// assert!(x.mysql_identifier().is_none());
-    /// assert!(x.postgresql_identifier().is_none());
-    /// assert!(x.sql_server_identifier().is_none());
-    /// assert!(x.salesforce_identifier().is_none());
-    /// ```
     pub fn set_mongodb_identifier<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::source_object_identifier::MongodbObjectIdentifier>,
@@ -14829,24 +11026,12 @@ pub mod source_object_identifier {
         }
 
         /// Sets the value of [schema][crate::model::source_object_identifier::OracleObjectIdentifier::schema].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::source_object_identifier::OracleObjectIdentifier;
-        /// let x = OracleObjectIdentifier::new().set_schema("example");
-        /// ```
         pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.schema = v.into();
             self
         }
 
         /// Sets the value of [table][crate::model::source_object_identifier::OracleObjectIdentifier::table].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::source_object_identifier::OracleObjectIdentifier;
-        /// let x = OracleObjectIdentifier::new().set_table("example");
-        /// ```
         pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.table = v.into();
             self
@@ -14878,24 +11063,12 @@ pub mod source_object_identifier {
         }
 
         /// Sets the value of [schema][crate::model::source_object_identifier::PostgresqlObjectIdentifier::schema].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::source_object_identifier::PostgresqlObjectIdentifier;
-        /// let x = PostgresqlObjectIdentifier::new().set_schema("example");
-        /// ```
         pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.schema = v.into();
             self
         }
 
         /// Sets the value of [table][crate::model::source_object_identifier::PostgresqlObjectIdentifier::table].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::source_object_identifier::PostgresqlObjectIdentifier;
-        /// let x = PostgresqlObjectIdentifier::new().set_table("example");
-        /// ```
         pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.table = v.into();
             self
@@ -14927,24 +11100,12 @@ pub mod source_object_identifier {
         }
 
         /// Sets the value of [database][crate::model::source_object_identifier::MysqlObjectIdentifier::database].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::source_object_identifier::MysqlObjectIdentifier;
-        /// let x = MysqlObjectIdentifier::new().set_database("example");
-        /// ```
         pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.database = v.into();
             self
         }
 
         /// Sets the value of [table][crate::model::source_object_identifier::MysqlObjectIdentifier::table].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::source_object_identifier::MysqlObjectIdentifier;
-        /// let x = MysqlObjectIdentifier::new().set_table("example");
-        /// ```
         pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.table = v.into();
             self
@@ -14976,24 +11137,12 @@ pub mod source_object_identifier {
         }
 
         /// Sets the value of [schema][crate::model::source_object_identifier::SqlServerObjectIdentifier::schema].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::source_object_identifier::SqlServerObjectIdentifier;
-        /// let x = SqlServerObjectIdentifier::new().set_schema("example");
-        /// ```
         pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.schema = v.into();
             self
         }
 
         /// Sets the value of [table][crate::model::source_object_identifier::SqlServerObjectIdentifier::table].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::source_object_identifier::SqlServerObjectIdentifier;
-        /// let x = SqlServerObjectIdentifier::new().set_table("example");
-        /// ```
         pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.table = v.into();
             self
@@ -15022,12 +11171,6 @@ pub mod source_object_identifier {
         }
 
         /// Sets the value of [object_name][crate::model::source_object_identifier::SalesforceObjectIdentifier::object_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::source_object_identifier::SalesforceObjectIdentifier;
-        /// let x = SalesforceObjectIdentifier::new().set_object_name("example");
-        /// ```
         pub fn set_object_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.object_name = v.into();
             self
@@ -15059,24 +11202,12 @@ pub mod source_object_identifier {
         }
 
         /// Sets the value of [database][crate::model::source_object_identifier::MongodbObjectIdentifier::database].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::source_object_identifier::MongodbObjectIdentifier;
-        /// let x = MongodbObjectIdentifier::new().set_database("example");
-        /// ```
         pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.database = v.into();
             self
         }
 
         /// Sets the value of [collection][crate::model::source_object_identifier::MongodbObjectIdentifier::collection].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::source_object_identifier::MongodbObjectIdentifier;
-        /// let x = MongodbObjectIdentifier::new().set_collection("example");
-        /// ```
         pub fn set_collection<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.collection = v.into();
             self
@@ -15148,15 +11279,6 @@ impl BackfillJob {
     }
 
     /// Sets the value of [state][crate::model::BackfillJob::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::BackfillJob;
-    /// use google_cloud_datastream_v1::model::backfill_job::State;
-    /// let x0 = BackfillJob::new().set_state(State::NotStarted);
-    /// let x1 = BackfillJob::new().set_state(State::Pending);
-    /// let x2 = BackfillJob::new().set_state(State::Active);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backfill_job::State>>(
         mut self,
         v: T,
@@ -15166,14 +11288,6 @@ impl BackfillJob {
     }
 
     /// Sets the value of [trigger][crate::model::BackfillJob::trigger].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::BackfillJob;
-    /// use google_cloud_datastream_v1::model::backfill_job::Trigger;
-    /// let x0 = BackfillJob::new().set_trigger(Trigger::Automatic);
-    /// let x1 = BackfillJob::new().set_trigger(Trigger::Manual);
-    /// ```
     pub fn set_trigger<T: std::convert::Into<crate::model::backfill_job::Trigger>>(
         mut self,
         v: T,
@@ -15183,13 +11297,6 @@ impl BackfillJob {
     }
 
     /// Sets the value of [last_start_time][crate::model::BackfillJob::last_start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::BackfillJob;
-    /// use wkt::Timestamp;
-    /// let x = BackfillJob::new().set_last_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_last_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15199,14 +11306,6 @@ impl BackfillJob {
     }
 
     /// Sets or clears the value of [last_start_time][crate::model::BackfillJob::last_start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::BackfillJob;
-    /// use wkt::Timestamp;
-    /// let x = BackfillJob::new().set_or_clear_last_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BackfillJob::new().set_or_clear_last_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_last_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15216,13 +11315,6 @@ impl BackfillJob {
     }
 
     /// Sets the value of [last_end_time][crate::model::BackfillJob::last_end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::BackfillJob;
-    /// use wkt::Timestamp;
-    /// let x = BackfillJob::new().set_last_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_last_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15232,14 +11324,6 @@ impl BackfillJob {
     }
 
     /// Sets or clears the value of [last_end_time][crate::model::BackfillJob::last_end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::BackfillJob;
-    /// use wkt::Timestamp;
-    /// let x = BackfillJob::new().set_or_clear_last_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BackfillJob::new().set_or_clear_last_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_last_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15249,17 +11333,6 @@ impl BackfillJob {
     }
 
     /// Sets the value of [errors][crate::model::BackfillJob::errors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::BackfillJob;
-    /// use google_cloud_datastream_v1::model::Error;
-    /// let x = BackfillJob::new()
-    ///     .set_errors([
-    ///         Error::default()/* use setters */,
-    ///         Error::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15615,49 +11688,24 @@ impl Error {
     }
 
     /// Sets the value of [reason][crate::model::Error::reason].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Error;
-    /// let x = Error::new().set_reason("example");
-    /// ```
     pub fn set_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reason = v.into();
         self
     }
 
     /// Sets the value of [error_uuid][crate::model::Error::error_uuid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Error;
-    /// let x = Error::new().set_error_uuid("example");
-    /// ```
     pub fn set_error_uuid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_uuid = v.into();
         self
     }
 
     /// Sets the value of [message][crate::model::Error::message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Error;
-    /// let x = Error::new().set_message("example");
-    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [error_time][crate::model::Error::error_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Error;
-    /// use wkt::Timestamp;
-    /// let x = Error::new().set_error_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_error_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15667,14 +11715,6 @@ impl Error {
     }
 
     /// Sets or clears the value of [error_time][crate::model::Error::error_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Error;
-    /// use wkt::Timestamp;
-    /// let x = Error::new().set_or_clear_error_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Error::new().set_or_clear_error_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_error_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15684,15 +11724,6 @@ impl Error {
     }
 
     /// Sets the value of [details][crate::model::Error::details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Error;
-    /// let x = Error::new().set_details([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_details<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -15728,17 +11759,6 @@ impl ValidationResult {
     }
 
     /// Sets the value of [validations][crate::model::ValidationResult::validations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ValidationResult;
-    /// use google_cloud_datastream_v1::model::Validation;
-    /// let x = ValidationResult::new()
-    ///     .set_validations([
-    ///         Validation::default()/* use setters */,
-    ///         Validation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_validations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15781,27 +11801,12 @@ impl Validation {
     }
 
     /// Sets the value of [description][crate::model::Validation::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Validation;
-    /// let x = Validation::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Validation::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Validation;
-    /// use google_cloud_datastream_v1::model::validation::State;
-    /// let x0 = Validation::new().set_state(State::NotExecuted);
-    /// let x1 = Validation::new().set_state(State::Failed);
-    /// let x2 = Validation::new().set_state(State::Passed);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::validation::State>>(
         mut self,
         v: T,
@@ -15811,17 +11816,6 @@ impl Validation {
     }
 
     /// Sets the value of [message][crate::model::Validation::message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Validation;
-    /// use google_cloud_datastream_v1::model::ValidationMessage;
-    /// let x = Validation::new()
-    ///     .set_message([
-    ///         ValidationMessage::default()/* use setters */,
-    ///         ValidationMessage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_message<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15833,12 +11827,6 @@ impl Validation {
     }
 
     /// Sets the value of [code][crate::model::Validation::code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::Validation;
-    /// let x = Validation::new().set_code("example");
-    /// ```
     pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
@@ -16028,26 +12016,12 @@ impl ValidationMessage {
     }
 
     /// Sets the value of [message][crate::model::ValidationMessage::message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ValidationMessage;
-    /// let x = ValidationMessage::new().set_message("example");
-    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [level][crate::model::ValidationMessage::level].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ValidationMessage;
-    /// use google_cloud_datastream_v1::model::validation_message::Level;
-    /// let x0 = ValidationMessage::new().set_level(Level::Warning);
-    /// let x1 = ValidationMessage::new().set_level(Level::Error);
-    /// ```
     pub fn set_level<T: std::convert::Into<crate::model::validation_message::Level>>(
         mut self,
         v: T,
@@ -16057,15 +12031,6 @@ impl ValidationMessage {
     }
 
     /// Sets the value of [metadata][crate::model::ValidationMessage::metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ValidationMessage;
-    /// let x = ValidationMessage::new().set_metadata([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -16078,12 +12043,6 @@ impl ValidationMessage {
     }
 
     /// Sets the value of [code][crate::model::ValidationMessage::code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::ValidationMessage;
-    /// let x = ValidationMessage::new().set_code("example");
-    /// ```
     pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
@@ -16255,14 +12214,6 @@ impl CdcStrategy {
     ///
     /// Note that all the setters affecting `start_position` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CdcStrategy;
-    /// use google_cloud_datastream_v1::model::cdc_strategy;
-    /// use google_cloud_datastream_v1::model::cdc_strategy::MostRecentStartPosition;
-    /// let x = CdcStrategy::new().set_start_position(Some(cdc_strategy::StartPosition::MostRecentStartPosition(MostRecentStartPosition::default().into())));
-    /// ```
     pub fn set_start_position<
         T: std::convert::Into<std::option::Option<crate::model::cdc_strategy::StartPosition>>,
     >(
@@ -16294,16 +12245,6 @@ impl CdcStrategy {
     ///
     /// Note that all the setters affecting `start_position` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CdcStrategy;
-    /// use google_cloud_datastream_v1::model::cdc_strategy::MostRecentStartPosition;
-    /// let x = CdcStrategy::new().set_most_recent_start_position(MostRecentStartPosition::default()/* use setters */);
-    /// assert!(x.most_recent_start_position().is_some());
-    /// assert!(x.next_available_start_position().is_none());
-    /// assert!(x.specific_start_position().is_none());
-    /// ```
     pub fn set_most_recent_start_position<
         T: std::convert::Into<std::boxed::Box<crate::model::cdc_strategy::MostRecentStartPosition>>,
     >(
@@ -16337,16 +12278,6 @@ impl CdcStrategy {
     ///
     /// Note that all the setters affecting `start_position` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CdcStrategy;
-    /// use google_cloud_datastream_v1::model::cdc_strategy::NextAvailableStartPosition;
-    /// let x = CdcStrategy::new().set_next_available_start_position(NextAvailableStartPosition::default()/* use setters */);
-    /// assert!(x.next_available_start_position().is_some());
-    /// assert!(x.most_recent_start_position().is_none());
-    /// assert!(x.specific_start_position().is_none());
-    /// ```
     pub fn set_next_available_start_position<
         T: std::convert::Into<std::boxed::Box<crate::model::cdc_strategy::NextAvailableStartPosition>>,
     >(
@@ -16380,16 +12311,6 @@ impl CdcStrategy {
     ///
     /// Note that all the setters affecting `start_position` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::CdcStrategy;
-    /// use google_cloud_datastream_v1::model::cdc_strategy::SpecificStartPosition;
-    /// let x = CdcStrategy::new().set_specific_start_position(SpecificStartPosition::default()/* use setters */);
-    /// assert!(x.specific_start_position().is_some());
-    /// assert!(x.most_recent_start_position().is_none());
-    /// assert!(x.next_available_start_position().is_none());
-    /// ```
     pub fn set_specific_start_position<
         T: std::convert::Into<std::boxed::Box<crate::model::cdc_strategy::SpecificStartPosition>>,
     >(
@@ -16473,14 +12394,6 @@ pub mod cdc_strategy {
         ///
         /// Note that all the setters affecting `position` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::cdc_strategy::SpecificStartPosition;
-        /// use google_cloud_datastream_v1::model::cdc_strategy::specific_start_position;
-        /// use google_cloud_datastream_v1::model::MysqlLogPosition;
-        /// let x = SpecificStartPosition::new().set_position(Some(cdc_strategy::specific_start_position::Position::MysqlLogPosition(MysqlLogPosition::default().into())));
-        /// ```
         pub fn set_position<
             T: std::convert::Into<
                     std::option::Option<
@@ -16515,17 +12428,6 @@ pub mod cdc_strategy {
         ///
         /// Note that all the setters affecting `position` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::cdc_strategy::SpecificStartPosition;
-        /// use google_cloud_datastream_v1::model::MysqlLogPosition;
-        /// let x = SpecificStartPosition::new().set_mysql_log_position(MysqlLogPosition::default()/* use setters */);
-        /// assert!(x.mysql_log_position().is_some());
-        /// assert!(x.oracle_scn_position().is_none());
-        /// assert!(x.sql_server_lsn_position().is_none());
-        /// assert!(x.mysql_gtid_position().is_none());
-        /// ```
         pub fn set_mysql_log_position<
             T: std::convert::Into<std::boxed::Box<crate::model::MysqlLogPosition>>,
         >(
@@ -16558,17 +12460,6 @@ pub mod cdc_strategy {
         ///
         /// Note that all the setters affecting `position` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::cdc_strategy::SpecificStartPosition;
-        /// use google_cloud_datastream_v1::model::OracleScnPosition;
-        /// let x = SpecificStartPosition::new().set_oracle_scn_position(OracleScnPosition::default()/* use setters */);
-        /// assert!(x.oracle_scn_position().is_some());
-        /// assert!(x.mysql_log_position().is_none());
-        /// assert!(x.sql_server_lsn_position().is_none());
-        /// assert!(x.mysql_gtid_position().is_none());
-        /// ```
         pub fn set_oracle_scn_position<
             T: std::convert::Into<std::boxed::Box<crate::model::OracleScnPosition>>,
         >(
@@ -16601,17 +12492,6 @@ pub mod cdc_strategy {
         ///
         /// Note that all the setters affecting `position` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::cdc_strategy::SpecificStartPosition;
-        /// use google_cloud_datastream_v1::model::SqlServerLsnPosition;
-        /// let x = SpecificStartPosition::new().set_sql_server_lsn_position(SqlServerLsnPosition::default()/* use setters */);
-        /// assert!(x.sql_server_lsn_position().is_some());
-        /// assert!(x.mysql_log_position().is_none());
-        /// assert!(x.oracle_scn_position().is_none());
-        /// assert!(x.mysql_gtid_position().is_none());
-        /// ```
         pub fn set_sql_server_lsn_position<
             T: std::convert::Into<std::boxed::Box<crate::model::SqlServerLsnPosition>>,
         >(
@@ -16644,17 +12524,6 @@ pub mod cdc_strategy {
         ///
         /// Note that all the setters affecting `position` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_datastream_v1::model::cdc_strategy::SpecificStartPosition;
-        /// use google_cloud_datastream_v1::model::MysqlGtidPosition;
-        /// let x = SpecificStartPosition::new().set_mysql_gtid_position(MysqlGtidPosition::default()/* use setters */);
-        /// assert!(x.mysql_gtid_position().is_some());
-        /// assert!(x.mysql_log_position().is_none());
-        /// assert!(x.oracle_scn_position().is_none());
-        /// assert!(x.sql_server_lsn_position().is_none());
-        /// ```
         pub fn set_mysql_gtid_position<
             T: std::convert::Into<std::boxed::Box<crate::model::MysqlGtidPosition>>,
         >(
@@ -16731,12 +12600,6 @@ impl SqlServerLsnPosition {
     }
 
     /// Sets the value of [lsn][crate::model::SqlServerLsnPosition::lsn].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::SqlServerLsnPosition;
-    /// let x = SqlServerLsnPosition::new().set_lsn("example");
-    /// ```
     pub fn set_lsn<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.lsn = v.into();
         self
@@ -16765,12 +12628,6 @@ impl OracleScnPosition {
     }
 
     /// Sets the value of [scn][crate::model::OracleScnPosition::scn].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::OracleScnPosition;
-    /// let x = OracleScnPosition::new().set_scn(42);
-    /// ```
     pub fn set_scn<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.scn = v.into();
         self
@@ -16802,24 +12659,12 @@ impl MysqlLogPosition {
     }
 
     /// Sets the value of [log_file][crate::model::MysqlLogPosition::log_file].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlLogPosition;
-    /// let x = MysqlLogPosition::new().set_log_file("example");
-    /// ```
     pub fn set_log_file<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.log_file = v.into();
         self
     }
 
     /// Sets the value of [log_position][crate::model::MysqlLogPosition::log_position].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlLogPosition;
-    /// let x = MysqlLogPosition::new().set_log_position(42);
-    /// ```
     pub fn set_log_position<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -16829,13 +12674,6 @@ impl MysqlLogPosition {
     }
 
     /// Sets or clears the value of [log_position][crate::model::MysqlLogPosition::log_position].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlLogPosition;
-    /// let x = MysqlLogPosition::new().set_or_clear_log_position(Some(42));
-    /// let x = MysqlLogPosition::new().set_or_clear_log_position(None::<i32>);
-    /// ```
     pub fn set_or_clear_log_position<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -16867,12 +12705,6 @@ impl MysqlGtidPosition {
     }
 
     /// Sets the value of [gtid_set][crate::model::MysqlGtidPosition::gtid_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_datastream_v1::model::MysqlGtidPosition;
-    /// let x = MysqlGtidPosition::new().set_gtid_set("example");
-    /// ```
     pub fn set_gtid_set<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gtid_set = v.into();
         self

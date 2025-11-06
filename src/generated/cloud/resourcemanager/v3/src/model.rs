@@ -94,63 +94,30 @@ impl Folder {
     }
 
     /// Sets the value of [name][crate::model::Folder::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Folder;
-    /// let x = Folder::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::Folder::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Folder;
-    /// let x = Folder::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Folder::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Folder;
-    /// let x = Folder::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Folder::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Folder;
-    /// use google_cloud_resourcemanager_v3::model::folder::State;
-    /// let x0 = Folder::new().set_state(State::Active);
-    /// let x1 = Folder::new().set_state(State::DeleteRequested);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::folder::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Folder::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Folder;
-    /// use wkt::Timestamp;
-    /// let x = Folder::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -160,14 +127,6 @@ impl Folder {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Folder::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Folder;
-    /// use wkt::Timestamp;
-    /// let x = Folder::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Folder::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -177,13 +136,6 @@ impl Folder {
     }
 
     /// Sets the value of [update_time][crate::model::Folder::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Folder;
-    /// use wkt::Timestamp;
-    /// let x = Folder::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -193,14 +145,6 @@ impl Folder {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Folder::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Folder;
-    /// use wkt::Timestamp;
-    /// let x = Folder::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Folder::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -210,13 +154,6 @@ impl Folder {
     }
 
     /// Sets the value of [delete_time][crate::model::Folder::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Folder;
-    /// use wkt::Timestamp;
-    /// let x = Folder::new().set_delete_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -226,14 +163,6 @@ impl Folder {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Folder::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Folder;
-    /// use wkt::Timestamp;
-    /// let x = Folder::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Folder::new().set_or_clear_delete_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -243,12 +172,6 @@ impl Folder {
     }
 
     /// Sets the value of [etag][crate::model::Folder::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Folder;
-    /// let x = Folder::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -416,12 +339,6 @@ impl GetFolderRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFolderRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::GetFolderRequest;
-    /// let x = GetFolderRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -474,48 +391,24 @@ impl ListFoldersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFoldersRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListFoldersRequest;
-    /// let x = ListFoldersRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListFoldersRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListFoldersRequest;
-    /// let x = ListFoldersRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListFoldersRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListFoldersRequest;
-    /// let x = ListFoldersRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [show_deleted][crate::model::ListFoldersRequest::show_deleted].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListFoldersRequest;
-    /// let x = ListFoldersRequest::new().set_show_deleted(true);
-    /// ```
     pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_deleted = v.into();
         self
@@ -549,17 +442,6 @@ impl ListFoldersResponse {
     }
 
     /// Sets the value of [folders][crate::model::ListFoldersResponse::folders].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListFoldersResponse;
-    /// use google_cloud_resourcemanager_v3::model::Folder;
-    /// let x = ListFoldersResponse::new()
-    ///     .set_folders([
-    ///         Folder::default()/* use setters */,
-    ///         Folder::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_folders<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -571,12 +453,6 @@ impl ListFoldersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListFoldersResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListFoldersResponse;
-    /// let x = ListFoldersResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -658,36 +534,18 @@ impl SearchFoldersRequest {
     }
 
     /// Sets the value of [page_size][crate::model::SearchFoldersRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::SearchFoldersRequest;
-    /// let x = SearchFoldersRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchFoldersRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::SearchFoldersRequest;
-    /// let x = SearchFoldersRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::SearchFoldersRequest::query].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::SearchFoldersRequest;
-    /// let x = SearchFoldersRequest::new().set_query("example");
-    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
@@ -721,17 +579,6 @@ impl SearchFoldersResponse {
     }
 
     /// Sets the value of [folders][crate::model::SearchFoldersResponse::folders].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::SearchFoldersResponse;
-    /// use google_cloud_resourcemanager_v3::model::Folder;
-    /// let x = SearchFoldersResponse::new()
-    ///     .set_folders([
-    ///         Folder::default()/* use setters */,
-    ///         Folder::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_folders<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -743,12 +590,6 @@ impl SearchFoldersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchFoldersResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::SearchFoldersResponse;
-    /// let x = SearchFoldersResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -792,13 +633,6 @@ impl CreateFolderRequest {
     }
 
     /// Sets the value of [folder][crate::model::CreateFolderRequest::folder].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateFolderRequest;
-    /// use google_cloud_resourcemanager_v3::model::Folder;
-    /// let x = CreateFolderRequest::new().set_folder(Folder::default()/* use setters */);
-    /// ```
     pub fn set_folder<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Folder>,
@@ -808,14 +642,6 @@ impl CreateFolderRequest {
     }
 
     /// Sets or clears the value of [folder][crate::model::CreateFolderRequest::folder].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateFolderRequest;
-    /// use google_cloud_resourcemanager_v3::model::Folder;
-    /// let x = CreateFolderRequest::new().set_or_clear_folder(Some(Folder::default()/* use setters */));
-    /// let x = CreateFolderRequest::new().set_or_clear_folder(None::<Folder>);
-    /// ```
     pub fn set_or_clear_folder<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Folder>,
@@ -851,24 +677,12 @@ impl CreateFolderMetadata {
     }
 
     /// Sets the value of [display_name][crate::model::CreateFolderMetadata::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateFolderMetadata;
-    /// let x = CreateFolderMetadata::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::CreateFolderMetadata::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateFolderMetadata;
-    /// let x = CreateFolderMetadata::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -911,13 +725,6 @@ impl UpdateFolderRequest {
     }
 
     /// Sets the value of [folder][crate::model::UpdateFolderRequest::folder].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UpdateFolderRequest;
-    /// use google_cloud_resourcemanager_v3::model::Folder;
-    /// let x = UpdateFolderRequest::new().set_folder(Folder::default()/* use setters */);
-    /// ```
     pub fn set_folder<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Folder>,
@@ -927,14 +734,6 @@ impl UpdateFolderRequest {
     }
 
     /// Sets or clears the value of [folder][crate::model::UpdateFolderRequest::folder].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UpdateFolderRequest;
-    /// use google_cloud_resourcemanager_v3::model::Folder;
-    /// let x = UpdateFolderRequest::new().set_or_clear_folder(Some(Folder::default()/* use setters */));
-    /// let x = UpdateFolderRequest::new().set_or_clear_folder(None::<Folder>);
-    /// ```
     pub fn set_or_clear_folder<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Folder>,
@@ -944,13 +743,6 @@ impl UpdateFolderRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateFolderRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UpdateFolderRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateFolderRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -960,14 +752,6 @@ impl UpdateFolderRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateFolderRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UpdateFolderRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateFolderRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateFolderRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1025,24 +809,12 @@ impl MoveFolderRequest {
     }
 
     /// Sets the value of [name][crate::model::MoveFolderRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::MoveFolderRequest;
-    /// let x = MoveFolderRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [destination_parent][crate::model::MoveFolderRequest::destination_parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::MoveFolderRequest;
-    /// let x = MoveFolderRequest::new().set_destination_parent("example");
-    /// ```
     pub fn set_destination_parent<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1080,36 +852,18 @@ impl MoveFolderMetadata {
     }
 
     /// Sets the value of [display_name][crate::model::MoveFolderMetadata::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::MoveFolderMetadata;
-    /// let x = MoveFolderMetadata::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [source_parent][crate::model::MoveFolderMetadata::source_parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::MoveFolderMetadata;
-    /// let x = MoveFolderMetadata::new().set_source_parent("example");
-    /// ```
     pub fn set_source_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_parent = v.into();
         self
     }
 
     /// Sets the value of [destination_parent][crate::model::MoveFolderMetadata::destination_parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::MoveFolderMetadata;
-    /// let x = MoveFolderMetadata::new().set_destination_parent("example");
-    /// ```
     pub fn set_destination_parent<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1142,12 +896,6 @@ impl DeleteFolderRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteFolderRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::DeleteFolderRequest;
-    /// let x = DeleteFolderRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1197,12 +945,6 @@ impl UndeleteFolderRequest {
     }
 
     /// Sets the value of [name][crate::model::UndeleteFolderRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UndeleteFolderRequest;
-    /// let x = UndeleteFolderRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1285,38 +1027,18 @@ impl Organization {
     }
 
     /// Sets the value of [name][crate::model::Organization::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Organization;
-    /// let x = Organization::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Organization::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Organization;
-    /// let x = Organization::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Organization::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Organization;
-    /// use google_cloud_resourcemanager_v3::model::organization::State;
-    /// let x0 = Organization::new().set_state(State::Active);
-    /// let x1 = Organization::new().set_state(State::DeleteRequested);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::organization::State>>(
         mut self,
         v: T,
@@ -1326,13 +1048,6 @@ impl Organization {
     }
 
     /// Sets the value of [create_time][crate::model::Organization::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Organization;
-    /// use wkt::Timestamp;
-    /// let x = Organization::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1342,14 +1057,6 @@ impl Organization {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Organization::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Organization;
-    /// use wkt::Timestamp;
-    /// let x = Organization::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Organization::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1359,13 +1066,6 @@ impl Organization {
     }
 
     /// Sets the value of [update_time][crate::model::Organization::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Organization;
-    /// use wkt::Timestamp;
-    /// let x = Organization::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1375,14 +1075,6 @@ impl Organization {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Organization::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Organization;
-    /// use wkt::Timestamp;
-    /// let x = Organization::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Organization::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1392,13 +1084,6 @@ impl Organization {
     }
 
     /// Sets the value of [delete_time][crate::model::Organization::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Organization;
-    /// use wkt::Timestamp;
-    /// let x = Organization::new().set_delete_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1408,14 +1093,6 @@ impl Organization {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Organization::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Organization;
-    /// use wkt::Timestamp;
-    /// let x = Organization::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Organization::new().set_or_clear_delete_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1425,12 +1102,6 @@ impl Organization {
     }
 
     /// Sets the value of [etag][crate::model::Organization::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Organization;
-    /// let x = Organization::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -1440,13 +1111,6 @@ impl Organization {
     ///
     /// Note that all the setters affecting `owner` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Organization;
-    /// use google_cloud_resourcemanager_v3::model::organization;
-    /// let x = Organization::new().set_owner(Some(organization::Owner::DirectoryCustomerId("example".to_string())));
-    /// ```
     pub fn set_owner<
         T: std::convert::Into<std::option::Option<crate::model::organization::Owner>>,
     >(
@@ -1475,13 +1139,6 @@ impl Organization {
     ///
     /// Note that all the setters affecting `owner` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Organization;
-    /// let x = Organization::new().set_directory_customer_id("example");
-    /// assert!(x.directory_customer_id().is_some());
-    /// ```
     pub fn set_directory_customer_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1669,12 +1326,6 @@ impl GetOrganizationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetOrganizationRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::GetOrganizationRequest;
-    /// let x = GetOrganizationRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1729,36 +1380,18 @@ impl SearchOrganizationsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::SearchOrganizationsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::SearchOrganizationsRequest;
-    /// let x = SearchOrganizationsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchOrganizationsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::SearchOrganizationsRequest;
-    /// let x = SearchOrganizationsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::SearchOrganizationsRequest::query].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::SearchOrganizationsRequest;
-    /// let x = SearchOrganizationsRequest::new().set_query("example");
-    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
@@ -1795,17 +1428,6 @@ impl SearchOrganizationsResponse {
     }
 
     /// Sets the value of [organizations][crate::model::SearchOrganizationsResponse::organizations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::SearchOrganizationsResponse;
-    /// use google_cloud_resourcemanager_v3::model::Organization;
-    /// let x = SearchOrganizationsResponse::new()
-    ///     .set_organizations([
-    ///         Organization::default()/* use setters */,
-    ///         Organization::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_organizations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1817,12 +1439,6 @@ impl SearchOrganizationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchOrganizationsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::SearchOrganizationsResponse;
-    /// let x = SearchOrganizationsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1963,75 +1579,36 @@ impl Project {
     }
 
     /// Sets the value of [name][crate::model::Project::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Project;
-    /// let x = Project::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::Project::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Project;
-    /// let x = Project::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [project_id][crate::model::Project::project_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Project;
-    /// let x = Project::new().set_project_id("example");
-    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Project::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Project;
-    /// use google_cloud_resourcemanager_v3::model::project::State;
-    /// let x0 = Project::new().set_state(State::Active);
-    /// let x1 = Project::new().set_state(State::DeleteRequested);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::project::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Project::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Project;
-    /// let x = Project::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Project::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Project;
-    /// use wkt::Timestamp;
-    /// let x = Project::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2041,14 +1618,6 @@ impl Project {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Project::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Project;
-    /// use wkt::Timestamp;
-    /// let x = Project::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Project::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2058,13 +1627,6 @@ impl Project {
     }
 
     /// Sets the value of [update_time][crate::model::Project::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Project;
-    /// use wkt::Timestamp;
-    /// let x = Project::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2074,14 +1636,6 @@ impl Project {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Project::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Project;
-    /// use wkt::Timestamp;
-    /// let x = Project::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Project::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2091,13 +1645,6 @@ impl Project {
     }
 
     /// Sets the value of [delete_time][crate::model::Project::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Project;
-    /// use wkt::Timestamp;
-    /// let x = Project::new().set_delete_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2107,14 +1654,6 @@ impl Project {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Project::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Project;
-    /// use wkt::Timestamp;
-    /// let x = Project::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Project::new().set_or_clear_delete_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2124,27 +1663,12 @@ impl Project {
     }
 
     /// Sets the value of [etag][crate::model::Project::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Project;
-    /// let x = Project::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Project::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::Project;
-    /// let x = Project::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2329,12 +1853,6 @@ impl GetProjectRequest {
     }
 
     /// Sets the value of [name][crate::model::GetProjectRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::GetProjectRequest;
-    /// let x = GetProjectRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2386,48 +1904,24 @@ impl ListProjectsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListProjectsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListProjectsRequest;
-    /// let x = ListProjectsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListProjectsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListProjectsRequest;
-    /// let x = ListProjectsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListProjectsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListProjectsRequest;
-    /// let x = ListProjectsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [show_deleted][crate::model::ListProjectsRequest::show_deleted].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListProjectsRequest;
-    /// let x = ListProjectsRequest::new().set_show_deleted(true);
-    /// ```
     pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_deleted = v.into();
         self
@@ -2480,17 +1974,6 @@ impl ListProjectsResponse {
     }
 
     /// Sets the value of [projects][crate::model::ListProjectsResponse::projects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListProjectsResponse;
-    /// use google_cloud_resourcemanager_v3::model::Project;
-    /// let x = ListProjectsResponse::new()
-    ///     .set_projects([
-    ///         Project::default()/* use setters */,
-    ///         Project::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_projects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2502,12 +1985,6 @@ impl ListProjectsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListProjectsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListProjectsResponse;
-    /// let x = ListProjectsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2595,36 +2072,18 @@ impl SearchProjectsRequest {
     }
 
     /// Sets the value of [query][crate::model::SearchProjectsRequest::query].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::SearchProjectsRequest;
-    /// let x = SearchProjectsRequest::new().set_query("example");
-    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchProjectsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::SearchProjectsRequest;
-    /// let x = SearchProjectsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SearchProjectsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::SearchProjectsRequest;
-    /// let x = SearchProjectsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -2675,17 +2134,6 @@ impl SearchProjectsResponse {
     }
 
     /// Sets the value of [projects][crate::model::SearchProjectsResponse::projects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::SearchProjectsResponse;
-    /// use google_cloud_resourcemanager_v3::model::Project;
-    /// let x = SearchProjectsResponse::new()
-    ///     .set_projects([
-    ///         Project::default()/* use setters */,
-    ///         Project::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_projects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2697,12 +2145,6 @@ impl SearchProjectsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchProjectsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::SearchProjectsResponse;
-    /// let x = SearchProjectsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2757,13 +2199,6 @@ impl CreateProjectRequest {
     }
 
     /// Sets the value of [project][crate::model::CreateProjectRequest::project].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateProjectRequest;
-    /// use google_cloud_resourcemanager_v3::model::Project;
-    /// let x = CreateProjectRequest::new().set_project(Project::default()/* use setters */);
-    /// ```
     pub fn set_project<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Project>,
@@ -2773,14 +2208,6 @@ impl CreateProjectRequest {
     }
 
     /// Sets or clears the value of [project][crate::model::CreateProjectRequest::project].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateProjectRequest;
-    /// use google_cloud_resourcemanager_v3::model::Project;
-    /// let x = CreateProjectRequest::new().set_or_clear_project(Some(Project::default()/* use setters */));
-    /// let x = CreateProjectRequest::new().set_or_clear_project(None::<Project>);
-    /// ```
     pub fn set_or_clear_project<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Project>,
@@ -2822,13 +2249,6 @@ impl CreateProjectMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::CreateProjectMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateProjectMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateProjectMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2838,14 +2258,6 @@ impl CreateProjectMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CreateProjectMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateProjectMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateProjectMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateProjectMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2855,24 +2267,12 @@ impl CreateProjectMetadata {
     }
 
     /// Sets the value of [gettable][crate::model::CreateProjectMetadata::gettable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateProjectMetadata;
-    /// let x = CreateProjectMetadata::new().set_gettable(true);
-    /// ```
     pub fn set_gettable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.gettable = v.into();
         self
     }
 
     /// Sets the value of [ready][crate::model::CreateProjectMetadata::ready].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateProjectMetadata;
-    /// let x = CreateProjectMetadata::new().set_ready(true);
-    /// ```
     pub fn set_ready<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ready = v.into();
         self
@@ -2913,13 +2313,6 @@ impl UpdateProjectRequest {
     }
 
     /// Sets the value of [project][crate::model::UpdateProjectRequest::project].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UpdateProjectRequest;
-    /// use google_cloud_resourcemanager_v3::model::Project;
-    /// let x = UpdateProjectRequest::new().set_project(Project::default()/* use setters */);
-    /// ```
     pub fn set_project<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Project>,
@@ -2929,14 +2322,6 @@ impl UpdateProjectRequest {
     }
 
     /// Sets or clears the value of [project][crate::model::UpdateProjectRequest::project].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UpdateProjectRequest;
-    /// use google_cloud_resourcemanager_v3::model::Project;
-    /// let x = UpdateProjectRequest::new().set_or_clear_project(Some(Project::default()/* use setters */));
-    /// let x = UpdateProjectRequest::new().set_or_clear_project(None::<Project>);
-    /// ```
     pub fn set_or_clear_project<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Project>,
@@ -2946,13 +2331,6 @@ impl UpdateProjectRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateProjectRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UpdateProjectRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateProjectRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2962,14 +2340,6 @@ impl UpdateProjectRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateProjectRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UpdateProjectRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateProjectRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateProjectRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3028,24 +2398,12 @@ impl MoveProjectRequest {
     }
 
     /// Sets the value of [name][crate::model::MoveProjectRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::MoveProjectRequest;
-    /// let x = MoveProjectRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [destination_parent][crate::model::MoveProjectRequest::destination_parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::MoveProjectRequest;
-    /// let x = MoveProjectRequest::new().set_destination_parent("example");
-    /// ```
     pub fn set_destination_parent<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3100,12 +2458,6 @@ impl DeleteProjectRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteProjectRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::DeleteProjectRequest;
-    /// let x = DeleteProjectRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3158,12 +2510,6 @@ impl UndeleteProjectRequest {
     }
 
     /// Sets the value of [name][crate::model::UndeleteProjectRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UndeleteProjectRequest;
-    /// let x = UndeleteProjectRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3233,48 +2579,24 @@ impl TagBinding {
     }
 
     /// Sets the value of [name][crate::model::TagBinding::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagBinding;
-    /// let x = TagBinding::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::TagBinding::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagBinding;
-    /// let x = TagBinding::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [tag_value][crate::model::TagBinding::tag_value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagBinding;
-    /// let x = TagBinding::new().set_tag_value("example");
-    /// ```
     pub fn set_tag_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tag_value = v.into();
         self
     }
 
     /// Sets the value of [tag_value_namespaced_name][crate::model::TagBinding::tag_value_namespaced_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagBinding;
-    /// let x = TagBinding::new().set_tag_value_namespaced_name("example");
-    /// ```
     pub fn set_tag_value_namespaced_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3329,13 +2651,6 @@ impl CreateTagBindingRequest {
     }
 
     /// Sets the value of [tag_binding][crate::model::CreateTagBindingRequest::tag_binding].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateTagBindingRequest;
-    /// use google_cloud_resourcemanager_v3::model::TagBinding;
-    /// let x = CreateTagBindingRequest::new().set_tag_binding(TagBinding::default()/* use setters */);
-    /// ```
     pub fn set_tag_binding<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TagBinding>,
@@ -3345,14 +2660,6 @@ impl CreateTagBindingRequest {
     }
 
     /// Sets or clears the value of [tag_binding][crate::model::CreateTagBindingRequest::tag_binding].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateTagBindingRequest;
-    /// use google_cloud_resourcemanager_v3::model::TagBinding;
-    /// let x = CreateTagBindingRequest::new().set_or_clear_tag_binding(Some(TagBinding::default()/* use setters */));
-    /// let x = CreateTagBindingRequest::new().set_or_clear_tag_binding(None::<TagBinding>);
-    /// ```
     pub fn set_or_clear_tag_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagBinding>,
@@ -3362,12 +2669,6 @@ impl CreateTagBindingRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateTagBindingRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateTagBindingRequest;
-    /// let x = CreateTagBindingRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -3417,12 +2718,6 @@ impl DeleteTagBindingRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTagBindingRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::DeleteTagBindingRequest;
-    /// let x = DeleteTagBindingRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3462,36 +2757,18 @@ impl ListTagBindingsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTagBindingsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagBindingsRequest;
-    /// let x = ListTagBindingsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTagBindingsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagBindingsRequest;
-    /// let x = ListTagBindingsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTagBindingsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagBindingsRequest;
-    /// let x = ListTagBindingsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3533,17 +2810,6 @@ impl ListTagBindingsResponse {
     }
 
     /// Sets the value of [tag_bindings][crate::model::ListTagBindingsResponse::tag_bindings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagBindingsResponse;
-    /// use google_cloud_resourcemanager_v3::model::TagBinding;
-    /// let x = ListTagBindingsResponse::new()
-    ///     .set_tag_bindings([
-    ///         TagBinding::default()/* use setters */,
-    ///         TagBinding::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_tag_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3555,12 +2821,6 @@ impl ListTagBindingsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTagBindingsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagBindingsResponse;
-    /// let x = ListTagBindingsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3614,36 +2874,18 @@ impl ListEffectiveTagsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEffectiveTagsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListEffectiveTagsRequest;
-    /// let x = ListEffectiveTagsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEffectiveTagsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListEffectiveTagsRequest;
-    /// let x = ListEffectiveTagsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEffectiveTagsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListEffectiveTagsRequest;
-    /// let x = ListEffectiveTagsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3685,17 +2927,6 @@ impl ListEffectiveTagsResponse {
     }
 
     /// Sets the value of [effective_tags][crate::model::ListEffectiveTagsResponse::effective_tags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListEffectiveTagsResponse;
-    /// use google_cloud_resourcemanager_v3::model::EffectiveTag;
-    /// let x = ListEffectiveTagsResponse::new()
-    ///     .set_effective_tags([
-    ///         EffectiveTag::default()/* use setters */,
-    ///         EffectiveTag::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_effective_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3707,12 +2938,6 @@ impl ListEffectiveTagsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEffectiveTagsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListEffectiveTagsResponse;
-    /// let x = ListEffectiveTagsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3786,24 +3011,12 @@ impl EffectiveTag {
     }
 
     /// Sets the value of [tag_value][crate::model::EffectiveTag::tag_value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::EffectiveTag;
-    /// let x = EffectiveTag::new().set_tag_value("example");
-    /// ```
     pub fn set_tag_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tag_value = v.into();
         self
     }
 
     /// Sets the value of [namespaced_tag_value][crate::model::EffectiveTag::namespaced_tag_value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::EffectiveTag;
-    /// let x = EffectiveTag::new().set_namespaced_tag_value("example");
-    /// ```
     pub fn set_namespaced_tag_value<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3813,24 +3026,12 @@ impl EffectiveTag {
     }
 
     /// Sets the value of [tag_key][crate::model::EffectiveTag::tag_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::EffectiveTag;
-    /// let x = EffectiveTag::new().set_tag_key("example");
-    /// ```
     pub fn set_tag_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tag_key = v.into();
         self
     }
 
     /// Sets the value of [namespaced_tag_key][crate::model::EffectiveTag::namespaced_tag_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::EffectiveTag;
-    /// let x = EffectiveTag::new().set_namespaced_tag_key("example");
-    /// ```
     pub fn set_namespaced_tag_key<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3840,12 +3041,6 @@ impl EffectiveTag {
     }
 
     /// Sets the value of [tag_key_parent_name][crate::model::EffectiveTag::tag_key_parent_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::EffectiveTag;
-    /// let x = EffectiveTag::new().set_tag_key_parent_name("example");
-    /// ```
     pub fn set_tag_key_parent_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3855,12 +3050,6 @@ impl EffectiveTag {
     }
 
     /// Sets the value of [inherited][crate::model::EffectiveTag::inherited].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::EffectiveTag;
-    /// let x = EffectiveTag::new().set_inherited(true);
-    /// ```
     pub fn set_inherited<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.inherited = v.into();
         self
@@ -3914,61 +3103,30 @@ impl TagHold {
     }
 
     /// Sets the value of [name][crate::model::TagHold::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagHold;
-    /// let x = TagHold::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [holder][crate::model::TagHold::holder].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagHold;
-    /// let x = TagHold::new().set_holder("example");
-    /// ```
     pub fn set_holder<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.holder = v.into();
         self
     }
 
     /// Sets the value of [origin][crate::model::TagHold::origin].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagHold;
-    /// let x = TagHold::new().set_origin("example");
-    /// ```
     pub fn set_origin<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.origin = v.into();
         self
     }
 
     /// Sets the value of [help_link][crate::model::TagHold::help_link].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagHold;
-    /// let x = TagHold::new().set_help_link("example");
-    /// ```
     pub fn set_help_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.help_link = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::TagHold::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagHold;
-    /// use wkt::Timestamp;
-    /// let x = TagHold::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3978,14 +3136,6 @@ impl TagHold {
     }
 
     /// Sets or clears the value of [create_time][crate::model::TagHold::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagHold;
-    /// use wkt::Timestamp;
-    /// let x = TagHold::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TagHold::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4025,25 +3175,12 @@ impl CreateTagHoldRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTagHoldRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateTagHoldRequest;
-    /// let x = CreateTagHoldRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [tag_hold][crate::model::CreateTagHoldRequest::tag_hold].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateTagHoldRequest;
-    /// use google_cloud_resourcemanager_v3::model::TagHold;
-    /// let x = CreateTagHoldRequest::new().set_tag_hold(TagHold::default()/* use setters */);
-    /// ```
     pub fn set_tag_hold<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TagHold>,
@@ -4053,14 +3190,6 @@ impl CreateTagHoldRequest {
     }
 
     /// Sets or clears the value of [tag_hold][crate::model::CreateTagHoldRequest::tag_hold].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateTagHoldRequest;
-    /// use google_cloud_resourcemanager_v3::model::TagHold;
-    /// let x = CreateTagHoldRequest::new().set_or_clear_tag_hold(Some(TagHold::default()/* use setters */));
-    /// let x = CreateTagHoldRequest::new().set_or_clear_tag_hold(None::<TagHold>);
-    /// ```
     pub fn set_or_clear_tag_hold<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagHold>,
@@ -4070,12 +3199,6 @@ impl CreateTagHoldRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateTagHoldRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateTagHoldRequest;
-    /// let x = CreateTagHoldRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -4130,24 +3253,12 @@ impl DeleteTagHoldRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTagHoldRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::DeleteTagHoldRequest;
-    /// let x = DeleteTagHoldRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteTagHoldRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::DeleteTagHoldRequest;
-    /// let x = DeleteTagHoldRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -4220,48 +3331,24 @@ impl ListTagHoldsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTagHoldsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagHoldsRequest;
-    /// let x = ListTagHoldsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTagHoldsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagHoldsRequest;
-    /// let x = ListTagHoldsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTagHoldsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagHoldsRequest;
-    /// let x = ListTagHoldsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListTagHoldsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagHoldsRequest;
-    /// let x = ListTagHoldsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -4303,17 +3390,6 @@ impl ListTagHoldsResponse {
     }
 
     /// Sets the value of [tag_holds][crate::model::ListTagHoldsResponse::tag_holds].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagHoldsResponse;
-    /// use google_cloud_resourcemanager_v3::model::TagHold;
-    /// let x = ListTagHoldsResponse::new()
-    ///     .set_tag_holds([
-    ///         TagHold::default()/* use setters */,
-    ///         TagHold::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_tag_holds<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4325,12 +3401,6 @@ impl ListTagHoldsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTagHoldsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagHoldsResponse;
-    /// let x = ListTagHoldsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4425,73 +3495,36 @@ impl TagKey {
     }
 
     /// Sets the value of [name][crate::model::TagKey::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagKey;
-    /// let x = TagKey::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::TagKey::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagKey;
-    /// let x = TagKey::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [short_name][crate::model::TagKey::short_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagKey;
-    /// let x = TagKey::new().set_short_name("example");
-    /// ```
     pub fn set_short_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.short_name = v.into();
         self
     }
 
     /// Sets the value of [namespaced_name][crate::model::TagKey::namespaced_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagKey;
-    /// let x = TagKey::new().set_namespaced_name("example");
-    /// ```
     pub fn set_namespaced_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.namespaced_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::TagKey::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagKey;
-    /// let x = TagKey::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::TagKey::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagKey;
-    /// use wkt::Timestamp;
-    /// let x = TagKey::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4501,14 +3534,6 @@ impl TagKey {
     }
 
     /// Sets or clears the value of [create_time][crate::model::TagKey::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagKey;
-    /// use wkt::Timestamp;
-    /// let x = TagKey::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TagKey::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4518,13 +3543,6 @@ impl TagKey {
     }
 
     /// Sets the value of [update_time][crate::model::TagKey::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagKey;
-    /// use wkt::Timestamp;
-    /// let x = TagKey::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4534,14 +3552,6 @@ impl TagKey {
     }
 
     /// Sets or clears the value of [update_time][crate::model::TagKey::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagKey;
-    /// use wkt::Timestamp;
-    /// let x = TagKey::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TagKey::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4551,40 +3561,18 @@ impl TagKey {
     }
 
     /// Sets the value of [etag][crate::model::TagKey::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagKey;
-    /// let x = TagKey::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [purpose][crate::model::TagKey::purpose].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagKey;
-    /// use google_cloud_resourcemanager_v3::model::Purpose;
-    /// let x0 = TagKey::new().set_purpose(Purpose::GceFirewall);
-    /// ```
     pub fn set_purpose<T: std::convert::Into<crate::model::Purpose>>(mut self, v: T) -> Self {
         self.purpose = v.into();
         self
     }
 
     /// Sets the value of [purpose_data][crate::model::TagKey::purpose_data].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagKey;
-    /// let x = TagKey::new().set_purpose_data([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_purpose_data<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4630,36 +3618,18 @@ impl ListTagKeysRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTagKeysRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagKeysRequest;
-    /// let x = ListTagKeysRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTagKeysRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagKeysRequest;
-    /// let x = ListTagKeysRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTagKeysRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagKeysRequest;
-    /// let x = ListTagKeysRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4692,17 +3662,6 @@ impl ListTagKeysResponse {
     }
 
     /// Sets the value of [tag_keys][crate::model::ListTagKeysResponse::tag_keys].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagKeysResponse;
-    /// use google_cloud_resourcemanager_v3::model::TagKey;
-    /// let x = ListTagKeysResponse::new()
-    ///     .set_tag_keys([
-    ///         TagKey::default()/* use setters */,
-    ///         TagKey::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_tag_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4714,12 +3673,6 @@ impl ListTagKeysResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTagKeysResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagKeysResponse;
-    /// let x = ListTagKeysResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4763,12 +3716,6 @@ impl GetTagKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTagKeyRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::GetTagKeyRequest;
-    /// let x = GetTagKeyRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4800,12 +3747,6 @@ impl GetNamespacedTagKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNamespacedTagKeyRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::GetNamespacedTagKeyRequest;
-    /// let x = GetNamespacedTagKeyRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4839,13 +3780,6 @@ impl CreateTagKeyRequest {
     }
 
     /// Sets the value of [tag_key][crate::model::CreateTagKeyRequest::tag_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateTagKeyRequest;
-    /// use google_cloud_resourcemanager_v3::model::TagKey;
-    /// let x = CreateTagKeyRequest::new().set_tag_key(TagKey::default()/* use setters */);
-    /// ```
     pub fn set_tag_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TagKey>,
@@ -4855,14 +3789,6 @@ impl CreateTagKeyRequest {
     }
 
     /// Sets or clears the value of [tag_key][crate::model::CreateTagKeyRequest::tag_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateTagKeyRequest;
-    /// use google_cloud_resourcemanager_v3::model::TagKey;
-    /// let x = CreateTagKeyRequest::new().set_or_clear_tag_key(Some(TagKey::default()/* use setters */));
-    /// let x = CreateTagKeyRequest::new().set_or_clear_tag_key(None::<TagKey>);
-    /// ```
     pub fn set_or_clear_tag_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagKey>,
@@ -4872,12 +3798,6 @@ impl CreateTagKeyRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateTagKeyRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateTagKeyRequest;
-    /// let x = CreateTagKeyRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -4937,13 +3857,6 @@ impl UpdateTagKeyRequest {
     }
 
     /// Sets the value of [tag_key][crate::model::UpdateTagKeyRequest::tag_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UpdateTagKeyRequest;
-    /// use google_cloud_resourcemanager_v3::model::TagKey;
-    /// let x = UpdateTagKeyRequest::new().set_tag_key(TagKey::default()/* use setters */);
-    /// ```
     pub fn set_tag_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TagKey>,
@@ -4953,14 +3866,6 @@ impl UpdateTagKeyRequest {
     }
 
     /// Sets or clears the value of [tag_key][crate::model::UpdateTagKeyRequest::tag_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UpdateTagKeyRequest;
-    /// use google_cloud_resourcemanager_v3::model::TagKey;
-    /// let x = UpdateTagKeyRequest::new().set_or_clear_tag_key(Some(TagKey::default()/* use setters */));
-    /// let x = UpdateTagKeyRequest::new().set_or_clear_tag_key(None::<TagKey>);
-    /// ```
     pub fn set_or_clear_tag_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagKey>,
@@ -4970,13 +3875,6 @@ impl UpdateTagKeyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTagKeyRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UpdateTagKeyRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTagKeyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4986,14 +3884,6 @@ impl UpdateTagKeyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTagKeyRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UpdateTagKeyRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTagKeyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateTagKeyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5003,12 +3893,6 @@ impl UpdateTagKeyRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateTagKeyRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UpdateTagKeyRequest;
-    /// let x = UpdateTagKeyRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -5066,36 +3950,18 @@ impl DeleteTagKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTagKeyRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::DeleteTagKeyRequest;
-    /// let x = DeleteTagKeyRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteTagKeyRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::DeleteTagKeyRequest;
-    /// let x = DeleteTagKeyRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteTagKeyRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::DeleteTagKeyRequest;
-    /// let x = DeleteTagKeyRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -5179,73 +4045,36 @@ impl TagValue {
     }
 
     /// Sets the value of [name][crate::model::TagValue::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagValue;
-    /// let x = TagValue::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::TagValue::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagValue;
-    /// let x = TagValue::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [short_name][crate::model::TagValue::short_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagValue;
-    /// let x = TagValue::new().set_short_name("example");
-    /// ```
     pub fn set_short_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.short_name = v.into();
         self
     }
 
     /// Sets the value of [namespaced_name][crate::model::TagValue::namespaced_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagValue;
-    /// let x = TagValue::new().set_namespaced_name("example");
-    /// ```
     pub fn set_namespaced_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.namespaced_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::TagValue::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagValue;
-    /// let x = TagValue::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::TagValue::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagValue;
-    /// use wkt::Timestamp;
-    /// let x = TagValue::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5255,14 +4084,6 @@ impl TagValue {
     }
 
     /// Sets or clears the value of [create_time][crate::model::TagValue::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagValue;
-    /// use wkt::Timestamp;
-    /// let x = TagValue::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TagValue::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5272,13 +4093,6 @@ impl TagValue {
     }
 
     /// Sets the value of [update_time][crate::model::TagValue::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagValue;
-    /// use wkt::Timestamp;
-    /// let x = TagValue::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5288,14 +4102,6 @@ impl TagValue {
     }
 
     /// Sets or clears the value of [update_time][crate::model::TagValue::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagValue;
-    /// use wkt::Timestamp;
-    /// let x = TagValue::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TagValue::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5305,12 +4111,6 @@ impl TagValue {
     }
 
     /// Sets the value of [etag][crate::model::TagValue::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::TagValue;
-    /// let x = TagValue::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -5350,36 +4150,18 @@ impl ListTagValuesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTagValuesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagValuesRequest;
-    /// let x = ListTagValuesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTagValuesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagValuesRequest;
-    /// let x = ListTagValuesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTagValuesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagValuesRequest;
-    /// let x = ListTagValuesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -5414,17 +4196,6 @@ impl ListTagValuesResponse {
     }
 
     /// Sets the value of [tag_values][crate::model::ListTagValuesResponse::tag_values].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagValuesResponse;
-    /// use google_cloud_resourcemanager_v3::model::TagValue;
-    /// let x = ListTagValuesResponse::new()
-    ///     .set_tag_values([
-    ///         TagValue::default()/* use setters */,
-    ///         TagValue::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_tag_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5436,12 +4207,6 @@ impl ListTagValuesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTagValuesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::ListTagValuesResponse;
-    /// let x = ListTagValuesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5485,12 +4250,6 @@ impl GetTagValueRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTagValueRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::GetTagValueRequest;
-    /// let x = GetTagValueRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5528,12 +4287,6 @@ impl GetNamespacedTagValueRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNamespacedTagValueRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::GetNamespacedTagValueRequest;
-    /// let x = GetNamespacedTagValueRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5567,13 +4320,6 @@ impl CreateTagValueRequest {
     }
 
     /// Sets the value of [tag_value][crate::model::CreateTagValueRequest::tag_value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateTagValueRequest;
-    /// use google_cloud_resourcemanager_v3::model::TagValue;
-    /// let x = CreateTagValueRequest::new().set_tag_value(TagValue::default()/* use setters */);
-    /// ```
     pub fn set_tag_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TagValue>,
@@ -5583,14 +4329,6 @@ impl CreateTagValueRequest {
     }
 
     /// Sets or clears the value of [tag_value][crate::model::CreateTagValueRequest::tag_value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateTagValueRequest;
-    /// use google_cloud_resourcemanager_v3::model::TagValue;
-    /// let x = CreateTagValueRequest::new().set_or_clear_tag_value(Some(TagValue::default()/* use setters */));
-    /// let x = CreateTagValueRequest::new().set_or_clear_tag_value(None::<TagValue>);
-    /// ```
     pub fn set_or_clear_tag_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagValue>,
@@ -5600,12 +4338,6 @@ impl CreateTagValueRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateTagValueRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::CreateTagValueRequest;
-    /// let x = CreateTagValueRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -5663,13 +4395,6 @@ impl UpdateTagValueRequest {
     }
 
     /// Sets the value of [tag_value][crate::model::UpdateTagValueRequest::tag_value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UpdateTagValueRequest;
-    /// use google_cloud_resourcemanager_v3::model::TagValue;
-    /// let x = UpdateTagValueRequest::new().set_tag_value(TagValue::default()/* use setters */);
-    /// ```
     pub fn set_tag_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TagValue>,
@@ -5679,14 +4404,6 @@ impl UpdateTagValueRequest {
     }
 
     /// Sets or clears the value of [tag_value][crate::model::UpdateTagValueRequest::tag_value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UpdateTagValueRequest;
-    /// use google_cloud_resourcemanager_v3::model::TagValue;
-    /// let x = UpdateTagValueRequest::new().set_or_clear_tag_value(Some(TagValue::default()/* use setters */));
-    /// let x = UpdateTagValueRequest::new().set_or_clear_tag_value(None::<TagValue>);
-    /// ```
     pub fn set_or_clear_tag_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagValue>,
@@ -5696,13 +4413,6 @@ impl UpdateTagValueRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTagValueRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UpdateTagValueRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTagValueRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5712,14 +4422,6 @@ impl UpdateTagValueRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTagValueRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UpdateTagValueRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTagValueRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateTagValueRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5729,12 +4431,6 @@ impl UpdateTagValueRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateTagValueRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::UpdateTagValueRequest;
-    /// let x = UpdateTagValueRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -5791,36 +4487,18 @@ impl DeleteTagValueRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTagValueRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::DeleteTagValueRequest;
-    /// let x = DeleteTagValueRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteTagValueRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::DeleteTagValueRequest;
-    /// let x = DeleteTagValueRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteTagValueRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_resourcemanager_v3::model::DeleteTagValueRequest;
-    /// let x = DeleteTagValueRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self

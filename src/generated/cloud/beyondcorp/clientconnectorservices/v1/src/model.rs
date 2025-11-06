@@ -77,25 +77,12 @@ impl ClientConnectorService {
     }
 
     /// Sets the value of [name][crate::model::ClientConnectorService::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorService;
-    /// let x = ClientConnectorService::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ClientConnectorService::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorService;
-    /// use wkt::Timestamp;
-    /// let x = ClientConnectorService::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -105,14 +92,6 @@ impl ClientConnectorService {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ClientConnectorService::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorService;
-    /// use wkt::Timestamp;
-    /// let x = ClientConnectorService::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ClientConnectorService::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -122,13 +101,6 @@ impl ClientConnectorService {
     }
 
     /// Sets the value of [update_time][crate::model::ClientConnectorService::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorService;
-    /// use wkt::Timestamp;
-    /// let x = ClientConnectorService::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -138,14 +110,6 @@ impl ClientConnectorService {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ClientConnectorService::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorService;
-    /// use wkt::Timestamp;
-    /// let x = ClientConnectorService::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ClientConnectorService::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -155,25 +119,12 @@ impl ClientConnectorService {
     }
 
     /// Sets the value of [display_name][crate::model::ClientConnectorService::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorService;
-    /// let x = ClientConnectorService::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [ingress][crate::model::ClientConnectorService::ingress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorService;
-    /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::Ingress;
-    /// let x = ClientConnectorService::new().set_ingress(Ingress::default()/* use setters */);
-    /// ```
     pub fn set_ingress<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::client_connector_service::Ingress>,
@@ -183,14 +134,6 @@ impl ClientConnectorService {
     }
 
     /// Sets or clears the value of [ingress][crate::model::ClientConnectorService::ingress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorService;
-    /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::Ingress;
-    /// let x = ClientConnectorService::new().set_or_clear_ingress(Some(Ingress::default()/* use setters */));
-    /// let x = ClientConnectorService::new().set_or_clear_ingress(None::<Ingress>);
-    /// ```
     pub fn set_or_clear_ingress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::client_connector_service::Ingress>,
@@ -200,13 +143,6 @@ impl ClientConnectorService {
     }
 
     /// Sets the value of [egress][crate::model::ClientConnectorService::egress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorService;
-    /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::Egress;
-    /// let x = ClientConnectorService::new().set_egress(Egress::default()/* use setters */);
-    /// ```
     pub fn set_egress<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::client_connector_service::Egress>,
@@ -216,14 +152,6 @@ impl ClientConnectorService {
     }
 
     /// Sets or clears the value of [egress][crate::model::ClientConnectorService::egress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorService;
-    /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::Egress;
-    /// let x = ClientConnectorService::new().set_or_clear_egress(Some(Egress::default()/* use setters */));
-    /// let x = ClientConnectorService::new().set_or_clear_egress(None::<Egress>);
-    /// ```
     pub fn set_or_clear_egress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::client_connector_service::Egress>,
@@ -233,15 +161,6 @@ impl ClientConnectorService {
     }
 
     /// Sets the value of [state][crate::model::ClientConnectorService::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorService;
-    /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::State;
-    /// let x0 = ClientConnectorService::new().set_state(State::Creating);
-    /// let x1 = ClientConnectorService::new().set_state(State::Updating);
-    /// let x2 = ClientConnectorService::new().set_state(State::Deleting);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::client_connector_service::State>>(
         mut self,
         v: T,
@@ -282,14 +201,6 @@ pub mod client_connector_service {
         ///
         /// Note that all the setters affecting `ingress_config` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::Ingress;
-        /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::ingress;
-        /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::ingress::Config;
-        /// let x = Ingress::new().set_ingress_config(Some(client_connector_service::ingress::IngressConfig::Config(Config::default().into())));
-        /// ```
         pub fn set_ingress_config<
             T: std::convert::Into<
                     std::option::Option<
@@ -326,14 +237,6 @@ pub mod client_connector_service {
         ///
         /// Note that all the setters affecting `ingress_config` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::Ingress;
-        /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::ingress::Config;
-        /// let x = Ingress::new().set_config(Config::default()/* use setters */);
-        /// assert!(x.config().is_some());
-        /// ```
         pub fn set_config<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::client_connector_service::ingress::Config>,
@@ -383,13 +286,6 @@ pub mod client_connector_service {
             }
 
             /// Sets the value of [transport_protocol][crate::model::client_connector_service::ingress::Config::transport_protocol].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::ingress::Config;
-            /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::ingress::config::TransportProtocol;
-            /// let x0 = Config::new().set_transport_protocol(TransportProtocol::Tcp);
-            /// ```
             pub fn set_transport_protocol<
                 T: std::convert::Into<
                         crate::model::client_connector_service::ingress::config::TransportProtocol,
@@ -403,17 +299,6 @@ pub mod client_connector_service {
             }
 
             /// Sets the value of [destination_routes][crate::model::client_connector_service::ingress::Config::destination_routes].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::ingress::Config;
-            /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::ingress::config::DestinationRoute;
-            /// let x = Config::new()
-            ///     .set_destination_routes([
-            ///         DestinationRoute::default()/* use setters */,
-            ///         DestinationRoute::default()/* use (different) setters */,
-            ///     ]);
-            /// ```
             pub fn set_destination_routes<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -461,12 +346,6 @@ pub mod client_connector_service {
                 }
 
                 /// Sets the value of [address][crate::model::client_connector_service::ingress::config::DestinationRoute::address].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::ingress::config::DestinationRoute;
-                /// let x = DestinationRoute::new().set_address("example");
-                /// ```
                 pub fn set_address<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -476,12 +355,6 @@ pub mod client_connector_service {
                 }
 
                 /// Sets the value of [netmask][crate::model::client_connector_service::ingress::config::DestinationRoute::netmask].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::ingress::config::DestinationRoute;
-                /// let x = DestinationRoute::new().set_netmask("example");
-                /// ```
                 pub fn set_netmask<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -654,14 +527,6 @@ pub mod client_connector_service {
         ///
         /// Note that all the setters affecting `destination_type` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::Egress;
-        /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::egress;
-        /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::egress::PeeredVpc;
-        /// let x = Egress::new().set_destination_type(Some(client_connector_service::egress::DestinationType::PeeredVpc(PeeredVpc::default().into())));
-        /// ```
         pub fn set_destination_type<
             T: std::convert::Into<
                     std::option::Option<
@@ -698,14 +563,6 @@ pub mod client_connector_service {
         ///
         /// Note that all the setters affecting `destination_type` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::Egress;
-        /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::egress::PeeredVpc;
-        /// let x = Egress::new().set_peered_vpc(PeeredVpc::default()/* use setters */);
-        /// assert!(x.peered_vpc().is_some());
-        /// ```
         pub fn set_peered_vpc<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::client_connector_service::egress::PeeredVpc>,
@@ -750,12 +607,6 @@ pub mod client_connector_service {
             }
 
             /// Sets the value of [network_vpc][crate::model::client_connector_service::egress::PeeredVpc::network_vpc].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::egress::PeeredVpc;
-            /// let x = PeeredVpc::new().set_network_vpc("example");
-            /// ```
             pub fn set_network_vpc<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -971,60 +822,30 @@ impl ListClientConnectorServicesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListClientConnectorServicesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ListClientConnectorServicesRequest;
-    /// let x = ListClientConnectorServicesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListClientConnectorServicesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ListClientConnectorServicesRequest;
-    /// let x = ListClientConnectorServicesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListClientConnectorServicesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ListClientConnectorServicesRequest;
-    /// let x = ListClientConnectorServicesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListClientConnectorServicesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ListClientConnectorServicesRequest;
-    /// let x = ListClientConnectorServicesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListClientConnectorServicesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ListClientConnectorServicesRequest;
-    /// let x = ListClientConnectorServicesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1059,17 +880,6 @@ impl ListClientConnectorServicesResponse {
     }
 
     /// Sets the value of [client_connector_services][crate::model::ListClientConnectorServicesResponse::client_connector_services].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ListClientConnectorServicesResponse;
-    /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorService;
-    /// let x = ListClientConnectorServicesResponse::new()
-    ///     .set_client_connector_services([
-    ///         ClientConnectorService::default()/* use setters */,
-    ///         ClientConnectorService::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_client_connector_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1081,24 +891,12 @@ impl ListClientConnectorServicesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListClientConnectorServicesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ListClientConnectorServicesResponse;
-    /// let x = ListClientConnectorServicesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListClientConnectorServicesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ListClientConnectorServicesResponse;
-    /// let x = ListClientConnectorServicesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1146,12 +944,6 @@ impl GetClientConnectorServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetClientConnectorServiceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::GetClientConnectorServiceRequest;
-    /// let x = GetClientConnectorServiceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1212,24 +1004,12 @@ impl CreateClientConnectorServiceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateClientConnectorServiceRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::CreateClientConnectorServiceRequest;
-    /// let x = CreateClientConnectorServiceRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [client_connector_service_id][crate::model::CreateClientConnectorServiceRequest::client_connector_service_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::CreateClientConnectorServiceRequest;
-    /// let x = CreateClientConnectorServiceRequest::new().set_client_connector_service_id("example");
-    /// ```
     pub fn set_client_connector_service_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1239,13 +1019,6 @@ impl CreateClientConnectorServiceRequest {
     }
 
     /// Sets the value of [client_connector_service][crate::model::CreateClientConnectorServiceRequest::client_connector_service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::CreateClientConnectorServiceRequest;
-    /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorService;
-    /// let x = CreateClientConnectorServiceRequest::new().set_client_connector_service(ClientConnectorService::default()/* use setters */);
-    /// ```
     pub fn set_client_connector_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ClientConnectorService>,
@@ -1255,14 +1028,6 @@ impl CreateClientConnectorServiceRequest {
     }
 
     /// Sets or clears the value of [client_connector_service][crate::model::CreateClientConnectorServiceRequest::client_connector_service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::CreateClientConnectorServiceRequest;
-    /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorService;
-    /// let x = CreateClientConnectorServiceRequest::new().set_or_clear_client_connector_service(Some(ClientConnectorService::default()/* use setters */));
-    /// let x = CreateClientConnectorServiceRequest::new().set_or_clear_client_connector_service(None::<ClientConnectorService>);
-    /// ```
     pub fn set_or_clear_client_connector_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClientConnectorService>,
@@ -1272,24 +1037,12 @@ impl CreateClientConnectorServiceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateClientConnectorServiceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::CreateClientConnectorServiceRequest;
-    /// let x = CreateClientConnectorServiceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateClientConnectorServiceRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::CreateClientConnectorServiceRequest;
-    /// let x = CreateClientConnectorServiceRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -1349,13 +1102,6 @@ impl UpdateClientConnectorServiceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateClientConnectorServiceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::UpdateClientConnectorServiceRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateClientConnectorServiceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1365,14 +1111,6 @@ impl UpdateClientConnectorServiceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateClientConnectorServiceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::UpdateClientConnectorServiceRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateClientConnectorServiceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateClientConnectorServiceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1382,13 +1120,6 @@ impl UpdateClientConnectorServiceRequest {
     }
 
     /// Sets the value of [client_connector_service][crate::model::UpdateClientConnectorServiceRequest::client_connector_service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::UpdateClientConnectorServiceRequest;
-    /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorService;
-    /// let x = UpdateClientConnectorServiceRequest::new().set_client_connector_service(ClientConnectorService::default()/* use setters */);
-    /// ```
     pub fn set_client_connector_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ClientConnectorService>,
@@ -1398,14 +1129,6 @@ impl UpdateClientConnectorServiceRequest {
     }
 
     /// Sets or clears the value of [client_connector_service][crate::model::UpdateClientConnectorServiceRequest::client_connector_service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::UpdateClientConnectorServiceRequest;
-    /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorService;
-    /// let x = UpdateClientConnectorServiceRequest::new().set_or_clear_client_connector_service(Some(ClientConnectorService::default()/* use setters */));
-    /// let x = UpdateClientConnectorServiceRequest::new().set_or_clear_client_connector_service(None::<ClientConnectorService>);
-    /// ```
     pub fn set_or_clear_client_connector_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClientConnectorService>,
@@ -1415,36 +1138,18 @@ impl UpdateClientConnectorServiceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateClientConnectorServiceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::UpdateClientConnectorServiceRequest;
-    /// let x = UpdateClientConnectorServiceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateClientConnectorServiceRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::UpdateClientConnectorServiceRequest;
-    /// let x = UpdateClientConnectorServiceRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateClientConnectorServiceRequest::allow_missing].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::UpdateClientConnectorServiceRequest;
-    /// let x = UpdateClientConnectorServiceRequest::new().set_allow_missing(true);
-    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -1492,36 +1197,18 @@ impl DeleteClientConnectorServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteClientConnectorServiceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::DeleteClientConnectorServiceRequest;
-    /// let x = DeleteClientConnectorServiceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteClientConnectorServiceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::DeleteClientConnectorServiceRequest;
-    /// let x = DeleteClientConnectorServiceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteClientConnectorServiceRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::DeleteClientConnectorServiceRequest;
-    /// let x = DeleteClientConnectorServiceRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -1574,13 +1261,6 @@ impl ClientConnectorServiceOperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::ClientConnectorServiceOperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorServiceOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = ClientConnectorServiceOperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1590,14 +1270,6 @@ impl ClientConnectorServiceOperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ClientConnectorServiceOperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorServiceOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = ClientConnectorServiceOperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ClientConnectorServiceOperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1607,13 +1279,6 @@ impl ClientConnectorServiceOperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::ClientConnectorServiceOperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorServiceOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = ClientConnectorServiceOperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1623,14 +1288,6 @@ impl ClientConnectorServiceOperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ClientConnectorServiceOperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorServiceOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = ClientConnectorServiceOperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ClientConnectorServiceOperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1640,60 +1297,30 @@ impl ClientConnectorServiceOperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::ClientConnectorServiceOperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorServiceOperationMetadata;
-    /// let x = ClientConnectorServiceOperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::ClientConnectorServiceOperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorServiceOperationMetadata;
-    /// let x = ClientConnectorServiceOperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::ClientConnectorServiceOperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorServiceOperationMetadata;
-    /// let x = ClientConnectorServiceOperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::ClientConnectorServiceOperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorServiceOperationMetadata;
-    /// let x = ClientConnectorServiceOperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::ClientConnectorServiceOperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::ClientConnectorServiceOperationMetadata;
-    /// let x = ClientConnectorServiceOperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self

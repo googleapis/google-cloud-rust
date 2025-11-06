@@ -75,36 +75,18 @@ impl ListJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::ListJobsRequest;
-    /// let x = ListJobsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListJobsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::ListJobsRequest;
-    /// let x = ListJobsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListJobsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::ListJobsRequest;
-    /// let x = ListJobsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -149,17 +131,6 @@ impl ListJobsResponse {
     }
 
     /// Sets the value of [jobs][crate::model::ListJobsResponse::jobs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::ListJobsResponse;
-    /// use google_cloud_scheduler_v1::model::Job;
-    /// let x = ListJobsResponse::new()
-    ///     .set_jobs([
-    ///         Job::default()/* use setters */,
-    ///         Job::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -171,12 +142,6 @@ impl ListJobsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListJobsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::ListJobsResponse;
-    /// let x = ListJobsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -223,12 +188,6 @@ impl GetJobRequest {
     }
 
     /// Sets the value of [name][crate::model::GetJobRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::GetJobRequest;
-    /// let x = GetJobRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -271,25 +230,12 @@ impl CreateJobRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::CreateJobRequest;
-    /// let x = CreateJobRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [job][crate::model::CreateJobRequest::job].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::CreateJobRequest;
-    /// use google_cloud_scheduler_v1::model::Job;
-    /// let x = CreateJobRequest::new().set_job(Job::default()/* use setters */);
-    /// ```
     pub fn set_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -299,14 +245,6 @@ impl CreateJobRequest {
     }
 
     /// Sets or clears the value of [job][crate::model::CreateJobRequest::job].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::CreateJobRequest;
-    /// use google_cloud_scheduler_v1::model::Job;
-    /// let x = CreateJobRequest::new().set_or_clear_job(Some(Job::default()/* use setters */));
-    /// let x = CreateJobRequest::new().set_or_clear_job(None::<Job>);
-    /// ```
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -350,13 +288,6 @@ impl UpdateJobRequest {
     }
 
     /// Sets the value of [job][crate::model::UpdateJobRequest::job].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::UpdateJobRequest;
-    /// use google_cloud_scheduler_v1::model::Job;
-    /// let x = UpdateJobRequest::new().set_job(Job::default()/* use setters */);
-    /// ```
     pub fn set_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -366,14 +297,6 @@ impl UpdateJobRequest {
     }
 
     /// Sets or clears the value of [job][crate::model::UpdateJobRequest::job].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::UpdateJobRequest;
-    /// use google_cloud_scheduler_v1::model::Job;
-    /// let x = UpdateJobRequest::new().set_or_clear_job(Some(Job::default()/* use setters */));
-    /// let x = UpdateJobRequest::new().set_or_clear_job(None::<Job>);
-    /// ```
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -383,13 +306,6 @@ impl UpdateJobRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::UpdateJobRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateJobRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -399,14 +315,6 @@ impl UpdateJobRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::UpdateJobRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateJobRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateJobRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -442,12 +350,6 @@ impl DeleteJobRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteJobRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::DeleteJobRequest;
-    /// let x = DeleteJobRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -480,12 +382,6 @@ impl PauseJobRequest {
     }
 
     /// Sets the value of [name][crate::model::PauseJobRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::PauseJobRequest;
-    /// let x = PauseJobRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -518,12 +414,6 @@ impl ResumeJobRequest {
     }
 
     /// Sets the value of [name][crate::model::ResumeJobRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::ResumeJobRequest;
-    /// let x = ResumeJobRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -556,12 +446,6 @@ impl RunJobRequest {
     }
 
     /// Sets the value of [name][crate::model::RunJobRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::RunJobRequest;
-    /// let x = RunJobRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -723,61 +607,30 @@ impl Job {
     }
 
     /// Sets the value of [name][crate::model::Job::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// let x = Job::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Job::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// let x = Job::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [schedule][crate::model::Job::schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// let x = Job::new().set_schedule("example");
-    /// ```
     pub fn set_schedule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schedule = v.into();
         self
     }
 
     /// Sets the value of [time_zone][crate::model::Job::time_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// let x = Job::new().set_time_zone("example");
-    /// ```
     pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.time_zone = v.into();
         self
     }
 
     /// Sets the value of [user_update_time][crate::model::Job::user_update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// use wkt::Timestamp;
-    /// let x = Job::new().set_user_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_user_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -787,14 +640,6 @@ impl Job {
     }
 
     /// Sets or clears the value of [user_update_time][crate::model::Job::user_update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// use wkt::Timestamp;
-    /// let x = Job::new().set_or_clear_user_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Job::new().set_or_clear_user_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_user_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -804,28 +649,12 @@ impl Job {
     }
 
     /// Sets the value of [state][crate::model::Job::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// use google_cloud_scheduler_v1::model::job::State;
-    /// let x0 = Job::new().set_state(State::Enabled);
-    /// let x1 = Job::new().set_state(State::Paused);
-    /// let x2 = Job::new().set_state(State::Disabled);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::job::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::Job::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// use rpc::model::Status;
-    /// let x = Job::new().set_status(Status::default()/* use setters */);
-    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -835,14 +664,6 @@ impl Job {
     }
 
     /// Sets or clears the value of [status][crate::model::Job::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// use rpc::model::Status;
-    /// let x = Job::new().set_or_clear_status(Some(Status::default()/* use setters */));
-    /// let x = Job::new().set_or_clear_status(None::<Status>);
-    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -852,13 +673,6 @@ impl Job {
     }
 
     /// Sets the value of [schedule_time][crate::model::Job::schedule_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// use wkt::Timestamp;
-    /// let x = Job::new().set_schedule_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_schedule_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -868,14 +682,6 @@ impl Job {
     }
 
     /// Sets or clears the value of [schedule_time][crate::model::Job::schedule_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// use wkt::Timestamp;
-    /// let x = Job::new().set_or_clear_schedule_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Job::new().set_or_clear_schedule_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -885,13 +691,6 @@ impl Job {
     }
 
     /// Sets the value of [last_attempt_time][crate::model::Job::last_attempt_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// use wkt::Timestamp;
-    /// let x = Job::new().set_last_attempt_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_last_attempt_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -901,14 +700,6 @@ impl Job {
     }
 
     /// Sets or clears the value of [last_attempt_time][crate::model::Job::last_attempt_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// use wkt::Timestamp;
-    /// let x = Job::new().set_or_clear_last_attempt_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Job::new().set_or_clear_last_attempt_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_last_attempt_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -918,13 +709,6 @@ impl Job {
     }
 
     /// Sets the value of [retry_config][crate::model::Job::retry_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// use google_cloud_scheduler_v1::model::RetryConfig;
-    /// let x = Job::new().set_retry_config(RetryConfig::default()/* use setters */);
-    /// ```
     pub fn set_retry_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RetryConfig>,
@@ -934,14 +718,6 @@ impl Job {
     }
 
     /// Sets or clears the value of [retry_config][crate::model::Job::retry_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// use google_cloud_scheduler_v1::model::RetryConfig;
-    /// let x = Job::new().set_or_clear_retry_config(Some(RetryConfig::default()/* use setters */));
-    /// let x = Job::new().set_or_clear_retry_config(None::<RetryConfig>);
-    /// ```
     pub fn set_or_clear_retry_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RetryConfig>,
@@ -951,13 +727,6 @@ impl Job {
     }
 
     /// Sets the value of [attempt_deadline][crate::model::Job::attempt_deadline].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// use wkt::Duration;
-    /// let x = Job::new().set_attempt_deadline(Duration::default()/* use setters */);
-    /// ```
     pub fn set_attempt_deadline<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -967,14 +736,6 @@ impl Job {
     }
 
     /// Sets or clears the value of [attempt_deadline][crate::model::Job::attempt_deadline].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// use wkt::Duration;
-    /// let x = Job::new().set_or_clear_attempt_deadline(Some(Duration::default()/* use setters */));
-    /// let x = Job::new().set_or_clear_attempt_deadline(None::<Duration>);
-    /// ```
     pub fn set_or_clear_attempt_deadline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -987,14 +748,6 @@ impl Job {
     ///
     /// Note that all the setters affecting `target` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// use google_cloud_scheduler_v1::model::job;
-    /// use google_cloud_scheduler_v1::model::PubsubTarget;
-    /// let x = Job::new().set_target(Some(job::Target::PubsubTarget(PubsubTarget::default().into())));
-    /// ```
     pub fn set_target<T: std::convert::Into<std::option::Option<crate::model::job::Target>>>(
         mut self,
         v: T,
@@ -1021,16 +774,6 @@ impl Job {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// use google_cloud_scheduler_v1::model::PubsubTarget;
-    /// let x = Job::new().set_pubsub_target(PubsubTarget::default()/* use setters */);
-    /// assert!(x.pubsub_target().is_some());
-    /// assert!(x.app_engine_http_target().is_none());
-    /// assert!(x.http_target().is_none());
-    /// ```
     pub fn set_pubsub_target<T: std::convert::Into<std::boxed::Box<crate::model::PubsubTarget>>>(
         mut self,
         v: T,
@@ -1057,16 +800,6 @@ impl Job {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// use google_cloud_scheduler_v1::model::AppEngineHttpTarget;
-    /// let x = Job::new().set_app_engine_http_target(AppEngineHttpTarget::default()/* use setters */);
-    /// assert!(x.app_engine_http_target().is_some());
-    /// assert!(x.pubsub_target().is_none());
-    /// assert!(x.http_target().is_none());
-    /// ```
     pub fn set_app_engine_http_target<
         T: std::convert::Into<std::boxed::Box<crate::model::AppEngineHttpTarget>>,
     >(
@@ -1094,16 +827,6 @@ impl Job {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::Job;
-    /// use google_cloud_scheduler_v1::model::HttpTarget;
-    /// let x = Job::new().set_http_target(HttpTarget::default()/* use setters */);
-    /// assert!(x.http_target().is_some());
-    /// assert!(x.pubsub_target().is_none());
-    /// assert!(x.app_engine_http_target().is_none());
-    /// ```
     pub fn set_http_target<T: std::convert::Into<std::boxed::Box<crate::model::HttpTarget>>>(
         mut self,
         v: T,
@@ -1390,25 +1113,12 @@ impl RetryConfig {
     }
 
     /// Sets the value of [retry_count][crate::model::RetryConfig::retry_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::RetryConfig;
-    /// let x = RetryConfig::new().set_retry_count(42);
-    /// ```
     pub fn set_retry_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.retry_count = v.into();
         self
     }
 
     /// Sets the value of [max_retry_duration][crate::model::RetryConfig::max_retry_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::RetryConfig;
-    /// use wkt::Duration;
-    /// let x = RetryConfig::new().set_max_retry_duration(Duration::default()/* use setters */);
-    /// ```
     pub fn set_max_retry_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1418,14 +1128,6 @@ impl RetryConfig {
     }
 
     /// Sets or clears the value of [max_retry_duration][crate::model::RetryConfig::max_retry_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::RetryConfig;
-    /// use wkt::Duration;
-    /// let x = RetryConfig::new().set_or_clear_max_retry_duration(Some(Duration::default()/* use setters */));
-    /// let x = RetryConfig::new().set_or_clear_max_retry_duration(None::<Duration>);
-    /// ```
     pub fn set_or_clear_max_retry_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1435,13 +1137,6 @@ impl RetryConfig {
     }
 
     /// Sets the value of [min_backoff_duration][crate::model::RetryConfig::min_backoff_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::RetryConfig;
-    /// use wkt::Duration;
-    /// let x = RetryConfig::new().set_min_backoff_duration(Duration::default()/* use setters */);
-    /// ```
     pub fn set_min_backoff_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1451,14 +1146,6 @@ impl RetryConfig {
     }
 
     /// Sets or clears the value of [min_backoff_duration][crate::model::RetryConfig::min_backoff_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::RetryConfig;
-    /// use wkt::Duration;
-    /// let x = RetryConfig::new().set_or_clear_min_backoff_duration(Some(Duration::default()/* use setters */));
-    /// let x = RetryConfig::new().set_or_clear_min_backoff_duration(None::<Duration>);
-    /// ```
     pub fn set_or_clear_min_backoff_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1468,13 +1155,6 @@ impl RetryConfig {
     }
 
     /// Sets the value of [max_backoff_duration][crate::model::RetryConfig::max_backoff_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::RetryConfig;
-    /// use wkt::Duration;
-    /// let x = RetryConfig::new().set_max_backoff_duration(Duration::default()/* use setters */);
-    /// ```
     pub fn set_max_backoff_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1484,14 +1164,6 @@ impl RetryConfig {
     }
 
     /// Sets or clears the value of [max_backoff_duration][crate::model::RetryConfig::max_backoff_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::RetryConfig;
-    /// use wkt::Duration;
-    /// let x = RetryConfig::new().set_or_clear_max_backoff_duration(Some(Duration::default()/* use setters */));
-    /// let x = RetryConfig::new().set_or_clear_max_backoff_duration(None::<Duration>);
-    /// ```
     pub fn set_or_clear_max_backoff_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1501,12 +1173,6 @@ impl RetryConfig {
     }
 
     /// Sets the value of [max_doublings][crate::model::RetryConfig::max_doublings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::RetryConfig;
-    /// let x = RetryConfig::new().set_max_doublings(42);
-    /// ```
     pub fn set_max_doublings<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_doublings = v.into();
         self
@@ -1609,27 +1275,12 @@ impl HttpTarget {
     }
 
     /// Sets the value of [uri][crate::model::HttpTarget::uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::HttpTarget;
-    /// let x = HttpTarget::new().set_uri("example");
-    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [http_method][crate::model::HttpTarget::http_method].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::HttpTarget;
-    /// use google_cloud_scheduler_v1::model::HttpMethod;
-    /// let x0 = HttpTarget::new().set_http_method(HttpMethod::Post);
-    /// let x1 = HttpTarget::new().set_http_method(HttpMethod::Get);
-    /// let x2 = HttpTarget::new().set_http_method(HttpMethod::Head);
-    /// ```
     pub fn set_http_method<T: std::convert::Into<crate::model::HttpMethod>>(
         mut self,
         v: T,
@@ -1639,15 +1290,6 @@ impl HttpTarget {
     }
 
     /// Sets the value of [headers][crate::model::HttpTarget::headers].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::HttpTarget;
-    /// let x = HttpTarget::new().set_headers([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_headers<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1660,12 +1302,6 @@ impl HttpTarget {
     }
 
     /// Sets the value of [body][crate::model::HttpTarget::body].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::HttpTarget;
-    /// let x = HttpTarget::new().set_body(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
@@ -1675,14 +1311,6 @@ impl HttpTarget {
     ///
     /// Note that all the setters affecting `authorization_header` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::HttpTarget;
-    /// use google_cloud_scheduler_v1::model::http_target;
-    /// use google_cloud_scheduler_v1::model::OAuthToken;
-    /// let x = HttpTarget::new().set_authorization_header(Some(http_target::AuthorizationHeader::OauthToken(OAuthToken::default().into())));
-    /// ```
     pub fn set_authorization_header<
         T: std::convert::Into<std::option::Option<crate::model::http_target::AuthorizationHeader>>,
     >(
@@ -1711,15 +1339,6 @@ impl HttpTarget {
     ///
     /// Note that all the setters affecting `authorization_header` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::HttpTarget;
-    /// use google_cloud_scheduler_v1::model::OAuthToken;
-    /// let x = HttpTarget::new().set_oauth_token(OAuthToken::default()/* use setters */);
-    /// assert!(x.oauth_token().is_some());
-    /// assert!(x.oidc_token().is_none());
-    /// ```
     pub fn set_oauth_token<T: std::convert::Into<std::boxed::Box<crate::model::OAuthToken>>>(
         mut self,
         v: T,
@@ -1748,15 +1367,6 @@ impl HttpTarget {
     ///
     /// Note that all the setters affecting `authorization_header` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::HttpTarget;
-    /// use google_cloud_scheduler_v1::model::OidcToken;
-    /// let x = HttpTarget::new().set_oidc_token(OidcToken::default()/* use setters */);
-    /// assert!(x.oidc_token().is_some());
-    /// assert!(x.oauth_token().is_none());
-    /// ```
     pub fn set_oidc_token<T: std::convert::Into<std::boxed::Box<crate::model::OidcToken>>>(
         mut self,
         v: T,
@@ -1897,15 +1507,6 @@ impl AppEngineHttpTarget {
     }
 
     /// Sets the value of [http_method][crate::model::AppEngineHttpTarget::http_method].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::AppEngineHttpTarget;
-    /// use google_cloud_scheduler_v1::model::HttpMethod;
-    /// let x0 = AppEngineHttpTarget::new().set_http_method(HttpMethod::Post);
-    /// let x1 = AppEngineHttpTarget::new().set_http_method(HttpMethod::Get);
-    /// let x2 = AppEngineHttpTarget::new().set_http_method(HttpMethod::Head);
-    /// ```
     pub fn set_http_method<T: std::convert::Into<crate::model::HttpMethod>>(
         mut self,
         v: T,
@@ -1915,13 +1516,6 @@ impl AppEngineHttpTarget {
     }
 
     /// Sets the value of [app_engine_routing][crate::model::AppEngineHttpTarget::app_engine_routing].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::AppEngineHttpTarget;
-    /// use google_cloud_scheduler_v1::model::AppEngineRouting;
-    /// let x = AppEngineHttpTarget::new().set_app_engine_routing(AppEngineRouting::default()/* use setters */);
-    /// ```
     pub fn set_app_engine_routing<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AppEngineRouting>,
@@ -1931,14 +1525,6 @@ impl AppEngineHttpTarget {
     }
 
     /// Sets or clears the value of [app_engine_routing][crate::model::AppEngineHttpTarget::app_engine_routing].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::AppEngineHttpTarget;
-    /// use google_cloud_scheduler_v1::model::AppEngineRouting;
-    /// let x = AppEngineHttpTarget::new().set_or_clear_app_engine_routing(Some(AppEngineRouting::default()/* use setters */));
-    /// let x = AppEngineHttpTarget::new().set_or_clear_app_engine_routing(None::<AppEngineRouting>);
-    /// ```
     pub fn set_or_clear_app_engine_routing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppEngineRouting>,
@@ -1948,27 +1534,12 @@ impl AppEngineHttpTarget {
     }
 
     /// Sets the value of [relative_uri][crate::model::AppEngineHttpTarget::relative_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::AppEngineHttpTarget;
-    /// let x = AppEngineHttpTarget::new().set_relative_uri("example");
-    /// ```
     pub fn set_relative_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.relative_uri = v.into();
         self
     }
 
     /// Sets the value of [headers][crate::model::AppEngineHttpTarget::headers].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::AppEngineHttpTarget;
-    /// let x = AppEngineHttpTarget::new().set_headers([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_headers<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1981,12 +1552,6 @@ impl AppEngineHttpTarget {
     }
 
     /// Sets the value of [body][crate::model::AppEngineHttpTarget::body].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::AppEngineHttpTarget;
-    /// let x = AppEngineHttpTarget::new().set_body(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
@@ -2034,39 +1599,18 @@ impl PubsubTarget {
     }
 
     /// Sets the value of [topic_name][crate::model::PubsubTarget::topic_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::PubsubTarget;
-    /// let x = PubsubTarget::new().set_topic_name("example");
-    /// ```
     pub fn set_topic_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic_name = v.into();
         self
     }
 
     /// Sets the value of [data][crate::model::PubsubTarget::data].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::PubsubTarget;
-    /// let x = PubsubTarget::new().set_data(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
 
     /// Sets the value of [attributes][crate::model::PubsubTarget::attributes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::PubsubTarget;
-    /// let x = PubsubTarget::new().set_attributes([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2203,48 +1747,24 @@ impl AppEngineRouting {
     }
 
     /// Sets the value of [service][crate::model::AppEngineRouting::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::AppEngineRouting;
-    /// let x = AppEngineRouting::new().set_service("example");
-    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::AppEngineRouting::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::AppEngineRouting;
-    /// let x = AppEngineRouting::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::AppEngineRouting::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::AppEngineRouting;
-    /// let x = AppEngineRouting::new().set_instance("example");
-    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [host][crate::model::AppEngineRouting::host].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::AppEngineRouting;
-    /// let x = AppEngineRouting::new().set_host("example");
-    /// ```
     pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host = v.into();
         self
@@ -2284,12 +1804,6 @@ impl OAuthToken {
     }
 
     /// Sets the value of [service_account_email][crate::model::OAuthToken::service_account_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::OAuthToken;
-    /// let x = OAuthToken::new().set_service_account_email("example");
-    /// ```
     pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2299,12 +1813,6 @@ impl OAuthToken {
     }
 
     /// Sets the value of [scope][crate::model::OAuthToken::scope].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::OAuthToken;
-    /// let x = OAuthToken::new().set_scope("example");
-    /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
@@ -2345,12 +1853,6 @@ impl OidcToken {
     }
 
     /// Sets the value of [service_account_email][crate::model::OidcToken::service_account_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::OidcToken;
-    /// let x = OidcToken::new().set_service_account_email("example");
-    /// ```
     pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2360,12 +1862,6 @@ impl OidcToken {
     }
 
     /// Sets the value of [audience][crate::model::OidcToken::audience].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_scheduler_v1::model::OidcToken;
-    /// let x = OidcToken::new().set_audience("example");
-    /// ```
     pub fn set_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.audience = v.into();
         self

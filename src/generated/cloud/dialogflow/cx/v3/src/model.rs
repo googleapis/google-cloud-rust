@@ -112,13 +112,6 @@ impl AdvancedSettings {
     }
 
     /// Sets the value of [audio_export_gcs_destination][crate::model::AdvancedSettings::audio_export_gcs_destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::GcsDestination;
-    /// let x = AdvancedSettings::new().set_audio_export_gcs_destination(GcsDestination::default()/* use setters */);
-    /// ```
     pub fn set_audio_export_gcs_destination<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GcsDestination>,
@@ -128,14 +121,6 @@ impl AdvancedSettings {
     }
 
     /// Sets or clears the value of [audio_export_gcs_destination][crate::model::AdvancedSettings::audio_export_gcs_destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::GcsDestination;
-    /// let x = AdvancedSettings::new().set_or_clear_audio_export_gcs_destination(Some(GcsDestination::default()/* use setters */));
-    /// let x = AdvancedSettings::new().set_or_clear_audio_export_gcs_destination(None::<GcsDestination>);
-    /// ```
     pub fn set_or_clear_audio_export_gcs_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcsDestination>,
@@ -145,13 +130,6 @@ impl AdvancedSettings {
     }
 
     /// Sets the value of [speech_settings][crate::model::AdvancedSettings::speech_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::advanced_settings::SpeechSettings;
-    /// let x = AdvancedSettings::new().set_speech_settings(SpeechSettings::default()/* use setters */);
-    /// ```
     pub fn set_speech_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::advanced_settings::SpeechSettings>,
@@ -161,14 +139,6 @@ impl AdvancedSettings {
     }
 
     /// Sets or clears the value of [speech_settings][crate::model::AdvancedSettings::speech_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::advanced_settings::SpeechSettings;
-    /// let x = AdvancedSettings::new().set_or_clear_speech_settings(Some(SpeechSettings::default()/* use setters */));
-    /// let x = AdvancedSettings::new().set_or_clear_speech_settings(None::<SpeechSettings>);
-    /// ```
     pub fn set_or_clear_speech_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::advanced_settings::SpeechSettings>,
@@ -178,13 +148,6 @@ impl AdvancedSettings {
     }
 
     /// Sets the value of [dtmf_settings][crate::model::AdvancedSettings::dtmf_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::advanced_settings::DtmfSettings;
-    /// let x = AdvancedSettings::new().set_dtmf_settings(DtmfSettings::default()/* use setters */);
-    /// ```
     pub fn set_dtmf_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::advanced_settings::DtmfSettings>,
@@ -194,14 +157,6 @@ impl AdvancedSettings {
     }
 
     /// Sets or clears the value of [dtmf_settings][crate::model::AdvancedSettings::dtmf_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::advanced_settings::DtmfSettings;
-    /// let x = AdvancedSettings::new().set_or_clear_dtmf_settings(Some(DtmfSettings::default()/* use setters */));
-    /// let x = AdvancedSettings::new().set_or_clear_dtmf_settings(None::<DtmfSettings>);
-    /// ```
     pub fn set_or_clear_dtmf_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::advanced_settings::DtmfSettings>,
@@ -211,13 +166,6 @@ impl AdvancedSettings {
     }
 
     /// Sets the value of [logging_settings][crate::model::AdvancedSettings::logging_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::advanced_settings::LoggingSettings;
-    /// let x = AdvancedSettings::new().set_logging_settings(LoggingSettings::default()/* use setters */);
-    /// ```
     pub fn set_logging_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::advanced_settings::LoggingSettings>,
@@ -227,14 +175,6 @@ impl AdvancedSettings {
     }
 
     /// Sets or clears the value of [logging_settings][crate::model::AdvancedSettings::logging_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::advanced_settings::LoggingSettings;
-    /// let x = AdvancedSettings::new().set_or_clear_logging_settings(Some(LoggingSettings::default()/* use setters */));
-    /// let x = AdvancedSettings::new().set_or_clear_logging_settings(None::<LoggingSettings>);
-    /// ```
     pub fn set_or_clear_logging_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::advanced_settings::LoggingSettings>,
@@ -318,25 +258,12 @@ pub mod advanced_settings {
         }
 
         /// Sets the value of [endpointer_sensitivity][crate::model::advanced_settings::SpeechSettings::endpointer_sensitivity].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::advanced_settings::SpeechSettings;
-        /// let x = SpeechSettings::new().set_endpointer_sensitivity(42);
-        /// ```
         pub fn set_endpointer_sensitivity<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.endpointer_sensitivity = v.into();
             self
         }
 
         /// Sets the value of [no_speech_timeout][crate::model::advanced_settings::SpeechSettings::no_speech_timeout].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::advanced_settings::SpeechSettings;
-        /// use wkt::Duration;
-        /// let x = SpeechSettings::new().set_no_speech_timeout(Duration::default()/* use setters */);
-        /// ```
         pub fn set_no_speech_timeout<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -346,14 +273,6 @@ pub mod advanced_settings {
         }
 
         /// Sets or clears the value of [no_speech_timeout][crate::model::advanced_settings::SpeechSettings::no_speech_timeout].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::advanced_settings::SpeechSettings;
-        /// use wkt::Duration;
-        /// let x = SpeechSettings::new().set_or_clear_no_speech_timeout(Some(Duration::default()/* use setters */));
-        /// let x = SpeechSettings::new().set_or_clear_no_speech_timeout(None::<Duration>);
-        /// ```
         pub fn set_or_clear_no_speech_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -363,12 +282,6 @@ pub mod advanced_settings {
         }
 
         /// Sets the value of [use_timeout_based_endpointing][crate::model::advanced_settings::SpeechSettings::use_timeout_based_endpointing].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::advanced_settings::SpeechSettings;
-        /// let x = SpeechSettings::new().set_use_timeout_based_endpointing(true);
-        /// ```
         pub fn set_use_timeout_based_endpointing<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -378,15 +291,6 @@ pub mod advanced_settings {
         }
 
         /// Sets the value of [models][crate::model::advanced_settings::SpeechSettings::models].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::advanced_settings::SpeechSettings;
-        /// let x = SpeechSettings::new().set_models([
-        ///     ("key0", "abc"),
-        ///     ("key1", "xyz"),
-        /// ]);
-        /// ```
         pub fn set_models<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -462,36 +366,18 @@ pub mod advanced_settings {
         }
 
         /// Sets the value of [enabled][crate::model::advanced_settings::DtmfSettings::enabled].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::advanced_settings::DtmfSettings;
-        /// let x = DtmfSettings::new().set_enabled(true);
-        /// ```
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
             self
         }
 
         /// Sets the value of [max_digits][crate::model::advanced_settings::DtmfSettings::max_digits].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::advanced_settings::DtmfSettings;
-        /// let x = DtmfSettings::new().set_max_digits(42);
-        /// ```
         pub fn set_max_digits<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.max_digits = v.into();
             self
         }
 
         /// Sets the value of [finish_digit][crate::model::advanced_settings::DtmfSettings::finish_digit].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::advanced_settings::DtmfSettings;
-        /// let x = DtmfSettings::new().set_finish_digit("example");
-        /// ```
         pub fn set_finish_digit<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -501,13 +387,6 @@ pub mod advanced_settings {
         }
 
         /// Sets the value of [interdigit_timeout_duration][crate::model::advanced_settings::DtmfSettings::interdigit_timeout_duration].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::advanced_settings::DtmfSettings;
-        /// use wkt::Duration;
-        /// let x = DtmfSettings::new().set_interdigit_timeout_duration(Duration::default()/* use setters */);
-        /// ```
         pub fn set_interdigit_timeout_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -517,14 +396,6 @@ pub mod advanced_settings {
         }
 
         /// Sets or clears the value of [interdigit_timeout_duration][crate::model::advanced_settings::DtmfSettings::interdigit_timeout_duration].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::advanced_settings::DtmfSettings;
-        /// use wkt::Duration;
-        /// let x = DtmfSettings::new().set_or_clear_interdigit_timeout_duration(Some(Duration::default()/* use setters */));
-        /// let x = DtmfSettings::new().set_or_clear_interdigit_timeout_duration(None::<Duration>);
-        /// ```
         pub fn set_or_clear_interdigit_timeout_duration<T>(
             mut self,
             v: std::option::Option<T>,
@@ -537,13 +408,6 @@ pub mod advanced_settings {
         }
 
         /// Sets the value of [endpointing_timeout_duration][crate::model::advanced_settings::DtmfSettings::endpointing_timeout_duration].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::advanced_settings::DtmfSettings;
-        /// use wkt::Duration;
-        /// let x = DtmfSettings::new().set_endpointing_timeout_duration(Duration::default()/* use setters */);
-        /// ```
         pub fn set_endpointing_timeout_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -553,14 +417,6 @@ pub mod advanced_settings {
         }
 
         /// Sets or clears the value of [endpointing_timeout_duration][crate::model::advanced_settings::DtmfSettings::endpointing_timeout_duration].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::advanced_settings::DtmfSettings;
-        /// use wkt::Duration;
-        /// let x = DtmfSettings::new().set_or_clear_endpointing_timeout_duration(Some(Duration::default()/* use setters */));
-        /// let x = DtmfSettings::new().set_or_clear_endpointing_timeout_duration(None::<Duration>);
-        /// ```
         pub fn set_or_clear_endpointing_timeout_duration<T>(
             mut self,
             v: std::option::Option<T>,
@@ -627,36 +483,18 @@ pub mod advanced_settings {
         }
 
         /// Sets the value of [enable_stackdriver_logging][crate::model::advanced_settings::LoggingSettings::enable_stackdriver_logging].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::advanced_settings::LoggingSettings;
-        /// let x = LoggingSettings::new().set_enable_stackdriver_logging(true);
-        /// ```
         pub fn set_enable_stackdriver_logging<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_stackdriver_logging = v.into();
             self
         }
 
         /// Sets the value of [enable_interaction_logging][crate::model::advanced_settings::LoggingSettings::enable_interaction_logging].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::advanced_settings::LoggingSettings;
-        /// let x = LoggingSettings::new().set_enable_interaction_logging(true);
-        /// ```
         pub fn set_enable_interaction_logging<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_interaction_logging = v.into();
             self
         }
 
         /// Sets the value of [enable_consent_based_redaction][crate::model::advanced_settings::LoggingSettings::enable_consent_based_redaction].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::advanced_settings::LoggingSettings;
-        /// let x = LoggingSettings::new().set_enable_consent_based_redaction(true);
-        /// ```
         pub fn set_enable_consent_based_redaction<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -699,12 +537,6 @@ impl SpeechToTextSettings {
     }
 
     /// Sets the value of [enable_speech_adaptation][crate::model::SpeechToTextSettings::enable_speech_adaptation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SpeechToTextSettings;
-    /// let x = SpeechToTextSettings::new().set_enable_speech_adaptation(true);
-    /// ```
     pub fn set_enable_speech_adaptation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_speech_adaptation = v.into();
         self
@@ -867,36 +699,18 @@ impl Agent {
     }
 
     /// Sets the value of [name][crate::model::Agent::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Agent::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [default_language_code][crate::model::Agent::default_language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_default_language_code("example");
-    /// ```
     pub fn set_default_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -906,12 +720,6 @@ impl Agent {
     }
 
     /// Sets the value of [supported_language_codes][crate::model::Agent::supported_language_codes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_supported_language_codes(["a", "b", "c"]);
-    /// ```
     pub fn set_supported_language_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -923,49 +731,24 @@ impl Agent {
     }
 
     /// Sets the value of [time_zone][crate::model::Agent::time_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_time_zone("example");
-    /// ```
     pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.time_zone = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Agent::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [avatar_uri][crate::model::Agent::avatar_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_avatar_uri("example");
-    /// ```
     pub fn set_avatar_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.avatar_uri = v.into();
         self
     }
 
     /// Sets the value of [speech_to_text_settings][crate::model::Agent::speech_to_text_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// use google_cloud_dialogflow_cx_v3::model::SpeechToTextSettings;
-    /// let x = Agent::new().set_speech_to_text_settings(SpeechToTextSettings::default()/* use setters */);
-    /// ```
     pub fn set_speech_to_text_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SpeechToTextSettings>,
@@ -975,14 +758,6 @@ impl Agent {
     }
 
     /// Sets or clears the value of [speech_to_text_settings][crate::model::Agent::speech_to_text_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// use google_cloud_dialogflow_cx_v3::model::SpeechToTextSettings;
-    /// let x = Agent::new().set_or_clear_speech_to_text_settings(Some(SpeechToTextSettings::default()/* use setters */));
-    /// let x = Agent::new().set_or_clear_speech_to_text_settings(None::<SpeechToTextSettings>);
-    /// ```
     pub fn set_or_clear_speech_to_text_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SpeechToTextSettings>,
@@ -992,24 +767,12 @@ impl Agent {
     }
 
     /// Sets the value of [start_flow][crate::model::Agent::start_flow].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_start_flow("example");
-    /// ```
     pub fn set_start_flow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.start_flow = v.into();
         self
     }
 
     /// Sets the value of [security_settings][crate::model::Agent::security_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_security_settings("example");
-    /// ```
     pub fn set_security_settings<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1019,12 +782,6 @@ impl Agent {
     }
 
     /// Sets the value of [enable_stackdriver_logging][crate::model::Agent::enable_stackdriver_logging].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_enable_stackdriver_logging(true);
-    /// ```
     #[deprecated]
     pub fn set_enable_stackdriver_logging<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_stackdriver_logging = v.into();
@@ -1032,49 +789,24 @@ impl Agent {
     }
 
     /// Sets the value of [enable_spell_correction][crate::model::Agent::enable_spell_correction].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_enable_spell_correction(true);
-    /// ```
     pub fn set_enable_spell_correction<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_spell_correction = v.into();
         self
     }
 
     /// Sets the value of [enable_multi_language_training][crate::model::Agent::enable_multi_language_training].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_enable_multi_language_training(true);
-    /// ```
     pub fn set_enable_multi_language_training<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_multi_language_training = v.into();
         self
     }
 
     /// Sets the value of [locked][crate::model::Agent::locked].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_locked(true);
-    /// ```
     pub fn set_locked<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.locked = v.into();
         self
     }
 
     /// Sets the value of [advanced_settings][crate::model::Agent::advanced_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-    /// let x = Agent::new().set_advanced_settings(AdvancedSettings::default()/* use setters */);
-    /// ```
     pub fn set_advanced_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedSettings>,
@@ -1084,14 +816,6 @@ impl Agent {
     }
 
     /// Sets or clears the value of [advanced_settings][crate::model::Agent::advanced_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-    /// let x = Agent::new().set_or_clear_advanced_settings(Some(AdvancedSettings::default()/* use setters */));
-    /// let x = Agent::new().set_or_clear_advanced_settings(None::<AdvancedSettings>);
-    /// ```
     pub fn set_or_clear_advanced_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedSettings>,
@@ -1101,13 +825,6 @@ impl Agent {
     }
 
     /// Sets the value of [git_integration_settings][crate::model::Agent::git_integration_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// use google_cloud_dialogflow_cx_v3::model::agent::GitIntegrationSettings;
-    /// let x = Agent::new().set_git_integration_settings(GitIntegrationSettings::default()/* use setters */);
-    /// ```
     pub fn set_git_integration_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::agent::GitIntegrationSettings>,
@@ -1117,14 +834,6 @@ impl Agent {
     }
 
     /// Sets or clears the value of [git_integration_settings][crate::model::Agent::git_integration_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// use google_cloud_dialogflow_cx_v3::model::agent::GitIntegrationSettings;
-    /// let x = Agent::new().set_or_clear_git_integration_settings(Some(GitIntegrationSettings::default()/* use setters */));
-    /// let x = Agent::new().set_or_clear_git_integration_settings(None::<GitIntegrationSettings>);
-    /// ```
     pub fn set_or_clear_git_integration_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::agent::GitIntegrationSettings>,
@@ -1134,13 +843,6 @@ impl Agent {
     }
 
     /// Sets the value of [text_to_speech_settings][crate::model::Agent::text_to_speech_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// use google_cloud_dialogflow_cx_v3::model::TextToSpeechSettings;
-    /// let x = Agent::new().set_text_to_speech_settings(TextToSpeechSettings::default()/* use setters */);
-    /// ```
     pub fn set_text_to_speech_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TextToSpeechSettings>,
@@ -1150,14 +852,6 @@ impl Agent {
     }
 
     /// Sets or clears the value of [text_to_speech_settings][crate::model::Agent::text_to_speech_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// use google_cloud_dialogflow_cx_v3::model::TextToSpeechSettings;
-    /// let x = Agent::new().set_or_clear_text_to_speech_settings(Some(TextToSpeechSettings::default()/* use setters */));
-    /// let x = Agent::new().set_or_clear_text_to_speech_settings(None::<TextToSpeechSettings>);
-    /// ```
     pub fn set_or_clear_text_to_speech_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TextToSpeechSettings>,
@@ -1167,13 +861,6 @@ impl Agent {
     }
 
     /// Sets the value of [gen_app_builder_settings][crate::model::Agent::gen_app_builder_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// use google_cloud_dialogflow_cx_v3::model::agent::GenAppBuilderSettings;
-    /// let x = Agent::new().set_gen_app_builder_settings(GenAppBuilderSettings::default()/* use setters */);
-    /// ```
     pub fn set_gen_app_builder_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::agent::GenAppBuilderSettings>,
@@ -1183,14 +870,6 @@ impl Agent {
     }
 
     /// Sets or clears the value of [gen_app_builder_settings][crate::model::Agent::gen_app_builder_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// use google_cloud_dialogflow_cx_v3::model::agent::GenAppBuilderSettings;
-    /// let x = Agent::new().set_or_clear_gen_app_builder_settings(Some(GenAppBuilderSettings::default()/* use setters */));
-    /// let x = Agent::new().set_or_clear_gen_app_builder_settings(None::<GenAppBuilderSettings>);
-    /// ```
     pub fn set_or_clear_gen_app_builder_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::agent::GenAppBuilderSettings>,
@@ -1200,13 +879,6 @@ impl Agent {
     }
 
     /// Sets the value of [answer_feedback_settings][crate::model::Agent::answer_feedback_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// use google_cloud_dialogflow_cx_v3::model::agent::AnswerFeedbackSettings;
-    /// let x = Agent::new().set_answer_feedback_settings(AnswerFeedbackSettings::default()/* use setters */);
-    /// ```
     pub fn set_answer_feedback_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::agent::AnswerFeedbackSettings>,
@@ -1216,14 +888,6 @@ impl Agent {
     }
 
     /// Sets or clears the value of [answer_feedback_settings][crate::model::Agent::answer_feedback_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// use google_cloud_dialogflow_cx_v3::model::agent::AnswerFeedbackSettings;
-    /// let x = Agent::new().set_or_clear_answer_feedback_settings(Some(AnswerFeedbackSettings::default()/* use setters */));
-    /// let x = Agent::new().set_or_clear_answer_feedback_settings(None::<AnswerFeedbackSettings>);
-    /// ```
     pub fn set_or_clear_answer_feedback_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::agent::AnswerFeedbackSettings>,
@@ -1233,13 +897,6 @@ impl Agent {
     }
 
     /// Sets the value of [personalization_settings][crate::model::Agent::personalization_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// use google_cloud_dialogflow_cx_v3::model::agent::PersonalizationSettings;
-    /// let x = Agent::new().set_personalization_settings(PersonalizationSettings::default()/* use setters */);
-    /// ```
     pub fn set_personalization_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::agent::PersonalizationSettings>,
@@ -1249,14 +906,6 @@ impl Agent {
     }
 
     /// Sets or clears the value of [personalization_settings][crate::model::Agent::personalization_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// use google_cloud_dialogflow_cx_v3::model::agent::PersonalizationSettings;
-    /// let x = Agent::new().set_or_clear_personalization_settings(Some(PersonalizationSettings::default()/* use setters */));
-    /// let x = Agent::new().set_or_clear_personalization_settings(None::<PersonalizationSettings>);
-    /// ```
     pub fn set_or_clear_personalization_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::agent::PersonalizationSettings>,
@@ -1266,13 +915,6 @@ impl Agent {
     }
 
     /// Sets the value of [client_certificate_settings][crate::model::Agent::client_certificate_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// use google_cloud_dialogflow_cx_v3::model::agent::ClientCertificateSettings;
-    /// let x = Agent::new().set_client_certificate_settings(ClientCertificateSettings::default()/* use setters */);
-    /// ```
     pub fn set_client_certificate_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::agent::ClientCertificateSettings>,
@@ -1282,14 +924,6 @@ impl Agent {
     }
 
     /// Sets or clears the value of [client_certificate_settings][crate::model::Agent::client_certificate_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// use google_cloud_dialogflow_cx_v3::model::agent::ClientCertificateSettings;
-    /// let x = Agent::new().set_or_clear_client_certificate_settings(Some(ClientCertificateSettings::default()/* use setters */));
-    /// let x = Agent::new().set_or_clear_client_certificate_settings(None::<ClientCertificateSettings>);
-    /// ```
     pub fn set_or_clear_client_certificate_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::agent::ClientCertificateSettings>,
@@ -1299,12 +933,6 @@ impl Agent {
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Agent::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_satisfies_pzs(true);
-    /// ```
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1314,13 +942,6 @@ impl Agent {
     }
 
     /// Sets or clears the value of [satisfies_pzs][crate::model::Agent::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_or_clear_satisfies_pzs(Some(false));
-    /// let x = Agent::new().set_or_clear_satisfies_pzs(None::<bool>);
-    /// ```
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1330,12 +951,6 @@ impl Agent {
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::Agent::satisfies_pzi].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_satisfies_pzi(true);
-    /// ```
     pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1345,13 +960,6 @@ impl Agent {
     }
 
     /// Sets or clears the value of [satisfies_pzi][crate::model::Agent::satisfies_pzi].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_or_clear_satisfies_pzi(Some(false));
-    /// let x = Agent::new().set_or_clear_satisfies_pzi(None::<bool>);
-    /// ```
     pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1396,14 +1004,6 @@ pub mod agent {
         ///
         /// Note that all the setters affecting `git_settings` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::agent::GitIntegrationSettings;
-        /// use google_cloud_dialogflow_cx_v3::model::agent::git_integration_settings;
-        /// use google_cloud_dialogflow_cx_v3::model::agent::git_integration_settings::GithubSettings;
-        /// let x = GitIntegrationSettings::new().set_git_settings(Some(agent::git_integration_settings::GitSettings::GithubSettings(GithubSettings::default().into())));
-        /// ```
         pub fn set_git_settings<
             T: std::convert::Into<
                     std::option::Option<crate::model::agent::git_integration_settings::GitSettings>,
@@ -1438,14 +1038,6 @@ pub mod agent {
         ///
         /// Note that all the setters affecting `git_settings` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::agent::GitIntegrationSettings;
-        /// use google_cloud_dialogflow_cx_v3::model::agent::git_integration_settings::GithubSettings;
-        /// let x = GitIntegrationSettings::new().set_github_settings(GithubSettings::default()/* use setters */);
-        /// assert!(x.github_settings().is_some());
-        /// ```
         pub fn set_github_settings<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::agent::git_integration_settings::GithubSettings>,
@@ -1507,12 +1099,6 @@ pub mod agent {
             }
 
             /// Sets the value of [display_name][crate::model::agent::git_integration_settings::GithubSettings::display_name].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::agent::git_integration_settings::GithubSettings;
-            /// let x = GithubSettings::new().set_display_name("example");
-            /// ```
             pub fn set_display_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1522,12 +1108,6 @@ pub mod agent {
             }
 
             /// Sets the value of [repository_uri][crate::model::agent::git_integration_settings::GithubSettings::repository_uri].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::agent::git_integration_settings::GithubSettings;
-            /// let x = GithubSettings::new().set_repository_uri("example");
-            /// ```
             pub fn set_repository_uri<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1537,12 +1117,6 @@ pub mod agent {
             }
 
             /// Sets the value of [tracking_branch][crate::model::agent::git_integration_settings::GithubSettings::tracking_branch].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::agent::git_integration_settings::GithubSettings;
-            /// let x = GithubSettings::new().set_tracking_branch("example");
-            /// ```
             pub fn set_tracking_branch<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1552,12 +1126,6 @@ pub mod agent {
             }
 
             /// Sets the value of [access_token][crate::model::agent::git_integration_settings::GithubSettings::access_token].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::agent::git_integration_settings::GithubSettings;
-            /// let x = GithubSettings::new().set_access_token("example");
-            /// ```
             pub fn set_access_token<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1567,12 +1135,6 @@ pub mod agent {
             }
 
             /// Sets the value of [branches][crate::model::agent::git_integration_settings::GithubSettings::branches].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::agent::git_integration_settings::GithubSettings;
-            /// let x = GithubSettings::new().set_branches(["a", "b", "c"]);
-            /// ```
             pub fn set_branches<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -1623,12 +1185,6 @@ pub mod agent {
         }
 
         /// Sets the value of [engine][crate::model::agent::GenAppBuilderSettings::engine].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::agent::GenAppBuilderSettings;
-        /// let x = GenAppBuilderSettings::new().set_engine("example");
-        /// ```
         pub fn set_engine<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.engine = v.into();
             self
@@ -1665,12 +1221,6 @@ pub mod agent {
         }
 
         /// Sets the value of [enable_answer_feedback][crate::model::agent::AnswerFeedbackSettings::enable_answer_feedback].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::agent::AnswerFeedbackSettings;
-        /// let x = AnswerFeedbackSettings::new().set_enable_answer_feedback(true);
-        /// ```
         pub fn set_enable_answer_feedback<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_answer_feedback = v.into();
             self
@@ -1712,13 +1262,6 @@ pub mod agent {
         }
 
         /// Sets the value of [default_end_user_metadata][crate::model::agent::PersonalizationSettings::default_end_user_metadata].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::agent::PersonalizationSettings;
-        /// use wkt::Struct;
-        /// let x = PersonalizationSettings::new().set_default_end_user_metadata(Struct::default()/* use setters */);
-        /// ```
         pub fn set_default_end_user_metadata<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -1728,14 +1271,6 @@ pub mod agent {
         }
 
         /// Sets or clears the value of [default_end_user_metadata][crate::model::agent::PersonalizationSettings::default_end_user_metadata].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::agent::PersonalizationSettings;
-        /// use wkt::Struct;
-        /// let x = PersonalizationSettings::new().set_or_clear_default_end_user_metadata(Some(Struct::default()/* use setters */));
-        /// let x = PersonalizationSettings::new().set_or_clear_default_end_user_metadata(None::<Struct>);
-        /// ```
         pub fn set_or_clear_default_end_user_metadata<T>(
             mut self,
             v: std::option::Option<T>,
@@ -1785,12 +1320,6 @@ pub mod agent {
         }
 
         /// Sets the value of [ssl_certificate][crate::model::agent::ClientCertificateSettings::ssl_certificate].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::agent::ClientCertificateSettings;
-        /// let x = ClientCertificateSettings::new().set_ssl_certificate("example");
-        /// ```
         pub fn set_ssl_certificate<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1800,24 +1329,12 @@ pub mod agent {
         }
 
         /// Sets the value of [private_key][crate::model::agent::ClientCertificateSettings::private_key].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::agent::ClientCertificateSettings;
-        /// let x = ClientCertificateSettings::new().set_private_key("example");
-        /// ```
         pub fn set_private_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.private_key = v.into();
             self
         }
 
         /// Sets the value of [passphrase][crate::model::agent::ClientCertificateSettings::passphrase].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::agent::ClientCertificateSettings;
-        /// let x = ClientCertificateSettings::new().set_passphrase("example");
-        /// ```
         pub fn set_passphrase<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.passphrase = v.into();
             self
@@ -1861,36 +1378,18 @@ impl ListAgentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAgentsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListAgentsRequest;
-    /// let x = ListAgentsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAgentsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListAgentsRequest;
-    /// let x = ListAgentsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAgentsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListAgentsRequest;
-    /// let x = ListAgentsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1930,17 +1429,6 @@ impl ListAgentsResponse {
     }
 
     /// Sets the value of [agents][crate::model::ListAgentsResponse::agents].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListAgentsResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = ListAgentsResponse::new()
-    ///     .set_agents([
-    ///         Agent::default()/* use setters */,
-    ///         Agent::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_agents<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1952,12 +1440,6 @@ impl ListAgentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAgentsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListAgentsResponse;
-    /// let x = ListAgentsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2008,12 +1490,6 @@ impl GetAgentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAgentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetAgentRequest;
-    /// let x = GetAgentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2052,25 +1528,12 @@ impl CreateAgentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAgentRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateAgentRequest;
-    /// let x = CreateAgentRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [agent][crate::model::CreateAgentRequest::agent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateAgentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = CreateAgentRequest::new().set_agent(Agent::default()/* use setters */);
-    /// ```
     pub fn set_agent<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Agent>,
@@ -2080,14 +1543,6 @@ impl CreateAgentRequest {
     }
 
     /// Sets or clears the value of [agent][crate::model::CreateAgentRequest::agent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateAgentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = CreateAgentRequest::new().set_or_clear_agent(Some(Agent::default()/* use setters */));
-    /// let x = CreateAgentRequest::new().set_or_clear_agent(None::<Agent>);
-    /// ```
     pub fn set_or_clear_agent<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Agent>,
@@ -2129,13 +1584,6 @@ impl UpdateAgentRequest {
     }
 
     /// Sets the value of [agent][crate::model::UpdateAgentRequest::agent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateAgentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = UpdateAgentRequest::new().set_agent(Agent::default()/* use setters */);
-    /// ```
     pub fn set_agent<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Agent>,
@@ -2145,14 +1593,6 @@ impl UpdateAgentRequest {
     }
 
     /// Sets or clears the value of [agent][crate::model::UpdateAgentRequest::agent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateAgentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = UpdateAgentRequest::new().set_or_clear_agent(Some(Agent::default()/* use setters */));
-    /// let x = UpdateAgentRequest::new().set_or_clear_agent(None::<Agent>);
-    /// ```
     pub fn set_or_clear_agent<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Agent>,
@@ -2162,13 +1602,6 @@ impl UpdateAgentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAgentRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateAgentRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateAgentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2178,14 +1611,6 @@ impl UpdateAgentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAgentRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateAgentRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateAgentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateAgentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2224,12 +1649,6 @@ impl DeleteAgentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAgentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeleteAgentRequest;
-    /// let x = DeleteAgentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2292,38 +1711,18 @@ impl ExportAgentRequest {
     }
 
     /// Sets the value of [name][crate::model::ExportAgentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportAgentRequest;
-    /// let x = ExportAgentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [agent_uri][crate::model::ExportAgentRequest::agent_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportAgentRequest;
-    /// let x = ExportAgentRequest::new().set_agent_uri("example");
-    /// ```
     pub fn set_agent_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.agent_uri = v.into();
         self
     }
 
     /// Sets the value of [data_format][crate::model::ExportAgentRequest::data_format].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportAgentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::export_agent_request::DataFormat;
-    /// let x0 = ExportAgentRequest::new().set_data_format(DataFormat::Blob);
-    /// let x1 = ExportAgentRequest::new().set_data_format(DataFormat::JsonPackage);
-    /// ```
     pub fn set_data_format<
         T: std::convert::Into<crate::model::export_agent_request::DataFormat>,
     >(
@@ -2335,25 +1734,12 @@ impl ExportAgentRequest {
     }
 
     /// Sets the value of [environment][crate::model::ExportAgentRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportAgentRequest;
-    /// let x = ExportAgentRequest::new().set_environment("example");
-    /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
     }
 
     /// Sets the value of [git_destination][crate::model::ExportAgentRequest::git_destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportAgentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::export_agent_request::GitDestination;
-    /// let x = ExportAgentRequest::new().set_git_destination(GitDestination::default()/* use setters */);
-    /// ```
     pub fn set_git_destination<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::export_agent_request::GitDestination>,
@@ -2363,14 +1749,6 @@ impl ExportAgentRequest {
     }
 
     /// Sets or clears the value of [git_destination][crate::model::ExportAgentRequest::git_destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportAgentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::export_agent_request::GitDestination;
-    /// let x = ExportAgentRequest::new().set_or_clear_git_destination(Some(GitDestination::default()/* use setters */));
-    /// let x = ExportAgentRequest::new().set_or_clear_git_destination(None::<GitDestination>);
-    /// ```
     pub fn set_or_clear_git_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::export_agent_request::GitDestination>,
@@ -2380,12 +1758,6 @@ impl ExportAgentRequest {
     }
 
     /// Sets the value of [include_bigquery_export_settings][crate::model::ExportAgentRequest::include_bigquery_export_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportAgentRequest;
-    /// let x = ExportAgentRequest::new().set_include_bigquery_export_settings(true);
-    /// ```
     pub fn set_include_bigquery_export_settings<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -2429,12 +1801,6 @@ pub mod export_agent_request {
         }
 
         /// Sets the value of [tracking_branch][crate::model::export_agent_request::GitDestination::tracking_branch].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::export_agent_request::GitDestination;
-        /// let x = GitDestination::new().set_tracking_branch("example");
-        /// ```
         pub fn set_tracking_branch<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2444,12 +1810,6 @@ pub mod export_agent_request {
         }
 
         /// Sets the value of [commit_message][crate::model::export_agent_request::GitDestination::commit_message].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::export_agent_request::GitDestination;
-        /// let x = GitDestination::new().set_commit_message("example");
-        /// ```
         pub fn set_commit_message<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2632,13 +1992,6 @@ impl ExportAgentResponse {
     ///
     /// Note that all the setters affecting `agent` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportAgentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::export_agent_response;
-    /// let x = ExportAgentResponse::new().set_agent(Some(export_agent_response::Agent::AgentUri("example".to_string())));
-    /// ```
     pub fn set_agent<
         T: std::convert::Into<std::option::Option<crate::model::export_agent_response::Agent>>,
     >(
@@ -2665,15 +2018,6 @@ impl ExportAgentResponse {
     ///
     /// Note that all the setters affecting `agent` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportAgentResponse;
-    /// let x = ExportAgentResponse::new().set_agent_uri("example");
-    /// assert!(x.agent_uri().is_some());
-    /// assert!(x.agent_content().is_none());
-    /// assert!(x.commit_sha().is_none());
-    /// ```
     pub fn set_agent_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.agent = std::option::Option::Some(
             crate::model::export_agent_response::Agent::AgentUri(v.into()),
@@ -2699,15 +2043,6 @@ impl ExportAgentResponse {
     ///
     /// Note that all the setters affecting `agent` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportAgentResponse;
-    /// let x = ExportAgentResponse::new().set_agent_content(bytes::Bytes::from_static(b"example"));
-    /// assert!(x.agent_content().is_some());
-    /// assert!(x.agent_uri().is_none());
-    /// assert!(x.commit_sha().is_none());
-    /// ```
     pub fn set_agent_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.agent = std::option::Option::Some(
             crate::model::export_agent_response::Agent::AgentContent(v.into()),
@@ -2733,15 +2068,6 @@ impl ExportAgentResponse {
     ///
     /// Note that all the setters affecting `agent` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportAgentResponse;
-    /// let x = ExportAgentResponse::new().set_commit_sha("example");
-    /// assert!(x.commit_sha().is_some());
-    /// assert!(x.agent_uri().is_none());
-    /// assert!(x.agent_content().is_none());
-    /// ```
     pub fn set_commit_sha<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.agent = std::option::Option::Some(
             crate::model::export_agent_response::Agent::CommitSha(v.into()),
@@ -2817,26 +2143,12 @@ impl RestoreAgentRequest {
     }
 
     /// Sets the value of [name][crate::model::RestoreAgentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RestoreAgentRequest;
-    /// let x = RestoreAgentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [restore_option][crate::model::RestoreAgentRequest::restore_option].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RestoreAgentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::restore_agent_request::RestoreOption;
-    /// let x0 = RestoreAgentRequest::new().set_restore_option(RestoreOption::Keep);
-    /// let x1 = RestoreAgentRequest::new().set_restore_option(RestoreOption::Fallback);
-    /// ```
     pub fn set_restore_option<
         T: std::convert::Into<crate::model::restore_agent_request::RestoreOption>,
     >(
@@ -2851,13 +2163,6 @@ impl RestoreAgentRequest {
     ///
     /// Note that all the setters affecting `agent` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RestoreAgentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::restore_agent_request;
-    /// let x = RestoreAgentRequest::new().set_agent(Some(restore_agent_request::Agent::AgentUri("example".to_string())));
-    /// ```
     pub fn set_agent<
         T: std::convert::Into<std::option::Option<crate::model::restore_agent_request::Agent>>,
     >(
@@ -2884,15 +2189,6 @@ impl RestoreAgentRequest {
     ///
     /// Note that all the setters affecting `agent` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RestoreAgentRequest;
-    /// let x = RestoreAgentRequest::new().set_agent_uri("example");
-    /// assert!(x.agent_uri().is_some());
-    /// assert!(x.agent_content().is_none());
-    /// assert!(x.git_source().is_none());
-    /// ```
     pub fn set_agent_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.agent = std::option::Option::Some(
             crate::model::restore_agent_request::Agent::AgentUri(v.into()),
@@ -2918,15 +2214,6 @@ impl RestoreAgentRequest {
     ///
     /// Note that all the setters affecting `agent` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RestoreAgentRequest;
-    /// let x = RestoreAgentRequest::new().set_agent_content(bytes::Bytes::from_static(b"example"));
-    /// assert!(x.agent_content().is_some());
-    /// assert!(x.agent_uri().is_none());
-    /// assert!(x.git_source().is_none());
-    /// ```
     pub fn set_agent_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.agent = std::option::Option::Some(
             crate::model::restore_agent_request::Agent::AgentContent(v.into()),
@@ -2954,16 +2241,6 @@ impl RestoreAgentRequest {
     ///
     /// Note that all the setters affecting `agent` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RestoreAgentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::restore_agent_request::GitSource;
-    /// let x = RestoreAgentRequest::new().set_git_source(GitSource::default()/* use setters */);
-    /// assert!(x.git_source().is_some());
-    /// assert!(x.agent_uri().is_none());
-    /// assert!(x.agent_content().is_none());
-    /// ```
     pub fn set_git_source<
         T: std::convert::Into<std::boxed::Box<crate::model::restore_agent_request::GitSource>>,
     >(
@@ -3008,12 +2285,6 @@ pub mod restore_agent_request {
         }
 
         /// Sets the value of [tracking_branch][crate::model::restore_agent_request::GitSource::tracking_branch].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::restore_agent_request::GitSource;
-        /// let x = GitSource::new().set_tracking_branch("example");
-        /// ```
         pub fn set_tracking_branch<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3221,24 +2492,12 @@ impl ValidateAgentRequest {
     }
 
     /// Sets the value of [name][crate::model::ValidateAgentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ValidateAgentRequest;
-    /// let x = ValidateAgentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::ValidateAgentRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ValidateAgentRequest;
-    /// let x = ValidateAgentRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -3278,24 +2537,12 @@ impl GetAgentValidationResultRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAgentValidationResultRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetAgentValidationResultRequest;
-    /// let x = GetAgentValidationResultRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::GetAgentValidationResultRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetAgentValidationResultRequest;
-    /// let x = GetAgentValidationResultRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -3335,29 +2582,12 @@ impl AgentValidationResult {
     }
 
     /// Sets the value of [name][crate::model::AgentValidationResult::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::AgentValidationResult;
-    /// let x = AgentValidationResult::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [flow_validation_results][crate::model::AgentValidationResult::flow_validation_results].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::AgentValidationResult;
-    /// use google_cloud_dialogflow_cx_v3::model::FlowValidationResult;
-    /// let x = AgentValidationResult::new()
-    ///     .set_flow_validation_results([
-    ///         FlowValidationResult::default()/* use setters */,
-    ///         FlowValidationResult::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_flow_validation_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3402,24 +2632,12 @@ impl GetGenerativeSettingsRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGenerativeSettingsRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetGenerativeSettingsRequest;
-    /// let x = GetGenerativeSettingsRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::GetGenerativeSettingsRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetGenerativeSettingsRequest;
-    /// let x = GetGenerativeSettingsRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -3459,13 +2677,6 @@ impl UpdateGenerativeSettingsRequest {
     }
 
     /// Sets the value of [generative_settings][crate::model::UpdateGenerativeSettingsRequest::generative_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateGenerativeSettingsRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::GenerativeSettings;
-    /// let x = UpdateGenerativeSettingsRequest::new().set_generative_settings(GenerativeSettings::default()/* use setters */);
-    /// ```
     pub fn set_generative_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GenerativeSettings>,
@@ -3475,14 +2686,6 @@ impl UpdateGenerativeSettingsRequest {
     }
 
     /// Sets or clears the value of [generative_settings][crate::model::UpdateGenerativeSettingsRequest::generative_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateGenerativeSettingsRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::GenerativeSettings;
-    /// let x = UpdateGenerativeSettingsRequest::new().set_or_clear_generative_settings(Some(GenerativeSettings::default()/* use setters */));
-    /// let x = UpdateGenerativeSettingsRequest::new().set_or_clear_generative_settings(None::<GenerativeSettings>);
-    /// ```
     pub fn set_or_clear_generative_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GenerativeSettings>,
@@ -3492,13 +2695,6 @@ impl UpdateGenerativeSettingsRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGenerativeSettingsRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateGenerativeSettingsRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateGenerativeSettingsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3508,14 +2704,6 @@ impl UpdateGenerativeSettingsRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateGenerativeSettingsRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateGenerativeSettingsRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateGenerativeSettingsRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateGenerativeSettingsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3569,25 +2757,12 @@ impl SpeechWordInfo {
     }
 
     /// Sets the value of [word][crate::model::SpeechWordInfo::word].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SpeechWordInfo;
-    /// let x = SpeechWordInfo::new().set_word("example");
-    /// ```
     pub fn set_word<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.word = v.into();
         self
     }
 
     /// Sets the value of [start_offset][crate::model::SpeechWordInfo::start_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SpeechWordInfo;
-    /// use wkt::Duration;
-    /// let x = SpeechWordInfo::new().set_start_offset(Duration::default()/* use setters */);
-    /// ```
     pub fn set_start_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3597,14 +2772,6 @@ impl SpeechWordInfo {
     }
 
     /// Sets or clears the value of [start_offset][crate::model::SpeechWordInfo::start_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SpeechWordInfo;
-    /// use wkt::Duration;
-    /// let x = SpeechWordInfo::new().set_or_clear_start_offset(Some(Duration::default()/* use setters */));
-    /// let x = SpeechWordInfo::new().set_or_clear_start_offset(None::<Duration>);
-    /// ```
     pub fn set_or_clear_start_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3614,13 +2781,6 @@ impl SpeechWordInfo {
     }
 
     /// Sets the value of [end_offset][crate::model::SpeechWordInfo::end_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SpeechWordInfo;
-    /// use wkt::Duration;
-    /// let x = SpeechWordInfo::new().set_end_offset(Duration::default()/* use setters */);
-    /// ```
     pub fn set_end_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3630,14 +2790,6 @@ impl SpeechWordInfo {
     }
 
     /// Sets or clears the value of [end_offset][crate::model::SpeechWordInfo::end_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SpeechWordInfo;
-    /// use wkt::Duration;
-    /// let x = SpeechWordInfo::new().set_or_clear_end_offset(Some(Duration::default()/* use setters */));
-    /// let x = SpeechWordInfo::new().set_or_clear_end_offset(None::<Duration>);
-    /// ```
     pub fn set_or_clear_end_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3647,12 +2799,6 @@ impl SpeechWordInfo {
     }
 
     /// Sets the value of [confidence][crate::model::SpeechWordInfo::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SpeechWordInfo;
-    /// let x = SpeechWordInfo::new().set_confidence(42.0);
-    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
@@ -3712,13 +2858,6 @@ impl BargeInConfig {
     }
 
     /// Sets the value of [no_barge_in_duration][crate::model::BargeInConfig::no_barge_in_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::BargeInConfig;
-    /// use wkt::Duration;
-    /// let x = BargeInConfig::new().set_no_barge_in_duration(Duration::default()/* use setters */);
-    /// ```
     pub fn set_no_barge_in_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3728,14 +2867,6 @@ impl BargeInConfig {
     }
 
     /// Sets or clears the value of [no_barge_in_duration][crate::model::BargeInConfig::no_barge_in_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::BargeInConfig;
-    /// use wkt::Duration;
-    /// let x = BargeInConfig::new().set_or_clear_no_barge_in_duration(Some(Duration::default()/* use setters */));
-    /// let x = BargeInConfig::new().set_or_clear_no_barge_in_duration(None::<Duration>);
-    /// ```
     pub fn set_or_clear_no_barge_in_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3745,13 +2876,6 @@ impl BargeInConfig {
     }
 
     /// Sets the value of [total_duration][crate::model::BargeInConfig::total_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::BargeInConfig;
-    /// use wkt::Duration;
-    /// let x = BargeInConfig::new().set_total_duration(Duration::default()/* use setters */);
-    /// ```
     pub fn set_total_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3761,14 +2885,6 @@ impl BargeInConfig {
     }
 
     /// Sets or clears the value of [total_duration][crate::model::BargeInConfig::total_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::BargeInConfig;
-    /// use wkt::Duration;
-    /// let x = BargeInConfig::new().set_or_clear_total_duration(Some(Duration::default()/* use setters */));
-    /// let x = BargeInConfig::new().set_or_clear_total_duration(None::<Duration>);
-    /// ```
     pub fn set_or_clear_total_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3860,15 +2976,6 @@ impl InputAudioConfig {
     }
 
     /// Sets the value of [audio_encoding][crate::model::InputAudioConfig::audio_encoding].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::InputAudioConfig;
-    /// use google_cloud_dialogflow_cx_v3::model::AudioEncoding;
-    /// let x0 = InputAudioConfig::new().set_audio_encoding(AudioEncoding::Linear16);
-    /// let x1 = InputAudioConfig::new().set_audio_encoding(AudioEncoding::Flac);
-    /// let x2 = InputAudioConfig::new().set_audio_encoding(AudioEncoding::Mulaw);
-    /// ```
     pub fn set_audio_encoding<T: std::convert::Into<crate::model::AudioEncoding>>(
         mut self,
         v: T,
@@ -3878,36 +2985,18 @@ impl InputAudioConfig {
     }
 
     /// Sets the value of [sample_rate_hertz][crate::model::InputAudioConfig::sample_rate_hertz].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::InputAudioConfig;
-    /// let x = InputAudioConfig::new().set_sample_rate_hertz(42);
-    /// ```
     pub fn set_sample_rate_hertz<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.sample_rate_hertz = v.into();
         self
     }
 
     /// Sets the value of [enable_word_info][crate::model::InputAudioConfig::enable_word_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::InputAudioConfig;
-    /// let x = InputAudioConfig::new().set_enable_word_info(true);
-    /// ```
     pub fn set_enable_word_info<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_word_info = v.into();
         self
     }
 
     /// Sets the value of [phrase_hints][crate::model::InputAudioConfig::phrase_hints].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::InputAudioConfig;
-    /// let x = InputAudioConfig::new().set_phrase_hints(["a", "b", "c"]);
-    /// ```
     pub fn set_phrase_hints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3919,27 +3008,12 @@ impl InputAudioConfig {
     }
 
     /// Sets the value of [model][crate::model::InputAudioConfig::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::InputAudioConfig;
-    /// let x = InputAudioConfig::new().set_model("example");
-    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
     /// Sets the value of [model_variant][crate::model::InputAudioConfig::model_variant].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::InputAudioConfig;
-    /// use google_cloud_dialogflow_cx_v3::model::SpeechModelVariant;
-    /// let x0 = InputAudioConfig::new().set_model_variant(SpeechModelVariant::UseBestAvailable);
-    /// let x1 = InputAudioConfig::new().set_model_variant(SpeechModelVariant::UseStandard);
-    /// let x2 = InputAudioConfig::new().set_model_variant(SpeechModelVariant::UseEnhanced);
-    /// ```
     pub fn set_model_variant<T: std::convert::Into<crate::model::SpeechModelVariant>>(
         mut self,
         v: T,
@@ -3949,25 +3023,12 @@ impl InputAudioConfig {
     }
 
     /// Sets the value of [single_utterance][crate::model::InputAudioConfig::single_utterance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::InputAudioConfig;
-    /// let x = InputAudioConfig::new().set_single_utterance(true);
-    /// ```
     pub fn set_single_utterance<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.single_utterance = v.into();
         self
     }
 
     /// Sets the value of [barge_in_config][crate::model::InputAudioConfig::barge_in_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::InputAudioConfig;
-    /// use google_cloud_dialogflow_cx_v3::model::BargeInConfig;
-    /// let x = InputAudioConfig::new().set_barge_in_config(BargeInConfig::default()/* use setters */);
-    /// ```
     pub fn set_barge_in_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BargeInConfig>,
@@ -3977,14 +3038,6 @@ impl InputAudioConfig {
     }
 
     /// Sets or clears the value of [barge_in_config][crate::model::InputAudioConfig::barge_in_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::InputAudioConfig;
-    /// use google_cloud_dialogflow_cx_v3::model::BargeInConfig;
-    /// let x = InputAudioConfig::new().set_or_clear_barge_in_config(Some(BargeInConfig::default()/* use setters */));
-    /// let x = InputAudioConfig::new().set_or_clear_barge_in_config(None::<BargeInConfig>);
-    /// ```
     pub fn set_or_clear_barge_in_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BargeInConfig>,
@@ -3994,12 +3047,6 @@ impl InputAudioConfig {
     }
 
     /// Sets the value of [opt_out_conformer_model_migration][crate::model::InputAudioConfig::opt_out_conformer_model_migration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::InputAudioConfig;
-    /// let x = InputAudioConfig::new().set_opt_out_conformer_model_migration(true);
-    /// ```
     pub fn set_opt_out_conformer_model_migration<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -4051,27 +3098,12 @@ impl VoiceSelectionParams {
     }
 
     /// Sets the value of [name][crate::model::VoiceSelectionParams::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::VoiceSelectionParams;
-    /// let x = VoiceSelectionParams::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ssml_gender][crate::model::VoiceSelectionParams::ssml_gender].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::VoiceSelectionParams;
-    /// use google_cloud_dialogflow_cx_v3::model::SsmlVoiceGender;
-    /// let x0 = VoiceSelectionParams::new().set_ssml_gender(SsmlVoiceGender::Male);
-    /// let x1 = VoiceSelectionParams::new().set_ssml_gender(SsmlVoiceGender::Female);
-    /// let x2 = VoiceSelectionParams::new().set_ssml_gender(SsmlVoiceGender::Neutral);
-    /// ```
     pub fn set_ssml_gender<T: std::convert::Into<crate::model::SsmlVoiceGender>>(
         mut self,
         v: T,
@@ -4132,48 +3164,24 @@ impl SynthesizeSpeechConfig {
     }
 
     /// Sets the value of [speaking_rate][crate::model::SynthesizeSpeechConfig::speaking_rate].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SynthesizeSpeechConfig;
-    /// let x = SynthesizeSpeechConfig::new().set_speaking_rate(42.0);
-    /// ```
     pub fn set_speaking_rate<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.speaking_rate = v.into();
         self
     }
 
     /// Sets the value of [pitch][crate::model::SynthesizeSpeechConfig::pitch].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SynthesizeSpeechConfig;
-    /// let x = SynthesizeSpeechConfig::new().set_pitch(42.0);
-    /// ```
     pub fn set_pitch<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.pitch = v.into();
         self
     }
 
     /// Sets the value of [volume_gain_db][crate::model::SynthesizeSpeechConfig::volume_gain_db].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SynthesizeSpeechConfig;
-    /// let x = SynthesizeSpeechConfig::new().set_volume_gain_db(42.0);
-    /// ```
     pub fn set_volume_gain_db<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.volume_gain_db = v.into();
         self
     }
 
     /// Sets the value of [effects_profile_id][crate::model::SynthesizeSpeechConfig::effects_profile_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SynthesizeSpeechConfig;
-    /// let x = SynthesizeSpeechConfig::new().set_effects_profile_id(["a", "b", "c"]);
-    /// ```
     pub fn set_effects_profile_id<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4185,13 +3193,6 @@ impl SynthesizeSpeechConfig {
     }
 
     /// Sets the value of [voice][crate::model::SynthesizeSpeechConfig::voice].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SynthesizeSpeechConfig;
-    /// use google_cloud_dialogflow_cx_v3::model::VoiceSelectionParams;
-    /// let x = SynthesizeSpeechConfig::new().set_voice(VoiceSelectionParams::default()/* use setters */);
-    /// ```
     pub fn set_voice<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VoiceSelectionParams>,
@@ -4201,14 +3202,6 @@ impl SynthesizeSpeechConfig {
     }
 
     /// Sets or clears the value of [voice][crate::model::SynthesizeSpeechConfig::voice].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SynthesizeSpeechConfig;
-    /// use google_cloud_dialogflow_cx_v3::model::VoiceSelectionParams;
-    /// let x = SynthesizeSpeechConfig::new().set_or_clear_voice(Some(VoiceSelectionParams::default()/* use setters */));
-    /// let x = SynthesizeSpeechConfig::new().set_or_clear_voice(None::<VoiceSelectionParams>);
-    /// ```
     pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VoiceSelectionParams>,
@@ -4258,15 +3251,6 @@ impl OutputAudioConfig {
     }
 
     /// Sets the value of [audio_encoding][crate::model::OutputAudioConfig::audio_encoding].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::OutputAudioConfig;
-    /// use google_cloud_dialogflow_cx_v3::model::OutputAudioEncoding;
-    /// let x0 = OutputAudioConfig::new().set_audio_encoding(OutputAudioEncoding::Linear16);
-    /// let x1 = OutputAudioConfig::new().set_audio_encoding(OutputAudioEncoding::Mp3);
-    /// let x2 = OutputAudioConfig::new().set_audio_encoding(OutputAudioEncoding::Mp364Kbps);
-    /// ```
     pub fn set_audio_encoding<T: std::convert::Into<crate::model::OutputAudioEncoding>>(
         mut self,
         v: T,
@@ -4276,25 +3260,12 @@ impl OutputAudioConfig {
     }
 
     /// Sets the value of [sample_rate_hertz][crate::model::OutputAudioConfig::sample_rate_hertz].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::OutputAudioConfig;
-    /// let x = OutputAudioConfig::new().set_sample_rate_hertz(42);
-    /// ```
     pub fn set_sample_rate_hertz<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.sample_rate_hertz = v.into();
         self
     }
 
     /// Sets the value of [synthesize_speech_config][crate::model::OutputAudioConfig::synthesize_speech_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::OutputAudioConfig;
-    /// use google_cloud_dialogflow_cx_v3::model::SynthesizeSpeechConfig;
-    /// let x = OutputAudioConfig::new().set_synthesize_speech_config(SynthesizeSpeechConfig::default()/* use setters */);
-    /// ```
     pub fn set_synthesize_speech_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SynthesizeSpeechConfig>,
@@ -4304,14 +3275,6 @@ impl OutputAudioConfig {
     }
 
     /// Sets or clears the value of [synthesize_speech_config][crate::model::OutputAudioConfig::synthesize_speech_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::OutputAudioConfig;
-    /// use google_cloud_dialogflow_cx_v3::model::SynthesizeSpeechConfig;
-    /// let x = OutputAudioConfig::new().set_or_clear_synthesize_speech_config(Some(SynthesizeSpeechConfig::default()/* use setters */));
-    /// let x = OutputAudioConfig::new().set_or_clear_synthesize_speech_config(None::<SynthesizeSpeechConfig>);
-    /// ```
     pub fn set_or_clear_synthesize_speech_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SynthesizeSpeechConfig>,
@@ -4368,16 +3331,6 @@ impl TextToSpeechSettings {
     }
 
     /// Sets the value of [synthesize_speech_configs][crate::model::TextToSpeechSettings::synthesize_speech_configs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TextToSpeechSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::SynthesizeSpeechConfig;
-    /// let x = TextToSpeechSettings::new().set_synthesize_speech_configs([
-    ///     ("key0", SynthesizeSpeechConfig::default()/* use setters */),
-    ///     ("key1", SynthesizeSpeechConfig::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_synthesize_speech_configs<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4449,48 +3402,24 @@ impl ListChangelogsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListChangelogsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListChangelogsRequest;
-    /// let x = ListChangelogsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListChangelogsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListChangelogsRequest;
-    /// let x = ListChangelogsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListChangelogsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListChangelogsRequest;
-    /// let x = ListChangelogsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListChangelogsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListChangelogsRequest;
-    /// let x = ListChangelogsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4531,17 +3460,6 @@ impl ListChangelogsResponse {
     }
 
     /// Sets the value of [changelogs][crate::model::ListChangelogsResponse::changelogs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListChangelogsResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::Changelog;
-    /// let x = ListChangelogsResponse::new()
-    ///     .set_changelogs([
-    ///         Changelog::default()/* use setters */,
-    ///         Changelog::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_changelogs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4553,12 +3471,6 @@ impl ListChangelogsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListChangelogsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListChangelogsResponse;
-    /// let x = ListChangelogsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4610,12 +3522,6 @@ impl GetChangelogRequest {
     }
 
     /// Sets the value of [name][crate::model::GetChangelogRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetChangelogRequest;
-    /// let x = GetChangelogRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4670,85 +3576,42 @@ impl Changelog {
     }
 
     /// Sets the value of [name][crate::model::Changelog::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Changelog;
-    /// let x = Changelog::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [user_email][crate::model::Changelog::user_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Changelog;
-    /// let x = Changelog::new().set_user_email("example");
-    /// ```
     pub fn set_user_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_email = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Changelog::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Changelog;
-    /// let x = Changelog::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [action][crate::model::Changelog::action].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Changelog;
-    /// let x = Changelog::new().set_action("example");
-    /// ```
     pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Changelog::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Changelog;
-    /// let x = Changelog::new().set_type("example");
-    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [resource][crate::model::Changelog::resource].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Changelog;
-    /// let x = Changelog::new().set_resource("example");
-    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Changelog::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Changelog;
-    /// use wkt::Timestamp;
-    /// let x = Changelog::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4758,14 +3621,6 @@ impl Changelog {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Changelog::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Changelog;
-    /// use wkt::Timestamp;
-    /// let x = Changelog::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Changelog::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4775,12 +3630,6 @@ impl Changelog {
     }
 
     /// Sets the value of [language_code][crate::model::Changelog::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Changelog;
-    /// let x = Changelog::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -4834,15 +3683,6 @@ impl DataStoreConnection {
     }
 
     /// Sets the value of [data_store_type][crate::model::DataStoreConnection::data_store_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DataStoreConnection;
-    /// use google_cloud_dialogflow_cx_v3::model::DataStoreType;
-    /// let x0 = DataStoreConnection::new().set_data_store_type(DataStoreType::PublicWeb);
-    /// let x1 = DataStoreConnection::new().set_data_store_type(DataStoreType::Unstructured);
-    /// let x2 = DataStoreConnection::new().set_data_store_type(DataStoreType::Structured);
-    /// ```
     pub fn set_data_store_type<T: std::convert::Into<crate::model::DataStoreType>>(
         mut self,
         v: T,
@@ -4852,26 +3692,12 @@ impl DataStoreConnection {
     }
 
     /// Sets the value of [data_store][crate::model::DataStoreConnection::data_store].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DataStoreConnection;
-    /// let x = DataStoreConnection::new().set_data_store("example");
-    /// ```
     pub fn set_data_store<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_store = v.into();
         self
     }
 
     /// Sets the value of [document_processing_mode][crate::model::DataStoreConnection::document_processing_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DataStoreConnection;
-    /// use google_cloud_dialogflow_cx_v3::model::DocumentProcessingMode;
-    /// let x0 = DataStoreConnection::new().set_document_processing_mode(DocumentProcessingMode::Documents);
-    /// let x1 = DataStoreConnection::new().set_document_processing_mode(DocumentProcessingMode::Chunks);
-    /// ```
     pub fn set_document_processing_mode<
         T: std::convert::Into<crate::model::DocumentProcessingMode>,
     >(
@@ -4948,13 +3774,6 @@ impl DataStoreConnectionSignals {
     }
 
     /// Sets the value of [rewriter_model_call_signals][crate::model::DataStoreConnectionSignals::rewriter_model_call_signals].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DataStoreConnectionSignals;
-    /// use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::RewriterModelCallSignals;
-    /// let x = DataStoreConnectionSignals::new().set_rewriter_model_call_signals(RewriterModelCallSignals::default()/* use setters */);
-    /// ```
     pub fn set_rewriter_model_call_signals<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -4966,14 +3785,6 @@ impl DataStoreConnectionSignals {
     }
 
     /// Sets or clears the value of [rewriter_model_call_signals][crate::model::DataStoreConnectionSignals::rewriter_model_call_signals].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DataStoreConnectionSignals;
-    /// use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::RewriterModelCallSignals;
-    /// let x = DataStoreConnectionSignals::new().set_or_clear_rewriter_model_call_signals(Some(RewriterModelCallSignals::default()/* use setters */));
-    /// let x = DataStoreConnectionSignals::new().set_or_clear_rewriter_model_call_signals(None::<RewriterModelCallSignals>);
-    /// ```
     pub fn set_or_clear_rewriter_model_call_signals<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<
@@ -4985,29 +3796,12 @@ impl DataStoreConnectionSignals {
     }
 
     /// Sets the value of [rewritten_query][crate::model::DataStoreConnectionSignals::rewritten_query].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DataStoreConnectionSignals;
-    /// let x = DataStoreConnectionSignals::new().set_rewritten_query("example");
-    /// ```
     pub fn set_rewritten_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rewritten_query = v.into();
         self
     }
 
     /// Sets the value of [search_snippets][crate::model::DataStoreConnectionSignals::search_snippets].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DataStoreConnectionSignals;
-    /// use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::SearchSnippet;
-    /// let x = DataStoreConnectionSignals::new()
-    ///     .set_search_snippets([
-    ///         SearchSnippet::default()/* use setters */,
-    ///         SearchSnippet::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_search_snippets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5019,13 +3813,6 @@ impl DataStoreConnectionSignals {
     }
 
     /// Sets the value of [answer_generation_model_call_signals][crate::model::DataStoreConnectionSignals::answer_generation_model_call_signals].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DataStoreConnectionSignals;
-    /// use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::AnswerGenerationModelCallSignals;
-    /// let x = DataStoreConnectionSignals::new().set_answer_generation_model_call_signals(AnswerGenerationModelCallSignals::default()/* use setters */);
-    /// ```
     pub fn set_answer_generation_model_call_signals<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -5037,14 +3824,6 @@ impl DataStoreConnectionSignals {
     }
 
     /// Sets or clears the value of [answer_generation_model_call_signals][crate::model::DataStoreConnectionSignals::answer_generation_model_call_signals].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DataStoreConnectionSignals;
-    /// use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::AnswerGenerationModelCallSignals;
-    /// let x = DataStoreConnectionSignals::new().set_or_clear_answer_generation_model_call_signals(Some(AnswerGenerationModelCallSignals::default()/* use setters */));
-    /// let x = DataStoreConnectionSignals::new().set_or_clear_answer_generation_model_call_signals(None::<AnswerGenerationModelCallSignals>);
-    /// ```
     pub fn set_or_clear_answer_generation_model_call_signals<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5059,29 +3838,12 @@ impl DataStoreConnectionSignals {
     }
 
     /// Sets the value of [answer][crate::model::DataStoreConnectionSignals::answer].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DataStoreConnectionSignals;
-    /// let x = DataStoreConnectionSignals::new().set_answer("example");
-    /// ```
     pub fn set_answer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.answer = v.into();
         self
     }
 
     /// Sets the value of [answer_parts][crate::model::DataStoreConnectionSignals::answer_parts].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DataStoreConnectionSignals;
-    /// use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::AnswerPart;
-    /// let x = DataStoreConnectionSignals::new()
-    ///     .set_answer_parts([
-    ///         AnswerPart::default()/* use setters */,
-    ///         AnswerPart::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_answer_parts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5093,17 +3855,6 @@ impl DataStoreConnectionSignals {
     }
 
     /// Sets the value of [cited_snippets][crate::model::DataStoreConnectionSignals::cited_snippets].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DataStoreConnectionSignals;
-    /// use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::CitedSnippet;
-    /// let x = DataStoreConnectionSignals::new()
-    ///     .set_cited_snippets([
-    ///         CitedSnippet::default()/* use setters */,
-    ///         CitedSnippet::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_cited_snippets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5115,13 +3866,6 @@ impl DataStoreConnectionSignals {
     }
 
     /// Sets the value of [grounding_signals][crate::model::DataStoreConnectionSignals::grounding_signals].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DataStoreConnectionSignals;
-    /// use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::GroundingSignals;
-    /// let x = DataStoreConnectionSignals::new().set_grounding_signals(GroundingSignals::default()/* use setters */);
-    /// ```
     pub fn set_grounding_signals<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::data_store_connection_signals::GroundingSignals>,
@@ -5131,14 +3875,6 @@ impl DataStoreConnectionSignals {
     }
 
     /// Sets or clears the value of [grounding_signals][crate::model::DataStoreConnectionSignals::grounding_signals].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DataStoreConnectionSignals;
-    /// use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::GroundingSignals;
-    /// let x = DataStoreConnectionSignals::new().set_or_clear_grounding_signals(Some(GroundingSignals::default()/* use setters */));
-    /// let x = DataStoreConnectionSignals::new().set_or_clear_grounding_signals(None::<GroundingSignals>);
-    /// ```
     pub fn set_or_clear_grounding_signals<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::data_store_connection_signals::GroundingSignals>,
@@ -5148,13 +3884,6 @@ impl DataStoreConnectionSignals {
     }
 
     /// Sets the value of [safety_signals][crate::model::DataStoreConnectionSignals::safety_signals].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DataStoreConnectionSignals;
-    /// use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::SafetySignals;
-    /// let x = DataStoreConnectionSignals::new().set_safety_signals(SafetySignals::default()/* use setters */);
-    /// ```
     pub fn set_safety_signals<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::data_store_connection_signals::SafetySignals>,
@@ -5164,14 +3893,6 @@ impl DataStoreConnectionSignals {
     }
 
     /// Sets or clears the value of [safety_signals][crate::model::DataStoreConnectionSignals::safety_signals].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DataStoreConnectionSignals;
-    /// use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::SafetySignals;
-    /// let x = DataStoreConnectionSignals::new().set_or_clear_safety_signals(Some(SafetySignals::default()/* use setters */));
-    /// let x = DataStoreConnectionSignals::new().set_or_clear_safety_signals(None::<SafetySignals>);
-    /// ```
     pub fn set_or_clear_safety_signals<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::data_store_connection_signals::SafetySignals>,
@@ -5219,12 +3940,6 @@ pub mod data_store_connection_signals {
         }
 
         /// Sets the value of [rendered_prompt][crate::model::data_store_connection_signals::RewriterModelCallSignals::rendered_prompt].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::RewriterModelCallSignals;
-        /// let x = RewriterModelCallSignals::new().set_rendered_prompt("example");
-        /// ```
         pub fn set_rendered_prompt<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5234,12 +3949,6 @@ pub mod data_store_connection_signals {
         }
 
         /// Sets the value of [model_output][crate::model::data_store_connection_signals::RewriterModelCallSignals::model_output].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::RewriterModelCallSignals;
-        /// let x = RewriterModelCallSignals::new().set_model_output("example");
-        /// ```
         pub fn set_model_output<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5249,12 +3958,6 @@ pub mod data_store_connection_signals {
         }
 
         /// Sets the value of [model][crate::model::data_store_connection_signals::RewriterModelCallSignals::model].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::RewriterModelCallSignals;
-        /// let x = RewriterModelCallSignals::new().set_model("example");
-        /// ```
         pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.model = v.into();
             self
@@ -5292,12 +3995,6 @@ pub mod data_store_connection_signals {
         }
 
         /// Sets the value of [document_title][crate::model::data_store_connection_signals::SearchSnippet::document_title].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::SearchSnippet;
-        /// let x = SearchSnippet::new().set_document_title("example");
-        /// ```
         pub fn set_document_title<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5307,12 +4004,6 @@ pub mod data_store_connection_signals {
         }
 
         /// Sets the value of [document_uri][crate::model::data_store_connection_signals::SearchSnippet::document_uri].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::SearchSnippet;
-        /// let x = SearchSnippet::new().set_document_uri("example");
-        /// ```
         pub fn set_document_uri<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5322,12 +4013,6 @@ pub mod data_store_connection_signals {
         }
 
         /// Sets the value of [text][crate::model::data_store_connection_signals::SearchSnippet::text].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::SearchSnippet;
-        /// let x = SearchSnippet::new().set_text("example");
-        /// ```
         pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.text = v.into();
             self
@@ -5366,12 +4051,6 @@ pub mod data_store_connection_signals {
         }
 
         /// Sets the value of [rendered_prompt][crate::model::data_store_connection_signals::AnswerGenerationModelCallSignals::rendered_prompt].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::AnswerGenerationModelCallSignals;
-        /// let x = AnswerGenerationModelCallSignals::new().set_rendered_prompt("example");
-        /// ```
         pub fn set_rendered_prompt<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5381,12 +4060,6 @@ pub mod data_store_connection_signals {
         }
 
         /// Sets the value of [model_output][crate::model::data_store_connection_signals::AnswerGenerationModelCallSignals::model_output].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::AnswerGenerationModelCallSignals;
-        /// let x = AnswerGenerationModelCallSignals::new().set_model_output("example");
-        /// ```
         pub fn set_model_output<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5396,12 +4069,6 @@ pub mod data_store_connection_signals {
         }
 
         /// Sets the value of [model][crate::model::data_store_connection_signals::AnswerGenerationModelCallSignals::model].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::AnswerGenerationModelCallSignals;
-        /// let x = AnswerGenerationModelCallSignals::new().set_model("example");
-        /// ```
         pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.model = v.into();
             self
@@ -5436,24 +4103,12 @@ pub mod data_store_connection_signals {
         }
 
         /// Sets the value of [text][crate::model::data_store_connection_signals::AnswerPart::text].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::AnswerPart;
-        /// let x = AnswerPart::new().set_text("example");
-        /// ```
         pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.text = v.into();
             self
         }
 
         /// Sets the value of [supporting_indices][crate::model::data_store_connection_signals::AnswerPart::supporting_indices].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::AnswerPart;
-        /// let x = AnswerPart::new().set_supporting_indices([1, 2, 3]);
-        /// ```
         pub fn set_supporting_indices<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5494,13 +4149,6 @@ pub mod data_store_connection_signals {
         }
 
         /// Sets the value of [search_snippet][crate::model::data_store_connection_signals::CitedSnippet::search_snippet].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::CitedSnippet;
-        /// use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::SearchSnippet;
-        /// let x = CitedSnippet::new().set_search_snippet(SearchSnippet::default()/* use setters */);
-        /// ```
         pub fn set_search_snippet<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::data_store_connection_signals::SearchSnippet>,
@@ -5510,14 +4158,6 @@ pub mod data_store_connection_signals {
         }
 
         /// Sets or clears the value of [search_snippet][crate::model::data_store_connection_signals::CitedSnippet::search_snippet].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::CitedSnippet;
-        /// use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::SearchSnippet;
-        /// let x = CitedSnippet::new().set_or_clear_search_snippet(Some(SearchSnippet::default()/* use setters */));
-        /// let x = CitedSnippet::new().set_or_clear_search_snippet(None::<SearchSnippet>);
-        /// ```
         pub fn set_or_clear_search_snippet<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::data_store_connection_signals::SearchSnippet>,
@@ -5527,12 +4167,6 @@ pub mod data_store_connection_signals {
         }
 
         /// Sets the value of [snippet_index][crate::model::data_store_connection_signals::CitedSnippet::snippet_index].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::CitedSnippet;
-        /// let x = CitedSnippet::new().set_snippet_index(42);
-        /// ```
         pub fn set_snippet_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.snippet_index = v.into();
             self
@@ -5569,29 +4203,12 @@ pub mod data_store_connection_signals {
         }
 
         /// Sets the value of [decision][crate::model::data_store_connection_signals::GroundingSignals::decision].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::GroundingSignals;
-        /// use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::grounding_signals::GroundingDecision;
-        /// let x0 = GroundingSignals::new().set_decision(GroundingDecision::AcceptedByGrounding);
-        /// let x1 = GroundingSignals::new().set_decision(GroundingDecision::RejectedByGrounding);
-        /// ```
         pub fn set_decision<T: std::convert::Into<crate::model::data_store_connection_signals::grounding_signals::GroundingDecision>>(mut self, v: T) -> Self{
             self.decision = v.into();
             self
         }
 
         /// Sets the value of [score][crate::model::data_store_connection_signals::GroundingSignals::score].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::GroundingSignals;
-        /// use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::grounding_signals::GroundingScoreBucket;
-        /// let x0 = GroundingSignals::new().set_score(GroundingScoreBucket::VeryLow);
-        /// let x1 = GroundingSignals::new().set_score(GroundingScoreBucket::Low);
-        /// let x2 = GroundingSignals::new().set_score(GroundingScoreBucket::Medium);
-        /// ```
         pub fn set_score<T: std::convert::Into<crate::model::data_store_connection_signals::grounding_signals::GroundingScoreBucket>>(mut self, v: T) -> Self{
             self.score = v.into();
             self
@@ -5948,14 +4565,6 @@ pub mod data_store_connection_signals {
         }
 
         /// Sets the value of [decision][crate::model::data_store_connection_signals::SafetySignals::decision].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::SafetySignals;
-        /// use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::safety_signals::SafetyDecision;
-        /// let x0 = SafetySignals::new().set_decision(SafetyDecision::AcceptedBySafetyCheck);
-        /// let x1 = SafetySignals::new().set_decision(SafetyDecision::RejectedBySafetyCheck);
-        /// ```
         pub fn set_decision<
             T: std::convert::Into<
                     crate::model::data_store_connection_signals::safety_signals::SafetyDecision,
@@ -5969,15 +4578,6 @@ pub mod data_store_connection_signals {
         }
 
         /// Sets the value of [banned_phrase_match][crate::model::data_store_connection_signals::SafetySignals::banned_phrase_match].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::SafetySignals;
-        /// use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::safety_signals::BannedPhraseMatch;
-        /// let x0 = SafetySignals::new().set_banned_phrase_match(BannedPhraseMatch::None);
-        /// let x1 = SafetySignals::new().set_banned_phrase_match(BannedPhraseMatch::Query);
-        /// let x2 = SafetySignals::new().set_banned_phrase_match(BannedPhraseMatch::Response);
-        /// ```
         pub fn set_banned_phrase_match<
             T: std::convert::Into<
                     crate::model::data_store_connection_signals::safety_signals::BannedPhraseMatch,
@@ -5991,12 +4591,6 @@ pub mod data_store_connection_signals {
         }
 
         /// Sets the value of [matched_banned_phrase][crate::model::data_store_connection_signals::SafetySignals::matched_banned_phrase].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::SafetySignals;
-        /// let x = SafetySignals::new().set_matched_banned_phrase("example");
-        /// ```
         pub fn set_matched_banned_phrase<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6362,39 +4956,18 @@ impl Deployment {
     }
 
     /// Sets the value of [name][crate::model::Deployment::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Deployment;
-    /// let x = Deployment::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [flow_version][crate::model::Deployment::flow_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Deployment;
-    /// let x = Deployment::new().set_flow_version("example");
-    /// ```
     pub fn set_flow_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.flow_version = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Deployment::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Deployment;
-    /// use google_cloud_dialogflow_cx_v3::model::deployment::State;
-    /// let x0 = Deployment::new().set_state(State::Running);
-    /// let x1 = Deployment::new().set_state(State::Succeeded);
-    /// let x2 = Deployment::new().set_state(State::Failed);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::deployment::State>>(
         mut self,
         v: T,
@@ -6404,13 +4977,6 @@ impl Deployment {
     }
 
     /// Sets the value of [result][crate::model::Deployment::result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Deployment;
-    /// use google_cloud_dialogflow_cx_v3::model::deployment::Result;
-    /// let x = Deployment::new().set_result(Result::default()/* use setters */);
-    /// ```
     pub fn set_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::deployment::Result>,
@@ -6420,14 +4986,6 @@ impl Deployment {
     }
 
     /// Sets or clears the value of [result][crate::model::Deployment::result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Deployment;
-    /// use google_cloud_dialogflow_cx_v3::model::deployment::Result;
-    /// let x = Deployment::new().set_or_clear_result(Some(Result::default()/* use setters */));
-    /// let x = Deployment::new().set_or_clear_result(None::<Result>);
-    /// ```
     pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::deployment::Result>,
@@ -6437,13 +4995,6 @@ impl Deployment {
     }
 
     /// Sets the value of [start_time][crate::model::Deployment::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Deployment;
-    /// use wkt::Timestamp;
-    /// let x = Deployment::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6453,14 +5004,6 @@ impl Deployment {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Deployment::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Deployment;
-    /// use wkt::Timestamp;
-    /// let x = Deployment::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Deployment::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6470,13 +5013,6 @@ impl Deployment {
     }
 
     /// Sets the value of [end_time][crate::model::Deployment::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Deployment;
-    /// use wkt::Timestamp;
-    /// let x = Deployment::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6486,14 +5022,6 @@ impl Deployment {
     }
 
     /// Sets or clears the value of [end_time][crate::model::Deployment::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Deployment;
-    /// use wkt::Timestamp;
-    /// let x = Deployment::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Deployment::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6541,12 +5069,6 @@ pub mod deployment {
         }
 
         /// Sets the value of [deployment_test_results][crate::model::deployment::Result::deployment_test_results].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::deployment::Result;
-        /// let x = Result::new().set_deployment_test_results(["a", "b", "c"]);
-        /// ```
         pub fn set_deployment_test_results<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6558,12 +5080,6 @@ pub mod deployment {
         }
 
         /// Sets the value of [experiment][crate::model::deployment::Result::experiment].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::deployment::Result;
-        /// let x = Result::new().set_experiment("example");
-        /// ```
         pub fn set_experiment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.experiment = v.into();
             self
@@ -6758,36 +5274,18 @@ impl ListDeploymentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDeploymentsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListDeploymentsRequest;
-    /// let x = ListDeploymentsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDeploymentsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListDeploymentsRequest;
-    /// let x = ListDeploymentsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDeploymentsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListDeploymentsRequest;
-    /// let x = ListDeploymentsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6829,17 +5327,6 @@ impl ListDeploymentsResponse {
     }
 
     /// Sets the value of [deployments][crate::model::ListDeploymentsResponse::deployments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListDeploymentsResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::Deployment;
-    /// let x = ListDeploymentsResponse::new()
-    ///     .set_deployments([
-    ///         Deployment::default()/* use setters */,
-    ///         Deployment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_deployments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6851,12 +5338,6 @@ impl ListDeploymentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDeploymentsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListDeploymentsResponse;
-    /// let x = ListDeploymentsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6910,12 +5391,6 @@ impl GetDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDeploymentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetDeploymentRequest;
-    /// let x = GetDeploymentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7020,39 +5495,18 @@ impl EntityType {
     }
 
     /// Sets the value of [name][crate::model::EntityType::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::EntityType;
-    /// let x = EntityType::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::EntityType::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::EntityType;
-    /// let x = EntityType::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::EntityType::kind].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::EntityType;
-    /// use google_cloud_dialogflow_cx_v3::model::entity_type::Kind;
-    /// let x0 = EntityType::new().set_kind(Kind::Map);
-    /// let x1 = EntityType::new().set_kind(Kind::List);
-    /// let x2 = EntityType::new().set_kind(Kind::Regexp);
-    /// ```
     pub fn set_kind<T: std::convert::Into<crate::model::entity_type::Kind>>(
         mut self,
         v: T,
@@ -7062,13 +5516,6 @@ impl EntityType {
     }
 
     /// Sets the value of [auto_expansion_mode][crate::model::EntityType::auto_expansion_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::EntityType;
-    /// use google_cloud_dialogflow_cx_v3::model::entity_type::AutoExpansionMode;
-    /// let x0 = EntityType::new().set_auto_expansion_mode(AutoExpansionMode::Default);
-    /// ```
     pub fn set_auto_expansion_mode<
         T: std::convert::Into<crate::model::entity_type::AutoExpansionMode>,
     >(
@@ -7080,17 +5527,6 @@ impl EntityType {
     }
 
     /// Sets the value of [entities][crate::model::EntityType::entities].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::EntityType;
-    /// use google_cloud_dialogflow_cx_v3::model::entity_type::Entity;
-    /// let x = EntityType::new()
-    ///     .set_entities([
-    ///         Entity::default()/* use setters */,
-    ///         Entity::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_entities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7102,17 +5538,6 @@ impl EntityType {
     }
 
     /// Sets the value of [excluded_phrases][crate::model::EntityType::excluded_phrases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::EntityType;
-    /// use google_cloud_dialogflow_cx_v3::model::entity_type::ExcludedPhrase;
-    /// let x = EntityType::new()
-    ///     .set_excluded_phrases([
-    ///         ExcludedPhrase::default()/* use setters */,
-    ///         ExcludedPhrase::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_excluded_phrases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7124,24 +5549,12 @@ impl EntityType {
     }
 
     /// Sets the value of [enable_fuzzy_extraction][crate::model::EntityType::enable_fuzzy_extraction].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::EntityType;
-    /// let x = EntityType::new().set_enable_fuzzy_extraction(true);
-    /// ```
     pub fn set_enable_fuzzy_extraction<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_fuzzy_extraction = v.into();
         self
     }
 
     /// Sets the value of [redact][crate::model::EntityType::redact].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::EntityType;
-    /// let x = EntityType::new().set_redact(true);
-    /// ```
     pub fn set_redact<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.redact = v.into();
         self
@@ -7215,24 +5628,12 @@ pub mod entity_type {
         }
 
         /// Sets the value of [value][crate::model::entity_type::Entity::value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::entity_type::Entity;
-        /// let x = Entity::new().set_value("example");
-        /// ```
         pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.value = v.into();
             self
         }
 
         /// Sets the value of [synonyms][crate::model::entity_type::Entity::synonyms].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::entity_type::Entity;
-        /// let x = Entity::new().set_synonyms(["a", "b", "c"]);
-        /// ```
         pub fn set_synonyms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7281,12 +5682,6 @@ pub mod entity_type {
         }
 
         /// Sets the value of [value][crate::model::entity_type::ExcludedPhrase::value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::entity_type::ExcludedPhrase;
-        /// let x = ExcludedPhrase::new().set_value("example");
-        /// ```
         pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.value = v.into();
             self
@@ -7714,24 +6109,12 @@ impl ExportEntityTypesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ExportEntityTypesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportEntityTypesRequest;
-    /// let x = ExportEntityTypesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [entity_types][crate::model::ExportEntityTypesRequest::entity_types].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportEntityTypesRequest;
-    /// let x = ExportEntityTypesRequest::new().set_entity_types(["a", "b", "c"]);
-    /// ```
     pub fn set_entity_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7743,14 +6126,6 @@ impl ExportEntityTypesRequest {
     }
 
     /// Sets the value of [data_format][crate::model::ExportEntityTypesRequest::data_format].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportEntityTypesRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::export_entity_types_request::DataFormat;
-    /// let x0 = ExportEntityTypesRequest::new().set_data_format(DataFormat::Blob);
-    /// let x1 = ExportEntityTypesRequest::new().set_data_format(DataFormat::JsonPackage);
-    /// ```
     pub fn set_data_format<
         T: std::convert::Into<crate::model::export_entity_types_request::DataFormat>,
     >(
@@ -7762,12 +6137,6 @@ impl ExportEntityTypesRequest {
     }
 
     /// Sets the value of [language_code][crate::model::ExportEntityTypesRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportEntityTypesRequest;
-    /// let x = ExportEntityTypesRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -7777,13 +6146,6 @@ impl ExportEntityTypesRequest {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportEntityTypesRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::export_entity_types_request;
-    /// let x = ExportEntityTypesRequest::new().set_destination(Some(export_entity_types_request::Destination::EntityTypesUri("example".to_string())));
-    /// ```
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::export_entity_types_request::Destination>,
@@ -7814,14 +6176,6 @@ impl ExportEntityTypesRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportEntityTypesRequest;
-    /// let x = ExportEntityTypesRequest::new().set_entity_types_uri("example");
-    /// assert!(x.entity_types_uri().is_some());
-    /// assert!(x.entity_types_content_inline().is_none());
-    /// ```
     pub fn set_entity_types_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7850,14 +6204,6 @@ impl ExportEntityTypesRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportEntityTypesRequest;
-    /// let x = ExportEntityTypesRequest::new().set_entity_types_content_inline(true);
-    /// assert!(x.entity_types_content_inline().is_some());
-    /// assert!(x.entity_types_uri().is_none());
-    /// ```
     pub fn set_entity_types_content_inline<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
             crate::model::export_entity_types_request::Destination::EntityTypesContentInline(
@@ -8068,13 +6414,6 @@ impl ExportEntityTypesResponse {
     ///
     /// Note that all the setters affecting `exported_entity_types` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportEntityTypesResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::export_entity_types_response;
-    /// let x = ExportEntityTypesResponse::new().set_exported_entity_types(Some(export_entity_types_response::ExportedEntityTypes::EntityTypesUri("example".to_string())));
-    /// ```
     pub fn set_exported_entity_types<
         T: std::convert::Into<
                 std::option::Option<
@@ -8107,14 +6446,6 @@ impl ExportEntityTypesResponse {
     ///
     /// Note that all the setters affecting `exported_entity_types` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportEntityTypesResponse;
-    /// let x = ExportEntityTypesResponse::new().set_entity_types_uri("example");
-    /// assert!(x.entity_types_uri().is_some());
-    /// assert!(x.entity_types_content().is_none());
-    /// ```
     pub fn set_entity_types_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8147,15 +6478,6 @@ impl ExportEntityTypesResponse {
     ///
     /// Note that all the setters affecting `exported_entity_types` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportEntityTypesResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::InlineDestination;
-    /// let x = ExportEntityTypesResponse::new().set_entity_types_content(InlineDestination::default()/* use setters */);
-    /// assert!(x.entity_types_content().is_some());
-    /// assert!(x.entity_types_uri().is_none());
-    /// ```
     pub fn set_entity_types_content<
         T: std::convert::Into<std::boxed::Box<crate::model::InlineDestination>>,
     >(
@@ -8271,27 +6593,12 @@ impl ImportEntityTypesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ImportEntityTypesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportEntityTypesRequest;
-    /// let x = ImportEntityTypesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [merge_option][crate::model::ImportEntityTypesRequest::merge_option].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportEntityTypesRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::import_entity_types_request::MergeOption;
-    /// let x0 = ImportEntityTypesRequest::new().set_merge_option(MergeOption::Replace);
-    /// let x1 = ImportEntityTypesRequest::new().set_merge_option(MergeOption::Merge);
-    /// let x2 = ImportEntityTypesRequest::new().set_merge_option(MergeOption::Rename);
-    /// ```
     pub fn set_merge_option<
         T: std::convert::Into<crate::model::import_entity_types_request::MergeOption>,
     >(
@@ -8303,12 +6610,6 @@ impl ImportEntityTypesRequest {
     }
 
     /// Sets the value of [target_entity_type][crate::model::ImportEntityTypesRequest::target_entity_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportEntityTypesRequest;
-    /// let x = ImportEntityTypesRequest::new().set_target_entity_type("example");
-    /// ```
     pub fn set_target_entity_type<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8321,13 +6622,6 @@ impl ImportEntityTypesRequest {
     ///
     /// Note that all the setters affecting `entity_types` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportEntityTypesRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::import_entity_types_request;
-    /// let x = ImportEntityTypesRequest::new().set_entity_types(Some(import_entity_types_request::EntityTypes::EntityTypesUri("example".to_string())));
-    /// ```
     pub fn set_entity_types<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_entity_types_request::EntityTypes>,
@@ -8358,14 +6652,6 @@ impl ImportEntityTypesRequest {
     ///
     /// Note that all the setters affecting `entity_types` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportEntityTypesRequest;
-    /// let x = ImportEntityTypesRequest::new().set_entity_types_uri("example");
-    /// assert!(x.entity_types_uri().is_some());
-    /// assert!(x.entity_types_content().is_none());
-    /// ```
     pub fn set_entity_types_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8396,15 +6682,6 @@ impl ImportEntityTypesRequest {
     ///
     /// Note that all the setters affecting `entity_types` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportEntityTypesRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::InlineSource;
-    /// let x = ImportEntityTypesRequest::new().set_entity_types_content(InlineSource::default()/* use setters */);
-    /// assert!(x.entity_types_content().is_some());
-    /// assert!(x.entity_types_uri().is_none());
-    /// ```
     pub fn set_entity_types_content<
         T: std::convert::Into<std::boxed::Box<crate::model::InlineSource>>,
     >(
@@ -8647,12 +6924,6 @@ impl ImportEntityTypesResponse {
     }
 
     /// Sets the value of [entity_types][crate::model::ImportEntityTypesResponse::entity_types].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportEntityTypesResponse;
-    /// let x = ImportEntityTypesResponse::new().set_entity_types(["a", "b", "c"]);
-    /// ```
     pub fn set_entity_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8664,13 +6935,6 @@ impl ImportEntityTypesResponse {
     }
 
     /// Sets the value of [conflicting_resources][crate::model::ImportEntityTypesResponse::conflicting_resources].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportEntityTypesResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::import_entity_types_response::ConflictingResources;
-    /// let x = ImportEntityTypesResponse::new().set_conflicting_resources(ConflictingResources::default()/* use setters */);
-    /// ```
     pub fn set_conflicting_resources<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::import_entity_types_response::ConflictingResources>,
@@ -8680,14 +6944,6 @@ impl ImportEntityTypesResponse {
     }
 
     /// Sets or clears the value of [conflicting_resources][crate::model::ImportEntityTypesResponse::conflicting_resources].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportEntityTypesResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::import_entity_types_response::ConflictingResources;
-    /// let x = ImportEntityTypesResponse::new().set_or_clear_conflicting_resources(Some(ConflictingResources::default()/* use setters */));
-    /// let x = ImportEntityTypesResponse::new().set_or_clear_conflicting_resources(None::<ConflictingResources>);
-    /// ```
     pub fn set_or_clear_conflicting_resources<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::import_entity_types_response::ConflictingResources>,
@@ -8733,12 +6989,6 @@ pub mod import_entity_types_response {
         }
 
         /// Sets the value of [entity_type_display_names][crate::model::import_entity_types_response::ConflictingResources::entity_type_display_names].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::import_entity_types_response::ConflictingResources;
-        /// let x = ConflictingResources::new().set_entity_type_display_names(["a", "b", "c"]);
-        /// ```
         pub fn set_entity_type_display_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -8750,12 +7000,6 @@ pub mod import_entity_types_response {
         }
 
         /// Sets the value of [entity_display_names][crate::model::import_entity_types_response::ConflictingResources::entity_display_names].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::import_entity_types_response::ConflictingResources;
-        /// let x = ConflictingResources::new().set_entity_display_names(["a", "b", "c"]);
-        /// ```
         pub fn set_entity_display_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -8844,48 +7088,24 @@ impl ListEntityTypesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEntityTypesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListEntityTypesRequest;
-    /// let x = ListEntityTypesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::ListEntityTypesRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListEntityTypesRequest;
-    /// let x = ListEntityTypesRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEntityTypesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListEntityTypesRequest;
-    /// let x = ListEntityTypesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEntityTypesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListEntityTypesRequest;
-    /// let x = ListEntityTypesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -8925,17 +7145,6 @@ impl ListEntityTypesResponse {
     }
 
     /// Sets the value of [entity_types][crate::model::ListEntityTypesResponse::entity_types].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListEntityTypesResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::EntityType;
-    /// let x = ListEntityTypesResponse::new()
-    ///     .set_entity_types([
-    ///         EntityType::default()/* use setters */,
-    ///         EntityType::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_entity_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8947,12 +7156,6 @@ impl ListEntityTypesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEntityTypesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListEntityTypesResponse;
-    /// let x = ListEntityTypesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -9018,24 +7221,12 @@ impl GetEntityTypeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEntityTypeRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetEntityTypeRequest;
-    /// let x = GetEntityTypeRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::GetEntityTypeRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetEntityTypeRequest;
-    /// let x = GetEntityTypeRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -9087,25 +7278,12 @@ impl CreateEntityTypeRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEntityTypeRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateEntityTypeRequest;
-    /// let x = CreateEntityTypeRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [entity_type][crate::model::CreateEntityTypeRequest::entity_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateEntityTypeRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::EntityType;
-    /// let x = CreateEntityTypeRequest::new().set_entity_type(EntityType::default()/* use setters */);
-    /// ```
     pub fn set_entity_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EntityType>,
@@ -9115,14 +7293,6 @@ impl CreateEntityTypeRequest {
     }
 
     /// Sets or clears the value of [entity_type][crate::model::CreateEntityTypeRequest::entity_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateEntityTypeRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::EntityType;
-    /// let x = CreateEntityTypeRequest::new().set_or_clear_entity_type(Some(EntityType::default()/* use setters */));
-    /// let x = CreateEntityTypeRequest::new().set_or_clear_entity_type(None::<EntityType>);
-    /// ```
     pub fn set_or_clear_entity_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntityType>,
@@ -9132,12 +7302,6 @@ impl CreateEntityTypeRequest {
     }
 
     /// Sets the value of [language_code][crate::model::CreateEntityTypeRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateEntityTypeRequest;
-    /// let x = CreateEntityTypeRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -9188,13 +7352,6 @@ impl UpdateEntityTypeRequest {
     }
 
     /// Sets the value of [entity_type][crate::model::UpdateEntityTypeRequest::entity_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateEntityTypeRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::EntityType;
-    /// let x = UpdateEntityTypeRequest::new().set_entity_type(EntityType::default()/* use setters */);
-    /// ```
     pub fn set_entity_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EntityType>,
@@ -9204,14 +7361,6 @@ impl UpdateEntityTypeRequest {
     }
 
     /// Sets or clears the value of [entity_type][crate::model::UpdateEntityTypeRequest::entity_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateEntityTypeRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::EntityType;
-    /// let x = UpdateEntityTypeRequest::new().set_or_clear_entity_type(Some(EntityType::default()/* use setters */));
-    /// let x = UpdateEntityTypeRequest::new().set_or_clear_entity_type(None::<EntityType>);
-    /// ```
     pub fn set_or_clear_entity_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntityType>,
@@ -9221,25 +7370,12 @@ impl UpdateEntityTypeRequest {
     }
 
     /// Sets the value of [language_code][crate::model::UpdateEntityTypeRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateEntityTypeRequest;
-    /// let x = UpdateEntityTypeRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEntityTypeRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateEntityTypeRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateEntityTypeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9249,14 +7385,6 @@ impl UpdateEntityTypeRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateEntityTypeRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateEntityTypeRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateEntityTypeRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateEntityTypeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9313,24 +7441,12 @@ impl DeleteEntityTypeRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteEntityTypeRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeleteEntityTypeRequest;
-    /// let x = DeleteEntityTypeRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteEntityTypeRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeleteEntityTypeRequest;
-    /// let x = DeleteEntityTypeRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -9396,53 +7512,24 @@ impl Environment {
     }
 
     /// Sets the value of [name][crate::model::Environment::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// let x = Environment::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Environment::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// let x = Environment::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Environment::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// let x = Environment::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [version_configs][crate::model::Environment::version_configs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// use google_cloud_dialogflow_cx_v3::model::environment::VersionConfig;
-    /// let x = Environment::new()
-    ///     .set_version_configs([
-    ///         VersionConfig::default()/* use setters */,
-    ///         VersionConfig::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_version_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9454,13 +7541,6 @@ impl Environment {
     }
 
     /// Sets the value of [update_time][crate::model::Environment::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// use wkt::Timestamp;
-    /// let x = Environment::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9470,14 +7550,6 @@ impl Environment {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Environment::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// use wkt::Timestamp;
-    /// let x = Environment::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Environment::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9487,13 +7559,6 @@ impl Environment {
     }
 
     /// Sets the value of [test_cases_config][crate::model::Environment::test_cases_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// use google_cloud_dialogflow_cx_v3::model::environment::TestCasesConfig;
-    /// let x = Environment::new().set_test_cases_config(TestCasesConfig::default()/* use setters */);
-    /// ```
     pub fn set_test_cases_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::environment::TestCasesConfig>,
@@ -9503,14 +7568,6 @@ impl Environment {
     }
 
     /// Sets or clears the value of [test_cases_config][crate::model::Environment::test_cases_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// use google_cloud_dialogflow_cx_v3::model::environment::TestCasesConfig;
-    /// let x = Environment::new().set_or_clear_test_cases_config(Some(TestCasesConfig::default()/* use setters */));
-    /// let x = Environment::new().set_or_clear_test_cases_config(None::<TestCasesConfig>);
-    /// ```
     pub fn set_or_clear_test_cases_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::environment::TestCasesConfig>,
@@ -9520,13 +7577,6 @@ impl Environment {
     }
 
     /// Sets the value of [webhook_config][crate::model::Environment::webhook_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// use google_cloud_dialogflow_cx_v3::model::environment::WebhookConfig;
-    /// let x = Environment::new().set_webhook_config(WebhookConfig::default()/* use setters */);
-    /// ```
     pub fn set_webhook_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::environment::WebhookConfig>,
@@ -9536,14 +7586,6 @@ impl Environment {
     }
 
     /// Sets or clears the value of [webhook_config][crate::model::Environment::webhook_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// use google_cloud_dialogflow_cx_v3::model::environment::WebhookConfig;
-    /// let x = Environment::new().set_or_clear_webhook_config(Some(WebhookConfig::default()/* use setters */));
-    /// let x = Environment::new().set_or_clear_webhook_config(None::<WebhookConfig>);
-    /// ```
     pub fn set_or_clear_webhook_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::environment::WebhookConfig>,
@@ -9588,12 +7630,6 @@ pub mod environment {
         }
 
         /// Sets the value of [version][crate::model::environment::VersionConfig::version].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::environment::VersionConfig;
-        /// let x = VersionConfig::new().set_version("example");
-        /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
@@ -9641,12 +7677,6 @@ pub mod environment {
         }
 
         /// Sets the value of [test_cases][crate::model::environment::TestCasesConfig::test_cases].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::environment::TestCasesConfig;
-        /// let x = TestCasesConfig::new().set_test_cases(["a", "b", "c"]);
-        /// ```
         pub fn set_test_cases<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -9658,24 +7688,12 @@ pub mod environment {
         }
 
         /// Sets the value of [enable_continuous_run][crate::model::environment::TestCasesConfig::enable_continuous_run].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::environment::TestCasesConfig;
-        /// let x = TestCasesConfig::new().set_enable_continuous_run(true);
-        /// ```
         pub fn set_enable_continuous_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_continuous_run = v.into();
             self
         }
 
         /// Sets the value of [enable_predeployment_run][crate::model::environment::TestCasesConfig::enable_predeployment_run].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::environment::TestCasesConfig;
-        /// let x = TestCasesConfig::new().set_enable_predeployment_run(true);
-        /// ```
         pub fn set_enable_predeployment_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_predeployment_run = v.into();
             self
@@ -9714,17 +7732,6 @@ pub mod environment {
         }
 
         /// Sets the value of [webhook_overrides][crate::model::environment::WebhookConfig::webhook_overrides].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::environment::WebhookConfig;
-        /// use google_cloud_dialogflow_cx_v3::model::Webhook;
-        /// let x = WebhookConfig::new()
-        ///     .set_webhook_overrides([
-        ///         Webhook::default()/* use setters */,
-        ///         Webhook::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_webhook_overrides<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -9776,36 +7783,18 @@ impl ListEnvironmentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEnvironmentsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListEnvironmentsRequest;
-    /// let x = ListEnvironmentsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEnvironmentsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListEnvironmentsRequest;
-    /// let x = ListEnvironmentsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEnvironmentsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListEnvironmentsRequest;
-    /// let x = ListEnvironmentsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -9847,17 +7836,6 @@ impl ListEnvironmentsResponse {
     }
 
     /// Sets the value of [environments][crate::model::ListEnvironmentsResponse::environments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListEnvironmentsResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// let x = ListEnvironmentsResponse::new()
-    ///     .set_environments([
-    ///         Environment::default()/* use setters */,
-    ///         Environment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_environments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9869,12 +7847,6 @@ impl ListEnvironmentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEnvironmentsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListEnvironmentsResponse;
-    /// let x = ListEnvironmentsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -9928,12 +7900,6 @@ impl GetEnvironmentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEnvironmentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetEnvironmentRequest;
-    /// let x = GetEnvironmentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -9976,25 +7942,12 @@ impl CreateEnvironmentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEnvironmentRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateEnvironmentRequest;
-    /// let x = CreateEnvironmentRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [environment][crate::model::CreateEnvironmentRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateEnvironmentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// let x = CreateEnvironmentRequest::new().set_environment(Environment::default()/* use setters */);
-    /// ```
     pub fn set_environment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Environment>,
@@ -10004,14 +7957,6 @@ impl CreateEnvironmentRequest {
     }
 
     /// Sets or clears the value of [environment][crate::model::CreateEnvironmentRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateEnvironmentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// let x = CreateEnvironmentRequest::new().set_or_clear_environment(Some(Environment::default()/* use setters */));
-    /// let x = CreateEnvironmentRequest::new().set_or_clear_environment(None::<Environment>);
-    /// ```
     pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Environment>,
@@ -10052,13 +7997,6 @@ impl UpdateEnvironmentRequest {
     }
 
     /// Sets the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateEnvironmentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// let x = UpdateEnvironmentRequest::new().set_environment(Environment::default()/* use setters */);
-    /// ```
     pub fn set_environment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Environment>,
@@ -10068,14 +8006,6 @@ impl UpdateEnvironmentRequest {
     }
 
     /// Sets or clears the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateEnvironmentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// let x = UpdateEnvironmentRequest::new().set_or_clear_environment(Some(Environment::default()/* use setters */));
-    /// let x = UpdateEnvironmentRequest::new().set_or_clear_environment(None::<Environment>);
-    /// ```
     pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Environment>,
@@ -10085,13 +8015,6 @@ impl UpdateEnvironmentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateEnvironmentRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateEnvironmentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -10101,14 +8024,6 @@ impl UpdateEnvironmentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateEnvironmentRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateEnvironmentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateEnvironmentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -10150,12 +8065,6 @@ impl DeleteEnvironmentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteEnvironmentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeleteEnvironmentRequest;
-    /// let x = DeleteEnvironmentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -10199,36 +8108,18 @@ impl LookupEnvironmentHistoryRequest {
     }
 
     /// Sets the value of [name][crate::model::LookupEnvironmentHistoryRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::LookupEnvironmentHistoryRequest;
-    /// let x = LookupEnvironmentHistoryRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::LookupEnvironmentHistoryRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::LookupEnvironmentHistoryRequest;
-    /// let x = LookupEnvironmentHistoryRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::LookupEnvironmentHistoryRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::LookupEnvironmentHistoryRequest;
-    /// let x = LookupEnvironmentHistoryRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -10271,17 +8162,6 @@ impl LookupEnvironmentHistoryResponse {
     }
 
     /// Sets the value of [environments][crate::model::LookupEnvironmentHistoryResponse::environments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::LookupEnvironmentHistoryResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// let x = LookupEnvironmentHistoryResponse::new()
-    ///     .set_environments([
-    ///         Environment::default()/* use setters */,
-    ///         Environment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_environments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10293,12 +8173,6 @@ impl LookupEnvironmentHistoryResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::LookupEnvironmentHistoryResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::LookupEnvironmentHistoryResponse;
-    /// let x = LookupEnvironmentHistoryResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -10356,26 +8230,12 @@ impl ContinuousTestResult {
     }
 
     /// Sets the value of [name][crate::model::ContinuousTestResult::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ContinuousTestResult;
-    /// let x = ContinuousTestResult::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [result][crate::model::ContinuousTestResult::result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ContinuousTestResult;
-    /// use google_cloud_dialogflow_cx_v3::model::continuous_test_result::AggregatedTestResult;
-    /// let x0 = ContinuousTestResult::new().set_result(AggregatedTestResult::Passed);
-    /// let x1 = ContinuousTestResult::new().set_result(AggregatedTestResult::Failed);
-    /// ```
     pub fn set_result<
         T: std::convert::Into<crate::model::continuous_test_result::AggregatedTestResult>,
     >(
@@ -10387,12 +8247,6 @@ impl ContinuousTestResult {
     }
 
     /// Sets the value of [test_case_results][crate::model::ContinuousTestResult::test_case_results].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ContinuousTestResult;
-    /// let x = ContinuousTestResult::new().set_test_case_results(["a", "b", "c"]);
-    /// ```
     pub fn set_test_case_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10404,13 +8258,6 @@ impl ContinuousTestResult {
     }
 
     /// Sets the value of [run_time][crate::model::ContinuousTestResult::run_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ContinuousTestResult;
-    /// use wkt::Timestamp;
-    /// let x = ContinuousTestResult::new().set_run_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_run_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10420,14 +8267,6 @@ impl ContinuousTestResult {
     }
 
     /// Sets or clears the value of [run_time][crate::model::ContinuousTestResult::run_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ContinuousTestResult;
-    /// use wkt::Timestamp;
-    /// let x = ContinuousTestResult::new().set_or_clear_run_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ContinuousTestResult::new().set_or_clear_run_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_run_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10616,12 +8455,6 @@ impl RunContinuousTestRequest {
     }
 
     /// Sets the value of [environment][crate::model::RunContinuousTestRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RunContinuousTestRequest;
-    /// let x = RunContinuousTestRequest::new().set_environment("example");
-    /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
@@ -10656,13 +8489,6 @@ impl RunContinuousTestResponse {
     }
 
     /// Sets the value of [continuous_test_result][crate::model::RunContinuousTestResponse::continuous_test_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RunContinuousTestResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::ContinuousTestResult;
-    /// let x = RunContinuousTestResponse::new().set_continuous_test_result(ContinuousTestResult::default()/* use setters */);
-    /// ```
     pub fn set_continuous_test_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ContinuousTestResult>,
@@ -10672,14 +8498,6 @@ impl RunContinuousTestResponse {
     }
 
     /// Sets or clears the value of [continuous_test_result][crate::model::RunContinuousTestResponse::continuous_test_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RunContinuousTestResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::ContinuousTestResult;
-    /// let x = RunContinuousTestResponse::new().set_or_clear_continuous_test_result(Some(ContinuousTestResult::default()/* use setters */));
-    /// let x = RunContinuousTestResponse::new().set_or_clear_continuous_test_result(None::<ContinuousTestResult>);
-    /// ```
     pub fn set_or_clear_continuous_test_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContinuousTestResult>,
@@ -10718,17 +8536,6 @@ impl RunContinuousTestMetadata {
     }
 
     /// Sets the value of [errors][crate::model::RunContinuousTestMetadata::errors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RunContinuousTestMetadata;
-    /// use google_cloud_dialogflow_cx_v3::model::TestError;
-    /// let x = RunContinuousTestMetadata::new()
-    ///     .set_errors([
-    ///         TestError::default()/* use setters */,
-    ///         TestError::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10777,36 +8584,18 @@ impl ListContinuousTestResultsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListContinuousTestResultsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListContinuousTestResultsRequest;
-    /// let x = ListContinuousTestResultsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListContinuousTestResultsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListContinuousTestResultsRequest;
-    /// let x = ListContinuousTestResultsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListContinuousTestResultsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListContinuousTestResultsRequest;
-    /// let x = ListContinuousTestResultsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -10842,17 +8631,6 @@ impl ListContinuousTestResultsResponse {
     }
 
     /// Sets the value of [continuous_test_results][crate::model::ListContinuousTestResultsResponse::continuous_test_results].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListContinuousTestResultsResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::ContinuousTestResult;
-    /// let x = ListContinuousTestResultsResponse::new()
-    ///     .set_continuous_test_results([
-    ///         ContinuousTestResult::default()/* use setters */,
-    ///         ContinuousTestResult::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_continuous_test_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10864,12 +8642,6 @@ impl ListContinuousTestResultsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListContinuousTestResultsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListContinuousTestResultsResponse;
-    /// let x = ListContinuousTestResultsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -10926,24 +8698,12 @@ impl DeployFlowRequest {
     }
 
     /// Sets the value of [environment][crate::model::DeployFlowRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeployFlowRequest;
-    /// let x = DeployFlowRequest::new().set_environment("example");
-    /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
     }
 
     /// Sets the value of [flow_version][crate::model::DeployFlowRequest::flow_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeployFlowRequest;
-    /// let x = DeployFlowRequest::new().set_flow_version("example");
-    /// ```
     pub fn set_flow_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.flow_version = v.into();
         self
@@ -10985,13 +8745,6 @@ impl DeployFlowResponse {
     }
 
     /// Sets the value of [environment][crate::model::DeployFlowResponse::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeployFlowResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// let x = DeployFlowResponse::new().set_environment(Environment::default()/* use setters */);
-    /// ```
     pub fn set_environment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Environment>,
@@ -11001,14 +8754,6 @@ impl DeployFlowResponse {
     }
 
     /// Sets or clears the value of [environment][crate::model::DeployFlowResponse::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeployFlowResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::Environment;
-    /// let x = DeployFlowResponse::new().set_or_clear_environment(Some(Environment::default()/* use setters */));
-    /// let x = DeployFlowResponse::new().set_or_clear_environment(None::<Environment>);
-    /// ```
     pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Environment>,
@@ -11018,12 +8763,6 @@ impl DeployFlowResponse {
     }
 
     /// Sets the value of [deployment][crate::model::DeployFlowResponse::deployment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeployFlowResponse;
-    /// let x = DeployFlowResponse::new().set_deployment("example");
-    /// ```
     pub fn set_deployment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deployment = v.into();
         self
@@ -11059,17 +8798,6 @@ impl DeployFlowMetadata {
     }
 
     /// Sets the value of [test_errors][crate::model::DeployFlowMetadata::test_errors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeployFlowMetadata;
-    /// use google_cloud_dialogflow_cx_v3::model::TestError;
-    /// let x = DeployFlowMetadata::new()
-    ///     .set_test_errors([
-    ///         TestError::default()/* use setters */,
-    ///         TestError::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_test_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11161,51 +8889,24 @@ impl Experiment {
     }
 
     /// Sets the value of [name][crate::model::Experiment::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// let x = Experiment::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Experiment::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// let x = Experiment::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Experiment::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// let x = Experiment::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Experiment::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use google_cloud_dialogflow_cx_v3::model::experiment::State;
-    /// let x0 = Experiment::new().set_state(State::Draft);
-    /// let x1 = Experiment::new().set_state(State::Running);
-    /// let x2 = Experiment::new().set_state(State::Done);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::experiment::State>>(
         mut self,
         v: T,
@@ -11215,13 +8916,6 @@ impl Experiment {
     }
 
     /// Sets the value of [definition][crate::model::Experiment::definition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use google_cloud_dialogflow_cx_v3::model::experiment::Definition;
-    /// let x = Experiment::new().set_definition(Definition::default()/* use setters */);
-    /// ```
     pub fn set_definition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::experiment::Definition>,
@@ -11231,14 +8925,6 @@ impl Experiment {
     }
 
     /// Sets or clears the value of [definition][crate::model::Experiment::definition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use google_cloud_dialogflow_cx_v3::model::experiment::Definition;
-    /// let x = Experiment::new().set_or_clear_definition(Some(Definition::default()/* use setters */));
-    /// let x = Experiment::new().set_or_clear_definition(None::<Definition>);
-    /// ```
     pub fn set_or_clear_definition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::experiment::Definition>,
@@ -11248,13 +8934,6 @@ impl Experiment {
     }
 
     /// Sets the value of [rollout_config][crate::model::Experiment::rollout_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use google_cloud_dialogflow_cx_v3::model::RolloutConfig;
-    /// let x = Experiment::new().set_rollout_config(RolloutConfig::default()/* use setters */);
-    /// ```
     pub fn set_rollout_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RolloutConfig>,
@@ -11264,14 +8943,6 @@ impl Experiment {
     }
 
     /// Sets or clears the value of [rollout_config][crate::model::Experiment::rollout_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use google_cloud_dialogflow_cx_v3::model::RolloutConfig;
-    /// let x = Experiment::new().set_or_clear_rollout_config(Some(RolloutConfig::default()/* use setters */));
-    /// let x = Experiment::new().set_or_clear_rollout_config(None::<RolloutConfig>);
-    /// ```
     pub fn set_or_clear_rollout_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RolloutConfig>,
@@ -11281,13 +8952,6 @@ impl Experiment {
     }
 
     /// Sets the value of [rollout_state][crate::model::Experiment::rollout_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use google_cloud_dialogflow_cx_v3::model::RolloutState;
-    /// let x = Experiment::new().set_rollout_state(RolloutState::default()/* use setters */);
-    /// ```
     pub fn set_rollout_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RolloutState>,
@@ -11297,14 +8961,6 @@ impl Experiment {
     }
 
     /// Sets or clears the value of [rollout_state][crate::model::Experiment::rollout_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use google_cloud_dialogflow_cx_v3::model::RolloutState;
-    /// let x = Experiment::new().set_or_clear_rollout_state(Some(RolloutState::default()/* use setters */));
-    /// let x = Experiment::new().set_or_clear_rollout_state(None::<RolloutState>);
-    /// ```
     pub fn set_or_clear_rollout_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RolloutState>,
@@ -11314,12 +8970,6 @@ impl Experiment {
     }
 
     /// Sets the value of [rollout_failure_reason][crate::model::Experiment::rollout_failure_reason].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// let x = Experiment::new().set_rollout_failure_reason("example");
-    /// ```
     pub fn set_rollout_failure_reason<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11329,13 +8979,6 @@ impl Experiment {
     }
 
     /// Sets the value of [result][crate::model::Experiment::result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use google_cloud_dialogflow_cx_v3::model::experiment::Result;
-    /// let x = Experiment::new().set_result(Result::default()/* use setters */);
-    /// ```
     pub fn set_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::experiment::Result>,
@@ -11345,14 +8988,6 @@ impl Experiment {
     }
 
     /// Sets or clears the value of [result][crate::model::Experiment::result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use google_cloud_dialogflow_cx_v3::model::experiment::Result;
-    /// let x = Experiment::new().set_or_clear_result(Some(Result::default()/* use setters */));
-    /// let x = Experiment::new().set_or_clear_result(None::<Result>);
-    /// ```
     pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::experiment::Result>,
@@ -11362,13 +8997,6 @@ impl Experiment {
     }
 
     /// Sets the value of [create_time][crate::model::Experiment::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use wkt::Timestamp;
-    /// let x = Experiment::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11378,14 +9006,6 @@ impl Experiment {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Experiment::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use wkt::Timestamp;
-    /// let x = Experiment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Experiment::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11395,13 +9015,6 @@ impl Experiment {
     }
 
     /// Sets the value of [start_time][crate::model::Experiment::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use wkt::Timestamp;
-    /// let x = Experiment::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11411,14 +9024,6 @@ impl Experiment {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Experiment::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use wkt::Timestamp;
-    /// let x = Experiment::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Experiment::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11428,13 +9033,6 @@ impl Experiment {
     }
 
     /// Sets the value of [end_time][crate::model::Experiment::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use wkt::Timestamp;
-    /// let x = Experiment::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11444,14 +9042,6 @@ impl Experiment {
     }
 
     /// Sets or clears the value of [end_time][crate::model::Experiment::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use wkt::Timestamp;
-    /// let x = Experiment::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Experiment::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11461,13 +9051,6 @@ impl Experiment {
     }
 
     /// Sets the value of [last_update_time][crate::model::Experiment::last_update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use wkt::Timestamp;
-    /// let x = Experiment::new().set_last_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_last_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11477,14 +9060,6 @@ impl Experiment {
     }
 
     /// Sets or clears the value of [last_update_time][crate::model::Experiment::last_update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use wkt::Timestamp;
-    /// let x = Experiment::new().set_or_clear_last_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Experiment::new().set_or_clear_last_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11494,13 +9069,6 @@ impl Experiment {
     }
 
     /// Sets the value of [experiment_length][crate::model::Experiment::experiment_length].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use wkt::Duration;
-    /// let x = Experiment::new().set_experiment_length(Duration::default()/* use setters */);
-    /// ```
     pub fn set_experiment_length<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -11510,14 +9078,6 @@ impl Experiment {
     }
 
     /// Sets or clears the value of [experiment_length][crate::model::Experiment::experiment_length].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use wkt::Duration;
-    /// let x = Experiment::new().set_or_clear_experiment_length(Some(Duration::default()/* use setters */));
-    /// let x = Experiment::new().set_or_clear_experiment_length(None::<Duration>);
-    /// ```
     pub fn set_or_clear_experiment_length<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -11527,17 +9087,6 @@ impl Experiment {
     }
 
     /// Sets the value of [variants_history][crate::model::Experiment::variants_history].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// use google_cloud_dialogflow_cx_v3::model::VariantsHistory;
-    /// let x = Experiment::new()
-    ///     .set_variants_history([
-    ///         VariantsHistory::default()/* use setters */,
-    ///         VariantsHistory::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_variants_history<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11587,12 +9136,6 @@ pub mod experiment {
         }
 
         /// Sets the value of [condition][crate::model::experiment::Definition::condition].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::experiment::Definition;
-        /// let x = Definition::new().set_condition("example");
-        /// ```
         pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.condition = v.into();
             self
@@ -11602,14 +9145,6 @@ pub mod experiment {
         ///
         /// Note that all the setters affecting `variants` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::experiment::Definition;
-        /// use google_cloud_dialogflow_cx_v3::model::experiment::definition;
-        /// use google_cloud_dialogflow_cx_v3::model::VersionVariants;
-        /// let x = Definition::new().set_variants(Some(experiment::definition::Variants::VersionVariants(VersionVariants::default().into())));
-        /// ```
         pub fn set_variants<
             T: std::convert::Into<std::option::Option<crate::model::experiment::definition::Variants>>,
         >(
@@ -11640,14 +9175,6 @@ pub mod experiment {
         ///
         /// Note that all the setters affecting `variants` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::experiment::Definition;
-        /// use google_cloud_dialogflow_cx_v3::model::VersionVariants;
-        /// let x = Definition::new().set_version_variants(VersionVariants::default()/* use setters */);
-        /// assert!(x.version_variants().is_some());
-        /// ```
         pub fn set_version_variants<
             T: std::convert::Into<std::boxed::Box<crate::model::VersionVariants>>,
         >(
@@ -11708,17 +9235,6 @@ pub mod experiment {
         }
 
         /// Sets the value of [version_metrics][crate::model::experiment::Result::version_metrics].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::experiment::Result;
-        /// use google_cloud_dialogflow_cx_v3::model::experiment::result::VersionMetrics;
-        /// let x = Result::new()
-        ///     .set_version_metrics([
-        ///         VersionMetrics::default()/* use setters */,
-        ///         VersionMetrics::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_version_metrics<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11730,13 +9246,6 @@ pub mod experiment {
         }
 
         /// Sets the value of [last_update_time][crate::model::experiment::Result::last_update_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::experiment::Result;
-        /// use wkt::Timestamp;
-        /// let x = Result::new().set_last_update_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_last_update_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -11746,14 +9255,6 @@ pub mod experiment {
         }
 
         /// Sets or clears the value of [last_update_time][crate::model::experiment::Result::last_update_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::experiment::Result;
-        /// use wkt::Timestamp;
-        /// let x = Result::new().set_or_clear_last_update_time(Some(Timestamp::default()/* use setters */));
-        /// let x = Result::new().set_or_clear_last_update_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -11806,48 +9307,24 @@ pub mod experiment {
             }
 
             /// Sets the value of [confidence_level][crate::model::experiment::result::ConfidenceInterval::confidence_level].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::experiment::result::ConfidenceInterval;
-            /// let x = ConfidenceInterval::new().set_confidence_level(42.0);
-            /// ```
             pub fn set_confidence_level<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.confidence_level = v.into();
                 self
             }
 
             /// Sets the value of [ratio][crate::model::experiment::result::ConfidenceInterval::ratio].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::experiment::result::ConfidenceInterval;
-            /// let x = ConfidenceInterval::new().set_ratio(42.0);
-            /// ```
             pub fn set_ratio<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.ratio = v.into();
                 self
             }
 
             /// Sets the value of [lower_bound][crate::model::experiment::result::ConfidenceInterval::lower_bound].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::experiment::result::ConfidenceInterval;
-            /// let x = ConfidenceInterval::new().set_lower_bound(42.0);
-            /// ```
             pub fn set_lower_bound<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.lower_bound = v.into();
                 self
             }
 
             /// Sets the value of [upper_bound][crate::model::experiment::result::ConfidenceInterval::upper_bound].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::experiment::result::ConfidenceInterval;
-            /// let x = ConfidenceInterval::new().set_upper_bound(42.0);
-            /// ```
             pub fn set_upper_bound<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.upper_bound = v.into();
                 self
@@ -11892,15 +9369,6 @@ pub mod experiment {
             }
 
             /// Sets the value of [r#type][crate::model::experiment::result::Metric::type].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::experiment::result::Metric;
-            /// use google_cloud_dialogflow_cx_v3::model::experiment::result::MetricType;
-            /// let x0 = Metric::new().set_type(MetricType::ContainedSessionNoCallbackRate);
-            /// let x1 = Metric::new().set_type(MetricType::LiveAgentHandoffRate);
-            /// let x2 = Metric::new().set_type(MetricType::CallbackSessionRate);
-            /// ```
             pub fn set_type<T: std::convert::Into<crate::model::experiment::result::MetricType>>(
                 mut self,
                 v: T,
@@ -11910,15 +9378,6 @@ pub mod experiment {
             }
 
             /// Sets the value of [count_type][crate::model::experiment::result::Metric::count_type].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::experiment::result::Metric;
-            /// use google_cloud_dialogflow_cx_v3::model::experiment::result::CountType;
-            /// let x0 = Metric::new().set_count_type(CountType::TotalNoMatchCount);
-            /// let x1 = Metric::new().set_count_type(CountType::TotalTurnCount);
-            /// let x2 = Metric::new().set_count_type(CountType::AverageTurnCount);
-            /// ```
             pub fn set_count_type<
                 T: std::convert::Into<crate::model::experiment::result::CountType>,
             >(
@@ -11930,13 +9389,6 @@ pub mod experiment {
             }
 
             /// Sets the value of [confidence_interval][crate::model::experiment::result::Metric::confidence_interval].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::experiment::result::Metric;
-            /// use google_cloud_dialogflow_cx_v3::model::experiment::result::ConfidenceInterval;
-            /// let x = Metric::new().set_confidence_interval(ConfidenceInterval::default()/* use setters */);
-            /// ```
             pub fn set_confidence_interval<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::experiment::result::ConfidenceInterval>,
@@ -11946,14 +9398,6 @@ pub mod experiment {
             }
 
             /// Sets or clears the value of [confidence_interval][crate::model::experiment::result::Metric::confidence_interval].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::experiment::result::Metric;
-            /// use google_cloud_dialogflow_cx_v3::model::experiment::result::ConfidenceInterval;
-            /// let x = Metric::new().set_or_clear_confidence_interval(Some(ConfidenceInterval::default()/* use setters */));
-            /// let x = Metric::new().set_or_clear_confidence_interval(None::<ConfidenceInterval>);
-            /// ```
             pub fn set_or_clear_confidence_interval<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::experiment::result::ConfidenceInterval>,
@@ -11966,13 +9410,6 @@ pub mod experiment {
             ///
             /// Note that all the setters affecting `value` are mutually
             /// exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::experiment::result::Metric;
-            /// use google_cloud_dialogflow_cx_v3::model::experiment::result::metric;
-            /// let x = Metric::new().set_value(Some(experiment::result::metric::Value::Ratio(42.0)));
-            /// ```
             pub fn set_value<
                 T: std::convert::Into<
                         std::option::Option<crate::model::experiment::result::metric::Value>,
@@ -12003,14 +9440,6 @@ pub mod experiment {
             ///
             /// Note that all the setters affecting `value` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::experiment::result::Metric;
-            /// let x = Metric::new().set_ratio(42.0);
-            /// assert!(x.ratio().is_some());
-            /// assert!(x.count().is_none());
-            /// ```
             pub fn set_ratio<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.value = std::option::Option::Some(
                     crate::model::experiment::result::metric::Value::Ratio(v.into()),
@@ -12036,14 +9465,6 @@ pub mod experiment {
             ///
             /// Note that all the setters affecting `value` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::experiment::result::Metric;
-            /// let x = Metric::new().set_count(42.0);
-            /// assert!(x.count().is_some());
-            /// assert!(x.ratio().is_none());
-            /// ```
             pub fn set_count<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.value = std::option::Option::Some(
                     crate::model::experiment::result::metric::Value::Count(v.into()),
@@ -12106,29 +9527,12 @@ pub mod experiment {
             }
 
             /// Sets the value of [version][crate::model::experiment::result::VersionMetrics::version].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::experiment::result::VersionMetrics;
-            /// let x = VersionMetrics::new().set_version("example");
-            /// ```
             pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.version = v.into();
                 self
             }
 
             /// Sets the value of [metrics][crate::model::experiment::result::VersionMetrics::metrics].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::experiment::result::VersionMetrics;
-            /// use google_cloud_dialogflow_cx_v3::model::experiment::result::Metric;
-            /// let x = VersionMetrics::new()
-            ///     .set_metrics([
-            ///         Metric::default()/* use setters */,
-            ///         Metric::default()/* use (different) setters */,
-            ///     ]);
-            /// ```
             pub fn set_metrics<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -12140,12 +9544,6 @@ pub mod experiment {
             }
 
             /// Sets the value of [session_count][crate::model::experiment::result::VersionMetrics::session_count].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::experiment::result::VersionMetrics;
-            /// let x = VersionMetrics::new().set_session_count(42);
-            /// ```
             pub fn set_session_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.session_count = v.into();
                 self
@@ -12657,17 +10055,6 @@ impl VersionVariants {
     }
 
     /// Sets the value of [variants][crate::model::VersionVariants::variants].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::VersionVariants;
-    /// use google_cloud_dialogflow_cx_v3::model::version_variants::Variant;
-    /// let x = VersionVariants::new()
-    ///     .set_variants([
-    ///         Variant::default()/* use setters */,
-    ///         Variant::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_variants<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12719,36 +10106,18 @@ pub mod version_variants {
         }
 
         /// Sets the value of [version][crate::model::version_variants::Variant::version].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::version_variants::Variant;
-        /// let x = Variant::new().set_version("example");
-        /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
         }
 
         /// Sets the value of [traffic_allocation][crate::model::version_variants::Variant::traffic_allocation].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::version_variants::Variant;
-        /// let x = Variant::new().set_traffic_allocation(42.0);
-        /// ```
         pub fn set_traffic_allocation<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.traffic_allocation = v.into();
             self
         }
 
         /// Sets the value of [is_control_group][crate::model::version_variants::Variant::is_control_group].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::version_variants::Variant;
-        /// let x = Variant::new().set_is_control_group(true);
-        /// ```
         pub fn set_is_control_group<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.is_control_group = v.into();
             self
@@ -12785,13 +10154,6 @@ impl VariantsHistory {
     }
 
     /// Sets the value of [update_time][crate::model::VariantsHistory::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::VariantsHistory;
-    /// use wkt::Timestamp;
-    /// let x = VariantsHistory::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12801,14 +10163,6 @@ impl VariantsHistory {
     }
 
     /// Sets or clears the value of [update_time][crate::model::VariantsHistory::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::VariantsHistory;
-    /// use wkt::Timestamp;
-    /// let x = VariantsHistory::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = VariantsHistory::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12821,14 +10175,6 @@ impl VariantsHistory {
     ///
     /// Note that all the setters affecting `variants` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::VariantsHistory;
-    /// use google_cloud_dialogflow_cx_v3::model::variants_history;
-    /// use google_cloud_dialogflow_cx_v3::model::VersionVariants;
-    /// let x = VariantsHistory::new().set_variants(Some(variants_history::Variants::VersionVariants(VersionVariants::default().into())));
-    /// ```
     pub fn set_variants<
         T: std::convert::Into<std::option::Option<crate::model::variants_history::Variants>>,
     >(
@@ -12859,14 +10205,6 @@ impl VariantsHistory {
     ///
     /// Note that all the setters affecting `variants` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::VariantsHistory;
-    /// use google_cloud_dialogflow_cx_v3::model::VersionVariants;
-    /// let x = VariantsHistory::new().set_version_variants(VersionVariants::default()/* use setters */);
-    /// assert!(x.version_variants().is_some());
-    /// ```
     pub fn set_version_variants<
         T: std::convert::Into<std::boxed::Box<crate::model::VersionVariants>>,
     >(
@@ -12936,17 +10274,6 @@ impl RolloutConfig {
     }
 
     /// Sets the value of [rollout_steps][crate::model::RolloutConfig::rollout_steps].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RolloutConfig;
-    /// use google_cloud_dialogflow_cx_v3::model::rollout_config::RolloutStep;
-    /// let x = RolloutConfig::new()
-    ///     .set_rollout_steps([
-    ///         RolloutStep::default()/* use setters */,
-    ///         RolloutStep::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_rollout_steps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12958,12 +10285,6 @@ impl RolloutConfig {
     }
 
     /// Sets the value of [rollout_condition][crate::model::RolloutConfig::rollout_condition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RolloutConfig;
-    /// let x = RolloutConfig::new().set_rollout_condition("example");
-    /// ```
     pub fn set_rollout_condition<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -12973,12 +10294,6 @@ impl RolloutConfig {
     }
 
     /// Sets the value of [failure_condition][crate::model::RolloutConfig::failure_condition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RolloutConfig;
-    /// let x = RolloutConfig::new().set_failure_condition("example");
-    /// ```
     pub fn set_failure_condition<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13028,12 +10343,6 @@ pub mod rollout_config {
         }
 
         /// Sets the value of [display_name][crate::model::rollout_config::RolloutStep::display_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::rollout_config::RolloutStep;
-        /// let x = RolloutStep::new().set_display_name("example");
-        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13043,25 +10352,12 @@ pub mod rollout_config {
         }
 
         /// Sets the value of [traffic_percent][crate::model::rollout_config::RolloutStep::traffic_percent].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::rollout_config::RolloutStep;
-        /// let x = RolloutStep::new().set_traffic_percent(42);
-        /// ```
         pub fn set_traffic_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.traffic_percent = v.into();
             self
         }
 
         /// Sets the value of [min_duration][crate::model::rollout_config::RolloutStep::min_duration].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::rollout_config::RolloutStep;
-        /// use wkt::Duration;
-        /// let x = RolloutStep::new().set_min_duration(Duration::default()/* use setters */);
-        /// ```
         pub fn set_min_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -13071,14 +10367,6 @@ pub mod rollout_config {
         }
 
         /// Sets or clears the value of [min_duration][crate::model::rollout_config::RolloutStep::min_duration].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::rollout_config::RolloutStep;
-        /// use wkt::Duration;
-        /// let x = RolloutStep::new().set_or_clear_min_duration(Some(Duration::default()/* use setters */));
-        /// let x = RolloutStep::new().set_or_clear_min_duration(None::<Duration>);
-        /// ```
         pub fn set_or_clear_min_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -13120,37 +10408,18 @@ impl RolloutState {
     }
 
     /// Sets the value of [step][crate::model::RolloutState::step].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RolloutState;
-    /// let x = RolloutState::new().set_step("example");
-    /// ```
     pub fn set_step<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.step = v.into();
         self
     }
 
     /// Sets the value of [step_index][crate::model::RolloutState::step_index].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RolloutState;
-    /// let x = RolloutState::new().set_step_index(42);
-    /// ```
     pub fn set_step_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.step_index = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::RolloutState::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RolloutState;
-    /// use wkt::Timestamp;
-    /// let x = RolloutState::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13160,14 +10429,6 @@ impl RolloutState {
     }
 
     /// Sets or clears the value of [start_time][crate::model::RolloutState::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RolloutState;
-    /// use wkt::Timestamp;
-    /// let x = RolloutState::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = RolloutState::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13216,36 +10477,18 @@ impl ListExperimentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListExperimentsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListExperimentsRequest;
-    /// let x = ListExperimentsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListExperimentsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListExperimentsRequest;
-    /// let x = ListExperimentsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListExperimentsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListExperimentsRequest;
-    /// let x = ListExperimentsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -13287,17 +10530,6 @@ impl ListExperimentsResponse {
     }
 
     /// Sets the value of [experiments][crate::model::ListExperimentsResponse::experiments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListExperimentsResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// let x = ListExperimentsResponse::new()
-    ///     .set_experiments([
-    ///         Experiment::default()/* use setters */,
-    ///         Experiment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_experiments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13309,12 +10541,6 @@ impl ListExperimentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListExperimentsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListExperimentsResponse;
-    /// let x = ListExperimentsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -13368,12 +10594,6 @@ impl GetExperimentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetExperimentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetExperimentRequest;
-    /// let x = GetExperimentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -13416,25 +10636,12 @@ impl CreateExperimentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateExperimentRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateExperimentRequest;
-    /// let x = CreateExperimentRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [experiment][crate::model::CreateExperimentRequest::experiment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateExperimentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// let x = CreateExperimentRequest::new().set_experiment(Experiment::default()/* use setters */);
-    /// ```
     pub fn set_experiment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Experiment>,
@@ -13444,14 +10651,6 @@ impl CreateExperimentRequest {
     }
 
     /// Sets or clears the value of [experiment][crate::model::CreateExperimentRequest::experiment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateExperimentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// let x = CreateExperimentRequest::new().set_or_clear_experiment(Some(Experiment::default()/* use setters */));
-    /// let x = CreateExperimentRequest::new().set_or_clear_experiment(None::<Experiment>);
-    /// ```
     pub fn set_or_clear_experiment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Experiment>,
@@ -13492,13 +10691,6 @@ impl UpdateExperimentRequest {
     }
 
     /// Sets the value of [experiment][crate::model::UpdateExperimentRequest::experiment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateExperimentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// let x = UpdateExperimentRequest::new().set_experiment(Experiment::default()/* use setters */);
-    /// ```
     pub fn set_experiment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Experiment>,
@@ -13508,14 +10700,6 @@ impl UpdateExperimentRequest {
     }
 
     /// Sets or clears the value of [experiment][crate::model::UpdateExperimentRequest::experiment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateExperimentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Experiment;
-    /// let x = UpdateExperimentRequest::new().set_or_clear_experiment(Some(Experiment::default()/* use setters */));
-    /// let x = UpdateExperimentRequest::new().set_or_clear_experiment(None::<Experiment>);
-    /// ```
     pub fn set_or_clear_experiment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Experiment>,
@@ -13525,13 +10709,6 @@ impl UpdateExperimentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateExperimentRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateExperimentRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateExperimentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -13541,14 +10718,6 @@ impl UpdateExperimentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateExperimentRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateExperimentRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateExperimentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateExperimentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -13590,12 +10759,6 @@ impl DeleteExperimentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteExperimentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeleteExperimentRequest;
-    /// let x = DeleteExperimentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -13632,12 +10795,6 @@ impl StartExperimentRequest {
     }
 
     /// Sets the value of [name][crate::model::StartExperimentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StartExperimentRequest;
-    /// let x = StartExperimentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -13674,12 +10831,6 @@ impl StopExperimentRequest {
     }
 
     /// Sets the value of [name][crate::model::StopExperimentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StopExperimentRequest;
-    /// let x = StopExperimentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -13733,14 +10884,6 @@ impl NluSettings {
     }
 
     /// Sets the value of [model_type][crate::model::NluSettings::model_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::NluSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::nlu_settings::ModelType;
-    /// let x0 = NluSettings::new().set_model_type(ModelType::Standard);
-    /// let x1 = NluSettings::new().set_model_type(ModelType::Advanced);
-    /// ```
     pub fn set_model_type<T: std::convert::Into<crate::model::nlu_settings::ModelType>>(
         mut self,
         v: T,
@@ -13750,26 +10893,12 @@ impl NluSettings {
     }
 
     /// Sets the value of [classification_threshold][crate::model::NluSettings::classification_threshold].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::NluSettings;
-    /// let x = NluSettings::new().set_classification_threshold(42.0);
-    /// ```
     pub fn set_classification_threshold<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.classification_threshold = v.into();
         self
     }
 
     /// Sets the value of [model_training_mode][crate::model::NluSettings::model_training_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::NluSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::nlu_settings::ModelTrainingMode;
-    /// let x0 = NluSettings::new().set_model_training_mode(ModelTrainingMode::Automatic);
-    /// let x1 = NluSettings::new().set_model_training_mode(ModelTrainingMode::Manual);
-    /// ```
     pub fn set_model_training_mode<
         T: std::convert::Into<crate::model::nlu_settings::ModelTrainingMode>,
     >(
@@ -14291,53 +11420,24 @@ impl Flow {
     }
 
     /// Sets the value of [name][crate::model::Flow::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// let x = Flow::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Flow::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// let x = Flow::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Flow::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// let x = Flow::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [transition_routes][crate::model::Flow::transition_routes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-    /// let x = Flow::new()
-    ///     .set_transition_routes([
-    ///         TransitionRoute::default()/* use setters */,
-    ///         TransitionRoute::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_transition_routes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14349,17 +11449,6 @@ impl Flow {
     }
 
     /// Sets the value of [event_handlers][crate::model::Flow::event_handlers].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// use google_cloud_dialogflow_cx_v3::model::EventHandler;
-    /// let x = Flow::new()
-    ///     .set_event_handlers([
-    ///         EventHandler::default()/* use setters */,
-    ///         EventHandler::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_event_handlers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14371,12 +11460,6 @@ impl Flow {
     }
 
     /// Sets the value of [transition_route_groups][crate::model::Flow::transition_route_groups].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// let x = Flow::new().set_transition_route_groups(["a", "b", "c"]);
-    /// ```
     pub fn set_transition_route_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14388,13 +11471,6 @@ impl Flow {
     }
 
     /// Sets the value of [nlu_settings][crate::model::Flow::nlu_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// use google_cloud_dialogflow_cx_v3::model::NluSettings;
-    /// let x = Flow::new().set_nlu_settings(NluSettings::default()/* use setters */);
-    /// ```
     pub fn set_nlu_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NluSettings>,
@@ -14404,14 +11480,6 @@ impl Flow {
     }
 
     /// Sets or clears the value of [nlu_settings][crate::model::Flow::nlu_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// use google_cloud_dialogflow_cx_v3::model::NluSettings;
-    /// let x = Flow::new().set_or_clear_nlu_settings(Some(NluSettings::default()/* use setters */));
-    /// let x = Flow::new().set_or_clear_nlu_settings(None::<NluSettings>);
-    /// ```
     pub fn set_or_clear_nlu_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NluSettings>,
@@ -14421,13 +11489,6 @@ impl Flow {
     }
 
     /// Sets the value of [advanced_settings][crate::model::Flow::advanced_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-    /// let x = Flow::new().set_advanced_settings(AdvancedSettings::default()/* use setters */);
-    /// ```
     pub fn set_advanced_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedSettings>,
@@ -14437,14 +11498,6 @@ impl Flow {
     }
 
     /// Sets or clears the value of [advanced_settings][crate::model::Flow::advanced_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-    /// let x = Flow::new().set_or_clear_advanced_settings(Some(AdvancedSettings::default()/* use setters */));
-    /// let x = Flow::new().set_or_clear_advanced_settings(None::<AdvancedSettings>);
-    /// ```
     pub fn set_or_clear_advanced_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedSettings>,
@@ -14454,13 +11507,6 @@ impl Flow {
     }
 
     /// Sets the value of [knowledge_connector_settings][crate::model::Flow::knowledge_connector_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// use google_cloud_dialogflow_cx_v3::model::KnowledgeConnectorSettings;
-    /// let x = Flow::new().set_knowledge_connector_settings(KnowledgeConnectorSettings::default()/* use setters */);
-    /// ```
     pub fn set_knowledge_connector_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::KnowledgeConnectorSettings>,
@@ -14470,14 +11516,6 @@ impl Flow {
     }
 
     /// Sets or clears the value of [knowledge_connector_settings][crate::model::Flow::knowledge_connector_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// use google_cloud_dialogflow_cx_v3::model::KnowledgeConnectorSettings;
-    /// let x = Flow::new().set_or_clear_knowledge_connector_settings(Some(KnowledgeConnectorSettings::default()/* use setters */));
-    /// let x = Flow::new().set_or_clear_knowledge_connector_settings(None::<KnowledgeConnectorSettings>);
-    /// ```
     pub fn set_or_clear_knowledge_connector_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KnowledgeConnectorSettings>,
@@ -14487,13 +11525,6 @@ impl Flow {
     }
 
     /// Sets the value of [multi_language_settings][crate::model::Flow::multi_language_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// use google_cloud_dialogflow_cx_v3::model::flow::MultiLanguageSettings;
-    /// let x = Flow::new().set_multi_language_settings(MultiLanguageSettings::default()/* use setters */);
-    /// ```
     pub fn set_multi_language_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::flow::MultiLanguageSettings>,
@@ -14503,14 +11534,6 @@ impl Flow {
     }
 
     /// Sets or clears the value of [multi_language_settings][crate::model::Flow::multi_language_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// use google_cloud_dialogflow_cx_v3::model::flow::MultiLanguageSettings;
-    /// let x = Flow::new().set_or_clear_multi_language_settings(Some(MultiLanguageSettings::default()/* use setters */));
-    /// let x = Flow::new().set_or_clear_multi_language_settings(None::<MultiLanguageSettings>);
-    /// ```
     pub fn set_or_clear_multi_language_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::flow::MultiLanguageSettings>,
@@ -14520,12 +11543,6 @@ impl Flow {
     }
 
     /// Sets the value of [locked][crate::model::Flow::locked].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// let x = Flow::new().set_locked(true);
-    /// ```
     pub fn set_locked<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.locked = v.into();
         self
@@ -14580,12 +11597,6 @@ pub mod flow {
         }
 
         /// Sets the value of [enable_multi_language_detection][crate::model::flow::MultiLanguageSettings::enable_multi_language_detection].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::flow::MultiLanguageSettings;
-        /// let x = MultiLanguageSettings::new().set_enable_multi_language_detection(true);
-        /// ```
         pub fn set_enable_multi_language_detection<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -14595,12 +11606,6 @@ pub mod flow {
         }
 
         /// Sets the value of [supported_response_language_codes][crate::model::flow::MultiLanguageSettings::supported_response_language_codes].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::flow::MultiLanguageSettings;
-        /// let x = MultiLanguageSettings::new().set_supported_response_language_codes(["a", "b", "c"]);
-        /// ```
         pub fn set_supported_response_language_codes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -14659,25 +11664,12 @@ impl CreateFlowRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateFlowRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateFlowRequest;
-    /// let x = CreateFlowRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [flow][crate::model::CreateFlowRequest::flow].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateFlowRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// let x = CreateFlowRequest::new().set_flow(Flow::default()/* use setters */);
-    /// ```
     pub fn set_flow<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Flow>,
@@ -14687,14 +11679,6 @@ impl CreateFlowRequest {
     }
 
     /// Sets or clears the value of [flow][crate::model::CreateFlowRequest::flow].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateFlowRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// let x = CreateFlowRequest::new().set_or_clear_flow(Some(Flow::default()/* use setters */));
-    /// let x = CreateFlowRequest::new().set_or_clear_flow(None::<Flow>);
-    /// ```
     pub fn set_or_clear_flow<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Flow>,
@@ -14704,12 +11688,6 @@ impl CreateFlowRequest {
     }
 
     /// Sets the value of [language_code][crate::model::CreateFlowRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateFlowRequest;
-    /// let x = CreateFlowRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -14761,24 +11739,12 @@ impl DeleteFlowRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteFlowRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeleteFlowRequest;
-    /// let x = DeleteFlowRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteFlowRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeleteFlowRequest;
-    /// let x = DeleteFlowRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -14836,48 +11802,24 @@ impl ListFlowsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFlowsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListFlowsRequest;
-    /// let x = ListFlowsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListFlowsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListFlowsRequest;
-    /// let x = ListFlowsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListFlowsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListFlowsRequest;
-    /// let x = ListFlowsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::ListFlowsRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListFlowsRequest;
-    /// let x = ListFlowsRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -14917,17 +11859,6 @@ impl ListFlowsResponse {
     }
 
     /// Sets the value of [flows][crate::model::ListFlowsResponse::flows].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListFlowsResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// let x = ListFlowsResponse::new()
-    ///     .set_flows([
-    ///         Flow::default()/* use setters */,
-    ///         Flow::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_flows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14939,12 +11870,6 @@ impl ListFlowsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListFlowsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListFlowsResponse;
-    /// let x = ListFlowsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -15011,24 +11936,12 @@ impl GetFlowRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFlowRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetFlowRequest;
-    /// let x = GetFlowRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::GetFlowRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetFlowRequest;
-    /// let x = GetFlowRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -15081,13 +11994,6 @@ impl UpdateFlowRequest {
     }
 
     /// Sets the value of [flow][crate::model::UpdateFlowRequest::flow].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateFlowRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// let x = UpdateFlowRequest::new().set_flow(Flow::default()/* use setters */);
-    /// ```
     pub fn set_flow<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Flow>,
@@ -15097,14 +12003,6 @@ impl UpdateFlowRequest {
     }
 
     /// Sets or clears the value of [flow][crate::model::UpdateFlowRequest::flow].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateFlowRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// let x = UpdateFlowRequest::new().set_or_clear_flow(Some(Flow::default()/* use setters */));
-    /// let x = UpdateFlowRequest::new().set_or_clear_flow(None::<Flow>);
-    /// ```
     pub fn set_or_clear_flow<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Flow>,
@@ -15114,13 +12012,6 @@ impl UpdateFlowRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateFlowRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateFlowRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateFlowRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -15130,14 +12021,6 @@ impl UpdateFlowRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateFlowRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateFlowRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateFlowRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateFlowRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -15147,12 +12030,6 @@ impl UpdateFlowRequest {
     }
 
     /// Sets the value of [language_code][crate::model::UpdateFlowRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateFlowRequest;
-    /// let x = UpdateFlowRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -15189,12 +12066,6 @@ impl TrainFlowRequest {
     }
 
     /// Sets the value of [name][crate::model::TrainFlowRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TrainFlowRequest;
-    /// let x = TrainFlowRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -15234,24 +12105,12 @@ impl ValidateFlowRequest {
     }
 
     /// Sets the value of [name][crate::model::ValidateFlowRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ValidateFlowRequest;
-    /// let x = ValidateFlowRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::ValidateFlowRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ValidateFlowRequest;
-    /// let x = ValidateFlowRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -15291,24 +12150,12 @@ impl GetFlowValidationResultRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFlowValidationResultRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetFlowValidationResultRequest;
-    /// let x = GetFlowValidationResultRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::GetFlowValidationResultRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetFlowValidationResultRequest;
-    /// let x = GetFlowValidationResultRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -15351,29 +12198,12 @@ impl FlowValidationResult {
     }
 
     /// Sets the value of [name][crate::model::FlowValidationResult::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FlowValidationResult;
-    /// let x = FlowValidationResult::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validation_messages][crate::model::FlowValidationResult::validation_messages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FlowValidationResult;
-    /// use google_cloud_dialogflow_cx_v3::model::ValidationMessage;
-    /// let x = FlowValidationResult::new()
-    ///     .set_validation_messages([
-    ///         ValidationMessage::default()/* use setters */,
-    ///         ValidationMessage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_validation_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15385,13 +12215,6 @@ impl FlowValidationResult {
     }
 
     /// Sets the value of [update_time][crate::model::FlowValidationResult::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FlowValidationResult;
-    /// use wkt::Timestamp;
-    /// let x = FlowValidationResult::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15401,14 +12224,6 @@ impl FlowValidationResult {
     }
 
     /// Sets or clears the value of [update_time][crate::model::FlowValidationResult::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FlowValidationResult;
-    /// use wkt::Timestamp;
-    /// let x = FlowValidationResult::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = FlowValidationResult::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15457,26 +12272,12 @@ impl ImportFlowRequest {
     }
 
     /// Sets the value of [parent][crate::model::ImportFlowRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportFlowRequest;
-    /// let x = ImportFlowRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [import_option][crate::model::ImportFlowRequest::import_option].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportFlowRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::import_flow_request::ImportOption;
-    /// let x0 = ImportFlowRequest::new().set_import_option(ImportOption::Keep);
-    /// let x1 = ImportFlowRequest::new().set_import_option(ImportOption::Fallback);
-    /// ```
     pub fn set_import_option<
         T: std::convert::Into<crate::model::import_flow_request::ImportOption>,
     >(
@@ -15488,13 +12289,6 @@ impl ImportFlowRequest {
     }
 
     /// Sets the value of [flow_import_strategy][crate::model::ImportFlowRequest::flow_import_strategy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportFlowRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::FlowImportStrategy;
-    /// let x = ImportFlowRequest::new().set_flow_import_strategy(FlowImportStrategy::default()/* use setters */);
-    /// ```
     pub fn set_flow_import_strategy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FlowImportStrategy>,
@@ -15504,14 +12298,6 @@ impl ImportFlowRequest {
     }
 
     /// Sets or clears the value of [flow_import_strategy][crate::model::ImportFlowRequest::flow_import_strategy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportFlowRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::FlowImportStrategy;
-    /// let x = ImportFlowRequest::new().set_or_clear_flow_import_strategy(Some(FlowImportStrategy::default()/* use setters */));
-    /// let x = ImportFlowRequest::new().set_or_clear_flow_import_strategy(None::<FlowImportStrategy>);
-    /// ```
     pub fn set_or_clear_flow_import_strategy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FlowImportStrategy>,
@@ -15524,13 +12310,6 @@ impl ImportFlowRequest {
     ///
     /// Note that all the setters affecting `flow` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportFlowRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::import_flow_request;
-    /// let x = ImportFlowRequest::new().set_flow(Some(import_flow_request::Flow::FlowUri("example".to_string())));
-    /// ```
     pub fn set_flow<
         T: std::convert::Into<std::option::Option<crate::model::import_flow_request::Flow>>,
     >(
@@ -15557,14 +12336,6 @@ impl ImportFlowRequest {
     ///
     /// Note that all the setters affecting `flow` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportFlowRequest;
-    /// let x = ImportFlowRequest::new().set_flow_uri("example");
-    /// assert!(x.flow_uri().is_some());
-    /// assert!(x.flow_content().is_none());
-    /// ```
     pub fn set_flow_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.flow =
             std::option::Option::Some(crate::model::import_flow_request::Flow::FlowUri(v.into()));
@@ -15587,14 +12358,6 @@ impl ImportFlowRequest {
     ///
     /// Note that all the setters affecting `flow` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportFlowRequest;
-    /// let x = ImportFlowRequest::new().set_flow_content(bytes::Bytes::from_static(b"example"));
-    /// assert!(x.flow_content().is_some());
-    /// assert!(x.flow_uri().is_none());
-    /// ```
     pub fn set_flow_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.flow = std::option::Option::Some(
             crate::model::import_flow_request::Flow::FlowContent(v.into()),
@@ -15805,15 +12568,6 @@ impl FlowImportStrategy {
     }
 
     /// Sets the value of [global_import_strategy][crate::model::FlowImportStrategy::global_import_strategy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FlowImportStrategy;
-    /// use google_cloud_dialogflow_cx_v3::model::ImportStrategy;
-    /// let x0 = FlowImportStrategy::new().set_global_import_strategy(ImportStrategy::CreateNew);
-    /// let x1 = FlowImportStrategy::new().set_global_import_strategy(ImportStrategy::Replace);
-    /// let x2 = FlowImportStrategy::new().set_global_import_strategy(ImportStrategy::Keep);
-    /// ```
     pub fn set_global_import_strategy<T: std::convert::Into<crate::model::ImportStrategy>>(
         mut self,
         v: T,
@@ -15853,12 +12607,6 @@ impl ImportFlowResponse {
     }
 
     /// Sets the value of [flow][crate::model::ImportFlowResponse::flow].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportFlowResponse;
-    /// let x = ImportFlowResponse::new().set_flow("example");
-    /// ```
     pub fn set_flow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.flow = v.into();
         self
@@ -15910,36 +12658,18 @@ impl ExportFlowRequest {
     }
 
     /// Sets the value of [name][crate::model::ExportFlowRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportFlowRequest;
-    /// let x = ExportFlowRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [flow_uri][crate::model::ExportFlowRequest::flow_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportFlowRequest;
-    /// let x = ExportFlowRequest::new().set_flow_uri("example");
-    /// ```
     pub fn set_flow_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.flow_uri = v.into();
         self
     }
 
     /// Sets the value of [include_referenced_flows][crate::model::ExportFlowRequest::include_referenced_flows].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportFlowRequest;
-    /// let x = ExportFlowRequest::new().set_include_referenced_flows(true);
-    /// ```
     pub fn set_include_referenced_flows<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_referenced_flows = v.into();
         self
@@ -15977,13 +12707,6 @@ impl ExportFlowResponse {
     ///
     /// Note that all the setters affecting `flow` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportFlowResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::export_flow_response;
-    /// let x = ExportFlowResponse::new().set_flow(Some(export_flow_response::Flow::FlowUri("example".to_string())));
-    /// ```
     pub fn set_flow<
         T: std::convert::Into<std::option::Option<crate::model::export_flow_response::Flow>>,
     >(
@@ -16010,14 +12733,6 @@ impl ExportFlowResponse {
     ///
     /// Note that all the setters affecting `flow` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportFlowResponse;
-    /// let x = ExportFlowResponse::new().set_flow_uri("example");
-    /// assert!(x.flow_uri().is_some());
-    /// assert!(x.flow_content().is_none());
-    /// ```
     pub fn set_flow_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.flow =
             std::option::Option::Some(crate::model::export_flow_response::Flow::FlowUri(v.into()));
@@ -16042,14 +12757,6 @@ impl ExportFlowResponse {
     ///
     /// Note that all the setters affecting `flow` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportFlowResponse;
-    /// let x = ExportFlowResponse::new().set_flow_content(bytes::Bytes::from_static(b"example"));
-    /// assert!(x.flow_content().is_some());
-    /// assert!(x.flow_uri().is_none());
-    /// ```
     pub fn set_flow_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.flow = std::option::Option::Some(
             crate::model::export_flow_response::Flow::FlowContent(v.into()),
@@ -16187,17 +12894,6 @@ impl Fulfillment {
     }
 
     /// Sets the value of [messages][crate::model::Fulfillment::messages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-    /// let x = Fulfillment::new()
-    ///     .set_messages([
-    ///         ResponseMessage::default()/* use setters */,
-    ///         ResponseMessage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16209,53 +12905,24 @@ impl Fulfillment {
     }
 
     /// Sets the value of [webhook][crate::model::Fulfillment::webhook].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// let x = Fulfillment::new().set_webhook("example");
-    /// ```
     pub fn set_webhook<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.webhook = v.into();
         self
     }
 
     /// Sets the value of [return_partial_responses][crate::model::Fulfillment::return_partial_responses].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// let x = Fulfillment::new().set_return_partial_responses(true);
-    /// ```
     pub fn set_return_partial_responses<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.return_partial_responses = v.into();
         self
     }
 
     /// Sets the value of [tag][crate::model::Fulfillment::tag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// let x = Fulfillment::new().set_tag("example");
-    /// ```
     pub fn set_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tag = v.into();
         self
     }
 
     /// Sets the value of [set_parameter_actions][crate::model::Fulfillment::set_parameter_actions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// use google_cloud_dialogflow_cx_v3::model::fulfillment::SetParameterAction;
-    /// let x = Fulfillment::new()
-    ///     .set_set_parameter_actions([
-    ///         SetParameterAction::default()/* use setters */,
-    ///         SetParameterAction::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_set_parameter_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16267,17 +12934,6 @@ impl Fulfillment {
     }
 
     /// Sets the value of [conditional_cases][crate::model::Fulfillment::conditional_cases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// use google_cloud_dialogflow_cx_v3::model::fulfillment::ConditionalCases;
-    /// let x = Fulfillment::new()
-    ///     .set_conditional_cases([
-    ///         ConditionalCases::default()/* use setters */,
-    ///         ConditionalCases::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_conditional_cases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16289,13 +12945,6 @@ impl Fulfillment {
     }
 
     /// Sets the value of [advanced_settings][crate::model::Fulfillment::advanced_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-    /// let x = Fulfillment::new().set_advanced_settings(AdvancedSettings::default()/* use setters */);
-    /// ```
     pub fn set_advanced_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedSettings>,
@@ -16305,14 +12954,6 @@ impl Fulfillment {
     }
 
     /// Sets or clears the value of [advanced_settings][crate::model::Fulfillment::advanced_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-    /// let x = Fulfillment::new().set_or_clear_advanced_settings(Some(AdvancedSettings::default()/* use setters */));
-    /// let x = Fulfillment::new().set_or_clear_advanced_settings(None::<AdvancedSettings>);
-    /// ```
     pub fn set_or_clear_advanced_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedSettings>,
@@ -16322,29 +12963,12 @@ impl Fulfillment {
     }
 
     /// Sets the value of [enable_generative_fallback][crate::model::Fulfillment::enable_generative_fallback].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// let x = Fulfillment::new().set_enable_generative_fallback(true);
-    /// ```
     pub fn set_enable_generative_fallback<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_generative_fallback = v.into();
         self
     }
 
     /// Sets the value of [generators][crate::model::Fulfillment::generators].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// use google_cloud_dialogflow_cx_v3::model::fulfillment::GeneratorSettings;
-    /// let x = Fulfillment::new()
-    ///     .set_generators([
-    ///         GeneratorSettings::default()/* use setters */,
-    ///         GeneratorSettings::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_generators<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16414,25 +13038,12 @@ pub mod fulfillment {
         }
 
         /// Sets the value of [parameter][crate::model::fulfillment::SetParameterAction::parameter].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::fulfillment::SetParameterAction;
-        /// let x = SetParameterAction::new().set_parameter("example");
-        /// ```
         pub fn set_parameter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.parameter = v.into();
             self
         }
 
         /// Sets the value of [value][crate::model::fulfillment::SetParameterAction::value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::fulfillment::SetParameterAction;
-        /// use wkt::Value;
-        /// let x = SetParameterAction::new().set_value(Value::default()/* use setters */);
-        /// ```
         pub fn set_value<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Value>,
@@ -16442,14 +13053,6 @@ pub mod fulfillment {
         }
 
         /// Sets or clears the value of [value][crate::model::fulfillment::SetParameterAction::value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::fulfillment::SetParameterAction;
-        /// use wkt::Value;
-        /// let x = SetParameterAction::new().set_or_clear_value(Some(Value::default()/* use setters */));
-        /// let x = SetParameterAction::new().set_or_clear_value(None::<Value>);
-        /// ```
         pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Value>,
@@ -16503,17 +13106,6 @@ pub mod fulfillment {
         }
 
         /// Sets the value of [cases][crate::model::fulfillment::ConditionalCases::cases].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::fulfillment::ConditionalCases;
-        /// use google_cloud_dialogflow_cx_v3::model::fulfillment::conditional_cases::Case;
-        /// let x = ConditionalCases::new()
-        ///     .set_cases([
-        ///         Case::default()/* use setters */,
-        ///         Case::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_cases<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -16594,12 +13186,6 @@ pub mod fulfillment {
             }
 
             /// Sets the value of [condition][crate::model::fulfillment::conditional_cases::Case::condition].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::fulfillment::conditional_cases::Case;
-            /// let x = Case::new().set_condition("example");
-            /// ```
             pub fn set_condition<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -16609,17 +13195,6 @@ pub mod fulfillment {
             }
 
             /// Sets the value of [case_content][crate::model::fulfillment::conditional_cases::Case::case_content].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::fulfillment::conditional_cases::Case;
-            /// use google_cloud_dialogflow_cx_v3::model::fulfillment::conditional_cases::case::CaseContent;
-            /// let x = Case::new()
-            ///     .set_case_content([
-            ///         CaseContent::default()/* use setters */,
-            ///         CaseContent::default()/* use (different) setters */,
-            ///     ]);
-            /// ```
             pub fn set_case_content<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -16692,14 +13267,6 @@ pub mod fulfillment {
                 ///
                 /// Note that all the setters affecting `cases_or_message` are mutually
                 /// exclusive.
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_dialogflow_cx_v3::model::fulfillment::conditional_cases::case::CaseContent;
-                /// use google_cloud_dialogflow_cx_v3::model::fulfillment::conditional_cases::case::case_content;
-                /// use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-                /// let x = CaseContent::new().set_cases_or_message(Some(fulfillment::conditional_cases::case::case_content::CasesOrMessage::Message(ResponseMessage::default().into())));
-                /// ```
                 pub fn set_cases_or_message<T: std::convert::Into<std::option::Option<crate::model::fulfillment::conditional_cases::case::case_content::CasesOrMessage>>>(mut self, v: T) -> Self
                 {
                     self.cases_or_message = v.into();
@@ -16725,15 +13292,6 @@ pub mod fulfillment {
                 ///
                 /// Note that all the setters affecting `cases_or_message` are
                 /// mutually exclusive.
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_dialogflow_cx_v3::model::fulfillment::conditional_cases::case::CaseContent;
-                /// use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-                /// let x = CaseContent::new().set_message(ResponseMessage::default()/* use setters */);
-                /// assert!(x.message().is_some());
-                /// assert!(x.additional_cases().is_none());
-                /// ```
                 pub fn set_message<
                     T: std::convert::Into<std::boxed::Box<crate::model::ResponseMessage>>,
                 >(
@@ -16768,15 +13326,6 @@ pub mod fulfillment {
                 ///
                 /// Note that all the setters affecting `cases_or_message` are
                 /// mutually exclusive.
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_dialogflow_cx_v3::model::fulfillment::conditional_cases::case::CaseContent;
-                /// use google_cloud_dialogflow_cx_v3::model::fulfillment::ConditionalCases;
-                /// let x = CaseContent::new().set_additional_cases(ConditionalCases::default()/* use setters */);
-                /// assert!(x.additional_cases().is_some());
-                /// assert!(x.message().is_none());
-                /// ```
                 pub fn set_additional_cases<
                     T: std::convert::Into<
                             std::boxed::Box<crate::model::fulfillment::ConditionalCases>,
@@ -16889,27 +13438,12 @@ pub mod fulfillment {
         }
 
         /// Sets the value of [generator][crate::model::fulfillment::GeneratorSettings::generator].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::fulfillment::GeneratorSettings;
-        /// let x = GeneratorSettings::new().set_generator("example");
-        /// ```
         pub fn set_generator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.generator = v.into();
             self
         }
 
         /// Sets the value of [input_parameters][crate::model::fulfillment::GeneratorSettings::input_parameters].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::fulfillment::GeneratorSettings;
-        /// let x = GeneratorSettings::new().set_input_parameters([
-        ///     ("key0", "abc"),
-        ///     ("key1", "xyz"),
-        /// ]);
-        /// ```
         pub fn set_input_parameters<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -16922,12 +13456,6 @@ pub mod fulfillment {
         }
 
         /// Sets the value of [output_parameter][crate::model::fulfillment::GeneratorSettings::output_parameter].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::fulfillment::GeneratorSettings;
-        /// let x = GeneratorSettings::new().set_output_parameter("example");
-        /// ```
         pub fn set_output_parameter<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -16986,12 +13514,6 @@ impl GcsDestination {
     }
 
     /// Sets the value of [uri][crate::model::GcsDestination::uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GcsDestination;
-    /// let x = GcsDestination::new().set_uri("example");
-    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -17044,25 +13566,12 @@ impl GenerativeSettings {
     }
 
     /// Sets the value of [name][crate::model::GenerativeSettings::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GenerativeSettings;
-    /// let x = GenerativeSettings::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [fallback_settings][crate::model::GenerativeSettings::fallback_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GenerativeSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::generative_settings::FallbackSettings;
-    /// let x = GenerativeSettings::new().set_fallback_settings(FallbackSettings::default()/* use setters */);
-    /// ```
     pub fn set_fallback_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::generative_settings::FallbackSettings>,
@@ -17072,14 +13581,6 @@ impl GenerativeSettings {
     }
 
     /// Sets or clears the value of [fallback_settings][crate::model::GenerativeSettings::fallback_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GenerativeSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::generative_settings::FallbackSettings;
-    /// let x = GenerativeSettings::new().set_or_clear_fallback_settings(Some(FallbackSettings::default()/* use setters */));
-    /// let x = GenerativeSettings::new().set_or_clear_fallback_settings(None::<FallbackSettings>);
-    /// ```
     pub fn set_or_clear_fallback_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::generative_settings::FallbackSettings>,
@@ -17089,13 +13590,6 @@ impl GenerativeSettings {
     }
 
     /// Sets the value of [generative_safety_settings][crate::model::GenerativeSettings::generative_safety_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GenerativeSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::SafetySettings;
-    /// let x = GenerativeSettings::new().set_generative_safety_settings(SafetySettings::default()/* use setters */);
-    /// ```
     pub fn set_generative_safety_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SafetySettings>,
@@ -17105,14 +13599,6 @@ impl GenerativeSettings {
     }
 
     /// Sets or clears the value of [generative_safety_settings][crate::model::GenerativeSettings::generative_safety_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GenerativeSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::SafetySettings;
-    /// let x = GenerativeSettings::new().set_or_clear_generative_safety_settings(Some(SafetySettings::default()/* use setters */));
-    /// let x = GenerativeSettings::new().set_or_clear_generative_safety_settings(None::<SafetySettings>);
-    /// ```
     pub fn set_or_clear_generative_safety_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SafetySettings>,
@@ -17122,13 +13608,6 @@ impl GenerativeSettings {
     }
 
     /// Sets the value of [knowledge_connector_settings][crate::model::GenerativeSettings::knowledge_connector_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GenerativeSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::generative_settings::KnowledgeConnectorSettings;
-    /// let x = GenerativeSettings::new().set_knowledge_connector_settings(KnowledgeConnectorSettings::default()/* use setters */);
-    /// ```
     pub fn set_knowledge_connector_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::generative_settings::KnowledgeConnectorSettings>,
@@ -17138,14 +13617,6 @@ impl GenerativeSettings {
     }
 
     /// Sets or clears the value of [knowledge_connector_settings][crate::model::GenerativeSettings::knowledge_connector_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GenerativeSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::generative_settings::KnowledgeConnectorSettings;
-    /// let x = GenerativeSettings::new().set_or_clear_knowledge_connector_settings(Some(KnowledgeConnectorSettings::default()/* use setters */));
-    /// let x = GenerativeSettings::new().set_or_clear_knowledge_connector_settings(None::<KnowledgeConnectorSettings>);
-    /// ```
     pub fn set_or_clear_knowledge_connector_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::generative_settings::KnowledgeConnectorSettings>,
@@ -17155,12 +13626,6 @@ impl GenerativeSettings {
     }
 
     /// Sets the value of [language_code][crate::model::GenerativeSettings::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GenerativeSettings;
-    /// let x = GenerativeSettings::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -17203,12 +13668,6 @@ pub mod generative_settings {
         }
 
         /// Sets the value of [selected_prompt][crate::model::generative_settings::FallbackSettings::selected_prompt].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::generative_settings::FallbackSettings;
-        /// let x = FallbackSettings::new().set_selected_prompt("example");
-        /// ```
         pub fn set_selected_prompt<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -17218,17 +13677,6 @@ pub mod generative_settings {
         }
 
         /// Sets the value of [prompt_templates][crate::model::generative_settings::FallbackSettings::prompt_templates].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::generative_settings::FallbackSettings;
-        /// use google_cloud_dialogflow_cx_v3::model::generative_settings::fallback_settings::PromptTemplate;
-        /// let x = FallbackSettings::new()
-        ///     .set_prompt_templates([
-        ///         PromptTemplate::default()/* use setters */,
-        ///         PromptTemplate::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_prompt_templates<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -17282,12 +13730,6 @@ pub mod generative_settings {
             }
 
             /// Sets the value of [display_name][crate::model::generative_settings::fallback_settings::PromptTemplate::display_name].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::generative_settings::fallback_settings::PromptTemplate;
-            /// let x = PromptTemplate::new().set_display_name("example");
-            /// ```
             pub fn set_display_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -17297,12 +13739,6 @@ pub mod generative_settings {
             }
 
             /// Sets the value of [prompt_text][crate::model::generative_settings::fallback_settings::PromptTemplate::prompt_text].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::generative_settings::fallback_settings::PromptTemplate;
-            /// let x = PromptTemplate::new().set_prompt_text("example");
-            /// ```
             pub fn set_prompt_text<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -17312,12 +13748,6 @@ pub mod generative_settings {
             }
 
             /// Sets the value of [frozen][crate::model::generative_settings::fallback_settings::PromptTemplate::frozen].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::generative_settings::fallback_settings::PromptTemplate;
-            /// let x = PromptTemplate::new().set_frozen(true);
-            /// ```
             pub fn set_frozen<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.frozen = v.into();
                 self
@@ -17373,36 +13803,18 @@ pub mod generative_settings {
         }
 
         /// Sets the value of [business][crate::model::generative_settings::KnowledgeConnectorSettings::business].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::generative_settings::KnowledgeConnectorSettings;
-        /// let x = KnowledgeConnectorSettings::new().set_business("example");
-        /// ```
         pub fn set_business<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.business = v.into();
             self
         }
 
         /// Sets the value of [agent][crate::model::generative_settings::KnowledgeConnectorSettings::agent].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::generative_settings::KnowledgeConnectorSettings;
-        /// let x = KnowledgeConnectorSettings::new().set_agent("example");
-        /// ```
         pub fn set_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.agent = v.into();
             self
         }
 
         /// Sets the value of [agent_identity][crate::model::generative_settings::KnowledgeConnectorSettings::agent_identity].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::generative_settings::KnowledgeConnectorSettings;
-        /// let x = KnowledgeConnectorSettings::new().set_agent_identity("example");
-        /// ```
         pub fn set_agent_identity<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -17412,12 +13824,6 @@ pub mod generative_settings {
         }
 
         /// Sets the value of [business_description][crate::model::generative_settings::KnowledgeConnectorSettings::business_description].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::generative_settings::KnowledgeConnectorSettings;
-        /// let x = KnowledgeConnectorSettings::new().set_business_description("example");
-        /// ```
         pub fn set_business_description<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -17427,24 +13833,12 @@ pub mod generative_settings {
         }
 
         /// Sets the value of [agent_scope][crate::model::generative_settings::KnowledgeConnectorSettings::agent_scope].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::generative_settings::KnowledgeConnectorSettings;
-        /// let x = KnowledgeConnectorSettings::new().set_agent_scope("example");
-        /// ```
         pub fn set_agent_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.agent_scope = v.into();
             self
         }
 
         /// Sets the value of [disable_data_store_fallback][crate::model::generative_settings::KnowledgeConnectorSettings::disable_data_store_fallback].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::generative_settings::KnowledgeConnectorSettings;
-        /// let x = KnowledgeConnectorSettings::new().set_disable_data_store_fallback(true);
-        /// ```
         pub fn set_disable_data_store_fallback<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -17505,37 +13899,18 @@ impl Generator {
     }
 
     /// Sets the value of [name][crate::model::Generator::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Generator;
-    /// let x = Generator::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Generator::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Generator;
-    /// let x = Generator::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [prompt_text][crate::model::Generator::prompt_text].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Generator;
-    /// use google_cloud_dialogflow_cx_v3::model::Phrase;
-    /// let x = Generator::new().set_prompt_text(Phrase::default()/* use setters */);
-    /// ```
     pub fn set_prompt_text<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Phrase>,
@@ -17545,14 +13920,6 @@ impl Generator {
     }
 
     /// Sets or clears the value of [prompt_text][crate::model::Generator::prompt_text].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Generator;
-    /// use google_cloud_dialogflow_cx_v3::model::Phrase;
-    /// let x = Generator::new().set_or_clear_prompt_text(Some(Phrase::default()/* use setters */));
-    /// let x = Generator::new().set_or_clear_prompt_text(None::<Phrase>);
-    /// ```
     pub fn set_or_clear_prompt_text<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Phrase>,
@@ -17562,17 +13929,6 @@ impl Generator {
     }
 
     /// Sets the value of [placeholders][crate::model::Generator::placeholders].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Generator;
-    /// use google_cloud_dialogflow_cx_v3::model::generator::Placeholder;
-    /// let x = Generator::new()
-    ///     .set_placeholders([
-    ///         Placeholder::default()/* use setters */,
-    ///         Placeholder::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_placeholders<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17584,13 +13940,6 @@ impl Generator {
     }
 
     /// Sets the value of [model_parameter][crate::model::Generator::model_parameter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Generator;
-    /// use google_cloud_dialogflow_cx_v3::model::generator::ModelParameter;
-    /// let x = Generator::new().set_model_parameter(ModelParameter::default()/* use setters */);
-    /// ```
     pub fn set_model_parameter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::generator::ModelParameter>,
@@ -17600,14 +13949,6 @@ impl Generator {
     }
 
     /// Sets or clears the value of [model_parameter][crate::model::Generator::model_parameter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Generator;
-    /// use google_cloud_dialogflow_cx_v3::model::generator::ModelParameter;
-    /// let x = Generator::new().set_or_clear_model_parameter(Some(ModelParameter::default()/* use setters */));
-    /// let x = Generator::new().set_or_clear_model_parameter(None::<ModelParameter>);
-    /// ```
     pub fn set_or_clear_model_parameter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::generator::ModelParameter>,
@@ -17651,24 +13992,12 @@ pub mod generator {
         }
 
         /// Sets the value of [id][crate::model::generator::Placeholder::id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::generator::Placeholder;
-        /// let x = Placeholder::new().set_id("example");
-        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [name][crate::model::generator::Placeholder::name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::generator::Placeholder;
-        /// let x = Placeholder::new().set_name("example");
-        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
@@ -17721,12 +14050,6 @@ pub mod generator {
         }
 
         /// Sets the value of [temperature][crate::model::generator::ModelParameter::temperature].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::generator::ModelParameter;
-        /// let x = ModelParameter::new().set_temperature(42.0);
-        /// ```
         pub fn set_temperature<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<f32>,
@@ -17736,13 +14059,6 @@ pub mod generator {
         }
 
         /// Sets or clears the value of [temperature][crate::model::generator::ModelParameter::temperature].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::generator::ModelParameter;
-        /// let x = ModelParameter::new().set_or_clear_temperature(Some(42.0));
-        /// let x = ModelParameter::new().set_or_clear_temperature(None::<i32>);
-        /// ```
         pub fn set_or_clear_temperature<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f32>,
@@ -17752,12 +14068,6 @@ pub mod generator {
         }
 
         /// Sets the value of [max_decode_steps][crate::model::generator::ModelParameter::max_decode_steps].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::generator::ModelParameter;
-        /// let x = ModelParameter::new().set_max_decode_steps(42);
-        /// ```
         pub fn set_max_decode_steps<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -17767,13 +14077,6 @@ pub mod generator {
         }
 
         /// Sets or clears the value of [max_decode_steps][crate::model::generator::ModelParameter::max_decode_steps].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::generator::ModelParameter;
-        /// let x = ModelParameter::new().set_or_clear_max_decode_steps(Some(42));
-        /// let x = ModelParameter::new().set_or_clear_max_decode_steps(None::<i32>);
-        /// ```
         pub fn set_or_clear_max_decode_steps<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -17783,12 +14086,6 @@ pub mod generator {
         }
 
         /// Sets the value of [top_p][crate::model::generator::ModelParameter::top_p].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::generator::ModelParameter;
-        /// let x = ModelParameter::new().set_top_p(42.0);
-        /// ```
         pub fn set_top_p<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<f32>,
@@ -17798,13 +14095,6 @@ pub mod generator {
         }
 
         /// Sets or clears the value of [top_p][crate::model::generator::ModelParameter::top_p].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::generator::ModelParameter;
-        /// let x = ModelParameter::new().set_or_clear_top_p(Some(42.0));
-        /// let x = ModelParameter::new().set_or_clear_top_p(None::<i32>);
-        /// ```
         pub fn set_or_clear_top_p<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f32>,
@@ -17814,12 +14104,6 @@ pub mod generator {
         }
 
         /// Sets the value of [top_k][crate::model::generator::ModelParameter::top_k].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::generator::ModelParameter;
-        /// let x = ModelParameter::new().set_top_k(42);
-        /// ```
         pub fn set_top_k<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -17829,13 +14113,6 @@ pub mod generator {
         }
 
         /// Sets or clears the value of [top_k][crate::model::generator::ModelParameter::top_k].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::generator::ModelParameter;
-        /// let x = ModelParameter::new().set_or_clear_top_k(Some(42));
-        /// let x = ModelParameter::new().set_or_clear_top_k(None::<i32>);
-        /// ```
         pub fn set_or_clear_top_k<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -17871,12 +14148,6 @@ impl Phrase {
     }
 
     /// Sets the value of [text][crate::model::Phrase::text].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Phrase;
-    /// let x = Phrase::new().set_text("example");
-    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
         self
@@ -17922,48 +14193,24 @@ impl ListGeneratorsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListGeneratorsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListGeneratorsRequest;
-    /// let x = ListGeneratorsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::ListGeneratorsRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListGeneratorsRequest;
-    /// let x = ListGeneratorsRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListGeneratorsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListGeneratorsRequest;
-    /// let x = ListGeneratorsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListGeneratorsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListGeneratorsRequest;
-    /// let x = ListGeneratorsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -18003,17 +14250,6 @@ impl ListGeneratorsResponse {
     }
 
     /// Sets the value of [generators][crate::model::ListGeneratorsResponse::generators].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListGeneratorsResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::Generator;
-    /// let x = ListGeneratorsResponse::new()
-    ///     .set_generators([
-    ///         Generator::default()/* use setters */,
-    ///         Generator::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_generators<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18025,12 +14261,6 @@ impl ListGeneratorsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListGeneratorsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListGeneratorsResponse;
-    /// let x = ListGeneratorsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -18085,24 +14315,12 @@ impl GetGeneratorRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGeneratorRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetGeneratorRequest;
-    /// let x = GetGeneratorRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::GetGeneratorRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetGeneratorRequest;
-    /// let x = GetGeneratorRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -18147,25 +14365,12 @@ impl CreateGeneratorRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateGeneratorRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateGeneratorRequest;
-    /// let x = CreateGeneratorRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [generator][crate::model::CreateGeneratorRequest::generator].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateGeneratorRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Generator;
-    /// let x = CreateGeneratorRequest::new().set_generator(Generator::default()/* use setters */);
-    /// ```
     pub fn set_generator<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Generator>,
@@ -18175,14 +14380,6 @@ impl CreateGeneratorRequest {
     }
 
     /// Sets or clears the value of [generator][crate::model::CreateGeneratorRequest::generator].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateGeneratorRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Generator;
-    /// let x = CreateGeneratorRequest::new().set_or_clear_generator(Some(Generator::default()/* use setters */));
-    /// let x = CreateGeneratorRequest::new().set_or_clear_generator(None::<Generator>);
-    /// ```
     pub fn set_or_clear_generator<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Generator>,
@@ -18192,12 +14389,6 @@ impl CreateGeneratorRequest {
     }
 
     /// Sets the value of [language_code][crate::model::CreateGeneratorRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateGeneratorRequest;
-    /// let x = CreateGeneratorRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -18239,13 +14430,6 @@ impl UpdateGeneratorRequest {
     }
 
     /// Sets the value of [generator][crate::model::UpdateGeneratorRequest::generator].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateGeneratorRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Generator;
-    /// let x = UpdateGeneratorRequest::new().set_generator(Generator::default()/* use setters */);
-    /// ```
     pub fn set_generator<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Generator>,
@@ -18255,14 +14439,6 @@ impl UpdateGeneratorRequest {
     }
 
     /// Sets or clears the value of [generator][crate::model::UpdateGeneratorRequest::generator].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateGeneratorRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Generator;
-    /// let x = UpdateGeneratorRequest::new().set_or_clear_generator(Some(Generator::default()/* use setters */));
-    /// let x = UpdateGeneratorRequest::new().set_or_clear_generator(None::<Generator>);
-    /// ```
     pub fn set_or_clear_generator<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Generator>,
@@ -18272,25 +14448,12 @@ impl UpdateGeneratorRequest {
     }
 
     /// Sets the value of [language_code][crate::model::UpdateGeneratorRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateGeneratorRequest;
-    /// let x = UpdateGeneratorRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGeneratorRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateGeneratorRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateGeneratorRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -18300,14 +14463,6 @@ impl UpdateGeneratorRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateGeneratorRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateGeneratorRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateGeneratorRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateGeneratorRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -18357,24 +14512,12 @@ impl DeleteGeneratorRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteGeneratorRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeleteGeneratorRequest;
-    /// let x = DeleteGeneratorRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteGeneratorRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeleteGeneratorRequest;
-    /// let x = DeleteGeneratorRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -18410,12 +14553,6 @@ impl InlineDestination {
     }
 
     /// Sets the value of [content][crate::model::InlineDestination::content].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::InlineDestination;
-    /// let x = InlineDestination::new().set_content(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
@@ -18450,12 +14587,6 @@ impl InlineSource {
     }
 
     /// Sets the value of [content][crate::model::InlineSource::content].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::InlineSource;
-    /// let x = InlineSource::new().set_content(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
@@ -18548,41 +14679,18 @@ impl Intent {
     }
 
     /// Sets the value of [name][crate::model::Intent::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Intent;
-    /// let x = Intent::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Intent::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Intent;
-    /// let x = Intent::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [training_phrases][crate::model::Intent::training_phrases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Intent;
-    /// use google_cloud_dialogflow_cx_v3::model::intent::TrainingPhrase;
-    /// let x = Intent::new()
-    ///     .set_training_phrases([
-    ///         TrainingPhrase::default()/* use setters */,
-    ///         TrainingPhrase::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_training_phrases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18594,17 +14702,6 @@ impl Intent {
     }
 
     /// Sets the value of [parameters][crate::model::Intent::parameters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Intent;
-    /// use google_cloud_dialogflow_cx_v3::model::intent::Parameter;
-    /// let x = Intent::new()
-    ///     .set_parameters([
-    ///         Parameter::default()/* use setters */,
-    ///         Parameter::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18616,39 +14713,18 @@ impl Intent {
     }
 
     /// Sets the value of [priority][crate::model::Intent::priority].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Intent;
-    /// let x = Intent::new().set_priority(42);
-    /// ```
     pub fn set_priority<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.priority = v.into();
         self
     }
 
     /// Sets the value of [is_fallback][crate::model::Intent::is_fallback].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Intent;
-    /// let x = Intent::new().set_is_fallback(true);
-    /// ```
     pub fn set_is_fallback<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_fallback = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Intent::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Intent;
-    /// let x = Intent::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -18661,12 +14737,6 @@ impl Intent {
     }
 
     /// Sets the value of [description][crate::model::Intent::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Intent;
-    /// let x = Intent::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -18731,29 +14801,12 @@ pub mod intent {
         }
 
         /// Sets the value of [id][crate::model::intent::TrainingPhrase::id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::intent::TrainingPhrase;
-        /// let x = TrainingPhrase::new().set_id("example");
-        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [parts][crate::model::intent::TrainingPhrase::parts].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::intent::TrainingPhrase;
-        /// use google_cloud_dialogflow_cx_v3::model::intent::training_phrase::Part;
-        /// let x = TrainingPhrase::new()
-        ///     .set_parts([
-        ///         Part::default()/* use setters */,
-        ///         Part::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_parts<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -18765,12 +14818,6 @@ pub mod intent {
         }
 
         /// Sets the value of [repeat_count][crate::model::intent::TrainingPhrase::repeat_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::intent::TrainingPhrase;
-        /// let x = TrainingPhrase::new().set_repeat_count(42);
-        /// ```
         pub fn set_repeat_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.repeat_count = v.into();
             self
@@ -18815,24 +14862,12 @@ pub mod intent {
             }
 
             /// Sets the value of [text][crate::model::intent::training_phrase::Part::text].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::intent::training_phrase::Part;
-            /// let x = Part::new().set_text("example");
-            /// ```
             pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.text = v.into();
                 self
             }
 
             /// Sets the value of [parameter_id][crate::model::intent::training_phrase::Part::parameter_id].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::intent::training_phrase::Part;
-            /// let x = Part::new().set_parameter_id("example");
-            /// ```
             pub fn set_parameter_id<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -18896,48 +14931,24 @@ pub mod intent {
         }
 
         /// Sets the value of [id][crate::model::intent::Parameter::id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::intent::Parameter;
-        /// let x = Parameter::new().set_id("example");
-        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [entity_type][crate::model::intent::Parameter::entity_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::intent::Parameter;
-        /// let x = Parameter::new().set_entity_type("example");
-        /// ```
         pub fn set_entity_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.entity_type = v.into();
             self
         }
 
         /// Sets the value of [is_list][crate::model::intent::Parameter::is_list].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::intent::Parameter;
-        /// let x = Parameter::new().set_is_list(true);
-        /// ```
         pub fn set_is_list<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.is_list = v.into();
             self
         }
 
         /// Sets the value of [redact][crate::model::intent::Parameter::redact].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::intent::Parameter;
-        /// let x = Parameter::new().set_redact(true);
-        /// ```
         pub fn set_redact<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.redact = v.into();
             self
@@ -18996,38 +15007,18 @@ impl ListIntentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListIntentsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListIntentsRequest;
-    /// let x = ListIntentsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::ListIntentsRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListIntentsRequest;
-    /// let x = ListIntentsRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [intent_view][crate::model::ListIntentsRequest::intent_view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListIntentsRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::IntentView;
-    /// let x0 = ListIntentsRequest::new().set_intent_view(IntentView::Partial);
-    /// let x1 = ListIntentsRequest::new().set_intent_view(IntentView::Full);
-    /// ```
     pub fn set_intent_view<T: std::convert::Into<crate::model::IntentView>>(
         mut self,
         v: T,
@@ -19037,24 +15028,12 @@ impl ListIntentsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListIntentsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListIntentsRequest;
-    /// let x = ListIntentsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListIntentsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListIntentsRequest;
-    /// let x = ListIntentsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -19094,17 +15073,6 @@ impl ListIntentsResponse {
     }
 
     /// Sets the value of [intents][crate::model::ListIntentsResponse::intents].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListIntentsResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::Intent;
-    /// let x = ListIntentsResponse::new()
-    ///     .set_intents([
-    ///         Intent::default()/* use setters */,
-    ///         Intent::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_intents<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19116,12 +15084,6 @@ impl ListIntentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListIntentsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListIntentsResponse;
-    /// let x = ListIntentsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -19185,24 +15147,12 @@ impl GetIntentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetIntentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetIntentRequest;
-    /// let x = GetIntentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::GetIntentRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetIntentRequest;
-    /// let x = GetIntentRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -19252,25 +15202,12 @@ impl CreateIntentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateIntentRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateIntentRequest;
-    /// let x = CreateIntentRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [intent][crate::model::CreateIntentRequest::intent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Intent;
-    /// let x = CreateIntentRequest::new().set_intent(Intent::default()/* use setters */);
-    /// ```
     pub fn set_intent<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Intent>,
@@ -19280,14 +15217,6 @@ impl CreateIntentRequest {
     }
 
     /// Sets or clears the value of [intent][crate::model::CreateIntentRequest::intent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Intent;
-    /// let x = CreateIntentRequest::new().set_or_clear_intent(Some(Intent::default()/* use setters */));
-    /// let x = CreateIntentRequest::new().set_or_clear_intent(None::<Intent>);
-    /// ```
     pub fn set_or_clear_intent<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Intent>,
@@ -19297,12 +15226,6 @@ impl CreateIntentRequest {
     }
 
     /// Sets the value of [language_code][crate::model::CreateIntentRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateIntentRequest;
-    /// let x = CreateIntentRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -19352,13 +15275,6 @@ impl UpdateIntentRequest {
     }
 
     /// Sets the value of [intent][crate::model::UpdateIntentRequest::intent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Intent;
-    /// let x = UpdateIntentRequest::new().set_intent(Intent::default()/* use setters */);
-    /// ```
     pub fn set_intent<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Intent>,
@@ -19368,14 +15284,6 @@ impl UpdateIntentRequest {
     }
 
     /// Sets or clears the value of [intent][crate::model::UpdateIntentRequest::intent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Intent;
-    /// let x = UpdateIntentRequest::new().set_or_clear_intent(Some(Intent::default()/* use setters */));
-    /// let x = UpdateIntentRequest::new().set_or_clear_intent(None::<Intent>);
-    /// ```
     pub fn set_or_clear_intent<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Intent>,
@@ -19385,25 +15293,12 @@ impl UpdateIntentRequest {
     }
 
     /// Sets the value of [language_code][crate::model::UpdateIntentRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateIntentRequest;
-    /// let x = UpdateIntentRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateIntentRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateIntentRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateIntentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -19413,14 +15308,6 @@ impl UpdateIntentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateIntentRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateIntentRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateIntentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateIntentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -19460,12 +15347,6 @@ impl DeleteIntentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteIntentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeleteIntentRequest;
-    /// let x = DeleteIntentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -19507,27 +15388,12 @@ impl ImportIntentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ImportIntentsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportIntentsRequest;
-    /// let x = ImportIntentsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [merge_option][crate::model::ImportIntentsRequest::merge_option].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportIntentsRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::import_intents_request::MergeOption;
-    /// let x0 = ImportIntentsRequest::new().set_merge_option(MergeOption::Replace);
-    /// let x1 = ImportIntentsRequest::new().set_merge_option(MergeOption::Merge);
-    /// let x2 = ImportIntentsRequest::new().set_merge_option(MergeOption::Rename);
-    /// ```
     pub fn set_merge_option<
         T: std::convert::Into<crate::model::import_intents_request::MergeOption>,
     >(
@@ -19542,13 +15408,6 @@ impl ImportIntentsRequest {
     ///
     /// Note that all the setters affecting `intents` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportIntentsRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::import_intents_request;
-    /// let x = ImportIntentsRequest::new().set_intents(Some(import_intents_request::Intents::IntentsUri("example".to_string())));
-    /// ```
     pub fn set_intents<
         T: std::convert::Into<std::option::Option<crate::model::import_intents_request::Intents>>,
     >(
@@ -19577,14 +15436,6 @@ impl ImportIntentsRequest {
     ///
     /// Note that all the setters affecting `intents` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportIntentsRequest;
-    /// let x = ImportIntentsRequest::new().set_intents_uri("example");
-    /// assert!(x.intents_uri().is_some());
-    /// assert!(x.intents_content().is_none());
-    /// ```
     pub fn set_intents_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.intents = std::option::Option::Some(
             crate::model::import_intents_request::Intents::IntentsUri(v.into()),
@@ -19612,15 +15463,6 @@ impl ImportIntentsRequest {
     ///
     /// Note that all the setters affecting `intents` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportIntentsRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::InlineSource;
-    /// let x = ImportIntentsRequest::new().set_intents_content(InlineSource::default()/* use setters */);
-    /// assert!(x.intents_content().is_some());
-    /// assert!(x.intents_uri().is_none());
-    /// ```
     pub fn set_intents_content<
         T: std::convert::Into<std::boxed::Box<crate::model::InlineSource>>,
     >(
@@ -19874,12 +15716,6 @@ impl ImportIntentsResponse {
     }
 
     /// Sets the value of [intents][crate::model::ImportIntentsResponse::intents].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportIntentsResponse;
-    /// let x = ImportIntentsResponse::new().set_intents(["a", "b", "c"]);
-    /// ```
     pub fn set_intents<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19891,13 +15727,6 @@ impl ImportIntentsResponse {
     }
 
     /// Sets the value of [conflicting_resources][crate::model::ImportIntentsResponse::conflicting_resources].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportIntentsResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::import_intents_response::ConflictingResources;
-    /// let x = ImportIntentsResponse::new().set_conflicting_resources(ConflictingResources::default()/* use setters */);
-    /// ```
     pub fn set_conflicting_resources<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::import_intents_response::ConflictingResources>,
@@ -19907,14 +15736,6 @@ impl ImportIntentsResponse {
     }
 
     /// Sets or clears the value of [conflicting_resources][crate::model::ImportIntentsResponse::conflicting_resources].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportIntentsResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::import_intents_response::ConflictingResources;
-    /// let x = ImportIntentsResponse::new().set_or_clear_conflicting_resources(Some(ConflictingResources::default()/* use setters */));
-    /// let x = ImportIntentsResponse::new().set_or_clear_conflicting_resources(None::<ConflictingResources>);
-    /// ```
     pub fn set_or_clear_conflicting_resources<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::import_intents_response::ConflictingResources>,
@@ -19960,12 +15781,6 @@ pub mod import_intents_response {
         }
 
         /// Sets the value of [intent_display_names][crate::model::import_intents_response::ConflictingResources::intent_display_names].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::import_intents_response::ConflictingResources;
-        /// let x = ConflictingResources::new().set_intent_display_names(["a", "b", "c"]);
-        /// ```
         pub fn set_intent_display_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -19977,12 +15792,6 @@ pub mod import_intents_response {
         }
 
         /// Sets the value of [entity_display_names][crate::model::import_intents_response::ConflictingResources::entity_display_names].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::import_intents_response::ConflictingResources;
-        /// let x = ConflictingResources::new().set_entity_display_names(["a", "b", "c"]);
-        /// ```
         pub fn set_entity_display_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -20062,24 +15871,12 @@ impl ExportIntentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ExportIntentsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportIntentsRequest;
-    /// let x = ExportIntentsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [intents][crate::model::ExportIntentsRequest::intents].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportIntentsRequest;
-    /// let x = ExportIntentsRequest::new().set_intents(["a", "b", "c"]);
-    /// ```
     pub fn set_intents<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -20091,15 +15888,6 @@ impl ExportIntentsRequest {
     }
 
     /// Sets the value of [data_format][crate::model::ExportIntentsRequest::data_format].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportIntentsRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::export_intents_request::DataFormat;
-    /// let x0 = ExportIntentsRequest::new().set_data_format(DataFormat::Blob);
-    /// let x1 = ExportIntentsRequest::new().set_data_format(DataFormat::Json);
-    /// let x2 = ExportIntentsRequest::new().set_data_format(DataFormat::Csv);
-    /// ```
     pub fn set_data_format<
         T: std::convert::Into<crate::model::export_intents_request::DataFormat>,
     >(
@@ -20114,13 +15902,6 @@ impl ExportIntentsRequest {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportIntentsRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::export_intents_request;
-    /// let x = ExportIntentsRequest::new().set_destination(Some(export_intents_request::Destination::IntentsUri("example".to_string())));
-    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_intents_request::Destination>>,
     >(
@@ -20149,14 +15930,6 @@ impl ExportIntentsRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportIntentsRequest;
-    /// let x = ExportIntentsRequest::new().set_intents_uri("example");
-    /// assert!(x.intents_uri().is_some());
-    /// assert!(x.intents_content_inline().is_none());
-    /// ```
     pub fn set_intents_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
             crate::model::export_intents_request::Destination::IntentsUri(v.into()),
@@ -20182,14 +15955,6 @@ impl ExportIntentsRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportIntentsRequest;
-    /// let x = ExportIntentsRequest::new().set_intents_content_inline(true);
-    /// assert!(x.intents_content_inline().is_some());
-    /// assert!(x.intents_uri().is_none());
-    /// ```
     pub fn set_intents_content_inline<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
             crate::model::export_intents_request::Destination::IntentsContentInline(v.into()),
@@ -20404,13 +16169,6 @@ impl ExportIntentsResponse {
     ///
     /// Note that all the setters affecting `intents` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportIntentsResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::export_intents_response;
-    /// let x = ExportIntentsResponse::new().set_intents(Some(export_intents_response::Intents::IntentsUri("example".to_string())));
-    /// ```
     pub fn set_intents<
         T: std::convert::Into<std::option::Option<crate::model::export_intents_response::Intents>>,
     >(
@@ -20439,14 +16197,6 @@ impl ExportIntentsResponse {
     ///
     /// Note that all the setters affecting `intents` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportIntentsResponse;
-    /// let x = ExportIntentsResponse::new().set_intents_uri("example");
-    /// assert!(x.intents_uri().is_some());
-    /// assert!(x.intents_content().is_none());
-    /// ```
     pub fn set_intents_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.intents = std::option::Option::Some(
             crate::model::export_intents_response::Intents::IntentsUri(v.into()),
@@ -20474,15 +16224,6 @@ impl ExportIntentsResponse {
     ///
     /// Note that all the setters affecting `intents` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportIntentsResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::InlineDestination;
-    /// let x = ExportIntentsResponse::new().set_intents_content(InlineDestination::default()/* use setters */);
-    /// assert!(x.intents_content().is_some());
-    /// assert!(x.intents_uri().is_none());
-    /// ```
     pub fn set_intents_content<
         T: std::convert::Into<std::boxed::Box<crate::model::InlineDestination>>,
     >(
@@ -20671,49 +16412,24 @@ impl Page {
     }
 
     /// Sets the value of [name][crate::model::Page::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Page;
-    /// let x = Page::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Page::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Page;
-    /// let x = Page::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Page::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Page;
-    /// let x = Page::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [entry_fulfillment][crate::model::Page::entry_fulfillment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Page;
-    /// use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// let x = Page::new().set_entry_fulfillment(Fulfillment::default()/* use setters */);
-    /// ```
     pub fn set_entry_fulfillment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Fulfillment>,
@@ -20723,14 +16439,6 @@ impl Page {
     }
 
     /// Sets or clears the value of [entry_fulfillment][crate::model::Page::entry_fulfillment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Page;
-    /// use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// let x = Page::new().set_or_clear_entry_fulfillment(Some(Fulfillment::default()/* use setters */));
-    /// let x = Page::new().set_or_clear_entry_fulfillment(None::<Fulfillment>);
-    /// ```
     pub fn set_or_clear_entry_fulfillment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Fulfillment>,
@@ -20740,13 +16448,6 @@ impl Page {
     }
 
     /// Sets the value of [form][crate::model::Page::form].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Page;
-    /// use google_cloud_dialogflow_cx_v3::model::Form;
-    /// let x = Page::new().set_form(Form::default()/* use setters */);
-    /// ```
     pub fn set_form<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Form>,
@@ -20756,14 +16457,6 @@ impl Page {
     }
 
     /// Sets or clears the value of [form][crate::model::Page::form].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Page;
-    /// use google_cloud_dialogflow_cx_v3::model::Form;
-    /// let x = Page::new().set_or_clear_form(Some(Form::default()/* use setters */));
-    /// let x = Page::new().set_or_clear_form(None::<Form>);
-    /// ```
     pub fn set_or_clear_form<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Form>,
@@ -20773,12 +16466,6 @@ impl Page {
     }
 
     /// Sets the value of [transition_route_groups][crate::model::Page::transition_route_groups].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Page;
-    /// let x = Page::new().set_transition_route_groups(["a", "b", "c"]);
-    /// ```
     pub fn set_transition_route_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -20790,17 +16477,6 @@ impl Page {
     }
 
     /// Sets the value of [transition_routes][crate::model::Page::transition_routes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Page;
-    /// use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-    /// let x = Page::new()
-    ///     .set_transition_routes([
-    ///         TransitionRoute::default()/* use setters */,
-    ///         TransitionRoute::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_transition_routes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -20812,17 +16488,6 @@ impl Page {
     }
 
     /// Sets the value of [event_handlers][crate::model::Page::event_handlers].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Page;
-    /// use google_cloud_dialogflow_cx_v3::model::EventHandler;
-    /// let x = Page::new()
-    ///     .set_event_handlers([
-    ///         EventHandler::default()/* use setters */,
-    ///         EventHandler::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_event_handlers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -20834,13 +16499,6 @@ impl Page {
     }
 
     /// Sets the value of [advanced_settings][crate::model::Page::advanced_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Page;
-    /// use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-    /// let x = Page::new().set_advanced_settings(AdvancedSettings::default()/* use setters */);
-    /// ```
     pub fn set_advanced_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedSettings>,
@@ -20850,14 +16508,6 @@ impl Page {
     }
 
     /// Sets or clears the value of [advanced_settings][crate::model::Page::advanced_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Page;
-    /// use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-    /// let x = Page::new().set_or_clear_advanced_settings(Some(AdvancedSettings::default()/* use setters */));
-    /// let x = Page::new().set_or_clear_advanced_settings(None::<AdvancedSettings>);
-    /// ```
     pub fn set_or_clear_advanced_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedSettings>,
@@ -20867,13 +16517,6 @@ impl Page {
     }
 
     /// Sets the value of [knowledge_connector_settings][crate::model::Page::knowledge_connector_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Page;
-    /// use google_cloud_dialogflow_cx_v3::model::KnowledgeConnectorSettings;
-    /// let x = Page::new().set_knowledge_connector_settings(KnowledgeConnectorSettings::default()/* use setters */);
-    /// ```
     pub fn set_knowledge_connector_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::KnowledgeConnectorSettings>,
@@ -20883,14 +16526,6 @@ impl Page {
     }
 
     /// Sets or clears the value of [knowledge_connector_settings][crate::model::Page::knowledge_connector_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Page;
-    /// use google_cloud_dialogflow_cx_v3::model::KnowledgeConnectorSettings;
-    /// let x = Page::new().set_or_clear_knowledge_connector_settings(Some(KnowledgeConnectorSettings::default()/* use setters */));
-    /// let x = Page::new().set_or_clear_knowledge_connector_settings(None::<KnowledgeConnectorSettings>);
-    /// ```
     pub fn set_or_clear_knowledge_connector_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KnowledgeConnectorSettings>,
@@ -20933,17 +16568,6 @@ impl Form {
     }
 
     /// Sets the value of [parameters][crate::model::Form::parameters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Form;
-    /// use google_cloud_dialogflow_cx_v3::model::form::Parameter;
-    /// let x = Form::new()
-    ///     .set_parameters([
-    ///         Parameter::default()/* use setters */,
-    ///         Parameter::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -21025,12 +16649,6 @@ pub mod form {
         }
 
         /// Sets the value of [display_name][crate::model::form::Parameter::display_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::form::Parameter;
-        /// let x = Parameter::new().set_display_name("example");
-        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -21040,49 +16658,24 @@ pub mod form {
         }
 
         /// Sets the value of [required][crate::model::form::Parameter::required].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::form::Parameter;
-        /// let x = Parameter::new().set_required(true);
-        /// ```
         pub fn set_required<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.required = v.into();
             self
         }
 
         /// Sets the value of [entity_type][crate::model::form::Parameter::entity_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::form::Parameter;
-        /// let x = Parameter::new().set_entity_type("example");
-        /// ```
         pub fn set_entity_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.entity_type = v.into();
             self
         }
 
         /// Sets the value of [is_list][crate::model::form::Parameter::is_list].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::form::Parameter;
-        /// let x = Parameter::new().set_is_list(true);
-        /// ```
         pub fn set_is_list<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.is_list = v.into();
             self
         }
 
         /// Sets the value of [fill_behavior][crate::model::form::Parameter::fill_behavior].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::form::Parameter;
-        /// use google_cloud_dialogflow_cx_v3::model::form::parameter::FillBehavior;
-        /// let x = Parameter::new().set_fill_behavior(FillBehavior::default()/* use setters */);
-        /// ```
         pub fn set_fill_behavior<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::form::parameter::FillBehavior>,
@@ -21092,14 +16685,6 @@ pub mod form {
         }
 
         /// Sets or clears the value of [fill_behavior][crate::model::form::Parameter::fill_behavior].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::form::Parameter;
-        /// use google_cloud_dialogflow_cx_v3::model::form::parameter::FillBehavior;
-        /// let x = Parameter::new().set_or_clear_fill_behavior(Some(FillBehavior::default()/* use setters */));
-        /// let x = Parameter::new().set_or_clear_fill_behavior(None::<FillBehavior>);
-        /// ```
         pub fn set_or_clear_fill_behavior<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::form::parameter::FillBehavior>,
@@ -21109,13 +16694,6 @@ pub mod form {
         }
 
         /// Sets the value of [default_value][crate::model::form::Parameter::default_value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::form::Parameter;
-        /// use wkt::Value;
-        /// let x = Parameter::new().set_default_value(Value::default()/* use setters */);
-        /// ```
         pub fn set_default_value<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Value>,
@@ -21125,14 +16703,6 @@ pub mod form {
         }
 
         /// Sets or clears the value of [default_value][crate::model::form::Parameter::default_value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::form::Parameter;
-        /// use wkt::Value;
-        /// let x = Parameter::new().set_or_clear_default_value(Some(Value::default()/* use setters */));
-        /// let x = Parameter::new().set_or_clear_default_value(None::<Value>);
-        /// ```
         pub fn set_or_clear_default_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Value>,
@@ -21142,25 +16712,12 @@ pub mod form {
         }
 
         /// Sets the value of [redact][crate::model::form::Parameter::redact].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::form::Parameter;
-        /// let x = Parameter::new().set_redact(true);
-        /// ```
         pub fn set_redact<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.redact = v.into();
             self
         }
 
         /// Sets the value of [advanced_settings][crate::model::form::Parameter::advanced_settings].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::form::Parameter;
-        /// use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-        /// let x = Parameter::new().set_advanced_settings(AdvancedSettings::default()/* use setters */);
-        /// ```
         pub fn set_advanced_settings<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::AdvancedSettings>,
@@ -21170,14 +16727,6 @@ pub mod form {
         }
 
         /// Sets or clears the value of [advanced_settings][crate::model::form::Parameter::advanced_settings].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::form::Parameter;
-        /// use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-        /// let x = Parameter::new().set_or_clear_advanced_settings(Some(AdvancedSettings::default()/* use setters */));
-        /// let x = Parameter::new().set_or_clear_advanced_settings(None::<AdvancedSettings>);
-        /// ```
         pub fn set_or_clear_advanced_settings<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AdvancedSettings>,
@@ -21254,13 +16803,6 @@ pub mod form {
             }
 
             /// Sets the value of [initial_prompt_fulfillment][crate::model::form::parameter::FillBehavior::initial_prompt_fulfillment].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::form::parameter::FillBehavior;
-            /// use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-            /// let x = FillBehavior::new().set_initial_prompt_fulfillment(Fulfillment::default()/* use setters */);
-            /// ```
             pub fn set_initial_prompt_fulfillment<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::Fulfillment>,
@@ -21270,14 +16812,6 @@ pub mod form {
             }
 
             /// Sets or clears the value of [initial_prompt_fulfillment][crate::model::form::parameter::FillBehavior::initial_prompt_fulfillment].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::form::parameter::FillBehavior;
-            /// use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-            /// let x = FillBehavior::new().set_or_clear_initial_prompt_fulfillment(Some(Fulfillment::default()/* use setters */));
-            /// let x = FillBehavior::new().set_or_clear_initial_prompt_fulfillment(None::<Fulfillment>);
-            /// ```
             pub fn set_or_clear_initial_prompt_fulfillment<T>(
                 mut self,
                 v: std::option::Option<T>,
@@ -21290,17 +16824,6 @@ pub mod form {
             }
 
             /// Sets the value of [reprompt_event_handlers][crate::model::form::parameter::FillBehavior::reprompt_event_handlers].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::form::parameter::FillBehavior;
-            /// use google_cloud_dialogflow_cx_v3::model::EventHandler;
-            /// let x = FillBehavior::new()
-            ///     .set_reprompt_event_handlers([
-            ///         EventHandler::default()/* use setters */,
-            ///         EventHandler::default()/* use (different) setters */,
-            ///     ]);
-            /// ```
             pub fn set_reprompt_event_handlers<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -21386,37 +16909,18 @@ impl EventHandler {
     }
 
     /// Sets the value of [name][crate::model::EventHandler::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::EventHandler;
-    /// let x = EventHandler::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [event][crate::model::EventHandler::event].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::EventHandler;
-    /// let x = EventHandler::new().set_event("example");
-    /// ```
     pub fn set_event<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.event = v.into();
         self
     }
 
     /// Sets the value of [trigger_fulfillment][crate::model::EventHandler::trigger_fulfillment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::EventHandler;
-    /// use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// let x = EventHandler::new().set_trigger_fulfillment(Fulfillment::default()/* use setters */);
-    /// ```
     pub fn set_trigger_fulfillment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Fulfillment>,
@@ -21426,14 +16930,6 @@ impl EventHandler {
     }
 
     /// Sets or clears the value of [trigger_fulfillment][crate::model::EventHandler::trigger_fulfillment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::EventHandler;
-    /// use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// let x = EventHandler::new().set_or_clear_trigger_fulfillment(Some(Fulfillment::default()/* use setters */));
-    /// let x = EventHandler::new().set_or_clear_trigger_fulfillment(None::<Fulfillment>);
-    /// ```
     pub fn set_or_clear_trigger_fulfillment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Fulfillment>,
@@ -21446,13 +16942,6 @@ impl EventHandler {
     ///
     /// Note that all the setters affecting `target` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::EventHandler;
-    /// use google_cloud_dialogflow_cx_v3::model::event_handler;
-    /// let x = EventHandler::new().set_target(Some(event_handler::Target::TargetPage("example".to_string())));
-    /// ```
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::event_handler::Target>>,
     >(
@@ -21479,14 +16968,6 @@ impl EventHandler {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::EventHandler;
-    /// let x = EventHandler::new().set_target_page("example");
-    /// assert!(x.target_page().is_some());
-    /// assert!(x.target_flow().is_none());
-    /// ```
     pub fn set_target_page<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target =
             std::option::Option::Some(crate::model::event_handler::Target::TargetPage(v.into()));
@@ -21509,14 +16990,6 @@ impl EventHandler {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::EventHandler;
-    /// let x = EventHandler::new().set_target_flow("example");
-    /// assert!(x.target_flow().is_some());
-    /// assert!(x.target_page().is_none());
-    /// ```
     pub fn set_target_flow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target =
             std::option::Option::Some(crate::model::event_handler::Target::TargetFlow(v.into()));
@@ -21666,61 +17139,30 @@ impl TransitionRoute {
     }
 
     /// Sets the value of [name][crate::model::TransitionRoute::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-    /// let x = TransitionRoute::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::TransitionRoute::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-    /// let x = TransitionRoute::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [intent][crate::model::TransitionRoute::intent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-    /// let x = TransitionRoute::new().set_intent("example");
-    /// ```
     pub fn set_intent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.intent = v.into();
         self
     }
 
     /// Sets the value of [condition][crate::model::TransitionRoute::condition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-    /// let x = TransitionRoute::new().set_condition("example");
-    /// ```
     pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.condition = v.into();
         self
     }
 
     /// Sets the value of [trigger_fulfillment][crate::model::TransitionRoute::trigger_fulfillment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-    /// use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// let x = TransitionRoute::new().set_trigger_fulfillment(Fulfillment::default()/* use setters */);
-    /// ```
     pub fn set_trigger_fulfillment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Fulfillment>,
@@ -21730,14 +17172,6 @@ impl TransitionRoute {
     }
 
     /// Sets or clears the value of [trigger_fulfillment][crate::model::TransitionRoute::trigger_fulfillment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-    /// use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// let x = TransitionRoute::new().set_or_clear_trigger_fulfillment(Some(Fulfillment::default()/* use setters */));
-    /// let x = TransitionRoute::new().set_or_clear_trigger_fulfillment(None::<Fulfillment>);
-    /// ```
     pub fn set_or_clear_trigger_fulfillment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Fulfillment>,
@@ -21750,13 +17184,6 @@ impl TransitionRoute {
     ///
     /// Note that all the setters affecting `target` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-    /// use google_cloud_dialogflow_cx_v3::model::transition_route;
-    /// let x = TransitionRoute::new().set_target(Some(transition_route::Target::TargetPage("example".to_string())));
-    /// ```
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::transition_route::Target>>,
     >(
@@ -21783,14 +17210,6 @@ impl TransitionRoute {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-    /// let x = TransitionRoute::new().set_target_page("example");
-    /// assert!(x.target_page().is_some());
-    /// assert!(x.target_flow().is_none());
-    /// ```
     pub fn set_target_page<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target =
             std::option::Option::Some(crate::model::transition_route::Target::TargetPage(v.into()));
@@ -21813,14 +17232,6 @@ impl TransitionRoute {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-    /// let x = TransitionRoute::new().set_target_flow("example");
-    /// assert!(x.target_flow().is_some());
-    /// assert!(x.target_page().is_none());
-    /// ```
     pub fn set_target_flow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target =
             std::option::Option::Some(crate::model::transition_route::Target::TargetFlow(v.into()));
@@ -21935,48 +17346,24 @@ impl ListPagesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPagesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListPagesRequest;
-    /// let x = ListPagesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::ListPagesRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListPagesRequest;
-    /// let x = ListPagesRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPagesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListPagesRequest;
-    /// let x = ListPagesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPagesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListPagesRequest;
-    /// let x = ListPagesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -22016,17 +17403,6 @@ impl ListPagesResponse {
     }
 
     /// Sets the value of [pages][crate::model::ListPagesResponse::pages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListPagesResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::Page;
-    /// let x = ListPagesResponse::new()
-    ///     .set_pages([
-    ///         Page::default()/* use setters */,
-    ///         Page::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_pages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -22038,12 +17414,6 @@ impl ListPagesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPagesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListPagesResponse;
-    /// let x = ListPagesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -22120,24 +17490,12 @@ impl GetPageRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPageRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetPageRequest;
-    /// let x = GetPageRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::GetPageRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetPageRequest;
-    /// let x = GetPageRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -22201,25 +17559,12 @@ impl CreatePageRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreatePageRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreatePageRequest;
-    /// let x = CreatePageRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page][crate::model::CreatePageRequest::page].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreatePageRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Page;
-    /// let x = CreatePageRequest::new().set_page(Page::default()/* use setters */);
-    /// ```
     pub fn set_page<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Page>,
@@ -22229,14 +17574,6 @@ impl CreatePageRequest {
     }
 
     /// Sets or clears the value of [page][crate::model::CreatePageRequest::page].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreatePageRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Page;
-    /// let x = CreatePageRequest::new().set_or_clear_page(Some(Page::default()/* use setters */));
-    /// let x = CreatePageRequest::new().set_or_clear_page(None::<Page>);
-    /// ```
     pub fn set_or_clear_page<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Page>,
@@ -22246,12 +17583,6 @@ impl CreatePageRequest {
     }
 
     /// Sets the value of [language_code][crate::model::CreatePageRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreatePageRequest;
-    /// let x = CreatePageRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -22314,13 +17645,6 @@ impl UpdatePageRequest {
     }
 
     /// Sets the value of [page][crate::model::UpdatePageRequest::page].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdatePageRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Page;
-    /// let x = UpdatePageRequest::new().set_page(Page::default()/* use setters */);
-    /// ```
     pub fn set_page<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Page>,
@@ -22330,14 +17654,6 @@ impl UpdatePageRequest {
     }
 
     /// Sets or clears the value of [page][crate::model::UpdatePageRequest::page].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdatePageRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Page;
-    /// let x = UpdatePageRequest::new().set_or_clear_page(Some(Page::default()/* use setters */));
-    /// let x = UpdatePageRequest::new().set_or_clear_page(None::<Page>);
-    /// ```
     pub fn set_or_clear_page<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Page>,
@@ -22347,25 +17663,12 @@ impl UpdatePageRequest {
     }
 
     /// Sets the value of [language_code][crate::model::UpdatePageRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdatePageRequest;
-    /// let x = UpdatePageRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePageRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdatePageRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdatePageRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -22375,14 +17678,6 @@ impl UpdatePageRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePageRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdatePageRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdatePageRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdatePageRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -22437,24 +17732,12 @@ impl DeletePageRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePageRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeletePageRequest;
-    /// let x = DeletePageRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeletePageRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeletePageRequest;
-    /// let x = DeletePageRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -22518,25 +17801,12 @@ impl KnowledgeConnectorSettings {
     }
 
     /// Sets the value of [enabled][crate::model::KnowledgeConnectorSettings::enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::KnowledgeConnectorSettings;
-    /// let x = KnowledgeConnectorSettings::new().set_enabled(true);
-    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
     }
 
     /// Sets the value of [trigger_fulfillment][crate::model::KnowledgeConnectorSettings::trigger_fulfillment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::KnowledgeConnectorSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// let x = KnowledgeConnectorSettings::new().set_trigger_fulfillment(Fulfillment::default()/* use setters */);
-    /// ```
     pub fn set_trigger_fulfillment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Fulfillment>,
@@ -22546,14 +17816,6 @@ impl KnowledgeConnectorSettings {
     }
 
     /// Sets or clears the value of [trigger_fulfillment][crate::model::KnowledgeConnectorSettings::trigger_fulfillment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::KnowledgeConnectorSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::Fulfillment;
-    /// let x = KnowledgeConnectorSettings::new().set_or_clear_trigger_fulfillment(Some(Fulfillment::default()/* use setters */));
-    /// let x = KnowledgeConnectorSettings::new().set_or_clear_trigger_fulfillment(None::<Fulfillment>);
-    /// ```
     pub fn set_or_clear_trigger_fulfillment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Fulfillment>,
@@ -22563,17 +17825,6 @@ impl KnowledgeConnectorSettings {
     }
 
     /// Sets the value of [data_store_connections][crate::model::KnowledgeConnectorSettings::data_store_connections].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::KnowledgeConnectorSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::DataStoreConnection;
-    /// let x = KnowledgeConnectorSettings::new()
-    ///     .set_data_store_connections([
-    ///         DataStoreConnection::default()/* use setters */,
-    ///         DataStoreConnection::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_data_store_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -22588,13 +17839,6 @@ impl KnowledgeConnectorSettings {
     ///
     /// Note that all the setters affecting `target` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::KnowledgeConnectorSettings;
-    /// use google_cloud_dialogflow_cx_v3::model::knowledge_connector_settings;
-    /// let x = KnowledgeConnectorSettings::new().set_target(Some(knowledge_connector_settings::Target::TargetPage("example".to_string())));
-    /// ```
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::knowledge_connector_settings::Target>>,
     >(
@@ -22623,14 +17867,6 @@ impl KnowledgeConnectorSettings {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::KnowledgeConnectorSettings;
-    /// let x = KnowledgeConnectorSettings::new().set_target_page("example");
-    /// assert!(x.target_page().is_some());
-    /// assert!(x.target_flow().is_none());
-    /// ```
     pub fn set_target_page<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = std::option::Option::Some(
             crate::model::knowledge_connector_settings::Target::TargetPage(v.into()),
@@ -22656,14 +17892,6 @@ impl KnowledgeConnectorSettings {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::KnowledgeConnectorSettings;
-    /// let x = KnowledgeConnectorSettings::new().set_target_flow("example");
-    /// assert!(x.target_flow().is_some());
-    /// assert!(x.target_page().is_none());
-    /// ```
     pub fn set_target_flow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = std::option::Option::Some(
             crate::model::knowledge_connector_settings::Target::TargetFlow(v.into()),
@@ -22778,15 +18006,6 @@ impl ResponseMessage {
     }
 
     /// Sets the value of [response_type][crate::model::ResponseMessage::response_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-    /// use google_cloud_dialogflow_cx_v3::model::response_message::ResponseType;
-    /// let x0 = ResponseMessage::new().set_response_type(ResponseType::EntryPrompt);
-    /// let x1 = ResponseMessage::new().set_response_type(ResponseType::ParameterPrompt);
-    /// let x2 = ResponseMessage::new().set_response_type(ResponseType::HandlerPrompt);
-    /// ```
     pub fn set_response_type<
         T: std::convert::Into<crate::model::response_message::ResponseType>,
     >(
@@ -22798,12 +18017,6 @@ impl ResponseMessage {
     }
 
     /// Sets the value of [channel][crate::model::ResponseMessage::channel].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-    /// let x = ResponseMessage::new().set_channel("example");
-    /// ```
     pub fn set_channel<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.channel = v.into();
         self
@@ -22813,14 +18026,6 @@ impl ResponseMessage {
     ///
     /// Note that all the setters affecting `message` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-    /// use google_cloud_dialogflow_cx_v3::model::response_message;
-    /// use google_cloud_dialogflow_cx_v3::model::response_message::Text;
-    /// let x = ResponseMessage::new().set_message(Some(response_message::Message::Text(Text::default().into())));
-    /// ```
     pub fn set_message<
         T: std::convert::Into<std::option::Option<crate::model::response_message::Message>>,
     >(
@@ -22849,23 +18054,6 @@ impl ResponseMessage {
     ///
     /// Note that all the setters affecting `message` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-    /// use google_cloud_dialogflow_cx_v3::model::response_message::Text;
-    /// let x = ResponseMessage::new().set_text(Text::default()/* use setters */);
-    /// assert!(x.text().is_some());
-    /// assert!(x.payload().is_none());
-    /// assert!(x.conversation_success().is_none());
-    /// assert!(x.output_audio_text().is_none());
-    /// assert!(x.live_agent_handoff().is_none());
-    /// assert!(x.end_interaction().is_none());
-    /// assert!(x.play_audio().is_none());
-    /// assert!(x.mixed_audio().is_none());
-    /// assert!(x.telephony_transfer_call().is_none());
-    /// assert!(x.knowledge_info_card().is_none());
-    /// ```
     pub fn set_text<
         T: std::convert::Into<std::boxed::Box<crate::model::response_message::Text>>,
     >(
@@ -22893,23 +18081,6 @@ impl ResponseMessage {
     ///
     /// Note that all the setters affecting `message` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-    /// use wkt::Struct;
-    /// let x = ResponseMessage::new().set_payload(Struct::default()/* use setters */);
-    /// assert!(x.payload().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.conversation_success().is_none());
-    /// assert!(x.output_audio_text().is_none());
-    /// assert!(x.live_agent_handoff().is_none());
-    /// assert!(x.end_interaction().is_none());
-    /// assert!(x.play_audio().is_none());
-    /// assert!(x.mixed_audio().is_none());
-    /// assert!(x.telephony_transfer_call().is_none());
-    /// assert!(x.knowledge_info_card().is_none());
-    /// ```
     pub fn set_payload<T: std::convert::Into<std::boxed::Box<wkt::Struct>>>(
         mut self,
         v: T,
@@ -22940,23 +18111,6 @@ impl ResponseMessage {
     ///
     /// Note that all the setters affecting `message` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-    /// use google_cloud_dialogflow_cx_v3::model::response_message::ConversationSuccess;
-    /// let x = ResponseMessage::new().set_conversation_success(ConversationSuccess::default()/* use setters */);
-    /// assert!(x.conversation_success().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.payload().is_none());
-    /// assert!(x.output_audio_text().is_none());
-    /// assert!(x.live_agent_handoff().is_none());
-    /// assert!(x.end_interaction().is_none());
-    /// assert!(x.play_audio().is_none());
-    /// assert!(x.mixed_audio().is_none());
-    /// assert!(x.telephony_transfer_call().is_none());
-    /// assert!(x.knowledge_info_card().is_none());
-    /// ```
     pub fn set_conversation_success<
         T: std::convert::Into<std::boxed::Box<crate::model::response_message::ConversationSuccess>>,
     >(
@@ -22990,23 +18144,6 @@ impl ResponseMessage {
     ///
     /// Note that all the setters affecting `message` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-    /// use google_cloud_dialogflow_cx_v3::model::response_message::OutputAudioText;
-    /// let x = ResponseMessage::new().set_output_audio_text(OutputAudioText::default()/* use setters */);
-    /// assert!(x.output_audio_text().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.payload().is_none());
-    /// assert!(x.conversation_success().is_none());
-    /// assert!(x.live_agent_handoff().is_none());
-    /// assert!(x.end_interaction().is_none());
-    /// assert!(x.play_audio().is_none());
-    /// assert!(x.mixed_audio().is_none());
-    /// assert!(x.telephony_transfer_call().is_none());
-    /// assert!(x.knowledge_info_card().is_none());
-    /// ```
     pub fn set_output_audio_text<
         T: std::convert::Into<std::boxed::Box<crate::model::response_message::OutputAudioText>>,
     >(
@@ -23040,23 +18177,6 @@ impl ResponseMessage {
     ///
     /// Note that all the setters affecting `message` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-    /// use google_cloud_dialogflow_cx_v3::model::response_message::LiveAgentHandoff;
-    /// let x = ResponseMessage::new().set_live_agent_handoff(LiveAgentHandoff::default()/* use setters */);
-    /// assert!(x.live_agent_handoff().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.payload().is_none());
-    /// assert!(x.conversation_success().is_none());
-    /// assert!(x.output_audio_text().is_none());
-    /// assert!(x.end_interaction().is_none());
-    /// assert!(x.play_audio().is_none());
-    /// assert!(x.mixed_audio().is_none());
-    /// assert!(x.telephony_transfer_call().is_none());
-    /// assert!(x.knowledge_info_card().is_none());
-    /// ```
     pub fn set_live_agent_handoff<
         T: std::convert::Into<std::boxed::Box<crate::model::response_message::LiveAgentHandoff>>,
     >(
@@ -23089,23 +18209,6 @@ impl ResponseMessage {
     ///
     /// Note that all the setters affecting `message` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-    /// use google_cloud_dialogflow_cx_v3::model::response_message::EndInteraction;
-    /// let x = ResponseMessage::new().set_end_interaction(EndInteraction::default()/* use setters */);
-    /// assert!(x.end_interaction().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.payload().is_none());
-    /// assert!(x.conversation_success().is_none());
-    /// assert!(x.output_audio_text().is_none());
-    /// assert!(x.live_agent_handoff().is_none());
-    /// assert!(x.play_audio().is_none());
-    /// assert!(x.mixed_audio().is_none());
-    /// assert!(x.telephony_transfer_call().is_none());
-    /// assert!(x.knowledge_info_card().is_none());
-    /// ```
     pub fn set_end_interaction<
         T: std::convert::Into<std::boxed::Box<crate::model::response_message::EndInteraction>>,
     >(
@@ -23136,23 +18239,6 @@ impl ResponseMessage {
     ///
     /// Note that all the setters affecting `message` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-    /// use google_cloud_dialogflow_cx_v3::model::response_message::PlayAudio;
-    /// let x = ResponseMessage::new().set_play_audio(PlayAudio::default()/* use setters */);
-    /// assert!(x.play_audio().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.payload().is_none());
-    /// assert!(x.conversation_success().is_none());
-    /// assert!(x.output_audio_text().is_none());
-    /// assert!(x.live_agent_handoff().is_none());
-    /// assert!(x.end_interaction().is_none());
-    /// assert!(x.mixed_audio().is_none());
-    /// assert!(x.telephony_transfer_call().is_none());
-    /// assert!(x.knowledge_info_card().is_none());
-    /// ```
     pub fn set_play_audio<
         T: std::convert::Into<std::boxed::Box<crate::model::response_message::PlayAudio>>,
     >(
@@ -23182,23 +18268,6 @@ impl ResponseMessage {
     ///
     /// Note that all the setters affecting `message` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-    /// use google_cloud_dialogflow_cx_v3::model::response_message::MixedAudio;
-    /// let x = ResponseMessage::new().set_mixed_audio(MixedAudio::default()/* use setters */);
-    /// assert!(x.mixed_audio().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.payload().is_none());
-    /// assert!(x.conversation_success().is_none());
-    /// assert!(x.output_audio_text().is_none());
-    /// assert!(x.live_agent_handoff().is_none());
-    /// assert!(x.end_interaction().is_none());
-    /// assert!(x.play_audio().is_none());
-    /// assert!(x.telephony_transfer_call().is_none());
-    /// assert!(x.knowledge_info_card().is_none());
-    /// ```
     pub fn set_mixed_audio<
         T: std::convert::Into<std::boxed::Box<crate::model::response_message::MixedAudio>>,
     >(
@@ -23232,23 +18301,6 @@ impl ResponseMessage {
     ///
     /// Note that all the setters affecting `message` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-    /// use google_cloud_dialogflow_cx_v3::model::response_message::TelephonyTransferCall;
-    /// let x = ResponseMessage::new().set_telephony_transfer_call(TelephonyTransferCall::default()/* use setters */);
-    /// assert!(x.telephony_transfer_call().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.payload().is_none());
-    /// assert!(x.conversation_success().is_none());
-    /// assert!(x.output_audio_text().is_none());
-    /// assert!(x.live_agent_handoff().is_none());
-    /// assert!(x.end_interaction().is_none());
-    /// assert!(x.play_audio().is_none());
-    /// assert!(x.mixed_audio().is_none());
-    /// assert!(x.knowledge_info_card().is_none());
-    /// ```
     pub fn set_telephony_transfer_call<
         T: std::convert::Into<std::boxed::Box<crate::model::response_message::TelephonyTransferCall>>,
     >(
@@ -23282,23 +18334,6 @@ impl ResponseMessage {
     ///
     /// Note that all the setters affecting `message` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-    /// use google_cloud_dialogflow_cx_v3::model::response_message::KnowledgeInfoCard;
-    /// let x = ResponseMessage::new().set_knowledge_info_card(KnowledgeInfoCard::default()/* use setters */);
-    /// assert!(x.knowledge_info_card().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.payload().is_none());
-    /// assert!(x.conversation_success().is_none());
-    /// assert!(x.output_audio_text().is_none());
-    /// assert!(x.live_agent_handoff().is_none());
-    /// assert!(x.end_interaction().is_none());
-    /// assert!(x.play_audio().is_none());
-    /// assert!(x.mixed_audio().is_none());
-    /// assert!(x.telephony_transfer_call().is_none());
-    /// ```
     pub fn set_knowledge_info_card<
         T: std::convert::Into<std::boxed::Box<crate::model::response_message::KnowledgeInfoCard>>,
     >(
@@ -23373,12 +18408,6 @@ pub mod response_message {
         }
 
         /// Sets the value of [text][crate::model::response_message::Text::text].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::response_message::Text;
-        /// let x = Text::new().set_text(["a", "b", "c"]);
-        /// ```
         pub fn set_text<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -23390,12 +18419,6 @@ pub mod response_message {
         }
 
         /// Sets the value of [allow_playback_interruption][crate::model::response_message::Text::allow_playback_interruption].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::response_message::Text;
-        /// let x = Text::new().set_allow_playback_interruption(true);
-        /// ```
         pub fn set_allow_playback_interruption<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -23466,13 +18489,6 @@ pub mod response_message {
         }
 
         /// Sets the value of [metadata][crate::model::response_message::LiveAgentHandoff::metadata].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::response_message::LiveAgentHandoff;
-        /// use wkt::Struct;
-        /// let x = LiveAgentHandoff::new().set_metadata(Struct::default()/* use setters */);
-        /// ```
         pub fn set_metadata<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -23482,14 +18498,6 @@ pub mod response_message {
         }
 
         /// Sets or clears the value of [metadata][crate::model::response_message::LiveAgentHandoff::metadata].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::response_message::LiveAgentHandoff;
-        /// use wkt::Struct;
-        /// let x = LiveAgentHandoff::new().set_or_clear_metadata(Some(Struct::default()/* use setters */));
-        /// let x = LiveAgentHandoff::new().set_or_clear_metadata(None::<Struct>);
-        /// ```
         pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -23562,13 +18570,6 @@ pub mod response_message {
         }
 
         /// Sets the value of [metadata][crate::model::response_message::ConversationSuccess::metadata].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::response_message::ConversationSuccess;
-        /// use wkt::Struct;
-        /// let x = ConversationSuccess::new().set_metadata(Struct::default()/* use setters */);
-        /// ```
         pub fn set_metadata<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -23578,14 +18579,6 @@ pub mod response_message {
         }
 
         /// Sets or clears the value of [metadata][crate::model::response_message::ConversationSuccess::metadata].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::response_message::ConversationSuccess;
-        /// use wkt::Struct;
-        /// let x = ConversationSuccess::new().set_or_clear_metadata(Some(Struct::default()/* use setters */));
-        /// let x = ConversationSuccess::new().set_or_clear_metadata(None::<Struct>);
-        /// ```
         pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -23644,12 +18637,6 @@ pub mod response_message {
         }
 
         /// Sets the value of [allow_playback_interruption][crate::model::response_message::OutputAudioText::allow_playback_interruption].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::response_message::OutputAudioText;
-        /// let x = OutputAudioText::new().set_allow_playback_interruption(true);
-        /// ```
         pub fn set_allow_playback_interruption<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -23662,13 +18649,6 @@ pub mod response_message {
         ///
         /// Note that all the setters affecting `source` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::response_message::OutputAudioText;
-        /// use google_cloud_dialogflow_cx_v3::model::response_message::output_audio_text;
-        /// let x = OutputAudioText::new().set_source(Some(response_message::output_audio_text::Source::Text("example".to_string())));
-        /// ```
         pub fn set_source<
             T: std::convert::Into<
                     std::option::Option<crate::model::response_message::output_audio_text::Source>,
@@ -23699,14 +18679,6 @@ pub mod response_message {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::response_message::OutputAudioText;
-        /// let x = OutputAudioText::new().set_text("example");
-        /// assert!(x.text().is_some());
-        /// assert!(x.ssml().is_none());
-        /// ```
         pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source = std::option::Option::Some(
                 crate::model::response_message::output_audio_text::Source::Text(v.into()),
@@ -23732,14 +18704,6 @@ pub mod response_message {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::response_message::OutputAudioText;
-        /// let x = OutputAudioText::new().set_ssml("example");
-        /// assert!(x.ssml().is_some());
-        /// assert!(x.text().is_none());
-        /// ```
         pub fn set_ssml<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source = std::option::Option::Some(
                 crate::model::response_message::output_audio_text::Source::Ssml(v.into()),
@@ -23870,24 +18834,12 @@ pub mod response_message {
         }
 
         /// Sets the value of [audio_uri][crate::model::response_message::PlayAudio::audio_uri].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::response_message::PlayAudio;
-        /// let x = PlayAudio::new().set_audio_uri("example");
-        /// ```
         pub fn set_audio_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.audio_uri = v.into();
             self
         }
 
         /// Sets the value of [allow_playback_interruption][crate::model::response_message::PlayAudio::allow_playback_interruption].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::response_message::PlayAudio;
-        /// let x = PlayAudio::new().set_allow_playback_interruption(true);
-        /// ```
         pub fn set_allow_playback_interruption<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -23948,17 +18900,6 @@ pub mod response_message {
         }
 
         /// Sets the value of [segments][crate::model::response_message::MixedAudio::segments].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::response_message::MixedAudio;
-        /// use google_cloud_dialogflow_cx_v3::model::response_message::mixed_audio::Segment;
-        /// let x = MixedAudio::new()
-        ///     .set_segments([
-        ///         Segment::default()/* use setters */,
-        ///         Segment::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_segments<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -24031,12 +18972,6 @@ pub mod response_message {
             }
 
             /// Sets the value of [allow_playback_interruption][crate::model::response_message::mixed_audio::Segment::allow_playback_interruption].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::response_message::mixed_audio::Segment;
-            /// let x = Segment::new().set_allow_playback_interruption(true);
-            /// ```
             pub fn set_allow_playback_interruption<T: std::convert::Into<bool>>(
                 mut self,
                 v: T,
@@ -24049,13 +18984,6 @@ pub mod response_message {
             ///
             /// Note that all the setters affecting `content` are mutually
             /// exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::response_message::mixed_audio::Segment;
-            /// use google_cloud_dialogflow_cx_v3::model::response_message::mixed_audio::segment;
-            /// let x = Segment::new().set_content(Some(response_message::mixed_audio::segment::Content::Audio(bytes::Bytes::from_static(b"example"))));
-            /// ```
             pub fn set_content<
                 T: std::convert::Into<
                         std::option::Option<
@@ -24088,14 +19016,6 @@ pub mod response_message {
             ///
             /// Note that all the setters affecting `content` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::response_message::mixed_audio::Segment;
-            /// let x = Segment::new().set_audio(bytes::Bytes::from_static(b"example"));
-            /// assert!(x.audio().is_some());
-            /// assert!(x.uri().is_none());
-            /// ```
             pub fn set_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
                 self.content = std::option::Option::Some(
                     crate::model::response_message::mixed_audio::segment::Content::Audio(v.into()),
@@ -24121,14 +19041,6 @@ pub mod response_message {
             ///
             /// Note that all the setters affecting `content` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::response_message::mixed_audio::Segment;
-            /// let x = Segment::new().set_uri("example");
-            /// assert!(x.uri().is_some());
-            /// assert!(x.audio().is_none());
-            /// ```
             pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.content = std::option::Option::Some(
                     crate::model::response_message::mixed_audio::segment::Content::Uri(v.into()),
@@ -24218,13 +19130,6 @@ pub mod response_message {
         ///
         /// Note that all the setters affecting `endpoint` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::response_message::TelephonyTransferCall;
-        /// use google_cloud_dialogflow_cx_v3::model::response_message::telephony_transfer_call;
-        /// let x = TelephonyTransferCall::new().set_endpoint(Some(response_message::telephony_transfer_call::Endpoint::PhoneNumber("example".to_string())));
-        /// ```
         pub fn set_endpoint<
             T: std::convert::Into<
                     std::option::Option<
@@ -24257,13 +19162,6 @@ pub mod response_message {
         ///
         /// Note that all the setters affecting `endpoint` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::response_message::TelephonyTransferCall;
-        /// let x = TelephonyTransferCall::new().set_phone_number("example");
-        /// assert!(x.phone_number().is_some());
-        /// ```
         pub fn set_phone_number<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -24652,17 +19550,6 @@ impl SafetySettings {
     }
 
     /// Sets the value of [banned_phrases][crate::model::SafetySettings::banned_phrases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SafetySettings;
-    /// use google_cloud_dialogflow_cx_v3::model::safety_settings::Phrase;
-    /// let x = SafetySettings::new()
-    ///     .set_banned_phrases([
-    ///         Phrase::default()/* use setters */,
-    ///         Phrase::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_banned_phrases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -24708,24 +19595,12 @@ pub mod safety_settings {
         }
 
         /// Sets the value of [text][crate::model::safety_settings::Phrase::text].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::safety_settings::Phrase;
-        /// let x = Phrase::new().set_text("example");
-        /// ```
         pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.text = v.into();
             self
         }
 
         /// Sets the value of [language_code][crate::model::safety_settings::Phrase::language_code].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::safety_settings::Phrase;
-        /// let x = Phrase::new().set_language_code("example");
-        /// ```
         pub fn set_language_code<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -24766,12 +19641,6 @@ impl GetSecuritySettingsRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSecuritySettingsRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetSecuritySettingsRequest;
-    /// let x = GetSecuritySettingsRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -24811,13 +19680,6 @@ impl UpdateSecuritySettingsRequest {
     }
 
     /// Sets the value of [security_settings][crate::model::UpdateSecuritySettingsRequest::security_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateSecuritySettingsRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// let x = UpdateSecuritySettingsRequest::new().set_security_settings(SecuritySettings::default()/* use setters */);
-    /// ```
     pub fn set_security_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecuritySettings>,
@@ -24827,14 +19689,6 @@ impl UpdateSecuritySettingsRequest {
     }
 
     /// Sets or clears the value of [security_settings][crate::model::UpdateSecuritySettingsRequest::security_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateSecuritySettingsRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// let x = UpdateSecuritySettingsRequest::new().set_or_clear_security_settings(Some(SecuritySettings::default()/* use setters */));
-    /// let x = UpdateSecuritySettingsRequest::new().set_or_clear_security_settings(None::<SecuritySettings>);
-    /// ```
     pub fn set_or_clear_security_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SecuritySettings>,
@@ -24844,13 +19698,6 @@ impl UpdateSecuritySettingsRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSecuritySettingsRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateSecuritySettingsRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateSecuritySettingsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -24860,14 +19707,6 @@ impl UpdateSecuritySettingsRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSecuritySettingsRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateSecuritySettingsRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateSecuritySettingsRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateSecuritySettingsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -24910,36 +19749,18 @@ impl ListSecuritySettingsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSecuritySettingsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListSecuritySettingsRequest;
-    /// let x = ListSecuritySettingsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSecuritySettingsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListSecuritySettingsRequest;
-    /// let x = ListSecuritySettingsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSecuritySettingsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListSecuritySettingsRequest;
-    /// let x = ListSecuritySettingsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -24975,17 +19796,6 @@ impl ListSecuritySettingsResponse {
     }
 
     /// Sets the value of [security_settings][crate::model::ListSecuritySettingsResponse::security_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListSecuritySettingsResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// let x = ListSecuritySettingsResponse::new()
-    ///     .set_security_settings([
-    ///         SecuritySettings::default()/* use setters */,
-    ///         SecuritySettings::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_security_settings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -24997,12 +19807,6 @@ impl ListSecuritySettingsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSecuritySettingsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListSecuritySettingsResponse;
-    /// let x = ListSecuritySettingsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -25056,25 +19860,12 @@ impl CreateSecuritySettingsRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSecuritySettingsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateSecuritySettingsRequest;
-    /// let x = CreateSecuritySettingsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [security_settings][crate::model::CreateSecuritySettingsRequest::security_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateSecuritySettingsRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// let x = CreateSecuritySettingsRequest::new().set_security_settings(SecuritySettings::default()/* use setters */);
-    /// ```
     pub fn set_security_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecuritySettings>,
@@ -25084,14 +19875,6 @@ impl CreateSecuritySettingsRequest {
     }
 
     /// Sets or clears the value of [security_settings][crate::model::CreateSecuritySettingsRequest::security_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateSecuritySettingsRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// let x = CreateSecuritySettingsRequest::new().set_or_clear_security_settings(Some(SecuritySettings::default()/* use setters */));
-    /// let x = CreateSecuritySettingsRequest::new().set_or_clear_security_settings(None::<SecuritySettings>);
-    /// ```
     pub fn set_or_clear_security_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SecuritySettings>,
@@ -25131,12 +19914,6 @@ impl DeleteSecuritySettingsRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSecuritySettingsRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeleteSecuritySettingsRequest;
-    /// let x = DeleteSecuritySettingsRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -25272,37 +20049,18 @@ impl SecuritySettings {
     }
 
     /// Sets the value of [name][crate::model::SecuritySettings::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// let x = SecuritySettings::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::SecuritySettings::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// let x = SecuritySettings::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [redaction_strategy][crate::model::SecuritySettings::redaction_strategy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// use google_cloud_dialogflow_cx_v3::model::security_settings::RedactionStrategy;
-    /// let x0 = SecuritySettings::new().set_redaction_strategy(RedactionStrategy::RedactWithService);
-    /// ```
     pub fn set_redaction_strategy<
         T: std::convert::Into<crate::model::security_settings::RedactionStrategy>,
     >(
@@ -25314,13 +20072,6 @@ impl SecuritySettings {
     }
 
     /// Sets the value of [redaction_scope][crate::model::SecuritySettings::redaction_scope].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// use google_cloud_dialogflow_cx_v3::model::security_settings::RedactionScope;
-    /// let x0 = SecuritySettings::new().set_redaction_scope(RedactionScope::RedactDiskStorage);
-    /// ```
     pub fn set_redaction_scope<
         T: std::convert::Into<crate::model::security_settings::RedactionScope>,
     >(
@@ -25332,12 +20083,6 @@ impl SecuritySettings {
     }
 
     /// Sets the value of [inspect_template][crate::model::SecuritySettings::inspect_template].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// let x = SecuritySettings::new().set_inspect_template("example");
-    /// ```
     pub fn set_inspect_template<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -25347,12 +20092,6 @@ impl SecuritySettings {
     }
 
     /// Sets the value of [deidentify_template][crate::model::SecuritySettings::deidentify_template].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// let x = SecuritySettings::new().set_deidentify_template("example");
-    /// ```
     pub fn set_deidentify_template<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -25362,15 +20101,6 @@ impl SecuritySettings {
     }
 
     /// Sets the value of [purge_data_types][crate::model::SecuritySettings::purge_data_types].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// use google_cloud_dialogflow_cx_v3::model::security_settings::PurgeDataType;
-    /// let x = SecuritySettings::new().set_purge_data_types([
-    ///     PurgeDataType::DialogflowHistory,
-    /// ]);
-    /// ```
     pub fn set_purge_data_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -25382,13 +20112,6 @@ impl SecuritySettings {
     }
 
     /// Sets the value of [audio_export_settings][crate::model::SecuritySettings::audio_export_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// use google_cloud_dialogflow_cx_v3::model::security_settings::AudioExportSettings;
-    /// let x = SecuritySettings::new().set_audio_export_settings(AudioExportSettings::default()/* use setters */);
-    /// ```
     pub fn set_audio_export_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::security_settings::AudioExportSettings>,
@@ -25398,14 +20121,6 @@ impl SecuritySettings {
     }
 
     /// Sets or clears the value of [audio_export_settings][crate::model::SecuritySettings::audio_export_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// use google_cloud_dialogflow_cx_v3::model::security_settings::AudioExportSettings;
-    /// let x = SecuritySettings::new().set_or_clear_audio_export_settings(Some(AudioExportSettings::default()/* use setters */));
-    /// let x = SecuritySettings::new().set_or_clear_audio_export_settings(None::<AudioExportSettings>);
-    /// ```
     pub fn set_or_clear_audio_export_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::security_settings::AudioExportSettings>,
@@ -25415,13 +20130,6 @@ impl SecuritySettings {
     }
 
     /// Sets the value of [insights_export_settings][crate::model::SecuritySettings::insights_export_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// use google_cloud_dialogflow_cx_v3::model::security_settings::InsightsExportSettings;
-    /// let x = SecuritySettings::new().set_insights_export_settings(InsightsExportSettings::default()/* use setters */);
-    /// ```
     pub fn set_insights_export_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::security_settings::InsightsExportSettings>,
@@ -25431,14 +20139,6 @@ impl SecuritySettings {
     }
 
     /// Sets or clears the value of [insights_export_settings][crate::model::SecuritySettings::insights_export_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// use google_cloud_dialogflow_cx_v3::model::security_settings::InsightsExportSettings;
-    /// let x = SecuritySettings::new().set_or_clear_insights_export_settings(Some(InsightsExportSettings::default()/* use setters */));
-    /// let x = SecuritySettings::new().set_or_clear_insights_export_settings(None::<InsightsExportSettings>);
-    /// ```
     pub fn set_or_clear_insights_export_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::security_settings::InsightsExportSettings>,
@@ -25451,13 +20151,6 @@ impl SecuritySettings {
     ///
     /// Note that all the setters affecting `data_retention` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// use google_cloud_dialogflow_cx_v3::model::security_settings;
-    /// let x = SecuritySettings::new().set_data_retention(Some(security_settings::DataRetention::RetentionWindowDays(42)));
-    /// ```
     pub fn set_data_retention<
         T: std::convert::Into<std::option::Option<crate::model::security_settings::DataRetention>>,
     >(
@@ -25486,14 +20179,6 @@ impl SecuritySettings {
     ///
     /// Note that all the setters affecting `data_retention` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// let x = SecuritySettings::new().set_retention_window_days(42);
-    /// assert!(x.retention_window_days().is_some());
-    /// assert!(x.retention_strategy().is_none());
-    /// ```
     pub fn set_retention_window_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.data_retention = std::option::Option::Some(
             crate::model::security_settings::DataRetention::RetentionWindowDays(v.into()),
@@ -25521,15 +20206,6 @@ impl SecuritySettings {
     ///
     /// Note that all the setters affecting `data_retention` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SecuritySettings;
-    /// use google_cloud_dialogflow_cx_v3::model::security_settings::RetentionStrategy;
-    /// let x0 = SecuritySettings::new().set_retention_strategy(RetentionStrategy::RemoveAfterConversation);
-    /// assert!(x.retention_strategy().is_some());
-    /// assert!(x.retention_window_days().is_none());
-    /// ```
     pub fn set_retention_strategy<
         T: std::convert::Into<crate::model::security_settings::RetentionStrategy>,
     >(
@@ -25594,24 +20270,12 @@ pub mod security_settings {
         }
 
         /// Sets the value of [gcs_bucket][crate::model::security_settings::AudioExportSettings::gcs_bucket].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::security_settings::AudioExportSettings;
-        /// let x = AudioExportSettings::new().set_gcs_bucket("example");
-        /// ```
         pub fn set_gcs_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.gcs_bucket = v.into();
             self
         }
 
         /// Sets the value of [audio_export_pattern][crate::model::security_settings::AudioExportSettings::audio_export_pattern].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::security_settings::AudioExportSettings;
-        /// let x = AudioExportSettings::new().set_audio_export_pattern("example");
-        /// ```
         pub fn set_audio_export_pattern<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -25621,27 +20285,12 @@ pub mod security_settings {
         }
 
         /// Sets the value of [enable_audio_redaction][crate::model::security_settings::AudioExportSettings::enable_audio_redaction].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::security_settings::AudioExportSettings;
-        /// let x = AudioExportSettings::new().set_enable_audio_redaction(true);
-        /// ```
         pub fn set_enable_audio_redaction<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_audio_redaction = v.into();
             self
         }
 
         /// Sets the value of [audio_format][crate::model::security_settings::AudioExportSettings::audio_format].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::security_settings::AudioExportSettings;
-        /// use google_cloud_dialogflow_cx_v3::model::security_settings::audio_export_settings::AudioFormat;
-        /// let x0 = AudioExportSettings::new().set_audio_format(AudioFormat::Mulaw);
-        /// let x1 = AudioExportSettings::new().set_audio_format(AudioFormat::Mp3);
-        /// let x2 = AudioExportSettings::new().set_audio_format(AudioFormat::Ogg);
-        /// ```
         pub fn set_audio_format<
             T: std::convert::Into<crate::model::security_settings::audio_export_settings::AudioFormat>,
         >(
@@ -25653,12 +20302,6 @@ pub mod security_settings {
         }
 
         /// Sets the value of [store_tts_audio][crate::model::security_settings::AudioExportSettings::store_tts_audio].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::security_settings::AudioExportSettings;
-        /// let x = AudioExportSettings::new().set_store_tts_audio(true);
-        /// ```
         pub fn set_store_tts_audio<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.store_tts_audio = v.into();
             self
@@ -25850,12 +20493,6 @@ pub mod security_settings {
         }
 
         /// Sets the value of [enable_insights_export][crate::model::security_settings::InsightsExportSettings::enable_insights_export].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::security_settings::InsightsExportSettings;
-        /// let x = InsightsExportSettings::new().set_enable_insights_export(true);
-        /// ```
         pub fn set_enable_insights_export<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_insights_export = v.into();
             self
@@ -26463,14 +21100,6 @@ impl AnswerFeedback {
     }
 
     /// Sets the value of [rating][crate::model::AnswerFeedback::rating].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::AnswerFeedback;
-    /// use google_cloud_dialogflow_cx_v3::model::answer_feedback::Rating;
-    /// let x0 = AnswerFeedback::new().set_rating(Rating::ThumbsUp);
-    /// let x1 = AnswerFeedback::new().set_rating(Rating::ThumbsDown);
-    /// ```
     pub fn set_rating<T: std::convert::Into<crate::model::answer_feedback::Rating>>(
         mut self,
         v: T,
@@ -26480,13 +21109,6 @@ impl AnswerFeedback {
     }
 
     /// Sets the value of [rating_reason][crate::model::AnswerFeedback::rating_reason].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::AnswerFeedback;
-    /// use google_cloud_dialogflow_cx_v3::model::answer_feedback::RatingReason;
-    /// let x = AnswerFeedback::new().set_rating_reason(RatingReason::default()/* use setters */);
-    /// ```
     pub fn set_rating_reason<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::answer_feedback::RatingReason>,
@@ -26496,14 +21118,6 @@ impl AnswerFeedback {
     }
 
     /// Sets or clears the value of [rating_reason][crate::model::AnswerFeedback::rating_reason].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::AnswerFeedback;
-    /// use google_cloud_dialogflow_cx_v3::model::answer_feedback::RatingReason;
-    /// let x = AnswerFeedback::new().set_or_clear_rating_reason(Some(RatingReason::default()/* use setters */));
-    /// let x = AnswerFeedback::new().set_or_clear_rating_reason(None::<RatingReason>);
-    /// ```
     pub fn set_or_clear_rating_reason<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::answer_feedback::RatingReason>,
@@ -26513,12 +21127,6 @@ impl AnswerFeedback {
     }
 
     /// Sets the value of [custom_rating][crate::model::AnswerFeedback::custom_rating].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::AnswerFeedback;
-    /// let x = AnswerFeedback::new().set_custom_rating("example");
-    /// ```
     pub fn set_custom_rating<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.custom_rating = v.into();
         self
@@ -26562,12 +21170,6 @@ pub mod answer_feedback {
         }
 
         /// Sets the value of [reason_labels][crate::model::answer_feedback::RatingReason::reason_labels].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::answer_feedback::RatingReason;
-        /// let x = RatingReason::new().set_reason_labels(["a", "b", "c"]);
-        /// ```
         pub fn set_reason_labels<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -26579,12 +21181,6 @@ pub mod answer_feedback {
         }
 
         /// Sets the value of [feedback][crate::model::answer_feedback::RatingReason::feedback].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::answer_feedback::RatingReason;
-        /// let x = RatingReason::new().set_feedback("example");
-        /// ```
         pub fn set_feedback<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.feedback = v.into();
             self
@@ -26769,37 +21365,18 @@ impl SubmitAnswerFeedbackRequest {
     }
 
     /// Sets the value of [session][crate::model::SubmitAnswerFeedbackRequest::session].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SubmitAnswerFeedbackRequest;
-    /// let x = SubmitAnswerFeedbackRequest::new().set_session("example");
-    /// ```
     pub fn set_session<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.session = v.into();
         self
     }
 
     /// Sets the value of [response_id][crate::model::SubmitAnswerFeedbackRequest::response_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SubmitAnswerFeedbackRequest;
-    /// let x = SubmitAnswerFeedbackRequest::new().set_response_id("example");
-    /// ```
     pub fn set_response_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.response_id = v.into();
         self
     }
 
     /// Sets the value of [answer_feedback][crate::model::SubmitAnswerFeedbackRequest::answer_feedback].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SubmitAnswerFeedbackRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::AnswerFeedback;
-    /// let x = SubmitAnswerFeedbackRequest::new().set_answer_feedback(AnswerFeedback::default()/* use setters */);
-    /// ```
     pub fn set_answer_feedback<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnswerFeedback>,
@@ -26809,14 +21386,6 @@ impl SubmitAnswerFeedbackRequest {
     }
 
     /// Sets or clears the value of [answer_feedback][crate::model::SubmitAnswerFeedbackRequest::answer_feedback].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SubmitAnswerFeedbackRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::AnswerFeedback;
-    /// let x = SubmitAnswerFeedbackRequest::new().set_or_clear_answer_feedback(Some(AnswerFeedback::default()/* use setters */));
-    /// let x = SubmitAnswerFeedbackRequest::new().set_or_clear_answer_feedback(None::<AnswerFeedback>);
-    /// ```
     pub fn set_or_clear_answer_feedback<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnswerFeedback>,
@@ -26826,13 +21395,6 @@ impl SubmitAnswerFeedbackRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::SubmitAnswerFeedbackRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SubmitAnswerFeedbackRequest;
-    /// use wkt::FieldMask;
-    /// let x = SubmitAnswerFeedbackRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -26842,14 +21404,6 @@ impl SubmitAnswerFeedbackRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::SubmitAnswerFeedbackRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SubmitAnswerFeedbackRequest;
-    /// use wkt::FieldMask;
-    /// let x = SubmitAnswerFeedbackRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = SubmitAnswerFeedbackRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -26909,25 +21463,12 @@ impl DetectIntentRequest {
     }
 
     /// Sets the value of [session][crate::model::DetectIntentRequest::session].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DetectIntentRequest;
-    /// let x = DetectIntentRequest::new().set_session("example");
-    /// ```
     pub fn set_session<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.session = v.into();
         self
     }
 
     /// Sets the value of [query_params][crate::model::DetectIntentRequest::query_params].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DetectIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// let x = DetectIntentRequest::new().set_query_params(QueryParameters::default()/* use setters */);
-    /// ```
     pub fn set_query_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QueryParameters>,
@@ -26937,14 +21478,6 @@ impl DetectIntentRequest {
     }
 
     /// Sets or clears the value of [query_params][crate::model::DetectIntentRequest::query_params].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DetectIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// let x = DetectIntentRequest::new().set_or_clear_query_params(Some(QueryParameters::default()/* use setters */));
-    /// let x = DetectIntentRequest::new().set_or_clear_query_params(None::<QueryParameters>);
-    /// ```
     pub fn set_or_clear_query_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryParameters>,
@@ -26954,13 +21487,6 @@ impl DetectIntentRequest {
     }
 
     /// Sets the value of [query_input][crate::model::DetectIntentRequest::query_input].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DetectIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::QueryInput;
-    /// let x = DetectIntentRequest::new().set_query_input(QueryInput::default()/* use setters */);
-    /// ```
     pub fn set_query_input<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QueryInput>,
@@ -26970,14 +21496,6 @@ impl DetectIntentRequest {
     }
 
     /// Sets or clears the value of [query_input][crate::model::DetectIntentRequest::query_input].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DetectIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::QueryInput;
-    /// let x = DetectIntentRequest::new().set_or_clear_query_input(Some(QueryInput::default()/* use setters */));
-    /// let x = DetectIntentRequest::new().set_or_clear_query_input(None::<QueryInput>);
-    /// ```
     pub fn set_or_clear_query_input<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryInput>,
@@ -26987,13 +21505,6 @@ impl DetectIntentRequest {
     }
 
     /// Sets the value of [output_audio_config][crate::model::DetectIntentRequest::output_audio_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DetectIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::OutputAudioConfig;
-    /// let x = DetectIntentRequest::new().set_output_audio_config(OutputAudioConfig::default()/* use setters */);
-    /// ```
     pub fn set_output_audio_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OutputAudioConfig>,
@@ -27003,14 +21514,6 @@ impl DetectIntentRequest {
     }
 
     /// Sets or clears the value of [output_audio_config][crate::model::DetectIntentRequest::output_audio_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DetectIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::OutputAudioConfig;
-    /// let x = DetectIntentRequest::new().set_or_clear_output_audio_config(Some(OutputAudioConfig::default()/* use setters */));
-    /// let x = DetectIntentRequest::new().set_or_clear_output_audio_config(None::<OutputAudioConfig>);
-    /// ```
     pub fn set_or_clear_output_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputAudioConfig>,
@@ -27075,25 +21578,12 @@ impl DetectIntentResponse {
     }
 
     /// Sets the value of [response_id][crate::model::DetectIntentResponse::response_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DetectIntentResponse;
-    /// let x = DetectIntentResponse::new().set_response_id("example");
-    /// ```
     pub fn set_response_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.response_id = v.into();
         self
     }
 
     /// Sets the value of [query_result][crate::model::DetectIntentResponse::query_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DetectIntentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// let x = DetectIntentResponse::new().set_query_result(QueryResult::default()/* use setters */);
-    /// ```
     pub fn set_query_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QueryResult>,
@@ -27103,14 +21593,6 @@ impl DetectIntentResponse {
     }
 
     /// Sets or clears the value of [query_result][crate::model::DetectIntentResponse::query_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DetectIntentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// let x = DetectIntentResponse::new().set_or_clear_query_result(Some(QueryResult::default()/* use setters */));
-    /// let x = DetectIntentResponse::new().set_or_clear_query_result(None::<QueryResult>);
-    /// ```
     pub fn set_or_clear_query_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryResult>,
@@ -27120,25 +21602,12 @@ impl DetectIntentResponse {
     }
 
     /// Sets the value of [output_audio][crate::model::DetectIntentResponse::output_audio].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DetectIntentResponse;
-    /// let x = DetectIntentResponse::new().set_output_audio(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_output_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.output_audio = v.into();
         self
     }
 
     /// Sets the value of [output_audio_config][crate::model::DetectIntentResponse::output_audio_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DetectIntentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::OutputAudioConfig;
-    /// let x = DetectIntentResponse::new().set_output_audio_config(OutputAudioConfig::default()/* use setters */);
-    /// ```
     pub fn set_output_audio_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OutputAudioConfig>,
@@ -27148,14 +21617,6 @@ impl DetectIntentResponse {
     }
 
     /// Sets or clears the value of [output_audio_config][crate::model::DetectIntentResponse::output_audio_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DetectIntentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::OutputAudioConfig;
-    /// let x = DetectIntentResponse::new().set_or_clear_output_audio_config(Some(OutputAudioConfig::default()/* use setters */));
-    /// let x = DetectIntentResponse::new().set_or_clear_output_audio_config(None::<OutputAudioConfig>);
-    /// ```
     pub fn set_or_clear_output_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputAudioConfig>,
@@ -27165,14 +21626,6 @@ impl DetectIntentResponse {
     }
 
     /// Sets the value of [response_type][crate::model::DetectIntentResponse::response_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DetectIntentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::detect_intent_response::ResponseType;
-    /// let x0 = DetectIntentResponse::new().set_response_type(ResponseType::Partial);
-    /// let x1 = DetectIntentResponse::new().set_response_type(ResponseType::Final);
-    /// ```
     pub fn set_response_type<
         T: std::convert::Into<crate::model::detect_intent_response::ResponseType>,
     >(
@@ -27184,12 +21637,6 @@ impl DetectIntentResponse {
     }
 
     /// Sets the value of [allow_cancellation][crate::model::DetectIntentResponse::allow_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DetectIntentResponse;
-    /// let x = DetectIntentResponse::new().set_allow_cancellation(true);
-    /// ```
     pub fn set_allow_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_cancellation = v.into();
         self
@@ -27446,25 +21893,12 @@ impl StreamingDetectIntentRequest {
     }
 
     /// Sets the value of [session][crate::model::StreamingDetectIntentRequest::session].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingDetectIntentRequest;
-    /// let x = StreamingDetectIntentRequest::new().set_session("example");
-    /// ```
     pub fn set_session<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.session = v.into();
         self
     }
 
     /// Sets the value of [query_params][crate::model::StreamingDetectIntentRequest::query_params].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingDetectIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// let x = StreamingDetectIntentRequest::new().set_query_params(QueryParameters::default()/* use setters */);
-    /// ```
     pub fn set_query_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QueryParameters>,
@@ -27474,14 +21908,6 @@ impl StreamingDetectIntentRequest {
     }
 
     /// Sets or clears the value of [query_params][crate::model::StreamingDetectIntentRequest::query_params].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingDetectIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// let x = StreamingDetectIntentRequest::new().set_or_clear_query_params(Some(QueryParameters::default()/* use setters */));
-    /// let x = StreamingDetectIntentRequest::new().set_or_clear_query_params(None::<QueryParameters>);
-    /// ```
     pub fn set_or_clear_query_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryParameters>,
@@ -27491,13 +21917,6 @@ impl StreamingDetectIntentRequest {
     }
 
     /// Sets the value of [query_input][crate::model::StreamingDetectIntentRequest::query_input].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingDetectIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::QueryInput;
-    /// let x = StreamingDetectIntentRequest::new().set_query_input(QueryInput::default()/* use setters */);
-    /// ```
     pub fn set_query_input<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QueryInput>,
@@ -27507,14 +21926,6 @@ impl StreamingDetectIntentRequest {
     }
 
     /// Sets or clears the value of [query_input][crate::model::StreamingDetectIntentRequest::query_input].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingDetectIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::QueryInput;
-    /// let x = StreamingDetectIntentRequest::new().set_or_clear_query_input(Some(QueryInput::default()/* use setters */));
-    /// let x = StreamingDetectIntentRequest::new().set_or_clear_query_input(None::<QueryInput>);
-    /// ```
     pub fn set_or_clear_query_input<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryInput>,
@@ -27524,13 +21935,6 @@ impl StreamingDetectIntentRequest {
     }
 
     /// Sets the value of [output_audio_config][crate::model::StreamingDetectIntentRequest::output_audio_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingDetectIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::OutputAudioConfig;
-    /// let x = StreamingDetectIntentRequest::new().set_output_audio_config(OutputAudioConfig::default()/* use setters */);
-    /// ```
     pub fn set_output_audio_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OutputAudioConfig>,
@@ -27540,14 +21944,6 @@ impl StreamingDetectIntentRequest {
     }
 
     /// Sets or clears the value of [output_audio_config][crate::model::StreamingDetectIntentRequest::output_audio_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingDetectIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::OutputAudioConfig;
-    /// let x = StreamingDetectIntentRequest::new().set_or_clear_output_audio_config(Some(OutputAudioConfig::default()/* use setters */));
-    /// let x = StreamingDetectIntentRequest::new().set_or_clear_output_audio_config(None::<OutputAudioConfig>);
-    /// ```
     pub fn set_or_clear_output_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputAudioConfig>,
@@ -27557,24 +21953,12 @@ impl StreamingDetectIntentRequest {
     }
 
     /// Sets the value of [enable_partial_response][crate::model::StreamingDetectIntentRequest::enable_partial_response].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingDetectIntentRequest;
-    /// let x = StreamingDetectIntentRequest::new().set_enable_partial_response(true);
-    /// ```
     pub fn set_enable_partial_response<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_partial_response = v.into();
         self
     }
 
     /// Sets the value of [enable_debugging_info][crate::model::StreamingDetectIntentRequest::enable_debugging_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingDetectIntentRequest;
-    /// let x = StreamingDetectIntentRequest::new().set_enable_debugging_info(true);
-    /// ```
     pub fn set_enable_debugging_info<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_debugging_info = v.into();
         self
@@ -27668,25 +22052,12 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets the value of [audio_data_chunks][crate::model::CloudConversationDebuggingInfo::audio_data_chunks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// let x = CloudConversationDebuggingInfo::new().set_audio_data_chunks(42);
-    /// ```
     pub fn set_audio_data_chunks<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.audio_data_chunks = v.into();
         self
     }
 
     /// Sets the value of [result_end_time_offset][crate::model::CloudConversationDebuggingInfo::result_end_time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// use wkt::Duration;
-    /// let x = CloudConversationDebuggingInfo::new().set_result_end_time_offset(Duration::default()/* use setters */);
-    /// ```
     pub fn set_result_end_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -27696,14 +22067,6 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets or clears the value of [result_end_time_offset][crate::model::CloudConversationDebuggingInfo::result_end_time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// use wkt::Duration;
-    /// let x = CloudConversationDebuggingInfo::new().set_or_clear_result_end_time_offset(Some(Duration::default()/* use setters */));
-    /// let x = CloudConversationDebuggingInfo::new().set_or_clear_result_end_time_offset(None::<Duration>);
-    /// ```
     pub fn set_or_clear_result_end_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -27713,13 +22076,6 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets the value of [first_audio_duration][crate::model::CloudConversationDebuggingInfo::first_audio_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// use wkt::Duration;
-    /// let x = CloudConversationDebuggingInfo::new().set_first_audio_duration(Duration::default()/* use setters */);
-    /// ```
     pub fn set_first_audio_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -27729,14 +22085,6 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets or clears the value of [first_audio_duration][crate::model::CloudConversationDebuggingInfo::first_audio_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// use wkt::Duration;
-    /// let x = CloudConversationDebuggingInfo::new().set_or_clear_first_audio_duration(Some(Duration::default()/* use setters */));
-    /// let x = CloudConversationDebuggingInfo::new().set_or_clear_first_audio_duration(None::<Duration>);
-    /// ```
     pub fn set_or_clear_first_audio_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -27746,29 +22094,12 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets the value of [single_utterance][crate::model::CloudConversationDebuggingInfo::single_utterance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// let x = CloudConversationDebuggingInfo::new().set_single_utterance(true);
-    /// ```
     pub fn set_single_utterance<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.single_utterance = v.into();
         self
     }
 
     /// Sets the value of [speech_partial_results_end_times][crate::model::CloudConversationDebuggingInfo::speech_partial_results_end_times].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// use wkt::Duration;
-    /// let x = CloudConversationDebuggingInfo::new()
-    ///     .set_speech_partial_results_end_times([
-    ///         Duration::default()/* use setters */,
-    ///         Duration::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_speech_partial_results_end_times<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -27780,17 +22111,6 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets the value of [speech_final_results_end_times][crate::model::CloudConversationDebuggingInfo::speech_final_results_end_times].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// use wkt::Duration;
-    /// let x = CloudConversationDebuggingInfo::new()
-    ///     .set_speech_final_results_end_times([
-    ///         Duration::default()/* use setters */,
-    ///         Duration::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_speech_final_results_end_times<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -27802,24 +22122,12 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets the value of [partial_responses][crate::model::CloudConversationDebuggingInfo::partial_responses].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// let x = CloudConversationDebuggingInfo::new().set_partial_responses(42);
-    /// ```
     pub fn set_partial_responses<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.partial_responses = v.into();
         self
     }
 
     /// Sets the value of [speaker_id_passive_latency_ms_offset][crate::model::CloudConversationDebuggingInfo::speaker_id_passive_latency_ms_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// let x = CloudConversationDebuggingInfo::new().set_speaker_id_passive_latency_ms_offset(42);
-    /// ```
     pub fn set_speaker_id_passive_latency_ms_offset<T: std::convert::Into<i32>>(
         mut self,
         v: T,
@@ -27829,41 +22137,18 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets the value of [bargein_event_triggered][crate::model::CloudConversationDebuggingInfo::bargein_event_triggered].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// let x = CloudConversationDebuggingInfo::new().set_bargein_event_triggered(true);
-    /// ```
     pub fn set_bargein_event_triggered<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.bargein_event_triggered = v.into();
         self
     }
 
     /// Sets the value of [speech_single_utterance][crate::model::CloudConversationDebuggingInfo::speech_single_utterance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// let x = CloudConversationDebuggingInfo::new().set_speech_single_utterance(true);
-    /// ```
     pub fn set_speech_single_utterance<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.speech_single_utterance = v.into();
         self
     }
 
     /// Sets the value of [dtmf_partial_results_times][crate::model::CloudConversationDebuggingInfo::dtmf_partial_results_times].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// use wkt::Duration;
-    /// let x = CloudConversationDebuggingInfo::new()
-    ///     .set_dtmf_partial_results_times([
-    ///         Duration::default()/* use setters */,
-    ///         Duration::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_dtmf_partial_results_times<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -27875,17 +22160,6 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets the value of [dtmf_final_results_times][crate::model::CloudConversationDebuggingInfo::dtmf_final_results_times].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// use wkt::Duration;
-    /// let x = CloudConversationDebuggingInfo::new()
-    ///     .set_dtmf_final_results_times([
-    ///         Duration::default()/* use setters */,
-    ///         Duration::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_dtmf_final_results_times<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -27897,13 +22171,6 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets the value of [single_utterance_end_time_offset][crate::model::CloudConversationDebuggingInfo::single_utterance_end_time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// use wkt::Duration;
-    /// let x = CloudConversationDebuggingInfo::new().set_single_utterance_end_time_offset(Duration::default()/* use setters */);
-    /// ```
     pub fn set_single_utterance_end_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -27913,14 +22180,6 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets or clears the value of [single_utterance_end_time_offset][crate::model::CloudConversationDebuggingInfo::single_utterance_end_time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// use wkt::Duration;
-    /// let x = CloudConversationDebuggingInfo::new().set_or_clear_single_utterance_end_time_offset(Some(Duration::default()/* use setters */));
-    /// let x = CloudConversationDebuggingInfo::new().set_or_clear_single_utterance_end_time_offset(None::<Duration>);
-    /// ```
     pub fn set_or_clear_single_utterance_end_time_offset<T>(
         mut self,
         v: std::option::Option<T>,
@@ -27933,13 +22192,6 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets the value of [no_speech_timeout][crate::model::CloudConversationDebuggingInfo::no_speech_timeout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// use wkt::Duration;
-    /// let x = CloudConversationDebuggingInfo::new().set_no_speech_timeout(Duration::default()/* use setters */);
-    /// ```
     pub fn set_no_speech_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -27949,14 +22201,6 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets or clears the value of [no_speech_timeout][crate::model::CloudConversationDebuggingInfo::no_speech_timeout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// use wkt::Duration;
-    /// let x = CloudConversationDebuggingInfo::new().set_or_clear_no_speech_timeout(Some(Duration::default()/* use setters */));
-    /// let x = CloudConversationDebuggingInfo::new().set_or_clear_no_speech_timeout(None::<Duration>);
-    /// ```
     pub fn set_or_clear_no_speech_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -27966,13 +22210,6 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets the value of [endpointing_timeout][crate::model::CloudConversationDebuggingInfo::endpointing_timeout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// use wkt::Duration;
-    /// let x = CloudConversationDebuggingInfo::new().set_endpointing_timeout(Duration::default()/* use setters */);
-    /// ```
     pub fn set_endpointing_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -27982,14 +22219,6 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets or clears the value of [endpointing_timeout][crate::model::CloudConversationDebuggingInfo::endpointing_timeout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// use wkt::Duration;
-    /// let x = CloudConversationDebuggingInfo::new().set_or_clear_endpointing_timeout(Some(Duration::default()/* use setters */));
-    /// let x = CloudConversationDebuggingInfo::new().set_or_clear_endpointing_timeout(None::<Duration>);
-    /// ```
     pub fn set_or_clear_endpointing_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -27999,25 +22228,12 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets the value of [is_input_text][crate::model::CloudConversationDebuggingInfo::is_input_text].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// let x = CloudConversationDebuggingInfo::new().set_is_input_text(true);
-    /// ```
     pub fn set_is_input_text<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_input_text = v.into();
         self
     }
 
     /// Sets the value of [client_half_close_time_offset][crate::model::CloudConversationDebuggingInfo::client_half_close_time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// use wkt::Duration;
-    /// let x = CloudConversationDebuggingInfo::new().set_client_half_close_time_offset(Duration::default()/* use setters */);
-    /// ```
     pub fn set_client_half_close_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -28027,14 +22243,6 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets or clears the value of [client_half_close_time_offset][crate::model::CloudConversationDebuggingInfo::client_half_close_time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// use wkt::Duration;
-    /// let x = CloudConversationDebuggingInfo::new().set_or_clear_client_half_close_time_offset(Some(Duration::default()/* use setters */));
-    /// let x = CloudConversationDebuggingInfo::new().set_or_clear_client_half_close_time_offset(None::<Duration>);
-    /// ```
     pub fn set_or_clear_client_half_close_time_offset<T>(
         mut self,
         v: std::option::Option<T>,
@@ -28047,13 +22255,6 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets the value of [client_half_close_streaming_time_offset][crate::model::CloudConversationDebuggingInfo::client_half_close_streaming_time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// use wkt::Duration;
-    /// let x = CloudConversationDebuggingInfo::new().set_client_half_close_streaming_time_offset(Duration::default()/* use setters */);
-    /// ```
     pub fn set_client_half_close_streaming_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -28063,14 +22264,6 @@ impl CloudConversationDebuggingInfo {
     }
 
     /// Sets or clears the value of [client_half_close_streaming_time_offset][crate::model::CloudConversationDebuggingInfo::client_half_close_streaming_time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// use wkt::Duration;
-    /// let x = CloudConversationDebuggingInfo::new().set_or_clear_client_half_close_streaming_time_offset(Some(Duration::default()/* use setters */));
-    /// let x = CloudConversationDebuggingInfo::new().set_or_clear_client_half_close_streaming_time_offset(None::<Duration>);
-    /// ```
     pub fn set_or_clear_client_half_close_streaming_time_offset<T>(
         mut self,
         v: std::option::Option<T>,
@@ -28137,13 +22330,6 @@ impl StreamingDetectIntentResponse {
     }
 
     /// Sets the value of [debugging_info][crate::model::StreamingDetectIntentResponse::debugging_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingDetectIntentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// let x = StreamingDetectIntentResponse::new().set_debugging_info(CloudConversationDebuggingInfo::default()/* use setters */);
-    /// ```
     pub fn set_debugging_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudConversationDebuggingInfo>,
@@ -28153,14 +22339,6 @@ impl StreamingDetectIntentResponse {
     }
 
     /// Sets or clears the value of [debugging_info][crate::model::StreamingDetectIntentResponse::debugging_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingDetectIntentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::CloudConversationDebuggingInfo;
-    /// let x = StreamingDetectIntentResponse::new().set_or_clear_debugging_info(Some(CloudConversationDebuggingInfo::default()/* use setters */));
-    /// let x = StreamingDetectIntentResponse::new().set_or_clear_debugging_info(None::<CloudConversationDebuggingInfo>);
-    /// ```
     pub fn set_or_clear_debugging_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudConversationDebuggingInfo>,
@@ -28173,14 +22351,6 @@ impl StreamingDetectIntentResponse {
     ///
     /// Note that all the setters affecting `response` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingDetectIntentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::streaming_detect_intent_response;
-    /// use google_cloud_dialogflow_cx_v3::model::StreamingRecognitionResult;
-    /// let x = StreamingDetectIntentResponse::new().set_response(Some(streaming_detect_intent_response::Response::RecognitionResult(StreamingRecognitionResult::default().into())));
-    /// ```
     pub fn set_response<
         T: std::convert::Into<
                 std::option::Option<crate::model::streaming_detect_intent_response::Response>,
@@ -28213,15 +22383,6 @@ impl StreamingDetectIntentResponse {
     ///
     /// Note that all the setters affecting `response` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingDetectIntentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::StreamingRecognitionResult;
-    /// let x = StreamingDetectIntentResponse::new().set_recognition_result(StreamingRecognitionResult::default()/* use setters */);
-    /// assert!(x.recognition_result().is_some());
-    /// assert!(x.detect_intent_response().is_none());
-    /// ```
     pub fn set_recognition_result<
         T: std::convert::Into<std::boxed::Box<crate::model::StreamingRecognitionResult>>,
     >(
@@ -28254,15 +22415,6 @@ impl StreamingDetectIntentResponse {
     ///
     /// Note that all the setters affecting `response` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingDetectIntentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::DetectIntentResponse;
-    /// let x = StreamingDetectIntentResponse::new().set_detect_intent_response(DetectIntentResponse::default()/* use setters */);
-    /// assert!(x.detect_intent_response().is_some());
-    /// assert!(x.recognition_result().is_none());
-    /// ```
     pub fn set_detect_intent_response<
         T: std::convert::Into<std::boxed::Box<crate::model::DetectIntentResponse>>,
     >(
@@ -28402,14 +22554,6 @@ impl StreamingRecognitionResult {
     }
 
     /// Sets the value of [message_type][crate::model::StreamingRecognitionResult::message_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingRecognitionResult;
-    /// use google_cloud_dialogflow_cx_v3::model::streaming_recognition_result::MessageType;
-    /// let x0 = StreamingRecognitionResult::new().set_message_type(MessageType::Transcript);
-    /// let x1 = StreamingRecognitionResult::new().set_message_type(MessageType::EndOfSingleUtterance);
-    /// ```
     pub fn set_message_type<
         T: std::convert::Into<crate::model::streaming_recognition_result::MessageType>,
     >(
@@ -28421,65 +22565,30 @@ impl StreamingRecognitionResult {
     }
 
     /// Sets the value of [transcript][crate::model::StreamingRecognitionResult::transcript].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingRecognitionResult;
-    /// let x = StreamingRecognitionResult::new().set_transcript("example");
-    /// ```
     pub fn set_transcript<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.transcript = v.into();
         self
     }
 
     /// Sets the value of [is_final][crate::model::StreamingRecognitionResult::is_final].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingRecognitionResult;
-    /// let x = StreamingRecognitionResult::new().set_is_final(true);
-    /// ```
     pub fn set_is_final<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_final = v.into();
         self
     }
 
     /// Sets the value of [confidence][crate::model::StreamingRecognitionResult::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingRecognitionResult;
-    /// let x = StreamingRecognitionResult::new().set_confidence(42.0);
-    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
     }
 
     /// Sets the value of [stability][crate::model::StreamingRecognitionResult::stability].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingRecognitionResult;
-    /// let x = StreamingRecognitionResult::new().set_stability(42.0);
-    /// ```
     pub fn set_stability<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.stability = v.into();
         self
     }
 
     /// Sets the value of [speech_word_info][crate::model::StreamingRecognitionResult::speech_word_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingRecognitionResult;
-    /// use google_cloud_dialogflow_cx_v3::model::SpeechWordInfo;
-    /// let x = StreamingRecognitionResult::new()
-    ///     .set_speech_word_info([
-    ///         SpeechWordInfo::default()/* use setters */,
-    ///         SpeechWordInfo::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_speech_word_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -28491,13 +22600,6 @@ impl StreamingRecognitionResult {
     }
 
     /// Sets the value of [speech_end_offset][crate::model::StreamingRecognitionResult::speech_end_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingRecognitionResult;
-    /// use wkt::Duration;
-    /// let x = StreamingRecognitionResult::new().set_speech_end_offset(Duration::default()/* use setters */);
-    /// ```
     pub fn set_speech_end_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -28507,14 +22609,6 @@ impl StreamingRecognitionResult {
     }
 
     /// Sets or clears the value of [speech_end_offset][crate::model::StreamingRecognitionResult::speech_end_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingRecognitionResult;
-    /// use wkt::Duration;
-    /// let x = StreamingRecognitionResult::new().set_or_clear_speech_end_offset(Some(Duration::default()/* use setters */));
-    /// let x = StreamingRecognitionResult::new().set_or_clear_speech_end_offset(None::<Duration>);
-    /// ```
     pub fn set_or_clear_speech_end_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -28524,12 +22618,6 @@ impl StreamingRecognitionResult {
     }
 
     /// Sets the value of [language_code][crate::model::StreamingRecognitionResult::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::StreamingRecognitionResult;
-    /// let x = StreamingRecognitionResult::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -28869,25 +22957,12 @@ impl QueryParameters {
     }
 
     /// Sets the value of [time_zone][crate::model::QueryParameters::time_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// let x = QueryParameters::new().set_time_zone("example");
-    /// ```
     pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.time_zone = v.into();
         self
     }
 
     /// Sets the value of [geo_location][crate::model::QueryParameters::geo_location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// use gtype::model::LatLng;
-    /// let x = QueryParameters::new().set_geo_location(LatLng::default()/* use setters */);
-    /// ```
     pub fn set_geo_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -28897,14 +22972,6 @@ impl QueryParameters {
     }
 
     /// Sets or clears the value of [geo_location][crate::model::QueryParameters::geo_location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// use gtype::model::LatLng;
-    /// let x = QueryParameters::new().set_or_clear_geo_location(Some(LatLng::default()/* use setters */));
-    /// let x = QueryParameters::new().set_or_clear_geo_location(None::<LatLng>);
-    /// ```
     pub fn set_or_clear_geo_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -28914,17 +22981,6 @@ impl QueryParameters {
     }
 
     /// Sets the value of [session_entity_types][crate::model::QueryParameters::session_entity_types].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// use google_cloud_dialogflow_cx_v3::model::SessionEntityType;
-    /// let x = QueryParameters::new()
-    ///     .set_session_entity_types([
-    ///         SessionEntityType::default()/* use setters */,
-    ///         SessionEntityType::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_session_entity_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -28936,13 +22992,6 @@ impl QueryParameters {
     }
 
     /// Sets the value of [payload][crate::model::QueryParameters::payload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// use wkt::Struct;
-    /// let x = QueryParameters::new().set_payload(Struct::default()/* use setters */);
-    /// ```
     pub fn set_payload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -28952,14 +23001,6 @@ impl QueryParameters {
     }
 
     /// Sets or clears the value of [payload][crate::model::QueryParameters::payload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// use wkt::Struct;
-    /// let x = QueryParameters::new().set_or_clear_payload(Some(Struct::default()/* use setters */));
-    /// let x = QueryParameters::new().set_or_clear_payload(None::<Struct>);
-    /// ```
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -28969,13 +23010,6 @@ impl QueryParameters {
     }
 
     /// Sets the value of [parameters][crate::model::QueryParameters::parameters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// use wkt::Struct;
-    /// let x = QueryParameters::new().set_parameters(Struct::default()/* use setters */);
-    /// ```
     pub fn set_parameters<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -28985,14 +23019,6 @@ impl QueryParameters {
     }
 
     /// Sets or clears the value of [parameters][crate::model::QueryParameters::parameters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// use wkt::Struct;
-    /// let x = QueryParameters::new().set_or_clear_parameters(Some(Struct::default()/* use setters */));
-    /// let x = QueryParameters::new().set_or_clear_parameters(None::<Struct>);
-    /// ```
     pub fn set_or_clear_parameters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -29002,51 +23028,24 @@ impl QueryParameters {
     }
 
     /// Sets the value of [current_page][crate::model::QueryParameters::current_page].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// let x = QueryParameters::new().set_current_page("example");
-    /// ```
     pub fn set_current_page<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.current_page = v.into();
         self
     }
 
     /// Sets the value of [disable_webhook][crate::model::QueryParameters::disable_webhook].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// let x = QueryParameters::new().set_disable_webhook(true);
-    /// ```
     pub fn set_disable_webhook<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_webhook = v.into();
         self
     }
 
     /// Sets the value of [analyze_query_text_sentiment][crate::model::QueryParameters::analyze_query_text_sentiment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// let x = QueryParameters::new().set_analyze_query_text_sentiment(true);
-    /// ```
     pub fn set_analyze_query_text_sentiment<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.analyze_query_text_sentiment = v.into();
         self
     }
 
     /// Sets the value of [webhook_headers][crate::model::QueryParameters::webhook_headers].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// let x = QueryParameters::new().set_webhook_headers([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_webhook_headers<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -29059,12 +23058,6 @@ impl QueryParameters {
     }
 
     /// Sets the value of [flow_versions][crate::model::QueryParameters::flow_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// let x = QueryParameters::new().set_flow_versions(["a", "b", "c"]);
-    /// ```
     pub fn set_flow_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -29076,25 +23069,12 @@ impl QueryParameters {
     }
 
     /// Sets the value of [channel][crate::model::QueryParameters::channel].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// let x = QueryParameters::new().set_channel("example");
-    /// ```
     pub fn set_channel<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.channel = v.into();
         self
     }
 
     /// Sets the value of [session_ttl][crate::model::QueryParameters::session_ttl].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// use wkt::Duration;
-    /// let x = QueryParameters::new().set_session_ttl(Duration::default()/* use setters */);
-    /// ```
     pub fn set_session_ttl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -29104,14 +23084,6 @@ impl QueryParameters {
     }
 
     /// Sets or clears the value of [session_ttl][crate::model::QueryParameters::session_ttl].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// use wkt::Duration;
-    /// let x = QueryParameters::new().set_or_clear_session_ttl(Some(Duration::default()/* use setters */));
-    /// let x = QueryParameters::new().set_or_clear_session_ttl(None::<Duration>);
-    /// ```
     pub fn set_or_clear_session_ttl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -29121,13 +23093,6 @@ impl QueryParameters {
     }
 
     /// Sets the value of [end_user_metadata][crate::model::QueryParameters::end_user_metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// use wkt::Struct;
-    /// let x = QueryParameters::new().set_end_user_metadata(Struct::default()/* use setters */);
-    /// ```
     pub fn set_end_user_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -29137,14 +23102,6 @@ impl QueryParameters {
     }
 
     /// Sets or clears the value of [end_user_metadata][crate::model::QueryParameters::end_user_metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// use wkt::Struct;
-    /// let x = QueryParameters::new().set_or_clear_end_user_metadata(Some(Struct::default()/* use setters */));
-    /// let x = QueryParameters::new().set_or_clear_end_user_metadata(None::<Struct>);
-    /// ```
     pub fn set_or_clear_end_user_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -29154,13 +23111,6 @@ impl QueryParameters {
     }
 
     /// Sets the value of [search_config][crate::model::QueryParameters::search_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// use google_cloud_dialogflow_cx_v3::model::SearchConfig;
-    /// let x = QueryParameters::new().set_search_config(SearchConfig::default()/* use setters */);
-    /// ```
     pub fn set_search_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SearchConfig>,
@@ -29170,14 +23120,6 @@ impl QueryParameters {
     }
 
     /// Sets or clears the value of [search_config][crate::model::QueryParameters::search_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// use google_cloud_dialogflow_cx_v3::model::SearchConfig;
-    /// let x = QueryParameters::new().set_or_clear_search_config(Some(SearchConfig::default()/* use setters */));
-    /// let x = QueryParameters::new().set_or_clear_search_config(None::<SearchConfig>);
-    /// ```
     pub fn set_or_clear_search_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SearchConfig>,
@@ -29187,12 +23129,6 @@ impl QueryParameters {
     }
 
     /// Sets the value of [populate_data_store_connection_signals][crate::model::QueryParameters::populate_data_store_connection_signals].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// let x = QueryParameters::new().set_populate_data_store_connection_signals(true);
-    /// ```
     #[deprecated]
     pub fn set_populate_data_store_connection_signals<T: std::convert::Into<bool>>(
         mut self,
@@ -29240,17 +23176,6 @@ impl SearchConfig {
     }
 
     /// Sets the value of [boost_specs][crate::model::SearchConfig::boost_specs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SearchConfig;
-    /// use google_cloud_dialogflow_cx_v3::model::BoostSpecs;
-    /// let x = SearchConfig::new()
-    ///     .set_boost_specs([
-    ///         BoostSpecs::default()/* use setters */,
-    ///         BoostSpecs::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_boost_specs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -29262,17 +23187,6 @@ impl SearchConfig {
     }
 
     /// Sets the value of [filter_specs][crate::model::SearchConfig::filter_specs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SearchConfig;
-    /// use google_cloud_dialogflow_cx_v3::model::FilterSpecs;
-    /// let x = SearchConfig::new()
-    ///     .set_filter_specs([
-    ///         FilterSpecs::default()/* use setters */,
-    ///         FilterSpecs::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_filter_specs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -29315,17 +23229,6 @@ impl BoostSpec {
     }
 
     /// Sets the value of [condition_boost_specs][crate::model::BoostSpec::condition_boost_specs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::BoostSpec;
-    /// use google_cloud_dialogflow_cx_v3::model::boost_spec::ConditionBoostSpec;
-    /// let x = BoostSpec::new()
-    ///     .set_condition_boost_specs([
-    ///         ConditionBoostSpec::default()/* use setters */,
-    ///         ConditionBoostSpec::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_condition_boost_specs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -29399,37 +23302,18 @@ pub mod boost_spec {
         }
 
         /// Sets the value of [condition][crate::model::boost_spec::ConditionBoostSpec::condition].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::boost_spec::ConditionBoostSpec;
-        /// let x = ConditionBoostSpec::new().set_condition("example");
-        /// ```
         pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.condition = v.into();
             self
         }
 
         /// Sets the value of [boost][crate::model::boost_spec::ConditionBoostSpec::boost].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::boost_spec::ConditionBoostSpec;
-        /// let x = ConditionBoostSpec::new().set_boost(42.0);
-        /// ```
         pub fn set_boost<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.boost = v.into();
             self
         }
 
         /// Sets the value of [boost_control_spec][crate::model::boost_spec::ConditionBoostSpec::boost_control_spec].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::boost_spec::ConditionBoostSpec;
-        /// use google_cloud_dialogflow_cx_v3::model::boost_spec::condition_boost_spec::BoostControlSpec;
-        /// let x = ConditionBoostSpec::new().set_boost_control_spec(BoostControlSpec::default()/* use setters */);
-        /// ```
         pub fn set_boost_control_spec<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::boost_spec::condition_boost_spec::BoostControlSpec>,
@@ -29439,14 +23323,6 @@ pub mod boost_spec {
         }
 
         /// Sets or clears the value of [boost_control_spec][crate::model::boost_spec::ConditionBoostSpec::boost_control_spec].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::boost_spec::ConditionBoostSpec;
-        /// use google_cloud_dialogflow_cx_v3::model::boost_spec::condition_boost_spec::BoostControlSpec;
-        /// let x = ConditionBoostSpec::new().set_or_clear_boost_control_spec(Some(BoostControlSpec::default()/* use setters */));
-        /// let x = ConditionBoostSpec::new().set_or_clear_boost_control_spec(None::<BoostControlSpec>);
-        /// ```
         pub fn set_or_clear_boost_control_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::boost_spec::condition_boost_spec::BoostControlSpec>,
@@ -29507,12 +23383,6 @@ pub mod boost_spec {
             }
 
             /// Sets the value of [field_name][crate::model::boost_spec::condition_boost_spec::BoostControlSpec::field_name].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::boost_spec::condition_boost_spec::BoostControlSpec;
-            /// let x = BoostControlSpec::new().set_field_name("example");
-            /// ```
             pub fn set_field_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -29522,44 +23392,18 @@ pub mod boost_spec {
             }
 
             /// Sets the value of [attribute_type][crate::model::boost_spec::condition_boost_spec::BoostControlSpec::attribute_type].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::boost_spec::condition_boost_spec::BoostControlSpec;
-            /// use google_cloud_dialogflow_cx_v3::model::boost_spec::condition_boost_spec::boost_control_spec::AttributeType;
-            /// let x0 = BoostControlSpec::new().set_attribute_type(AttributeType::Numerical);
-            /// let x1 = BoostControlSpec::new().set_attribute_type(AttributeType::Freshness);
-            /// ```
             pub fn set_attribute_type<T: std::convert::Into<crate::model::boost_spec::condition_boost_spec::boost_control_spec::AttributeType>>(mut self, v: T) -> Self{
                 self.attribute_type = v.into();
                 self
             }
 
             /// Sets the value of [interpolation_type][crate::model::boost_spec::condition_boost_spec::BoostControlSpec::interpolation_type].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::boost_spec::condition_boost_spec::BoostControlSpec;
-            /// use google_cloud_dialogflow_cx_v3::model::boost_spec::condition_boost_spec::boost_control_spec::InterpolationType;
-            /// let x0 = BoostControlSpec::new().set_interpolation_type(InterpolationType::Linear);
-            /// ```
             pub fn set_interpolation_type<T: std::convert::Into<crate::model::boost_spec::condition_boost_spec::boost_control_spec::InterpolationType>>(mut self, v: T) -> Self{
                 self.interpolation_type = v.into();
                 self
             }
 
             /// Sets the value of [control_points][crate::model::boost_spec::condition_boost_spec::BoostControlSpec::control_points].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::boost_spec::condition_boost_spec::BoostControlSpec;
-            /// use google_cloud_dialogflow_cx_v3::model::boost_spec::condition_boost_spec::boost_control_spec::ControlPoint;
-            /// let x = BoostControlSpec::new()
-            ///     .set_control_points([
-            ///         ControlPoint::default()/* use setters */,
-            ///         ControlPoint::default()/* use (different) setters */,
-            ///     ]);
-            /// ```
             pub fn set_control_points<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -29614,12 +23458,6 @@ pub mod boost_spec {
                 }
 
                 /// Sets the value of [attribute_value][crate::model::boost_spec::condition_boost_spec::boost_control_spec::ControlPoint::attribute_value].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_dialogflow_cx_v3::model::boost_spec::condition_boost_spec::boost_control_spec::ControlPoint;
-                /// let x = ControlPoint::new().set_attribute_value("example");
-                /// ```
                 pub fn set_attribute_value<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -29629,12 +23467,6 @@ pub mod boost_spec {
                 }
 
                 /// Sets the value of [boost_amount][crate::model::boost_spec::condition_boost_spec::boost_control_spec::ControlPoint::boost_amount].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_dialogflow_cx_v3::model::boost_spec::condition_boost_spec::boost_control_spec::ControlPoint;
-                /// let x = ControlPoint::new().set_boost_amount(42.0);
-                /// ```
                 pub fn set_boost_amount<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
                     self.boost_amount = v.into();
                     self
@@ -29969,12 +23801,6 @@ impl BoostSpecs {
     }
 
     /// Sets the value of [data_stores][crate::model::BoostSpecs::data_stores].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::BoostSpecs;
-    /// let x = BoostSpecs::new().set_data_stores(["a", "b", "c"]);
-    /// ```
     pub fn set_data_stores<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -29986,17 +23812,6 @@ impl BoostSpecs {
     }
 
     /// Sets the value of [spec][crate::model::BoostSpecs::spec].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::BoostSpecs;
-    /// use google_cloud_dialogflow_cx_v3::model::BoostSpec;
-    /// let x = BoostSpecs::new()
-    ///     .set_spec([
-    ///         BoostSpec::default()/* use setters */,
-    ///         BoostSpec::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_spec<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -30041,12 +23856,6 @@ impl FilterSpecs {
     }
 
     /// Sets the value of [data_stores][crate::model::FilterSpecs::data_stores].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FilterSpecs;
-    /// let x = FilterSpecs::new().set_data_stores(["a", "b", "c"]);
-    /// ```
     pub fn set_data_stores<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -30058,12 +23867,6 @@ impl FilterSpecs {
     }
 
     /// Sets the value of [filter][crate::model::FilterSpecs::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FilterSpecs;
-    /// let x = FilterSpecs::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -30114,12 +23917,6 @@ impl QueryInput {
     }
 
     /// Sets the value of [language_code][crate::model::QueryInput::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryInput;
-    /// let x = QueryInput::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -30129,14 +23926,6 @@ impl QueryInput {
     ///
     /// Note that all the setters affecting `input` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryInput;
-    /// use google_cloud_dialogflow_cx_v3::model::query_input;
-    /// use google_cloud_dialogflow_cx_v3::model::TextInput;
-    /// let x = QueryInput::new().set_input(Some(query_input::Input::Text(TextInput::default().into())));
-    /// ```
     pub fn set_input<
         T: std::convert::Into<std::option::Option<crate::model::query_input::Input>>,
     >(
@@ -30163,18 +23952,6 @@ impl QueryInput {
     ///
     /// Note that all the setters affecting `input` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryInput;
-    /// use google_cloud_dialogflow_cx_v3::model::TextInput;
-    /// let x = QueryInput::new().set_text(TextInput::default()/* use setters */);
-    /// assert!(x.text().is_some());
-    /// assert!(x.intent().is_none());
-    /// assert!(x.audio().is_none());
-    /// assert!(x.event().is_none());
-    /// assert!(x.dtmf().is_none());
-    /// ```
     pub fn set_text<T: std::convert::Into<std::boxed::Box<crate::model::TextInput>>>(
         mut self,
         v: T,
@@ -30199,18 +23976,6 @@ impl QueryInput {
     ///
     /// Note that all the setters affecting `input` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryInput;
-    /// use google_cloud_dialogflow_cx_v3::model::IntentInput;
-    /// let x = QueryInput::new().set_intent(IntentInput::default()/* use setters */);
-    /// assert!(x.intent().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.audio().is_none());
-    /// assert!(x.event().is_none());
-    /// assert!(x.dtmf().is_none());
-    /// ```
     pub fn set_intent<T: std::convert::Into<std::boxed::Box<crate::model::IntentInput>>>(
         mut self,
         v: T,
@@ -30235,18 +24000,6 @@ impl QueryInput {
     ///
     /// Note that all the setters affecting `input` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryInput;
-    /// use google_cloud_dialogflow_cx_v3::model::AudioInput;
-    /// let x = QueryInput::new().set_audio(AudioInput::default()/* use setters */);
-    /// assert!(x.audio().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.intent().is_none());
-    /// assert!(x.event().is_none());
-    /// assert!(x.dtmf().is_none());
-    /// ```
     pub fn set_audio<T: std::convert::Into<std::boxed::Box<crate::model::AudioInput>>>(
         mut self,
         v: T,
@@ -30271,18 +24024,6 @@ impl QueryInput {
     ///
     /// Note that all the setters affecting `input` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryInput;
-    /// use google_cloud_dialogflow_cx_v3::model::EventInput;
-    /// let x = QueryInput::new().set_event(EventInput::default()/* use setters */);
-    /// assert!(x.event().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.intent().is_none());
-    /// assert!(x.audio().is_none());
-    /// assert!(x.dtmf().is_none());
-    /// ```
     pub fn set_event<T: std::convert::Into<std::boxed::Box<crate::model::EventInput>>>(
         mut self,
         v: T,
@@ -30307,18 +24048,6 @@ impl QueryInput {
     ///
     /// Note that all the setters affecting `input` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryInput;
-    /// use google_cloud_dialogflow_cx_v3::model::DtmfInput;
-    /// let x = QueryInput::new().set_dtmf(DtmfInput::default()/* use setters */);
-    /// assert!(x.dtmf().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.intent().is_none());
-    /// assert!(x.audio().is_none());
-    /// assert!(x.event().is_none());
-    /// ```
     pub fn set_dtmf<T: std::convert::Into<std::boxed::Box<crate::model::DtmfInput>>>(
         mut self,
         v: T,
@@ -30514,25 +24243,12 @@ impl QueryResult {
     }
 
     /// Sets the value of [language_code][crate::model::QueryResult::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// let x = QueryResult::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [parameters][crate::model::QueryResult::parameters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use wkt::Struct;
-    /// let x = QueryResult::new().set_parameters(Struct::default()/* use setters */);
-    /// ```
     pub fn set_parameters<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -30542,14 +24258,6 @@ impl QueryResult {
     }
 
     /// Sets or clears the value of [parameters][crate::model::QueryResult::parameters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use wkt::Struct;
-    /// let x = QueryResult::new().set_or_clear_parameters(Some(Struct::default()/* use setters */));
-    /// let x = QueryResult::new().set_or_clear_parameters(None::<Struct>);
-    /// ```
     pub fn set_or_clear_parameters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -30559,17 +24267,6 @@ impl QueryResult {
     }
 
     /// Sets the value of [response_messages][crate::model::QueryResult::response_messages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-    /// let x = QueryResult::new()
-    ///     .set_response_messages([
-    ///         ResponseMessage::default()/* use setters */,
-    ///         ResponseMessage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_response_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -30581,12 +24278,6 @@ impl QueryResult {
     }
 
     /// Sets the value of [webhook_ids][crate::model::QueryResult::webhook_ids].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// let x = QueryResult::new().set_webhook_ids(["a", "b", "c"]);
-    /// ```
     pub fn set_webhook_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -30598,12 +24289,6 @@ impl QueryResult {
     }
 
     /// Sets the value of [webhook_display_names][crate::model::QueryResult::webhook_display_names].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// let x = QueryResult::new().set_webhook_display_names(["a", "b", "c"]);
-    /// ```
     pub fn set_webhook_display_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -30615,17 +24300,6 @@ impl QueryResult {
     }
 
     /// Sets the value of [webhook_latencies][crate::model::QueryResult::webhook_latencies].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use wkt::Duration;
-    /// let x = QueryResult::new()
-    ///     .set_webhook_latencies([
-    ///         Duration::default()/* use setters */,
-    ///         Duration::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_webhook_latencies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -30637,12 +24311,6 @@ impl QueryResult {
     }
 
     /// Sets the value of [webhook_tags][crate::model::QueryResult::webhook_tags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// let x = QueryResult::new().set_webhook_tags(["a", "b", "c"]);
-    /// ```
     pub fn set_webhook_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -30654,17 +24322,6 @@ impl QueryResult {
     }
 
     /// Sets the value of [webhook_statuses][crate::model::QueryResult::webhook_statuses].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use rpc::model::Status;
-    /// let x = QueryResult::new()
-    ///     .set_webhook_statuses([
-    ///         Status::default()/* use setters */,
-    ///         Status::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_webhook_statuses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -30676,17 +24333,6 @@ impl QueryResult {
     }
 
     /// Sets the value of [webhook_payloads][crate::model::QueryResult::webhook_payloads].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use wkt::Struct;
-    /// let x = QueryResult::new()
-    ///     .set_webhook_payloads([
-    ///         Struct::default()/* use setters */,
-    ///         Struct::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_webhook_payloads<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -30698,13 +24344,6 @@ impl QueryResult {
     }
 
     /// Sets the value of [current_page][crate::model::QueryResult::current_page].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use google_cloud_dialogflow_cx_v3::model::Page;
-    /// let x = QueryResult::new().set_current_page(Page::default()/* use setters */);
-    /// ```
     pub fn set_current_page<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Page>,
@@ -30714,14 +24353,6 @@ impl QueryResult {
     }
 
     /// Sets or clears the value of [current_page][crate::model::QueryResult::current_page].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use google_cloud_dialogflow_cx_v3::model::Page;
-    /// let x = QueryResult::new().set_or_clear_current_page(Some(Page::default()/* use setters */));
-    /// let x = QueryResult::new().set_or_clear_current_page(None::<Page>);
-    /// ```
     pub fn set_or_clear_current_page<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Page>,
@@ -30731,13 +24362,6 @@ impl QueryResult {
     }
 
     /// Sets the value of [current_flow][crate::model::QueryResult::current_flow].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// let x = QueryResult::new().set_current_flow(Flow::default()/* use setters */);
-    /// ```
     pub fn set_current_flow<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Flow>,
@@ -30747,14 +24371,6 @@ impl QueryResult {
     }
 
     /// Sets or clears the value of [current_flow][crate::model::QueryResult::current_flow].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use google_cloud_dialogflow_cx_v3::model::Flow;
-    /// let x = QueryResult::new().set_or_clear_current_flow(Some(Flow::default()/* use setters */));
-    /// let x = QueryResult::new().set_or_clear_current_flow(None::<Flow>);
-    /// ```
     pub fn set_or_clear_current_flow<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Flow>,
@@ -30764,13 +24380,6 @@ impl QueryResult {
     }
 
     /// Sets the value of [intent][crate::model::QueryResult::intent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use google_cloud_dialogflow_cx_v3::model::Intent;
-    /// let x = QueryResult::new().set_intent(Intent::default()/* use setters */);
-    /// ```
     #[deprecated]
     pub fn set_intent<T>(mut self, v: T) -> Self
     where
@@ -30781,14 +24390,6 @@ impl QueryResult {
     }
 
     /// Sets or clears the value of [intent][crate::model::QueryResult::intent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use google_cloud_dialogflow_cx_v3::model::Intent;
-    /// let x = QueryResult::new().set_or_clear_intent(Some(Intent::default()/* use setters */));
-    /// let x = QueryResult::new().set_or_clear_intent(None::<Intent>);
-    /// ```
     #[deprecated]
     pub fn set_or_clear_intent<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -30799,12 +24400,6 @@ impl QueryResult {
     }
 
     /// Sets the value of [intent_detection_confidence][crate::model::QueryResult::intent_detection_confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// let x = QueryResult::new().set_intent_detection_confidence(42.0);
-    /// ```
     #[deprecated]
     pub fn set_intent_detection_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.intent_detection_confidence = v.into();
@@ -30812,13 +24407,6 @@ impl QueryResult {
     }
 
     /// Sets the value of [r#match][crate::model::QueryResult::match].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use google_cloud_dialogflow_cx_v3::model::Match;
-    /// let x = QueryResult::new().set_match(Match::default()/* use setters */);
-    /// ```
     pub fn set_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Match>,
@@ -30828,14 +24416,6 @@ impl QueryResult {
     }
 
     /// Sets or clears the value of [r#match][crate::model::QueryResult::match].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use google_cloud_dialogflow_cx_v3::model::Match;
-    /// let x = QueryResult::new().set_or_clear_match(Some(Match::default()/* use setters */));
-    /// let x = QueryResult::new().set_or_clear_match(None::<Match>);
-    /// ```
     pub fn set_or_clear_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Match>,
@@ -30845,13 +24425,6 @@ impl QueryResult {
     }
 
     /// Sets the value of [diagnostic_info][crate::model::QueryResult::diagnostic_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use wkt::Struct;
-    /// let x = QueryResult::new().set_diagnostic_info(Struct::default()/* use setters */);
-    /// ```
     pub fn set_diagnostic_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -30861,14 +24434,6 @@ impl QueryResult {
     }
 
     /// Sets or clears the value of [diagnostic_info][crate::model::QueryResult::diagnostic_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use wkt::Struct;
-    /// let x = QueryResult::new().set_or_clear_diagnostic_info(Some(Struct::default()/* use setters */));
-    /// let x = QueryResult::new().set_or_clear_diagnostic_info(None::<Struct>);
-    /// ```
     pub fn set_or_clear_diagnostic_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -30878,13 +24443,6 @@ impl QueryResult {
     }
 
     /// Sets the value of [sentiment_analysis_result][crate::model::QueryResult::sentiment_analysis_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use google_cloud_dialogflow_cx_v3::model::SentimentAnalysisResult;
-    /// let x = QueryResult::new().set_sentiment_analysis_result(SentimentAnalysisResult::default()/* use setters */);
-    /// ```
     pub fn set_sentiment_analysis_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SentimentAnalysisResult>,
@@ -30894,14 +24452,6 @@ impl QueryResult {
     }
 
     /// Sets or clears the value of [sentiment_analysis_result][crate::model::QueryResult::sentiment_analysis_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use google_cloud_dialogflow_cx_v3::model::SentimentAnalysisResult;
-    /// let x = QueryResult::new().set_or_clear_sentiment_analysis_result(Some(SentimentAnalysisResult::default()/* use setters */));
-    /// let x = QueryResult::new().set_or_clear_sentiment_analysis_result(None::<SentimentAnalysisResult>);
-    /// ```
     pub fn set_or_clear_sentiment_analysis_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SentimentAnalysisResult>,
@@ -30911,13 +24461,6 @@ impl QueryResult {
     }
 
     /// Sets the value of [advanced_settings][crate::model::QueryResult::advanced_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-    /// let x = QueryResult::new().set_advanced_settings(AdvancedSettings::default()/* use setters */);
-    /// ```
     pub fn set_advanced_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedSettings>,
@@ -30927,14 +24470,6 @@ impl QueryResult {
     }
 
     /// Sets or clears the value of [advanced_settings][crate::model::QueryResult::advanced_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use google_cloud_dialogflow_cx_v3::model::AdvancedSettings;
-    /// let x = QueryResult::new().set_or_clear_advanced_settings(Some(AdvancedSettings::default()/* use setters */));
-    /// let x = QueryResult::new().set_or_clear_advanced_settings(None::<AdvancedSettings>);
-    /// ```
     pub fn set_or_clear_advanced_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedSettings>,
@@ -30944,25 +24479,12 @@ impl QueryResult {
     }
 
     /// Sets the value of [allow_answer_feedback][crate::model::QueryResult::allow_answer_feedback].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// let x = QueryResult::new().set_allow_answer_feedback(true);
-    /// ```
     pub fn set_allow_answer_feedback<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_answer_feedback = v.into();
         self
     }
 
     /// Sets the value of [data_store_connection_signals][crate::model::QueryResult::data_store_connection_signals].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use google_cloud_dialogflow_cx_v3::model::DataStoreConnectionSignals;
-    /// let x = QueryResult::new().set_data_store_connection_signals(DataStoreConnectionSignals::default()/* use setters */);
-    /// ```
     pub fn set_data_store_connection_signals<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataStoreConnectionSignals>,
@@ -30972,14 +24494,6 @@ impl QueryResult {
     }
 
     /// Sets or clears the value of [data_store_connection_signals][crate::model::QueryResult::data_store_connection_signals].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use google_cloud_dialogflow_cx_v3::model::DataStoreConnectionSignals;
-    /// let x = QueryResult::new().set_or_clear_data_store_connection_signals(Some(DataStoreConnectionSignals::default()/* use setters */));
-    /// let x = QueryResult::new().set_or_clear_data_store_connection_signals(None::<DataStoreConnectionSignals>);
-    /// ```
     pub fn set_or_clear_data_store_connection_signals<T>(
         mut self,
         v: std::option::Option<T>,
@@ -30995,13 +24509,6 @@ impl QueryResult {
     ///
     /// Note that all the setters affecting `query` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use google_cloud_dialogflow_cx_v3::model::query_result;
-    /// let x = QueryResult::new().set_query(Some(query_result::Query::Text("example".to_string())));
-    /// ```
     pub fn set_query<
         T: std::convert::Into<std::option::Option<crate::model::query_result::Query>>,
     >(
@@ -31028,17 +24535,6 @@ impl QueryResult {
     ///
     /// Note that all the setters affecting `query` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// let x = QueryResult::new().set_text("example");
-    /// assert!(x.text().is_some());
-    /// assert!(x.trigger_intent().is_none());
-    /// assert!(x.transcript().is_none());
-    /// assert!(x.trigger_event().is_none());
-    /// assert!(x.dtmf().is_none());
-    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = std::option::Option::Some(crate::model::query_result::Query::Text(v.into()));
         self
@@ -31060,17 +24556,6 @@ impl QueryResult {
     ///
     /// Note that all the setters affecting `query` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// let x = QueryResult::new().set_trigger_intent("example");
-    /// assert!(x.trigger_intent().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.transcript().is_none());
-    /// assert!(x.trigger_event().is_none());
-    /// assert!(x.dtmf().is_none());
-    /// ```
     pub fn set_trigger_intent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query =
             std::option::Option::Some(crate::model::query_result::Query::TriggerIntent(v.into()));
@@ -31093,17 +24578,6 @@ impl QueryResult {
     ///
     /// Note that all the setters affecting `query` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// let x = QueryResult::new().set_transcript("example");
-    /// assert!(x.transcript().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.trigger_intent().is_none());
-    /// assert!(x.trigger_event().is_none());
-    /// assert!(x.dtmf().is_none());
-    /// ```
     pub fn set_transcript<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query =
             std::option::Option::Some(crate::model::query_result::Query::Transcript(v.into()));
@@ -31126,17 +24600,6 @@ impl QueryResult {
     ///
     /// Note that all the setters affecting `query` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// let x = QueryResult::new().set_trigger_event("example");
-    /// assert!(x.trigger_event().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.trigger_intent().is_none());
-    /// assert!(x.transcript().is_none());
-    /// assert!(x.dtmf().is_none());
-    /// ```
     pub fn set_trigger_event<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query =
             std::option::Option::Some(crate::model::query_result::Query::TriggerEvent(v.into()));
@@ -31159,18 +24622,6 @@ impl QueryResult {
     ///
     /// Note that all the setters affecting `query` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use google_cloud_dialogflow_cx_v3::model::DtmfInput;
-    /// let x = QueryResult::new().set_dtmf(DtmfInput::default()/* use setters */);
-    /// assert!(x.dtmf().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.trigger_intent().is_none());
-    /// assert!(x.transcript().is_none());
-    /// assert!(x.trigger_event().is_none());
-    /// ```
     pub fn set_dtmf<T: std::convert::Into<std::boxed::Box<crate::model::DtmfInput>>>(
         mut self,
         v: T,
@@ -31247,12 +24698,6 @@ impl TextInput {
     }
 
     /// Sets the value of [text][crate::model::TextInput::text].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TextInput;
-    /// let x = TextInput::new().set_text("example");
-    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
         self
@@ -31287,12 +24732,6 @@ impl IntentInput {
     }
 
     /// Sets the value of [intent][crate::model::IntentInput::intent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::IntentInput;
-    /// let x = IntentInput::new().set_intent("example");
-    /// ```
     pub fn set_intent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.intent = v.into();
         self
@@ -31338,13 +24777,6 @@ impl AudioInput {
     }
 
     /// Sets the value of [config][crate::model::AudioInput::config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::AudioInput;
-    /// use google_cloud_dialogflow_cx_v3::model::InputAudioConfig;
-    /// let x = AudioInput::new().set_config(InputAudioConfig::default()/* use setters */);
-    /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InputAudioConfig>,
@@ -31354,14 +24786,6 @@ impl AudioInput {
     }
 
     /// Sets or clears the value of [config][crate::model::AudioInput::config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::AudioInput;
-    /// use google_cloud_dialogflow_cx_v3::model::InputAudioConfig;
-    /// let x = AudioInput::new().set_or_clear_config(Some(InputAudioConfig::default()/* use setters */));
-    /// let x = AudioInput::new().set_or_clear_config(None::<InputAudioConfig>);
-    /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InputAudioConfig>,
@@ -31371,12 +24795,6 @@ impl AudioInput {
     }
 
     /// Sets the value of [audio][crate::model::AudioInput::audio].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::AudioInput;
-    /// let x = AudioInput::new().set_audio(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.audio = v.into();
         self
@@ -31408,12 +24826,6 @@ impl EventInput {
     }
 
     /// Sets the value of [event][crate::model::EventInput::event].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::EventInput;
-    /// let x = EventInput::new().set_event("example");
-    /// ```
     pub fn set_event<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.event = v.into();
         self
@@ -31448,24 +24860,12 @@ impl DtmfInput {
     }
 
     /// Sets the value of [digits][crate::model::DtmfInput::digits].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DtmfInput;
-    /// let x = DtmfInput::new().set_digits("example");
-    /// ```
     pub fn set_digits<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.digits = v.into();
         self
     }
 
     /// Sets the value of [finish_digit][crate::model::DtmfInput::finish_digit].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DtmfInput;
-    /// let x = DtmfInput::new().set_finish_digit("example");
-    /// ```
     pub fn set_finish_digit<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.finish_digit = v.into();
         self
@@ -31545,13 +24945,6 @@ impl Match {
     }
 
     /// Sets the value of [intent][crate::model::Match::intent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Match;
-    /// use google_cloud_dialogflow_cx_v3::model::Intent;
-    /// let x = Match::new().set_intent(Intent::default()/* use setters */);
-    /// ```
     pub fn set_intent<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Intent>,
@@ -31561,14 +24954,6 @@ impl Match {
     }
 
     /// Sets or clears the value of [intent][crate::model::Match::intent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Match;
-    /// use google_cloud_dialogflow_cx_v3::model::Intent;
-    /// let x = Match::new().set_or_clear_intent(Some(Intent::default()/* use setters */));
-    /// let x = Match::new().set_or_clear_intent(None::<Intent>);
-    /// ```
     pub fn set_or_clear_intent<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Intent>,
@@ -31578,25 +24963,12 @@ impl Match {
     }
 
     /// Sets the value of [event][crate::model::Match::event].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Match;
-    /// let x = Match::new().set_event("example");
-    /// ```
     pub fn set_event<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.event = v.into();
         self
     }
 
     /// Sets the value of [parameters][crate::model::Match::parameters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Match;
-    /// use wkt::Struct;
-    /// let x = Match::new().set_parameters(Struct::default()/* use setters */);
-    /// ```
     pub fn set_parameters<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -31606,14 +24978,6 @@ impl Match {
     }
 
     /// Sets or clears the value of [parameters][crate::model::Match::parameters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Match;
-    /// use wkt::Struct;
-    /// let x = Match::new().set_or_clear_parameters(Some(Struct::default()/* use setters */));
-    /// let x = Match::new().set_or_clear_parameters(None::<Struct>);
-    /// ```
     pub fn set_or_clear_parameters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -31623,27 +24987,12 @@ impl Match {
     }
 
     /// Sets the value of [resolved_input][crate::model::Match::resolved_input].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Match;
-    /// let x = Match::new().set_resolved_input("example");
-    /// ```
     pub fn set_resolved_input<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resolved_input = v.into();
         self
     }
 
     /// Sets the value of [match_type][crate::model::Match::match_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Match;
-    /// use google_cloud_dialogflow_cx_v3::model::r#match::MatchType;
-    /// let x0 = Match::new().set_match_type(MatchType::Intent);
-    /// let x1 = Match::new().set_match_type(MatchType::DirectIntent);
-    /// let x2 = Match::new().set_match_type(MatchType::ParameterFilling);
-    /// ```
     pub fn set_match_type<T: std::convert::Into<crate::model::r#match::MatchType>>(
         mut self,
         v: T,
@@ -31653,12 +25002,6 @@ impl Match {
     }
 
     /// Sets the value of [confidence][crate::model::Match::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Match;
-    /// let x = Match::new().set_confidence(42.0);
-    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
@@ -31901,25 +25244,12 @@ impl MatchIntentRequest {
     }
 
     /// Sets the value of [session][crate::model::MatchIntentRequest::session].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::MatchIntentRequest;
-    /// let x = MatchIntentRequest::new().set_session("example");
-    /// ```
     pub fn set_session<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.session = v.into();
         self
     }
 
     /// Sets the value of [query_params][crate::model::MatchIntentRequest::query_params].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::MatchIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// let x = MatchIntentRequest::new().set_query_params(QueryParameters::default()/* use setters */);
-    /// ```
     pub fn set_query_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QueryParameters>,
@@ -31929,14 +25259,6 @@ impl MatchIntentRequest {
     }
 
     /// Sets or clears the value of [query_params][crate::model::MatchIntentRequest::query_params].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::MatchIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// let x = MatchIntentRequest::new().set_or_clear_query_params(Some(QueryParameters::default()/* use setters */));
-    /// let x = MatchIntentRequest::new().set_or_clear_query_params(None::<QueryParameters>);
-    /// ```
     pub fn set_or_clear_query_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryParameters>,
@@ -31946,13 +25268,6 @@ impl MatchIntentRequest {
     }
 
     /// Sets the value of [query_input][crate::model::MatchIntentRequest::query_input].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::MatchIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::QueryInput;
-    /// let x = MatchIntentRequest::new().set_query_input(QueryInput::default()/* use setters */);
-    /// ```
     pub fn set_query_input<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QueryInput>,
@@ -31962,14 +25277,6 @@ impl MatchIntentRequest {
     }
 
     /// Sets or clears the value of [query_input][crate::model::MatchIntentRequest::query_input].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::MatchIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::QueryInput;
-    /// let x = MatchIntentRequest::new().set_or_clear_query_input(Some(QueryInput::default()/* use setters */));
-    /// let x = MatchIntentRequest::new().set_or_clear_query_input(None::<QueryInput>);
-    /// ```
     pub fn set_or_clear_query_input<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryInput>,
@@ -31979,12 +25286,6 @@ impl MatchIntentRequest {
     }
 
     /// Sets the value of [persist_parameter_changes][crate::model::MatchIntentRequest::persist_parameter_changes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::MatchIntentRequest;
-    /// let x = MatchIntentRequest::new().set_persist_parameter_changes(true);
-    /// ```
     pub fn set_persist_parameter_changes<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.persist_parameter_changes = v.into();
         self
@@ -32027,17 +25328,6 @@ impl MatchIntentResponse {
     }
 
     /// Sets the value of [matches][crate::model::MatchIntentResponse::matches].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::MatchIntentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::Match;
-    /// let x = MatchIntentResponse::new()
-    ///     .set_matches([
-    ///         Match::default()/* use setters */,
-    ///         Match::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_matches<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -32049,13 +25339,6 @@ impl MatchIntentResponse {
     }
 
     /// Sets the value of [current_page][crate::model::MatchIntentResponse::current_page].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::MatchIntentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::Page;
-    /// let x = MatchIntentResponse::new().set_current_page(Page::default()/* use setters */);
-    /// ```
     pub fn set_current_page<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Page>,
@@ -32065,14 +25348,6 @@ impl MatchIntentResponse {
     }
 
     /// Sets or clears the value of [current_page][crate::model::MatchIntentResponse::current_page].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::MatchIntentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::Page;
-    /// let x = MatchIntentResponse::new().set_or_clear_current_page(Some(Page::default()/* use setters */));
-    /// let x = MatchIntentResponse::new().set_or_clear_current_page(None::<Page>);
-    /// ```
     pub fn set_or_clear_current_page<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Page>,
@@ -32085,13 +25360,6 @@ impl MatchIntentResponse {
     ///
     /// Note that all the setters affecting `query` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::MatchIntentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::match_intent_response;
-    /// let x = MatchIntentResponse::new().set_query(Some(match_intent_response::Query::Text("example".to_string())));
-    /// ```
     pub fn set_query<
         T: std::convert::Into<std::option::Option<crate::model::match_intent_response::Query>>,
     >(
@@ -32118,16 +25386,6 @@ impl MatchIntentResponse {
     ///
     /// Note that all the setters affecting `query` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::MatchIntentResponse;
-    /// let x = MatchIntentResponse::new().set_text("example");
-    /// assert!(x.text().is_some());
-    /// assert!(x.trigger_intent().is_none());
-    /// assert!(x.transcript().is_none());
-    /// assert!(x.trigger_event().is_none());
-    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query =
             std::option::Option::Some(crate::model::match_intent_response::Query::Text(v.into()));
@@ -32152,16 +25410,6 @@ impl MatchIntentResponse {
     ///
     /// Note that all the setters affecting `query` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::MatchIntentResponse;
-    /// let x = MatchIntentResponse::new().set_trigger_intent("example");
-    /// assert!(x.trigger_intent().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.transcript().is_none());
-    /// assert!(x.trigger_event().is_none());
-    /// ```
     pub fn set_trigger_intent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = std::option::Option::Some(
             crate::model::match_intent_response::Query::TriggerIntent(v.into()),
@@ -32187,16 +25435,6 @@ impl MatchIntentResponse {
     ///
     /// Note that all the setters affecting `query` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::MatchIntentResponse;
-    /// let x = MatchIntentResponse::new().set_transcript("example");
-    /// assert!(x.transcript().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.trigger_intent().is_none());
-    /// assert!(x.trigger_event().is_none());
-    /// ```
     pub fn set_transcript<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = std::option::Option::Some(
             crate::model::match_intent_response::Query::Transcript(v.into()),
@@ -32222,16 +25460,6 @@ impl MatchIntentResponse {
     ///
     /// Note that all the setters affecting `query` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::MatchIntentResponse;
-    /// let x = MatchIntentResponse::new().set_trigger_event("example");
-    /// assert!(x.trigger_event().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.trigger_intent().is_none());
-    /// assert!(x.transcript().is_none());
-    /// ```
     pub fn set_trigger_event<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = std::option::Option::Some(
             crate::model::match_intent_response::Query::TriggerEvent(v.into()),
@@ -32308,13 +25536,6 @@ impl FulfillIntentRequest {
     }
 
     /// Sets the value of [match_intent_request][crate::model::FulfillIntentRequest::match_intent_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FulfillIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::MatchIntentRequest;
-    /// let x = FulfillIntentRequest::new().set_match_intent_request(MatchIntentRequest::default()/* use setters */);
-    /// ```
     pub fn set_match_intent_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MatchIntentRequest>,
@@ -32324,14 +25545,6 @@ impl FulfillIntentRequest {
     }
 
     /// Sets or clears the value of [match_intent_request][crate::model::FulfillIntentRequest::match_intent_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FulfillIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::MatchIntentRequest;
-    /// let x = FulfillIntentRequest::new().set_or_clear_match_intent_request(Some(MatchIntentRequest::default()/* use setters */));
-    /// let x = FulfillIntentRequest::new().set_or_clear_match_intent_request(None::<MatchIntentRequest>);
-    /// ```
     pub fn set_or_clear_match_intent_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MatchIntentRequest>,
@@ -32341,13 +25554,6 @@ impl FulfillIntentRequest {
     }
 
     /// Sets the value of [r#match][crate::model::FulfillIntentRequest::match].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FulfillIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Match;
-    /// let x = FulfillIntentRequest::new().set_match(Match::default()/* use setters */);
-    /// ```
     pub fn set_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Match>,
@@ -32357,14 +25563,6 @@ impl FulfillIntentRequest {
     }
 
     /// Sets or clears the value of [r#match][crate::model::FulfillIntentRequest::match].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FulfillIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Match;
-    /// let x = FulfillIntentRequest::new().set_or_clear_match(Some(Match::default()/* use setters */));
-    /// let x = FulfillIntentRequest::new().set_or_clear_match(None::<Match>);
-    /// ```
     pub fn set_or_clear_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Match>,
@@ -32374,13 +25572,6 @@ impl FulfillIntentRequest {
     }
 
     /// Sets the value of [output_audio_config][crate::model::FulfillIntentRequest::output_audio_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FulfillIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::OutputAudioConfig;
-    /// let x = FulfillIntentRequest::new().set_output_audio_config(OutputAudioConfig::default()/* use setters */);
-    /// ```
     pub fn set_output_audio_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OutputAudioConfig>,
@@ -32390,14 +25581,6 @@ impl FulfillIntentRequest {
     }
 
     /// Sets or clears the value of [output_audio_config][crate::model::FulfillIntentRequest::output_audio_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FulfillIntentRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::OutputAudioConfig;
-    /// let x = FulfillIntentRequest::new().set_or_clear_output_audio_config(Some(OutputAudioConfig::default()/* use setters */));
-    /// let x = FulfillIntentRequest::new().set_or_clear_output_audio_config(None::<OutputAudioConfig>);
-    /// ```
     pub fn set_or_clear_output_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputAudioConfig>,
@@ -32454,25 +25637,12 @@ impl FulfillIntentResponse {
     }
 
     /// Sets the value of [response_id][crate::model::FulfillIntentResponse::response_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FulfillIntentResponse;
-    /// let x = FulfillIntentResponse::new().set_response_id("example");
-    /// ```
     pub fn set_response_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.response_id = v.into();
         self
     }
 
     /// Sets the value of [query_result][crate::model::FulfillIntentResponse::query_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FulfillIntentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// let x = FulfillIntentResponse::new().set_query_result(QueryResult::default()/* use setters */);
-    /// ```
     pub fn set_query_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QueryResult>,
@@ -32482,14 +25652,6 @@ impl FulfillIntentResponse {
     }
 
     /// Sets or clears the value of [query_result][crate::model::FulfillIntentResponse::query_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FulfillIntentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// let x = FulfillIntentResponse::new().set_or_clear_query_result(Some(QueryResult::default()/* use setters */));
-    /// let x = FulfillIntentResponse::new().set_or_clear_query_result(None::<QueryResult>);
-    /// ```
     pub fn set_or_clear_query_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryResult>,
@@ -32499,25 +25661,12 @@ impl FulfillIntentResponse {
     }
 
     /// Sets the value of [output_audio][crate::model::FulfillIntentResponse::output_audio].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FulfillIntentResponse;
-    /// let x = FulfillIntentResponse::new().set_output_audio(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_output_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.output_audio = v.into();
         self
     }
 
     /// Sets the value of [output_audio_config][crate::model::FulfillIntentResponse::output_audio_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FulfillIntentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::OutputAudioConfig;
-    /// let x = FulfillIntentResponse::new().set_output_audio_config(OutputAudioConfig::default()/* use setters */);
-    /// ```
     pub fn set_output_audio_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OutputAudioConfig>,
@@ -32527,14 +25676,6 @@ impl FulfillIntentResponse {
     }
 
     /// Sets or clears the value of [output_audio_config][crate::model::FulfillIntentResponse::output_audio_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::FulfillIntentResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::OutputAudioConfig;
-    /// let x = FulfillIntentResponse::new().set_or_clear_output_audio_config(Some(OutputAudioConfig::default()/* use setters */));
-    /// let x = FulfillIntentResponse::new().set_or_clear_output_audio_config(None::<OutputAudioConfig>);
-    /// ```
     pub fn set_or_clear_output_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputAudioConfig>,
@@ -32576,24 +25717,12 @@ impl SentimentAnalysisResult {
     }
 
     /// Sets the value of [score][crate::model::SentimentAnalysisResult::score].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SentimentAnalysisResult;
-    /// let x = SentimentAnalysisResult::new().set_score(42.0);
-    /// ```
     pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.score = v.into();
         self
     }
 
     /// Sets the value of [magnitude][crate::model::SentimentAnalysisResult::magnitude].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SentimentAnalysisResult;
-    /// let x = SentimentAnalysisResult::new().set_magnitude(42.0);
-    /// ```
     pub fn set_magnitude<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.magnitude = v.into();
         self
@@ -32653,26 +25782,12 @@ impl SessionEntityType {
     }
 
     /// Sets the value of [name][crate::model::SessionEntityType::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SessionEntityType;
-    /// let x = SessionEntityType::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [entity_override_mode][crate::model::SessionEntityType::entity_override_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SessionEntityType;
-    /// use google_cloud_dialogflow_cx_v3::model::session_entity_type::EntityOverrideMode;
-    /// let x0 = SessionEntityType::new().set_entity_override_mode(EntityOverrideMode::Override);
-    /// let x1 = SessionEntityType::new().set_entity_override_mode(EntityOverrideMode::Supplement);
-    /// ```
     pub fn set_entity_override_mode<
         T: std::convert::Into<crate::model::session_entity_type::EntityOverrideMode>,
     >(
@@ -32684,17 +25799,6 @@ impl SessionEntityType {
     }
 
     /// Sets the value of [entities][crate::model::SessionEntityType::entities].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SessionEntityType;
-    /// use google_cloud_dialogflow_cx_v3::model::entity_type::Entity;
-    /// let x = SessionEntityType::new()
-    ///     .set_entities([
-    ///         Entity::default()/* use setters */,
-    ///         Entity::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_entities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -32907,36 +26011,18 @@ impl ListSessionEntityTypesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSessionEntityTypesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListSessionEntityTypesRequest;
-    /// let x = ListSessionEntityTypesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSessionEntityTypesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListSessionEntityTypesRequest;
-    /// let x = ListSessionEntityTypesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSessionEntityTypesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListSessionEntityTypesRequest;
-    /// let x = ListSessionEntityTypesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -32976,17 +26062,6 @@ impl ListSessionEntityTypesResponse {
     }
 
     /// Sets the value of [session_entity_types][crate::model::ListSessionEntityTypesResponse::session_entity_types].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListSessionEntityTypesResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::SessionEntityType;
-    /// let x = ListSessionEntityTypesResponse::new()
-    ///     .set_session_entity_types([
-    ///         SessionEntityType::default()/* use setters */,
-    ///         SessionEntityType::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_session_entity_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -32998,12 +26073,6 @@ impl ListSessionEntityTypesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSessionEntityTypesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListSessionEntityTypesResponse;
-    /// let x = ListSessionEntityTypesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -33059,12 +26128,6 @@ impl GetSessionEntityTypeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSessionEntityTypeRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetSessionEntityTypeRequest;
-    /// let x = GetSessionEntityTypeRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -33108,25 +26171,12 @@ impl CreateSessionEntityTypeRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSessionEntityTypeRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateSessionEntityTypeRequest;
-    /// let x = CreateSessionEntityTypeRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [session_entity_type][crate::model::CreateSessionEntityTypeRequest::session_entity_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateSessionEntityTypeRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::SessionEntityType;
-    /// let x = CreateSessionEntityTypeRequest::new().set_session_entity_type(SessionEntityType::default()/* use setters */);
-    /// ```
     pub fn set_session_entity_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SessionEntityType>,
@@ -33136,14 +26186,6 @@ impl CreateSessionEntityTypeRequest {
     }
 
     /// Sets or clears the value of [session_entity_type][crate::model::CreateSessionEntityTypeRequest::session_entity_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateSessionEntityTypeRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::SessionEntityType;
-    /// let x = CreateSessionEntityTypeRequest::new().set_or_clear_session_entity_type(Some(SessionEntityType::default()/* use setters */));
-    /// let x = CreateSessionEntityTypeRequest::new().set_or_clear_session_entity_type(None::<SessionEntityType>);
-    /// ```
     pub fn set_or_clear_session_entity_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SessionEntityType>,
@@ -33190,13 +26232,6 @@ impl UpdateSessionEntityTypeRequest {
     }
 
     /// Sets the value of [session_entity_type][crate::model::UpdateSessionEntityTypeRequest::session_entity_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateSessionEntityTypeRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::SessionEntityType;
-    /// let x = UpdateSessionEntityTypeRequest::new().set_session_entity_type(SessionEntityType::default()/* use setters */);
-    /// ```
     pub fn set_session_entity_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SessionEntityType>,
@@ -33206,14 +26241,6 @@ impl UpdateSessionEntityTypeRequest {
     }
 
     /// Sets or clears the value of [session_entity_type][crate::model::UpdateSessionEntityTypeRequest::session_entity_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateSessionEntityTypeRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::SessionEntityType;
-    /// let x = UpdateSessionEntityTypeRequest::new().set_or_clear_session_entity_type(Some(SessionEntityType::default()/* use setters */));
-    /// let x = UpdateSessionEntityTypeRequest::new().set_or_clear_session_entity_type(None::<SessionEntityType>);
-    /// ```
     pub fn set_or_clear_session_entity_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SessionEntityType>,
@@ -33223,13 +26250,6 @@ impl UpdateSessionEntityTypeRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSessionEntityTypeRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateSessionEntityTypeRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateSessionEntityTypeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -33239,14 +26259,6 @@ impl UpdateSessionEntityTypeRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSessionEntityTypeRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateSessionEntityTypeRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateSessionEntityTypeRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateSessionEntityTypeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -33290,12 +26302,6 @@ impl DeleteSessionEntityTypeRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSessionEntityTypeRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeleteSessionEntityTypeRequest;
-    /// let x = DeleteSessionEntityTypeRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -33358,24 +26364,12 @@ impl TestCase {
     }
 
     /// Sets the value of [name][crate::model::TestCase::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// let x = TestCase::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [tags][crate::model::TestCase::tags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// let x = TestCase::new().set_tags(["a", "b", "c"]);
-    /// ```
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -33387,37 +26381,18 @@ impl TestCase {
     }
 
     /// Sets the value of [display_name][crate::model::TestCase::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// let x = TestCase::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [notes][crate::model::TestCase::notes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// let x = TestCase::new().set_notes("example");
-    /// ```
     pub fn set_notes<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.notes = v.into();
         self
     }
 
     /// Sets the value of [test_config][crate::model::TestCase::test_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// use google_cloud_dialogflow_cx_v3::model::TestConfig;
-    /// let x = TestCase::new().set_test_config(TestConfig::default()/* use setters */);
-    /// ```
     pub fn set_test_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TestConfig>,
@@ -33427,14 +26402,6 @@ impl TestCase {
     }
 
     /// Sets or clears the value of [test_config][crate::model::TestCase::test_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// use google_cloud_dialogflow_cx_v3::model::TestConfig;
-    /// let x = TestCase::new().set_or_clear_test_config(Some(TestConfig::default()/* use setters */));
-    /// let x = TestCase::new().set_or_clear_test_config(None::<TestConfig>);
-    /// ```
     pub fn set_or_clear_test_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TestConfig>,
@@ -33444,17 +26411,6 @@ impl TestCase {
     }
 
     /// Sets the value of [test_case_conversation_turns][crate::model::TestCase::test_case_conversation_turns].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// use google_cloud_dialogflow_cx_v3::model::ConversationTurn;
-    /// let x = TestCase::new()
-    ///     .set_test_case_conversation_turns([
-    ///         ConversationTurn::default()/* use setters */,
-    ///         ConversationTurn::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_test_case_conversation_turns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -33466,13 +26422,6 @@ impl TestCase {
     }
 
     /// Sets the value of [creation_time][crate::model::TestCase::creation_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// use wkt::Timestamp;
-    /// let x = TestCase::new().set_creation_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_creation_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -33482,14 +26431,6 @@ impl TestCase {
     }
 
     /// Sets or clears the value of [creation_time][crate::model::TestCase::creation_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// use wkt::Timestamp;
-    /// let x = TestCase::new().set_or_clear_creation_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TestCase::new().set_or_clear_creation_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -33499,13 +26440,6 @@ impl TestCase {
     }
 
     /// Sets the value of [last_test_result][crate::model::TestCase::last_test_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// use google_cloud_dialogflow_cx_v3::model::TestCaseResult;
-    /// let x = TestCase::new().set_last_test_result(TestCaseResult::default()/* use setters */);
-    /// ```
     pub fn set_last_test_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TestCaseResult>,
@@ -33515,14 +26449,6 @@ impl TestCase {
     }
 
     /// Sets or clears the value of [last_test_result][crate::model::TestCase::last_test_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// use google_cloud_dialogflow_cx_v3::model::TestCaseResult;
-    /// let x = TestCase::new().set_or_clear_last_test_result(Some(TestCaseResult::default()/* use setters */));
-    /// let x = TestCase::new().set_or_clear_last_test_result(None::<TestCaseResult>);
-    /// ```
     pub fn set_or_clear_last_test_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TestCaseResult>,
@@ -33572,41 +26498,18 @@ impl TestCaseResult {
     }
 
     /// Sets the value of [name][crate::model::TestCaseResult::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCaseResult;
-    /// let x = TestCaseResult::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [environment][crate::model::TestCaseResult::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCaseResult;
-    /// let x = TestCaseResult::new().set_environment("example");
-    /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
     }
 
     /// Sets the value of [conversation_turns][crate::model::TestCaseResult::conversation_turns].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCaseResult;
-    /// use google_cloud_dialogflow_cx_v3::model::ConversationTurn;
-    /// let x = TestCaseResult::new()
-    ///     .set_conversation_turns([
-    ///         ConversationTurn::default()/* use setters */,
-    ///         ConversationTurn::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_conversation_turns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -33618,14 +26521,6 @@ impl TestCaseResult {
     }
 
     /// Sets the value of [test_result][crate::model::TestCaseResult::test_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCaseResult;
-    /// use google_cloud_dialogflow_cx_v3::model::TestResult;
-    /// let x0 = TestCaseResult::new().set_test_result(TestResult::Passed);
-    /// let x1 = TestCaseResult::new().set_test_result(TestResult::Failed);
-    /// ```
     pub fn set_test_result<T: std::convert::Into<crate::model::TestResult>>(
         mut self,
         v: T,
@@ -33635,13 +26530,6 @@ impl TestCaseResult {
     }
 
     /// Sets the value of [test_time][crate::model::TestCaseResult::test_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCaseResult;
-    /// use wkt::Timestamp;
-    /// let x = TestCaseResult::new().set_test_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_test_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -33651,14 +26539,6 @@ impl TestCaseResult {
     }
 
     /// Sets or clears the value of [test_time][crate::model::TestCaseResult::test_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCaseResult;
-    /// use wkt::Timestamp;
-    /// let x = TestCaseResult::new().set_or_clear_test_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TestCaseResult::new().set_or_clear_test_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_test_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -33713,12 +26593,6 @@ impl TestConfig {
     }
 
     /// Sets the value of [tracking_parameters][crate::model::TestConfig::tracking_parameters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestConfig;
-    /// let x = TestConfig::new().set_tracking_parameters(["a", "b", "c"]);
-    /// ```
     pub fn set_tracking_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -33730,24 +26604,12 @@ impl TestConfig {
     }
 
     /// Sets the value of [flow][crate::model::TestConfig::flow].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestConfig;
-    /// let x = TestConfig::new().set_flow("example");
-    /// ```
     pub fn set_flow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.flow = v.into();
         self
     }
 
     /// Sets the value of [page][crate::model::TestConfig::page].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestConfig;
-    /// let x = TestConfig::new().set_page("example");
-    /// ```
     pub fn set_page<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page = v.into();
         self
@@ -33784,13 +26646,6 @@ impl ConversationTurn {
     }
 
     /// Sets the value of [user_input][crate::model::ConversationTurn::user_input].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ConversationTurn;
-    /// use google_cloud_dialogflow_cx_v3::model::conversation_turn::UserInput;
-    /// let x = ConversationTurn::new().set_user_input(UserInput::default()/* use setters */);
-    /// ```
     pub fn set_user_input<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::conversation_turn::UserInput>,
@@ -33800,14 +26655,6 @@ impl ConversationTurn {
     }
 
     /// Sets or clears the value of [user_input][crate::model::ConversationTurn::user_input].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ConversationTurn;
-    /// use google_cloud_dialogflow_cx_v3::model::conversation_turn::UserInput;
-    /// let x = ConversationTurn::new().set_or_clear_user_input(Some(UserInput::default()/* use setters */));
-    /// let x = ConversationTurn::new().set_or_clear_user_input(None::<UserInput>);
-    /// ```
     pub fn set_or_clear_user_input<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::conversation_turn::UserInput>,
@@ -33817,13 +26664,6 @@ impl ConversationTurn {
     }
 
     /// Sets the value of [virtual_agent_output][crate::model::ConversationTurn::virtual_agent_output].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ConversationTurn;
-    /// use google_cloud_dialogflow_cx_v3::model::conversation_turn::VirtualAgentOutput;
-    /// let x = ConversationTurn::new().set_virtual_agent_output(VirtualAgentOutput::default()/* use setters */);
-    /// ```
     pub fn set_virtual_agent_output<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::conversation_turn::VirtualAgentOutput>,
@@ -33833,14 +26673,6 @@ impl ConversationTurn {
     }
 
     /// Sets or clears the value of [virtual_agent_output][crate::model::ConversationTurn::virtual_agent_output].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ConversationTurn;
-    /// use google_cloud_dialogflow_cx_v3::model::conversation_turn::VirtualAgentOutput;
-    /// let x = ConversationTurn::new().set_or_clear_virtual_agent_output(Some(VirtualAgentOutput::default()/* use setters */));
-    /// let x = ConversationTurn::new().set_or_clear_virtual_agent_output(None::<VirtualAgentOutput>);
-    /// ```
     pub fn set_or_clear_virtual_agent_output<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::conversation_turn::VirtualAgentOutput>,
@@ -33899,13 +26731,6 @@ pub mod conversation_turn {
         }
 
         /// Sets the value of [input][crate::model::conversation_turn::UserInput::input].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::UserInput;
-        /// use google_cloud_dialogflow_cx_v3::model::QueryInput;
-        /// let x = UserInput::new().set_input(QueryInput::default()/* use setters */);
-        /// ```
         pub fn set_input<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::QueryInput>,
@@ -33915,14 +26740,6 @@ pub mod conversation_turn {
         }
 
         /// Sets or clears the value of [input][crate::model::conversation_turn::UserInput::input].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::UserInput;
-        /// use google_cloud_dialogflow_cx_v3::model::QueryInput;
-        /// let x = UserInput::new().set_or_clear_input(Some(QueryInput::default()/* use setters */));
-        /// let x = UserInput::new().set_or_clear_input(None::<QueryInput>);
-        /// ```
         pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::QueryInput>,
@@ -33932,13 +26749,6 @@ pub mod conversation_turn {
         }
 
         /// Sets the value of [injected_parameters][crate::model::conversation_turn::UserInput::injected_parameters].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::UserInput;
-        /// use wkt::Struct;
-        /// let x = UserInput::new().set_injected_parameters(Struct::default()/* use setters */);
-        /// ```
         pub fn set_injected_parameters<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -33948,14 +26758,6 @@ pub mod conversation_turn {
         }
 
         /// Sets or clears the value of [injected_parameters][crate::model::conversation_turn::UserInput::injected_parameters].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::UserInput;
-        /// use wkt::Struct;
-        /// let x = UserInput::new().set_or_clear_injected_parameters(Some(Struct::default()/* use setters */));
-        /// let x = UserInput::new().set_or_clear_injected_parameters(None::<Struct>);
-        /// ```
         pub fn set_or_clear_injected_parameters<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -33965,24 +26767,12 @@ pub mod conversation_turn {
         }
 
         /// Sets the value of [is_webhook_enabled][crate::model::conversation_turn::UserInput::is_webhook_enabled].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::UserInput;
-        /// let x = UserInput::new().set_is_webhook_enabled(true);
-        /// ```
         pub fn set_is_webhook_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.is_webhook_enabled = v.into();
             self
         }
 
         /// Sets the value of [enable_sentiment_analysis][crate::model::conversation_turn::UserInput::enable_sentiment_analysis].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::UserInput;
-        /// let x = UserInput::new().set_enable_sentiment_analysis(true);
-        /// ```
         pub fn set_enable_sentiment_analysis<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_sentiment_analysis = v.into();
             self
@@ -34048,13 +26838,6 @@ pub mod conversation_turn {
         }
 
         /// Sets the value of [session_parameters][crate::model::conversation_turn::VirtualAgentOutput::session_parameters].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::VirtualAgentOutput;
-        /// use wkt::Struct;
-        /// let x = VirtualAgentOutput::new().set_session_parameters(Struct::default()/* use setters */);
-        /// ```
         pub fn set_session_parameters<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -34064,14 +26847,6 @@ pub mod conversation_turn {
         }
 
         /// Sets or clears the value of [session_parameters][crate::model::conversation_turn::VirtualAgentOutput::session_parameters].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::VirtualAgentOutput;
-        /// use wkt::Struct;
-        /// let x = VirtualAgentOutput::new().set_or_clear_session_parameters(Some(Struct::default()/* use setters */));
-        /// let x = VirtualAgentOutput::new().set_or_clear_session_parameters(None::<Struct>);
-        /// ```
         pub fn set_or_clear_session_parameters<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -34081,17 +26856,6 @@ pub mod conversation_turn {
         }
 
         /// Sets the value of [differences][crate::model::conversation_turn::VirtualAgentOutput::differences].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::VirtualAgentOutput;
-        /// use google_cloud_dialogflow_cx_v3::model::TestRunDifference;
-        /// let x = VirtualAgentOutput::new()
-        ///     .set_differences([
-        ///         TestRunDifference::default()/* use setters */,
-        ///         TestRunDifference::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_differences<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -34103,13 +26867,6 @@ pub mod conversation_turn {
         }
 
         /// Sets the value of [diagnostic_info][crate::model::conversation_turn::VirtualAgentOutput::diagnostic_info].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::VirtualAgentOutput;
-        /// use wkt::Struct;
-        /// let x = VirtualAgentOutput::new().set_diagnostic_info(Struct::default()/* use setters */);
-        /// ```
         pub fn set_diagnostic_info<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -34119,14 +26876,6 @@ pub mod conversation_turn {
         }
 
         /// Sets or clears the value of [diagnostic_info][crate::model::conversation_turn::VirtualAgentOutput::diagnostic_info].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::VirtualAgentOutput;
-        /// use wkt::Struct;
-        /// let x = VirtualAgentOutput::new().set_or_clear_diagnostic_info(Some(Struct::default()/* use setters */));
-        /// let x = VirtualAgentOutput::new().set_or_clear_diagnostic_info(None::<Struct>);
-        /// ```
         pub fn set_or_clear_diagnostic_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -34136,13 +26885,6 @@ pub mod conversation_turn {
         }
 
         /// Sets the value of [triggered_intent][crate::model::conversation_turn::VirtualAgentOutput::triggered_intent].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::VirtualAgentOutput;
-        /// use google_cloud_dialogflow_cx_v3::model::Intent;
-        /// let x = VirtualAgentOutput::new().set_triggered_intent(Intent::default()/* use setters */);
-        /// ```
         pub fn set_triggered_intent<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Intent>,
@@ -34152,14 +26894,6 @@ pub mod conversation_turn {
         }
 
         /// Sets or clears the value of [triggered_intent][crate::model::conversation_turn::VirtualAgentOutput::triggered_intent].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::VirtualAgentOutput;
-        /// use google_cloud_dialogflow_cx_v3::model::Intent;
-        /// let x = VirtualAgentOutput::new().set_or_clear_triggered_intent(Some(Intent::default()/* use setters */));
-        /// let x = VirtualAgentOutput::new().set_or_clear_triggered_intent(None::<Intent>);
-        /// ```
         pub fn set_or_clear_triggered_intent<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Intent>,
@@ -34169,13 +26903,6 @@ pub mod conversation_turn {
         }
 
         /// Sets the value of [current_page][crate::model::conversation_turn::VirtualAgentOutput::current_page].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::VirtualAgentOutput;
-        /// use google_cloud_dialogflow_cx_v3::model::Page;
-        /// let x = VirtualAgentOutput::new().set_current_page(Page::default()/* use setters */);
-        /// ```
         pub fn set_current_page<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Page>,
@@ -34185,14 +26912,6 @@ pub mod conversation_turn {
         }
 
         /// Sets or clears the value of [current_page][crate::model::conversation_turn::VirtualAgentOutput::current_page].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::VirtualAgentOutput;
-        /// use google_cloud_dialogflow_cx_v3::model::Page;
-        /// let x = VirtualAgentOutput::new().set_or_clear_current_page(Some(Page::default()/* use setters */));
-        /// let x = VirtualAgentOutput::new().set_or_clear_current_page(None::<Page>);
-        /// ```
         pub fn set_or_clear_current_page<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Page>,
@@ -34202,17 +26921,6 @@ pub mod conversation_turn {
         }
 
         /// Sets the value of [text_responses][crate::model::conversation_turn::VirtualAgentOutput::text_responses].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::VirtualAgentOutput;
-        /// use google_cloud_dialogflow_cx_v3::model::response_message::Text;
-        /// let x = VirtualAgentOutput::new()
-        ///     .set_text_responses([
-        ///         Text::default()/* use setters */,
-        ///         Text::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_text_responses<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -34224,13 +26932,6 @@ pub mod conversation_turn {
         }
 
         /// Sets the value of [status][crate::model::conversation_turn::VirtualAgentOutput::status].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::VirtualAgentOutput;
-        /// use rpc::model::Status;
-        /// let x = VirtualAgentOutput::new().set_status(Status::default()/* use setters */);
-        /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -34240,14 +26941,6 @@ pub mod conversation_turn {
         }
 
         /// Sets or clears the value of [status][crate::model::conversation_turn::VirtualAgentOutput::status].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::VirtualAgentOutput;
-        /// use rpc::model::Status;
-        /// let x = VirtualAgentOutput::new().set_or_clear_status(Some(Status::default()/* use setters */));
-        /// let x = VirtualAgentOutput::new().set_or_clear_status(None::<Status>);
-        /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -34287,15 +26980,6 @@ impl TestRunDifference {
     }
 
     /// Sets the value of [r#type][crate::model::TestRunDifference::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestRunDifference;
-    /// use google_cloud_dialogflow_cx_v3::model::test_run_difference::DiffType;
-    /// let x0 = TestRunDifference::new().set_type(DiffType::Intent);
-    /// let x1 = TestRunDifference::new().set_type(DiffType::Page);
-    /// let x2 = TestRunDifference::new().set_type(DiffType::Parameters);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::test_run_difference::DiffType>>(
         mut self,
         v: T,
@@ -34305,12 +26989,6 @@ impl TestRunDifference {
     }
 
     /// Sets the value of [description][crate::model::TestRunDifference::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestRunDifference;
-    /// let x = TestRunDifference::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -34516,17 +27194,6 @@ impl TransitionCoverage {
     }
 
     /// Sets the value of [transitions][crate::model::TransitionCoverage::transitions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TransitionCoverage;
-    /// use google_cloud_dialogflow_cx_v3::model::transition_coverage::Transition;
-    /// let x = TransitionCoverage::new()
-    ///     .set_transitions([
-    ///         Transition::default()/* use setters */,
-    ///         Transition::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_transitions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -34538,12 +27205,6 @@ impl TransitionCoverage {
     }
 
     /// Sets the value of [coverage_score][crate::model::TransitionCoverage::coverage_score].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TransitionCoverage;
-    /// let x = TransitionCoverage::new().set_coverage_score(42.0);
-    /// ```
     pub fn set_coverage_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.coverage_score = v.into();
         self
@@ -34584,14 +27245,6 @@ pub mod transition_coverage {
         ///
         /// Note that all the setters affecting `kind` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::transition_coverage::TransitionNode;
-        /// use google_cloud_dialogflow_cx_v3::model::transition_coverage::transition_node;
-        /// use google_cloud_dialogflow_cx_v3::model::Page;
-        /// let x = TransitionNode::new().set_kind(Some(transition_coverage::transition_node::Kind::Page(Page::default().into())));
-        /// ```
         pub fn set_kind<
             T: std::convert::Into<
                     std::option::Option<crate::model::transition_coverage::transition_node::Kind>,
@@ -34622,15 +27275,6 @@ pub mod transition_coverage {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::transition_coverage::TransitionNode;
-        /// use google_cloud_dialogflow_cx_v3::model::Page;
-        /// let x = TransitionNode::new().set_page(Page::default()/* use setters */);
-        /// assert!(x.page().is_some());
-        /// assert!(x.flow().is_none());
-        /// ```
         pub fn set_page<T: std::convert::Into<std::boxed::Box<crate::model::Page>>>(
             mut self,
             v: T,
@@ -34659,15 +27303,6 @@ pub mod transition_coverage {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::transition_coverage::TransitionNode;
-        /// use google_cloud_dialogflow_cx_v3::model::Flow;
-        /// let x = TransitionNode::new().set_flow(Flow::default()/* use setters */);
-        /// assert!(x.flow().is_some());
-        /// assert!(x.page().is_none());
-        /// ```
         pub fn set_flow<T: std::convert::Into<std::boxed::Box<crate::model::Flow>>>(
             mut self,
             v: T,
@@ -34741,13 +27376,6 @@ pub mod transition_coverage {
         }
 
         /// Sets the value of [source][crate::model::transition_coverage::Transition::source].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::transition_coverage::Transition;
-        /// use google_cloud_dialogflow_cx_v3::model::transition_coverage::TransitionNode;
-        /// let x = Transition::new().set_source(TransitionNode::default()/* use setters */);
-        /// ```
         pub fn set_source<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::transition_coverage::TransitionNode>,
@@ -34757,14 +27385,6 @@ pub mod transition_coverage {
         }
 
         /// Sets or clears the value of [source][crate::model::transition_coverage::Transition::source].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::transition_coverage::Transition;
-        /// use google_cloud_dialogflow_cx_v3::model::transition_coverage::TransitionNode;
-        /// let x = Transition::new().set_or_clear_source(Some(TransitionNode::default()/* use setters */));
-        /// let x = Transition::new().set_or_clear_source(None::<TransitionNode>);
-        /// ```
         pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::transition_coverage::TransitionNode>,
@@ -34774,25 +27394,12 @@ pub mod transition_coverage {
         }
 
         /// Sets the value of [index][crate::model::transition_coverage::Transition::index].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::transition_coverage::Transition;
-        /// let x = Transition::new().set_index(42);
-        /// ```
         pub fn set_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.index = v.into();
             self
         }
 
         /// Sets the value of [target][crate::model::transition_coverage::Transition::target].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::transition_coverage::Transition;
-        /// use google_cloud_dialogflow_cx_v3::model::transition_coverage::TransitionNode;
-        /// let x = Transition::new().set_target(TransitionNode::default()/* use setters */);
-        /// ```
         pub fn set_target<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::transition_coverage::TransitionNode>,
@@ -34802,14 +27409,6 @@ pub mod transition_coverage {
         }
 
         /// Sets or clears the value of [target][crate::model::transition_coverage::Transition::target].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::transition_coverage::Transition;
-        /// use google_cloud_dialogflow_cx_v3::model::transition_coverage::TransitionNode;
-        /// let x = Transition::new().set_or_clear_target(Some(TransitionNode::default()/* use setters */));
-        /// let x = Transition::new().set_or_clear_target(None::<TransitionNode>);
-        /// ```
         pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::transition_coverage::TransitionNode>,
@@ -34819,12 +27418,6 @@ pub mod transition_coverage {
         }
 
         /// Sets the value of [covered][crate::model::transition_coverage::Transition::covered].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::transition_coverage::Transition;
-        /// let x = Transition::new().set_covered(true);
-        /// ```
         pub fn set_covered<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.covered = v.into();
             self
@@ -34834,14 +27427,6 @@ pub mod transition_coverage {
         ///
         /// Note that all the setters affecting `detail` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::transition_coverage::Transition;
-        /// use google_cloud_dialogflow_cx_v3::model::transition_coverage::transition;
-        /// use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-        /// let x = Transition::new().set_detail(Some(transition_coverage::transition::Detail::TransitionRoute(TransitionRoute::default().into())));
-        /// ```
         pub fn set_detail<
             T: std::convert::Into<
                     std::option::Option<crate::model::transition_coverage::transition::Detail>,
@@ -34874,15 +27459,6 @@ pub mod transition_coverage {
         ///
         /// Note that all the setters affecting `detail` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::transition_coverage::Transition;
-        /// use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-        /// let x = Transition::new().set_transition_route(TransitionRoute::default()/* use setters */);
-        /// assert!(x.transition_route().is_some());
-        /// assert!(x.event_handler().is_none());
-        /// ```
         pub fn set_transition_route<
             T: std::convert::Into<std::boxed::Box<crate::model::TransitionRoute>>,
         >(
@@ -34915,15 +27491,6 @@ pub mod transition_coverage {
         ///
         /// Note that all the setters affecting `detail` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::transition_coverage::Transition;
-        /// use google_cloud_dialogflow_cx_v3::model::EventHandler;
-        /// let x = Transition::new().set_event_handler(EventHandler::default()/* use setters */);
-        /// assert!(x.event_handler().is_some());
-        /// assert!(x.transition_route().is_none());
-        /// ```
         pub fn set_event_handler<
             T: std::convert::Into<std::boxed::Box<crate::model::EventHandler>>,
         >(
@@ -34987,17 +27554,6 @@ impl TransitionRouteGroupCoverage {
     }
 
     /// Sets the value of [coverages][crate::model::TransitionRouteGroupCoverage::coverages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TransitionRouteGroupCoverage;
-    /// use google_cloud_dialogflow_cx_v3::model::transition_route_group_coverage::Coverage;
-    /// let x = TransitionRouteGroupCoverage::new()
-    ///     .set_coverages([
-    ///         Coverage::default()/* use setters */,
-    ///         Coverage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_coverages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -35009,12 +27565,6 @@ impl TransitionRouteGroupCoverage {
     }
 
     /// Sets the value of [coverage_score][crate::model::TransitionRouteGroupCoverage::coverage_score].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TransitionRouteGroupCoverage;
-    /// let x = TransitionRouteGroupCoverage::new().set_coverage_score(42.0);
-    /// ```
     pub fn set_coverage_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.coverage_score = v.into();
         self
@@ -35060,13 +27610,6 @@ pub mod transition_route_group_coverage {
         }
 
         /// Sets the value of [route_group][crate::model::transition_route_group_coverage::Coverage::route_group].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::transition_route_group_coverage::Coverage;
-        /// use google_cloud_dialogflow_cx_v3::model::TransitionRouteGroup;
-        /// let x = Coverage::new().set_route_group(TransitionRouteGroup::default()/* use setters */);
-        /// ```
         pub fn set_route_group<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::TransitionRouteGroup>,
@@ -35076,14 +27619,6 @@ pub mod transition_route_group_coverage {
         }
 
         /// Sets or clears the value of [route_group][crate::model::transition_route_group_coverage::Coverage::route_group].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::transition_route_group_coverage::Coverage;
-        /// use google_cloud_dialogflow_cx_v3::model::TransitionRouteGroup;
-        /// let x = Coverage::new().set_or_clear_route_group(Some(TransitionRouteGroup::default()/* use setters */));
-        /// let x = Coverage::new().set_or_clear_route_group(None::<TransitionRouteGroup>);
-        /// ```
         pub fn set_or_clear_route_group<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TransitionRouteGroup>,
@@ -35093,17 +27628,6 @@ pub mod transition_route_group_coverage {
         }
 
         /// Sets the value of [transitions][crate::model::transition_route_group_coverage::Coverage::transitions].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::transition_route_group_coverage::Coverage;
-        /// use google_cloud_dialogflow_cx_v3::model::transition_route_group_coverage::coverage::Transition;
-        /// let x = Coverage::new()
-        ///     .set_transitions([
-        ///         Transition::default()/* use setters */,
-        ///         Transition::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_transitions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -35117,12 +27641,6 @@ pub mod transition_route_group_coverage {
         }
 
         /// Sets the value of [coverage_score][crate::model::transition_route_group_coverage::Coverage::coverage_score].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::transition_route_group_coverage::Coverage;
-        /// let x = Coverage::new().set_coverage_score(42.0);
-        /// ```
         pub fn set_coverage_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.coverage_score = v.into();
             self
@@ -35164,13 +27682,6 @@ pub mod transition_route_group_coverage {
             }
 
             /// Sets the value of [transition_route][crate::model::transition_route_group_coverage::coverage::Transition::transition_route].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::transition_route_group_coverage::coverage::Transition;
-            /// use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-            /// let x = Transition::new().set_transition_route(TransitionRoute::default()/* use setters */);
-            /// ```
             pub fn set_transition_route<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::TransitionRoute>,
@@ -35180,14 +27691,6 @@ pub mod transition_route_group_coverage {
             }
 
             /// Sets or clears the value of [transition_route][crate::model::transition_route_group_coverage::coverage::Transition::transition_route].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::transition_route_group_coverage::coverage::Transition;
-            /// use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-            /// let x = Transition::new().set_or_clear_transition_route(Some(TransitionRoute::default()/* use setters */));
-            /// let x = Transition::new().set_or_clear_transition_route(None::<TransitionRoute>);
-            /// ```
             pub fn set_or_clear_transition_route<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::TransitionRoute>,
@@ -35197,12 +27700,6 @@ pub mod transition_route_group_coverage {
             }
 
             /// Sets the value of [covered][crate::model::transition_route_group_coverage::coverage::Transition::covered].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::transition_route_group_coverage::coverage::Transition;
-            /// let x = Transition::new().set_covered(true);
-            /// ```
             pub fn set_covered<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.covered = v.into();
                 self
@@ -35240,17 +27737,6 @@ impl IntentCoverage {
     }
 
     /// Sets the value of [intents][crate::model::IntentCoverage::intents].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::IntentCoverage;
-    /// use google_cloud_dialogflow_cx_v3::model::intent_coverage::Intent;
-    /// let x = IntentCoverage::new()
-    ///     .set_intents([
-    ///         Intent::default()/* use setters */,
-    ///         Intent::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_intents<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -35262,12 +27748,6 @@ impl IntentCoverage {
     }
 
     /// Sets the value of [coverage_score][crate::model::IntentCoverage::coverage_score].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::IntentCoverage;
-    /// let x = IntentCoverage::new().set_coverage_score(42.0);
-    /// ```
     pub fn set_coverage_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.coverage_score = v.into();
         self
@@ -35309,24 +27789,12 @@ pub mod intent_coverage {
         }
 
         /// Sets the value of [intent][crate::model::intent_coverage::Intent::intent].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::intent_coverage::Intent;
-        /// let x = Intent::new().set_intent("example");
-        /// ```
         pub fn set_intent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.intent = v.into();
             self
         }
 
         /// Sets the value of [covered][crate::model::intent_coverage::Intent::covered].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::intent_coverage::Intent;
-        /// let x = Intent::new().set_covered(true);
-        /// ```
         pub fn set_covered<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.covered = v.into();
             self
@@ -35366,27 +27834,12 @@ impl CalculateCoverageRequest {
     }
 
     /// Sets the value of [agent][crate::model::CalculateCoverageRequest::agent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CalculateCoverageRequest;
-    /// let x = CalculateCoverageRequest::new().set_agent("example");
-    /// ```
     pub fn set_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.agent = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::CalculateCoverageRequest::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CalculateCoverageRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::calculate_coverage_request::CoverageType;
-    /// let x0 = CalculateCoverageRequest::new().set_type(CoverageType::Intent);
-    /// let x1 = CalculateCoverageRequest::new().set_type(CoverageType::PageTransition);
-    /// let x2 = CalculateCoverageRequest::new().set_type(CoverageType::TransitionRouteGroup);
-    /// ```
     pub fn set_type<
         T: std::convert::Into<crate::model::calculate_coverage_request::CoverageType>,
     >(
@@ -35585,12 +28038,6 @@ impl CalculateCoverageResponse {
     }
 
     /// Sets the value of [agent][crate::model::CalculateCoverageResponse::agent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CalculateCoverageResponse;
-    /// let x = CalculateCoverageResponse::new().set_agent("example");
-    /// ```
     pub fn set_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.agent = v.into();
         self
@@ -35600,14 +28047,6 @@ impl CalculateCoverageResponse {
     ///
     /// Note that all the setters affecting `coverage_type` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CalculateCoverageResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::calculate_coverage_response;
-    /// use google_cloud_dialogflow_cx_v3::model::IntentCoverage;
-    /// let x = CalculateCoverageResponse::new().set_coverage_type(Some(calculate_coverage_response::CoverageType::IntentCoverage(IntentCoverage::default().into())));
-    /// ```
     pub fn set_coverage_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::calculate_coverage_response::CoverageType>,
@@ -35640,16 +28079,6 @@ impl CalculateCoverageResponse {
     ///
     /// Note that all the setters affecting `coverage_type` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CalculateCoverageResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::IntentCoverage;
-    /// let x = CalculateCoverageResponse::new().set_intent_coverage(IntentCoverage::default()/* use setters */);
-    /// assert!(x.intent_coverage().is_some());
-    /// assert!(x.transition_coverage().is_none());
-    /// assert!(x.route_group_coverage().is_none());
-    /// ```
     pub fn set_intent_coverage<
         T: std::convert::Into<std::boxed::Box<crate::model::IntentCoverage>>,
     >(
@@ -35682,16 +28111,6 @@ impl CalculateCoverageResponse {
     ///
     /// Note that all the setters affecting `coverage_type` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CalculateCoverageResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::TransitionCoverage;
-    /// let x = CalculateCoverageResponse::new().set_transition_coverage(TransitionCoverage::default()/* use setters */);
-    /// assert!(x.transition_coverage().is_some());
-    /// assert!(x.intent_coverage().is_none());
-    /// assert!(x.route_group_coverage().is_none());
-    /// ```
     pub fn set_transition_coverage<
         T: std::convert::Into<std::boxed::Box<crate::model::TransitionCoverage>>,
     >(
@@ -35724,16 +28143,6 @@ impl CalculateCoverageResponse {
     ///
     /// Note that all the setters affecting `coverage_type` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CalculateCoverageResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::TransitionRouteGroupCoverage;
-    /// let x = CalculateCoverageResponse::new().set_route_group_coverage(TransitionRouteGroupCoverage::default()/* use setters */);
-    /// assert!(x.route_group_coverage().is_some());
-    /// assert!(x.intent_coverage().is_none());
-    /// assert!(x.transition_coverage().is_none());
-    /// ```
     pub fn set_route_group_coverage<
         T: std::convert::Into<std::boxed::Box<crate::model::TransitionRouteGroupCoverage>>,
     >(
@@ -35807,50 +28216,24 @@ impl ListTestCasesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTestCasesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListTestCasesRequest;
-    /// let x = ListTestCasesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTestCasesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListTestCasesRequest;
-    /// let x = ListTestCasesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTestCasesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListTestCasesRequest;
-    /// let x = ListTestCasesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListTestCasesRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListTestCasesRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::list_test_cases_request::TestCaseView;
-    /// let x0 = ListTestCasesRequest::new().set_view(TestCaseView::Basic);
-    /// let x1 = ListTestCasesRequest::new().set_view(TestCaseView::Full);
-    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::list_test_cases_request::TestCaseView>>(
         mut self,
         v: T,
@@ -36043,17 +28426,6 @@ impl ListTestCasesResponse {
     }
 
     /// Sets the value of [test_cases][crate::model::ListTestCasesResponse::test_cases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListTestCasesResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// let x = ListTestCasesResponse::new()
-    ///     .set_test_cases([
-    ///         TestCase::default()/* use setters */,
-    ///         TestCase::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_test_cases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -36065,12 +28437,6 @@ impl ListTestCasesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTestCasesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListTestCasesResponse;
-    /// let x = ListTestCasesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -36125,24 +28491,12 @@ impl BatchDeleteTestCasesRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchDeleteTestCasesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::BatchDeleteTestCasesRequest;
-    /// let x = BatchDeleteTestCasesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [names][crate::model::BatchDeleteTestCasesRequest::names].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::BatchDeleteTestCasesRequest;
-    /// let x = BatchDeleteTestCasesRequest::new().set_names(["a", "b", "c"]);
-    /// ```
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -36186,25 +28540,12 @@ impl CreateTestCaseRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTestCaseRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateTestCaseRequest;
-    /// let x = CreateTestCaseRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [test_case][crate::model::CreateTestCaseRequest::test_case].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateTestCaseRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// let x = CreateTestCaseRequest::new().set_test_case(TestCase::default()/* use setters */);
-    /// ```
     pub fn set_test_case<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TestCase>,
@@ -36214,14 +28555,6 @@ impl CreateTestCaseRequest {
     }
 
     /// Sets or clears the value of [test_case][crate::model::CreateTestCaseRequest::test_case].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateTestCaseRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// let x = CreateTestCaseRequest::new().set_or_clear_test_case(Some(TestCase::default()/* use setters */));
-    /// let x = CreateTestCaseRequest::new().set_or_clear_test_case(None::<TestCase>);
-    /// ```
     pub fn set_or_clear_test_case<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TestCase>,
@@ -36268,13 +28601,6 @@ impl UpdateTestCaseRequest {
     }
 
     /// Sets the value of [test_case][crate::model::UpdateTestCaseRequest::test_case].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateTestCaseRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// let x = UpdateTestCaseRequest::new().set_test_case(TestCase::default()/* use setters */);
-    /// ```
     pub fn set_test_case<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TestCase>,
@@ -36284,14 +28610,6 @@ impl UpdateTestCaseRequest {
     }
 
     /// Sets or clears the value of [test_case][crate::model::UpdateTestCaseRequest::test_case].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateTestCaseRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// let x = UpdateTestCaseRequest::new().set_or_clear_test_case(Some(TestCase::default()/* use setters */));
-    /// let x = UpdateTestCaseRequest::new().set_or_clear_test_case(None::<TestCase>);
-    /// ```
     pub fn set_or_clear_test_case<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TestCase>,
@@ -36301,13 +28619,6 @@ impl UpdateTestCaseRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTestCaseRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateTestCaseRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTestCaseRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -36317,14 +28628,6 @@ impl UpdateTestCaseRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTestCaseRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateTestCaseRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTestCaseRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateTestCaseRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -36364,12 +28667,6 @@ impl GetTestCaseRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTestCaseRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetTestCaseRequest;
-    /// let x = GetTestCaseRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -36410,24 +28707,12 @@ impl RunTestCaseRequest {
     }
 
     /// Sets the value of [name][crate::model::RunTestCaseRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RunTestCaseRequest;
-    /// let x = RunTestCaseRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [environment][crate::model::RunTestCaseRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RunTestCaseRequest;
-    /// let x = RunTestCaseRequest::new().set_environment("example");
-    /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
@@ -36462,13 +28747,6 @@ impl RunTestCaseResponse {
     }
 
     /// Sets the value of [result][crate::model::RunTestCaseResponse::result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RunTestCaseResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::TestCaseResult;
-    /// let x = RunTestCaseResponse::new().set_result(TestCaseResult::default()/* use setters */);
-    /// ```
     pub fn set_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TestCaseResult>,
@@ -36478,14 +28756,6 @@ impl RunTestCaseResponse {
     }
 
     /// Sets or clears the value of [result][crate::model::RunTestCaseResponse::result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::RunTestCaseResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::TestCaseResult;
-    /// let x = RunTestCaseResponse::new().set_or_clear_result(Some(TestCaseResult::default()/* use setters */));
-    /// let x = RunTestCaseResponse::new().set_or_clear_result(None::<TestCaseResult>);
-    /// ```
     pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TestCaseResult>,
@@ -36558,36 +28828,18 @@ impl BatchRunTestCasesRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchRunTestCasesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::BatchRunTestCasesRequest;
-    /// let x = BatchRunTestCasesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [environment][crate::model::BatchRunTestCasesRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::BatchRunTestCasesRequest;
-    /// let x = BatchRunTestCasesRequest::new().set_environment("example");
-    /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
     }
 
     /// Sets the value of [test_cases][crate::model::BatchRunTestCasesRequest::test_cases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::BatchRunTestCasesRequest;
-    /// let x = BatchRunTestCasesRequest::new().set_test_cases(["a", "b", "c"]);
-    /// ```
     pub fn set_test_cases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -36632,17 +28884,6 @@ impl BatchRunTestCasesResponse {
     }
 
     /// Sets the value of [results][crate::model::BatchRunTestCasesResponse::results].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::BatchRunTestCasesResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::TestCaseResult;
-    /// let x = BatchRunTestCasesResponse::new()
-    ///     .set_results([
-    ///         TestCaseResult::default()/* use setters */,
-    ///         TestCaseResult::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -36683,17 +28924,6 @@ impl BatchRunTestCasesMetadata {
     }
 
     /// Sets the value of [errors][crate::model::BatchRunTestCasesMetadata::errors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::BatchRunTestCasesMetadata;
-    /// use google_cloud_dialogflow_cx_v3::model::TestError;
-    /// let x = BatchRunTestCasesMetadata::new()
-    ///     .set_errors([
-    ///         TestError::default()/* use setters */,
-    ///         TestError::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -36736,25 +28966,12 @@ impl TestError {
     }
 
     /// Sets the value of [test_case][crate::model::TestError::test_case].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestError;
-    /// let x = TestError::new().set_test_case("example");
-    /// ```
     pub fn set_test_case<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.test_case = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::TestError::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestError;
-    /// use rpc::model::Status;
-    /// let x = TestError::new().set_status(Status::default()/* use setters */);
-    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -36764,14 +28981,6 @@ impl TestError {
     }
 
     /// Sets or clears the value of [status][crate::model::TestError::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestError;
-    /// use rpc::model::Status;
-    /// let x = TestError::new().set_or_clear_status(Some(Status::default()/* use setters */));
-    /// let x = TestError::new().set_or_clear_status(None::<Status>);
-    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -36781,13 +28990,6 @@ impl TestError {
     }
 
     /// Sets the value of [test_time][crate::model::TestError::test_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestError;
-    /// use wkt::Timestamp;
-    /// let x = TestError::new().set_test_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_test_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -36797,14 +28999,6 @@ impl TestError {
     }
 
     /// Sets or clears the value of [test_time][crate::model::TestError::test_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestError;
-    /// use wkt::Timestamp;
-    /// let x = TestError::new().set_or_clear_test_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TestError::new().set_or_clear_test_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_test_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -36846,12 +29040,6 @@ impl ImportTestCasesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ImportTestCasesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportTestCasesRequest;
-    /// let x = ImportTestCasesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -36861,13 +29049,6 @@ impl ImportTestCasesRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportTestCasesRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::import_test_cases_request;
-    /// let x = ImportTestCasesRequest::new().set_source(Some(import_test_cases_request::Source::GcsUri("example".to_string())));
-    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::import_test_cases_request::Source>>,
     >(
@@ -36896,14 +29077,6 @@ impl ImportTestCasesRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportTestCasesRequest;
-    /// let x = ImportTestCasesRequest::new().set_gcs_uri("example");
-    /// assert!(x.gcs_uri().is_some());
-    /// assert!(x.content().is_none());
-    /// ```
     pub fn set_gcs_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
             crate::model::import_test_cases_request::Source::GcsUri(v.into()),
@@ -36929,14 +29102,6 @@ impl ImportTestCasesRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportTestCasesRequest;
-    /// let x = ImportTestCasesRequest::new().set_content(bytes::Bytes::from_static(b"example"));
-    /// assert!(x.content().is_some());
-    /// assert!(x.gcs_uri().is_none());
-    /// ```
     pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
             crate::model::import_test_cases_request::Source::Content(v.into()),
@@ -37001,12 +29166,6 @@ impl ImportTestCasesResponse {
     }
 
     /// Sets the value of [names][crate::model::ImportTestCasesResponse::names].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportTestCasesResponse;
-    /// let x = ImportTestCasesResponse::new().set_names(["a", "b", "c"]);
-    /// ```
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -37047,17 +29206,6 @@ impl ImportTestCasesMetadata {
     }
 
     /// Sets the value of [errors][crate::model::ImportTestCasesMetadata::errors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ImportTestCasesMetadata;
-    /// use google_cloud_dialogflow_cx_v3::model::TestCaseError;
-    /// let x = ImportTestCasesMetadata::new()
-    ///     .set_errors([
-    ///         TestCaseError::default()/* use setters */,
-    ///         TestCaseError::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -37097,13 +29245,6 @@ impl TestCaseError {
     }
 
     /// Sets the value of [test_case][crate::model::TestCaseError::test_case].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCaseError;
-    /// use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// let x = TestCaseError::new().set_test_case(TestCase::default()/* use setters */);
-    /// ```
     pub fn set_test_case<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TestCase>,
@@ -37113,14 +29254,6 @@ impl TestCaseError {
     }
 
     /// Sets or clears the value of [test_case][crate::model::TestCaseError::test_case].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCaseError;
-    /// use google_cloud_dialogflow_cx_v3::model::TestCase;
-    /// let x = TestCaseError::new().set_or_clear_test_case(Some(TestCase::default()/* use setters */));
-    /// let x = TestCaseError::new().set_or_clear_test_case(None::<TestCase>);
-    /// ```
     pub fn set_or_clear_test_case<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TestCase>,
@@ -37130,13 +29263,6 @@ impl TestCaseError {
     }
 
     /// Sets the value of [status][crate::model::TestCaseError::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCaseError;
-    /// use rpc::model::Status;
-    /// let x = TestCaseError::new().set_status(Status::default()/* use setters */);
-    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -37146,14 +29272,6 @@ impl TestCaseError {
     }
 
     /// Sets or clears the value of [status][crate::model::TestCaseError::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TestCaseError;
-    /// use rpc::model::Status;
-    /// let x = TestCaseError::new().set_or_clear_status(Some(Status::default()/* use setters */));
-    /// let x = TestCaseError::new().set_or_clear_status(None::<Status>);
-    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -37211,26 +29329,12 @@ impl ExportTestCasesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ExportTestCasesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportTestCasesRequest;
-    /// let x = ExportTestCasesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [data_format][crate::model::ExportTestCasesRequest::data_format].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportTestCasesRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::export_test_cases_request::DataFormat;
-    /// let x0 = ExportTestCasesRequest::new().set_data_format(DataFormat::Blob);
-    /// let x1 = ExportTestCasesRequest::new().set_data_format(DataFormat::Json);
-    /// ```
     pub fn set_data_format<
         T: std::convert::Into<crate::model::export_test_cases_request::DataFormat>,
     >(
@@ -37242,12 +29346,6 @@ impl ExportTestCasesRequest {
     }
 
     /// Sets the value of [filter][crate::model::ExportTestCasesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportTestCasesRequest;
-    /// let x = ExportTestCasesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -37257,13 +29355,6 @@ impl ExportTestCasesRequest {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportTestCasesRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::export_test_cases_request;
-    /// let x = ExportTestCasesRequest::new().set_destination(Some(export_test_cases_request::Destination::GcsUri("example".to_string())));
-    /// ```
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::export_test_cases_request::Destination>,
@@ -37294,13 +29385,6 @@ impl ExportTestCasesRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportTestCasesRequest;
-    /// let x = ExportTestCasesRequest::new().set_gcs_uri("example");
-    /// assert!(x.gcs_uri().is_some());
-    /// ```
     pub fn set_gcs_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
             crate::model::export_test_cases_request::Destination::GcsUri(v.into()),
@@ -37506,13 +29590,6 @@ impl ExportTestCasesResponse {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportTestCasesResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::export_test_cases_response;
-    /// let x = ExportTestCasesResponse::new().set_destination(Some(export_test_cases_response::Destination::GcsUri("example".to_string())));
-    /// ```
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::export_test_cases_response::Destination>,
@@ -37543,14 +29620,6 @@ impl ExportTestCasesResponse {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportTestCasesResponse;
-    /// let x = ExportTestCasesResponse::new().set_gcs_uri("example");
-    /// assert!(x.gcs_uri().is_some());
-    /// assert!(x.content().is_none());
-    /// ```
     pub fn set_gcs_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
             crate::model::export_test_cases_response::Destination::GcsUri(v.into()),
@@ -37576,14 +29645,6 @@ impl ExportTestCasesResponse {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ExportTestCasesResponse;
-    /// let x = ExportTestCasesResponse::new().set_content(bytes::Bytes::from_static(b"example"));
-    /// assert!(x.content().is_some());
-    /// assert!(x.gcs_uri().is_none());
-    /// ```
     pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
             crate::model::export_test_cases_response::Destination::Content(v.into()),
@@ -37706,48 +29767,24 @@ impl ListTestCaseResultsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTestCaseResultsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListTestCaseResultsRequest;
-    /// let x = ListTestCaseResultsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTestCaseResultsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListTestCaseResultsRequest;
-    /// let x = ListTestCaseResultsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTestCaseResultsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListTestCaseResultsRequest;
-    /// let x = ListTestCaseResultsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListTestCaseResultsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListTestCaseResultsRequest;
-    /// let x = ListTestCaseResultsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -37786,17 +29823,6 @@ impl ListTestCaseResultsResponse {
     }
 
     /// Sets the value of [test_case_results][crate::model::ListTestCaseResultsResponse::test_case_results].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListTestCaseResultsResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::TestCaseResult;
-    /// let x = ListTestCaseResultsResponse::new()
-    ///     .set_test_case_results([
-    ///         TestCaseResult::default()/* use setters */,
-    ///         TestCaseResult::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_test_case_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -37808,12 +29834,6 @@ impl ListTestCaseResultsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTestCaseResultsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListTestCaseResultsResponse;
-    /// let x = ListTestCaseResultsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -37865,12 +29885,6 @@ impl GetTestCaseResultRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTestCaseResultRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetTestCaseResultRequest;
-    /// let x = GetTestCaseResultRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -37923,41 +29937,18 @@ impl TransitionRouteGroup {
     }
 
     /// Sets the value of [name][crate::model::TransitionRouteGroup::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TransitionRouteGroup;
-    /// let x = TransitionRouteGroup::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::TransitionRouteGroup::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TransitionRouteGroup;
-    /// let x = TransitionRouteGroup::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [transition_routes][crate::model::TransitionRouteGroup::transition_routes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::TransitionRouteGroup;
-    /// use google_cloud_dialogflow_cx_v3::model::TransitionRoute;
-    /// let x = TransitionRouteGroup::new()
-    ///     .set_transition_routes([
-    ///         TransitionRoute::default()/* use setters */,
-    ///         TransitionRoute::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_transition_routes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -38021,48 +30012,24 @@ impl ListTransitionRouteGroupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTransitionRouteGroupsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListTransitionRouteGroupsRequest;
-    /// let x = ListTransitionRouteGroupsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTransitionRouteGroupsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListTransitionRouteGroupsRequest;
-    /// let x = ListTransitionRouteGroupsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTransitionRouteGroupsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListTransitionRouteGroupsRequest;
-    /// let x = ListTransitionRouteGroupsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::ListTransitionRouteGroupsRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListTransitionRouteGroupsRequest;
-    /// let x = ListTransitionRouteGroupsRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -38104,17 +30071,6 @@ impl ListTransitionRouteGroupsResponse {
     }
 
     /// Sets the value of [transition_route_groups][crate::model::ListTransitionRouteGroupsResponse::transition_route_groups].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListTransitionRouteGroupsResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::TransitionRouteGroup;
-    /// let x = ListTransitionRouteGroupsResponse::new()
-    ///     .set_transition_route_groups([
-    ///         TransitionRouteGroup::default()/* use setters */,
-    ///         TransitionRouteGroup::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_transition_route_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -38126,12 +30082,6 @@ impl ListTransitionRouteGroupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTransitionRouteGroupsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListTransitionRouteGroupsResponse;
-    /// let x = ListTransitionRouteGroupsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -38202,24 +30152,12 @@ impl GetTransitionRouteGroupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTransitionRouteGroupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetTransitionRouteGroupRequest;
-    /// let x = GetTransitionRouteGroupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::GetTransitionRouteGroupRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetTransitionRouteGroupRequest;
-    /// let x = GetTransitionRouteGroupRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -38277,25 +30215,12 @@ impl CreateTransitionRouteGroupRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTransitionRouteGroupRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateTransitionRouteGroupRequest;
-    /// let x = CreateTransitionRouteGroupRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [transition_route_group][crate::model::CreateTransitionRouteGroupRequest::transition_route_group].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateTransitionRouteGroupRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::TransitionRouteGroup;
-    /// let x = CreateTransitionRouteGroupRequest::new().set_transition_route_group(TransitionRouteGroup::default()/* use setters */);
-    /// ```
     pub fn set_transition_route_group<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransitionRouteGroup>,
@@ -38305,14 +30230,6 @@ impl CreateTransitionRouteGroupRequest {
     }
 
     /// Sets or clears the value of [transition_route_group][crate::model::CreateTransitionRouteGroupRequest::transition_route_group].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateTransitionRouteGroupRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::TransitionRouteGroup;
-    /// let x = CreateTransitionRouteGroupRequest::new().set_or_clear_transition_route_group(Some(TransitionRouteGroup::default()/* use setters */));
-    /// let x = CreateTransitionRouteGroupRequest::new().set_or_clear_transition_route_group(None::<TransitionRouteGroup>);
-    /// ```
     pub fn set_or_clear_transition_route_group<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransitionRouteGroup>,
@@ -38322,12 +30239,6 @@ impl CreateTransitionRouteGroupRequest {
     }
 
     /// Sets the value of [language_code][crate::model::CreateTransitionRouteGroupRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateTransitionRouteGroupRequest;
-    /// let x = CreateTransitionRouteGroupRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -38378,13 +30289,6 @@ impl UpdateTransitionRouteGroupRequest {
     }
 
     /// Sets the value of [transition_route_group][crate::model::UpdateTransitionRouteGroupRequest::transition_route_group].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateTransitionRouteGroupRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::TransitionRouteGroup;
-    /// let x = UpdateTransitionRouteGroupRequest::new().set_transition_route_group(TransitionRouteGroup::default()/* use setters */);
-    /// ```
     pub fn set_transition_route_group<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransitionRouteGroup>,
@@ -38394,14 +30298,6 @@ impl UpdateTransitionRouteGroupRequest {
     }
 
     /// Sets or clears the value of [transition_route_group][crate::model::UpdateTransitionRouteGroupRequest::transition_route_group].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateTransitionRouteGroupRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::TransitionRouteGroup;
-    /// let x = UpdateTransitionRouteGroupRequest::new().set_or_clear_transition_route_group(Some(TransitionRouteGroup::default()/* use setters */));
-    /// let x = UpdateTransitionRouteGroupRequest::new().set_or_clear_transition_route_group(None::<TransitionRouteGroup>);
-    /// ```
     pub fn set_or_clear_transition_route_group<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransitionRouteGroup>,
@@ -38411,13 +30307,6 @@ impl UpdateTransitionRouteGroupRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTransitionRouteGroupRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateTransitionRouteGroupRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTransitionRouteGroupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -38427,14 +30316,6 @@ impl UpdateTransitionRouteGroupRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTransitionRouteGroupRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateTransitionRouteGroupRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTransitionRouteGroupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateTransitionRouteGroupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -38444,12 +30325,6 @@ impl UpdateTransitionRouteGroupRequest {
     }
 
     /// Sets the value of [language_code][crate::model::UpdateTransitionRouteGroupRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateTransitionRouteGroupRequest;
-    /// let x = UpdateTransitionRouteGroupRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -38500,24 +30375,12 @@ impl DeleteTransitionRouteGroupRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTransitionRouteGroupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeleteTransitionRouteGroupRequest;
-    /// let x = DeleteTransitionRouteGroupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteTransitionRouteGroupRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeleteTransitionRouteGroupRequest;
-    /// let x = DeleteTransitionRouteGroupRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -38562,15 +30425,6 @@ impl ValidationMessage {
     }
 
     /// Sets the value of [resource_type][crate::model::ValidationMessage::resource_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ValidationMessage;
-    /// use google_cloud_dialogflow_cx_v3::model::validation_message::ResourceType;
-    /// let x0 = ValidationMessage::new().set_resource_type(ResourceType::Agent);
-    /// let x1 = ValidationMessage::new().set_resource_type(ResourceType::Intent);
-    /// let x2 = ValidationMessage::new().set_resource_type(ResourceType::IntentTrainingPhrase);
-    /// ```
     pub fn set_resource_type<
         T: std::convert::Into<crate::model::validation_message::ResourceType>,
     >(
@@ -38582,12 +30436,6 @@ impl ValidationMessage {
     }
 
     /// Sets the value of [resources][crate::model::ValidationMessage::resources].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ValidationMessage;
-    /// let x = ValidationMessage::new().set_resources(["a", "b", "c"]);
-    /// ```
     #[deprecated]
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
@@ -38600,17 +30448,6 @@ impl ValidationMessage {
     }
 
     /// Sets the value of [resource_names][crate::model::ValidationMessage::resource_names].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ValidationMessage;
-    /// use google_cloud_dialogflow_cx_v3::model::ResourceName;
-    /// let x = ValidationMessage::new()
-    ///     .set_resource_names([
-    ///         ResourceName::default()/* use setters */,
-    ///         ResourceName::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_resource_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -38622,15 +30459,6 @@ impl ValidationMessage {
     }
 
     /// Sets the value of [severity][crate::model::ValidationMessage::severity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ValidationMessage;
-    /// use google_cloud_dialogflow_cx_v3::model::validation_message::Severity;
-    /// let x0 = ValidationMessage::new().set_severity(Severity::Info);
-    /// let x1 = ValidationMessage::new().set_severity(Severity::Warning);
-    /// let x2 = ValidationMessage::new().set_severity(Severity::Error);
-    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::validation_message::Severity>>(
         mut self,
         v: T,
@@ -38640,12 +30468,6 @@ impl ValidationMessage {
     }
 
     /// Sets the value of [detail][crate::model::ValidationMessage::detail].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ValidationMessage;
-    /// let x = ValidationMessage::new().set_detail("example");
-    /// ```
     pub fn set_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.detail = v.into();
         self
@@ -39062,24 +30884,12 @@ impl ResourceName {
     }
 
     /// Sets the value of [name][crate::model::ResourceName::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ResourceName;
-    /// let x = ResourceName::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::ResourceName::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ResourceName;
-    /// let x = ResourceName::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -39116,12 +30926,6 @@ impl CreateVersionOperationMetadata {
     }
 
     /// Sets the value of [version][crate::model::CreateVersionOperationMetadata::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateVersionOperationMetadata;
-    /// let x = CreateVersionOperationMetadata::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -39173,49 +30977,24 @@ impl Version {
     }
 
     /// Sets the value of [name][crate::model::Version::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Version;
-    /// let x = Version::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Version::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Version;
-    /// let x = Version::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Version::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Version;
-    /// let x = Version::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [nlu_settings][crate::model::Version::nlu_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Version;
-    /// use google_cloud_dialogflow_cx_v3::model::NluSettings;
-    /// let x = Version::new().set_nlu_settings(NluSettings::default()/* use setters */);
-    /// ```
     pub fn set_nlu_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NluSettings>,
@@ -39225,14 +31004,6 @@ impl Version {
     }
 
     /// Sets or clears the value of [nlu_settings][crate::model::Version::nlu_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Version;
-    /// use google_cloud_dialogflow_cx_v3::model::NluSettings;
-    /// let x = Version::new().set_or_clear_nlu_settings(Some(NluSettings::default()/* use setters */));
-    /// let x = Version::new().set_or_clear_nlu_settings(None::<NluSettings>);
-    /// ```
     pub fn set_or_clear_nlu_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NluSettings>,
@@ -39242,13 +31013,6 @@ impl Version {
     }
 
     /// Sets the value of [create_time][crate::model::Version::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Version;
-    /// use wkt::Timestamp;
-    /// let x = Version::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -39258,14 +31022,6 @@ impl Version {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Version::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Version;
-    /// use wkt::Timestamp;
-    /// let x = Version::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Version::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -39275,15 +31031,6 @@ impl Version {
     }
 
     /// Sets the value of [state][crate::model::Version::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Version;
-    /// use google_cloud_dialogflow_cx_v3::model::version::State;
-    /// let x0 = Version::new().set_state(State::Running);
-    /// let x1 = Version::new().set_state(State::Succeeded);
-    /// let x2 = Version::new().set_state(State::Failed);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::version::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
@@ -39484,36 +31231,18 @@ impl ListVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListVersionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListVersionsRequest;
-    /// let x = ListVersionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListVersionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListVersionsRequest;
-    /// let x = ListVersionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListVersionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListVersionsRequest;
-    /// let x = ListVersionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -39554,17 +31283,6 @@ impl ListVersionsResponse {
     }
 
     /// Sets the value of [versions][crate::model::ListVersionsResponse::versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListVersionsResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::Version;
-    /// let x = ListVersionsResponse::new()
-    ///     .set_versions([
-    ///         Version::default()/* use setters */,
-    ///         Version::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -39576,12 +31294,6 @@ impl ListVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListVersionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListVersionsResponse;
-    /// let x = ListVersionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -39635,12 +31347,6 @@ impl GetVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetVersionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetVersionRequest;
-    /// let x = GetVersionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -39683,25 +31389,12 @@ impl CreateVersionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateVersionRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateVersionRequest;
-    /// let x = CreateVersionRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::CreateVersionRequest::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateVersionRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Version;
-    /// let x = CreateVersionRequest::new().set_version(Version::default()/* use setters */);
-    /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Version>,
@@ -39711,14 +31404,6 @@ impl CreateVersionRequest {
     }
 
     /// Sets or clears the value of [version][crate::model::CreateVersionRequest::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateVersionRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Version;
-    /// let x = CreateVersionRequest::new().set_or_clear_version(Some(Version::default()/* use setters */));
-    /// let x = CreateVersionRequest::new().set_or_clear_version(None::<Version>);
-    /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Version>,
@@ -39760,13 +31445,6 @@ impl UpdateVersionRequest {
     }
 
     /// Sets the value of [version][crate::model::UpdateVersionRequest::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateVersionRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Version;
-    /// let x = UpdateVersionRequest::new().set_version(Version::default()/* use setters */);
-    /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Version>,
@@ -39776,14 +31454,6 @@ impl UpdateVersionRequest {
     }
 
     /// Sets or clears the value of [version][crate::model::UpdateVersionRequest::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateVersionRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Version;
-    /// let x = UpdateVersionRequest::new().set_or_clear_version(Some(Version::default()/* use setters */));
-    /// let x = UpdateVersionRequest::new().set_or_clear_version(None::<Version>);
-    /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Version>,
@@ -39793,13 +31463,6 @@ impl UpdateVersionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateVersionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateVersionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -39809,14 +31472,6 @@ impl UpdateVersionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateVersionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateVersionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateVersionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -39858,12 +31513,6 @@ impl DeleteVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteVersionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeleteVersionRequest;
-    /// let x = DeleteVersionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -39908,24 +31557,12 @@ impl LoadVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::LoadVersionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::LoadVersionRequest;
-    /// let x = LoadVersionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [allow_override_agent_resources][crate::model::LoadVersionRequest::allow_override_agent_resources].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::LoadVersionRequest;
-    /// let x = LoadVersionRequest::new().set_allow_override_agent_resources(true);
-    /// ```
     pub fn set_allow_override_agent_resources<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_override_agent_resources = v.into();
         self
@@ -39979,36 +31616,18 @@ impl CompareVersionsRequest {
     }
 
     /// Sets the value of [base_version][crate::model::CompareVersionsRequest::base_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CompareVersionsRequest;
-    /// let x = CompareVersionsRequest::new().set_base_version("example");
-    /// ```
     pub fn set_base_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.base_version = v.into();
         self
     }
 
     /// Sets the value of [target_version][crate::model::CompareVersionsRequest::target_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CompareVersionsRequest;
-    /// let x = CompareVersionsRequest::new().set_target_version("example");
-    /// ```
     pub fn set_target_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_version = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::CompareVersionsRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CompareVersionsRequest;
-    /// let x = CompareVersionsRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -40049,12 +31668,6 @@ impl CompareVersionsResponse {
     }
 
     /// Sets the value of [base_version_content_json][crate::model::CompareVersionsResponse::base_version_content_json].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CompareVersionsResponse;
-    /// let x = CompareVersionsResponse::new().set_base_version_content_json("example");
-    /// ```
     pub fn set_base_version_content_json<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -40064,12 +31677,6 @@ impl CompareVersionsResponse {
     }
 
     /// Sets the value of [target_version_content_json][crate::model::CompareVersionsResponse::target_version_content_json].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CompareVersionsResponse;
-    /// let x = CompareVersionsResponse::new().set_target_version_content_json("example");
-    /// ```
     pub fn set_target_version_content_json<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -40079,13 +31686,6 @@ impl CompareVersionsResponse {
     }
 
     /// Sets the value of [compare_time][crate::model::CompareVersionsResponse::compare_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CompareVersionsResponse;
-    /// use wkt::Timestamp;
-    /// let x = CompareVersionsResponse::new().set_compare_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_compare_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -40095,14 +31695,6 @@ impl CompareVersionsResponse {
     }
 
     /// Sets or clears the value of [compare_time][crate::model::CompareVersionsResponse::compare_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CompareVersionsResponse;
-    /// use wkt::Timestamp;
-    /// let x = CompareVersionsResponse::new().set_or_clear_compare_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CompareVersionsResponse::new().set_or_clear_compare_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_compare_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -40163,37 +31755,18 @@ impl Webhook {
     }
 
     /// Sets the value of [name][crate::model::Webhook::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Webhook;
-    /// let x = Webhook::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Webhook::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Webhook;
-    /// let x = Webhook::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [timeout][crate::model::Webhook::timeout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Webhook;
-    /// use wkt::Duration;
-    /// let x = Webhook::new().set_timeout(Duration::default()/* use setters */);
-    /// ```
     pub fn set_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -40203,14 +31776,6 @@ impl Webhook {
     }
 
     /// Sets or clears the value of [timeout][crate::model::Webhook::timeout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Webhook;
-    /// use wkt::Duration;
-    /// let x = Webhook::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
-    /// let x = Webhook::new().set_or_clear_timeout(None::<Duration>);
-    /// ```
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -40220,12 +31785,6 @@ impl Webhook {
     }
 
     /// Sets the value of [disabled][crate::model::Webhook::disabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Webhook;
-    /// let x = Webhook::new().set_disabled(true);
-    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
@@ -40235,14 +31794,6 @@ impl Webhook {
     ///
     /// Note that all the setters affecting `webhook` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Webhook;
-    /// use google_cloud_dialogflow_cx_v3::model::webhook;
-    /// use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
-    /// let x = Webhook::new().set_webhook(Some(webhook::Webhook::GenericWebService(GenericWebService::default().into())));
-    /// ```
     pub fn set_webhook<
         T: std::convert::Into<std::option::Option<crate::model::webhook::Webhook>>,
     >(
@@ -40271,15 +31822,6 @@ impl Webhook {
     ///
     /// Note that all the setters affecting `webhook` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Webhook;
-    /// use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
-    /// let x = Webhook::new().set_generic_web_service(GenericWebService::default()/* use setters */);
-    /// assert!(x.generic_web_service().is_some());
-    /// assert!(x.service_directory().is_none());
-    /// ```
     pub fn set_generic_web_service<
         T: std::convert::Into<std::boxed::Box<crate::model::webhook::GenericWebService>>,
     >(
@@ -40309,15 +31851,6 @@ impl Webhook {
     ///
     /// Note that all the setters affecting `webhook` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::Webhook;
-    /// use google_cloud_dialogflow_cx_v3::model::webhook::ServiceDirectoryConfig;
-    /// let x = Webhook::new().set_service_directory(ServiceDirectoryConfig::default()/* use setters */);
-    /// assert!(x.service_directory().is_some());
-    /// assert!(x.generic_web_service().is_none());
-    /// ```
     pub fn set_service_directory<
         T: std::convert::Into<std::boxed::Box<crate::model::webhook::ServiceDirectoryConfig>>,
     >(
@@ -40418,24 +31951,12 @@ pub mod webhook {
         }
 
         /// Sets the value of [uri][crate::model::webhook::GenericWebService::uri].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
-        /// let x = GenericWebService::new().set_uri("example");
-        /// ```
         pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uri = v.into();
             self
         }
 
         /// Sets the value of [username][crate::model::webhook::GenericWebService::username].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
-        /// let x = GenericWebService::new().set_username("example");
-        /// ```
         #[deprecated]
         pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.username = v.into();
@@ -40443,12 +31964,6 @@ pub mod webhook {
         }
 
         /// Sets the value of [password][crate::model::webhook::GenericWebService::password].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
-        /// let x = GenericWebService::new().set_password("example");
-        /// ```
         #[deprecated]
         pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.password = v.into();
@@ -40456,15 +31971,6 @@ pub mod webhook {
         }
 
         /// Sets the value of [request_headers][crate::model::webhook::GenericWebService::request_headers].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
-        /// let x = GenericWebService::new().set_request_headers([
-        ///     ("key0", "abc"),
-        ///     ("key1", "xyz"),
-        /// ]);
-        /// ```
         pub fn set_request_headers<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -40477,14 +31983,6 @@ pub mod webhook {
         }
 
         /// Sets the value of [allowed_ca_certs][crate::model::webhook::GenericWebService::allowed_ca_certs].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
-        /// let b1 = bytes::Bytes::from_static(b"abc");
-        /// let b2 = bytes::Bytes::from_static(b"xyz");
-        /// let x = GenericWebService::new().set_allowed_ca_certs([b1, b2]);
-        /// ```
         pub fn set_allowed_ca_certs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -40496,13 +31994,6 @@ pub mod webhook {
         }
 
         /// Sets the value of [oauth_config][crate::model::webhook::GenericWebService::oauth_config].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
-        /// use google_cloud_dialogflow_cx_v3::model::webhook::generic_web_service::OAuthConfig;
-        /// let x = GenericWebService::new().set_oauth_config(OAuthConfig::default()/* use setters */);
-        /// ```
         pub fn set_oauth_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::webhook::generic_web_service::OAuthConfig>,
@@ -40512,14 +32003,6 @@ pub mod webhook {
         }
 
         /// Sets or clears the value of [oauth_config][crate::model::webhook::GenericWebService::oauth_config].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
-        /// use google_cloud_dialogflow_cx_v3::model::webhook::generic_web_service::OAuthConfig;
-        /// let x = GenericWebService::new().set_or_clear_oauth_config(Some(OAuthConfig::default()/* use setters */));
-        /// let x = GenericWebService::new().set_or_clear_oauth_config(None::<OAuthConfig>);
-        /// ```
         pub fn set_or_clear_oauth_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::webhook::generic_web_service::OAuthConfig>,
@@ -40529,15 +32012,6 @@ pub mod webhook {
         }
 
         /// Sets the value of [service_agent_auth][crate::model::webhook::GenericWebService::service_agent_auth].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
-        /// use google_cloud_dialogflow_cx_v3::model::webhook::generic_web_service::ServiceAgentAuth;
-        /// let x0 = GenericWebService::new().set_service_agent_auth(ServiceAgentAuth::None);
-        /// let x1 = GenericWebService::new().set_service_agent_auth(ServiceAgentAuth::IdToken);
-        /// let x2 = GenericWebService::new().set_service_agent_auth(ServiceAgentAuth::AccessToken);
-        /// ```
         pub fn set_service_agent_auth<
             T: std::convert::Into<crate::model::webhook::generic_web_service::ServiceAgentAuth>,
         >(
@@ -40549,14 +32023,6 @@ pub mod webhook {
         }
 
         /// Sets the value of [webhook_type][crate::model::webhook::GenericWebService::webhook_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
-        /// use google_cloud_dialogflow_cx_v3::model::webhook::generic_web_service::WebhookType;
-        /// let x0 = GenericWebService::new().set_webhook_type(WebhookType::Standard);
-        /// let x1 = GenericWebService::new().set_webhook_type(WebhookType::Flexible);
-        /// ```
         pub fn set_webhook_type<
             T: std::convert::Into<crate::model::webhook::generic_web_service::WebhookType>,
         >(
@@ -40568,15 +32034,6 @@ pub mod webhook {
         }
 
         /// Sets the value of [http_method][crate::model::webhook::GenericWebService::http_method].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
-        /// use google_cloud_dialogflow_cx_v3::model::webhook::generic_web_service::HttpMethod;
-        /// let x0 = GenericWebService::new().set_http_method(HttpMethod::Post);
-        /// let x1 = GenericWebService::new().set_http_method(HttpMethod::Get);
-        /// let x2 = GenericWebService::new().set_http_method(HttpMethod::Head);
-        /// ```
         pub fn set_http_method<
             T: std::convert::Into<crate::model::webhook::generic_web_service::HttpMethod>,
         >(
@@ -40588,12 +32045,6 @@ pub mod webhook {
         }
 
         /// Sets the value of [request_body][crate::model::webhook::GenericWebService::request_body].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
-        /// let x = GenericWebService::new().set_request_body("example");
-        /// ```
         pub fn set_request_body<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -40603,15 +32054,6 @@ pub mod webhook {
         }
 
         /// Sets the value of [parameter_mapping][crate::model::webhook::GenericWebService::parameter_mapping].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
-        /// let x = GenericWebService::new().set_parameter_mapping([
-        ///     ("key0", "abc"),
-        ///     ("key1", "xyz"),
-        /// ]);
-        /// ```
         pub fn set_parameter_mapping<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -40666,12 +32108,6 @@ pub mod webhook {
             }
 
             /// Sets the value of [client_id][crate::model::webhook::generic_web_service::OAuthConfig::client_id].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::webhook::generic_web_service::OAuthConfig;
-            /// let x = OAuthConfig::new().set_client_id("example");
-            /// ```
             pub fn set_client_id<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -40681,12 +32117,6 @@ pub mod webhook {
             }
 
             /// Sets the value of [client_secret][crate::model::webhook::generic_web_service::OAuthConfig::client_secret].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::webhook::generic_web_service::OAuthConfig;
-            /// let x = OAuthConfig::new().set_client_secret("example");
-            /// ```
             pub fn set_client_secret<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -40696,12 +32126,6 @@ pub mod webhook {
             }
 
             /// Sets the value of [token_endpoint][crate::model::webhook::generic_web_service::OAuthConfig::token_endpoint].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::webhook::generic_web_service::OAuthConfig;
-            /// let x = OAuthConfig::new().set_token_endpoint("example");
-            /// ```
             pub fn set_token_endpoint<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -40711,12 +32135,6 @@ pub mod webhook {
             }
 
             /// Sets the value of [scopes][crate::model::webhook::generic_web_service::OAuthConfig::scopes].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::webhook::generic_web_service::OAuthConfig;
-            /// let x = OAuthConfig::new().set_scopes(["a", "b", "c"]);
-            /// ```
             pub fn set_scopes<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -41248,25 +32666,12 @@ pub mod webhook {
         }
 
         /// Sets the value of [service][crate::model::webhook::ServiceDirectoryConfig::service].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook::ServiceDirectoryConfig;
-        /// let x = ServiceDirectoryConfig::new().set_service("example");
-        /// ```
         pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service = v.into();
             self
         }
 
         /// Sets the value of [generic_web_service][crate::model::webhook::ServiceDirectoryConfig::generic_web_service].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook::ServiceDirectoryConfig;
-        /// use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
-        /// let x = ServiceDirectoryConfig::new().set_generic_web_service(GenericWebService::default()/* use setters */);
-        /// ```
         pub fn set_generic_web_service<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::webhook::GenericWebService>,
@@ -41276,14 +32681,6 @@ pub mod webhook {
         }
 
         /// Sets or clears the value of [generic_web_service][crate::model::webhook::ServiceDirectoryConfig::generic_web_service].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook::ServiceDirectoryConfig;
-        /// use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
-        /// let x = ServiceDirectoryConfig::new().set_or_clear_generic_web_service(Some(GenericWebService::default()/* use setters */));
-        /// let x = ServiceDirectoryConfig::new().set_or_clear_generic_web_service(None::<GenericWebService>);
-        /// ```
         pub fn set_or_clear_generic_web_service<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::webhook::GenericWebService>,
@@ -41342,36 +32739,18 @@ impl ListWebhooksRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListWebhooksRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListWebhooksRequest;
-    /// let x = ListWebhooksRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListWebhooksRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListWebhooksRequest;
-    /// let x = ListWebhooksRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListWebhooksRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListWebhooksRequest;
-    /// let x = ListWebhooksRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -41411,17 +32790,6 @@ impl ListWebhooksResponse {
     }
 
     /// Sets the value of [webhooks][crate::model::ListWebhooksResponse::webhooks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListWebhooksResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::Webhook;
-    /// let x = ListWebhooksResponse::new()
-    ///     .set_webhooks([
-    ///         Webhook::default()/* use setters */,
-    ///         Webhook::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_webhooks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -41433,12 +32801,6 @@ impl ListWebhooksResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListWebhooksResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::ListWebhooksResponse;
-    /// let x = ListWebhooksResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -41490,12 +32852,6 @@ impl GetWebhookRequest {
     }
 
     /// Sets the value of [name][crate::model::GetWebhookRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::GetWebhookRequest;
-    /// let x = GetWebhookRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -41534,25 +32890,12 @@ impl CreateWebhookRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateWebhookRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateWebhookRequest;
-    /// let x = CreateWebhookRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [webhook][crate::model::CreateWebhookRequest::webhook].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateWebhookRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Webhook;
-    /// let x = CreateWebhookRequest::new().set_webhook(Webhook::default()/* use setters */);
-    /// ```
     pub fn set_webhook<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Webhook>,
@@ -41562,14 +32905,6 @@ impl CreateWebhookRequest {
     }
 
     /// Sets or clears the value of [webhook][crate::model::CreateWebhookRequest::webhook].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::CreateWebhookRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Webhook;
-    /// let x = CreateWebhookRequest::new().set_or_clear_webhook(Some(Webhook::default()/* use setters */));
-    /// let x = CreateWebhookRequest::new().set_or_clear_webhook(None::<Webhook>);
-    /// ```
     pub fn set_or_clear_webhook<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Webhook>,
@@ -41611,13 +32946,6 @@ impl UpdateWebhookRequest {
     }
 
     /// Sets the value of [webhook][crate::model::UpdateWebhookRequest::webhook].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateWebhookRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Webhook;
-    /// let x = UpdateWebhookRequest::new().set_webhook(Webhook::default()/* use setters */);
-    /// ```
     pub fn set_webhook<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Webhook>,
@@ -41627,14 +32955,6 @@ impl UpdateWebhookRequest {
     }
 
     /// Sets or clears the value of [webhook][crate::model::UpdateWebhookRequest::webhook].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateWebhookRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::Webhook;
-    /// let x = UpdateWebhookRequest::new().set_or_clear_webhook(Some(Webhook::default()/* use setters */));
-    /// let x = UpdateWebhookRequest::new().set_or_clear_webhook(None::<Webhook>);
-    /// ```
     pub fn set_or_clear_webhook<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Webhook>,
@@ -41644,13 +32964,6 @@ impl UpdateWebhookRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateWebhookRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateWebhookRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateWebhookRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -41660,14 +32973,6 @@ impl UpdateWebhookRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateWebhookRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::UpdateWebhookRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateWebhookRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateWebhookRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -41722,24 +33027,12 @@ impl DeleteWebhookRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteWebhookRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeleteWebhookRequest;
-    /// let x = DeleteWebhookRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteWebhookRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::DeleteWebhookRequest;
-    /// let x = DeleteWebhookRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -41858,12 +33151,6 @@ impl WebhookRequest {
     }
 
     /// Sets the value of [detect_intent_response_id][crate::model::WebhookRequest::detect_intent_response_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// let x = WebhookRequest::new().set_detect_intent_response_id("example");
-    /// ```
     pub fn set_detect_intent_response_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -41873,25 +33160,12 @@ impl WebhookRequest {
     }
 
     /// Sets the value of [language_code][crate::model::WebhookRequest::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// let x = WebhookRequest::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [fulfillment_info][crate::model::WebhookRequest::fulfillment_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::webhook_request::FulfillmentInfo;
-    /// let x = WebhookRequest::new().set_fulfillment_info(FulfillmentInfo::default()/* use setters */);
-    /// ```
     pub fn set_fulfillment_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::webhook_request::FulfillmentInfo>,
@@ -41901,14 +33175,6 @@ impl WebhookRequest {
     }
 
     /// Sets or clears the value of [fulfillment_info][crate::model::WebhookRequest::fulfillment_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::webhook_request::FulfillmentInfo;
-    /// let x = WebhookRequest::new().set_or_clear_fulfillment_info(Some(FulfillmentInfo::default()/* use setters */));
-    /// let x = WebhookRequest::new().set_or_clear_fulfillment_info(None::<FulfillmentInfo>);
-    /// ```
     pub fn set_or_clear_fulfillment_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::webhook_request::FulfillmentInfo>,
@@ -41918,13 +33184,6 @@ impl WebhookRequest {
     }
 
     /// Sets the value of [intent_info][crate::model::WebhookRequest::intent_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::webhook_request::IntentInfo;
-    /// let x = WebhookRequest::new().set_intent_info(IntentInfo::default()/* use setters */);
-    /// ```
     pub fn set_intent_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::webhook_request::IntentInfo>,
@@ -41934,14 +33193,6 @@ impl WebhookRequest {
     }
 
     /// Sets or clears the value of [intent_info][crate::model::WebhookRequest::intent_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::webhook_request::IntentInfo;
-    /// let x = WebhookRequest::new().set_or_clear_intent_info(Some(IntentInfo::default()/* use setters */));
-    /// let x = WebhookRequest::new().set_or_clear_intent_info(None::<IntentInfo>);
-    /// ```
     pub fn set_or_clear_intent_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::webhook_request::IntentInfo>,
@@ -41951,13 +33202,6 @@ impl WebhookRequest {
     }
 
     /// Sets the value of [page_info][crate::model::WebhookRequest::page_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::PageInfo;
-    /// let x = WebhookRequest::new().set_page_info(PageInfo::default()/* use setters */);
-    /// ```
     pub fn set_page_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PageInfo>,
@@ -41967,14 +33211,6 @@ impl WebhookRequest {
     }
 
     /// Sets or clears the value of [page_info][crate::model::WebhookRequest::page_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::PageInfo;
-    /// let x = WebhookRequest::new().set_or_clear_page_info(Some(PageInfo::default()/* use setters */));
-    /// let x = WebhookRequest::new().set_or_clear_page_info(None::<PageInfo>);
-    /// ```
     pub fn set_or_clear_page_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PageInfo>,
@@ -41984,13 +33220,6 @@ impl WebhookRequest {
     }
 
     /// Sets the value of [session_info][crate::model::WebhookRequest::session_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::SessionInfo;
-    /// let x = WebhookRequest::new().set_session_info(SessionInfo::default()/* use setters */);
-    /// ```
     pub fn set_session_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SessionInfo>,
@@ -42000,14 +33229,6 @@ impl WebhookRequest {
     }
 
     /// Sets or clears the value of [session_info][crate::model::WebhookRequest::session_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::SessionInfo;
-    /// let x = WebhookRequest::new().set_or_clear_session_info(Some(SessionInfo::default()/* use setters */));
-    /// let x = WebhookRequest::new().set_or_clear_session_info(None::<SessionInfo>);
-    /// ```
     pub fn set_or_clear_session_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SessionInfo>,
@@ -42017,17 +33238,6 @@ impl WebhookRequest {
     }
 
     /// Sets the value of [messages][crate::model::WebhookRequest::messages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-    /// let x = WebhookRequest::new()
-    ///     .set_messages([
-    ///         ResponseMessage::default()/* use setters */,
-    ///         ResponseMessage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -42039,13 +33249,6 @@ impl WebhookRequest {
     }
 
     /// Sets the value of [payload][crate::model::WebhookRequest::payload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// use wkt::Struct;
-    /// let x = WebhookRequest::new().set_payload(Struct::default()/* use setters */);
-    /// ```
     pub fn set_payload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -42055,14 +33258,6 @@ impl WebhookRequest {
     }
 
     /// Sets or clears the value of [payload][crate::model::WebhookRequest::payload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// use wkt::Struct;
-    /// let x = WebhookRequest::new().set_or_clear_payload(Some(Struct::default()/* use setters */));
-    /// let x = WebhookRequest::new().set_or_clear_payload(None::<Struct>);
-    /// ```
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -42072,13 +33267,6 @@ impl WebhookRequest {
     }
 
     /// Sets the value of [sentiment_analysis_result][crate::model::WebhookRequest::sentiment_analysis_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::webhook_request::SentimentAnalysisResult;
-    /// let x = WebhookRequest::new().set_sentiment_analysis_result(SentimentAnalysisResult::default()/* use setters */);
-    /// ```
     pub fn set_sentiment_analysis_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::webhook_request::SentimentAnalysisResult>,
@@ -42088,14 +33276,6 @@ impl WebhookRequest {
     }
 
     /// Sets or clears the value of [sentiment_analysis_result][crate::model::WebhookRequest::sentiment_analysis_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::webhook_request::SentimentAnalysisResult;
-    /// let x = WebhookRequest::new().set_or_clear_sentiment_analysis_result(Some(SentimentAnalysisResult::default()/* use setters */));
-    /// let x = WebhookRequest::new().set_or_clear_sentiment_analysis_result(None::<SentimentAnalysisResult>);
-    /// ```
     pub fn set_or_clear_sentiment_analysis_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::webhook_request::SentimentAnalysisResult>,
@@ -42105,13 +33285,6 @@ impl WebhookRequest {
     }
 
     /// Sets the value of [language_info][crate::model::WebhookRequest::language_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::LanguageInfo;
-    /// let x = WebhookRequest::new().set_language_info(LanguageInfo::default()/* use setters */);
-    /// ```
     pub fn set_language_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LanguageInfo>,
@@ -42121,14 +33294,6 @@ impl WebhookRequest {
     }
 
     /// Sets or clears the value of [language_info][crate::model::WebhookRequest::language_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::LanguageInfo;
-    /// let x = WebhookRequest::new().set_or_clear_language_info(Some(LanguageInfo::default()/* use setters */));
-    /// let x = WebhookRequest::new().set_or_clear_language_info(None::<LanguageInfo>);
-    /// ```
     pub fn set_or_clear_language_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LanguageInfo>,
@@ -42141,13 +33306,6 @@ impl WebhookRequest {
     ///
     /// Note that all the setters affecting `query` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// use google_cloud_dialogflow_cx_v3::model::webhook_request;
-    /// let x = WebhookRequest::new().set_query(Some(webhook_request::Query::Text("example".to_string())));
-    /// ```
     pub fn set_query<
         T: std::convert::Into<std::option::Option<crate::model::webhook_request::Query>>,
     >(
@@ -42174,17 +33332,6 @@ impl WebhookRequest {
     ///
     /// Note that all the setters affecting `query` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// let x = WebhookRequest::new().set_text("example");
-    /// assert!(x.text().is_some());
-    /// assert!(x.trigger_intent().is_none());
-    /// assert!(x.transcript().is_none());
-    /// assert!(x.trigger_event().is_none());
-    /// assert!(x.dtmf_digits().is_none());
-    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query =
             std::option::Option::Some(crate::model::webhook_request::Query::Text(v.into()));
@@ -42207,17 +33354,6 @@ impl WebhookRequest {
     ///
     /// Note that all the setters affecting `query` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// let x = WebhookRequest::new().set_trigger_intent("example");
-    /// assert!(x.trigger_intent().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.transcript().is_none());
-    /// assert!(x.trigger_event().is_none());
-    /// assert!(x.dtmf_digits().is_none());
-    /// ```
     pub fn set_trigger_intent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = std::option::Option::Some(
             crate::model::webhook_request::Query::TriggerIntent(v.into()),
@@ -42241,17 +33377,6 @@ impl WebhookRequest {
     ///
     /// Note that all the setters affecting `query` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// let x = WebhookRequest::new().set_transcript("example");
-    /// assert!(x.transcript().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.trigger_intent().is_none());
-    /// assert!(x.trigger_event().is_none());
-    /// assert!(x.dtmf_digits().is_none());
-    /// ```
     pub fn set_transcript<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query =
             std::option::Option::Some(crate::model::webhook_request::Query::Transcript(v.into()));
@@ -42274,17 +33399,6 @@ impl WebhookRequest {
     ///
     /// Note that all the setters affecting `query` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// let x = WebhookRequest::new().set_trigger_event("example");
-    /// assert!(x.trigger_event().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.trigger_intent().is_none());
-    /// assert!(x.transcript().is_none());
-    /// assert!(x.dtmf_digits().is_none());
-    /// ```
     pub fn set_trigger_event<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query =
             std::option::Option::Some(crate::model::webhook_request::Query::TriggerEvent(v.into()));
@@ -42307,17 +33421,6 @@ impl WebhookRequest {
     ///
     /// Note that all the setters affecting `query` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookRequest;
-    /// let x = WebhookRequest::new().set_dtmf_digits("example");
-    /// assert!(x.dtmf_digits().is_some());
-    /// assert!(x.text().is_none());
-    /// assert!(x.trigger_intent().is_none());
-    /// assert!(x.transcript().is_none());
-    /// assert!(x.trigger_event().is_none());
-    /// ```
     pub fn set_dtmf_digits<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query =
             std::option::Option::Some(crate::model::webhook_request::Query::DtmfDigits(v.into()));
@@ -42436,12 +33539,6 @@ pub mod webhook_request {
         }
 
         /// Sets the value of [tag][crate::model::webhook_request::FulfillmentInfo::tag].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook_request::FulfillmentInfo;
-        /// let x = FulfillmentInfo::new().set_tag("example");
-        /// ```
         pub fn set_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.tag = v.into();
             self
@@ -42551,12 +33648,6 @@ pub mod webhook_request {
         }
 
         /// Sets the value of [last_matched_intent][crate::model::webhook_request::IntentInfo::last_matched_intent].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook_request::IntentInfo;
-        /// let x = IntentInfo::new().set_last_matched_intent("example");
-        /// ```
         pub fn set_last_matched_intent<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -42566,12 +33657,6 @@ pub mod webhook_request {
         }
 
         /// Sets the value of [display_name][crate::model::webhook_request::IntentInfo::display_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook_request::IntentInfo;
-        /// let x = IntentInfo::new().set_display_name("example");
-        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -42581,16 +33666,6 @@ pub mod webhook_request {
         }
 
         /// Sets the value of [parameters][crate::model::webhook_request::IntentInfo::parameters].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook_request::IntentInfo;
-        /// use google_cloud_dialogflow_cx_v3::model::webhook_request::intent_info::IntentParameterValue;
-        /// let x = IntentInfo::new().set_parameters([
-        ///     ("key0", IntentParameterValue::default()/* use setters */),
-        ///     ("key1", IntentParameterValue::default()/* use (different) setters */),
-        /// ]);
-        /// ```
         pub fn set_parameters<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -42603,12 +33678,6 @@ pub mod webhook_request {
         }
 
         /// Sets the value of [confidence][crate::model::webhook_request::IntentInfo::confidence].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook_request::IntentInfo;
-        /// let x = IntentInfo::new().set_confidence(42.0);
-        /// ```
         pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.confidence = v.into();
             self
@@ -42722,12 +33791,6 @@ pub mod webhook_request {
             }
 
             /// Sets the value of [original_value][crate::model::webhook_request::intent_info::IntentParameterValue::original_value].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::webhook_request::intent_info::IntentParameterValue;
-            /// let x = IntentParameterValue::new().set_original_value("example");
-            /// ```
             pub fn set_original_value<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -42737,13 +33800,6 @@ pub mod webhook_request {
             }
 
             /// Sets the value of [resolved_value][crate::model::webhook_request::intent_info::IntentParameterValue::resolved_value].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::webhook_request::intent_info::IntentParameterValue;
-            /// use wkt::Value;
-            /// let x = IntentParameterValue::new().set_resolved_value(Value::default()/* use setters */);
-            /// ```
             pub fn set_resolved_value<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Value>,
@@ -42753,14 +33809,6 @@ pub mod webhook_request {
             }
 
             /// Sets or clears the value of [resolved_value][crate::model::webhook_request::intent_info::IntentParameterValue::resolved_value].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::webhook_request::intent_info::IntentParameterValue;
-            /// use wkt::Value;
-            /// let x = IntentParameterValue::new().set_or_clear_resolved_value(Some(Value::default()/* use setters */));
-            /// let x = IntentParameterValue::new().set_or_clear_resolved_value(None::<Value>);
-            /// ```
             pub fn set_or_clear_resolved_value<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Value>,
@@ -42856,24 +33904,12 @@ pub mod webhook_request {
         }
 
         /// Sets the value of [score][crate::model::webhook_request::SentimentAnalysisResult::score].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook_request::SentimentAnalysisResult;
-        /// let x = SentimentAnalysisResult::new().set_score(42.0);
-        /// ```
         pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.score = v.into();
             self
         }
 
         /// Sets the value of [magnitude][crate::model::webhook_request::SentimentAnalysisResult::magnitude].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook_request::SentimentAnalysisResult;
-        /// let x = SentimentAnalysisResult::new().set_magnitude(42.0);
-        /// ```
         pub fn set_magnitude<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.magnitude = v.into();
             self
@@ -43014,13 +34050,6 @@ impl WebhookResponse {
     }
 
     /// Sets the value of [fulfillment_response][crate::model::WebhookResponse::fulfillment_response].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::webhook_response::FulfillmentResponse;
-    /// let x = WebhookResponse::new().set_fulfillment_response(FulfillmentResponse::default()/* use setters */);
-    /// ```
     pub fn set_fulfillment_response<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::webhook_response::FulfillmentResponse>,
@@ -43030,14 +34059,6 @@ impl WebhookResponse {
     }
 
     /// Sets or clears the value of [fulfillment_response][crate::model::WebhookResponse::fulfillment_response].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::webhook_response::FulfillmentResponse;
-    /// let x = WebhookResponse::new().set_or_clear_fulfillment_response(Some(FulfillmentResponse::default()/* use setters */));
-    /// let x = WebhookResponse::new().set_or_clear_fulfillment_response(None::<FulfillmentResponse>);
-    /// ```
     pub fn set_or_clear_fulfillment_response<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::webhook_response::FulfillmentResponse>,
@@ -43047,13 +34068,6 @@ impl WebhookResponse {
     }
 
     /// Sets the value of [page_info][crate::model::WebhookResponse::page_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::PageInfo;
-    /// let x = WebhookResponse::new().set_page_info(PageInfo::default()/* use setters */);
-    /// ```
     pub fn set_page_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PageInfo>,
@@ -43063,14 +34077,6 @@ impl WebhookResponse {
     }
 
     /// Sets or clears the value of [page_info][crate::model::WebhookResponse::page_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::PageInfo;
-    /// let x = WebhookResponse::new().set_or_clear_page_info(Some(PageInfo::default()/* use setters */));
-    /// let x = WebhookResponse::new().set_or_clear_page_info(None::<PageInfo>);
-    /// ```
     pub fn set_or_clear_page_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PageInfo>,
@@ -43080,13 +34086,6 @@ impl WebhookResponse {
     }
 
     /// Sets the value of [session_info][crate::model::WebhookResponse::session_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::SessionInfo;
-    /// let x = WebhookResponse::new().set_session_info(SessionInfo::default()/* use setters */);
-    /// ```
     pub fn set_session_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SessionInfo>,
@@ -43096,14 +34095,6 @@ impl WebhookResponse {
     }
 
     /// Sets or clears the value of [session_info][crate::model::WebhookResponse::session_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::SessionInfo;
-    /// let x = WebhookResponse::new().set_or_clear_session_info(Some(SessionInfo::default()/* use setters */));
-    /// let x = WebhookResponse::new().set_or_clear_session_info(None::<SessionInfo>);
-    /// ```
     pub fn set_or_clear_session_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SessionInfo>,
@@ -43113,13 +34104,6 @@ impl WebhookResponse {
     }
 
     /// Sets the value of [payload][crate::model::WebhookResponse::payload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookResponse;
-    /// use wkt::Struct;
-    /// let x = WebhookResponse::new().set_payload(Struct::default()/* use setters */);
-    /// ```
     pub fn set_payload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -43129,14 +34113,6 @@ impl WebhookResponse {
     }
 
     /// Sets or clears the value of [payload][crate::model::WebhookResponse::payload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookResponse;
-    /// use wkt::Struct;
-    /// let x = WebhookResponse::new().set_or_clear_payload(Some(Struct::default()/* use setters */));
-    /// let x = WebhookResponse::new().set_or_clear_payload(None::<Struct>);
-    /// ```
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -43149,13 +34125,6 @@ impl WebhookResponse {
     ///
     /// Note that all the setters affecting `transition` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookResponse;
-    /// use google_cloud_dialogflow_cx_v3::model::webhook_response;
-    /// let x = WebhookResponse::new().set_transition(Some(webhook_response::Transition::TargetPage("example".to_string())));
-    /// ```
     pub fn set_transition<
         T: std::convert::Into<std::option::Option<crate::model::webhook_response::Transition>>,
     >(
@@ -43184,14 +34153,6 @@ impl WebhookResponse {
     ///
     /// Note that all the setters affecting `transition` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookResponse;
-    /// let x = WebhookResponse::new().set_target_page("example");
-    /// assert!(x.target_page().is_some());
-    /// assert!(x.target_flow().is_none());
-    /// ```
     pub fn set_target_page<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.transition = std::option::Option::Some(
             crate::model::webhook_response::Transition::TargetPage(v.into()),
@@ -43217,14 +34178,6 @@ impl WebhookResponse {
     ///
     /// Note that all the setters affecting `transition` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::WebhookResponse;
-    /// let x = WebhookResponse::new().set_target_flow("example");
-    /// assert!(x.target_flow().is_some());
-    /// assert!(x.target_page().is_none());
-    /// ```
     pub fn set_target_flow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.transition = std::option::Option::Some(
             crate::model::webhook_response::Transition::TargetFlow(v.into()),
@@ -43339,17 +34292,6 @@ pub mod webhook_response {
         }
 
         /// Sets the value of [messages][crate::model::webhook_response::FulfillmentResponse::messages].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook_response::FulfillmentResponse;
-        /// use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
-        /// let x = FulfillmentResponse::new()
-        ///     .set_messages([
-        ///         ResponseMessage::default()/* use setters */,
-        ///         ResponseMessage::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_messages<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -43361,14 +34303,6 @@ pub mod webhook_response {
         }
 
         /// Sets the value of [merge_behavior][crate::model::webhook_response::FulfillmentResponse::merge_behavior].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::webhook_response::FulfillmentResponse;
-        /// use google_cloud_dialogflow_cx_v3::model::webhook_response::fulfillment_response::MergeBehavior;
-        /// let x0 = FulfillmentResponse::new().set_merge_behavior(MergeBehavior::Append);
-        /// let x1 = FulfillmentResponse::new().set_merge_behavior(MergeBehavior::Replace);
-        /// ```
         pub fn set_merge_behavior<
             T: std::convert::Into<crate::model::webhook_response::fulfillment_response::MergeBehavior>,
         >(
@@ -43833,37 +34767,18 @@ impl PageInfo {
     }
 
     /// Sets the value of [current_page][crate::model::PageInfo::current_page].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::PageInfo;
-    /// let x = PageInfo::new().set_current_page("example");
-    /// ```
     pub fn set_current_page<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.current_page = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::PageInfo::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::PageInfo;
-    /// let x = PageInfo::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [form_info][crate::model::PageInfo::form_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::PageInfo;
-    /// use google_cloud_dialogflow_cx_v3::model::page_info::FormInfo;
-    /// let x = PageInfo::new().set_form_info(FormInfo::default()/* use setters */);
-    /// ```
     pub fn set_form_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::page_info::FormInfo>,
@@ -43873,14 +34788,6 @@ impl PageInfo {
     }
 
     /// Sets or clears the value of [form_info][crate::model::PageInfo::form_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::PageInfo;
-    /// use google_cloud_dialogflow_cx_v3::model::page_info::FormInfo;
-    /// let x = PageInfo::new().set_or_clear_form_info(Some(FormInfo::default()/* use setters */));
-    /// let x = PageInfo::new().set_or_clear_form_info(None::<FormInfo>);
-    /// ```
     pub fn set_or_clear_form_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::page_info::FormInfo>,
@@ -44000,17 +34907,6 @@ pub mod page_info {
         }
 
         /// Sets the value of [parameter_info][crate::model::page_info::FormInfo::parameter_info].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_dialogflow_cx_v3::model::page_info::FormInfo;
-        /// use google_cloud_dialogflow_cx_v3::model::page_info::form_info::ParameterInfo;
-        /// let x = FormInfo::new()
-        ///     .set_parameter_info([
-        ///         ParameterInfo::default()/* use setters */,
-        ///         ParameterInfo::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_parameter_info<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -44178,12 +35074,6 @@ pub mod page_info {
             }
 
             /// Sets the value of [display_name][crate::model::page_info::form_info::ParameterInfo::display_name].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::page_info::form_info::ParameterInfo;
-            /// let x = ParameterInfo::new().set_display_name("example");
-            /// ```
             pub fn set_display_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -44193,27 +35083,12 @@ pub mod page_info {
             }
 
             /// Sets the value of [required][crate::model::page_info::form_info::ParameterInfo::required].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::page_info::form_info::ParameterInfo;
-            /// let x = ParameterInfo::new().set_required(true);
-            /// ```
             pub fn set_required<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.required = v.into();
                 self
             }
 
             /// Sets the value of [state][crate::model::page_info::form_info::ParameterInfo::state].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::page_info::form_info::ParameterInfo;
-            /// use google_cloud_dialogflow_cx_v3::model::page_info::form_info::parameter_info::ParameterState;
-            /// let x0 = ParameterInfo::new().set_state(ParameterState::Empty);
-            /// let x1 = ParameterInfo::new().set_state(ParameterState::Invalid);
-            /// let x2 = ParameterInfo::new().set_state(ParameterState::Filled);
-            /// ```
             pub fn set_state<
                 T: std::convert::Into<
                         crate::model::page_info::form_info::parameter_info::ParameterState,
@@ -44227,13 +35102,6 @@ pub mod page_info {
             }
 
             /// Sets the value of [value][crate::model::page_info::form_info::ParameterInfo::value].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::page_info::form_info::ParameterInfo;
-            /// use wkt::Value;
-            /// let x = ParameterInfo::new().set_value(Value::default()/* use setters */);
-            /// ```
             pub fn set_value<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Value>,
@@ -44243,14 +35111,6 @@ pub mod page_info {
             }
 
             /// Sets or clears the value of [value][crate::model::page_info::form_info::ParameterInfo::value].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::page_info::form_info::ParameterInfo;
-            /// use wkt::Value;
-            /// let x = ParameterInfo::new().set_or_clear_value(Some(Value::default()/* use setters */));
-            /// let x = ParameterInfo::new().set_or_clear_value(None::<Value>);
-            /// ```
             pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Value>,
@@ -44260,12 +35120,6 @@ pub mod page_info {
             }
 
             /// Sets the value of [just_collected][crate::model::page_info::form_info::ParameterInfo::just_collected].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_dialogflow_cx_v3::model::page_info::form_info::ParameterInfo;
-            /// let x = ParameterInfo::new().set_just_collected(true);
-            /// ```
             pub fn set_just_collected<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.just_collected = v.into();
                 self
@@ -44721,28 +35575,12 @@ impl SessionInfo {
     }
 
     /// Sets the value of [session][crate::model::SessionInfo::session].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SessionInfo;
-    /// let x = SessionInfo::new().set_session("example");
-    /// ```
     pub fn set_session<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.session = v.into();
         self
     }
 
     /// Sets the value of [parameters][crate::model::SessionInfo::parameters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::SessionInfo;
-    /// use wkt::Value;
-    /// let x = SessionInfo::new().set_parameters([
-    ///     ("key0", Value::default()/* use setters */),
-    ///     ("key1", Value::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_parameters<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -44844,12 +35682,6 @@ impl LanguageInfo {
     }
 
     /// Sets the value of [input_language_code][crate::model::LanguageInfo::input_language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::LanguageInfo;
-    /// let x = LanguageInfo::new().set_input_language_code("example");
-    /// ```
     pub fn set_input_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -44859,12 +35691,6 @@ impl LanguageInfo {
     }
 
     /// Sets the value of [resolved_language_code][crate::model::LanguageInfo::resolved_language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::LanguageInfo;
-    /// let x = LanguageInfo::new().set_resolved_language_code("example");
-    /// ```
     pub fn set_resolved_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -44874,12 +35700,6 @@ impl LanguageInfo {
     }
 
     /// Sets the value of [confidence_score][crate::model::LanguageInfo::confidence_score].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dialogflow_cx_v3::model::LanguageInfo;
-    /// let x = LanguageInfo::new().set_confidence_score(42.0);
-    /// ```
     pub fn set_confidence_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence_score = v.into();
         self

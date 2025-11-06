@@ -84,51 +84,24 @@ impl Connector {
     }
 
     /// Sets the value of [name][crate::model::Connector::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::Connector;
-    /// let x = Connector::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [network][crate::model::Connector::network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::Connector;
-    /// let x = Connector::new().set_network("example");
-    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [ip_cidr_range][crate::model::Connector::ip_cidr_range].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::Connector;
-    /// let x = Connector::new().set_ip_cidr_range("example");
-    /// ```
     pub fn set_ip_cidr_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_cidr_range = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Connector::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::Connector;
-    /// use google_cloud_vpcaccess_v1::model::connector::State;
-    /// let x0 = Connector::new().set_state(State::Ready);
-    /// let x1 = Connector::new().set_state(State::Creating);
-    /// let x2 = Connector::new().set_state(State::Deleting);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::connector::State>>(
         mut self,
         v: T,
@@ -138,36 +111,18 @@ impl Connector {
     }
 
     /// Sets the value of [min_throughput][crate::model::Connector::min_throughput].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::Connector;
-    /// let x = Connector::new().set_min_throughput(42);
-    /// ```
     pub fn set_min_throughput<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_throughput = v.into();
         self
     }
 
     /// Sets the value of [max_throughput][crate::model::Connector::max_throughput].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::Connector;
-    /// let x = Connector::new().set_max_throughput(42);
-    /// ```
     pub fn set_max_throughput<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_throughput = v.into();
         self
     }
 
     /// Sets the value of [connected_projects][crate::model::Connector::connected_projects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::Connector;
-    /// let x = Connector::new().set_connected_projects(["a", "b", "c"]);
-    /// ```
     pub fn set_connected_projects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -179,13 +134,6 @@ impl Connector {
     }
 
     /// Sets the value of [subnet][crate::model::Connector::subnet].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::Connector;
-    /// use google_cloud_vpcaccess_v1::model::connector::Subnet;
-    /// let x = Connector::new().set_subnet(Subnet::default()/* use setters */);
-    /// ```
     pub fn set_subnet<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::connector::Subnet>,
@@ -195,14 +143,6 @@ impl Connector {
     }
 
     /// Sets or clears the value of [subnet][crate::model::Connector::subnet].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::Connector;
-    /// use google_cloud_vpcaccess_v1::model::connector::Subnet;
-    /// let x = Connector::new().set_or_clear_subnet(Some(Subnet::default()/* use setters */));
-    /// let x = Connector::new().set_or_clear_subnet(None::<Subnet>);
-    /// ```
     pub fn set_or_clear_subnet<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::connector::Subnet>,
@@ -212,36 +152,18 @@ impl Connector {
     }
 
     /// Sets the value of [machine_type][crate::model::Connector::machine_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::Connector;
-    /// let x = Connector::new().set_machine_type("example");
-    /// ```
     pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.machine_type = v.into();
         self
     }
 
     /// Sets the value of [min_instances][crate::model::Connector::min_instances].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::Connector;
-    /// let x = Connector::new().set_min_instances(42);
-    /// ```
     pub fn set_min_instances<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_instances = v.into();
         self
     }
 
     /// Sets the value of [max_instances][crate::model::Connector::max_instances].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::Connector;
-    /// let x = Connector::new().set_max_instances(42);
-    /// ```
     pub fn set_max_instances<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_instances = v.into();
         self
@@ -283,24 +205,12 @@ pub mod connector {
         }
 
         /// Sets the value of [name][crate::model::connector::Subnet::name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vpcaccess_v1::model::connector::Subnet;
-        /// let x = Subnet::new().set_name("example");
-        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [project_id][crate::model::connector::Subnet::project_id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vpcaccess_v1::model::connector::Subnet;
-        /// let x = Subnet::new().set_project_id("example");
-        /// ```
         pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project_id = v.into();
             self
@@ -490,37 +400,18 @@ impl CreateConnectorRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateConnectorRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::CreateConnectorRequest;
-    /// let x = CreateConnectorRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [connector_id][crate::model::CreateConnectorRequest::connector_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::CreateConnectorRequest;
-    /// let x = CreateConnectorRequest::new().set_connector_id("example");
-    /// ```
     pub fn set_connector_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connector_id = v.into();
         self
     }
 
     /// Sets the value of [connector][crate::model::CreateConnectorRequest::connector].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::CreateConnectorRequest;
-    /// use google_cloud_vpcaccess_v1::model::Connector;
-    /// let x = CreateConnectorRequest::new().set_connector(Connector::default()/* use setters */);
-    /// ```
     pub fn set_connector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Connector>,
@@ -530,14 +421,6 @@ impl CreateConnectorRequest {
     }
 
     /// Sets or clears the value of [connector][crate::model::CreateConnectorRequest::connector].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::CreateConnectorRequest;
-    /// use google_cloud_vpcaccess_v1::model::Connector;
-    /// let x = CreateConnectorRequest::new().set_or_clear_connector(Some(Connector::default()/* use setters */));
-    /// let x = CreateConnectorRequest::new().set_or_clear_connector(None::<Connector>);
-    /// ```
     pub fn set_or_clear_connector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Connector>,
@@ -569,12 +452,6 @@ impl GetConnectorRequest {
     }
 
     /// Sets the value of [name][crate::model::GetConnectorRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::GetConnectorRequest;
-    /// let x = GetConnectorRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -609,36 +486,18 @@ impl ListConnectorsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListConnectorsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::ListConnectorsRequest;
-    /// let x = ListConnectorsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListConnectorsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::ListConnectorsRequest;
-    /// let x = ListConnectorsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListConnectorsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::ListConnectorsRequest;
-    /// let x = ListConnectorsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -670,17 +529,6 @@ impl ListConnectorsResponse {
     }
 
     /// Sets the value of [connectors][crate::model::ListConnectorsResponse::connectors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::ListConnectorsResponse;
-    /// use google_cloud_vpcaccess_v1::model::Connector;
-    /// let x = ListConnectorsResponse::new()
-    ///     .set_connectors([
-    ///         Connector::default()/* use setters */,
-    ///         Connector::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_connectors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -692,12 +540,6 @@ impl ListConnectorsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListConnectorsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::ListConnectorsResponse;
-    /// let x = ListConnectorsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -740,12 +582,6 @@ impl DeleteConnectorRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteConnectorRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::DeleteConnectorRequest;
-    /// let x = DeleteConnectorRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -785,25 +621,12 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [method][crate::model::OperationMetadata::method].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_method("example");
-    /// ```
     pub fn set_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.method = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -813,14 +636,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -830,13 +645,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -846,14 +654,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -863,12 +663,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vpcaccess_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self

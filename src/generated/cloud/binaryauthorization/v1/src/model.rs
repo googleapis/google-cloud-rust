@@ -103,38 +103,18 @@ impl Policy {
     }
 
     /// Sets the value of [name][crate::model::Policy::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::Policy;
-    /// let x = Policy::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Policy::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::Policy;
-    /// let x = Policy::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [global_policy_evaluation_mode][crate::model::Policy::global_policy_evaluation_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::Policy;
-    /// use google_cloud_binaryauthorization_v1::model::policy::GlobalPolicyEvaluationMode;
-    /// let x0 = Policy::new().set_global_policy_evaluation_mode(GlobalPolicyEvaluationMode::Enable);
-    /// let x1 = Policy::new().set_global_policy_evaluation_mode(GlobalPolicyEvaluationMode::Disable);
-    /// ```
     pub fn set_global_policy_evaluation_mode<
         T: std::convert::Into<crate::model::policy::GlobalPolicyEvaluationMode>,
     >(
@@ -146,17 +126,6 @@ impl Policy {
     }
 
     /// Sets the value of [admission_whitelist_patterns][crate::model::Policy::admission_whitelist_patterns].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::Policy;
-    /// use google_cloud_binaryauthorization_v1::model::AdmissionWhitelistPattern;
-    /// let x = Policy::new()
-    ///     .set_admission_whitelist_patterns([
-    ///         AdmissionWhitelistPattern::default()/* use setters */,
-    ///         AdmissionWhitelistPattern::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_admission_whitelist_patterns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -168,16 +137,6 @@ impl Policy {
     }
 
     /// Sets the value of [cluster_admission_rules][crate::model::Policy::cluster_admission_rules].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::Policy;
-    /// use google_cloud_binaryauthorization_v1::model::AdmissionRule;
-    /// let x = Policy::new().set_cluster_admission_rules([
-    ///     ("key0", AdmissionRule::default()/* use setters */),
-    ///     ("key1", AdmissionRule::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_cluster_admission_rules<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -190,16 +149,6 @@ impl Policy {
     }
 
     /// Sets the value of [kubernetes_namespace_admission_rules][crate::model::Policy::kubernetes_namespace_admission_rules].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::Policy;
-    /// use google_cloud_binaryauthorization_v1::model::AdmissionRule;
-    /// let x = Policy::new().set_kubernetes_namespace_admission_rules([
-    ///     ("key0", AdmissionRule::default()/* use setters */),
-    ///     ("key1", AdmissionRule::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_kubernetes_namespace_admission_rules<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -213,16 +162,6 @@ impl Policy {
     }
 
     /// Sets the value of [kubernetes_service_account_admission_rules][crate::model::Policy::kubernetes_service_account_admission_rules].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::Policy;
-    /// use google_cloud_binaryauthorization_v1::model::AdmissionRule;
-    /// let x = Policy::new().set_kubernetes_service_account_admission_rules([
-    ///     ("key0", AdmissionRule::default()/* use setters */),
-    ///     ("key1", AdmissionRule::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_kubernetes_service_account_admission_rules<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -236,16 +175,6 @@ impl Policy {
     }
 
     /// Sets the value of [istio_service_identity_admission_rules][crate::model::Policy::istio_service_identity_admission_rules].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::Policy;
-    /// use google_cloud_binaryauthorization_v1::model::AdmissionRule;
-    /// let x = Policy::new().set_istio_service_identity_admission_rules([
-    ///     ("key0", AdmissionRule::default()/* use setters */),
-    ///     ("key1", AdmissionRule::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_istio_service_identity_admission_rules<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -259,13 +188,6 @@ impl Policy {
     }
 
     /// Sets the value of [default_admission_rule][crate::model::Policy::default_admission_rule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::Policy;
-    /// use google_cloud_binaryauthorization_v1::model::AdmissionRule;
-    /// let x = Policy::new().set_default_admission_rule(AdmissionRule::default()/* use setters */);
-    /// ```
     pub fn set_default_admission_rule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AdmissionRule>,
@@ -275,14 +197,6 @@ impl Policy {
     }
 
     /// Sets or clears the value of [default_admission_rule][crate::model::Policy::default_admission_rule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::Policy;
-    /// use google_cloud_binaryauthorization_v1::model::AdmissionRule;
-    /// let x = Policy::new().set_or_clear_default_admission_rule(Some(AdmissionRule::default()/* use setters */));
-    /// let x = Policy::new().set_or_clear_default_admission_rule(None::<AdmissionRule>);
-    /// ```
     pub fn set_or_clear_default_admission_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdmissionRule>,
@@ -292,13 +206,6 @@ impl Policy {
     }
 
     /// Sets the value of [update_time][crate::model::Policy::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::Policy;
-    /// use wkt::Timestamp;
-    /// let x = Policy::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -308,14 +215,6 @@ impl Policy {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Policy::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::Policy;
-    /// use wkt::Timestamp;
-    /// let x = Policy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Policy::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -495,12 +394,6 @@ impl AdmissionWhitelistPattern {
     }
 
     /// Sets the value of [name_pattern][crate::model::AdmissionWhitelistPattern::name_pattern].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::AdmissionWhitelistPattern;
-    /// let x = AdmissionWhitelistPattern::new().set_name_pattern("example");
-    /// ```
     pub fn set_name_pattern<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name_pattern = v.into();
         self
@@ -552,15 +445,6 @@ impl AdmissionRule {
     }
 
     /// Sets the value of [evaluation_mode][crate::model::AdmissionRule::evaluation_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::AdmissionRule;
-    /// use google_cloud_binaryauthorization_v1::model::admission_rule::EvaluationMode;
-    /// let x0 = AdmissionRule::new().set_evaluation_mode(EvaluationMode::AlwaysAllow);
-    /// let x1 = AdmissionRule::new().set_evaluation_mode(EvaluationMode::RequireAttestation);
-    /// let x2 = AdmissionRule::new().set_evaluation_mode(EvaluationMode::AlwaysDeny);
-    /// ```
     pub fn set_evaluation_mode<
         T: std::convert::Into<crate::model::admission_rule::EvaluationMode>,
     >(
@@ -572,12 +456,6 @@ impl AdmissionRule {
     }
 
     /// Sets the value of [require_attestations_by][crate::model::AdmissionRule::require_attestations_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::AdmissionRule;
-    /// let x = AdmissionRule::new().set_require_attestations_by(["a", "b", "c"]);
-    /// ```
     pub fn set_require_attestations_by<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -589,14 +467,6 @@ impl AdmissionRule {
     }
 
     /// Sets the value of [enforcement_mode][crate::model::AdmissionRule::enforcement_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::AdmissionRule;
-    /// use google_cloud_binaryauthorization_v1::model::admission_rule::EnforcementMode;
-    /// let x0 = AdmissionRule::new().set_enforcement_mode(EnforcementMode::EnforcedBlockAndAuditLog);
-    /// let x1 = AdmissionRule::new().set_enforcement_mode(EnforcementMode::DryrunAuditLogOnly);
-    /// ```
     pub fn set_enforcement_mode<
         T: std::convert::Into<crate::model::admission_rule::EnforcementMode>,
     >(
@@ -926,37 +796,18 @@ impl Attestor {
     }
 
     /// Sets the value of [name][crate::model::Attestor::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::Attestor;
-    /// let x = Attestor::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Attestor::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::Attestor;
-    /// let x = Attestor::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::Attestor::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::Attestor;
-    /// use wkt::Timestamp;
-    /// let x = Attestor::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -966,14 +817,6 @@ impl Attestor {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Attestor::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::Attestor;
-    /// use wkt::Timestamp;
-    /// let x = Attestor::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Attestor::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -986,14 +829,6 @@ impl Attestor {
     ///
     /// Note that all the setters affecting `attestor_type` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::Attestor;
-    /// use google_cloud_binaryauthorization_v1::model::attestor;
-    /// use google_cloud_binaryauthorization_v1::model::UserOwnedGrafeasNote;
-    /// let x = Attestor::new().set_attestor_type(Some(attestor::AttestorType::UserOwnedGrafeasNote(UserOwnedGrafeasNote::default().into())));
-    /// ```
     pub fn set_attestor_type<
         T: std::convert::Into<std::option::Option<crate::model::attestor::AttestorType>>,
     >(
@@ -1024,14 +859,6 @@ impl Attestor {
     ///
     /// Note that all the setters affecting `attestor_type` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::Attestor;
-    /// use google_cloud_binaryauthorization_v1::model::UserOwnedGrafeasNote;
-    /// let x = Attestor::new().set_user_owned_grafeas_note(UserOwnedGrafeasNote::default()/* use setters */);
-    /// assert!(x.user_owned_grafeas_note().is_some());
-    /// ```
     pub fn set_user_owned_grafeas_note<
         T: std::convert::Into<std::boxed::Box<crate::model::UserOwnedGrafeasNote>>,
     >(
@@ -1112,29 +939,12 @@ impl UserOwnedGrafeasNote {
     }
 
     /// Sets the value of [note_reference][crate::model::UserOwnedGrafeasNote::note_reference].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::UserOwnedGrafeasNote;
-    /// let x = UserOwnedGrafeasNote::new().set_note_reference("example");
-    /// ```
     pub fn set_note_reference<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.note_reference = v.into();
         self
     }
 
     /// Sets the value of [public_keys][crate::model::UserOwnedGrafeasNote::public_keys].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::UserOwnedGrafeasNote;
-    /// use google_cloud_binaryauthorization_v1::model::AttestorPublicKey;
-    /// let x = UserOwnedGrafeasNote::new()
-    ///     .set_public_keys([
-    ///         AttestorPublicKey::default()/* use setters */,
-    ///         AttestorPublicKey::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_public_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1146,12 +956,6 @@ impl UserOwnedGrafeasNote {
     }
 
     /// Sets the value of [delegation_service_account_email][crate::model::UserOwnedGrafeasNote::delegation_service_account_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::UserOwnedGrafeasNote;
-    /// let x = UserOwnedGrafeasNote::new().set_delegation_service_account_email("example");
-    /// ```
     pub fn set_delegation_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1194,27 +998,12 @@ impl PkixPublicKey {
     }
 
     /// Sets the value of [public_key_pem][crate::model::PkixPublicKey::public_key_pem].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::PkixPublicKey;
-    /// let x = PkixPublicKey::new().set_public_key_pem("example");
-    /// ```
     pub fn set_public_key_pem<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.public_key_pem = v.into();
         self
     }
 
     /// Sets the value of [signature_algorithm][crate::model::PkixPublicKey::signature_algorithm].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::PkixPublicKey;
-    /// use google_cloud_binaryauthorization_v1::model::pkix_public_key::SignatureAlgorithm;
-    /// let x0 = PkixPublicKey::new().set_signature_algorithm(SignatureAlgorithm::RsaPss2048Sha256);
-    /// let x1 = PkixPublicKey::new().set_signature_algorithm(SignatureAlgorithm::RsaPss3072Sha256);
-    /// let x2 = PkixPublicKey::new().set_signature_algorithm(SignatureAlgorithm::RsaPss4096Sha256);
-    /// ```
     pub fn set_signature_algorithm<
         T: std::convert::Into<crate::model::pkix_public_key::SignatureAlgorithm>,
     >(
@@ -1494,24 +1283,12 @@ impl AttestorPublicKey {
     }
 
     /// Sets the value of [comment][crate::model::AttestorPublicKey::comment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::AttestorPublicKey;
-    /// let x = AttestorPublicKey::new().set_comment("example");
-    /// ```
     pub fn set_comment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.comment = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::AttestorPublicKey::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::AttestorPublicKey;
-    /// let x = AttestorPublicKey::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
@@ -1521,13 +1298,6 @@ impl AttestorPublicKey {
     ///
     /// Note that all the setters affecting `public_key` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::AttestorPublicKey;
-    /// use google_cloud_binaryauthorization_v1::model::attestor_public_key;
-    /// let x = AttestorPublicKey::new().set_public_key(Some(attestor_public_key::PublicKey::AsciiArmoredPgpPublicKey("example".to_string())));
-    /// ```
     pub fn set_public_key<
         T: std::convert::Into<std::option::Option<crate::model::attestor_public_key::PublicKey>>,
     >(
@@ -1556,14 +1326,6 @@ impl AttestorPublicKey {
     ///
     /// Note that all the setters affecting `public_key` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::AttestorPublicKey;
-    /// let x = AttestorPublicKey::new().set_ascii_armored_pgp_public_key("example");
-    /// assert!(x.ascii_armored_pgp_public_key().is_some());
-    /// assert!(x.pkix_public_key().is_none());
-    /// ```
     pub fn set_ascii_armored_pgp_public_key<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1594,15 +1356,6 @@ impl AttestorPublicKey {
     ///
     /// Note that all the setters affecting `public_key` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::AttestorPublicKey;
-    /// use google_cloud_binaryauthorization_v1::model::PkixPublicKey;
-    /// let x = AttestorPublicKey::new().set_pkix_public_key(PkixPublicKey::default()/* use setters */);
-    /// assert!(x.pkix_public_key().is_some());
-    /// assert!(x.ascii_armored_pgp_public_key().is_none());
-    /// ```
     pub fn set_pkix_public_key<
         T: std::convert::Into<std::boxed::Box<crate::model::PkixPublicKey>>,
     >(
@@ -1668,12 +1421,6 @@ impl GetPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPolicyRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::GetPolicyRequest;
-    /// let x = GetPolicyRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1707,13 +1454,6 @@ impl UpdatePolicyRequest {
     }
 
     /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::UpdatePolicyRequest;
-    /// use google_cloud_binaryauthorization_v1::model::Policy;
-    /// let x = UpdatePolicyRequest::new().set_policy(Policy::default()/* use setters */);
-    /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
@@ -1723,14 +1463,6 @@ impl UpdatePolicyRequest {
     }
 
     /// Sets or clears the value of [policy][crate::model::UpdatePolicyRequest::policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::UpdatePolicyRequest;
-    /// use google_cloud_binaryauthorization_v1::model::Policy;
-    /// let x = UpdatePolicyRequest::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
-    /// let x = UpdatePolicyRequest::new().set_or_clear_policy(None::<Policy>);
-    /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
@@ -1777,37 +1509,18 @@ impl CreateAttestorRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAttestorRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::CreateAttestorRequest;
-    /// let x = CreateAttestorRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [attestor_id][crate::model::CreateAttestorRequest::attestor_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::CreateAttestorRequest;
-    /// let x = CreateAttestorRequest::new().set_attestor_id("example");
-    /// ```
     pub fn set_attestor_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attestor_id = v.into();
         self
     }
 
     /// Sets the value of [attestor][crate::model::CreateAttestorRequest::attestor].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::CreateAttestorRequest;
-    /// use google_cloud_binaryauthorization_v1::model::Attestor;
-    /// let x = CreateAttestorRequest::new().set_attestor(Attestor::default()/* use setters */);
-    /// ```
     pub fn set_attestor<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Attestor>,
@@ -1817,14 +1530,6 @@ impl CreateAttestorRequest {
     }
 
     /// Sets or clears the value of [attestor][crate::model::CreateAttestorRequest::attestor].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::CreateAttestorRequest;
-    /// use google_cloud_binaryauthorization_v1::model::Attestor;
-    /// let x = CreateAttestorRequest::new().set_or_clear_attestor(Some(Attestor::default()/* use setters */));
-    /// let x = CreateAttestorRequest::new().set_or_clear_attestor(None::<Attestor>);
-    /// ```
     pub fn set_or_clear_attestor<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Attestor>,
@@ -1859,12 +1564,6 @@ impl GetAttestorRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAttestorRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::GetAttestorRequest;
-    /// let x = GetAttestorRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1898,13 +1597,6 @@ impl UpdateAttestorRequest {
     }
 
     /// Sets the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::UpdateAttestorRequest;
-    /// use google_cloud_binaryauthorization_v1::model::Attestor;
-    /// let x = UpdateAttestorRequest::new().set_attestor(Attestor::default()/* use setters */);
-    /// ```
     pub fn set_attestor<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Attestor>,
@@ -1914,14 +1606,6 @@ impl UpdateAttestorRequest {
     }
 
     /// Sets or clears the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::UpdateAttestorRequest;
-    /// use google_cloud_binaryauthorization_v1::model::Attestor;
-    /// let x = UpdateAttestorRequest::new().set_or_clear_attestor(Some(Attestor::default()/* use setters */));
-    /// let x = UpdateAttestorRequest::new().set_or_clear_attestor(None::<Attestor>);
-    /// ```
     pub fn set_or_clear_attestor<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Attestor>,
@@ -1967,36 +1651,18 @@ impl ListAttestorsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAttestorsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::ListAttestorsRequest;
-    /// let x = ListAttestorsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAttestorsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::ListAttestorsRequest;
-    /// let x = ListAttestorsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAttestorsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::ListAttestorsRequest;
-    /// let x = ListAttestorsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2034,17 +1700,6 @@ impl ListAttestorsResponse {
     }
 
     /// Sets the value of [attestors][crate::model::ListAttestorsResponse::attestors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::ListAttestorsResponse;
-    /// use google_cloud_binaryauthorization_v1::model::Attestor;
-    /// let x = ListAttestorsResponse::new()
-    ///     .set_attestors([
-    ///         Attestor::default()/* use setters */,
-    ///         Attestor::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_attestors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2056,12 +1711,6 @@ impl ListAttestorsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAttestorsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::ListAttestorsResponse;
-    /// let x = ListAttestorsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2107,12 +1756,6 @@ impl DeleteAttestorRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAttestorRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::DeleteAttestorRequest;
-    /// let x = DeleteAttestorRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2142,12 +1785,6 @@ impl GetSystemPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSystemPolicyRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::GetSystemPolicyRequest;
-    /// let x = GetSystemPolicyRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2199,25 +1836,12 @@ impl ValidateAttestationOccurrenceRequest {
     }
 
     /// Sets the value of [attestor][crate::model::ValidateAttestationOccurrenceRequest::attestor].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::ValidateAttestationOccurrenceRequest;
-    /// let x = ValidateAttestationOccurrenceRequest::new().set_attestor("example");
-    /// ```
     pub fn set_attestor<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attestor = v.into();
         self
     }
 
     /// Sets the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::ValidateAttestationOccurrenceRequest;
-    /// use grafeas::model::AttestationOccurrence;
-    /// let x = ValidateAttestationOccurrenceRequest::new().set_attestation(AttestationOccurrence::default()/* use setters */);
-    /// ```
     pub fn set_attestation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<grafeas::model::AttestationOccurrence>,
@@ -2227,14 +1851,6 @@ impl ValidateAttestationOccurrenceRequest {
     }
 
     /// Sets or clears the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::ValidateAttestationOccurrenceRequest;
-    /// use grafeas::model::AttestationOccurrence;
-    /// let x = ValidateAttestationOccurrenceRequest::new().set_or_clear_attestation(Some(AttestationOccurrence::default()/* use setters */));
-    /// let x = ValidateAttestationOccurrenceRequest::new().set_or_clear_attestation(None::<AttestationOccurrence>);
-    /// ```
     pub fn set_or_clear_attestation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<grafeas::model::AttestationOccurrence>,
@@ -2244,24 +1860,12 @@ impl ValidateAttestationOccurrenceRequest {
     }
 
     /// Sets the value of [occurrence_note][crate::model::ValidateAttestationOccurrenceRequest::occurrence_note].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::ValidateAttestationOccurrenceRequest;
-    /// let x = ValidateAttestationOccurrenceRequest::new().set_occurrence_note("example");
-    /// ```
     pub fn set_occurrence_note<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.occurrence_note = v.into();
         self
     }
 
     /// Sets the value of [occurrence_resource_uri][crate::model::ValidateAttestationOccurrenceRequest::occurrence_resource_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::ValidateAttestationOccurrenceRequest;
-    /// let x = ValidateAttestationOccurrenceRequest::new().set_occurrence_resource_uri("example");
-    /// ```
     pub fn set_occurrence_resource_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2299,14 +1903,6 @@ impl ValidateAttestationOccurrenceResponse {
     }
 
     /// Sets the value of [result][crate::model::ValidateAttestationOccurrenceResponse::result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::ValidateAttestationOccurrenceResponse;
-    /// use google_cloud_binaryauthorization_v1::model::validate_attestation_occurrence_response::Result;
-    /// let x0 = ValidateAttestationOccurrenceResponse::new().set_result(Result::Verified);
-    /// let x1 = ValidateAttestationOccurrenceResponse::new().set_result(Result::AttestationNotVerifiable);
-    /// ```
     pub fn set_result<
         T: std::convert::Into<crate::model::validate_attestation_occurrence_response::Result>,
     >(
@@ -2318,12 +1914,6 @@ impl ValidateAttestationOccurrenceResponse {
     }
 
     /// Sets the value of [denial_reason][crate::model::ValidateAttestationOccurrenceResponse::denial_reason].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_binaryauthorization_v1::model::ValidateAttestationOccurrenceResponse;
-    /// let x = ValidateAttestationOccurrenceResponse::new().set_denial_reason("example");
-    /// ```
     pub fn set_denial_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.denial_reason = v.into();
         self

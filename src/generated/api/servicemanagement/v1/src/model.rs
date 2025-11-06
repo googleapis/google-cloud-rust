@@ -60,24 +60,12 @@ impl ManagedService {
     }
 
     /// Sets the value of [service_name][crate::model::ManagedService::service_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ManagedService;
-    /// let x = ManagedService::new().set_service_name("example");
-    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
     }
 
     /// Sets the value of [producer_project_id][crate::model::ManagedService::producer_project_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ManagedService;
-    /// let x = ManagedService::new().set_producer_project_id("example");
-    /// ```
     pub fn set_producer_project_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -119,12 +107,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [resource_names][crate::model::OperationMetadata::resource_names].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_resource_names(["a", "b", "c"]);
-    /// ```
     pub fn set_resource_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -136,17 +118,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [steps][crate::model::OperationMetadata::steps].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::OperationMetadata;
-    /// use google_cloud_api_servicemanagement_v1::model::operation_metadata::Step;
-    /// let x = OperationMetadata::new()
-    ///     .set_steps([
-    ///         Step::default()/* use setters */,
-    ///         Step::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_steps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -158,25 +129,12 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [progress_percentage][crate::model::OperationMetadata::progress_percentage].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_progress_percentage(42);
-    /// ```
     pub fn set_progress_percentage<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress_percentage = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::OperationMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -186,14 +144,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::OperationMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -233,27 +183,12 @@ pub mod operation_metadata {
         }
 
         /// Sets the value of [description][crate::model::operation_metadata::Step::description].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicemanagement_v1::model::operation_metadata::Step;
-        /// let x = Step::new().set_description("example");
-        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [status][crate::model::operation_metadata::Step::status].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicemanagement_v1::model::operation_metadata::Step;
-        /// use google_cloud_api_servicemanagement_v1::model::operation_metadata::Status;
-        /// let x0 = Step::new().set_status(Status::Done);
-        /// let x1 = Step::new().set_status(Status::NotStarted);
-        /// let x2 = Step::new().set_status(Status::InProgress);
-        /// ```
         pub fn set_status<T: std::convert::Into<crate::model::operation_metadata::Status>>(
             mut self,
             v: T,
@@ -446,37 +381,18 @@ impl Diagnostic {
     }
 
     /// Sets the value of [location][crate::model::Diagnostic::location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::Diagnostic;
-    /// let x = Diagnostic::new().set_location("example");
-    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::Diagnostic::kind].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::Diagnostic;
-    /// use google_cloud_api_servicemanagement_v1::model::diagnostic::Kind;
-    /// let x0 = Diagnostic::new().set_kind(Kind::Error);
-    /// ```
     pub fn set_kind<T: std::convert::Into<crate::model::diagnostic::Kind>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [message][crate::model::Diagnostic::message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::Diagnostic;
-    /// let x = Diagnostic::new().set_message("example");
-    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
@@ -643,29 +559,12 @@ impl ConfigSource {
     }
 
     /// Sets the value of [id][crate::model::ConfigSource::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ConfigSource;
-    /// let x = ConfigSource::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [files][crate::model::ConfigSource::files].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ConfigSource;
-    /// use google_cloud_api_servicemanagement_v1::model::ConfigFile;
-    /// let x = ConfigSource::new()
-    ///     .set_files([
-    ///         ConfigFile::default()/* use setters */,
-    ///         ConfigFile::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -705,39 +604,18 @@ impl ConfigFile {
     }
 
     /// Sets the value of [file_path][crate::model::ConfigFile::file_path].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ConfigFile;
-    /// let x = ConfigFile::new().set_file_path("example");
-    /// ```
     pub fn set_file_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_path = v.into();
         self
     }
 
     /// Sets the value of [file_contents][crate::model::ConfigFile::file_contents].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ConfigFile;
-    /// let x = ConfigFile::new().set_file_contents(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_file_contents<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.file_contents = v.into();
         self
     }
 
     /// Sets the value of [file_type][crate::model::ConfigFile::file_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ConfigFile;
-    /// use google_cloud_api_servicemanagement_v1::model::config_file::FileType;
-    /// let x0 = ConfigFile::new().set_file_type(FileType::ServiceConfigYaml);
-    /// let x1 = ConfigFile::new().set_file_type(FileType::OpenApiJson);
-    /// let x2 = ConfigFile::new().set_file_type(FileType::OpenApiYaml);
-    /// ```
     pub fn set_file_type<T: std::convert::Into<crate::model::config_file::FileType>>(
         mut self,
         v: T,
@@ -940,12 +818,6 @@ impl ConfigRef {
     }
 
     /// Sets the value of [name][crate::model::ConfigRef::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ConfigRef;
-    /// let x = ConfigRef::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -981,17 +853,6 @@ impl ChangeReport {
     }
 
     /// Sets the value of [config_changes][crate::model::ChangeReport::config_changes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ChangeReport;
-    /// use api::model::ConfigChange;
-    /// let x = ChangeReport::new()
-    ///     .set_config_changes([
-    ///         ConfigChange::default()/* use setters */,
-    ///         ConfigChange::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_config_changes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1054,25 +915,12 @@ impl Rollout {
     }
 
     /// Sets the value of [rollout_id][crate::model::Rollout::rollout_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::Rollout;
-    /// let x = Rollout::new().set_rollout_id("example");
-    /// ```
     pub fn set_rollout_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout_id = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Rollout::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::Rollout;
-    /// use wkt::Timestamp;
-    /// let x = Rollout::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1082,14 +930,6 @@ impl Rollout {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Rollout::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::Rollout;
-    /// use wkt::Timestamp;
-    /// let x = Rollout::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Rollout::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1099,27 +939,12 @@ impl Rollout {
     }
 
     /// Sets the value of [created_by][crate::model::Rollout::created_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::Rollout;
-    /// let x = Rollout::new().set_created_by("example");
-    /// ```
     pub fn set_created_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.created_by = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::Rollout::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::Rollout;
-    /// use google_cloud_api_servicemanagement_v1::model::rollout::RolloutStatus;
-    /// let x0 = Rollout::new().set_status(RolloutStatus::InProgress);
-    /// let x1 = Rollout::new().set_status(RolloutStatus::Success);
-    /// let x2 = Rollout::new().set_status(RolloutStatus::Cancelled);
-    /// ```
     pub fn set_status<T: std::convert::Into<crate::model::rollout::RolloutStatus>>(
         mut self,
         v: T,
@@ -1129,12 +954,6 @@ impl Rollout {
     }
 
     /// Sets the value of [service_name][crate::model::Rollout::service_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::Rollout;
-    /// let x = Rollout::new().set_service_name("example");
-    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
@@ -1144,14 +963,6 @@ impl Rollout {
     ///
     /// Note that all the setters affecting `strategy` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::Rollout;
-    /// use google_cloud_api_servicemanagement_v1::model::rollout;
-    /// use google_cloud_api_servicemanagement_v1::model::rollout::TrafficPercentStrategy;
-    /// let x = Rollout::new().set_strategy(Some(rollout::Strategy::TrafficPercentStrategy(TrafficPercentStrategy::default().into())));
-    /// ```
     pub fn set_strategy<
         T: std::convert::Into<std::option::Option<crate::model::rollout::Strategy>>,
     >(
@@ -1182,15 +993,6 @@ impl Rollout {
     ///
     /// Note that all the setters affecting `strategy` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::Rollout;
-    /// use google_cloud_api_servicemanagement_v1::model::rollout::TrafficPercentStrategy;
-    /// let x = Rollout::new().set_traffic_percent_strategy(TrafficPercentStrategy::default()/* use setters */);
-    /// assert!(x.traffic_percent_strategy().is_some());
-    /// assert!(x.delete_service_strategy().is_none());
-    /// ```
     pub fn set_traffic_percent_strategy<
         T: std::convert::Into<std::boxed::Box<crate::model::rollout::TrafficPercentStrategy>>,
     >(
@@ -1223,15 +1025,6 @@ impl Rollout {
     ///
     /// Note that all the setters affecting `strategy` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::Rollout;
-    /// use google_cloud_api_servicemanagement_v1::model::rollout::DeleteServiceStrategy;
-    /// let x = Rollout::new().set_delete_service_strategy(DeleteServiceStrategy::default()/* use setters */);
-    /// assert!(x.delete_service_strategy().is_some());
-    /// assert!(x.traffic_percent_strategy().is_none());
-    /// ```
     pub fn set_delete_service_strategy<
         T: std::convert::Into<std::boxed::Box<crate::model::rollout::DeleteServiceStrategy>>,
     >(
@@ -1307,15 +1100,6 @@ pub mod rollout {
         }
 
         /// Sets the value of [percentages][crate::model::rollout::TrafficPercentStrategy::percentages].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicemanagement_v1::model::rollout::TrafficPercentStrategy;
-        /// let x = TrafficPercentStrategy::new().set_percentages([
-        ///     ("key0", 123.5),
-        ///     ("key1", 456.5),
-        /// ]);
-        /// ```
         pub fn set_percentages<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1564,12 +1348,6 @@ impl ListServicesRequest {
     }
 
     /// Sets the value of [producer_project_id][crate::model::ListServicesRequest::producer_project_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_producer_project_id("example");
-    /// ```
     pub fn set_producer_project_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1579,36 +1357,18 @@ impl ListServicesRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListServicesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListServicesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [consumer_id][crate::model::ListServicesRequest::consumer_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_consumer_id("example");
-    /// ```
     #[deprecated]
     pub fn set_consumer_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.consumer_id = v.into();
@@ -1641,17 +1401,6 @@ impl ListServicesResponse {
     }
 
     /// Sets the value of [services][crate::model::ListServicesResponse::services].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ListServicesResponse;
-    /// use google_cloud_api_servicemanagement_v1::model::ManagedService;
-    /// let x = ListServicesResponse::new()
-    ///     .set_services([
-    ///         ManagedService::default()/* use setters */,
-    ///         ManagedService::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1663,12 +1412,6 @@ impl ListServicesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ListServicesResponse;
-    /// let x = ListServicesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1712,12 +1455,6 @@ impl GetServiceRequest {
     }
 
     /// Sets the value of [service_name][crate::model::GetServiceRequest::service_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::GetServiceRequest;
-    /// let x = GetServiceRequest::new().set_service_name("example");
-    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
@@ -1746,13 +1483,6 @@ impl CreateServiceRequest {
     }
 
     /// Sets the value of [service][crate::model::CreateServiceRequest::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::CreateServiceRequest;
-    /// use google_cloud_api_servicemanagement_v1::model::ManagedService;
-    /// let x = CreateServiceRequest::new().set_service(ManagedService::default()/* use setters */);
-    /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ManagedService>,
@@ -1762,14 +1492,6 @@ impl CreateServiceRequest {
     }
 
     /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::CreateServiceRequest;
-    /// use google_cloud_api_servicemanagement_v1::model::ManagedService;
-    /// let x = CreateServiceRequest::new().set_or_clear_service(Some(ManagedService::default()/* use setters */));
-    /// let x = CreateServiceRequest::new().set_or_clear_service(None::<ManagedService>);
-    /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagedService>,
@@ -1803,12 +1525,6 @@ impl DeleteServiceRequest {
     }
 
     /// Sets the value of [service_name][crate::model::DeleteServiceRequest::service_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::DeleteServiceRequest;
-    /// let x = DeleteServiceRequest::new().set_service_name("example");
-    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
@@ -1839,12 +1555,6 @@ impl UndeleteServiceRequest {
     }
 
     /// Sets the value of [service_name][crate::model::UndeleteServiceRequest::service_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::UndeleteServiceRequest;
-    /// let x = UndeleteServiceRequest::new().set_service_name("example");
-    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
@@ -1873,13 +1583,6 @@ impl UndeleteServiceResponse {
     }
 
     /// Sets the value of [service][crate::model::UndeleteServiceResponse::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::UndeleteServiceResponse;
-    /// use google_cloud_api_servicemanagement_v1::model::ManagedService;
-    /// let x = UndeleteServiceResponse::new().set_service(ManagedService::default()/* use setters */);
-    /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ManagedService>,
@@ -1889,14 +1592,6 @@ impl UndeleteServiceResponse {
     }
 
     /// Sets or clears the value of [service][crate::model::UndeleteServiceResponse::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::UndeleteServiceResponse;
-    /// use google_cloud_api_servicemanagement_v1::model::ManagedService;
-    /// let x = UndeleteServiceResponse::new().set_or_clear_service(Some(ManagedService::default()/* use setters */));
-    /// let x = UndeleteServiceResponse::new().set_or_clear_service(None::<ManagedService>);
-    /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagedService>,
@@ -1940,37 +1635,18 @@ impl GetServiceConfigRequest {
     }
 
     /// Sets the value of [service_name][crate::model::GetServiceConfigRequest::service_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::GetServiceConfigRequest;
-    /// let x = GetServiceConfigRequest::new().set_service_name("example");
-    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
     }
 
     /// Sets the value of [config_id][crate::model::GetServiceConfigRequest::config_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::GetServiceConfigRequest;
-    /// let x = GetServiceConfigRequest::new().set_config_id("example");
-    /// ```
     pub fn set_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.config_id = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetServiceConfigRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::GetServiceConfigRequest;
-    /// use google_cloud_api_servicemanagement_v1::model::get_service_config_request::ConfigView;
-    /// let x0 = GetServiceConfigRequest::new().set_view(ConfigView::Full);
-    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::get_service_config_request::ConfigView>>(
         mut self,
         v: T,
@@ -2144,36 +1820,18 @@ impl ListServiceConfigsRequest {
     }
 
     /// Sets the value of [service_name][crate::model::ListServiceConfigsRequest::service_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ListServiceConfigsRequest;
-    /// let x = ListServiceConfigsRequest::new().set_service_name("example");
-    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListServiceConfigsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ListServiceConfigsRequest;
-    /// let x = ListServiceConfigsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListServiceConfigsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ListServiceConfigsRequest;
-    /// let x = ListServiceConfigsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -2205,17 +1863,6 @@ impl ListServiceConfigsResponse {
     }
 
     /// Sets the value of [service_configs][crate::model::ListServiceConfigsResponse::service_configs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ListServiceConfigsResponse;
-    /// use api::model::Service;
-    /// let x = ListServiceConfigsResponse::new()
-    ///     .set_service_configs([
-    ///         Service::default()/* use setters */,
-    ///         Service::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_service_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2227,12 +1874,6 @@ impl ListServiceConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListServiceConfigsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ListServiceConfigsResponse;
-    /// let x = ListServiceConfigsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2280,25 +1921,12 @@ impl CreateServiceConfigRequest {
     }
 
     /// Sets the value of [service_name][crate::model::CreateServiceConfigRequest::service_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::CreateServiceConfigRequest;
-    /// let x = CreateServiceConfigRequest::new().set_service_name("example");
-    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
     }
 
     /// Sets the value of [service_config][crate::model::CreateServiceConfigRequest::service_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::CreateServiceConfigRequest;
-    /// use api::model::Service;
-    /// let x = CreateServiceConfigRequest::new().set_service_config(Service::default()/* use setters */);
-    /// ```
     pub fn set_service_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<api::model::Service>,
@@ -2308,14 +1936,6 @@ impl CreateServiceConfigRequest {
     }
 
     /// Sets or clears the value of [service_config][crate::model::CreateServiceConfigRequest::service_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::CreateServiceConfigRequest;
-    /// use api::model::Service;
-    /// let x = CreateServiceConfigRequest::new().set_or_clear_service_config(Some(Service::default()/* use setters */));
-    /// let x = CreateServiceConfigRequest::new().set_or_clear_service_config(None::<Service>);
-    /// ```
     pub fn set_or_clear_service_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Service>,
@@ -2357,25 +1977,12 @@ impl SubmitConfigSourceRequest {
     }
 
     /// Sets the value of [service_name][crate::model::SubmitConfigSourceRequest::service_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::SubmitConfigSourceRequest;
-    /// let x = SubmitConfigSourceRequest::new().set_service_name("example");
-    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
     }
 
     /// Sets the value of [config_source][crate::model::SubmitConfigSourceRequest::config_source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::SubmitConfigSourceRequest;
-    /// use google_cloud_api_servicemanagement_v1::model::ConfigSource;
-    /// let x = SubmitConfigSourceRequest::new().set_config_source(ConfigSource::default()/* use setters */);
-    /// ```
     pub fn set_config_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConfigSource>,
@@ -2385,14 +1992,6 @@ impl SubmitConfigSourceRequest {
     }
 
     /// Sets or clears the value of [config_source][crate::model::SubmitConfigSourceRequest::config_source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::SubmitConfigSourceRequest;
-    /// use google_cloud_api_servicemanagement_v1::model::ConfigSource;
-    /// let x = SubmitConfigSourceRequest::new().set_or_clear_config_source(Some(ConfigSource::default()/* use setters */));
-    /// let x = SubmitConfigSourceRequest::new().set_or_clear_config_source(None::<ConfigSource>);
-    /// ```
     pub fn set_or_clear_config_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfigSource>,
@@ -2402,12 +2001,6 @@ impl SubmitConfigSourceRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::SubmitConfigSourceRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::SubmitConfigSourceRequest;
-    /// let x = SubmitConfigSourceRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -2436,13 +2029,6 @@ impl SubmitConfigSourceResponse {
     }
 
     /// Sets the value of [service_config][crate::model::SubmitConfigSourceResponse::service_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::SubmitConfigSourceResponse;
-    /// use api::model::Service;
-    /// let x = SubmitConfigSourceResponse::new().set_service_config(Service::default()/* use setters */);
-    /// ```
     pub fn set_service_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<api::model::Service>,
@@ -2452,14 +2038,6 @@ impl SubmitConfigSourceResponse {
     }
 
     /// Sets or clears the value of [service_config][crate::model::SubmitConfigSourceResponse::service_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::SubmitConfigSourceResponse;
-    /// use api::model::Service;
-    /// let x = SubmitConfigSourceResponse::new().set_or_clear_service_config(Some(Service::default()/* use setters */));
-    /// let x = SubmitConfigSourceResponse::new().set_or_clear_service_config(None::<Service>);
-    /// ```
     pub fn set_or_clear_service_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Service>,
@@ -2496,25 +2074,12 @@ impl CreateServiceRolloutRequest {
     }
 
     /// Sets the value of [service_name][crate::model::CreateServiceRolloutRequest::service_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::CreateServiceRolloutRequest;
-    /// let x = CreateServiceRolloutRequest::new().set_service_name("example");
-    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
     }
 
     /// Sets the value of [rollout][crate::model::CreateServiceRolloutRequest::rollout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::CreateServiceRolloutRequest;
-    /// use google_cloud_api_servicemanagement_v1::model::Rollout;
-    /// let x = CreateServiceRolloutRequest::new().set_rollout(Rollout::default()/* use setters */);
-    /// ```
     pub fn set_rollout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Rollout>,
@@ -2524,14 +2089,6 @@ impl CreateServiceRolloutRequest {
     }
 
     /// Sets or clears the value of [rollout][crate::model::CreateServiceRolloutRequest::rollout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::CreateServiceRolloutRequest;
-    /// use google_cloud_api_servicemanagement_v1::model::Rollout;
-    /// let x = CreateServiceRolloutRequest::new().set_or_clear_rollout(Some(Rollout::default()/* use setters */));
-    /// let x = CreateServiceRolloutRequest::new().set_or_clear_rollout(None::<Rollout>);
-    /// ```
     pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Rollout>,
@@ -2584,48 +2141,24 @@ impl ListServiceRolloutsRequest {
     }
 
     /// Sets the value of [service_name][crate::model::ListServiceRolloutsRequest::service_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ListServiceRolloutsRequest;
-    /// let x = ListServiceRolloutsRequest::new().set_service_name("example");
-    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListServiceRolloutsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ListServiceRolloutsRequest;
-    /// let x = ListServiceRolloutsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListServiceRolloutsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ListServiceRolloutsRequest;
-    /// let x = ListServiceRolloutsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListServiceRolloutsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ListServiceRolloutsRequest;
-    /// let x = ListServiceRolloutsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -2657,17 +2190,6 @@ impl ListServiceRolloutsResponse {
     }
 
     /// Sets the value of [rollouts][crate::model::ListServiceRolloutsResponse::rollouts].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ListServiceRolloutsResponse;
-    /// use google_cloud_api_servicemanagement_v1::model::Rollout;
-    /// let x = ListServiceRolloutsResponse::new()
-    ///     .set_rollouts([
-    ///         Rollout::default()/* use setters */,
-    ///         Rollout::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_rollouts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2679,12 +2201,6 @@ impl ListServiceRolloutsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListServiceRolloutsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::ListServiceRolloutsResponse;
-    /// let x = ListServiceRolloutsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2732,24 +2248,12 @@ impl GetServiceRolloutRequest {
     }
 
     /// Sets the value of [service_name][crate::model::GetServiceRolloutRequest::service_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::GetServiceRolloutRequest;
-    /// let x = GetServiceRolloutRequest::new().set_service_name("example");
-    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
     }
 
     /// Sets the value of [rollout_id][crate::model::GetServiceRolloutRequest::rollout_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::GetServiceRolloutRequest;
-    /// let x = GetServiceRolloutRequest::new().set_rollout_id("example");
-    /// ```
     pub fn set_rollout_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout_id = v.into();
         self
@@ -2816,13 +2320,6 @@ impl GenerateConfigReportRequest {
     }
 
     /// Sets the value of [new_config][crate::model::GenerateConfigReportRequest::new_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::GenerateConfigReportRequest;
-    /// use wkt::Any;
-    /// let x = GenerateConfigReportRequest::new().set_new_config(Any::default()/* use setters */);
-    /// ```
     pub fn set_new_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -2832,14 +2329,6 @@ impl GenerateConfigReportRequest {
     }
 
     /// Sets or clears the value of [new_config][crate::model::GenerateConfigReportRequest::new_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::GenerateConfigReportRequest;
-    /// use wkt::Any;
-    /// let x = GenerateConfigReportRequest::new().set_or_clear_new_config(Some(Any::default()/* use setters */));
-    /// let x = GenerateConfigReportRequest::new().set_or_clear_new_config(None::<Any>);
-    /// ```
     pub fn set_or_clear_new_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -2849,13 +2338,6 @@ impl GenerateConfigReportRequest {
     }
 
     /// Sets the value of [old_config][crate::model::GenerateConfigReportRequest::old_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::GenerateConfigReportRequest;
-    /// use wkt::Any;
-    /// let x = GenerateConfigReportRequest::new().set_old_config(Any::default()/* use setters */);
-    /// ```
     pub fn set_old_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -2865,14 +2347,6 @@ impl GenerateConfigReportRequest {
     }
 
     /// Sets or clears the value of [old_config][crate::model::GenerateConfigReportRequest::old_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::GenerateConfigReportRequest;
-    /// use wkt::Any;
-    /// let x = GenerateConfigReportRequest::new().set_or_clear_old_config(Some(Any::default()/* use setters */));
-    /// let x = GenerateConfigReportRequest::new().set_or_clear_old_config(None::<Any>);
-    /// ```
     pub fn set_or_clear_old_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -2916,41 +2390,18 @@ impl GenerateConfigReportResponse {
     }
 
     /// Sets the value of [service_name][crate::model::GenerateConfigReportResponse::service_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::GenerateConfigReportResponse;
-    /// let x = GenerateConfigReportResponse::new().set_service_name("example");
-    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::GenerateConfigReportResponse::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::GenerateConfigReportResponse;
-    /// let x = GenerateConfigReportResponse::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [change_reports][crate::model::GenerateConfigReportResponse::change_reports].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::GenerateConfigReportResponse;
-    /// use google_cloud_api_servicemanagement_v1::model::ChangeReport;
-    /// let x = GenerateConfigReportResponse::new()
-    ///     .set_change_reports([
-    ///         ChangeReport::default()/* use setters */,
-    ///         ChangeReport::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_change_reports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2962,17 +2413,6 @@ impl GenerateConfigReportResponse {
     }
 
     /// Sets the value of [diagnostics][crate::model::GenerateConfigReportResponse::diagnostics].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicemanagement_v1::model::GenerateConfigReportResponse;
-    /// use google_cloud_api_servicemanagement_v1::model::Diagnostic;
-    /// let x = GenerateConfigReportResponse::new()
-    ///     .set_diagnostics([
-    ///         Diagnostic::default()/* use setters */,
-    ///         Diagnostic::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_diagnostics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

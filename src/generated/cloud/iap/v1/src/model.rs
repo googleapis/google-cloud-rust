@@ -68,36 +68,18 @@ impl ListTunnelDestGroupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTunnelDestGroupsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ListTunnelDestGroupsRequest;
-    /// let x = ListTunnelDestGroupsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTunnelDestGroupsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ListTunnelDestGroupsRequest;
-    /// let x = ListTunnelDestGroupsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTunnelDestGroupsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ListTunnelDestGroupsRequest;
-    /// let x = ListTunnelDestGroupsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -130,17 +112,6 @@ impl ListTunnelDestGroupsResponse {
     }
 
     /// Sets the value of [tunnel_dest_groups][crate::model::ListTunnelDestGroupsResponse::tunnel_dest_groups].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ListTunnelDestGroupsResponse;
-    /// use google_cloud_iap_v1::model::TunnelDestGroup;
-    /// let x = ListTunnelDestGroupsResponse::new()
-    ///     .set_tunnel_dest_groups([
-    ///         TunnelDestGroup::default()/* use setters */,
-    ///         TunnelDestGroup::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_tunnel_dest_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -152,12 +123,6 @@ impl ListTunnelDestGroupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTunnelDestGroupsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ListTunnelDestGroupsResponse;
-    /// let x = ListTunnelDestGroupsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -212,25 +177,12 @@ impl CreateTunnelDestGroupRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTunnelDestGroupRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::CreateTunnelDestGroupRequest;
-    /// let x = CreateTunnelDestGroupRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [tunnel_dest_group][crate::model::CreateTunnelDestGroupRequest::tunnel_dest_group].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::CreateTunnelDestGroupRequest;
-    /// use google_cloud_iap_v1::model::TunnelDestGroup;
-    /// let x = CreateTunnelDestGroupRequest::new().set_tunnel_dest_group(TunnelDestGroup::default()/* use setters */);
-    /// ```
     pub fn set_tunnel_dest_group<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TunnelDestGroup>,
@@ -240,14 +192,6 @@ impl CreateTunnelDestGroupRequest {
     }
 
     /// Sets or clears the value of [tunnel_dest_group][crate::model::CreateTunnelDestGroupRequest::tunnel_dest_group].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::CreateTunnelDestGroupRequest;
-    /// use google_cloud_iap_v1::model::TunnelDestGroup;
-    /// let x = CreateTunnelDestGroupRequest::new().set_or_clear_tunnel_dest_group(Some(TunnelDestGroup::default()/* use setters */));
-    /// let x = CreateTunnelDestGroupRequest::new().set_or_clear_tunnel_dest_group(None::<TunnelDestGroup>);
-    /// ```
     pub fn set_or_clear_tunnel_dest_group<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TunnelDestGroup>,
@@ -257,12 +201,6 @@ impl CreateTunnelDestGroupRequest {
     }
 
     /// Sets the value of [tunnel_dest_group_id][crate::model::CreateTunnelDestGroupRequest::tunnel_dest_group_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::CreateTunnelDestGroupRequest;
-    /// let x = CreateTunnelDestGroupRequest::new().set_tunnel_dest_group_id("example");
-    /// ```
     pub fn set_tunnel_dest_group_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -296,12 +234,6 @@ impl GetTunnelDestGroupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTunnelDestGroupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::GetTunnelDestGroupRequest;
-    /// let x = GetTunnelDestGroupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -332,12 +264,6 @@ impl DeleteTunnelDestGroupRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTunnelDestGroupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::DeleteTunnelDestGroupRequest;
-    /// let x = DeleteTunnelDestGroupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -371,13 +297,6 @@ impl UpdateTunnelDestGroupRequest {
     }
 
     /// Sets the value of [tunnel_dest_group][crate::model::UpdateTunnelDestGroupRequest::tunnel_dest_group].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::UpdateTunnelDestGroupRequest;
-    /// use google_cloud_iap_v1::model::TunnelDestGroup;
-    /// let x = UpdateTunnelDestGroupRequest::new().set_tunnel_dest_group(TunnelDestGroup::default()/* use setters */);
-    /// ```
     pub fn set_tunnel_dest_group<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TunnelDestGroup>,
@@ -387,14 +306,6 @@ impl UpdateTunnelDestGroupRequest {
     }
 
     /// Sets or clears the value of [tunnel_dest_group][crate::model::UpdateTunnelDestGroupRequest::tunnel_dest_group].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::UpdateTunnelDestGroupRequest;
-    /// use google_cloud_iap_v1::model::TunnelDestGroup;
-    /// let x = UpdateTunnelDestGroupRequest::new().set_or_clear_tunnel_dest_group(Some(TunnelDestGroup::default()/* use setters */));
-    /// let x = UpdateTunnelDestGroupRequest::new().set_or_clear_tunnel_dest_group(None::<TunnelDestGroup>);
-    /// ```
     pub fn set_or_clear_tunnel_dest_group<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TunnelDestGroup>,
@@ -404,13 +315,6 @@ impl UpdateTunnelDestGroupRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTunnelDestGroupRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::UpdateTunnelDestGroupRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTunnelDestGroupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -420,14 +324,6 @@ impl UpdateTunnelDestGroupRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTunnelDestGroupRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::UpdateTunnelDestGroupRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTunnelDestGroupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateTunnelDestGroupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -466,24 +362,12 @@ impl TunnelDestGroup {
     }
 
     /// Sets the value of [name][crate::model::TunnelDestGroup::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::TunnelDestGroup;
-    /// let x = TunnelDestGroup::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [cidrs][crate::model::TunnelDestGroup::cidrs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::TunnelDestGroup;
-    /// let x = TunnelDestGroup::new().set_cidrs(["a", "b", "c"]);
-    /// ```
     pub fn set_cidrs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -495,12 +379,6 @@ impl TunnelDestGroup {
     }
 
     /// Sets the value of [fqdns][crate::model::TunnelDestGroup::fqdns].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::TunnelDestGroup;
-    /// let x = TunnelDestGroup::new().set_fqdns(["a", "b", "c"]);
-    /// ```
     pub fn set_fqdns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -536,12 +414,6 @@ impl GetIapSettingsRequest {
     }
 
     /// Sets the value of [name][crate::model::GetIapSettingsRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::GetIapSettingsRequest;
-    /// let x = GetIapSettingsRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -580,13 +452,6 @@ impl UpdateIapSettingsRequest {
     }
 
     /// Sets the value of [iap_settings][crate::model::UpdateIapSettingsRequest::iap_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::UpdateIapSettingsRequest;
-    /// use google_cloud_iap_v1::model::IapSettings;
-    /// let x = UpdateIapSettingsRequest::new().set_iap_settings(IapSettings::default()/* use setters */);
-    /// ```
     pub fn set_iap_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IapSettings>,
@@ -596,14 +461,6 @@ impl UpdateIapSettingsRequest {
     }
 
     /// Sets or clears the value of [iap_settings][crate::model::UpdateIapSettingsRequest::iap_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::UpdateIapSettingsRequest;
-    /// use google_cloud_iap_v1::model::IapSettings;
-    /// let x = UpdateIapSettingsRequest::new().set_or_clear_iap_settings(Some(IapSettings::default()/* use setters */));
-    /// let x = UpdateIapSettingsRequest::new().set_or_clear_iap_settings(None::<IapSettings>);
-    /// ```
     pub fn set_or_clear_iap_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IapSettings>,
@@ -613,13 +470,6 @@ impl UpdateIapSettingsRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateIapSettingsRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::UpdateIapSettingsRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateIapSettingsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -629,14 +479,6 @@ impl UpdateIapSettingsRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateIapSettingsRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::UpdateIapSettingsRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateIapSettingsRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateIapSettingsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -674,25 +516,12 @@ impl IapSettings {
     }
 
     /// Sets the value of [name][crate::model::IapSettings::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::IapSettings;
-    /// let x = IapSettings::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [access_settings][crate::model::IapSettings::access_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::IapSettings;
-    /// use google_cloud_iap_v1::model::AccessSettings;
-    /// let x = IapSettings::new().set_access_settings(AccessSettings::default()/* use setters */);
-    /// ```
     pub fn set_access_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AccessSettings>,
@@ -702,14 +531,6 @@ impl IapSettings {
     }
 
     /// Sets or clears the value of [access_settings][crate::model::IapSettings::access_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::IapSettings;
-    /// use google_cloud_iap_v1::model::AccessSettings;
-    /// let x = IapSettings::new().set_or_clear_access_settings(Some(AccessSettings::default()/* use setters */));
-    /// let x = IapSettings::new().set_or_clear_access_settings(None::<AccessSettings>);
-    /// ```
     pub fn set_or_clear_access_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessSettings>,
@@ -719,13 +540,6 @@ impl IapSettings {
     }
 
     /// Sets the value of [application_settings][crate::model::IapSettings::application_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::IapSettings;
-    /// use google_cloud_iap_v1::model::ApplicationSettings;
-    /// let x = IapSettings::new().set_application_settings(ApplicationSettings::default()/* use setters */);
-    /// ```
     pub fn set_application_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ApplicationSettings>,
@@ -735,14 +549,6 @@ impl IapSettings {
     }
 
     /// Sets or clears the value of [application_settings][crate::model::IapSettings::application_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::IapSettings;
-    /// use google_cloud_iap_v1::model::ApplicationSettings;
-    /// let x = IapSettings::new().set_or_clear_application_settings(Some(ApplicationSettings::default()/* use setters */));
-    /// let x = IapSettings::new().set_or_clear_application_settings(None::<ApplicationSettings>);
-    /// ```
     pub fn set_or_clear_application_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ApplicationSettings>,
@@ -795,13 +601,6 @@ impl AccessSettings {
     }
 
     /// Sets the value of [gcip_settings][crate::model::AccessSettings::gcip_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessSettings;
-    /// use google_cloud_iap_v1::model::GcipSettings;
-    /// let x = AccessSettings::new().set_gcip_settings(GcipSettings::default()/* use setters */);
-    /// ```
     pub fn set_gcip_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GcipSettings>,
@@ -811,14 +610,6 @@ impl AccessSettings {
     }
 
     /// Sets or clears the value of [gcip_settings][crate::model::AccessSettings::gcip_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessSettings;
-    /// use google_cloud_iap_v1::model::GcipSettings;
-    /// let x = AccessSettings::new().set_or_clear_gcip_settings(Some(GcipSettings::default()/* use setters */));
-    /// let x = AccessSettings::new().set_or_clear_gcip_settings(None::<GcipSettings>);
-    /// ```
     pub fn set_or_clear_gcip_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcipSettings>,
@@ -828,13 +619,6 @@ impl AccessSettings {
     }
 
     /// Sets the value of [cors_settings][crate::model::AccessSettings::cors_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessSettings;
-    /// use google_cloud_iap_v1::model::CorsSettings;
-    /// let x = AccessSettings::new().set_cors_settings(CorsSettings::default()/* use setters */);
-    /// ```
     pub fn set_cors_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CorsSettings>,
@@ -844,14 +628,6 @@ impl AccessSettings {
     }
 
     /// Sets or clears the value of [cors_settings][crate::model::AccessSettings::cors_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessSettings;
-    /// use google_cloud_iap_v1::model::CorsSettings;
-    /// let x = AccessSettings::new().set_or_clear_cors_settings(Some(CorsSettings::default()/* use setters */));
-    /// let x = AccessSettings::new().set_or_clear_cors_settings(None::<CorsSettings>);
-    /// ```
     pub fn set_or_clear_cors_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CorsSettings>,
@@ -861,13 +637,6 @@ impl AccessSettings {
     }
 
     /// Sets the value of [oauth_settings][crate::model::AccessSettings::oauth_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessSettings;
-    /// use google_cloud_iap_v1::model::OAuthSettings;
-    /// let x = AccessSettings::new().set_oauth_settings(OAuthSettings::default()/* use setters */);
-    /// ```
     pub fn set_oauth_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OAuthSettings>,
@@ -877,14 +646,6 @@ impl AccessSettings {
     }
 
     /// Sets or clears the value of [oauth_settings][crate::model::AccessSettings::oauth_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessSettings;
-    /// use google_cloud_iap_v1::model::OAuthSettings;
-    /// let x = AccessSettings::new().set_or_clear_oauth_settings(Some(OAuthSettings::default()/* use setters */));
-    /// let x = AccessSettings::new().set_or_clear_oauth_settings(None::<OAuthSettings>);
-    /// ```
     pub fn set_or_clear_oauth_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OAuthSettings>,
@@ -894,13 +655,6 @@ impl AccessSettings {
     }
 
     /// Sets the value of [reauth_settings][crate::model::AccessSettings::reauth_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessSettings;
-    /// use google_cloud_iap_v1::model::ReauthSettings;
-    /// let x = AccessSettings::new().set_reauth_settings(ReauthSettings::default()/* use setters */);
-    /// ```
     pub fn set_reauth_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReauthSettings>,
@@ -910,14 +664,6 @@ impl AccessSettings {
     }
 
     /// Sets or clears the value of [reauth_settings][crate::model::AccessSettings::reauth_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessSettings;
-    /// use google_cloud_iap_v1::model::ReauthSettings;
-    /// let x = AccessSettings::new().set_or_clear_reauth_settings(Some(ReauthSettings::default()/* use setters */));
-    /// let x = AccessSettings::new().set_or_clear_reauth_settings(None::<ReauthSettings>);
-    /// ```
     pub fn set_or_clear_reauth_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReauthSettings>,
@@ -927,13 +673,6 @@ impl AccessSettings {
     }
 
     /// Sets the value of [allowed_domains_settings][crate::model::AccessSettings::allowed_domains_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessSettings;
-    /// use google_cloud_iap_v1::model::AllowedDomainsSettings;
-    /// let x = AccessSettings::new().set_allowed_domains_settings(AllowedDomainsSettings::default()/* use setters */);
-    /// ```
     pub fn set_allowed_domains_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AllowedDomainsSettings>,
@@ -943,14 +682,6 @@ impl AccessSettings {
     }
 
     /// Sets or clears the value of [allowed_domains_settings][crate::model::AccessSettings::allowed_domains_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessSettings;
-    /// use google_cloud_iap_v1::model::AllowedDomainsSettings;
-    /// let x = AccessSettings::new().set_or_clear_allowed_domains_settings(Some(AllowedDomainsSettings::default()/* use setters */));
-    /// let x = AccessSettings::new().set_or_clear_allowed_domains_settings(None::<AllowedDomainsSettings>);
-    /// ```
     pub fn set_or_clear_allowed_domains_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AllowedDomainsSettings>,
@@ -960,13 +691,6 @@ impl AccessSettings {
     }
 
     /// Sets the value of [workforce_identity_settings][crate::model::AccessSettings::workforce_identity_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessSettings;
-    /// use google_cloud_iap_v1::model::WorkforceIdentitySettings;
-    /// let x = AccessSettings::new().set_workforce_identity_settings(WorkforceIdentitySettings::default()/* use setters */);
-    /// ```
     pub fn set_workforce_identity_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkforceIdentitySettings>,
@@ -976,14 +700,6 @@ impl AccessSettings {
     }
 
     /// Sets or clears the value of [workforce_identity_settings][crate::model::AccessSettings::workforce_identity_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessSettings;
-    /// use google_cloud_iap_v1::model::WorkforceIdentitySettings;
-    /// let x = AccessSettings::new().set_or_clear_workforce_identity_settings(Some(WorkforceIdentitySettings::default()/* use setters */));
-    /// let x = AccessSettings::new().set_or_clear_workforce_identity_settings(None::<WorkforceIdentitySettings>);
-    /// ```
     pub fn set_or_clear_workforce_identity_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkforceIdentitySettings>,
@@ -993,15 +709,6 @@ impl AccessSettings {
     }
 
     /// Sets the value of [identity_sources][crate::model::AccessSettings::identity_sources].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessSettings;
-    /// use google_cloud_iap_v1::model::access_settings::IdentitySource;
-    /// let x = AccessSettings::new().set_identity_sources([
-    ///     IdentitySource::WorkforceIdentityFederation,
-    /// ]);
-    /// ```
     pub fn set_identity_sources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1184,12 +891,6 @@ impl GcipSettings {
     }
 
     /// Sets the value of [tenant_ids][crate::model::GcipSettings::tenant_ids].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::GcipSettings;
-    /// let x = GcipSettings::new().set_tenant_ids(["a", "b", "c"]);
-    /// ```
     pub fn set_tenant_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1201,13 +902,6 @@ impl GcipSettings {
     }
 
     /// Sets the value of [login_page_uri][crate::model::GcipSettings::login_page_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::GcipSettings;
-    /// use wkt::StringValue;
-    /// let x = GcipSettings::new().set_login_page_uri(StringValue::default()/* use setters */);
-    /// ```
     pub fn set_login_page_uri<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -1217,14 +911,6 @@ impl GcipSettings {
     }
 
     /// Sets or clears the value of [login_page_uri][crate::model::GcipSettings::login_page_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::GcipSettings;
-    /// use wkt::StringValue;
-    /// let x = GcipSettings::new().set_or_clear_login_page_uri(Some(StringValue::default()/* use setters */));
-    /// let x = GcipSettings::new().set_or_clear_login_page_uri(None::<StringValue>);
-    /// ```
     pub fn set_or_clear_login_page_uri<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -1259,13 +945,6 @@ impl CorsSettings {
     }
 
     /// Sets the value of [allow_http_options][crate::model::CorsSettings::allow_http_options].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::CorsSettings;
-    /// use wkt::BoolValue;
-    /// let x = CorsSettings::new().set_allow_http_options(BoolValue::default()/* use setters */);
-    /// ```
     pub fn set_allow_http_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -1275,14 +954,6 @@ impl CorsSettings {
     }
 
     /// Sets or clears the value of [allow_http_options][crate::model::CorsSettings::allow_http_options].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::CorsSettings;
-    /// use wkt::BoolValue;
-    /// let x = CorsSettings::new().set_or_clear_allow_http_options(Some(BoolValue::default()/* use setters */));
-    /// let x = CorsSettings::new().set_or_clear_allow_http_options(None::<BoolValue>);
-    /// ```
     pub fn set_or_clear_allow_http_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -1322,13 +993,6 @@ impl OAuthSettings {
     }
 
     /// Sets the value of [login_hint][crate::model::OAuthSettings::login_hint].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::OAuthSettings;
-    /// use wkt::StringValue;
-    /// let x = OAuthSettings::new().set_login_hint(StringValue::default()/* use setters */);
-    /// ```
     pub fn set_login_hint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -1338,14 +1002,6 @@ impl OAuthSettings {
     }
 
     /// Sets or clears the value of [login_hint][crate::model::OAuthSettings::login_hint].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::OAuthSettings;
-    /// use wkt::StringValue;
-    /// let x = OAuthSettings::new().set_or_clear_login_hint(Some(StringValue::default()/* use setters */));
-    /// let x = OAuthSettings::new().set_or_clear_login_hint(None::<StringValue>);
-    /// ```
     pub fn set_or_clear_login_hint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -1355,12 +1011,6 @@ impl OAuthSettings {
     }
 
     /// Sets the value of [programmatic_clients][crate::model::OAuthSettings::programmatic_clients].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::OAuthSettings;
-    /// let x = OAuthSettings::new().set_programmatic_clients(["a", "b", "c"]);
-    /// ```
     pub fn set_programmatic_clients<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1400,12 +1050,6 @@ impl WorkforceIdentitySettings {
     }
 
     /// Sets the value of [workforce_pools][crate::model::WorkforceIdentitySettings::workforce_pools].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::WorkforceIdentitySettings;
-    /// let x = WorkforceIdentitySettings::new().set_workforce_pools(["a", "b", "c"]);
-    /// ```
     pub fn set_workforce_pools<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1417,13 +1061,6 @@ impl WorkforceIdentitySettings {
     }
 
     /// Sets the value of [oauth2][crate::model::WorkforceIdentitySettings::oauth2].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::WorkforceIdentitySettings;
-    /// use google_cloud_iap_v1::model::OAuth2;
-    /// let x = WorkforceIdentitySettings::new().set_oauth2(OAuth2::default()/* use setters */);
-    /// ```
     pub fn set_oauth2<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OAuth2>,
@@ -1433,14 +1070,6 @@ impl WorkforceIdentitySettings {
     }
 
     /// Sets or clears the value of [oauth2][crate::model::WorkforceIdentitySettings::oauth2].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::WorkforceIdentitySettings;
-    /// use google_cloud_iap_v1::model::OAuth2;
-    /// let x = WorkforceIdentitySettings::new().set_or_clear_oauth2(Some(OAuth2::default()/* use setters */));
-    /// let x = WorkforceIdentitySettings::new().set_or_clear_oauth2(None::<OAuth2>);
-    /// ```
     pub fn set_or_clear_oauth2<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OAuth2>,
@@ -1481,36 +1110,18 @@ impl OAuth2 {
     }
 
     /// Sets the value of [client_id][crate::model::OAuth2::client_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::OAuth2;
-    /// let x = OAuth2::new().set_client_id("example");
-    /// ```
     pub fn set_client_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_id = v.into();
         self
     }
 
     /// Sets the value of [client_secret][crate::model::OAuth2::client_secret].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::OAuth2;
-    /// let x = OAuth2::new().set_client_secret("example");
-    /// ```
     pub fn set_client_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_secret = v.into();
         self
     }
 
     /// Sets the value of [client_secret_sha256][crate::model::OAuth2::client_secret_sha256].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::OAuth2;
-    /// let x = OAuth2::new().set_client_secret_sha256("example");
-    /// ```
     pub fn set_client_secret_sha256<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1551,15 +1162,6 @@ impl ReauthSettings {
     }
 
     /// Sets the value of [method][crate::model::ReauthSettings::method].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ReauthSettings;
-    /// use google_cloud_iap_v1::model::reauth_settings::Method;
-    /// let x0 = ReauthSettings::new().set_method(Method::Login);
-    /// let x1 = ReauthSettings::new().set_method(Method::SecureKey);
-    /// let x2 = ReauthSettings::new().set_method(Method::EnrolledSecondFactors);
-    /// ```
     pub fn set_method<T: std::convert::Into<crate::model::reauth_settings::Method>>(
         mut self,
         v: T,
@@ -1569,13 +1171,6 @@ impl ReauthSettings {
     }
 
     /// Sets the value of [max_age][crate::model::ReauthSettings::max_age].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ReauthSettings;
-    /// use wkt::Duration;
-    /// let x = ReauthSettings::new().set_max_age(Duration::default()/* use setters */);
-    /// ```
     pub fn set_max_age<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1585,14 +1180,6 @@ impl ReauthSettings {
     }
 
     /// Sets or clears the value of [max_age][crate::model::ReauthSettings::max_age].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ReauthSettings;
-    /// use wkt::Duration;
-    /// let x = ReauthSettings::new().set_or_clear_max_age(Some(Duration::default()/* use setters */));
-    /// let x = ReauthSettings::new().set_or_clear_max_age(None::<Duration>);
-    /// ```
     pub fn set_or_clear_max_age<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1602,14 +1189,6 @@ impl ReauthSettings {
     }
 
     /// Sets the value of [policy_type][crate::model::ReauthSettings::policy_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ReauthSettings;
-    /// use google_cloud_iap_v1::model::reauth_settings::PolicyType;
-    /// let x0 = ReauthSettings::new().set_policy_type(PolicyType::Minimum);
-    /// let x1 = ReauthSettings::new().set_policy_type(PolicyType::Default);
-    /// ```
     pub fn set_policy_type<T: std::convert::Into<crate::model::reauth_settings::PolicyType>>(
         mut self,
         v: T,
@@ -1930,12 +1509,6 @@ impl AllowedDomainsSettings {
     }
 
     /// Sets the value of [enable][crate::model::AllowedDomainsSettings::enable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AllowedDomainsSettings;
-    /// let x = AllowedDomainsSettings::new().set_enable(true);
-    /// ```
     pub fn set_enable<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1945,13 +1518,6 @@ impl AllowedDomainsSettings {
     }
 
     /// Sets or clears the value of [enable][crate::model::AllowedDomainsSettings::enable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AllowedDomainsSettings;
-    /// let x = AllowedDomainsSettings::new().set_or_clear_enable(Some(false));
-    /// let x = AllowedDomainsSettings::new().set_or_clear_enable(None::<bool>);
-    /// ```
     pub fn set_or_clear_enable<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1961,12 +1527,6 @@ impl AllowedDomainsSettings {
     }
 
     /// Sets the value of [domains][crate::model::AllowedDomainsSettings::domains].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AllowedDomainsSettings;
-    /// let x = AllowedDomainsSettings::new().set_domains(["a", "b", "c"]);
-    /// ```
     pub fn set_domains<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2011,13 +1571,6 @@ impl ApplicationSettings {
     }
 
     /// Sets the value of [csm_settings][crate::model::ApplicationSettings::csm_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ApplicationSettings;
-    /// use google_cloud_iap_v1::model::CsmSettings;
-    /// let x = ApplicationSettings::new().set_csm_settings(CsmSettings::default()/* use setters */);
-    /// ```
     pub fn set_csm_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CsmSettings>,
@@ -2027,14 +1580,6 @@ impl ApplicationSettings {
     }
 
     /// Sets or clears the value of [csm_settings][crate::model::ApplicationSettings::csm_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ApplicationSettings;
-    /// use google_cloud_iap_v1::model::CsmSettings;
-    /// let x = ApplicationSettings::new().set_or_clear_csm_settings(Some(CsmSettings::default()/* use setters */));
-    /// let x = ApplicationSettings::new().set_or_clear_csm_settings(None::<CsmSettings>);
-    /// ```
     pub fn set_or_clear_csm_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CsmSettings>,
@@ -2044,13 +1589,6 @@ impl ApplicationSettings {
     }
 
     /// Sets the value of [access_denied_page_settings][crate::model::ApplicationSettings::access_denied_page_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ApplicationSettings;
-    /// use google_cloud_iap_v1::model::AccessDeniedPageSettings;
-    /// let x = ApplicationSettings::new().set_access_denied_page_settings(AccessDeniedPageSettings::default()/* use setters */);
-    /// ```
     pub fn set_access_denied_page_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AccessDeniedPageSettings>,
@@ -2060,14 +1598,6 @@ impl ApplicationSettings {
     }
 
     /// Sets or clears the value of [access_denied_page_settings][crate::model::ApplicationSettings::access_denied_page_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ApplicationSettings;
-    /// use google_cloud_iap_v1::model::AccessDeniedPageSettings;
-    /// let x = ApplicationSettings::new().set_or_clear_access_denied_page_settings(Some(AccessDeniedPageSettings::default()/* use setters */));
-    /// let x = ApplicationSettings::new().set_or_clear_access_denied_page_settings(None::<AccessDeniedPageSettings>);
-    /// ```
     pub fn set_or_clear_access_denied_page_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessDeniedPageSettings>,
@@ -2077,13 +1607,6 @@ impl ApplicationSettings {
     }
 
     /// Sets the value of [cookie_domain][crate::model::ApplicationSettings::cookie_domain].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ApplicationSettings;
-    /// use wkt::StringValue;
-    /// let x = ApplicationSettings::new().set_cookie_domain(StringValue::default()/* use setters */);
-    /// ```
     pub fn set_cookie_domain<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -2093,14 +1616,6 @@ impl ApplicationSettings {
     }
 
     /// Sets or clears the value of [cookie_domain][crate::model::ApplicationSettings::cookie_domain].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ApplicationSettings;
-    /// use wkt::StringValue;
-    /// let x = ApplicationSettings::new().set_or_clear_cookie_domain(Some(StringValue::default()/* use setters */));
-    /// let x = ApplicationSettings::new().set_or_clear_cookie_domain(None::<StringValue>);
-    /// ```
     pub fn set_or_clear_cookie_domain<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -2110,13 +1625,6 @@ impl ApplicationSettings {
     }
 
     /// Sets the value of [attribute_propagation_settings][crate::model::ApplicationSettings::attribute_propagation_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ApplicationSettings;
-    /// use google_cloud_iap_v1::model::AttributePropagationSettings;
-    /// let x = ApplicationSettings::new().set_attribute_propagation_settings(AttributePropagationSettings::default()/* use setters */);
-    /// ```
     pub fn set_attribute_propagation_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AttributePropagationSettings>,
@@ -2126,14 +1634,6 @@ impl ApplicationSettings {
     }
 
     /// Sets or clears the value of [attribute_propagation_settings][crate::model::ApplicationSettings::attribute_propagation_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ApplicationSettings;
-    /// use google_cloud_iap_v1::model::AttributePropagationSettings;
-    /// let x = ApplicationSettings::new().set_or_clear_attribute_propagation_settings(Some(AttributePropagationSettings::default()/* use setters */));
-    /// let x = ApplicationSettings::new().set_or_clear_attribute_propagation_settings(None::<AttributePropagationSettings>);
-    /// ```
     pub fn set_or_clear_attribute_propagation_settings<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2172,13 +1672,6 @@ impl CsmSettings {
     }
 
     /// Sets the value of [rctoken_aud][crate::model::CsmSettings::rctoken_aud].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::CsmSettings;
-    /// use wkt::StringValue;
-    /// let x = CsmSettings::new().set_rctoken_aud(StringValue::default()/* use setters */);
-    /// ```
     pub fn set_rctoken_aud<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -2188,14 +1681,6 @@ impl CsmSettings {
     }
 
     /// Sets or clears the value of [rctoken_aud][crate::model::CsmSettings::rctoken_aud].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::CsmSettings;
-    /// use wkt::StringValue;
-    /// let x = CsmSettings::new().set_or_clear_rctoken_aud(Some(StringValue::default()/* use setters */));
-    /// let x = CsmSettings::new().set_or_clear_rctoken_aud(None::<StringValue>);
-    /// ```
     pub fn set_or_clear_rctoken_aud<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -2238,13 +1723,6 @@ impl AccessDeniedPageSettings {
     }
 
     /// Sets the value of [access_denied_page_uri][crate::model::AccessDeniedPageSettings::access_denied_page_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessDeniedPageSettings;
-    /// use wkt::StringValue;
-    /// let x = AccessDeniedPageSettings::new().set_access_denied_page_uri(StringValue::default()/* use setters */);
-    /// ```
     pub fn set_access_denied_page_uri<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -2254,14 +1732,6 @@ impl AccessDeniedPageSettings {
     }
 
     /// Sets or clears the value of [access_denied_page_uri][crate::model::AccessDeniedPageSettings::access_denied_page_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessDeniedPageSettings;
-    /// use wkt::StringValue;
-    /// let x = AccessDeniedPageSettings::new().set_or_clear_access_denied_page_uri(Some(StringValue::default()/* use setters */));
-    /// let x = AccessDeniedPageSettings::new().set_or_clear_access_denied_page_uri(None::<StringValue>);
-    /// ```
     pub fn set_or_clear_access_denied_page_uri<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -2271,13 +1741,6 @@ impl AccessDeniedPageSettings {
     }
 
     /// Sets the value of [generate_troubleshooting_uri][crate::model::AccessDeniedPageSettings::generate_troubleshooting_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessDeniedPageSettings;
-    /// use wkt::BoolValue;
-    /// let x = AccessDeniedPageSettings::new().set_generate_troubleshooting_uri(BoolValue::default()/* use setters */);
-    /// ```
     pub fn set_generate_troubleshooting_uri<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -2287,14 +1750,6 @@ impl AccessDeniedPageSettings {
     }
 
     /// Sets or clears the value of [generate_troubleshooting_uri][crate::model::AccessDeniedPageSettings::generate_troubleshooting_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessDeniedPageSettings;
-    /// use wkt::BoolValue;
-    /// let x = AccessDeniedPageSettings::new().set_or_clear_generate_troubleshooting_uri(Some(BoolValue::default()/* use setters */));
-    /// let x = AccessDeniedPageSettings::new().set_or_clear_generate_troubleshooting_uri(None::<BoolValue>);
-    /// ```
     pub fn set_or_clear_generate_troubleshooting_uri<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -2304,13 +1759,6 @@ impl AccessDeniedPageSettings {
     }
 
     /// Sets the value of [remediation_token_generation_enabled][crate::model::AccessDeniedPageSettings::remediation_token_generation_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessDeniedPageSettings;
-    /// use wkt::BoolValue;
-    /// let x = AccessDeniedPageSettings::new().set_remediation_token_generation_enabled(BoolValue::default()/* use setters */);
-    /// ```
     pub fn set_remediation_token_generation_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -2320,14 +1768,6 @@ impl AccessDeniedPageSettings {
     }
 
     /// Sets or clears the value of [remediation_token_generation_enabled][crate::model::AccessDeniedPageSettings::remediation_token_generation_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AccessDeniedPageSettings;
-    /// use wkt::BoolValue;
-    /// let x = AccessDeniedPageSettings::new().set_or_clear_remediation_token_generation_enabled(Some(BoolValue::default()/* use setters */));
-    /// let x = AccessDeniedPageSettings::new().set_or_clear_remediation_token_generation_enabled(None::<BoolValue>);
-    /// ```
     pub fn set_or_clear_remediation_token_generation_enabled<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2402,12 +1842,6 @@ impl AttributePropagationSettings {
     }
 
     /// Sets the value of [expression][crate::model::AttributePropagationSettings::expression].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AttributePropagationSettings;
-    /// let x = AttributePropagationSettings::new().set_expression("example");
-    /// ```
     pub fn set_expression<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2417,14 +1851,6 @@ impl AttributePropagationSettings {
     }
 
     /// Sets or clears the value of [expression][crate::model::AttributePropagationSettings::expression].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AttributePropagationSettings;
-    /// let x = AttributePropagationSettings::new().set_or_clear_expression("example");
-    /// let x = AttributePropagationSettings::new().set_or_clear_expression(Some("example"));
-    /// let x = AttributePropagationSettings::new().set_or_clear_expression(None::<String>);
-    /// ```
     pub fn set_or_clear_expression<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2434,17 +1860,6 @@ impl AttributePropagationSettings {
     }
 
     /// Sets the value of [output_credentials][crate::model::AttributePropagationSettings::output_credentials].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AttributePropagationSettings;
-    /// use google_cloud_iap_v1::model::attribute_propagation_settings::OutputCredentials;
-    /// let x = AttributePropagationSettings::new().set_output_credentials([
-    ///     OutputCredentials::Header,
-    ///     OutputCredentials::Jwt,
-    ///     OutputCredentials::Rctoken,
-    /// ]);
-    /// ```
     pub fn set_output_credentials<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2456,12 +1871,6 @@ impl AttributePropagationSettings {
     }
 
     /// Sets the value of [enable][crate::model::AttributePropagationSettings::enable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AttributePropagationSettings;
-    /// let x = AttributePropagationSettings::new().set_enable(true);
-    /// ```
     pub fn set_enable<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2471,13 +1880,6 @@ impl AttributePropagationSettings {
     }
 
     /// Sets or clears the value of [enable][crate::model::AttributePropagationSettings::enable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::AttributePropagationSettings;
-    /// let x = AttributePropagationSettings::new().set_or_clear_enable(Some(false));
-    /// let x = AttributePropagationSettings::new().set_or_clear_enable(None::<bool>);
-    /// ```
     pub fn set_or_clear_enable<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2663,24 +2065,12 @@ impl ValidateIapAttributeExpressionRequest {
     }
 
     /// Sets the value of [name][crate::model::ValidateIapAttributeExpressionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ValidateIapAttributeExpressionRequest;
-    /// let x = ValidateIapAttributeExpressionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [expression][crate::model::ValidateIapAttributeExpressionRequest::expression].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ValidateIapAttributeExpressionRequest;
-    /// let x = ValidateIapAttributeExpressionRequest::new().set_expression("example");
-    /// ```
     pub fn set_expression<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.expression = v.into();
         self
@@ -2729,12 +2119,6 @@ impl ListBrandsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBrandsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ListBrandsRequest;
-    /// let x = ListBrandsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -2763,17 +2147,6 @@ impl ListBrandsResponse {
     }
 
     /// Sets the value of [brands][crate::model::ListBrandsResponse::brands].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ListBrandsResponse;
-    /// use google_cloud_iap_v1::model::Brand;
-    /// let x = ListBrandsResponse::new()
-    ///     .set_brands([
-    ///         Brand::default()/* use setters */,
-    ///         Brand::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_brands<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2811,25 +2184,12 @@ impl CreateBrandRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBrandRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::CreateBrandRequest;
-    /// let x = CreateBrandRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [brand][crate::model::CreateBrandRequest::brand].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::CreateBrandRequest;
-    /// use google_cloud_iap_v1::model::Brand;
-    /// let x = CreateBrandRequest::new().set_brand(Brand::default()/* use setters */);
-    /// ```
     pub fn set_brand<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Brand>,
@@ -2839,14 +2199,6 @@ impl CreateBrandRequest {
     }
 
     /// Sets or clears the value of [brand][crate::model::CreateBrandRequest::brand].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::CreateBrandRequest;
-    /// use google_cloud_iap_v1::model::Brand;
-    /// let x = CreateBrandRequest::new().set_or_clear_brand(Some(Brand::default()/* use setters */));
-    /// let x = CreateBrandRequest::new().set_or_clear_brand(None::<Brand>);
-    /// ```
     pub fn set_or_clear_brand<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Brand>,
@@ -2879,12 +2231,6 @@ impl GetBrandRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBrandRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::GetBrandRequest;
-    /// let x = GetBrandRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2928,36 +2274,18 @@ impl ListIdentityAwareProxyClientsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListIdentityAwareProxyClientsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ListIdentityAwareProxyClientsRequest;
-    /// let x = ListIdentityAwareProxyClientsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListIdentityAwareProxyClientsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ListIdentityAwareProxyClientsRequest;
-    /// let x = ListIdentityAwareProxyClientsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListIdentityAwareProxyClientsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ListIdentityAwareProxyClientsRequest;
-    /// let x = ListIdentityAwareProxyClientsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2990,17 +2318,6 @@ impl ListIdentityAwareProxyClientsResponse {
     }
 
     /// Sets the value of [identity_aware_proxy_clients][crate::model::ListIdentityAwareProxyClientsResponse::identity_aware_proxy_clients].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ListIdentityAwareProxyClientsResponse;
-    /// use google_cloud_iap_v1::model::IdentityAwareProxyClient;
-    /// let x = ListIdentityAwareProxyClientsResponse::new()
-    ///     .set_identity_aware_proxy_clients([
-    ///         IdentityAwareProxyClient::default()/* use setters */,
-    ///         IdentityAwareProxyClient::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_identity_aware_proxy_clients<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3012,12 +2329,6 @@ impl ListIdentityAwareProxyClientsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListIdentityAwareProxyClientsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ListIdentityAwareProxyClientsResponse;
-    /// let x = ListIdentityAwareProxyClientsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3066,25 +2377,12 @@ impl CreateIdentityAwareProxyClientRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateIdentityAwareProxyClientRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::CreateIdentityAwareProxyClientRequest;
-    /// let x = CreateIdentityAwareProxyClientRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [identity_aware_proxy_client][crate::model::CreateIdentityAwareProxyClientRequest::identity_aware_proxy_client].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::CreateIdentityAwareProxyClientRequest;
-    /// use google_cloud_iap_v1::model::IdentityAwareProxyClient;
-    /// let x = CreateIdentityAwareProxyClientRequest::new().set_identity_aware_proxy_client(IdentityAwareProxyClient::default()/* use setters */);
-    /// ```
     pub fn set_identity_aware_proxy_client<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IdentityAwareProxyClient>,
@@ -3094,14 +2392,6 @@ impl CreateIdentityAwareProxyClientRequest {
     }
 
     /// Sets or clears the value of [identity_aware_proxy_client][crate::model::CreateIdentityAwareProxyClientRequest::identity_aware_proxy_client].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::CreateIdentityAwareProxyClientRequest;
-    /// use google_cloud_iap_v1::model::IdentityAwareProxyClient;
-    /// let x = CreateIdentityAwareProxyClientRequest::new().set_or_clear_identity_aware_proxy_client(Some(IdentityAwareProxyClient::default()/* use setters */));
-    /// let x = CreateIdentityAwareProxyClientRequest::new().set_or_clear_identity_aware_proxy_client(None::<IdentityAwareProxyClient>);
-    /// ```
     pub fn set_or_clear_identity_aware_proxy_client<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IdentityAwareProxyClient>,
@@ -3135,12 +2425,6 @@ impl GetIdentityAwareProxyClientRequest {
     }
 
     /// Sets the value of [name][crate::model::GetIdentityAwareProxyClientRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::GetIdentityAwareProxyClientRequest;
-    /// let x = GetIdentityAwareProxyClientRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3171,12 +2455,6 @@ impl ResetIdentityAwareProxyClientSecretRequest {
     }
 
     /// Sets the value of [name][crate::model::ResetIdentityAwareProxyClientSecretRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::ResetIdentityAwareProxyClientSecretRequest;
-    /// let x = ResetIdentityAwareProxyClientSecretRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3207,12 +2485,6 @@ impl DeleteIdentityAwareProxyClientRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteIdentityAwareProxyClientRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::DeleteIdentityAwareProxyClientRequest;
-    /// let x = DeleteIdentityAwareProxyClientRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3254,36 +2526,18 @@ impl Brand {
     }
 
     /// Sets the value of [name][crate::model::Brand::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::Brand;
-    /// let x = Brand::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [support_email][crate::model::Brand::support_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::Brand;
-    /// let x = Brand::new().set_support_email("example");
-    /// ```
     pub fn set_support_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.support_email = v.into();
         self
     }
 
     /// Sets the value of [application_title][crate::model::Brand::application_title].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::Brand;
-    /// let x = Brand::new().set_application_title("example");
-    /// ```
     pub fn set_application_title<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3293,12 +2547,6 @@ impl Brand {
     }
 
     /// Sets the value of [org_internal_only][crate::model::Brand::org_internal_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::Brand;
-    /// let x = Brand::new().set_org_internal_only(true);
-    /// ```
     pub fn set_org_internal_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.org_internal_only = v.into();
         self
@@ -3333,36 +2581,18 @@ impl IdentityAwareProxyClient {
     }
 
     /// Sets the value of [name][crate::model::IdentityAwareProxyClient::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::IdentityAwareProxyClient;
-    /// let x = IdentityAwareProxyClient::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [secret][crate::model::IdentityAwareProxyClient::secret].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::IdentityAwareProxyClient;
-    /// let x = IdentityAwareProxyClient::new().set_secret("example");
-    /// ```
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::IdentityAwareProxyClient::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iap_v1::model::IdentityAwareProxyClient;
-    /// let x = IdentityAwareProxyClient::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self

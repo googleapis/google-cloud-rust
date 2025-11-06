@@ -96,48 +96,24 @@ impl BillingAccount {
     }
 
     /// Sets the value of [name][crate::model::BillingAccount::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::BillingAccount;
-    /// let x = BillingAccount::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [open][crate::model::BillingAccount::open].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::BillingAccount;
-    /// let x = BillingAccount::new().set_open(true);
-    /// ```
     pub fn set_open<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.open = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::BillingAccount::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::BillingAccount;
-    /// let x = BillingAccount::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [master_billing_account][crate::model::BillingAccount::master_billing_account].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::BillingAccount;
-    /// let x = BillingAccount::new().set_master_billing_account("example");
-    /// ```
     pub fn set_master_billing_account<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -147,24 +123,12 @@ impl BillingAccount {
     }
 
     /// Sets the value of [parent][crate::model::BillingAccount::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::BillingAccount;
-    /// let x = BillingAccount::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [currency_code][crate::model::BillingAccount::currency_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::BillingAccount;
-    /// let x = BillingAccount::new().set_currency_code("example");
-    /// ```
     pub fn set_currency_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.currency_code = v.into();
         self
@@ -213,36 +177,18 @@ impl ProjectBillingInfo {
     }
 
     /// Sets the value of [name][crate::model::ProjectBillingInfo::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ProjectBillingInfo;
-    /// let x = ProjectBillingInfo::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [project_id][crate::model::ProjectBillingInfo::project_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ProjectBillingInfo;
-    /// let x = ProjectBillingInfo::new().set_project_id("example");
-    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [billing_account_name][crate::model::ProjectBillingInfo::billing_account_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ProjectBillingInfo;
-    /// let x = ProjectBillingInfo::new().set_billing_account_name("example");
-    /// ```
     pub fn set_billing_account_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -252,12 +198,6 @@ impl ProjectBillingInfo {
     }
 
     /// Sets the value of [billing_enabled][crate::model::ProjectBillingInfo::billing_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ProjectBillingInfo;
-    /// let x = ProjectBillingInfo::new().set_billing_enabled(true);
-    /// ```
     pub fn set_billing_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.billing_enabled = v.into();
         self
@@ -287,12 +227,6 @@ impl GetBillingAccountRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBillingAccountRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::GetBillingAccountRequest;
-    /// let x = GetBillingAccountRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -345,48 +279,24 @@ impl ListBillingAccountsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListBillingAccountsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListBillingAccountsRequest;
-    /// let x = ListBillingAccountsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBillingAccountsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListBillingAccountsRequest;
-    /// let x = ListBillingAccountsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBillingAccountsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListBillingAccountsRequest;
-    /// let x = ListBillingAccountsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::ListBillingAccountsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListBillingAccountsRequest;
-    /// let x = ListBillingAccountsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -420,17 +330,6 @@ impl ListBillingAccountsResponse {
     }
 
     /// Sets the value of [billing_accounts][crate::model::ListBillingAccountsResponse::billing_accounts].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListBillingAccountsResponse;
-    /// use google_cloud_billing_v1::model::BillingAccount;
-    /// let x = ListBillingAccountsResponse::new()
-    ///     .set_billing_accounts([
-    ///         BillingAccount::default()/* use setters */,
-    ///         BillingAccount::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_billing_accounts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -442,12 +341,6 @@ impl ListBillingAccountsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBillingAccountsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListBillingAccountsResponse;
-    /// let x = ListBillingAccountsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -500,13 +393,6 @@ impl CreateBillingAccountRequest {
     }
 
     /// Sets the value of [billing_account][crate::model::CreateBillingAccountRequest::billing_account].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::CreateBillingAccountRequest;
-    /// use google_cloud_billing_v1::model::BillingAccount;
-    /// let x = CreateBillingAccountRequest::new().set_billing_account(BillingAccount::default()/* use setters */);
-    /// ```
     pub fn set_billing_account<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BillingAccount>,
@@ -516,14 +402,6 @@ impl CreateBillingAccountRequest {
     }
 
     /// Sets or clears the value of [billing_account][crate::model::CreateBillingAccountRequest::billing_account].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::CreateBillingAccountRequest;
-    /// use google_cloud_billing_v1::model::BillingAccount;
-    /// let x = CreateBillingAccountRequest::new().set_or_clear_billing_account(Some(BillingAccount::default()/* use setters */));
-    /// let x = CreateBillingAccountRequest::new().set_or_clear_billing_account(None::<BillingAccount>);
-    /// ```
     pub fn set_or_clear_billing_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BillingAccount>,
@@ -533,12 +411,6 @@ impl CreateBillingAccountRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBillingAccountRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::CreateBillingAccountRequest;
-    /// let x = CreateBillingAccountRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -575,25 +447,12 @@ impl UpdateBillingAccountRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateBillingAccountRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::UpdateBillingAccountRequest;
-    /// let x = UpdateBillingAccountRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [account][crate::model::UpdateBillingAccountRequest::account].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::UpdateBillingAccountRequest;
-    /// use google_cloud_billing_v1::model::BillingAccount;
-    /// let x = UpdateBillingAccountRequest::new().set_account(BillingAccount::default()/* use setters */);
-    /// ```
     pub fn set_account<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BillingAccount>,
@@ -603,14 +462,6 @@ impl UpdateBillingAccountRequest {
     }
 
     /// Sets or clears the value of [account][crate::model::UpdateBillingAccountRequest::account].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::UpdateBillingAccountRequest;
-    /// use google_cloud_billing_v1::model::BillingAccount;
-    /// let x = UpdateBillingAccountRequest::new().set_or_clear_account(Some(BillingAccount::default()/* use setters */));
-    /// let x = UpdateBillingAccountRequest::new().set_or_clear_account(None::<BillingAccount>);
-    /// ```
     pub fn set_or_clear_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BillingAccount>,
@@ -620,13 +471,6 @@ impl UpdateBillingAccountRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBillingAccountRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::UpdateBillingAccountRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBillingAccountRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -636,14 +480,6 @@ impl UpdateBillingAccountRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBillingAccountRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::UpdateBillingAccountRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBillingAccountRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateBillingAccountRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -686,36 +522,18 @@ impl ListProjectBillingInfoRequest {
     }
 
     /// Sets the value of [name][crate::model::ListProjectBillingInfoRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListProjectBillingInfoRequest;
-    /// let x = ListProjectBillingInfoRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListProjectBillingInfoRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListProjectBillingInfoRequest;
-    /// let x = ListProjectBillingInfoRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListProjectBillingInfoRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListProjectBillingInfoRequest;
-    /// let x = ListProjectBillingInfoRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -750,17 +568,6 @@ impl ListProjectBillingInfoResponse {
     }
 
     /// Sets the value of [project_billing_info][crate::model::ListProjectBillingInfoResponse::project_billing_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListProjectBillingInfoResponse;
-    /// use google_cloud_billing_v1::model::ProjectBillingInfo;
-    /// let x = ListProjectBillingInfoResponse::new()
-    ///     .set_project_billing_info([
-    ///         ProjectBillingInfo::default()/* use setters */,
-    ///         ProjectBillingInfo::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_project_billing_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -772,12 +579,6 @@ impl ListProjectBillingInfoResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListProjectBillingInfoResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListProjectBillingInfoResponse;
-    /// let x = ListProjectBillingInfoResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -821,12 +622,6 @@ impl GetProjectBillingInfoRequest {
     }
 
     /// Sets the value of [name][crate::model::GetProjectBillingInfoRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::GetProjectBillingInfoRequest;
-    /// let x = GetProjectBillingInfoRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -862,25 +657,12 @@ impl UpdateProjectBillingInfoRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateProjectBillingInfoRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::UpdateProjectBillingInfoRequest;
-    /// let x = UpdateProjectBillingInfoRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [project_billing_info][crate::model::UpdateProjectBillingInfoRequest::project_billing_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::UpdateProjectBillingInfoRequest;
-    /// use google_cloud_billing_v1::model::ProjectBillingInfo;
-    /// let x = UpdateProjectBillingInfoRequest::new().set_project_billing_info(ProjectBillingInfo::default()/* use setters */);
-    /// ```
     pub fn set_project_billing_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProjectBillingInfo>,
@@ -890,14 +672,6 @@ impl UpdateProjectBillingInfoRequest {
     }
 
     /// Sets or clears the value of [project_billing_info][crate::model::UpdateProjectBillingInfoRequest::project_billing_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::UpdateProjectBillingInfoRequest;
-    /// use google_cloud_billing_v1::model::ProjectBillingInfo;
-    /// let x = UpdateProjectBillingInfoRequest::new().set_or_clear_project_billing_info(Some(ProjectBillingInfo::default()/* use setters */));
-    /// let x = UpdateProjectBillingInfoRequest::new().set_or_clear_project_billing_info(None::<ProjectBillingInfo>);
-    /// ```
     pub fn set_or_clear_project_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProjectBillingInfo>,
@@ -937,24 +711,12 @@ impl MoveBillingAccountRequest {
     }
 
     /// Sets the value of [name][crate::model::MoveBillingAccountRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::MoveBillingAccountRequest;
-    /// let x = MoveBillingAccountRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [destination_parent][crate::model::MoveBillingAccountRequest::destination_parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::MoveBillingAccountRequest;
-    /// let x = MoveBillingAccountRequest::new().set_destination_parent("example");
-    /// ```
     pub fn set_destination_parent<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -998,48 +760,24 @@ impl Service {
     }
 
     /// Sets the value of [name][crate::model::Service::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::Service;
-    /// let x = Service::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [service_id][crate::model::Service::service_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::Service;
-    /// let x = Service::new().set_service_id("example");
-    /// ```
     pub fn set_service_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Service::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::Service;
-    /// let x = Service::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [business_entity_name][crate::model::Service::business_entity_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::Service;
-    /// let x = Service::new().set_business_entity_name("example");
-    /// ```
     pub fn set_business_entity_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1098,49 +836,24 @@ impl Sku {
     }
 
     /// Sets the value of [name][crate::model::Sku::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::Sku;
-    /// let x = Sku::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [sku_id][crate::model::Sku::sku_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::Sku;
-    /// let x = Sku::new().set_sku_id("example");
-    /// ```
     pub fn set_sku_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sku_id = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Sku::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::Sku;
-    /// let x = Sku::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [category][crate::model::Sku::category].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::Sku;
-    /// use google_cloud_billing_v1::model::Category;
-    /// let x = Sku::new().set_category(Category::default()/* use setters */);
-    /// ```
     pub fn set_category<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Category>,
@@ -1150,14 +863,6 @@ impl Sku {
     }
 
     /// Sets or clears the value of [category][crate::model::Sku::category].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::Sku;
-    /// use google_cloud_billing_v1::model::Category;
-    /// let x = Sku::new().set_or_clear_category(Some(Category::default()/* use setters */));
-    /// let x = Sku::new().set_or_clear_category(None::<Category>);
-    /// ```
     pub fn set_or_clear_category<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Category>,
@@ -1167,12 +872,6 @@ impl Sku {
     }
 
     /// Sets the value of [service_regions][crate::model::Sku::service_regions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::Sku;
-    /// let x = Sku::new().set_service_regions(["a", "b", "c"]);
-    /// ```
     pub fn set_service_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1184,17 +883,6 @@ impl Sku {
     }
 
     /// Sets the value of [pricing_info][crate::model::Sku::pricing_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::Sku;
-    /// use google_cloud_billing_v1::model::PricingInfo;
-    /// let x = Sku::new()
-    ///     .set_pricing_info([
-    ///         PricingInfo::default()/* use setters */,
-    ///         PricingInfo::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_pricing_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1206,12 +894,6 @@ impl Sku {
     }
 
     /// Sets the value of [service_provider_name][crate::model::Sku::service_provider_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::Sku;
-    /// let x = Sku::new().set_service_provider_name("example");
-    /// ```
     pub fn set_service_provider_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1221,13 +903,6 @@ impl Sku {
     }
 
     /// Sets the value of [geo_taxonomy][crate::model::Sku::geo_taxonomy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::Sku;
-    /// use google_cloud_billing_v1::model::GeoTaxonomy;
-    /// let x = Sku::new().set_geo_taxonomy(GeoTaxonomy::default()/* use setters */);
-    /// ```
     pub fn set_geo_taxonomy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GeoTaxonomy>,
@@ -1237,14 +912,6 @@ impl Sku {
     }
 
     /// Sets or clears the value of [geo_taxonomy][crate::model::Sku::geo_taxonomy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::Sku;
-    /// use google_cloud_billing_v1::model::GeoTaxonomy;
-    /// let x = Sku::new().set_or_clear_geo_taxonomy(Some(GeoTaxonomy::default()/* use setters */));
-    /// let x = Sku::new().set_or_clear_geo_taxonomy(None::<GeoTaxonomy>);
-    /// ```
     pub fn set_or_clear_geo_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GeoTaxonomy>,
@@ -1288,12 +955,6 @@ impl Category {
     }
 
     /// Sets the value of [service_display_name][crate::model::Category::service_display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::Category;
-    /// let x = Category::new().set_service_display_name("example");
-    /// ```
     pub fn set_service_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1303,36 +964,18 @@ impl Category {
     }
 
     /// Sets the value of [resource_family][crate::model::Category::resource_family].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::Category;
-    /// let x = Category::new().set_resource_family("example");
-    /// ```
     pub fn set_resource_family<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_family = v.into();
         self
     }
 
     /// Sets the value of [resource_group][crate::model::Category::resource_group].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::Category;
-    /// let x = Category::new().set_resource_group("example");
-    /// ```
     pub fn set_resource_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_group = v.into();
         self
     }
 
     /// Sets the value of [usage_type][crate::model::Category::usage_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::Category;
-    /// let x = Category::new().set_usage_type("example");
-    /// ```
     pub fn set_usage_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.usage_type = v.into();
         self
@@ -1384,13 +1027,6 @@ impl PricingInfo {
     }
 
     /// Sets the value of [effective_time][crate::model::PricingInfo::effective_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::PricingInfo;
-    /// use wkt::Timestamp;
-    /// let x = PricingInfo::new().set_effective_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_effective_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1400,14 +1036,6 @@ impl PricingInfo {
     }
 
     /// Sets or clears the value of [effective_time][crate::model::PricingInfo::effective_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::PricingInfo;
-    /// use wkt::Timestamp;
-    /// let x = PricingInfo::new().set_or_clear_effective_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PricingInfo::new().set_or_clear_effective_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1417,25 +1045,12 @@ impl PricingInfo {
     }
 
     /// Sets the value of [summary][crate::model::PricingInfo::summary].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::PricingInfo;
-    /// let x = PricingInfo::new().set_summary("example");
-    /// ```
     pub fn set_summary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.summary = v.into();
         self
     }
 
     /// Sets the value of [pricing_expression][crate::model::PricingInfo::pricing_expression].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::PricingInfo;
-    /// use google_cloud_billing_v1::model::PricingExpression;
-    /// let x = PricingInfo::new().set_pricing_expression(PricingExpression::default()/* use setters */);
-    /// ```
     pub fn set_pricing_expression<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PricingExpression>,
@@ -1445,14 +1060,6 @@ impl PricingInfo {
     }
 
     /// Sets or clears the value of [pricing_expression][crate::model::PricingInfo::pricing_expression].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::PricingInfo;
-    /// use google_cloud_billing_v1::model::PricingExpression;
-    /// let x = PricingInfo::new().set_or_clear_pricing_expression(Some(PricingExpression::default()/* use setters */));
-    /// let x = PricingInfo::new().set_or_clear_pricing_expression(None::<PricingExpression>);
-    /// ```
     pub fn set_or_clear_pricing_expression<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PricingExpression>,
@@ -1462,13 +1069,6 @@ impl PricingInfo {
     }
 
     /// Sets the value of [aggregation_info][crate::model::PricingInfo::aggregation_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::PricingInfo;
-    /// use google_cloud_billing_v1::model::AggregationInfo;
-    /// let x = PricingInfo::new().set_aggregation_info(AggregationInfo::default()/* use setters */);
-    /// ```
     pub fn set_aggregation_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AggregationInfo>,
@@ -1478,14 +1078,6 @@ impl PricingInfo {
     }
 
     /// Sets or clears the value of [aggregation_info][crate::model::PricingInfo::aggregation_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::PricingInfo;
-    /// use google_cloud_billing_v1::model::AggregationInfo;
-    /// let x = PricingInfo::new().set_or_clear_aggregation_info(Some(AggregationInfo::default()/* use setters */));
-    /// let x = PricingInfo::new().set_or_clear_aggregation_info(None::<AggregationInfo>);
-    /// ```
     pub fn set_or_clear_aggregation_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AggregationInfo>,
@@ -1495,12 +1087,6 @@ impl PricingInfo {
     }
 
     /// Sets the value of [currency_conversion_rate][crate::model::PricingInfo::currency_conversion_rate].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::PricingInfo;
-    /// let x = PricingInfo::new().set_currency_conversion_rate(42.0);
-    /// ```
     pub fn set_currency_conversion_rate<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.currency_conversion_rate = v.into();
         self
@@ -1573,41 +1159,18 @@ impl PricingExpression {
     }
 
     /// Sets the value of [usage_unit][crate::model::PricingExpression::usage_unit].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::PricingExpression;
-    /// let x = PricingExpression::new().set_usage_unit("example");
-    /// ```
     pub fn set_usage_unit<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.usage_unit = v.into();
         self
     }
 
     /// Sets the value of [display_quantity][crate::model::PricingExpression::display_quantity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::PricingExpression;
-    /// let x = PricingExpression::new().set_display_quantity(42.0);
-    /// ```
     pub fn set_display_quantity<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.display_quantity = v.into();
         self
     }
 
     /// Sets the value of [tiered_rates][crate::model::PricingExpression::tiered_rates].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::PricingExpression;
-    /// use google_cloud_billing_v1::model::pricing_expression::TierRate;
-    /// let x = PricingExpression::new()
-    ///     .set_tiered_rates([
-    ///         TierRate::default()/* use setters */,
-    ///         TierRate::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_tiered_rates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1619,12 +1182,6 @@ impl PricingExpression {
     }
 
     /// Sets the value of [usage_unit_description][crate::model::PricingExpression::usage_unit_description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::PricingExpression;
-    /// let x = PricingExpression::new().set_usage_unit_description("example");
-    /// ```
     pub fn set_usage_unit_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1634,24 +1191,12 @@ impl PricingExpression {
     }
 
     /// Sets the value of [base_unit][crate::model::PricingExpression::base_unit].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::PricingExpression;
-    /// let x = PricingExpression::new().set_base_unit("example");
-    /// ```
     pub fn set_base_unit<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.base_unit = v.into();
         self
     }
 
     /// Sets the value of [base_unit_description][crate::model::PricingExpression::base_unit_description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::PricingExpression;
-    /// let x = PricingExpression::new().set_base_unit_description("example");
-    /// ```
     pub fn set_base_unit_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1661,12 +1206,6 @@ impl PricingExpression {
     }
 
     /// Sets the value of [base_unit_conversion_factor][crate::model::PricingExpression::base_unit_conversion_factor].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::PricingExpression;
-    /// let x = PricingExpression::new().set_base_unit_conversion_factor(42.0);
-    /// ```
     pub fn set_base_unit_conversion_factor<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.base_unit_conversion_factor = v.into();
         self
@@ -1706,25 +1245,12 @@ pub mod pricing_expression {
         }
 
         /// Sets the value of [start_usage_amount][crate::model::pricing_expression::TierRate::start_usage_amount].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_billing_v1::model::pricing_expression::TierRate;
-        /// let x = TierRate::new().set_start_usage_amount(42.0);
-        /// ```
         pub fn set_start_usage_amount<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.start_usage_amount = v.into();
             self
         }
 
         /// Sets the value of [unit_price][crate::model::pricing_expression::TierRate::unit_price].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_billing_v1::model::pricing_expression::TierRate;
-        /// use gtype::model::Money;
-        /// let x = TierRate::new().set_unit_price(Money::default()/* use setters */);
-        /// ```
         pub fn set_unit_price<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::Money>,
@@ -1734,14 +1260,6 @@ pub mod pricing_expression {
         }
 
         /// Sets or clears the value of [unit_price][crate::model::pricing_expression::TierRate::unit_price].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_billing_v1::model::pricing_expression::TierRate;
-        /// use gtype::model::Money;
-        /// let x = TierRate::new().set_or_clear_unit_price(Some(Money::default()/* use setters */));
-        /// let x = TierRate::new().set_or_clear_unit_price(None::<Money>);
-        /// ```
         pub fn set_or_clear_unit_price<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Money>,
@@ -1780,14 +1298,6 @@ impl AggregationInfo {
     }
 
     /// Sets the value of [aggregation_level][crate::model::AggregationInfo::aggregation_level].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::AggregationInfo;
-    /// use google_cloud_billing_v1::model::aggregation_info::AggregationLevel;
-    /// let x0 = AggregationInfo::new().set_aggregation_level(AggregationLevel::Account);
-    /// let x1 = AggregationInfo::new().set_aggregation_level(AggregationLevel::Project);
-    /// ```
     pub fn set_aggregation_level<
         T: std::convert::Into<crate::model::aggregation_info::AggregationLevel>,
     >(
@@ -1799,14 +1309,6 @@ impl AggregationInfo {
     }
 
     /// Sets the value of [aggregation_interval][crate::model::AggregationInfo::aggregation_interval].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::AggregationInfo;
-    /// use google_cloud_billing_v1::model::aggregation_info::AggregationInterval;
-    /// let x0 = AggregationInfo::new().set_aggregation_interval(AggregationInterval::Daily);
-    /// let x1 = AggregationInfo::new().set_aggregation_interval(AggregationInterval::Monthly);
-    /// ```
     pub fn set_aggregation_interval<
         T: std::convert::Into<crate::model::aggregation_info::AggregationInterval>,
     >(
@@ -1818,12 +1320,6 @@ impl AggregationInfo {
     }
 
     /// Sets the value of [aggregation_count][crate::model::AggregationInfo::aggregation_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::AggregationInfo;
-    /// let x = AggregationInfo::new().set_aggregation_count(42);
-    /// ```
     pub fn set_aggregation_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.aggregation_count = v.into();
         self
@@ -2124,15 +1620,6 @@ impl GeoTaxonomy {
     }
 
     /// Sets the value of [r#type][crate::model::GeoTaxonomy::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::GeoTaxonomy;
-    /// use google_cloud_billing_v1::model::geo_taxonomy::Type;
-    /// let x0 = GeoTaxonomy::new().set_type(Type::Global);
-    /// let x1 = GeoTaxonomy::new().set_type(Type::Regional);
-    /// let x2 = GeoTaxonomy::new().set_type(Type::MultiRegional);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::geo_taxonomy::Type>>(
         mut self,
         v: T,
@@ -2142,12 +1629,6 @@ impl GeoTaxonomy {
     }
 
     /// Sets the value of [regions][crate::model::GeoTaxonomy::regions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::GeoTaxonomy;
-    /// let x = GeoTaxonomy::new().set_regions(["a", "b", "c"]);
-    /// ```
     pub fn set_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2333,24 +1814,12 @@ impl ListServicesRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListServicesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListServicesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2384,17 +1853,6 @@ impl ListServicesResponse {
     }
 
     /// Sets the value of [services][crate::model::ListServicesResponse::services].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListServicesResponse;
-    /// use google_cloud_billing_v1::model::Service;
-    /// let x = ListServicesResponse::new()
-    ///     .set_services([
-    ///         Service::default()/* use setters */,
-    ///         Service::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2406,12 +1864,6 @@ impl ListServicesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListServicesResponse;
-    /// let x = ListServicesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2484,25 +1936,12 @@ impl ListSkusRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSkusRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListSkusRequest;
-    /// let x = ListSkusRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::ListSkusRequest::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListSkusRequest;
-    /// use wkt::Timestamp;
-    /// let x = ListSkusRequest::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2512,14 +1951,6 @@ impl ListSkusRequest {
     }
 
     /// Sets or clears the value of [start_time][crate::model::ListSkusRequest::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListSkusRequest;
-    /// use wkt::Timestamp;
-    /// let x = ListSkusRequest::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ListSkusRequest::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2529,13 +1960,6 @@ impl ListSkusRequest {
     }
 
     /// Sets the value of [end_time][crate::model::ListSkusRequest::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListSkusRequest;
-    /// use wkt::Timestamp;
-    /// let x = ListSkusRequest::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2545,14 +1969,6 @@ impl ListSkusRequest {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ListSkusRequest::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListSkusRequest;
-    /// use wkt::Timestamp;
-    /// let x = ListSkusRequest::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ListSkusRequest::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2562,36 +1978,18 @@ impl ListSkusRequest {
     }
 
     /// Sets the value of [currency_code][crate::model::ListSkusRequest::currency_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListSkusRequest;
-    /// let x = ListSkusRequest::new().set_currency_code("example");
-    /// ```
     pub fn set_currency_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.currency_code = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSkusRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListSkusRequest;
-    /// let x = ListSkusRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSkusRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListSkusRequest;
-    /// let x = ListSkusRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2625,17 +2023,6 @@ impl ListSkusResponse {
     }
 
     /// Sets the value of [skus][crate::model::ListSkusResponse::skus].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListSkusResponse;
-    /// use google_cloud_billing_v1::model::Sku;
-    /// let x = ListSkusResponse::new()
-    ///     .set_skus([
-    ///         Sku::default()/* use setters */,
-    ///         Sku::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_skus<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2647,12 +2034,6 @@ impl ListSkusResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSkusResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_billing_v1::model::ListSkusResponse;
-    /// let x = ListSkusResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self

@@ -70,37 +70,18 @@ impl CreateInstanceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_instance_id("example");
-    /// ```
     pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_id = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateInstanceRequest;
-    /// use google_cloud_bigtable_admin_v2::model::Instance;
-    /// let x = CreateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
-    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -110,14 +91,6 @@ impl CreateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateInstanceRequest;
-    /// use google_cloud_bigtable_admin_v2::model::Instance;
-    /// let x = CreateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
-    /// let x = CreateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
-    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -127,16 +100,6 @@ impl CreateInstanceRequest {
     }
 
     /// Sets the value of [clusters][crate::model::CreateInstanceRequest::clusters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateInstanceRequest;
-    /// use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// let x = CreateInstanceRequest::new().set_clusters([
-    ///     ("key0", Cluster::default()/* use setters */),
-    ///     ("key1", Cluster::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_clusters<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -172,12 +135,6 @@ impl GetInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GetInstanceRequest;
-    /// let x = GetInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -210,24 +167,12 @@ impl ListInstancesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInstancesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -267,17 +212,6 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListInstancesResponse;
-    /// use google_cloud_bigtable_admin_v2::model::Instance;
-    /// let x = ListInstancesResponse::new()
-    ///     .set_instances([
-    ///         Instance::default()/* use setters */,
-    ///         Instance::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -289,12 +223,6 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [failed_locations][crate::model::ListInstancesResponse::failed_locations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListInstancesResponse;
-    /// let x = ListInstancesResponse::new().set_failed_locations(["a", "b", "c"]);
-    /// ```
     pub fn set_failed_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -306,12 +234,6 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListInstancesResponse;
-    /// let x = ListInstancesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -344,13 +266,6 @@ impl PartialUpdateInstanceRequest {
     }
 
     /// Sets the value of [instance][crate::model::PartialUpdateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::PartialUpdateInstanceRequest;
-    /// use google_cloud_bigtable_admin_v2::model::Instance;
-    /// let x = PartialUpdateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
-    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -360,14 +275,6 @@ impl PartialUpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::PartialUpdateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::PartialUpdateInstanceRequest;
-    /// use google_cloud_bigtable_admin_v2::model::Instance;
-    /// let x = PartialUpdateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
-    /// let x = PartialUpdateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
-    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -377,13 +284,6 @@ impl PartialUpdateInstanceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::PartialUpdateInstanceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::PartialUpdateInstanceRequest;
-    /// use wkt::FieldMask;
-    /// let x = PartialUpdateInstanceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -393,14 +293,6 @@ impl PartialUpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::PartialUpdateInstanceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::PartialUpdateInstanceRequest;
-    /// use wkt::FieldMask;
-    /// let x = PartialUpdateInstanceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = PartialUpdateInstanceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -433,12 +325,6 @@ impl DeleteInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -477,37 +363,18 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::CreateClusterRequest::cluster_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_cluster_id("example");
-    /// ```
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
     }
 
     /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateClusterRequest;
-    /// use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// let x = CreateClusterRequest::new().set_cluster(Cluster::default()/* use setters */);
-    /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -517,14 +384,6 @@ impl CreateClusterRequest {
     }
 
     /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateClusterRequest;
-    /// use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// let x = CreateClusterRequest::new().set_or_clear_cluster(Some(Cluster::default()/* use setters */));
-    /// let x = CreateClusterRequest::new().set_or_clear_cluster(None::<Cluster>);
-    /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -557,12 +416,6 @@ impl GetClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::GetClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GetClusterRequest;
-    /// let x = GetClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -598,24 +451,12 @@ impl ListClustersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListClustersRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -654,17 +495,6 @@ impl ListClustersResponse {
     }
 
     /// Sets the value of [clusters][crate::model::ListClustersResponse::clusters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListClustersResponse;
-    /// use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// let x = ListClustersResponse::new()
-    ///     .set_clusters([
-    ///         Cluster::default()/* use setters */,
-    ///         Cluster::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -676,12 +506,6 @@ impl ListClustersResponse {
     }
 
     /// Sets the value of [failed_locations][crate::model::ListClustersResponse::failed_locations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListClustersResponse;
-    /// let x = ListClustersResponse::new().set_failed_locations(["a", "b", "c"]);
-    /// ```
     pub fn set_failed_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -693,12 +517,6 @@ impl ListClustersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListClustersResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListClustersResponse;
-    /// let x = ListClustersResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -728,12 +546,6 @@ impl DeleteClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DeleteClusterRequest;
-    /// let x = DeleteClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -768,13 +580,6 @@ impl CreateInstanceMetadata {
     }
 
     /// Sets the value of [original_request][crate::model::CreateInstanceMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateInstanceMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::CreateInstanceRequest;
-    /// let x = CreateInstanceMetadata::new().set_original_request(CreateInstanceRequest::default()/* use setters */);
-    /// ```
     pub fn set_original_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CreateInstanceRequest>,
@@ -784,14 +589,6 @@ impl CreateInstanceMetadata {
     }
 
     /// Sets or clears the value of [original_request][crate::model::CreateInstanceMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateInstanceMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::CreateInstanceRequest;
-    /// let x = CreateInstanceMetadata::new().set_or_clear_original_request(Some(CreateInstanceRequest::default()/* use setters */));
-    /// let x = CreateInstanceMetadata::new().set_or_clear_original_request(None::<CreateInstanceRequest>);
-    /// ```
     pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CreateInstanceRequest>,
@@ -801,13 +598,6 @@ impl CreateInstanceMetadata {
     }
 
     /// Sets the value of [request_time][crate::model::CreateInstanceMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateInstanceMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateInstanceMetadata::new().set_request_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_request_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -817,14 +607,6 @@ impl CreateInstanceMetadata {
     }
 
     /// Sets or clears the value of [request_time][crate::model::CreateInstanceMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateInstanceMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateInstanceMetadata::new().set_or_clear_request_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateInstanceMetadata::new().set_or_clear_request_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -834,13 +616,6 @@ impl CreateInstanceMetadata {
     }
 
     /// Sets the value of [finish_time][crate::model::CreateInstanceMetadata::finish_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateInstanceMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateInstanceMetadata::new().set_finish_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_finish_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -850,14 +625,6 @@ impl CreateInstanceMetadata {
     }
 
     /// Sets or clears the value of [finish_time][crate::model::CreateInstanceMetadata::finish_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateInstanceMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateInstanceMetadata::new().set_or_clear_finish_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateInstanceMetadata::new().set_or_clear_finish_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -895,13 +662,6 @@ impl UpdateInstanceMetadata {
     }
 
     /// Sets the value of [original_request][crate::model::UpdateInstanceMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateInstanceMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::PartialUpdateInstanceRequest;
-    /// let x = UpdateInstanceMetadata::new().set_original_request(PartialUpdateInstanceRequest::default()/* use setters */);
-    /// ```
     pub fn set_original_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PartialUpdateInstanceRequest>,
@@ -911,14 +671,6 @@ impl UpdateInstanceMetadata {
     }
 
     /// Sets or clears the value of [original_request][crate::model::UpdateInstanceMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateInstanceMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::PartialUpdateInstanceRequest;
-    /// let x = UpdateInstanceMetadata::new().set_or_clear_original_request(Some(PartialUpdateInstanceRequest::default()/* use setters */));
-    /// let x = UpdateInstanceMetadata::new().set_or_clear_original_request(None::<PartialUpdateInstanceRequest>);
-    /// ```
     pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PartialUpdateInstanceRequest>,
@@ -928,13 +680,6 @@ impl UpdateInstanceMetadata {
     }
 
     /// Sets the value of [request_time][crate::model::UpdateInstanceMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateInstanceMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateInstanceMetadata::new().set_request_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_request_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -944,14 +689,6 @@ impl UpdateInstanceMetadata {
     }
 
     /// Sets or clears the value of [request_time][crate::model::UpdateInstanceMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateInstanceMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateInstanceMetadata::new().set_or_clear_request_time(Some(Timestamp::default()/* use setters */));
-    /// let x = UpdateInstanceMetadata::new().set_or_clear_request_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -961,13 +698,6 @@ impl UpdateInstanceMetadata {
     }
 
     /// Sets the value of [finish_time][crate::model::UpdateInstanceMetadata::finish_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateInstanceMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateInstanceMetadata::new().set_finish_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_finish_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -977,14 +707,6 @@ impl UpdateInstanceMetadata {
     }
 
     /// Sets or clears the value of [finish_time][crate::model::UpdateInstanceMetadata::finish_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateInstanceMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateInstanceMetadata::new().set_or_clear_finish_time(Some(Timestamp::default()/* use setters */));
-    /// let x = UpdateInstanceMetadata::new().set_or_clear_finish_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1035,13 +757,6 @@ impl CreateClusterMetadata {
     }
 
     /// Sets the value of [original_request][crate::model::CreateClusterMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateClusterMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::CreateClusterRequest;
-    /// let x = CreateClusterMetadata::new().set_original_request(CreateClusterRequest::default()/* use setters */);
-    /// ```
     pub fn set_original_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CreateClusterRequest>,
@@ -1051,14 +766,6 @@ impl CreateClusterMetadata {
     }
 
     /// Sets or clears the value of [original_request][crate::model::CreateClusterMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateClusterMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::CreateClusterRequest;
-    /// let x = CreateClusterMetadata::new().set_or_clear_original_request(Some(CreateClusterRequest::default()/* use setters */));
-    /// let x = CreateClusterMetadata::new().set_or_clear_original_request(None::<CreateClusterRequest>);
-    /// ```
     pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CreateClusterRequest>,
@@ -1068,13 +775,6 @@ impl CreateClusterMetadata {
     }
 
     /// Sets the value of [request_time][crate::model::CreateClusterMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateClusterMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateClusterMetadata::new().set_request_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_request_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1084,14 +784,6 @@ impl CreateClusterMetadata {
     }
 
     /// Sets or clears the value of [request_time][crate::model::CreateClusterMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateClusterMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateClusterMetadata::new().set_or_clear_request_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateClusterMetadata::new().set_or_clear_request_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1101,13 +793,6 @@ impl CreateClusterMetadata {
     }
 
     /// Sets the value of [finish_time][crate::model::CreateClusterMetadata::finish_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateClusterMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateClusterMetadata::new().set_finish_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_finish_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1117,14 +802,6 @@ impl CreateClusterMetadata {
     }
 
     /// Sets or clears the value of [finish_time][crate::model::CreateClusterMetadata::finish_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateClusterMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateClusterMetadata::new().set_or_clear_finish_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateClusterMetadata::new().set_or_clear_finish_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1134,16 +811,6 @@ impl CreateClusterMetadata {
     }
 
     /// Sets the value of [tables][crate::model::CreateClusterMetadata::tables].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateClusterMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::create_cluster_metadata::TableProgress;
-    /// let x = CreateClusterMetadata::new().set_tables([
-    ///     ("key0", TableProgress::default()/* use setters */),
-    ///     ("key1", TableProgress::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_tables<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1190,39 +857,18 @@ pub mod create_cluster_metadata {
         }
 
         /// Sets the value of [estimated_size_bytes][crate::model::create_cluster_metadata::TableProgress::estimated_size_bytes].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::create_cluster_metadata::TableProgress;
-        /// let x = TableProgress::new().set_estimated_size_bytes(42);
-        /// ```
         pub fn set_estimated_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.estimated_size_bytes = v.into();
             self
         }
 
         /// Sets the value of [estimated_copied_bytes][crate::model::create_cluster_metadata::TableProgress::estimated_copied_bytes].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::create_cluster_metadata::TableProgress;
-        /// let x = TableProgress::new().set_estimated_copied_bytes(42);
-        /// ```
         pub fn set_estimated_copied_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.estimated_copied_bytes = v.into();
             self
         }
 
         /// Sets the value of [state][crate::model::create_cluster_metadata::TableProgress::state].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::create_cluster_metadata::TableProgress;
-        /// use google_cloud_bigtable_admin_v2::model::create_cluster_metadata::table_progress::State;
-        /// let x0 = TableProgress::new().set_state(State::Pending);
-        /// let x1 = TableProgress::new().set_state(State::Copying);
-        /// let x2 = TableProgress::new().set_state(State::Completed);
-        /// ```
         pub fn set_state<
             T: std::convert::Into<crate::model::create_cluster_metadata::table_progress::State>,
         >(
@@ -1418,13 +1064,6 @@ impl UpdateClusterMetadata {
     }
 
     /// Sets the value of [original_request][crate::model::UpdateClusterMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateClusterMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// let x = UpdateClusterMetadata::new().set_original_request(Cluster::default()/* use setters */);
-    /// ```
     pub fn set_original_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -1434,14 +1073,6 @@ impl UpdateClusterMetadata {
     }
 
     /// Sets or clears the value of [original_request][crate::model::UpdateClusterMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateClusterMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// let x = UpdateClusterMetadata::new().set_or_clear_original_request(Some(Cluster::default()/* use setters */));
-    /// let x = UpdateClusterMetadata::new().set_or_clear_original_request(None::<Cluster>);
-    /// ```
     pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -1451,13 +1082,6 @@ impl UpdateClusterMetadata {
     }
 
     /// Sets the value of [request_time][crate::model::UpdateClusterMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateClusterMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateClusterMetadata::new().set_request_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_request_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1467,14 +1091,6 @@ impl UpdateClusterMetadata {
     }
 
     /// Sets or clears the value of [request_time][crate::model::UpdateClusterMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateClusterMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateClusterMetadata::new().set_or_clear_request_time(Some(Timestamp::default()/* use setters */));
-    /// let x = UpdateClusterMetadata::new().set_or_clear_request_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1484,13 +1100,6 @@ impl UpdateClusterMetadata {
     }
 
     /// Sets the value of [finish_time][crate::model::UpdateClusterMetadata::finish_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateClusterMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateClusterMetadata::new().set_finish_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_finish_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1500,14 +1109,6 @@ impl UpdateClusterMetadata {
     }
 
     /// Sets or clears the value of [finish_time][crate::model::UpdateClusterMetadata::finish_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateClusterMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateClusterMetadata::new().set_or_clear_finish_time(Some(Timestamp::default()/* use setters */));
-    /// let x = UpdateClusterMetadata::new().set_or_clear_finish_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1545,13 +1146,6 @@ impl PartialUpdateClusterMetadata {
     }
 
     /// Sets the value of [request_time][crate::model::PartialUpdateClusterMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::PartialUpdateClusterMetadata;
-    /// use wkt::Timestamp;
-    /// let x = PartialUpdateClusterMetadata::new().set_request_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_request_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1561,14 +1155,6 @@ impl PartialUpdateClusterMetadata {
     }
 
     /// Sets or clears the value of [request_time][crate::model::PartialUpdateClusterMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::PartialUpdateClusterMetadata;
-    /// use wkt::Timestamp;
-    /// let x = PartialUpdateClusterMetadata::new().set_or_clear_request_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PartialUpdateClusterMetadata::new().set_or_clear_request_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1578,13 +1164,6 @@ impl PartialUpdateClusterMetadata {
     }
 
     /// Sets the value of [finish_time][crate::model::PartialUpdateClusterMetadata::finish_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::PartialUpdateClusterMetadata;
-    /// use wkt::Timestamp;
-    /// let x = PartialUpdateClusterMetadata::new().set_finish_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_finish_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1594,14 +1173,6 @@ impl PartialUpdateClusterMetadata {
     }
 
     /// Sets or clears the value of [finish_time][crate::model::PartialUpdateClusterMetadata::finish_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::PartialUpdateClusterMetadata;
-    /// use wkt::Timestamp;
-    /// let x = PartialUpdateClusterMetadata::new().set_or_clear_finish_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PartialUpdateClusterMetadata::new().set_or_clear_finish_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1611,13 +1182,6 @@ impl PartialUpdateClusterMetadata {
     }
 
     /// Sets the value of [original_request][crate::model::PartialUpdateClusterMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::PartialUpdateClusterMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::PartialUpdateClusterRequest;
-    /// let x = PartialUpdateClusterMetadata::new().set_original_request(PartialUpdateClusterRequest::default()/* use setters */);
-    /// ```
     pub fn set_original_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PartialUpdateClusterRequest>,
@@ -1627,14 +1191,6 @@ impl PartialUpdateClusterMetadata {
     }
 
     /// Sets or clears the value of [original_request][crate::model::PartialUpdateClusterMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::PartialUpdateClusterMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::PartialUpdateClusterRequest;
-    /// let x = PartialUpdateClusterMetadata::new().set_or_clear_original_request(Some(PartialUpdateClusterRequest::default()/* use setters */));
-    /// let x = PartialUpdateClusterMetadata::new().set_or_clear_original_request(None::<PartialUpdateClusterRequest>);
-    /// ```
     pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PartialUpdateClusterRequest>,
@@ -1670,13 +1226,6 @@ impl PartialUpdateClusterRequest {
     }
 
     /// Sets the value of [cluster][crate::model::PartialUpdateClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::PartialUpdateClusterRequest;
-    /// use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// let x = PartialUpdateClusterRequest::new().set_cluster(Cluster::default()/* use setters */);
-    /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -1686,14 +1235,6 @@ impl PartialUpdateClusterRequest {
     }
 
     /// Sets or clears the value of [cluster][crate::model::PartialUpdateClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::PartialUpdateClusterRequest;
-    /// use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// let x = PartialUpdateClusterRequest::new().set_or_clear_cluster(Some(Cluster::default()/* use setters */));
-    /// let x = PartialUpdateClusterRequest::new().set_or_clear_cluster(None::<Cluster>);
-    /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -1703,13 +1244,6 @@ impl PartialUpdateClusterRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::PartialUpdateClusterRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::PartialUpdateClusterRequest;
-    /// use wkt::FieldMask;
-    /// let x = PartialUpdateClusterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1719,14 +1253,6 @@ impl PartialUpdateClusterRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::PartialUpdateClusterRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::PartialUpdateClusterRequest;
-    /// use wkt::FieldMask;
-    /// let x = PartialUpdateClusterRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = PartialUpdateClusterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1771,37 +1297,18 @@ impl CreateAppProfileRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAppProfileRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateAppProfileRequest;
-    /// let x = CreateAppProfileRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [app_profile_id][crate::model::CreateAppProfileRequest::app_profile_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateAppProfileRequest;
-    /// let x = CreateAppProfileRequest::new().set_app_profile_id("example");
-    /// ```
     pub fn set_app_profile_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.app_profile_id = v.into();
         self
     }
 
     /// Sets the value of [app_profile][crate::model::CreateAppProfileRequest::app_profile].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateAppProfileRequest;
-    /// use google_cloud_bigtable_admin_v2::model::AppProfile;
-    /// let x = CreateAppProfileRequest::new().set_app_profile(AppProfile::default()/* use setters */);
-    /// ```
     pub fn set_app_profile<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AppProfile>,
@@ -1811,14 +1318,6 @@ impl CreateAppProfileRequest {
     }
 
     /// Sets or clears the value of [app_profile][crate::model::CreateAppProfileRequest::app_profile].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateAppProfileRequest;
-    /// use google_cloud_bigtable_admin_v2::model::AppProfile;
-    /// let x = CreateAppProfileRequest::new().set_or_clear_app_profile(Some(AppProfile::default()/* use setters */));
-    /// let x = CreateAppProfileRequest::new().set_or_clear_app_profile(None::<AppProfile>);
-    /// ```
     pub fn set_or_clear_app_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppProfile>,
@@ -1828,12 +1327,6 @@ impl CreateAppProfileRequest {
     }
 
     /// Sets the value of [ignore_warnings][crate::model::CreateAppProfileRequest::ignore_warnings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateAppProfileRequest;
-    /// let x = CreateAppProfileRequest::new().set_ignore_warnings(true);
-    /// ```
     pub fn set_ignore_warnings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_warnings = v.into();
         self
@@ -1863,12 +1356,6 @@ impl GetAppProfileRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAppProfileRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GetAppProfileRequest;
-    /// let x = GetAppProfileRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1915,36 +1402,18 @@ impl ListAppProfilesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAppProfilesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListAppProfilesRequest;
-    /// let x = ListAppProfilesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAppProfilesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListAppProfilesRequest;
-    /// let x = ListAppProfilesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAppProfilesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListAppProfilesRequest;
-    /// let x = ListAppProfilesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1984,17 +1453,6 @@ impl ListAppProfilesResponse {
     }
 
     /// Sets the value of [app_profiles][crate::model::ListAppProfilesResponse::app_profiles].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListAppProfilesResponse;
-    /// use google_cloud_bigtable_admin_v2::model::AppProfile;
-    /// let x = ListAppProfilesResponse::new()
-    ///     .set_app_profiles([
-    ///         AppProfile::default()/* use setters */,
-    ///         AppProfile::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_app_profiles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2006,24 +1464,12 @@ impl ListAppProfilesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAppProfilesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListAppProfilesResponse;
-    /// let x = ListAppProfilesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [failed_locations][crate::model::ListAppProfilesResponse::failed_locations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListAppProfilesResponse;
-    /// let x = ListAppProfilesResponse::new().set_failed_locations(["a", "b", "c"]);
-    /// ```
     pub fn set_failed_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2078,13 +1524,6 @@ impl UpdateAppProfileRequest {
     }
 
     /// Sets the value of [app_profile][crate::model::UpdateAppProfileRequest::app_profile].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateAppProfileRequest;
-    /// use google_cloud_bigtable_admin_v2::model::AppProfile;
-    /// let x = UpdateAppProfileRequest::new().set_app_profile(AppProfile::default()/* use setters */);
-    /// ```
     pub fn set_app_profile<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AppProfile>,
@@ -2094,14 +1533,6 @@ impl UpdateAppProfileRequest {
     }
 
     /// Sets or clears the value of [app_profile][crate::model::UpdateAppProfileRequest::app_profile].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateAppProfileRequest;
-    /// use google_cloud_bigtable_admin_v2::model::AppProfile;
-    /// let x = UpdateAppProfileRequest::new().set_or_clear_app_profile(Some(AppProfile::default()/* use setters */));
-    /// let x = UpdateAppProfileRequest::new().set_or_clear_app_profile(None::<AppProfile>);
-    /// ```
     pub fn set_or_clear_app_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppProfile>,
@@ -2111,13 +1542,6 @@ impl UpdateAppProfileRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAppProfileRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateAppProfileRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateAppProfileRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2127,14 +1551,6 @@ impl UpdateAppProfileRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAppProfileRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateAppProfileRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateAppProfileRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateAppProfileRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2144,12 +1560,6 @@ impl UpdateAppProfileRequest {
     }
 
     /// Sets the value of [ignore_warnings][crate::model::UpdateAppProfileRequest::ignore_warnings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateAppProfileRequest;
-    /// let x = UpdateAppProfileRequest::new().set_ignore_warnings(true);
-    /// ```
     pub fn set_ignore_warnings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_warnings = v.into();
         self
@@ -2183,24 +1593,12 @@ impl DeleteAppProfileRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAppProfileRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DeleteAppProfileRequest;
-    /// let x = DeleteAppProfileRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ignore_warnings][crate::model::DeleteAppProfileRequest::ignore_warnings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DeleteAppProfileRequest;
-    /// let x = DeleteAppProfileRequest::new().set_ignore_warnings(true);
-    /// ```
     pub fn set_ignore_warnings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_warnings = v.into();
         self
@@ -2275,25 +1673,12 @@ impl ListHotTabletsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListHotTabletsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListHotTabletsRequest;
-    /// let x = ListHotTabletsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::ListHotTabletsRequest::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListHotTabletsRequest;
-    /// use wkt::Timestamp;
-    /// let x = ListHotTabletsRequest::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2303,14 +1688,6 @@ impl ListHotTabletsRequest {
     }
 
     /// Sets or clears the value of [start_time][crate::model::ListHotTabletsRequest::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListHotTabletsRequest;
-    /// use wkt::Timestamp;
-    /// let x = ListHotTabletsRequest::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ListHotTabletsRequest::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2320,13 +1697,6 @@ impl ListHotTabletsRequest {
     }
 
     /// Sets the value of [end_time][crate::model::ListHotTabletsRequest::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListHotTabletsRequest;
-    /// use wkt::Timestamp;
-    /// let x = ListHotTabletsRequest::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2336,14 +1706,6 @@ impl ListHotTabletsRequest {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ListHotTabletsRequest::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListHotTabletsRequest;
-    /// use wkt::Timestamp;
-    /// let x = ListHotTabletsRequest::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ListHotTabletsRequest::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2353,24 +1715,12 @@ impl ListHotTabletsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListHotTabletsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListHotTabletsRequest;
-    /// let x = ListHotTabletsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListHotTabletsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListHotTabletsRequest;
-    /// let x = ListHotTabletsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2408,17 +1758,6 @@ impl ListHotTabletsResponse {
     }
 
     /// Sets the value of [hot_tablets][crate::model::ListHotTabletsResponse::hot_tablets].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListHotTabletsResponse;
-    /// use google_cloud_bigtable_admin_v2::model::HotTablet;
-    /// let x = ListHotTabletsResponse::new()
-    ///     .set_hot_tablets([
-    ///         HotTablet::default()/* use setters */,
-    ///         HotTablet::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_hot_tablets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2430,12 +1769,6 @@ impl ListHotTabletsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListHotTabletsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListHotTabletsResponse;
-    /// let x = ListHotTabletsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2486,37 +1819,18 @@ impl CreateLogicalViewRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateLogicalViewRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateLogicalViewRequest;
-    /// let x = CreateLogicalViewRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [logical_view_id][crate::model::CreateLogicalViewRequest::logical_view_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateLogicalViewRequest;
-    /// let x = CreateLogicalViewRequest::new().set_logical_view_id("example");
-    /// ```
     pub fn set_logical_view_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.logical_view_id = v.into();
         self
     }
 
     /// Sets the value of [logical_view][crate::model::CreateLogicalViewRequest::logical_view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateLogicalViewRequest;
-    /// use google_cloud_bigtable_admin_v2::model::LogicalView;
-    /// let x = CreateLogicalViewRequest::new().set_logical_view(LogicalView::default()/* use setters */);
-    /// ```
     pub fn set_logical_view<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LogicalView>,
@@ -2526,14 +1840,6 @@ impl CreateLogicalViewRequest {
     }
 
     /// Sets or clears the value of [logical_view][crate::model::CreateLogicalViewRequest::logical_view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateLogicalViewRequest;
-    /// use google_cloud_bigtable_admin_v2::model::LogicalView;
-    /// let x = CreateLogicalViewRequest::new().set_or_clear_logical_view(Some(LogicalView::default()/* use setters */));
-    /// let x = CreateLogicalViewRequest::new().set_or_clear_logical_view(None::<LogicalView>);
-    /// ```
     pub fn set_or_clear_logical_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogicalView>,
@@ -2572,13 +1878,6 @@ impl CreateLogicalViewMetadata {
     }
 
     /// Sets the value of [original_request][crate::model::CreateLogicalViewMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateLogicalViewMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::CreateLogicalViewRequest;
-    /// let x = CreateLogicalViewMetadata::new().set_original_request(CreateLogicalViewRequest::default()/* use setters */);
-    /// ```
     pub fn set_original_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CreateLogicalViewRequest>,
@@ -2588,14 +1887,6 @@ impl CreateLogicalViewMetadata {
     }
 
     /// Sets or clears the value of [original_request][crate::model::CreateLogicalViewMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateLogicalViewMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::CreateLogicalViewRequest;
-    /// let x = CreateLogicalViewMetadata::new().set_or_clear_original_request(Some(CreateLogicalViewRequest::default()/* use setters */));
-    /// let x = CreateLogicalViewMetadata::new().set_or_clear_original_request(None::<CreateLogicalViewRequest>);
-    /// ```
     pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CreateLogicalViewRequest>,
@@ -2605,13 +1896,6 @@ impl CreateLogicalViewMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::CreateLogicalViewMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateLogicalViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateLogicalViewMetadata::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2621,14 +1905,6 @@ impl CreateLogicalViewMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::CreateLogicalViewMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateLogicalViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateLogicalViewMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateLogicalViewMetadata::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2638,13 +1914,6 @@ impl CreateLogicalViewMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::CreateLogicalViewMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateLogicalViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateLogicalViewMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2654,14 +1923,6 @@ impl CreateLogicalViewMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::CreateLogicalViewMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateLogicalViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateLogicalViewMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateLogicalViewMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2694,12 +1955,6 @@ impl GetLogicalViewRequest {
     }
 
     /// Sets the value of [name][crate::model::GetLogicalViewRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GetLogicalViewRequest;
-    /// let x = GetLogicalViewRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2741,36 +1996,18 @@ impl ListLogicalViewsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListLogicalViewsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListLogicalViewsRequest;
-    /// let x = ListLogicalViewsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListLogicalViewsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListLogicalViewsRequest;
-    /// let x = ListLogicalViewsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListLogicalViewsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListLogicalViewsRequest;
-    /// let x = ListLogicalViewsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2803,17 +2040,6 @@ impl ListLogicalViewsResponse {
     }
 
     /// Sets the value of [logical_views][crate::model::ListLogicalViewsResponse::logical_views].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListLogicalViewsResponse;
-    /// use google_cloud_bigtable_admin_v2::model::LogicalView;
-    /// let x = ListLogicalViewsResponse::new()
-    ///     .set_logical_views([
-    ///         LogicalView::default()/* use setters */,
-    ///         LogicalView::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_logical_views<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2825,12 +2051,6 @@ impl ListLogicalViewsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListLogicalViewsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListLogicalViewsResponse;
-    /// let x = ListLogicalViewsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2880,13 +2100,6 @@ impl UpdateLogicalViewRequest {
     }
 
     /// Sets the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateLogicalViewRequest;
-    /// use google_cloud_bigtable_admin_v2::model::LogicalView;
-    /// let x = UpdateLogicalViewRequest::new().set_logical_view(LogicalView::default()/* use setters */);
-    /// ```
     pub fn set_logical_view<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LogicalView>,
@@ -2896,14 +2109,6 @@ impl UpdateLogicalViewRequest {
     }
 
     /// Sets or clears the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateLogicalViewRequest;
-    /// use google_cloud_bigtable_admin_v2::model::LogicalView;
-    /// let x = UpdateLogicalViewRequest::new().set_or_clear_logical_view(Some(LogicalView::default()/* use setters */));
-    /// let x = UpdateLogicalViewRequest::new().set_or_clear_logical_view(None::<LogicalView>);
-    /// ```
     pub fn set_or_clear_logical_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogicalView>,
@@ -2913,13 +2118,6 @@ impl UpdateLogicalViewRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateLogicalViewRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateLogicalViewRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateLogicalViewRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2929,14 +2127,6 @@ impl UpdateLogicalViewRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateLogicalViewRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateLogicalViewRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateLogicalViewRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateLogicalViewRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2975,13 +2165,6 @@ impl UpdateLogicalViewMetadata {
     }
 
     /// Sets the value of [original_request][crate::model::UpdateLogicalViewMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateLogicalViewMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::UpdateLogicalViewRequest;
-    /// let x = UpdateLogicalViewMetadata::new().set_original_request(UpdateLogicalViewRequest::default()/* use setters */);
-    /// ```
     pub fn set_original_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UpdateLogicalViewRequest>,
@@ -2991,14 +2174,6 @@ impl UpdateLogicalViewMetadata {
     }
 
     /// Sets or clears the value of [original_request][crate::model::UpdateLogicalViewMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateLogicalViewMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::UpdateLogicalViewRequest;
-    /// let x = UpdateLogicalViewMetadata::new().set_or_clear_original_request(Some(UpdateLogicalViewRequest::default()/* use setters */));
-    /// let x = UpdateLogicalViewMetadata::new().set_or_clear_original_request(None::<UpdateLogicalViewRequest>);
-    /// ```
     pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UpdateLogicalViewRequest>,
@@ -3008,13 +2183,6 @@ impl UpdateLogicalViewMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::UpdateLogicalViewMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateLogicalViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateLogicalViewMetadata::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3024,14 +2192,6 @@ impl UpdateLogicalViewMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::UpdateLogicalViewMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateLogicalViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateLogicalViewMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = UpdateLogicalViewMetadata::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3041,13 +2201,6 @@ impl UpdateLogicalViewMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::UpdateLogicalViewMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateLogicalViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateLogicalViewMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3057,14 +2210,6 @@ impl UpdateLogicalViewMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::UpdateLogicalViewMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateLogicalViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateLogicalViewMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = UpdateLogicalViewMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3104,24 +2249,12 @@ impl DeleteLogicalViewRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteLogicalViewRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DeleteLogicalViewRequest;
-    /// let x = DeleteLogicalViewRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteLogicalViewRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DeleteLogicalViewRequest;
-    /// let x = DeleteLogicalViewRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -3158,24 +2291,12 @@ impl CreateMaterializedViewRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateMaterializedViewRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateMaterializedViewRequest;
-    /// let x = CreateMaterializedViewRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [materialized_view_id][crate::model::CreateMaterializedViewRequest::materialized_view_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateMaterializedViewRequest;
-    /// let x = CreateMaterializedViewRequest::new().set_materialized_view_id("example");
-    /// ```
     pub fn set_materialized_view_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3185,13 +2306,6 @@ impl CreateMaterializedViewRequest {
     }
 
     /// Sets the value of [materialized_view][crate::model::CreateMaterializedViewRequest::materialized_view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateMaterializedViewRequest;
-    /// use google_cloud_bigtable_admin_v2::model::MaterializedView;
-    /// let x = CreateMaterializedViewRequest::new().set_materialized_view(MaterializedView::default()/* use setters */);
-    /// ```
     pub fn set_materialized_view<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaterializedView>,
@@ -3201,14 +2315,6 @@ impl CreateMaterializedViewRequest {
     }
 
     /// Sets or clears the value of [materialized_view][crate::model::CreateMaterializedViewRequest::materialized_view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateMaterializedViewRequest;
-    /// use google_cloud_bigtable_admin_v2::model::MaterializedView;
-    /// let x = CreateMaterializedViewRequest::new().set_or_clear_materialized_view(Some(MaterializedView::default()/* use setters */));
-    /// let x = CreateMaterializedViewRequest::new().set_or_clear_materialized_view(None::<MaterializedView>);
-    /// ```
     pub fn set_or_clear_materialized_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaterializedView>,
@@ -3247,13 +2353,6 @@ impl CreateMaterializedViewMetadata {
     }
 
     /// Sets the value of [original_request][crate::model::CreateMaterializedViewMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateMaterializedViewMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::CreateMaterializedViewRequest;
-    /// let x = CreateMaterializedViewMetadata::new().set_original_request(CreateMaterializedViewRequest::default()/* use setters */);
-    /// ```
     pub fn set_original_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CreateMaterializedViewRequest>,
@@ -3263,14 +2362,6 @@ impl CreateMaterializedViewMetadata {
     }
 
     /// Sets or clears the value of [original_request][crate::model::CreateMaterializedViewMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateMaterializedViewMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::CreateMaterializedViewRequest;
-    /// let x = CreateMaterializedViewMetadata::new().set_or_clear_original_request(Some(CreateMaterializedViewRequest::default()/* use setters */));
-    /// let x = CreateMaterializedViewMetadata::new().set_or_clear_original_request(None::<CreateMaterializedViewRequest>);
-    /// ```
     pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CreateMaterializedViewRequest>,
@@ -3280,13 +2371,6 @@ impl CreateMaterializedViewMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::CreateMaterializedViewMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateMaterializedViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateMaterializedViewMetadata::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3296,14 +2380,6 @@ impl CreateMaterializedViewMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::CreateMaterializedViewMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateMaterializedViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateMaterializedViewMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateMaterializedViewMetadata::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3313,13 +2389,6 @@ impl CreateMaterializedViewMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::CreateMaterializedViewMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateMaterializedViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateMaterializedViewMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3329,14 +2398,6 @@ impl CreateMaterializedViewMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::CreateMaterializedViewMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateMaterializedViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateMaterializedViewMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateMaterializedViewMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3370,12 +2431,6 @@ impl GetMaterializedViewRequest {
     }
 
     /// Sets the value of [name][crate::model::GetMaterializedViewRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GetMaterializedViewRequest;
-    /// let x = GetMaterializedViewRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3417,36 +2472,18 @@ impl ListMaterializedViewsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListMaterializedViewsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListMaterializedViewsRequest;
-    /// let x = ListMaterializedViewsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListMaterializedViewsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListMaterializedViewsRequest;
-    /// let x = ListMaterializedViewsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListMaterializedViewsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListMaterializedViewsRequest;
-    /// let x = ListMaterializedViewsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3479,17 +2516,6 @@ impl ListMaterializedViewsResponse {
     }
 
     /// Sets the value of [materialized_views][crate::model::ListMaterializedViewsResponse::materialized_views].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListMaterializedViewsResponse;
-    /// use google_cloud_bigtable_admin_v2::model::MaterializedView;
-    /// let x = ListMaterializedViewsResponse::new()
-    ///     .set_materialized_views([
-    ///         MaterializedView::default()/* use setters */,
-    ///         MaterializedView::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_materialized_views<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3501,12 +2527,6 @@ impl ListMaterializedViewsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListMaterializedViewsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListMaterializedViewsResponse;
-    /// let x = ListMaterializedViewsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3556,13 +2576,6 @@ impl UpdateMaterializedViewRequest {
     }
 
     /// Sets the value of [materialized_view][crate::model::UpdateMaterializedViewRequest::materialized_view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateMaterializedViewRequest;
-    /// use google_cloud_bigtable_admin_v2::model::MaterializedView;
-    /// let x = UpdateMaterializedViewRequest::new().set_materialized_view(MaterializedView::default()/* use setters */);
-    /// ```
     pub fn set_materialized_view<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaterializedView>,
@@ -3572,14 +2585,6 @@ impl UpdateMaterializedViewRequest {
     }
 
     /// Sets or clears the value of [materialized_view][crate::model::UpdateMaterializedViewRequest::materialized_view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateMaterializedViewRequest;
-    /// use google_cloud_bigtable_admin_v2::model::MaterializedView;
-    /// let x = UpdateMaterializedViewRequest::new().set_or_clear_materialized_view(Some(MaterializedView::default()/* use setters */));
-    /// let x = UpdateMaterializedViewRequest::new().set_or_clear_materialized_view(None::<MaterializedView>);
-    /// ```
     pub fn set_or_clear_materialized_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaterializedView>,
@@ -3589,13 +2594,6 @@ impl UpdateMaterializedViewRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateMaterializedViewRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateMaterializedViewRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateMaterializedViewRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3605,14 +2603,6 @@ impl UpdateMaterializedViewRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateMaterializedViewRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateMaterializedViewRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateMaterializedViewRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateMaterializedViewRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3651,13 +2641,6 @@ impl UpdateMaterializedViewMetadata {
     }
 
     /// Sets the value of [original_request][crate::model::UpdateMaterializedViewMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateMaterializedViewMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::UpdateMaterializedViewRequest;
-    /// let x = UpdateMaterializedViewMetadata::new().set_original_request(UpdateMaterializedViewRequest::default()/* use setters */);
-    /// ```
     pub fn set_original_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UpdateMaterializedViewRequest>,
@@ -3667,14 +2650,6 @@ impl UpdateMaterializedViewMetadata {
     }
 
     /// Sets or clears the value of [original_request][crate::model::UpdateMaterializedViewMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateMaterializedViewMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::UpdateMaterializedViewRequest;
-    /// let x = UpdateMaterializedViewMetadata::new().set_or_clear_original_request(Some(UpdateMaterializedViewRequest::default()/* use setters */));
-    /// let x = UpdateMaterializedViewMetadata::new().set_or_clear_original_request(None::<UpdateMaterializedViewRequest>);
-    /// ```
     pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UpdateMaterializedViewRequest>,
@@ -3684,13 +2659,6 @@ impl UpdateMaterializedViewMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::UpdateMaterializedViewMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateMaterializedViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateMaterializedViewMetadata::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3700,14 +2668,6 @@ impl UpdateMaterializedViewMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::UpdateMaterializedViewMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateMaterializedViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateMaterializedViewMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = UpdateMaterializedViewMetadata::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3717,13 +2677,6 @@ impl UpdateMaterializedViewMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::UpdateMaterializedViewMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateMaterializedViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateMaterializedViewMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3733,14 +2686,6 @@ impl UpdateMaterializedViewMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::UpdateMaterializedViewMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateMaterializedViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateMaterializedViewMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = UpdateMaterializedViewMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3780,24 +2725,12 @@ impl DeleteMaterializedViewRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteMaterializedViewRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DeleteMaterializedViewRequest;
-    /// let x = DeleteMaterializedViewRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteMaterializedViewRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DeleteMaterializedViewRequest;
-    /// let x = DeleteMaterializedViewRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -3839,24 +2772,12 @@ impl RestoreTableRequest {
     }
 
     /// Sets the value of [parent][crate::model::RestoreTableRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::RestoreTableRequest;
-    /// let x = RestoreTableRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [table_id][crate::model::RestoreTableRequest::table_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::RestoreTableRequest;
-    /// let x = RestoreTableRequest::new().set_table_id("example");
-    /// ```
     pub fn set_table_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_id = v.into();
         self
@@ -3866,13 +2787,6 @@ impl RestoreTableRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::RestoreTableRequest;
-    /// use google_cloud_bigtable_admin_v2::model::restore_table_request;
-    /// let x = RestoreTableRequest::new().set_source(Some(restore_table_request::Source::Backup("example".to_string())));
-    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::restore_table_request::Source>>,
     >(
@@ -3899,13 +2813,6 @@ impl RestoreTableRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::RestoreTableRequest;
-    /// let x = RestoreTableRequest::new().set_backup("example");
-    /// assert!(x.backup().is_some());
-    /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
             crate::model::restore_table_request::Source::Backup(v.into()),
@@ -3984,25 +2891,12 @@ impl RestoreTableMetadata {
     }
 
     /// Sets the value of [name][crate::model::RestoreTableMetadata::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::RestoreTableMetadata;
-    /// let x = RestoreTableMetadata::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [source_type][crate::model::RestoreTableMetadata::source_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::RestoreTableMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::RestoreSourceType;
-    /// let x0 = RestoreTableMetadata::new().set_source_type(RestoreSourceType::Backup);
-    /// ```
     pub fn set_source_type<T: std::convert::Into<crate::model::RestoreSourceType>>(
         mut self,
         v: T,
@@ -4012,12 +2906,6 @@ impl RestoreTableMetadata {
     }
 
     /// Sets the value of [optimize_table_operation_name][crate::model::RestoreTableMetadata::optimize_table_operation_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::RestoreTableMetadata;
-    /// let x = RestoreTableMetadata::new().set_optimize_table_operation_name("example");
-    /// ```
     pub fn set_optimize_table_operation_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4027,13 +2915,6 @@ impl RestoreTableMetadata {
     }
 
     /// Sets the value of [progress][crate::model::RestoreTableMetadata::progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::RestoreTableMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::OperationProgress;
-    /// let x = RestoreTableMetadata::new().set_progress(OperationProgress::default()/* use setters */);
-    /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -4043,14 +2924,6 @@ impl RestoreTableMetadata {
     }
 
     /// Sets or clears the value of [progress][crate::model::RestoreTableMetadata::progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::RestoreTableMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::OperationProgress;
-    /// let x = RestoreTableMetadata::new().set_or_clear_progress(Some(OperationProgress::default()/* use setters */));
-    /// let x = RestoreTableMetadata::new().set_or_clear_progress(None::<OperationProgress>);
-    /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -4063,14 +2936,6 @@ impl RestoreTableMetadata {
     ///
     /// Note that all the setters affecting `source_info` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::RestoreTableMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::restore_table_metadata;
-    /// use google_cloud_bigtable_admin_v2::model::BackupInfo;
-    /// let x = RestoreTableMetadata::new().set_source_info(Some(restore_table_metadata::SourceInfo::BackupInfo(BackupInfo::default().into())));
-    /// ```
     pub fn set_source_info<
         T: std::convert::Into<std::option::Option<crate::model::restore_table_metadata::SourceInfo>>,
     >(
@@ -4099,14 +2964,6 @@ impl RestoreTableMetadata {
     ///
     /// Note that all the setters affecting `source_info` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::RestoreTableMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::BackupInfo;
-    /// let x = RestoreTableMetadata::new().set_backup_info(BackupInfo::default()/* use setters */);
-    /// assert!(x.backup_info().is_some());
-    /// ```
     pub fn set_backup_info<T: std::convert::Into<std::boxed::Box<crate::model::BackupInfo>>>(
         mut self,
         v: T,
@@ -4163,25 +3020,12 @@ impl OptimizeRestoredTableMetadata {
     }
 
     /// Sets the value of [name][crate::model::OptimizeRestoredTableMetadata::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::OptimizeRestoredTableMetadata;
-    /// let x = OptimizeRestoredTableMetadata::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [progress][crate::model::OptimizeRestoredTableMetadata::progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::OptimizeRestoredTableMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::OperationProgress;
-    /// let x = OptimizeRestoredTableMetadata::new().set_progress(OperationProgress::default()/* use setters */);
-    /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -4191,14 +3035,6 @@ impl OptimizeRestoredTableMetadata {
     }
 
     /// Sets or clears the value of [progress][crate::model::OptimizeRestoredTableMetadata::progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::OptimizeRestoredTableMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::OperationProgress;
-    /// let x = OptimizeRestoredTableMetadata::new().set_or_clear_progress(Some(OperationProgress::default()/* use setters */));
-    /// let x = OptimizeRestoredTableMetadata::new().set_or_clear_progress(None::<OperationProgress>);
-    /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -4260,37 +3096,18 @@ impl CreateTableRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTableRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateTableRequest;
-    /// let x = CreateTableRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [table_id][crate::model::CreateTableRequest::table_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateTableRequest;
-    /// let x = CreateTableRequest::new().set_table_id("example");
-    /// ```
     pub fn set_table_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_id = v.into();
         self
     }
 
     /// Sets the value of [table][crate::model::CreateTableRequest::table].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateTableRequest;
-    /// use google_cloud_bigtable_admin_v2::model::Table;
-    /// let x = CreateTableRequest::new().set_table(Table::default()/* use setters */);
-    /// ```
     pub fn set_table<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Table>,
@@ -4300,14 +3117,6 @@ impl CreateTableRequest {
     }
 
     /// Sets or clears the value of [table][crate::model::CreateTableRequest::table].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateTableRequest;
-    /// use google_cloud_bigtable_admin_v2::model::Table;
-    /// let x = CreateTableRequest::new().set_or_clear_table(Some(Table::default()/* use setters */));
-    /// let x = CreateTableRequest::new().set_or_clear_table(None::<Table>);
-    /// ```
     pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Table>,
@@ -4317,17 +3126,6 @@ impl CreateTableRequest {
     }
 
     /// Sets the value of [initial_splits][crate::model::CreateTableRequest::initial_splits].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateTableRequest;
-    /// use google_cloud_bigtable_admin_v2::model::create_table_request::Split;
-    /// let x = CreateTableRequest::new()
-    ///     .set_initial_splits([
-    ///         Split::default()/* use setters */,
-    ///         Split::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_initial_splits<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4366,12 +3164,6 @@ pub mod create_table_request {
         }
 
         /// Sets the value of [key][crate::model::create_table_request::Split::key].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::create_table_request::Split;
-        /// let x = Split::new().set_key(bytes::Bytes::from_static(b"example"));
-        /// ```
         pub fn set_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.key = v.into();
             self
@@ -4420,36 +3212,18 @@ impl CreateTableFromSnapshotRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTableFromSnapshotRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateTableFromSnapshotRequest;
-    /// let x = CreateTableFromSnapshotRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [table_id][crate::model::CreateTableFromSnapshotRequest::table_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateTableFromSnapshotRequest;
-    /// let x = CreateTableFromSnapshotRequest::new().set_table_id("example");
-    /// ```
     pub fn set_table_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_id = v.into();
         self
     }
 
     /// Sets the value of [source_snapshot][crate::model::CreateTableFromSnapshotRequest::source_snapshot].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateTableFromSnapshotRequest;
-    /// let x = CreateTableFromSnapshotRequest::new().set_source_snapshot("example");
-    /// ```
     pub fn set_source_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_snapshot = v.into();
         self
@@ -4486,12 +3260,6 @@ impl DropRowRangeRequest {
     }
 
     /// Sets the value of [name][crate::model::DropRowRangeRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DropRowRangeRequest;
-    /// let x = DropRowRangeRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4501,13 +3269,6 @@ impl DropRowRangeRequest {
     ///
     /// Note that all the setters affecting `target` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DropRowRangeRequest;
-    /// use google_cloud_bigtable_admin_v2::model::drop_row_range_request;
-    /// let x = DropRowRangeRequest::new().set_target(Some(drop_row_range_request::Target::RowKeyPrefix(bytes::Bytes::from_static(b"example"))));
-    /// ```
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::drop_row_range_request::Target>>,
     >(
@@ -4536,14 +3297,6 @@ impl DropRowRangeRequest {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DropRowRangeRequest;
-    /// let x = DropRowRangeRequest::new().set_row_key_prefix(bytes::Bytes::from_static(b"example"));
-    /// assert!(x.row_key_prefix().is_some());
-    /// assert!(x.delete_all_data_from_table().is_none());
-    /// ```
     pub fn set_row_key_prefix<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.target = std::option::Option::Some(
             crate::model::drop_row_range_request::Target::RowKeyPrefix(v.into()),
@@ -4569,14 +3322,6 @@ impl DropRowRangeRequest {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DropRowRangeRequest;
-    /// let x = DropRowRangeRequest::new().set_delete_all_data_from_table(true);
-    /// assert!(x.delete_all_data_from_table().is_some());
-    /// assert!(x.row_key_prefix().is_none());
-    /// ```
     pub fn set_delete_all_data_from_table<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.target = std::option::Option::Some(
             crate::model::drop_row_range_request::Target::DeleteAllDataFromTable(v.into()),
@@ -4646,51 +3391,24 @@ impl ListTablesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTablesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListTablesRequest;
-    /// let x = ListTablesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListTablesRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListTablesRequest;
-    /// use google_cloud_bigtable_admin_v2::model::table::View;
-    /// let x0 = ListTablesRequest::new().set_view(View::NameOnly);
-    /// let x1 = ListTablesRequest::new().set_view(View::SchemaView);
-    /// let x2 = ListTablesRequest::new().set_view(View::ReplicationView);
-    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::table::View>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTablesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListTablesRequest;
-    /// let x = ListTablesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTablesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListTablesRequest;
-    /// let x = ListTablesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4727,17 +3445,6 @@ impl ListTablesResponse {
     }
 
     /// Sets the value of [tables][crate::model::ListTablesResponse::tables].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListTablesResponse;
-    /// use google_cloud_bigtable_admin_v2::model::Table;
-    /// let x = ListTablesResponse::new()
-    ///     .set_tables([
-    ///         Table::default()/* use setters */,
-    ///         Table::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_tables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4749,12 +3456,6 @@ impl ListTablesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTablesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListTablesResponse;
-    /// let x = ListTablesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4806,27 +3507,12 @@ impl GetTableRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTableRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GetTableRequest;
-    /// let x = GetTableRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetTableRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GetTableRequest;
-    /// use google_cloud_bigtable_admin_v2::model::table::View;
-    /// let x0 = GetTableRequest::new().set_view(View::NameOnly);
-    /// let x1 = GetTableRequest::new().set_view(View::SchemaView);
-    /// let x2 = GetTableRequest::new().set_view(View::ReplicationView);
-    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::table::View>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -4877,13 +3563,6 @@ impl UpdateTableRequest {
     }
 
     /// Sets the value of [table][crate::model::UpdateTableRequest::table].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateTableRequest;
-    /// use google_cloud_bigtable_admin_v2::model::Table;
-    /// let x = UpdateTableRequest::new().set_table(Table::default()/* use setters */);
-    /// ```
     pub fn set_table<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Table>,
@@ -4893,14 +3572,6 @@ impl UpdateTableRequest {
     }
 
     /// Sets or clears the value of [table][crate::model::UpdateTableRequest::table].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateTableRequest;
-    /// use google_cloud_bigtable_admin_v2::model::Table;
-    /// let x = UpdateTableRequest::new().set_or_clear_table(Some(Table::default()/* use setters */));
-    /// let x = UpdateTableRequest::new().set_or_clear_table(None::<Table>);
-    /// ```
     pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Table>,
@@ -4910,13 +3581,6 @@ impl UpdateTableRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTableRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateTableRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTableRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4926,14 +3590,6 @@ impl UpdateTableRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTableRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateTableRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTableRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateTableRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4943,12 +3599,6 @@ impl UpdateTableRequest {
     }
 
     /// Sets the value of [ignore_warnings][crate::model::UpdateTableRequest::ignore_warnings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateTableRequest;
-    /// let x = UpdateTableRequest::new().set_ignore_warnings(true);
-    /// ```
     pub fn set_ignore_warnings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_warnings = v.into();
         self
@@ -4986,25 +3636,12 @@ impl UpdateTableMetadata {
     }
 
     /// Sets the value of [name][crate::model::UpdateTableMetadata::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateTableMetadata;
-    /// let x = UpdateTableMetadata::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::UpdateTableMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateTableMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateTableMetadata::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5014,14 +3651,6 @@ impl UpdateTableMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::UpdateTableMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateTableMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateTableMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = UpdateTableMetadata::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5031,13 +3660,6 @@ impl UpdateTableMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::UpdateTableMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateTableMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateTableMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5047,14 +3669,6 @@ impl UpdateTableMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::UpdateTableMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateTableMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateTableMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = UpdateTableMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5091,12 +3705,6 @@ impl DeleteTableRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTableRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DeleteTableRequest;
-    /// let x = DeleteTableRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5130,12 +3738,6 @@ impl UndeleteTableRequest {
     }
 
     /// Sets the value of [name][crate::model::UndeleteTableRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UndeleteTableRequest;
-    /// let x = UndeleteTableRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5173,25 +3775,12 @@ impl UndeleteTableMetadata {
     }
 
     /// Sets the value of [name][crate::model::UndeleteTableMetadata::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UndeleteTableMetadata;
-    /// let x = UndeleteTableMetadata::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::UndeleteTableMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UndeleteTableMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UndeleteTableMetadata::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5201,14 +3790,6 @@ impl UndeleteTableMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::UndeleteTableMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UndeleteTableMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UndeleteTableMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = UndeleteTableMetadata::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5218,13 +3799,6 @@ impl UndeleteTableMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::UndeleteTableMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UndeleteTableMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UndeleteTableMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5234,14 +3808,6 @@ impl UndeleteTableMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::UndeleteTableMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UndeleteTableMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UndeleteTableMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = UndeleteTableMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5287,29 +3853,12 @@ impl ModifyColumnFamiliesRequest {
     }
 
     /// Sets the value of [name][crate::model::ModifyColumnFamiliesRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ModifyColumnFamiliesRequest;
-    /// let x = ModifyColumnFamiliesRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [modifications][crate::model::ModifyColumnFamiliesRequest::modifications].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ModifyColumnFamiliesRequest;
-    /// use google_cloud_bigtable_admin_v2::model::modify_column_families_request::Modification;
-    /// let x = ModifyColumnFamiliesRequest::new()
-    ///     .set_modifications([
-    ///         Modification::default()/* use setters */,
-    ///         Modification::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_modifications<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5321,12 +3870,6 @@ impl ModifyColumnFamiliesRequest {
     }
 
     /// Sets the value of [ignore_warnings][crate::model::ModifyColumnFamiliesRequest::ignore_warnings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ModifyColumnFamiliesRequest;
-    /// let x = ModifyColumnFamiliesRequest::new().set_ignore_warnings(true);
-    /// ```
     pub fn set_ignore_warnings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_warnings = v.into();
         self
@@ -5369,25 +3912,12 @@ pub mod modify_column_families_request {
         }
 
         /// Sets the value of [id][crate::model::modify_column_families_request::Modification::id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::modify_column_families_request::Modification;
-        /// let x = Modification::new().set_id("example");
-        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [update_mask][crate::model::modify_column_families_request::Modification::update_mask].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::modify_column_families_request::Modification;
-        /// use wkt::FieldMask;
-        /// let x = Modification::new().set_update_mask(FieldMask::default()/* use setters */);
-        /// ```
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -5397,14 +3927,6 @@ pub mod modify_column_families_request {
         }
 
         /// Sets or clears the value of [update_mask][crate::model::modify_column_families_request::Modification::update_mask].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::modify_column_families_request::Modification;
-        /// use wkt::FieldMask;
-        /// let x = Modification::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-        /// let x = Modification::new().set_or_clear_update_mask(None::<FieldMask>);
-        /// ```
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -5417,13 +3939,6 @@ pub mod modify_column_families_request {
         ///
         /// Note that all the setters affecting `r#mod` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::modify_column_families_request::Modification;
-        /// use google_cloud_bigtable_admin_v2::model::modify_column_families_request::modification;
-        /// let x = Modification::new().set_mod(Some(modify_column_families_request::modification::Mod::Drop(true)));
-        /// ```
         pub fn set_mod<
             T: std::convert::Into<
                     std::option::Option<
@@ -5456,16 +3971,6 @@ pub mod modify_column_families_request {
         ///
         /// Note that all the setters affecting `r#mod` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::modify_column_families_request::Modification;
-        /// use google_cloud_bigtable_admin_v2::model::ColumnFamily;
-        /// let x = Modification::new().set_create(ColumnFamily::default()/* use setters */);
-        /// assert!(x.create().is_some());
-        /// assert!(x.update().is_none());
-        /// assert!(x.drop().is_none());
-        /// ```
         pub fn set_create<T: std::convert::Into<std::boxed::Box<crate::model::ColumnFamily>>>(
             mut self,
             v: T,
@@ -5494,16 +3999,6 @@ pub mod modify_column_families_request {
         ///
         /// Note that all the setters affecting `r#mod` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::modify_column_families_request::Modification;
-        /// use google_cloud_bigtable_admin_v2::model::ColumnFamily;
-        /// let x = Modification::new().set_update(ColumnFamily::default()/* use setters */);
-        /// assert!(x.update().is_some());
-        /// assert!(x.create().is_none());
-        /// assert!(x.drop().is_none());
-        /// ```
         pub fn set_update<T: std::convert::Into<std::boxed::Box<crate::model::ColumnFamily>>>(
             mut self,
             v: T,
@@ -5532,15 +4027,6 @@ pub mod modify_column_families_request {
         ///
         /// Note that all the setters affecting `r#mod` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::modify_column_families_request::Modification;
-        /// let x = Modification::new().set_drop(true);
-        /// assert!(x.drop().is_some());
-        /// assert!(x.create().is_none());
-        /// assert!(x.update().is_none());
-        /// ```
         pub fn set_drop<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.r#mod = std::option::Option::Some(
                 crate::model::modify_column_families_request::modification::Mod::Drop(v.into()),
@@ -5598,12 +4084,6 @@ impl GenerateConsistencyTokenRequest {
     }
 
     /// Sets the value of [name][crate::model::GenerateConsistencyTokenRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GenerateConsistencyTokenRequest;
-    /// let x = GenerateConsistencyTokenRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5635,12 +4115,6 @@ impl GenerateConsistencyTokenResponse {
     }
 
     /// Sets the value of [consistency_token][crate::model::GenerateConsistencyTokenResponse::consistency_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GenerateConsistencyTokenResponse;
-    /// let x = GenerateConsistencyTokenResponse::new().set_consistency_token("example");
-    /// ```
     pub fn set_consistency_token<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5684,24 +4158,12 @@ impl CheckConsistencyRequest {
     }
 
     /// Sets the value of [name][crate::model::CheckConsistencyRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CheckConsistencyRequest;
-    /// let x = CheckConsistencyRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [consistency_token][crate::model::CheckConsistencyRequest::consistency_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CheckConsistencyRequest;
-    /// let x = CheckConsistencyRequest::new().set_consistency_token("example");
-    /// ```
     pub fn set_consistency_token<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5714,14 +4176,6 @@ impl CheckConsistencyRequest {
     ///
     /// Note that all the setters affecting `mode` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CheckConsistencyRequest;
-    /// use google_cloud_bigtable_admin_v2::model::check_consistency_request;
-    /// use google_cloud_bigtable_admin_v2::model::StandardReadRemoteWrites;
-    /// let x = CheckConsistencyRequest::new().set_mode(Some(check_consistency_request::Mode::StandardReadRemoteWrites(StandardReadRemoteWrites::default().into())));
-    /// ```
     pub fn set_mode<
         T: std::convert::Into<std::option::Option<crate::model::check_consistency_request::Mode>>,
     >(
@@ -5752,15 +4206,6 @@ impl CheckConsistencyRequest {
     ///
     /// Note that all the setters affecting `mode` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CheckConsistencyRequest;
-    /// use google_cloud_bigtable_admin_v2::model::StandardReadRemoteWrites;
-    /// let x = CheckConsistencyRequest::new().set_standard_read_remote_writes(StandardReadRemoteWrites::default()/* use setters */);
-    /// assert!(x.standard_read_remote_writes().is_some());
-    /// assert!(x.data_boost_read_local_writes().is_none());
-    /// ```
     pub fn set_standard_read_remote_writes<
         T: std::convert::Into<std::boxed::Box<crate::model::StandardReadRemoteWrites>>,
     >(
@@ -5793,15 +4238,6 @@ impl CheckConsistencyRequest {
     ///
     /// Note that all the setters affecting `mode` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CheckConsistencyRequest;
-    /// use google_cloud_bigtable_admin_v2::model::DataBoostReadLocalWrites;
-    /// let x = CheckConsistencyRequest::new().set_data_boost_read_local_writes(DataBoostReadLocalWrites::default()/* use setters */);
-    /// assert!(x.data_boost_read_local_writes().is_some());
-    /// assert!(x.standard_read_remote_writes().is_none());
-    /// ```
     pub fn set_data_boost_read_local_writes<
         T: std::convert::Into<std::boxed::Box<crate::model::DataBoostReadLocalWrites>>,
     >(
@@ -5902,12 +4338,6 @@ impl CheckConsistencyResponse {
     }
 
     /// Sets the value of [consistent][crate::model::CheckConsistencyResponse::consistent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CheckConsistencyResponse;
-    /// let x = CheckConsistencyResponse::new().set_consistent(true);
-    /// ```
     pub fn set_consistent<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.consistent = v.into();
         self
@@ -5966,49 +4396,24 @@ impl SnapshotTableRequest {
     }
 
     /// Sets the value of [name][crate::model::SnapshotTableRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::SnapshotTableRequest;
-    /// let x = SnapshotTableRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [cluster][crate::model::SnapshotTableRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::SnapshotTableRequest;
-    /// let x = SnapshotTableRequest::new().set_cluster("example");
-    /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
         self
     }
 
     /// Sets the value of [snapshot_id][crate::model::SnapshotTableRequest::snapshot_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::SnapshotTableRequest;
-    /// let x = SnapshotTableRequest::new().set_snapshot_id("example");
-    /// ```
     pub fn set_snapshot_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.snapshot_id = v.into();
         self
     }
 
     /// Sets the value of [ttl][crate::model::SnapshotTableRequest::ttl].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::SnapshotTableRequest;
-    /// use wkt::Duration;
-    /// let x = SnapshotTableRequest::new().set_ttl(Duration::default()/* use setters */);
-    /// ```
     pub fn set_ttl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -6018,14 +4423,6 @@ impl SnapshotTableRequest {
     }
 
     /// Sets or clears the value of [ttl][crate::model::SnapshotTableRequest::ttl].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::SnapshotTableRequest;
-    /// use wkt::Duration;
-    /// let x = SnapshotTableRequest::new().set_or_clear_ttl(Some(Duration::default()/* use setters */));
-    /// let x = SnapshotTableRequest::new().set_or_clear_ttl(None::<Duration>);
-    /// ```
     pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -6035,12 +4432,6 @@ impl SnapshotTableRequest {
     }
 
     /// Sets the value of [description][crate::model::SnapshotTableRequest::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::SnapshotTableRequest;
-    /// let x = SnapshotTableRequest::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -6079,12 +4470,6 @@ impl GetSnapshotRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSnapshotRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GetSnapshotRequest;
-    /// let x = GetSnapshotRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6132,36 +4517,18 @@ impl ListSnapshotsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSnapshotsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListSnapshotsRequest;
-    /// let x = ListSnapshotsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSnapshotsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListSnapshotsRequest;
-    /// let x = ListSnapshotsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSnapshotsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListSnapshotsRequest;
-    /// let x = ListSnapshotsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6203,17 +4570,6 @@ impl ListSnapshotsResponse {
     }
 
     /// Sets the value of [snapshots][crate::model::ListSnapshotsResponse::snapshots].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListSnapshotsResponse;
-    /// use google_cloud_bigtable_admin_v2::model::Snapshot;
-    /// let x = ListSnapshotsResponse::new()
-    ///     .set_snapshots([
-    ///         Snapshot::default()/* use setters */,
-    ///         Snapshot::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_snapshots<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6225,12 +4581,6 @@ impl ListSnapshotsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSnapshotsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListSnapshotsResponse;
-    /// let x = ListSnapshotsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6283,12 +4633,6 @@ impl DeleteSnapshotRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DeleteSnapshotRequest;
-    /// let x = DeleteSnapshotRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6328,13 +4672,6 @@ impl SnapshotTableMetadata {
     }
 
     /// Sets the value of [original_request][crate::model::SnapshotTableMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::SnapshotTableMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::SnapshotTableRequest;
-    /// let x = SnapshotTableMetadata::new().set_original_request(SnapshotTableRequest::default()/* use setters */);
-    /// ```
     pub fn set_original_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SnapshotTableRequest>,
@@ -6344,14 +4681,6 @@ impl SnapshotTableMetadata {
     }
 
     /// Sets or clears the value of [original_request][crate::model::SnapshotTableMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::SnapshotTableMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::SnapshotTableRequest;
-    /// let x = SnapshotTableMetadata::new().set_or_clear_original_request(Some(SnapshotTableRequest::default()/* use setters */));
-    /// let x = SnapshotTableMetadata::new().set_or_clear_original_request(None::<SnapshotTableRequest>);
-    /// ```
     pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SnapshotTableRequest>,
@@ -6361,13 +4690,6 @@ impl SnapshotTableMetadata {
     }
 
     /// Sets the value of [request_time][crate::model::SnapshotTableMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::SnapshotTableMetadata;
-    /// use wkt::Timestamp;
-    /// let x = SnapshotTableMetadata::new().set_request_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_request_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6377,14 +4699,6 @@ impl SnapshotTableMetadata {
     }
 
     /// Sets or clears the value of [request_time][crate::model::SnapshotTableMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::SnapshotTableMetadata;
-    /// use wkt::Timestamp;
-    /// let x = SnapshotTableMetadata::new().set_or_clear_request_time(Some(Timestamp::default()/* use setters */));
-    /// let x = SnapshotTableMetadata::new().set_or_clear_request_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6394,13 +4708,6 @@ impl SnapshotTableMetadata {
     }
 
     /// Sets the value of [finish_time][crate::model::SnapshotTableMetadata::finish_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::SnapshotTableMetadata;
-    /// use wkt::Timestamp;
-    /// let x = SnapshotTableMetadata::new().set_finish_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_finish_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6410,14 +4717,6 @@ impl SnapshotTableMetadata {
     }
 
     /// Sets or clears the value of [finish_time][crate::model::SnapshotTableMetadata::finish_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::SnapshotTableMetadata;
-    /// use wkt::Timestamp;
-    /// let x = SnapshotTableMetadata::new().set_or_clear_finish_time(Some(Timestamp::default()/* use setters */));
-    /// let x = SnapshotTableMetadata::new().set_or_clear_finish_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6461,13 +4760,6 @@ impl CreateTableFromSnapshotMetadata {
     }
 
     /// Sets the value of [original_request][crate::model::CreateTableFromSnapshotMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateTableFromSnapshotMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::CreateTableFromSnapshotRequest;
-    /// let x = CreateTableFromSnapshotMetadata::new().set_original_request(CreateTableFromSnapshotRequest::default()/* use setters */);
-    /// ```
     pub fn set_original_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CreateTableFromSnapshotRequest>,
@@ -6477,14 +4769,6 @@ impl CreateTableFromSnapshotMetadata {
     }
 
     /// Sets or clears the value of [original_request][crate::model::CreateTableFromSnapshotMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateTableFromSnapshotMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::CreateTableFromSnapshotRequest;
-    /// let x = CreateTableFromSnapshotMetadata::new().set_or_clear_original_request(Some(CreateTableFromSnapshotRequest::default()/* use setters */));
-    /// let x = CreateTableFromSnapshotMetadata::new().set_or_clear_original_request(None::<CreateTableFromSnapshotRequest>);
-    /// ```
     pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CreateTableFromSnapshotRequest>,
@@ -6494,13 +4778,6 @@ impl CreateTableFromSnapshotMetadata {
     }
 
     /// Sets the value of [request_time][crate::model::CreateTableFromSnapshotMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateTableFromSnapshotMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateTableFromSnapshotMetadata::new().set_request_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_request_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6510,14 +4787,6 @@ impl CreateTableFromSnapshotMetadata {
     }
 
     /// Sets or clears the value of [request_time][crate::model::CreateTableFromSnapshotMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateTableFromSnapshotMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateTableFromSnapshotMetadata::new().set_or_clear_request_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateTableFromSnapshotMetadata::new().set_or_clear_request_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6527,13 +4796,6 @@ impl CreateTableFromSnapshotMetadata {
     }
 
     /// Sets the value of [finish_time][crate::model::CreateTableFromSnapshotMetadata::finish_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateTableFromSnapshotMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateTableFromSnapshotMetadata::new().set_finish_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_finish_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6543,14 +4805,6 @@ impl CreateTableFromSnapshotMetadata {
     }
 
     /// Sets or clears the value of [finish_time][crate::model::CreateTableFromSnapshotMetadata::finish_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateTableFromSnapshotMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateTableFromSnapshotMetadata::new().set_or_clear_finish_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateTableFromSnapshotMetadata::new().set_or_clear_finish_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6598,37 +4852,18 @@ impl CreateBackupRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_backup_id("example");
-    /// ```
     pub fn set_backup_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_id = v.into();
         self
     }
 
     /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateBackupRequest;
-    /// use google_cloud_bigtable_admin_v2::model::Backup;
-    /// let x = CreateBackupRequest::new().set_backup(Backup::default()/* use setters */);
-    /// ```
     pub fn set_backup<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -6638,14 +4873,6 @@ impl CreateBackupRequest {
     }
 
     /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateBackupRequest;
-    /// use google_cloud_bigtable_admin_v2::model::Backup;
-    /// let x = CreateBackupRequest::new().set_or_clear_backup(Some(Backup::default()/* use setters */));
-    /// let x = CreateBackupRequest::new().set_or_clear_backup(None::<Backup>);
-    /// ```
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -6689,37 +4916,18 @@ impl CreateBackupMetadata {
     }
 
     /// Sets the value of [name][crate::model::CreateBackupMetadata::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateBackupMetadata;
-    /// let x = CreateBackupMetadata::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [source_table][crate::model::CreateBackupMetadata::source_table].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateBackupMetadata;
-    /// let x = CreateBackupMetadata::new().set_source_table("example");
-    /// ```
     pub fn set_source_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_table = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::CreateBackupMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateBackupMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateBackupMetadata::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6729,14 +4937,6 @@ impl CreateBackupMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::CreateBackupMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateBackupMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateBackupMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateBackupMetadata::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6746,13 +4946,6 @@ impl CreateBackupMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::CreateBackupMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateBackupMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateBackupMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6762,14 +4955,6 @@ impl CreateBackupMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::CreateBackupMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateBackupMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateBackupMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateBackupMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6815,13 +5000,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateBackupRequest;
-    /// use google_cloud_bigtable_admin_v2::model::Backup;
-    /// let x = UpdateBackupRequest::new().set_backup(Backup::default()/* use setters */);
-    /// ```
     pub fn set_backup<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -6831,14 +5009,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateBackupRequest;
-    /// use google_cloud_bigtable_admin_v2::model::Backup;
-    /// let x = UpdateBackupRequest::new().set_or_clear_backup(Some(Backup::default()/* use setters */));
-    /// let x = UpdateBackupRequest::new().set_or_clear_backup(None::<Backup>);
-    /// ```
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -6848,13 +5018,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateBackupRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBackupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6864,14 +5027,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateBackupRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBackupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateBackupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6908,12 +5063,6 @@ impl GetBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GetBackupRequest;
-    /// let x = GetBackupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6947,12 +5096,6 @@ impl DeleteBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7062,60 +5205,30 @@ impl ListBackupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBackupsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListBackupsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -7154,17 +5267,6 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListBackupsResponse;
-    /// use google_cloud_bigtable_admin_v2::model::Backup;
-    /// let x = ListBackupsResponse::new()
-    ///     .set_backups([
-    ///         Backup::default()/* use setters */,
-    ///         Backup::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7176,12 +5278,6 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListBackupsResponse;
-    /// let x = ListBackupsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -7253,49 +5349,24 @@ impl CopyBackupRequest {
     }
 
     /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CopyBackupRequest;
-    /// let x = CopyBackupRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backup_id][crate::model::CopyBackupRequest::backup_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CopyBackupRequest;
-    /// let x = CopyBackupRequest::new().set_backup_id("example");
-    /// ```
     pub fn set_backup_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_id = v.into();
         self
     }
 
     /// Sets the value of [source_backup][crate::model::CopyBackupRequest::source_backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CopyBackupRequest;
-    /// let x = CopyBackupRequest::new().set_source_backup("example");
-    /// ```
     pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_backup = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CopyBackupRequest;
-    /// use wkt::Timestamp;
-    /// let x = CopyBackupRequest::new().set_expire_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7305,14 +5376,6 @@ impl CopyBackupRequest {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CopyBackupRequest;
-    /// use wkt::Timestamp;
-    /// let x = CopyBackupRequest::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CopyBackupRequest::new().set_or_clear_expire_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7359,25 +5422,12 @@ impl CopyBackupMetadata {
     }
 
     /// Sets the value of [name][crate::model::CopyBackupMetadata::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CopyBackupMetadata;
-    /// let x = CopyBackupMetadata::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [source_backup_info][crate::model::CopyBackupMetadata::source_backup_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CopyBackupMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::BackupInfo;
-    /// let x = CopyBackupMetadata::new().set_source_backup_info(BackupInfo::default()/* use setters */);
-    /// ```
     pub fn set_source_backup_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupInfo>,
@@ -7387,14 +5437,6 @@ impl CopyBackupMetadata {
     }
 
     /// Sets or clears the value of [source_backup_info][crate::model::CopyBackupMetadata::source_backup_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CopyBackupMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::BackupInfo;
-    /// let x = CopyBackupMetadata::new().set_or_clear_source_backup_info(Some(BackupInfo::default()/* use setters */));
-    /// let x = CopyBackupMetadata::new().set_or_clear_source_backup_info(None::<BackupInfo>);
-    /// ```
     pub fn set_or_clear_source_backup_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupInfo>,
@@ -7404,13 +5446,6 @@ impl CopyBackupMetadata {
     }
 
     /// Sets the value of [progress][crate::model::CopyBackupMetadata::progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CopyBackupMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::OperationProgress;
-    /// let x = CopyBackupMetadata::new().set_progress(OperationProgress::default()/* use setters */);
-    /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -7420,14 +5455,6 @@ impl CopyBackupMetadata {
     }
 
     /// Sets or clears the value of [progress][crate::model::CopyBackupMetadata::progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CopyBackupMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::OperationProgress;
-    /// let x = CopyBackupMetadata::new().set_or_clear_progress(Some(OperationProgress::default()/* use setters */));
-    /// let x = CopyBackupMetadata::new().set_or_clear_progress(None::<OperationProgress>);
-    /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -7473,24 +5500,12 @@ impl CreateAuthorizedViewRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAuthorizedViewRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateAuthorizedViewRequest;
-    /// let x = CreateAuthorizedViewRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [authorized_view_id][crate::model::CreateAuthorizedViewRequest::authorized_view_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateAuthorizedViewRequest;
-    /// let x = CreateAuthorizedViewRequest::new().set_authorized_view_id("example");
-    /// ```
     pub fn set_authorized_view_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7500,13 +5515,6 @@ impl CreateAuthorizedViewRequest {
     }
 
     /// Sets the value of [authorized_view][crate::model::CreateAuthorizedViewRequest::authorized_view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateAuthorizedViewRequest;
-    /// use google_cloud_bigtable_admin_v2::model::AuthorizedView;
-    /// let x = CreateAuthorizedViewRequest::new().set_authorized_view(AuthorizedView::default()/* use setters */);
-    /// ```
     pub fn set_authorized_view<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AuthorizedView>,
@@ -7516,14 +5524,6 @@ impl CreateAuthorizedViewRequest {
     }
 
     /// Sets or clears the value of [authorized_view][crate::model::CreateAuthorizedViewRequest::authorized_view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateAuthorizedViewRequest;
-    /// use google_cloud_bigtable_admin_v2::model::AuthorizedView;
-    /// let x = CreateAuthorizedViewRequest::new().set_or_clear_authorized_view(Some(AuthorizedView::default()/* use setters */));
-    /// let x = CreateAuthorizedViewRequest::new().set_or_clear_authorized_view(None::<AuthorizedView>);
-    /// ```
     pub fn set_or_clear_authorized_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AuthorizedView>,
@@ -7562,13 +5562,6 @@ impl CreateAuthorizedViewMetadata {
     }
 
     /// Sets the value of [original_request][crate::model::CreateAuthorizedViewMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateAuthorizedViewMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::CreateAuthorizedViewRequest;
-    /// let x = CreateAuthorizedViewMetadata::new().set_original_request(CreateAuthorizedViewRequest::default()/* use setters */);
-    /// ```
     pub fn set_original_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CreateAuthorizedViewRequest>,
@@ -7578,14 +5571,6 @@ impl CreateAuthorizedViewMetadata {
     }
 
     /// Sets or clears the value of [original_request][crate::model::CreateAuthorizedViewMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateAuthorizedViewMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::CreateAuthorizedViewRequest;
-    /// let x = CreateAuthorizedViewMetadata::new().set_or_clear_original_request(Some(CreateAuthorizedViewRequest::default()/* use setters */));
-    /// let x = CreateAuthorizedViewMetadata::new().set_or_clear_original_request(None::<CreateAuthorizedViewRequest>);
-    /// ```
     pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CreateAuthorizedViewRequest>,
@@ -7595,13 +5580,6 @@ impl CreateAuthorizedViewMetadata {
     }
 
     /// Sets the value of [request_time][crate::model::CreateAuthorizedViewMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateAuthorizedViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateAuthorizedViewMetadata::new().set_request_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_request_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7611,14 +5589,6 @@ impl CreateAuthorizedViewMetadata {
     }
 
     /// Sets or clears the value of [request_time][crate::model::CreateAuthorizedViewMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateAuthorizedViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateAuthorizedViewMetadata::new().set_or_clear_request_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateAuthorizedViewMetadata::new().set_or_clear_request_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7628,13 +5598,6 @@ impl CreateAuthorizedViewMetadata {
     }
 
     /// Sets the value of [finish_time][crate::model::CreateAuthorizedViewMetadata::finish_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateAuthorizedViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateAuthorizedViewMetadata::new().set_finish_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_finish_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7644,14 +5607,6 @@ impl CreateAuthorizedViewMetadata {
     }
 
     /// Sets or clears the value of [finish_time][crate::model::CreateAuthorizedViewMetadata::finish_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateAuthorizedViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateAuthorizedViewMetadata::new().set_or_clear_finish_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateAuthorizedViewMetadata::new().set_or_clear_finish_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7706,51 +5661,24 @@ impl ListAuthorizedViewsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAuthorizedViewsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListAuthorizedViewsRequest;
-    /// let x = ListAuthorizedViewsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAuthorizedViewsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListAuthorizedViewsRequest;
-    /// let x = ListAuthorizedViewsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAuthorizedViewsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListAuthorizedViewsRequest;
-    /// let x = ListAuthorizedViewsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListAuthorizedViewsRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListAuthorizedViewsRequest;
-    /// use google_cloud_bigtable_admin_v2::model::authorized_view::ResponseView;
-    /// let x0 = ListAuthorizedViewsRequest::new().set_view(ResponseView::NameOnly);
-    /// let x1 = ListAuthorizedViewsRequest::new().set_view(ResponseView::Basic);
-    /// let x2 = ListAuthorizedViewsRequest::new().set_view(ResponseView::Full);
-    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::authorized_view::ResponseView>>(
         mut self,
         v: T,
@@ -7790,17 +5718,6 @@ impl ListAuthorizedViewsResponse {
     }
 
     /// Sets the value of [authorized_views][crate::model::ListAuthorizedViewsResponse::authorized_views].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListAuthorizedViewsResponse;
-    /// use google_cloud_bigtable_admin_v2::model::AuthorizedView;
-    /// let x = ListAuthorizedViewsResponse::new()
-    ///     .set_authorized_views([
-    ///         AuthorizedView::default()/* use setters */,
-    ///         AuthorizedView::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_authorized_views<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7812,12 +5729,6 @@ impl ListAuthorizedViewsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAuthorizedViewsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListAuthorizedViewsResponse;
-    /// let x = ListAuthorizedViewsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -7869,27 +5780,12 @@ impl GetAuthorizedViewRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAuthorizedViewRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GetAuthorizedViewRequest;
-    /// let x = GetAuthorizedViewRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetAuthorizedViewRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GetAuthorizedViewRequest;
-    /// use google_cloud_bigtable_admin_v2::model::authorized_view::ResponseView;
-    /// let x0 = GetAuthorizedViewRequest::new().set_view(ResponseView::NameOnly);
-    /// let x1 = GetAuthorizedViewRequest::new().set_view(ResponseView::Basic);
-    /// let x2 = GetAuthorizedViewRequest::new().set_view(ResponseView::Full);
-    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::authorized_view::ResponseView>>(
         mut self,
         v: T,
@@ -7940,13 +5836,6 @@ impl UpdateAuthorizedViewRequest {
     }
 
     /// Sets the value of [authorized_view][crate::model::UpdateAuthorizedViewRequest::authorized_view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateAuthorizedViewRequest;
-    /// use google_cloud_bigtable_admin_v2::model::AuthorizedView;
-    /// let x = UpdateAuthorizedViewRequest::new().set_authorized_view(AuthorizedView::default()/* use setters */);
-    /// ```
     pub fn set_authorized_view<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AuthorizedView>,
@@ -7956,14 +5845,6 @@ impl UpdateAuthorizedViewRequest {
     }
 
     /// Sets or clears the value of [authorized_view][crate::model::UpdateAuthorizedViewRequest::authorized_view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateAuthorizedViewRequest;
-    /// use google_cloud_bigtable_admin_v2::model::AuthorizedView;
-    /// let x = UpdateAuthorizedViewRequest::new().set_or_clear_authorized_view(Some(AuthorizedView::default()/* use setters */));
-    /// let x = UpdateAuthorizedViewRequest::new().set_or_clear_authorized_view(None::<AuthorizedView>);
-    /// ```
     pub fn set_or_clear_authorized_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AuthorizedView>,
@@ -7973,13 +5854,6 @@ impl UpdateAuthorizedViewRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAuthorizedViewRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateAuthorizedViewRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateAuthorizedViewRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7989,14 +5863,6 @@ impl UpdateAuthorizedViewRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAuthorizedViewRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateAuthorizedViewRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateAuthorizedViewRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateAuthorizedViewRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8006,12 +5872,6 @@ impl UpdateAuthorizedViewRequest {
     }
 
     /// Sets the value of [ignore_warnings][crate::model::UpdateAuthorizedViewRequest::ignore_warnings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateAuthorizedViewRequest;
-    /// let x = UpdateAuthorizedViewRequest::new().set_ignore_warnings(true);
-    /// ```
     pub fn set_ignore_warnings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_warnings = v.into();
         self
@@ -8050,13 +5910,6 @@ impl UpdateAuthorizedViewMetadata {
     }
 
     /// Sets the value of [original_request][crate::model::UpdateAuthorizedViewMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateAuthorizedViewMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::UpdateAuthorizedViewRequest;
-    /// let x = UpdateAuthorizedViewMetadata::new().set_original_request(UpdateAuthorizedViewRequest::default()/* use setters */);
-    /// ```
     pub fn set_original_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UpdateAuthorizedViewRequest>,
@@ -8066,14 +5919,6 @@ impl UpdateAuthorizedViewMetadata {
     }
 
     /// Sets or clears the value of [original_request][crate::model::UpdateAuthorizedViewMetadata::original_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateAuthorizedViewMetadata;
-    /// use google_cloud_bigtable_admin_v2::model::UpdateAuthorizedViewRequest;
-    /// let x = UpdateAuthorizedViewMetadata::new().set_or_clear_original_request(Some(UpdateAuthorizedViewRequest::default()/* use setters */));
-    /// let x = UpdateAuthorizedViewMetadata::new().set_or_clear_original_request(None::<UpdateAuthorizedViewRequest>);
-    /// ```
     pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UpdateAuthorizedViewRequest>,
@@ -8083,13 +5928,6 @@ impl UpdateAuthorizedViewMetadata {
     }
 
     /// Sets the value of [request_time][crate::model::UpdateAuthorizedViewMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateAuthorizedViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateAuthorizedViewMetadata::new().set_request_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_request_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8099,14 +5937,6 @@ impl UpdateAuthorizedViewMetadata {
     }
 
     /// Sets or clears the value of [request_time][crate::model::UpdateAuthorizedViewMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateAuthorizedViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateAuthorizedViewMetadata::new().set_or_clear_request_time(Some(Timestamp::default()/* use setters */));
-    /// let x = UpdateAuthorizedViewMetadata::new().set_or_clear_request_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8116,13 +5946,6 @@ impl UpdateAuthorizedViewMetadata {
     }
 
     /// Sets the value of [finish_time][crate::model::UpdateAuthorizedViewMetadata::finish_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateAuthorizedViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateAuthorizedViewMetadata::new().set_finish_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_finish_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8132,14 +5955,6 @@ impl UpdateAuthorizedViewMetadata {
     }
 
     /// Sets or clears the value of [finish_time][crate::model::UpdateAuthorizedViewMetadata::finish_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateAuthorizedViewMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateAuthorizedViewMetadata::new().set_or_clear_finish_time(Some(Timestamp::default()/* use setters */));
-    /// let x = UpdateAuthorizedViewMetadata::new().set_or_clear_finish_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8182,24 +5997,12 @@ impl DeleteAuthorizedViewRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAuthorizedViewRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DeleteAuthorizedViewRequest;
-    /// let x = DeleteAuthorizedViewRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteAuthorizedViewRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DeleteAuthorizedViewRequest;
-    /// let x = DeleteAuthorizedViewRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -8240,24 +6043,12 @@ impl CreateSchemaBundleRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSchemaBundleRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateSchemaBundleRequest;
-    /// let x = CreateSchemaBundleRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [schema_bundle_id][crate::model::CreateSchemaBundleRequest::schema_bundle_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateSchemaBundleRequest;
-    /// let x = CreateSchemaBundleRequest::new().set_schema_bundle_id("example");
-    /// ```
     pub fn set_schema_bundle_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8267,13 +6058,6 @@ impl CreateSchemaBundleRequest {
     }
 
     /// Sets the value of [schema_bundle][crate::model::CreateSchemaBundleRequest::schema_bundle].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateSchemaBundleRequest;
-    /// use google_cloud_bigtable_admin_v2::model::SchemaBundle;
-    /// let x = CreateSchemaBundleRequest::new().set_schema_bundle(SchemaBundle::default()/* use setters */);
-    /// ```
     pub fn set_schema_bundle<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SchemaBundle>,
@@ -8283,14 +6067,6 @@ impl CreateSchemaBundleRequest {
     }
 
     /// Sets or clears the value of [schema_bundle][crate::model::CreateSchemaBundleRequest::schema_bundle].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateSchemaBundleRequest;
-    /// use google_cloud_bigtable_admin_v2::model::SchemaBundle;
-    /// let x = CreateSchemaBundleRequest::new().set_or_clear_schema_bundle(Some(SchemaBundle::default()/* use setters */));
-    /// let x = CreateSchemaBundleRequest::new().set_or_clear_schema_bundle(None::<SchemaBundle>);
-    /// ```
     pub fn set_or_clear_schema_bundle<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SchemaBundle>,
@@ -8333,25 +6109,12 @@ impl CreateSchemaBundleMetadata {
     }
 
     /// Sets the value of [name][crate::model::CreateSchemaBundleMetadata::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateSchemaBundleMetadata;
-    /// let x = CreateSchemaBundleMetadata::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::CreateSchemaBundleMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateSchemaBundleMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateSchemaBundleMetadata::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8361,14 +6124,6 @@ impl CreateSchemaBundleMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::CreateSchemaBundleMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateSchemaBundleMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateSchemaBundleMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateSchemaBundleMetadata::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8378,13 +6133,6 @@ impl CreateSchemaBundleMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::CreateSchemaBundleMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateSchemaBundleMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateSchemaBundleMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8394,14 +6142,6 @@ impl CreateSchemaBundleMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::CreateSchemaBundleMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::CreateSchemaBundleMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateSchemaBundleMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateSchemaBundleMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8450,13 +6190,6 @@ impl UpdateSchemaBundleRequest {
     }
 
     /// Sets the value of [schema_bundle][crate::model::UpdateSchemaBundleRequest::schema_bundle].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateSchemaBundleRequest;
-    /// use google_cloud_bigtable_admin_v2::model::SchemaBundle;
-    /// let x = UpdateSchemaBundleRequest::new().set_schema_bundle(SchemaBundle::default()/* use setters */);
-    /// ```
     pub fn set_schema_bundle<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SchemaBundle>,
@@ -8466,14 +6199,6 @@ impl UpdateSchemaBundleRequest {
     }
 
     /// Sets or clears the value of [schema_bundle][crate::model::UpdateSchemaBundleRequest::schema_bundle].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateSchemaBundleRequest;
-    /// use google_cloud_bigtable_admin_v2::model::SchemaBundle;
-    /// let x = UpdateSchemaBundleRequest::new().set_or_clear_schema_bundle(Some(SchemaBundle::default()/* use setters */));
-    /// let x = UpdateSchemaBundleRequest::new().set_or_clear_schema_bundle(None::<SchemaBundle>);
-    /// ```
     pub fn set_or_clear_schema_bundle<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SchemaBundle>,
@@ -8483,13 +6208,6 @@ impl UpdateSchemaBundleRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSchemaBundleRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateSchemaBundleRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateSchemaBundleRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8499,14 +6217,6 @@ impl UpdateSchemaBundleRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSchemaBundleRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateSchemaBundleRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateSchemaBundleRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateSchemaBundleRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8516,12 +6226,6 @@ impl UpdateSchemaBundleRequest {
     }
 
     /// Sets the value of [ignore_warnings][crate::model::UpdateSchemaBundleRequest::ignore_warnings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateSchemaBundleRequest;
-    /// let x = UpdateSchemaBundleRequest::new().set_ignore_warnings(true);
-    /// ```
     pub fn set_ignore_warnings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_warnings = v.into();
         self
@@ -8561,25 +6265,12 @@ impl UpdateSchemaBundleMetadata {
     }
 
     /// Sets the value of [name][crate::model::UpdateSchemaBundleMetadata::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateSchemaBundleMetadata;
-    /// let x = UpdateSchemaBundleMetadata::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::UpdateSchemaBundleMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateSchemaBundleMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateSchemaBundleMetadata::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8589,14 +6280,6 @@ impl UpdateSchemaBundleMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::UpdateSchemaBundleMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateSchemaBundleMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateSchemaBundleMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = UpdateSchemaBundleMetadata::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8606,13 +6289,6 @@ impl UpdateSchemaBundleMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::UpdateSchemaBundleMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateSchemaBundleMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateSchemaBundleMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8622,14 +6298,6 @@ impl UpdateSchemaBundleMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::UpdateSchemaBundleMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::UpdateSchemaBundleMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateSchemaBundleMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = UpdateSchemaBundleMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8666,12 +6334,6 @@ impl GetSchemaBundleRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSchemaBundleRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GetSchemaBundleRequest;
-    /// let x = GetSchemaBundleRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8717,36 +6379,18 @@ impl ListSchemaBundlesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSchemaBundlesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListSchemaBundlesRequest;
-    /// let x = ListSchemaBundlesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSchemaBundlesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListSchemaBundlesRequest;
-    /// let x = ListSchemaBundlesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSchemaBundlesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListSchemaBundlesRequest;
-    /// let x = ListSchemaBundlesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -8782,17 +6426,6 @@ impl ListSchemaBundlesResponse {
     }
 
     /// Sets the value of [schema_bundles][crate::model::ListSchemaBundlesResponse::schema_bundles].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListSchemaBundlesResponse;
-    /// use google_cloud_bigtable_admin_v2::model::SchemaBundle;
-    /// let x = ListSchemaBundlesResponse::new()
-    ///     .set_schema_bundles([
-    ///         SchemaBundle::default()/* use setters */,
-    ///         SchemaBundle::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_schema_bundles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8804,12 +6437,6 @@ impl ListSchemaBundlesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSchemaBundlesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ListSchemaBundlesResponse;
-    /// let x = ListSchemaBundlesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -8862,24 +6489,12 @@ impl DeleteSchemaBundleRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSchemaBundleRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DeleteSchemaBundleRequest;
-    /// let x = DeleteSchemaBundleRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteSchemaBundleRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::DeleteSchemaBundleRequest;
-    /// let x = DeleteSchemaBundleRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -8917,25 +6532,12 @@ impl OperationProgress {
     }
 
     /// Sets the value of [progress_percent][crate::model::OperationProgress::progress_percent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::OperationProgress;
-    /// let x = OperationProgress::new().set_progress_percent(42);
-    /// ```
     pub fn set_progress_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress_percent = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::OperationProgress::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::OperationProgress;
-    /// use wkt::Timestamp;
-    /// let x = OperationProgress::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8945,14 +6547,6 @@ impl OperationProgress {
     }
 
     /// Sets or clears the value of [start_time][crate::model::OperationProgress::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::OperationProgress;
-    /// use wkt::Timestamp;
-    /// let x = OperationProgress::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationProgress::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8962,13 +6556,6 @@ impl OperationProgress {
     }
 
     /// Sets the value of [end_time][crate::model::OperationProgress::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::OperationProgress;
-    /// use wkt::Timestamp;
-    /// let x = OperationProgress::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8978,14 +6565,6 @@ impl OperationProgress {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationProgress::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::OperationProgress;
-    /// use wkt::Timestamp;
-    /// let x = OperationProgress::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationProgress::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9071,67 +6650,30 @@ impl Instance {
     }
 
     /// Sets the value of [name][crate::model::Instance::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Instance;
-    /// let x = Instance::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Instance::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Instance;
-    /// let x = Instance::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Instance::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Instance;
-    /// use google_cloud_bigtable_admin_v2::model::instance::State;
-    /// let x0 = Instance::new().set_state(State::Ready);
-    /// let x1 = Instance::new().set_state(State::Creating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::instance::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Instance::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Instance;
-    /// use google_cloud_bigtable_admin_v2::model::instance::Type;
-    /// let x0 = Instance::new().set_type(Type::Production);
-    /// let x1 = Instance::new().set_type(Type::Development);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::instance::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Instance::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Instance;
-    /// let x = Instance::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -9144,13 +6686,6 @@ impl Instance {
     }
 
     /// Sets the value of [create_time][crate::model::Instance::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9160,14 +6695,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9177,12 +6704,6 @@ impl Instance {
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Instance;
-    /// let x = Instance::new().set_satisfies_pzs(true);
-    /// ```
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9192,13 +6713,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Instance;
-    /// let x = Instance::new().set_or_clear_satisfies_pzs(Some(false));
-    /// let x = Instance::new().set_or_clear_satisfies_pzs(None::<bool>);
-    /// ```
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9208,12 +6722,6 @@ impl Instance {
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Instance;
-    /// let x = Instance::new().set_satisfies_pzi(true);
-    /// ```
     pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9223,13 +6731,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Instance;
-    /// let x = Instance::new().set_or_clear_satisfies_pzi(Some(false));
-    /// let x = Instance::new().set_or_clear_satisfies_pzi(None::<bool>);
-    /// ```
     pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9239,15 +6740,6 @@ impl Instance {
     }
 
     /// Sets the value of [tags][crate::model::Instance::tags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Instance;
-    /// let x = Instance::new().set_tags([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -9569,24 +7061,12 @@ impl AutoscalingTargets {
     }
 
     /// Sets the value of [cpu_utilization_percent][crate::model::AutoscalingTargets::cpu_utilization_percent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AutoscalingTargets;
-    /// let x = AutoscalingTargets::new().set_cpu_utilization_percent(42);
-    /// ```
     pub fn set_cpu_utilization_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.cpu_utilization_percent = v.into();
         self
     }
 
     /// Sets the value of [storage_utilization_gib_per_node][crate::model::AutoscalingTargets::storage_utilization_gib_per_node].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AutoscalingTargets;
-    /// let x = AutoscalingTargets::new().set_storage_utilization_gib_per_node(42);
-    /// ```
     pub fn set_storage_utilization_gib_per_node<T: std::convert::Into<i32>>(
         mut self,
         v: T,
@@ -9621,24 +7101,12 @@ impl AutoscalingLimits {
     }
 
     /// Sets the value of [min_serve_nodes][crate::model::AutoscalingLimits::min_serve_nodes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AutoscalingLimits;
-    /// let x = AutoscalingLimits::new().set_min_serve_nodes(42);
-    /// ```
     pub fn set_min_serve_nodes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_serve_nodes = v.into();
         self
     }
 
     /// Sets the value of [max_serve_nodes][crate::model::AutoscalingLimits::max_serve_nodes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AutoscalingLimits;
-    /// let x = AutoscalingLimits::new().set_max_serve_nodes(42);
-    /// ```
     pub fn set_max_serve_nodes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_serve_nodes = v.into();
         self
@@ -9699,65 +7167,30 @@ impl Cluster {
     }
 
     /// Sets the value of [name][crate::model::Cluster::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// let x = Cluster::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::Cluster::location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// let x = Cluster::new().set_location("example");
-    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Cluster::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// use google_cloud_bigtable_admin_v2::model::cluster::State;
-    /// let x0 = Cluster::new().set_state(State::Ready);
-    /// let x1 = Cluster::new().set_state(State::Creating);
-    /// let x2 = Cluster::new().set_state(State::Resizing);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::cluster::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [serve_nodes][crate::model::Cluster::serve_nodes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// let x = Cluster::new().set_serve_nodes(42);
-    /// ```
     pub fn set_serve_nodes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.serve_nodes = v.into();
         self
     }
 
     /// Sets the value of [node_scaling_factor][crate::model::Cluster::node_scaling_factor].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// use google_cloud_bigtable_admin_v2::model::cluster::NodeScalingFactor;
-    /// let x0 = Cluster::new().set_node_scaling_factor(NodeScalingFactor::NodeScalingFactor1X);
-    /// let x1 = Cluster::new().set_node_scaling_factor(NodeScalingFactor::NodeScalingFactor2X);
-    /// ```
     pub fn set_node_scaling_factor<
         T: std::convert::Into<crate::model::cluster::NodeScalingFactor>,
     >(
@@ -9769,14 +7202,6 @@ impl Cluster {
     }
 
     /// Sets the value of [default_storage_type][crate::model::Cluster::default_storage_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// use google_cloud_bigtable_admin_v2::model::StorageType;
-    /// let x0 = Cluster::new().set_default_storage_type(StorageType::Ssd);
-    /// let x1 = Cluster::new().set_default_storage_type(StorageType::Hdd);
-    /// ```
     pub fn set_default_storage_type<T: std::convert::Into<crate::model::StorageType>>(
         mut self,
         v: T,
@@ -9786,13 +7211,6 @@ impl Cluster {
     }
 
     /// Sets the value of [encryption_config][crate::model::Cluster::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// use google_cloud_bigtable_admin_v2::model::cluster::EncryptionConfig;
-    /// let x = Cluster::new().set_encryption_config(EncryptionConfig::default()/* use setters */);
-    /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cluster::EncryptionConfig>,
@@ -9802,14 +7220,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [encryption_config][crate::model::Cluster::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// use google_cloud_bigtable_admin_v2::model::cluster::EncryptionConfig;
-    /// let x = Cluster::new().set_or_clear_encryption_config(Some(EncryptionConfig::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_encryption_config(None::<EncryptionConfig>);
-    /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster::EncryptionConfig>,
@@ -9822,14 +7232,6 @@ impl Cluster {
     ///
     /// Note that all the setters affecting `config` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// use google_cloud_bigtable_admin_v2::model::cluster;
-    /// use google_cloud_bigtable_admin_v2::model::cluster::ClusterConfig;
-    /// let x = Cluster::new().set_config(Some(cluster::Config::ClusterConfig(ClusterConfig::default().into())));
-    /// ```
     pub fn set_config<T: std::convert::Into<std::option::Option<crate::model::cluster::Config>>>(
         mut self,
         v: T,
@@ -9856,14 +7258,6 @@ impl Cluster {
     ///
     /// Note that all the setters affecting `config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Cluster;
-    /// use google_cloud_bigtable_admin_v2::model::cluster::ClusterConfig;
-    /// let x = Cluster::new().set_cluster_config(ClusterConfig::default()/* use setters */);
-    /// assert!(x.cluster_config().is_some());
-    /// ```
     pub fn set_cluster_config<
         T: std::convert::Into<std::boxed::Box<crate::model::cluster::ClusterConfig>>,
     >(
@@ -9906,13 +7300,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [autoscaling_limits][crate::model::cluster::ClusterAutoscalingConfig::autoscaling_limits].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::cluster::ClusterAutoscalingConfig;
-        /// use google_cloud_bigtable_admin_v2::model::AutoscalingLimits;
-        /// let x = ClusterAutoscalingConfig::new().set_autoscaling_limits(AutoscalingLimits::default()/* use setters */);
-        /// ```
         pub fn set_autoscaling_limits<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::AutoscalingLimits>,
@@ -9922,14 +7309,6 @@ pub mod cluster {
         }
 
         /// Sets or clears the value of [autoscaling_limits][crate::model::cluster::ClusterAutoscalingConfig::autoscaling_limits].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::cluster::ClusterAutoscalingConfig;
-        /// use google_cloud_bigtable_admin_v2::model::AutoscalingLimits;
-        /// let x = ClusterAutoscalingConfig::new().set_or_clear_autoscaling_limits(Some(AutoscalingLimits::default()/* use setters */));
-        /// let x = ClusterAutoscalingConfig::new().set_or_clear_autoscaling_limits(None::<AutoscalingLimits>);
-        /// ```
         pub fn set_or_clear_autoscaling_limits<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AutoscalingLimits>,
@@ -9939,13 +7318,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [autoscaling_targets][crate::model::cluster::ClusterAutoscalingConfig::autoscaling_targets].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::cluster::ClusterAutoscalingConfig;
-        /// use google_cloud_bigtable_admin_v2::model::AutoscalingTargets;
-        /// let x = ClusterAutoscalingConfig::new().set_autoscaling_targets(AutoscalingTargets::default()/* use setters */);
-        /// ```
         pub fn set_autoscaling_targets<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::AutoscalingTargets>,
@@ -9955,14 +7327,6 @@ pub mod cluster {
         }
 
         /// Sets or clears the value of [autoscaling_targets][crate::model::cluster::ClusterAutoscalingConfig::autoscaling_targets].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::cluster::ClusterAutoscalingConfig;
-        /// use google_cloud_bigtable_admin_v2::model::AutoscalingTargets;
-        /// let x = ClusterAutoscalingConfig::new().set_or_clear_autoscaling_targets(Some(AutoscalingTargets::default()/* use setters */));
-        /// let x = ClusterAutoscalingConfig::new().set_or_clear_autoscaling_targets(None::<AutoscalingTargets>);
-        /// ```
         pub fn set_or_clear_autoscaling_targets<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AutoscalingTargets>,
@@ -9995,13 +7359,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [cluster_autoscaling_config][crate::model::cluster::ClusterConfig::cluster_autoscaling_config].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::cluster::ClusterConfig;
-        /// use google_cloud_bigtable_admin_v2::model::cluster::ClusterAutoscalingConfig;
-        /// let x = ClusterConfig::new().set_cluster_autoscaling_config(ClusterAutoscalingConfig::default()/* use setters */);
-        /// ```
         pub fn set_cluster_autoscaling_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::cluster::ClusterAutoscalingConfig>,
@@ -10011,14 +7368,6 @@ pub mod cluster {
         }
 
         /// Sets or clears the value of [cluster_autoscaling_config][crate::model::cluster::ClusterConfig::cluster_autoscaling_config].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::cluster::ClusterConfig;
-        /// use google_cloud_bigtable_admin_v2::model::cluster::ClusterAutoscalingConfig;
-        /// let x = ClusterConfig::new().set_or_clear_cluster_autoscaling_config(Some(ClusterAutoscalingConfig::default()/* use setters */));
-        /// let x = ClusterConfig::new().set_or_clear_cluster_autoscaling_config(None::<ClusterAutoscalingConfig>);
-        /// ```
         pub fn set_or_clear_cluster_autoscaling_config<T>(
             mut self,
             v: std::option::Option<T>,
@@ -10063,12 +7412,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [kms_key_name][crate::model::cluster::EncryptionConfig::kms_key_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::cluster::EncryptionConfig;
-        /// let x = EncryptionConfig::new().set_kms_key_name("example");
-        /// ```
         pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -10418,36 +7761,18 @@ impl AppProfile {
     }
 
     /// Sets the value of [name][crate::model::AppProfile::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AppProfile;
-    /// let x = AppProfile::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::AppProfile::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AppProfile;
-    /// let x = AppProfile::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::AppProfile::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AppProfile;
-    /// let x = AppProfile::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -10457,14 +7782,6 @@ impl AppProfile {
     ///
     /// Note that all the setters affecting `routing_policy` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AppProfile;
-    /// use google_cloud_bigtable_admin_v2::model::app_profile;
-    /// use google_cloud_bigtable_admin_v2::model::app_profile::MultiClusterRoutingUseAny;
-    /// let x = AppProfile::new().set_routing_policy(Some(app_profile::RoutingPolicy::MultiClusterRoutingUseAny(MultiClusterRoutingUseAny::default().into())));
-    /// ```
     pub fn set_routing_policy<
         T: std::convert::Into<std::option::Option<crate::model::app_profile::RoutingPolicy>>,
     >(
@@ -10496,15 +7813,6 @@ impl AppProfile {
     ///
     /// Note that all the setters affecting `routing_policy` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AppProfile;
-    /// use google_cloud_bigtable_admin_v2::model::app_profile::MultiClusterRoutingUseAny;
-    /// let x = AppProfile::new().set_multi_cluster_routing_use_any(MultiClusterRoutingUseAny::default()/* use setters */);
-    /// assert!(x.multi_cluster_routing_use_any().is_some());
-    /// assert!(x.single_cluster_routing().is_none());
-    /// ```
     pub fn set_multi_cluster_routing_use_any<
         T: std::convert::Into<std::boxed::Box<crate::model::app_profile::MultiClusterRoutingUseAny>>,
     >(
@@ -10538,15 +7846,6 @@ impl AppProfile {
     ///
     /// Note that all the setters affecting `routing_policy` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AppProfile;
-    /// use google_cloud_bigtable_admin_v2::model::app_profile::SingleClusterRouting;
-    /// let x = AppProfile::new().set_single_cluster_routing(SingleClusterRouting::default()/* use setters */);
-    /// assert!(x.single_cluster_routing().is_some());
-    /// assert!(x.multi_cluster_routing_use_any().is_none());
-    /// ```
     pub fn set_single_cluster_routing<
         T: std::convert::Into<std::boxed::Box<crate::model::app_profile::SingleClusterRouting>>,
     >(
@@ -10563,14 +7862,6 @@ impl AppProfile {
     ///
     /// Note that all the setters affecting `isolation` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AppProfile;
-    /// use google_cloud_bigtable_admin_v2::model::app_profile;
-    /// use google_cloud_bigtable_admin_v2::model::app_profile::StandardIsolation;
-    /// let x = AppProfile::new().set_isolation(Some(app_profile::Isolation::StandardIsolation(StandardIsolation::default().into())));
-    /// ```
     pub fn set_isolation<
         T: std::convert::Into<std::option::Option<crate::model::app_profile::Isolation>>,
     >(
@@ -10598,18 +7889,6 @@ impl AppProfile {
     ///
     /// Note that all the setters affecting `isolation` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AppProfile;
-    /// use google_cloud_bigtable_admin_v2::model::app_profile::Priority;
-    /// let x0 = AppProfile::new().set_priority(Priority::Low);
-    /// let x1 = AppProfile::new().set_priority(Priority::Medium);
-    /// let x2 = AppProfile::new().set_priority(Priority::High);
-    /// assert!(x.priority().is_some());
-    /// assert!(x.standard_isolation().is_none());
-    /// assert!(x.data_boost_isolation_read_only().is_none());
-    /// ```
     #[deprecated]
     pub fn set_priority<T: std::convert::Into<crate::model::app_profile::Priority>>(
         mut self,
@@ -10640,16 +7919,6 @@ impl AppProfile {
     ///
     /// Note that all the setters affecting `isolation` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AppProfile;
-    /// use google_cloud_bigtable_admin_v2::model::app_profile::StandardIsolation;
-    /// let x = AppProfile::new().set_standard_isolation(StandardIsolation::default()/* use setters */);
-    /// assert!(x.standard_isolation().is_some());
-    /// assert!(x.priority().is_none());
-    /// assert!(x.data_boost_isolation_read_only().is_none());
-    /// ```
     pub fn set_standard_isolation<
         T: std::convert::Into<std::boxed::Box<crate::model::app_profile::StandardIsolation>>,
     >(
@@ -10683,16 +7952,6 @@ impl AppProfile {
     ///
     /// Note that all the setters affecting `isolation` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AppProfile;
-    /// use google_cloud_bigtable_admin_v2::model::app_profile::DataBoostIsolationReadOnly;
-    /// let x = AppProfile::new().set_data_boost_isolation_read_only(DataBoostIsolationReadOnly::default()/* use setters */);
-    /// assert!(x.data_boost_isolation_read_only().is_some());
-    /// assert!(x.priority().is_none());
-    /// assert!(x.standard_isolation().is_none());
-    /// ```
     pub fn set_data_boost_isolation_read_only<
         T: std::convert::Into<std::boxed::Box<crate::model::app_profile::DataBoostIsolationReadOnly>>,
     >(
@@ -10749,12 +8008,6 @@ pub mod app_profile {
         }
 
         /// Sets the value of [cluster_ids][crate::model::app_profile::MultiClusterRoutingUseAny::cluster_ids].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::app_profile::MultiClusterRoutingUseAny;
-        /// let x = MultiClusterRoutingUseAny::new().set_cluster_ids(["a", "b", "c"]);
-        /// ```
         pub fn set_cluster_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10769,14 +8022,6 @@ pub mod app_profile {
         ///
         /// Note that all the setters affecting `affinity` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::app_profile::MultiClusterRoutingUseAny;
-        /// use google_cloud_bigtable_admin_v2::model::app_profile::multi_cluster_routing_use_any;
-        /// use google_cloud_bigtable_admin_v2::model::app_profile::multi_cluster_routing_use_any::RowAffinity;
-        /// let x = MultiClusterRoutingUseAny::new().set_affinity(Some(app_profile::multi_cluster_routing_use_any::Affinity::RowAffinity(RowAffinity::default().into())));
-        /// ```
         pub fn set_affinity<
             T: std::convert::Into<
                     std::option::Option<
@@ -10813,14 +8058,6 @@ pub mod app_profile {
         ///
         /// Note that all the setters affecting `affinity` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::app_profile::MultiClusterRoutingUseAny;
-        /// use google_cloud_bigtable_admin_v2::model::app_profile::multi_cluster_routing_use_any::RowAffinity;
-        /// let x = MultiClusterRoutingUseAny::new().set_row_affinity(RowAffinity::default()/* use setters */);
-        /// assert!(x.row_affinity().is_some());
-        /// ```
         pub fn set_row_affinity<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -10922,24 +8159,12 @@ pub mod app_profile {
         }
 
         /// Sets the value of [cluster_id][crate::model::app_profile::SingleClusterRouting::cluster_id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::app_profile::SingleClusterRouting;
-        /// let x = SingleClusterRouting::new().set_cluster_id("example");
-        /// ```
         pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [allow_transactional_writes][crate::model::app_profile::SingleClusterRouting::allow_transactional_writes].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::app_profile::SingleClusterRouting;
-        /// let x = SingleClusterRouting::new().set_allow_transactional_writes(true);
-        /// ```
         pub fn set_allow_transactional_writes<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.allow_transactional_writes = v.into();
             self
@@ -10969,15 +8194,6 @@ pub mod app_profile {
         }
 
         /// Sets the value of [priority][crate::model::app_profile::StandardIsolation::priority].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::app_profile::StandardIsolation;
-        /// use google_cloud_bigtable_admin_v2::model::app_profile::Priority;
-        /// let x0 = StandardIsolation::new().set_priority(Priority::Low);
-        /// let x1 = StandardIsolation::new().set_priority(Priority::Medium);
-        /// let x2 = StandardIsolation::new().set_priority(Priority::High);
-        /// ```
         pub fn set_priority<T: std::convert::Into<crate::model::app_profile::Priority>>(
             mut self,
             v: T,
@@ -11015,13 +8231,6 @@ pub mod app_profile {
         }
 
         /// Sets the value of [compute_billing_owner][crate::model::app_profile::DataBoostIsolationReadOnly::compute_billing_owner].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::app_profile::DataBoostIsolationReadOnly;
-        /// use google_cloud_bigtable_admin_v2::model::app_profile::data_boost_isolation_read_only::ComputeBillingOwner;
-        /// let x0 = DataBoostIsolationReadOnly::new().set_compute_billing_owner(ComputeBillingOwner::HostPays);
-        /// ```
         pub fn set_compute_billing_owner<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -11033,14 +8242,6 @@ pub mod app_profile {
         }
 
         /// Sets or clears the value of [compute_billing_owner][crate::model::app_profile::DataBoostIsolationReadOnly::compute_billing_owner].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::app_profile::DataBoostIsolationReadOnly;
-        /// use google_cloud_bigtable_admin_v2::model::app_profile::data_boost_isolation_read_only::ComputeBillingOwner;
-        /// let x0 = DataBoostIsolationReadOnly::new().set_or_clear_compute_billing_owner(Some(ComputeBillingOwner::HostPays));
-        /// let x_none = DataBoostIsolationReadOnly::new().set_or_clear_compute_billing_owner(None::<ComputeBillingOwner>);
-        /// ```
         pub fn set_or_clear_compute_billing_owner<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -11411,37 +8612,18 @@ impl HotTablet {
     }
 
     /// Sets the value of [name][crate::model::HotTablet::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::HotTablet;
-    /// let x = HotTablet::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [table_name][crate::model::HotTablet::table_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::HotTablet;
-    /// let x = HotTablet::new().set_table_name("example");
-    /// ```
     pub fn set_table_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_name = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::HotTablet::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::HotTablet;
-    /// use wkt::Timestamp;
-    /// let x = HotTablet::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11451,14 +8633,6 @@ impl HotTablet {
     }
 
     /// Sets or clears the value of [start_time][crate::model::HotTablet::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::HotTablet;
-    /// use wkt::Timestamp;
-    /// let x = HotTablet::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = HotTablet::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11468,13 +8642,6 @@ impl HotTablet {
     }
 
     /// Sets the value of [end_time][crate::model::HotTablet::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::HotTablet;
-    /// use wkt::Timestamp;
-    /// let x = HotTablet::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11484,14 +8651,6 @@ impl HotTablet {
     }
 
     /// Sets or clears the value of [end_time][crate::model::HotTablet::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::HotTablet;
-    /// use wkt::Timestamp;
-    /// let x = HotTablet::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = HotTablet::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11501,36 +8660,18 @@ impl HotTablet {
     }
 
     /// Sets the value of [start_key][crate::model::HotTablet::start_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::HotTablet;
-    /// let x = HotTablet::new().set_start_key("example");
-    /// ```
     pub fn set_start_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.start_key = v.into();
         self
     }
 
     /// Sets the value of [end_key][crate::model::HotTablet::end_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::HotTablet;
-    /// let x = HotTablet::new().set_end_key("example");
-    /// ```
     pub fn set_end_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.end_key = v.into();
         self
     }
 
     /// Sets the value of [node_cpu_usage_percent][crate::model::HotTablet::node_cpu_usage_percent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::HotTablet;
-    /// let x = HotTablet::new().set_node_cpu_usage_percent(42.0);
-    /// ```
     pub fn set_node_cpu_usage_percent<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.node_cpu_usage_percent = v.into();
         self
@@ -11573,48 +8714,24 @@ impl LogicalView {
     }
 
     /// Sets the value of [name][crate::model::LogicalView::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::LogicalView;
-    /// let x = LogicalView::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::LogicalView::query].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::LogicalView;
-    /// let x = LogicalView::new().set_query("example");
-    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::LogicalView::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::LogicalView;
-    /// let x = LogicalView::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [deletion_protection][crate::model::LogicalView::deletion_protection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::LogicalView;
-    /// let x = LogicalView::new().set_deletion_protection(true);
-    /// ```
     pub fn set_deletion_protection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deletion_protection = v.into();
         self
@@ -11657,48 +8774,24 @@ impl MaterializedView {
     }
 
     /// Sets the value of [name][crate::model::MaterializedView::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::MaterializedView;
-    /// let x = MaterializedView::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::MaterializedView::query].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::MaterializedView;
-    /// let x = MaterializedView::new().set_query("example");
-    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::MaterializedView::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::MaterializedView;
-    /// let x = MaterializedView::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [deletion_protection][crate::model::MaterializedView::deletion_protection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::MaterializedView;
-    /// let x = MaterializedView::new().set_deletion_protection(true);
-    /// ```
     pub fn set_deletion_protection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deletion_protection = v.into();
         self
@@ -11730,13 +8823,6 @@ impl RestoreInfo {
     }
 
     /// Sets the value of [source_type][crate::model::RestoreInfo::source_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::RestoreInfo;
-    /// use google_cloud_bigtable_admin_v2::model::RestoreSourceType;
-    /// let x0 = RestoreInfo::new().set_source_type(RestoreSourceType::Backup);
-    /// ```
     pub fn set_source_type<T: std::convert::Into<crate::model::RestoreSourceType>>(
         mut self,
         v: T,
@@ -11749,14 +8835,6 @@ impl RestoreInfo {
     ///
     /// Note that all the setters affecting `source_info` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::RestoreInfo;
-    /// use google_cloud_bigtable_admin_v2::model::restore_info;
-    /// use google_cloud_bigtable_admin_v2::model::BackupInfo;
-    /// let x = RestoreInfo::new().set_source_info(Some(restore_info::SourceInfo::BackupInfo(BackupInfo::default().into())));
-    /// ```
     pub fn set_source_info<
         T: std::convert::Into<std::option::Option<crate::model::restore_info::SourceInfo>>,
     >(
@@ -11783,14 +8861,6 @@ impl RestoreInfo {
     ///
     /// Note that all the setters affecting `source_info` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::RestoreInfo;
-    /// use google_cloud_bigtable_admin_v2::model::BackupInfo;
-    /// let x = RestoreInfo::new().set_backup_info(BackupInfo::default()/* use setters */);
-    /// assert!(x.backup_info().is_some());
-    /// ```
     pub fn set_backup_info<T: std::convert::Into<std::boxed::Box<crate::model::BackupInfo>>>(
         mut self,
         v: T,
@@ -11842,13 +8912,6 @@ impl ChangeStreamConfig {
     }
 
     /// Sets the value of [retention_period][crate::model::ChangeStreamConfig::retention_period].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ChangeStreamConfig;
-    /// use wkt::Duration;
-    /// let x = ChangeStreamConfig::new().set_retention_period(Duration::default()/* use setters */);
-    /// ```
     pub fn set_retention_period<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -11858,14 +8921,6 @@ impl ChangeStreamConfig {
     }
 
     /// Sets or clears the value of [retention_period][crate::model::ChangeStreamConfig::retention_period].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ChangeStreamConfig;
-    /// use wkt::Duration;
-    /// let x = ChangeStreamConfig::new().set_or_clear_retention_period(Some(Duration::default()/* use setters */));
-    /// let x = ChangeStreamConfig::new().set_or_clear_retention_period(None::<Duration>);
-    /// ```
     pub fn set_or_clear_retention_period<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -11998,28 +9053,12 @@ impl Table {
     }
 
     /// Sets the value of [name][crate::model::Table::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Table;
-    /// let x = Table::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [cluster_states][crate::model::Table::cluster_states].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Table;
-    /// use google_cloud_bigtable_admin_v2::model::table::ClusterState;
-    /// let x = Table::new().set_cluster_states([
-    ///     ("key0", ClusterState::default()/* use setters */),
-    ///     ("key1", ClusterState::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_cluster_states<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -12032,16 +9071,6 @@ impl Table {
     }
 
     /// Sets the value of [column_families][crate::model::Table::column_families].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Table;
-    /// use google_cloud_bigtable_admin_v2::model::ColumnFamily;
-    /// let x = Table::new().set_column_families([
-    ///     ("key0", ColumnFamily::default()/* use setters */),
-    ///     ("key1", ColumnFamily::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_column_families<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -12054,13 +9083,6 @@ impl Table {
     }
 
     /// Sets the value of [granularity][crate::model::Table::granularity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Table;
-    /// use google_cloud_bigtable_admin_v2::model::table::TimestampGranularity;
-    /// let x0 = Table::new().set_granularity(TimestampGranularity::Millis);
-    /// ```
     pub fn set_granularity<T: std::convert::Into<crate::model::table::TimestampGranularity>>(
         mut self,
         v: T,
@@ -12070,13 +9092,6 @@ impl Table {
     }
 
     /// Sets the value of [restore_info][crate::model::Table::restore_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Table;
-    /// use google_cloud_bigtable_admin_v2::model::RestoreInfo;
-    /// let x = Table::new().set_restore_info(RestoreInfo::default()/* use setters */);
-    /// ```
     pub fn set_restore_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RestoreInfo>,
@@ -12086,14 +9101,6 @@ impl Table {
     }
 
     /// Sets or clears the value of [restore_info][crate::model::Table::restore_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Table;
-    /// use google_cloud_bigtable_admin_v2::model::RestoreInfo;
-    /// let x = Table::new().set_or_clear_restore_info(Some(RestoreInfo::default()/* use setters */));
-    /// let x = Table::new().set_or_clear_restore_info(None::<RestoreInfo>);
-    /// ```
     pub fn set_or_clear_restore_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RestoreInfo>,
@@ -12103,13 +9110,6 @@ impl Table {
     }
 
     /// Sets the value of [change_stream_config][crate::model::Table::change_stream_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Table;
-    /// use google_cloud_bigtable_admin_v2::model::ChangeStreamConfig;
-    /// let x = Table::new().set_change_stream_config(ChangeStreamConfig::default()/* use setters */);
-    /// ```
     pub fn set_change_stream_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ChangeStreamConfig>,
@@ -12119,14 +9119,6 @@ impl Table {
     }
 
     /// Sets or clears the value of [change_stream_config][crate::model::Table::change_stream_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Table;
-    /// use google_cloud_bigtable_admin_v2::model::ChangeStreamConfig;
-    /// let x = Table::new().set_or_clear_change_stream_config(Some(ChangeStreamConfig::default()/* use setters */));
-    /// let x = Table::new().set_or_clear_change_stream_config(None::<ChangeStreamConfig>);
-    /// ```
     pub fn set_or_clear_change_stream_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ChangeStreamConfig>,
@@ -12136,25 +9128,12 @@ impl Table {
     }
 
     /// Sets the value of [deletion_protection][crate::model::Table::deletion_protection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Table;
-    /// let x = Table::new().set_deletion_protection(true);
-    /// ```
     pub fn set_deletion_protection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deletion_protection = v.into();
         self
     }
 
     /// Sets the value of [row_key_schema][crate::model::Table::row_key_schema].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Table;
-    /// use google_cloud_bigtable_admin_v2::model::r#type::Struct;
-    /// let x = Table::new().set_row_key_schema(Struct::default()/* use setters */);
-    /// ```
     pub fn set_row_key_schema<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::r#type::Struct>,
@@ -12164,14 +9143,6 @@ impl Table {
     }
 
     /// Sets or clears the value of [row_key_schema][crate::model::Table::row_key_schema].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Table;
-    /// use google_cloud_bigtable_admin_v2::model::r#type::Struct;
-    /// let x = Table::new().set_or_clear_row_key_schema(Some(Struct::default()/* use setters */));
-    /// let x = Table::new().set_or_clear_row_key_schema(None::<Struct>);
-    /// ```
     pub fn set_or_clear_row_key_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::r#type::Struct>,
@@ -12184,14 +9155,6 @@ impl Table {
     ///
     /// Note that all the setters affecting `automated_backup_config` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Table;
-    /// use google_cloud_bigtable_admin_v2::model::table;
-    /// use google_cloud_bigtable_admin_v2::model::table::AutomatedBackupPolicy;
-    /// let x = Table::new().set_automated_backup_config(Some(table::AutomatedBackupConfig::AutomatedBackupPolicy(AutomatedBackupPolicy::default().into())));
-    /// ```
     pub fn set_automated_backup_config<
         T: std::convert::Into<std::option::Option<crate::model::table::AutomatedBackupConfig>>,
     >(
@@ -12222,14 +9185,6 @@ impl Table {
     ///
     /// Note that all the setters affecting `automated_backup_config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Table;
-    /// use google_cloud_bigtable_admin_v2::model::table::AutomatedBackupPolicy;
-    /// let x = Table::new().set_automated_backup_policy(AutomatedBackupPolicy::default()/* use setters */);
-    /// assert!(x.automated_backup_policy().is_some());
-    /// ```
     pub fn set_automated_backup_policy<
         T: std::convert::Into<std::boxed::Box<crate::model::table::AutomatedBackupPolicy>>,
     >(
@@ -12277,15 +9232,6 @@ pub mod table {
         }
 
         /// Sets the value of [replication_state][crate::model::table::ClusterState::replication_state].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::table::ClusterState;
-        /// use google_cloud_bigtable_admin_v2::model::table::cluster_state::ReplicationState;
-        /// let x0 = ClusterState::new().set_replication_state(ReplicationState::Initializing);
-        /// let x1 = ClusterState::new().set_replication_state(ReplicationState::PlannedMaintenance);
-        /// let x2 = ClusterState::new().set_replication_state(ReplicationState::UnplannedMaintenance);
-        /// ```
         pub fn set_replication_state<
             T: std::convert::Into<crate::model::table::cluster_state::ReplicationState>,
         >(
@@ -12297,17 +9243,6 @@ pub mod table {
         }
 
         /// Sets the value of [encryption_info][crate::model::table::ClusterState::encryption_info].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::table::ClusterState;
-        /// use google_cloud_bigtable_admin_v2::model::EncryptionInfo;
-        /// let x = ClusterState::new()
-        ///     .set_encryption_info([
-        ///         EncryptionInfo::default()/* use setters */,
-        ///         EncryptionInfo::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_encryption_info<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -12518,13 +9453,6 @@ pub mod table {
         }
 
         /// Sets the value of [retention_period][crate::model::table::AutomatedBackupPolicy::retention_period].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::table::AutomatedBackupPolicy;
-        /// use wkt::Duration;
-        /// let x = AutomatedBackupPolicy::new().set_retention_period(Duration::default()/* use setters */);
-        /// ```
         pub fn set_retention_period<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -12534,14 +9462,6 @@ pub mod table {
         }
 
         /// Sets or clears the value of [retention_period][crate::model::table::AutomatedBackupPolicy::retention_period].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::table::AutomatedBackupPolicy;
-        /// use wkt::Duration;
-        /// let x = AutomatedBackupPolicy::new().set_or_clear_retention_period(Some(Duration::default()/* use setters */));
-        /// let x = AutomatedBackupPolicy::new().set_or_clear_retention_period(None::<Duration>);
-        /// ```
         pub fn set_or_clear_retention_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -12551,13 +9471,6 @@ pub mod table {
         }
 
         /// Sets the value of [frequency][crate::model::table::AutomatedBackupPolicy::frequency].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::table::AutomatedBackupPolicy;
-        /// use wkt::Duration;
-        /// let x = AutomatedBackupPolicy::new().set_frequency(Duration::default()/* use setters */);
-        /// ```
         pub fn set_frequency<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -12567,14 +9480,6 @@ pub mod table {
         }
 
         /// Sets or clears the value of [frequency][crate::model::table::AutomatedBackupPolicy::frequency].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::table::AutomatedBackupPolicy;
-        /// use wkt::Duration;
-        /// let x = AutomatedBackupPolicy::new().set_or_clear_frequency(Some(Duration::default()/* use setters */));
-        /// let x = AutomatedBackupPolicy::new().set_or_clear_frequency(None::<Duration>);
-        /// ```
         pub fn set_or_clear_frequency<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -12913,36 +9818,18 @@ impl AuthorizedView {
     }
 
     /// Sets the value of [name][crate::model::AuthorizedView::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AuthorizedView;
-    /// let x = AuthorizedView::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::AuthorizedView::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AuthorizedView;
-    /// let x = AuthorizedView::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [deletion_protection][crate::model::AuthorizedView::deletion_protection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AuthorizedView;
-    /// let x = AuthorizedView::new().set_deletion_protection(true);
-    /// ```
     pub fn set_deletion_protection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deletion_protection = v.into();
         self
@@ -12952,14 +9839,6 @@ impl AuthorizedView {
     ///
     /// Note that all the setters affecting `authorized_view` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AuthorizedView;
-    /// use google_cloud_bigtable_admin_v2::model::authorized_view;
-    /// use google_cloud_bigtable_admin_v2::model::authorized_view::SubsetView;
-    /// let x = AuthorizedView::new().set_authorized_view(Some(authorized_view::AuthorizedView::SubsetView(SubsetView::default().into())));
-    /// ```
     pub fn set_authorized_view<
         T: std::convert::Into<std::option::Option<crate::model::authorized_view::AuthorizedView>>,
     >(
@@ -12990,14 +9869,6 @@ impl AuthorizedView {
     ///
     /// Note that all the setters affecting `authorized_view` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::AuthorizedView;
-    /// use google_cloud_bigtable_admin_v2::model::authorized_view::SubsetView;
-    /// let x = AuthorizedView::new().set_subset_view(SubsetView::default()/* use setters */);
-    /// assert!(x.subset_view().is_some());
-    /// ```
     pub fn set_subset_view<
         T: std::convert::Into<std::boxed::Box<crate::model::authorized_view::SubsetView>>,
     >(
@@ -13045,14 +9916,6 @@ pub mod authorized_view {
         }
 
         /// Sets the value of [qualifiers][crate::model::authorized_view::FamilySubsets::qualifiers].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::authorized_view::FamilySubsets;
-        /// let b1 = bytes::Bytes::from_static(b"abc");
-        /// let b2 = bytes::Bytes::from_static(b"xyz");
-        /// let x = FamilySubsets::new().set_qualifiers([b1, b2]);
-        /// ```
         pub fn set_qualifiers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -13064,14 +9927,6 @@ pub mod authorized_view {
         }
 
         /// Sets the value of [qualifier_prefixes][crate::model::authorized_view::FamilySubsets::qualifier_prefixes].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::authorized_view::FamilySubsets;
-        /// let b1 = bytes::Bytes::from_static(b"abc");
-        /// let b2 = bytes::Bytes::from_static(b"xyz");
-        /// let x = FamilySubsets::new().set_qualifier_prefixes([b1, b2]);
-        /// ```
         pub fn set_qualifier_prefixes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -13113,14 +9968,6 @@ pub mod authorized_view {
         }
 
         /// Sets the value of [row_prefixes][crate::model::authorized_view::SubsetView::row_prefixes].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::authorized_view::SubsetView;
-        /// let b1 = bytes::Bytes::from_static(b"abc");
-        /// let b2 = bytes::Bytes::from_static(b"xyz");
-        /// let x = SubsetView::new().set_row_prefixes([b1, b2]);
-        /// ```
         pub fn set_row_prefixes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -13132,16 +9979,6 @@ pub mod authorized_view {
         }
 
         /// Sets the value of [family_subsets][crate::model::authorized_view::SubsetView::family_subsets].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::authorized_view::SubsetView;
-        /// use google_cloud_bigtable_admin_v2::model::authorized_view::FamilySubsets;
-        /// let x = SubsetView::new().set_family_subsets([
-        ///     ("key0", FamilySubsets::default()/* use setters */),
-        ///     ("key1", FamilySubsets::default()/* use (different) setters */),
-        /// ]);
-        /// ```
         pub fn set_family_subsets<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -13342,13 +10179,6 @@ impl ColumnFamily {
     }
 
     /// Sets the value of [gc_rule][crate::model::ColumnFamily::gc_rule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ColumnFamily;
-    /// use google_cloud_bigtable_admin_v2::model::GcRule;
-    /// let x = ColumnFamily::new().set_gc_rule(GcRule::default()/* use setters */);
-    /// ```
     pub fn set_gc_rule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GcRule>,
@@ -13358,14 +10188,6 @@ impl ColumnFamily {
     }
 
     /// Sets or clears the value of [gc_rule][crate::model::ColumnFamily::gc_rule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ColumnFamily;
-    /// use google_cloud_bigtable_admin_v2::model::GcRule;
-    /// let x = ColumnFamily::new().set_or_clear_gc_rule(Some(GcRule::default()/* use setters */));
-    /// let x = ColumnFamily::new().set_or_clear_gc_rule(None::<GcRule>);
-    /// ```
     pub fn set_or_clear_gc_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcRule>,
@@ -13375,13 +10197,6 @@ impl ColumnFamily {
     }
 
     /// Sets the value of [value_type][crate::model::ColumnFamily::value_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ColumnFamily;
-    /// use google_cloud_bigtable_admin_v2::model::Type;
-    /// let x = ColumnFamily::new().set_value_type(Type::default()/* use setters */);
-    /// ```
     pub fn set_value_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Type>,
@@ -13391,14 +10206,6 @@ impl ColumnFamily {
     }
 
     /// Sets or clears the value of [value_type][crate::model::ColumnFamily::value_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ColumnFamily;
-    /// use google_cloud_bigtable_admin_v2::model::Type;
-    /// let x = ColumnFamily::new().set_or_clear_value_type(Some(Type::default()/* use setters */));
-    /// let x = ColumnFamily::new().set_or_clear_value_type(None::<Type>);
-    /// ```
     pub fn set_or_clear_value_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Type>,
@@ -13433,13 +10240,6 @@ impl GcRule {
     ///
     /// Note that all the setters affecting `rule` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GcRule;
-    /// use google_cloud_bigtable_admin_v2::model::gc_rule;
-    /// let x = GcRule::new().set_rule(Some(gc_rule::Rule::MaxNumVersions(42)));
-    /// ```
     pub fn set_rule<T: std::convert::Into<std::option::Option<crate::model::gc_rule::Rule>>>(
         mut self,
         v: T,
@@ -13464,16 +10264,6 @@ impl GcRule {
     ///
     /// Note that all the setters affecting `rule` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GcRule;
-    /// let x = GcRule::new().set_max_num_versions(42);
-    /// assert!(x.max_num_versions().is_some());
-    /// assert!(x.max_age().is_none());
-    /// assert!(x.intersection().is_none());
-    /// assert!(x.union().is_none());
-    /// ```
     pub fn set_max_num_versions<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.rule =
             std::option::Option::Some(crate::model::gc_rule::Rule::MaxNumVersions(v.into()));
@@ -13496,17 +10286,6 @@ impl GcRule {
     ///
     /// Note that all the setters affecting `rule` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GcRule;
-    /// use wkt::Duration;
-    /// let x = GcRule::new().set_max_age(Duration::default()/* use setters */);
-    /// assert!(x.max_age().is_some());
-    /// assert!(x.max_num_versions().is_none());
-    /// assert!(x.intersection().is_none());
-    /// assert!(x.union().is_none());
-    /// ```
     pub fn set_max_age<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
         mut self,
         v: T,
@@ -13533,17 +10312,6 @@ impl GcRule {
     ///
     /// Note that all the setters affecting `rule` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GcRule;
-    /// use google_cloud_bigtable_admin_v2::model::gc_rule::Intersection;
-    /// let x = GcRule::new().set_intersection(Intersection::default()/* use setters */);
-    /// assert!(x.intersection().is_some());
-    /// assert!(x.max_num_versions().is_none());
-    /// assert!(x.max_age().is_none());
-    /// assert!(x.union().is_none());
-    /// ```
     pub fn set_intersection<
         T: std::convert::Into<std::boxed::Box<crate::model::gc_rule::Intersection>>,
     >(
@@ -13570,17 +10338,6 @@ impl GcRule {
     ///
     /// Note that all the setters affecting `rule` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::GcRule;
-    /// use google_cloud_bigtable_admin_v2::model::gc_rule::Union;
-    /// let x = GcRule::new().set_union(Union::default()/* use setters */);
-    /// assert!(x.union().is_some());
-    /// assert!(x.max_num_versions().is_none());
-    /// assert!(x.max_age().is_none());
-    /// assert!(x.intersection().is_none());
-    /// ```
     pub fn set_union<T: std::convert::Into<std::boxed::Box<crate::model::gc_rule::Union>>>(
         mut self,
         v: T,
@@ -13617,17 +10374,6 @@ pub mod gc_rule {
         }
 
         /// Sets the value of [rules][crate::model::gc_rule::Intersection::rules].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::gc_rule::Intersection;
-        /// use google_cloud_bigtable_admin_v2::model::GcRule;
-        /// let x = Intersection::new()
-        ///     .set_rules([
-        ///         GcRule::default()/* use setters */,
-        ///         GcRule::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_rules<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -13661,17 +10407,6 @@ pub mod gc_rule {
         }
 
         /// Sets the value of [rules][crate::model::gc_rule::Union::rules].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::gc_rule::Union;
-        /// use google_cloud_bigtable_admin_v2::model::GcRule;
-        /// let x = Union::new()
-        ///     .set_rules([
-        ///         GcRule::default()/* use setters */,
-        ///         GcRule::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_rules<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -13734,14 +10469,6 @@ impl EncryptionInfo {
     }
 
     /// Sets the value of [encryption_type][crate::model::EncryptionInfo::encryption_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::EncryptionInfo;
-    /// use google_cloud_bigtable_admin_v2::model::encryption_info::EncryptionType;
-    /// let x0 = EncryptionInfo::new().set_encryption_type(EncryptionType::GoogleDefaultEncryption);
-    /// let x1 = EncryptionInfo::new().set_encryption_type(EncryptionType::CustomerManagedEncryption);
-    /// ```
     pub fn set_encryption_type<
         T: std::convert::Into<crate::model::encryption_info::EncryptionType>,
     >(
@@ -13753,13 +10480,6 @@ impl EncryptionInfo {
     }
 
     /// Sets the value of [encryption_status][crate::model::EncryptionInfo::encryption_status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::EncryptionInfo;
-    /// use rpc::model::Status;
-    /// let x = EncryptionInfo::new().set_encryption_status(Status::default()/* use setters */);
-    /// ```
     pub fn set_encryption_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -13769,14 +10489,6 @@ impl EncryptionInfo {
     }
 
     /// Sets or clears the value of [encryption_status][crate::model::EncryptionInfo::encryption_status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::EncryptionInfo;
-    /// use rpc::model::Status;
-    /// let x = EncryptionInfo::new().set_or_clear_encryption_status(Some(Status::default()/* use setters */));
-    /// let x = EncryptionInfo::new().set_or_clear_encryption_status(None::<Status>);
-    /// ```
     pub fn set_or_clear_encryption_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -13786,12 +10498,6 @@ impl EncryptionInfo {
     }
 
     /// Sets the value of [kms_key_version][crate::model::EncryptionInfo::kms_key_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::EncryptionInfo;
-    /// let x = EncryptionInfo::new().set_kms_key_version("example");
-    /// ```
     pub fn set_kms_key_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_version = v.into();
         self
@@ -14001,25 +10707,12 @@ impl Snapshot {
     }
 
     /// Sets the value of [name][crate::model::Snapshot::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Snapshot;
-    /// let x = Snapshot::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [source_table][crate::model::Snapshot::source_table].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Snapshot;
-    /// use google_cloud_bigtable_admin_v2::model::Table;
-    /// let x = Snapshot::new().set_source_table(Table::default()/* use setters */);
-    /// ```
     pub fn set_source_table<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Table>,
@@ -14029,14 +10722,6 @@ impl Snapshot {
     }
 
     /// Sets or clears the value of [source_table][crate::model::Snapshot::source_table].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Snapshot;
-    /// use google_cloud_bigtable_admin_v2::model::Table;
-    /// let x = Snapshot::new().set_or_clear_source_table(Some(Table::default()/* use setters */));
-    /// let x = Snapshot::new().set_or_clear_source_table(None::<Table>);
-    /// ```
     pub fn set_or_clear_source_table<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Table>,
@@ -14046,25 +10731,12 @@ impl Snapshot {
     }
 
     /// Sets the value of [data_size_bytes][crate::model::Snapshot::data_size_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Snapshot;
-    /// let x = Snapshot::new().set_data_size_bytes(42);
-    /// ```
     pub fn set_data_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.data_size_bytes = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Snapshot::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Snapshot;
-    /// use wkt::Timestamp;
-    /// let x = Snapshot::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14074,14 +10746,6 @@ impl Snapshot {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Snapshot::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Snapshot;
-    /// use wkt::Timestamp;
-    /// let x = Snapshot::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Snapshot::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14091,13 +10755,6 @@ impl Snapshot {
     }
 
     /// Sets the value of [delete_time][crate::model::Snapshot::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Snapshot;
-    /// use wkt::Timestamp;
-    /// let x = Snapshot::new().set_delete_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14107,14 +10764,6 @@ impl Snapshot {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Snapshot::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Snapshot;
-    /// use wkt::Timestamp;
-    /// let x = Snapshot::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Snapshot::new().set_or_clear_delete_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14124,26 +10773,12 @@ impl Snapshot {
     }
 
     /// Sets the value of [state][crate::model::Snapshot::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Snapshot;
-    /// use google_cloud_bigtable_admin_v2::model::snapshot::State;
-    /// let x0 = Snapshot::new().set_state(State::Ready);
-    /// let x1 = Snapshot::new().set_state(State::Creating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::snapshot::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Snapshot::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Snapshot;
-    /// let x = Snapshot::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -14378,49 +11013,24 @@ impl Backup {
     }
 
     /// Sets the value of [name][crate::model::Backup::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Backup;
-    /// let x = Backup::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [source_table][crate::model::Backup::source_table].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Backup;
-    /// let x = Backup::new().set_source_table("example");
-    /// ```
     pub fn set_source_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_table = v.into();
         self
     }
 
     /// Sets the value of [source_backup][crate::model::Backup::source_backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Backup;
-    /// let x = Backup::new().set_source_backup("example");
-    /// ```
     pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_backup = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::model::Backup::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_expire_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14430,14 +11040,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Backup::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_expire_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14447,13 +11049,6 @@ impl Backup {
     }
 
     /// Sets the value of [start_time][crate::model::Backup::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14463,14 +11058,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Backup::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14480,13 +11067,6 @@ impl Backup {
     }
 
     /// Sets the value of [end_time][crate::model::Backup::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14496,14 +11076,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [end_time][crate::model::Backup::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14513,39 +11085,18 @@ impl Backup {
     }
 
     /// Sets the value of [size_bytes][crate::model::Backup::size_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Backup;
-    /// let x = Backup::new().set_size_bytes(42);
-    /// ```
     pub fn set_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size_bytes = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Backup::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Backup;
-    /// use google_cloud_bigtable_admin_v2::model::backup::State;
-    /// let x0 = Backup::new().set_state(State::Creating);
-    /// let x1 = Backup::new().set_state(State::Ready);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [encryption_info][crate::model::Backup::encryption_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Backup;
-    /// use google_cloud_bigtable_admin_v2::model::EncryptionInfo;
-    /// let x = Backup::new().set_encryption_info(EncryptionInfo::default()/* use setters */);
-    /// ```
     pub fn set_encryption_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -14555,14 +11106,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [encryption_info][crate::model::Backup::encryption_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Backup;
-    /// use google_cloud_bigtable_admin_v2::model::EncryptionInfo;
-    /// let x = Backup::new().set_or_clear_encryption_info(Some(EncryptionInfo::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_encryption_info(None::<EncryptionInfo>);
-    /// ```
     pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -14572,14 +11115,6 @@ impl Backup {
     }
 
     /// Sets the value of [backup_type][crate::model::Backup::backup_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Backup;
-    /// use google_cloud_bigtable_admin_v2::model::backup::BackupType;
-    /// let x0 = Backup::new().set_backup_type(BackupType::Standard);
-    /// let x1 = Backup::new().set_backup_type(BackupType::Hot);
-    /// ```
     pub fn set_backup_type<T: std::convert::Into<crate::model::backup::BackupType>>(
         mut self,
         v: T,
@@ -14589,13 +11124,6 @@ impl Backup {
     }
 
     /// Sets the value of [hot_to_standard_time][crate::model::Backup::hot_to_standard_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_hot_to_standard_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_hot_to_standard_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14605,14 +11133,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [hot_to_standard_time][crate::model::Backup::hot_to_standard_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_hot_to_standard_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_hot_to_standard_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_hot_to_standard_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14937,25 +11457,12 @@ impl BackupInfo {
     }
 
     /// Sets the value of [backup][crate::model::BackupInfo::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::BackupInfo;
-    /// let x = BackupInfo::new().set_backup("example");
-    /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::BackupInfo::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::BackupInfo;
-    /// use wkt::Timestamp;
-    /// let x = BackupInfo::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14965,14 +11472,6 @@ impl BackupInfo {
     }
 
     /// Sets or clears the value of [start_time][crate::model::BackupInfo::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::BackupInfo;
-    /// use wkt::Timestamp;
-    /// let x = BackupInfo::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BackupInfo::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14982,13 +11481,6 @@ impl BackupInfo {
     }
 
     /// Sets the value of [end_time][crate::model::BackupInfo::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::BackupInfo;
-    /// use wkt::Timestamp;
-    /// let x = BackupInfo::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14998,14 +11490,6 @@ impl BackupInfo {
     }
 
     /// Sets or clears the value of [end_time][crate::model::BackupInfo::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::BackupInfo;
-    /// use wkt::Timestamp;
-    /// let x = BackupInfo::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BackupInfo::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15015,24 +11499,12 @@ impl BackupInfo {
     }
 
     /// Sets the value of [source_table][crate::model::BackupInfo::source_table].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::BackupInfo;
-    /// let x = BackupInfo::new().set_source_table("example");
-    /// ```
     pub fn set_source_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_table = v.into();
         self
     }
 
     /// Sets the value of [source_backup][crate::model::BackupInfo::source_backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::BackupInfo;
-    /// let x = BackupInfo::new().set_source_backup("example");
-    /// ```
     pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_backup = v.into();
         self
@@ -15077,12 +11549,6 @@ impl ProtoSchema {
     }
 
     /// Sets the value of [proto_descriptors][crate::model::ProtoSchema::proto_descriptors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::ProtoSchema;
-    /// let x = ProtoSchema::new().set_proto_descriptors(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_proto_descriptors<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.proto_descriptors = v.into();
         self
@@ -15123,24 +11589,12 @@ impl SchemaBundle {
     }
 
     /// Sets the value of [name][crate::model::SchemaBundle::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::SchemaBundle;
-    /// let x = SchemaBundle::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::SchemaBundle::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::SchemaBundle;
-    /// let x = SchemaBundle::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -15150,14 +11604,6 @@ impl SchemaBundle {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::SchemaBundle;
-    /// use google_cloud_bigtable_admin_v2::model::schema_bundle;
-    /// use google_cloud_bigtable_admin_v2::model::ProtoSchema;
-    /// let x = SchemaBundle::new().set_type(Some(schema_bundle::Type::ProtoSchema(ProtoSchema::default().into())));
-    /// ```
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::schema_bundle::Type>>,
     >(
@@ -15184,14 +11630,6 @@ impl SchemaBundle {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::SchemaBundle;
-    /// use google_cloud_bigtable_admin_v2::model::ProtoSchema;
-    /// let x = SchemaBundle::new().set_proto_schema(ProtoSchema::default()/* use setters */);
-    /// assert!(x.proto_schema().is_some());
-    /// ```
     pub fn set_proto_schema<T: std::convert::Into<std::boxed::Box<crate::model::ProtoSchema>>>(
         mut self,
         v: T,
@@ -15263,14 +11701,6 @@ impl Type {
     ///
     /// Note that all the setters affecting `kind` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Type;
-    /// use google_cloud_bigtable_admin_v2::model::r#type;
-    /// use google_cloud_bigtable_admin_v2::model::r#type::Bytes;
-    /// let x = Type::new().set_kind(Some(r#type::Kind::BytesType(Bytes::default().into())));
-    /// ```
     pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::r#type::Kind>>>(
         mut self,
         v: T,
@@ -15295,27 +11725,6 @@ impl Type {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Type;
-    /// use google_cloud_bigtable_admin_v2::model::r#type::Bytes;
-    /// let x = Type::new().set_bytes_type(Bytes::default()/* use setters */);
-    /// assert!(x.bytes_type().is_some());
-    /// assert!(x.string_type().is_none());
-    /// assert!(x.int64_type().is_none());
-    /// assert!(x.float32_type().is_none());
-    /// assert!(x.float64_type().is_none());
-    /// assert!(x.bool_type().is_none());
-    /// assert!(x.timestamp_type().is_none());
-    /// assert!(x.date_type().is_none());
-    /// assert!(x.aggregate_type().is_none());
-    /// assert!(x.struct_type().is_none());
-    /// assert!(x.array_type().is_none());
-    /// assert!(x.map_type().is_none());
-    /// assert!(x.proto_type().is_none());
-    /// assert!(x.enum_type().is_none());
-    /// ```
     pub fn set_bytes_type<T: std::convert::Into<std::boxed::Box<crate::model::r#type::Bytes>>>(
         mut self,
         v: T,
@@ -15342,27 +11751,6 @@ impl Type {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Type;
-    /// use google_cloud_bigtable_admin_v2::model::r#type::String;
-    /// let x = Type::new().set_string_type(String::default()/* use setters */);
-    /// assert!(x.string_type().is_some());
-    /// assert!(x.bytes_type().is_none());
-    /// assert!(x.int64_type().is_none());
-    /// assert!(x.float32_type().is_none());
-    /// assert!(x.float64_type().is_none());
-    /// assert!(x.bool_type().is_none());
-    /// assert!(x.timestamp_type().is_none());
-    /// assert!(x.date_type().is_none());
-    /// assert!(x.aggregate_type().is_none());
-    /// assert!(x.struct_type().is_none());
-    /// assert!(x.array_type().is_none());
-    /// assert!(x.map_type().is_none());
-    /// assert!(x.proto_type().is_none());
-    /// assert!(x.enum_type().is_none());
-    /// ```
     pub fn set_string_type<T: std::convert::Into<std::boxed::Box<crate::model::r#type::String>>>(
         mut self,
         v: T,
@@ -15387,27 +11775,6 @@ impl Type {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Type;
-    /// use google_cloud_bigtable_admin_v2::model::r#type::Int64;
-    /// let x = Type::new().set_int64_type(Int64::default()/* use setters */);
-    /// assert!(x.int64_type().is_some());
-    /// assert!(x.bytes_type().is_none());
-    /// assert!(x.string_type().is_none());
-    /// assert!(x.float32_type().is_none());
-    /// assert!(x.float64_type().is_none());
-    /// assert!(x.bool_type().is_none());
-    /// assert!(x.timestamp_type().is_none());
-    /// assert!(x.date_type().is_none());
-    /// assert!(x.aggregate_type().is_none());
-    /// assert!(x.struct_type().is_none());
-    /// assert!(x.array_type().is_none());
-    /// assert!(x.map_type().is_none());
-    /// assert!(x.proto_type().is_none());
-    /// assert!(x.enum_type().is_none());
-    /// ```
     pub fn set_int64_type<T: std::convert::Into<std::boxed::Box<crate::model::r#type::Int64>>>(
         mut self,
         v: T,
@@ -15434,27 +11801,6 @@ impl Type {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Type;
-    /// use google_cloud_bigtable_admin_v2::model::r#type::Float32;
-    /// let x = Type::new().set_float32_type(Float32::default()/* use setters */);
-    /// assert!(x.float32_type().is_some());
-    /// assert!(x.bytes_type().is_none());
-    /// assert!(x.string_type().is_none());
-    /// assert!(x.int64_type().is_none());
-    /// assert!(x.float64_type().is_none());
-    /// assert!(x.bool_type().is_none());
-    /// assert!(x.timestamp_type().is_none());
-    /// assert!(x.date_type().is_none());
-    /// assert!(x.aggregate_type().is_none());
-    /// assert!(x.struct_type().is_none());
-    /// assert!(x.array_type().is_none());
-    /// assert!(x.map_type().is_none());
-    /// assert!(x.proto_type().is_none());
-    /// assert!(x.enum_type().is_none());
-    /// ```
     pub fn set_float32_type<
         T: std::convert::Into<std::boxed::Box<crate::model::r#type::Float32>>,
     >(
@@ -15483,27 +11829,6 @@ impl Type {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Type;
-    /// use google_cloud_bigtable_admin_v2::model::r#type::Float64;
-    /// let x = Type::new().set_float64_type(Float64::default()/* use setters */);
-    /// assert!(x.float64_type().is_some());
-    /// assert!(x.bytes_type().is_none());
-    /// assert!(x.string_type().is_none());
-    /// assert!(x.int64_type().is_none());
-    /// assert!(x.float32_type().is_none());
-    /// assert!(x.bool_type().is_none());
-    /// assert!(x.timestamp_type().is_none());
-    /// assert!(x.date_type().is_none());
-    /// assert!(x.aggregate_type().is_none());
-    /// assert!(x.struct_type().is_none());
-    /// assert!(x.array_type().is_none());
-    /// assert!(x.map_type().is_none());
-    /// assert!(x.proto_type().is_none());
-    /// assert!(x.enum_type().is_none());
-    /// ```
     pub fn set_float64_type<
         T: std::convert::Into<std::boxed::Box<crate::model::r#type::Float64>>,
     >(
@@ -15530,27 +11855,6 @@ impl Type {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Type;
-    /// use google_cloud_bigtable_admin_v2::model::r#type::Bool;
-    /// let x = Type::new().set_bool_type(Bool::default()/* use setters */);
-    /// assert!(x.bool_type().is_some());
-    /// assert!(x.bytes_type().is_none());
-    /// assert!(x.string_type().is_none());
-    /// assert!(x.int64_type().is_none());
-    /// assert!(x.float32_type().is_none());
-    /// assert!(x.float64_type().is_none());
-    /// assert!(x.timestamp_type().is_none());
-    /// assert!(x.date_type().is_none());
-    /// assert!(x.aggregate_type().is_none());
-    /// assert!(x.struct_type().is_none());
-    /// assert!(x.array_type().is_none());
-    /// assert!(x.map_type().is_none());
-    /// assert!(x.proto_type().is_none());
-    /// assert!(x.enum_type().is_none());
-    /// ```
     pub fn set_bool_type<T: std::convert::Into<std::boxed::Box<crate::model::r#type::Bool>>>(
         mut self,
         v: T,
@@ -15577,27 +11881,6 @@ impl Type {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Type;
-    /// use google_cloud_bigtable_admin_v2::model::r#type::Timestamp;
-    /// let x = Type::new().set_timestamp_type(Timestamp::default()/* use setters */);
-    /// assert!(x.timestamp_type().is_some());
-    /// assert!(x.bytes_type().is_none());
-    /// assert!(x.string_type().is_none());
-    /// assert!(x.int64_type().is_none());
-    /// assert!(x.float32_type().is_none());
-    /// assert!(x.float64_type().is_none());
-    /// assert!(x.bool_type().is_none());
-    /// assert!(x.date_type().is_none());
-    /// assert!(x.aggregate_type().is_none());
-    /// assert!(x.struct_type().is_none());
-    /// assert!(x.array_type().is_none());
-    /// assert!(x.map_type().is_none());
-    /// assert!(x.proto_type().is_none());
-    /// assert!(x.enum_type().is_none());
-    /// ```
     pub fn set_timestamp_type<
         T: std::convert::Into<std::boxed::Box<crate::model::r#type::Timestamp>>,
     >(
@@ -15624,27 +11907,6 @@ impl Type {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Type;
-    /// use google_cloud_bigtable_admin_v2::model::r#type::Date;
-    /// let x = Type::new().set_date_type(Date::default()/* use setters */);
-    /// assert!(x.date_type().is_some());
-    /// assert!(x.bytes_type().is_none());
-    /// assert!(x.string_type().is_none());
-    /// assert!(x.int64_type().is_none());
-    /// assert!(x.float32_type().is_none());
-    /// assert!(x.float64_type().is_none());
-    /// assert!(x.bool_type().is_none());
-    /// assert!(x.timestamp_type().is_none());
-    /// assert!(x.aggregate_type().is_none());
-    /// assert!(x.struct_type().is_none());
-    /// assert!(x.array_type().is_none());
-    /// assert!(x.map_type().is_none());
-    /// assert!(x.proto_type().is_none());
-    /// assert!(x.enum_type().is_none());
-    /// ```
     pub fn set_date_type<T: std::convert::Into<std::boxed::Box<crate::model::r#type::Date>>>(
         mut self,
         v: T,
@@ -15671,27 +11933,6 @@ impl Type {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Type;
-    /// use google_cloud_bigtable_admin_v2::model::r#type::Aggregate;
-    /// let x = Type::new().set_aggregate_type(Aggregate::default()/* use setters */);
-    /// assert!(x.aggregate_type().is_some());
-    /// assert!(x.bytes_type().is_none());
-    /// assert!(x.string_type().is_none());
-    /// assert!(x.int64_type().is_none());
-    /// assert!(x.float32_type().is_none());
-    /// assert!(x.float64_type().is_none());
-    /// assert!(x.bool_type().is_none());
-    /// assert!(x.timestamp_type().is_none());
-    /// assert!(x.date_type().is_none());
-    /// assert!(x.struct_type().is_none());
-    /// assert!(x.array_type().is_none());
-    /// assert!(x.map_type().is_none());
-    /// assert!(x.proto_type().is_none());
-    /// assert!(x.enum_type().is_none());
-    /// ```
     pub fn set_aggregate_type<
         T: std::convert::Into<std::boxed::Box<crate::model::r#type::Aggregate>>,
     >(
@@ -15720,27 +11961,6 @@ impl Type {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Type;
-    /// use google_cloud_bigtable_admin_v2::model::r#type::Struct;
-    /// let x = Type::new().set_struct_type(Struct::default()/* use setters */);
-    /// assert!(x.struct_type().is_some());
-    /// assert!(x.bytes_type().is_none());
-    /// assert!(x.string_type().is_none());
-    /// assert!(x.int64_type().is_none());
-    /// assert!(x.float32_type().is_none());
-    /// assert!(x.float64_type().is_none());
-    /// assert!(x.bool_type().is_none());
-    /// assert!(x.timestamp_type().is_none());
-    /// assert!(x.date_type().is_none());
-    /// assert!(x.aggregate_type().is_none());
-    /// assert!(x.array_type().is_none());
-    /// assert!(x.map_type().is_none());
-    /// assert!(x.proto_type().is_none());
-    /// assert!(x.enum_type().is_none());
-    /// ```
     pub fn set_struct_type<T: std::convert::Into<std::boxed::Box<crate::model::r#type::Struct>>>(
         mut self,
         v: T,
@@ -15765,27 +11985,6 @@ impl Type {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Type;
-    /// use google_cloud_bigtable_admin_v2::model::r#type::Array;
-    /// let x = Type::new().set_array_type(Array::default()/* use setters */);
-    /// assert!(x.array_type().is_some());
-    /// assert!(x.bytes_type().is_none());
-    /// assert!(x.string_type().is_none());
-    /// assert!(x.int64_type().is_none());
-    /// assert!(x.float32_type().is_none());
-    /// assert!(x.float64_type().is_none());
-    /// assert!(x.bool_type().is_none());
-    /// assert!(x.timestamp_type().is_none());
-    /// assert!(x.date_type().is_none());
-    /// assert!(x.aggregate_type().is_none());
-    /// assert!(x.struct_type().is_none());
-    /// assert!(x.map_type().is_none());
-    /// assert!(x.proto_type().is_none());
-    /// assert!(x.enum_type().is_none());
-    /// ```
     pub fn set_array_type<T: std::convert::Into<std::boxed::Box<crate::model::r#type::Array>>>(
         mut self,
         v: T,
@@ -15810,27 +12009,6 @@ impl Type {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Type;
-    /// use google_cloud_bigtable_admin_v2::model::r#type::Map;
-    /// let x = Type::new().set_map_type(Map::default()/* use setters */);
-    /// assert!(x.map_type().is_some());
-    /// assert!(x.bytes_type().is_none());
-    /// assert!(x.string_type().is_none());
-    /// assert!(x.int64_type().is_none());
-    /// assert!(x.float32_type().is_none());
-    /// assert!(x.float64_type().is_none());
-    /// assert!(x.bool_type().is_none());
-    /// assert!(x.timestamp_type().is_none());
-    /// assert!(x.date_type().is_none());
-    /// assert!(x.aggregate_type().is_none());
-    /// assert!(x.struct_type().is_none());
-    /// assert!(x.array_type().is_none());
-    /// assert!(x.proto_type().is_none());
-    /// assert!(x.enum_type().is_none());
-    /// ```
     pub fn set_map_type<T: std::convert::Into<std::boxed::Box<crate::model::r#type::Map>>>(
         mut self,
         v: T,
@@ -15855,27 +12033,6 @@ impl Type {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Type;
-    /// use google_cloud_bigtable_admin_v2::model::r#type::Proto;
-    /// let x = Type::new().set_proto_type(Proto::default()/* use setters */);
-    /// assert!(x.proto_type().is_some());
-    /// assert!(x.bytes_type().is_none());
-    /// assert!(x.string_type().is_none());
-    /// assert!(x.int64_type().is_none());
-    /// assert!(x.float32_type().is_none());
-    /// assert!(x.float64_type().is_none());
-    /// assert!(x.bool_type().is_none());
-    /// assert!(x.timestamp_type().is_none());
-    /// assert!(x.date_type().is_none());
-    /// assert!(x.aggregate_type().is_none());
-    /// assert!(x.struct_type().is_none());
-    /// assert!(x.array_type().is_none());
-    /// assert!(x.map_type().is_none());
-    /// assert!(x.enum_type().is_none());
-    /// ```
     pub fn set_proto_type<T: std::convert::Into<std::boxed::Box<crate::model::r#type::Proto>>>(
         mut self,
         v: T,
@@ -15900,27 +12057,6 @@ impl Type {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigtable_admin_v2::model::Type;
-    /// use google_cloud_bigtable_admin_v2::model::r#type::Enum;
-    /// let x = Type::new().set_enum_type(Enum::default()/* use setters */);
-    /// assert!(x.enum_type().is_some());
-    /// assert!(x.bytes_type().is_none());
-    /// assert!(x.string_type().is_none());
-    /// assert!(x.int64_type().is_none());
-    /// assert!(x.float32_type().is_none());
-    /// assert!(x.float64_type().is_none());
-    /// assert!(x.bool_type().is_none());
-    /// assert!(x.timestamp_type().is_none());
-    /// assert!(x.date_type().is_none());
-    /// assert!(x.aggregate_type().is_none());
-    /// assert!(x.struct_type().is_none());
-    /// assert!(x.array_type().is_none());
-    /// assert!(x.map_type().is_none());
-    /// assert!(x.proto_type().is_none());
-    /// ```
     pub fn set_enum_type<T: std::convert::Into<std::boxed::Box<crate::model::r#type::Enum>>>(
         mut self,
         v: T,
@@ -15958,13 +12094,6 @@ pub mod r#type {
         }
 
         /// Sets the value of [encoding][crate::model::r#type::Bytes::encoding].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Bytes;
-        /// use google_cloud_bigtable_admin_v2::model::r#type::bytes::Encoding;
-        /// let x = Bytes::new().set_encoding(Encoding::default()/* use setters */);
-        /// ```
         pub fn set_encoding<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::r#type::bytes::Encoding>,
@@ -15974,14 +12103,6 @@ pub mod r#type {
         }
 
         /// Sets or clears the value of [encoding][crate::model::r#type::Bytes::encoding].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Bytes;
-        /// use google_cloud_bigtable_admin_v2::model::r#type::bytes::Encoding;
-        /// let x = Bytes::new().set_or_clear_encoding(Some(Encoding::default()/* use setters */));
-        /// let x = Bytes::new().set_or_clear_encoding(None::<Encoding>);
-        /// ```
         pub fn set_or_clear_encoding<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::r#type::bytes::Encoding>,
@@ -16021,14 +12142,6 @@ pub mod r#type {
             ///
             /// Note that all the setters affecting `encoding` are mutually
             /// exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigtable_admin_v2::model::r#type::bytes::Encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::bytes::encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::bytes::encoding::Raw;
-            /// let x = Encoding::new().set_encoding(Some(r#type::bytes::encoding::Encoding::Raw(Raw::default().into())));
-            /// ```
             pub fn set_encoding<
                 T: std::convert::Into<
                         std::option::Option<crate::model::r#type::bytes::encoding::Encoding>,
@@ -16062,14 +12175,6 @@ pub mod r#type {
             ///
             /// Note that all the setters affecting `encoding` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigtable_admin_v2::model::r#type::bytes::Encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::bytes::encoding::Raw;
-            /// let x = Encoding::new().set_raw(Raw::default()/* use setters */);
-            /// assert!(x.raw().is_some());
-            /// ```
             pub fn set_raw<
                 T: std::convert::Into<std::boxed::Box<crate::model::r#type::bytes::encoding::Raw>>,
             >(
@@ -16144,13 +12249,6 @@ pub mod r#type {
         }
 
         /// Sets the value of [encoding][crate::model::r#type::String::encoding].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::String;
-        /// use google_cloud_bigtable_admin_v2::model::r#type::string::Encoding;
-        /// let x = String::new().set_encoding(Encoding::default()/* use setters */);
-        /// ```
         pub fn set_encoding<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::r#type::string::Encoding>,
@@ -16160,14 +12258,6 @@ pub mod r#type {
         }
 
         /// Sets or clears the value of [encoding][crate::model::r#type::String::encoding].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::String;
-        /// use google_cloud_bigtable_admin_v2::model::r#type::string::Encoding;
-        /// let x = String::new().set_or_clear_encoding(Some(Encoding::default()/* use setters */));
-        /// let x = String::new().set_or_clear_encoding(None::<Encoding>);
-        /// ```
         pub fn set_or_clear_encoding<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::r#type::string::Encoding>,
@@ -16207,14 +12297,6 @@ pub mod r#type {
             ///
             /// Note that all the setters affecting `encoding` are mutually
             /// exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigtable_admin_v2::model::r#type::string::Encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::string::encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::string::encoding::Utf8Bytes;
-            /// let x = Encoding::new().set_encoding(Some(r#type::string::encoding::Encoding::Utf8Bytes(Utf8Bytes::default().into())));
-            /// ```
             pub fn set_encoding<
                 T: std::convert::Into<
                         std::option::Option<crate::model::r#type::string::encoding::Encoding>,
@@ -16250,15 +12332,6 @@ pub mod r#type {
             ///
             /// Note that all the setters affecting `encoding` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigtable_admin_v2::model::r#type::string::Encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::string::encoding::Utf8Raw;
-            /// let x = Encoding::new().set_utf8_raw(Utf8Raw::default()/* use setters */);
-            /// assert!(x.utf8_raw().is_some());
-            /// assert!(x.utf8_bytes().is_none());
-            /// ```
             #[deprecated]
             pub fn set_utf8_raw<
                 T: std::convert::Into<
@@ -16296,15 +12369,6 @@ pub mod r#type {
             ///
             /// Note that all the setters affecting `encoding` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigtable_admin_v2::model::r#type::string::Encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::string::encoding::Utf8Bytes;
-            /// let x = Encoding::new().set_utf8_bytes(Utf8Bytes::default()/* use setters */);
-            /// assert!(x.utf8_bytes().is_some());
-            /// assert!(x.utf8_raw().is_none());
-            /// ```
             pub fn set_utf8_bytes<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::r#type::string::encoding::Utf8Bytes>,
@@ -16413,13 +12477,6 @@ pub mod r#type {
         }
 
         /// Sets the value of [encoding][crate::model::r#type::Int64::encoding].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Int64;
-        /// use google_cloud_bigtable_admin_v2::model::r#type::int_64::Encoding;
-        /// let x = Int64::new().set_encoding(Encoding::default()/* use setters */);
-        /// ```
         pub fn set_encoding<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::r#type::int_64::Encoding>,
@@ -16429,14 +12486,6 @@ pub mod r#type {
         }
 
         /// Sets or clears the value of [encoding][crate::model::r#type::Int64::encoding].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Int64;
-        /// use google_cloud_bigtable_admin_v2::model::r#type::int_64::Encoding;
-        /// let x = Int64::new().set_or_clear_encoding(Some(Encoding::default()/* use setters */));
-        /// let x = Int64::new().set_or_clear_encoding(None::<Encoding>);
-        /// ```
         pub fn set_or_clear_encoding<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::r#type::int_64::Encoding>,
@@ -16476,14 +12525,6 @@ pub mod r#type {
             ///
             /// Note that all the setters affecting `encoding` are mutually
             /// exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigtable_admin_v2::model::r#type::int_64::Encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::int_64::encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::int_64::encoding::BigEndianBytes;
-            /// let x = Encoding::new().set_encoding(Some(r#type::int_64::encoding::Encoding::BigEndianBytes(BigEndianBytes::default().into())));
-            /// ```
             pub fn set_encoding<
                 T: std::convert::Into<
                         std::option::Option<crate::model::r#type::int_64::encoding::Encoding>,
@@ -16518,15 +12559,6 @@ pub mod r#type {
             ///
             /// Note that all the setters affecting `encoding` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigtable_admin_v2::model::r#type::int_64::Encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::int_64::encoding::BigEndianBytes;
-            /// let x = Encoding::new().set_big_endian_bytes(BigEndianBytes::default()/* use setters */);
-            /// assert!(x.big_endian_bytes().is_some());
-            /// assert!(x.ordered_code_bytes().is_none());
-            /// ```
             pub fn set_big_endian_bytes<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::r#type::int_64::encoding::BigEndianBytes>,
@@ -16563,15 +12595,6 @@ pub mod r#type {
             ///
             /// Note that all the setters affecting `encoding` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigtable_admin_v2::model::r#type::int_64::Encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::int_64::encoding::OrderedCodeBytes;
-            /// let x = Encoding::new().set_ordered_code_bytes(OrderedCodeBytes::default()/* use setters */);
-            /// assert!(x.ordered_code_bytes().is_some());
-            /// assert!(x.big_endian_bytes().is_none());
-            /// ```
             pub fn set_ordered_code_bytes<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::r#type::int_64::encoding::OrderedCodeBytes>,
@@ -16625,13 +12648,6 @@ pub mod r#type {
                 }
 
                 /// Sets the value of [bytes_type][crate::model::r#type::int_64::encoding::BigEndianBytes::bytes_type].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_bigtable_admin_v2::model::r#type::int_64::encoding::BigEndianBytes;
-                /// use google_cloud_bigtable_admin_v2::model::r#type::Bytes;
-                /// let x = BigEndianBytes::new().set_bytes_type(Bytes::default()/* use setters */);
-                /// ```
                 #[deprecated]
                 pub fn set_bytes_type<T>(mut self, v: T) -> Self
                 where
@@ -16642,14 +12658,6 @@ pub mod r#type {
                 }
 
                 /// Sets or clears the value of [bytes_type][crate::model::r#type::int_64::encoding::BigEndianBytes::bytes_type].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_bigtable_admin_v2::model::r#type::int_64::encoding::BigEndianBytes;
-                /// use google_cloud_bigtable_admin_v2::model::r#type::Bytes;
-                /// let x = BigEndianBytes::new().set_or_clear_bytes_type(Some(Bytes::default()/* use setters */));
-                /// let x = BigEndianBytes::new().set_or_clear_bytes_type(None::<Bytes>);
-                /// ```
                 #[deprecated]
                 pub fn set_or_clear_bytes_type<T>(mut self, v: std::option::Option<T>) -> Self
                 where
@@ -16783,13 +12791,6 @@ pub mod r#type {
         }
 
         /// Sets the value of [encoding][crate::model::r#type::Timestamp::encoding].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Timestamp;
-        /// use google_cloud_bigtable_admin_v2::model::r#type::timestamp::Encoding;
-        /// let x = Timestamp::new().set_encoding(Encoding::default()/* use setters */);
-        /// ```
         pub fn set_encoding<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::r#type::timestamp::Encoding>,
@@ -16799,14 +12800,6 @@ pub mod r#type {
         }
 
         /// Sets or clears the value of [encoding][crate::model::r#type::Timestamp::encoding].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Timestamp;
-        /// use google_cloud_bigtable_admin_v2::model::r#type::timestamp::Encoding;
-        /// let x = Timestamp::new().set_or_clear_encoding(Some(Encoding::default()/* use setters */));
-        /// let x = Timestamp::new().set_or_clear_encoding(None::<Encoding>);
-        /// ```
         pub fn set_or_clear_encoding<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::r#type::timestamp::Encoding>,
@@ -16846,14 +12839,6 @@ pub mod r#type {
             ///
             /// Note that all the setters affecting `encoding` are mutually
             /// exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigtable_admin_v2::model::r#type::timestamp::Encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::timestamp::encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::int_64::Encoding;
-            /// let x = Encoding::new().set_encoding(Some(r#type::timestamp::encoding::Encoding::UnixMicrosInt64(Encoding::default().into())));
-            /// ```
             pub fn set_encoding<
                 T: std::convert::Into<
                         std::option::Option<crate::model::r#type::timestamp::encoding::Encoding>,
@@ -16887,14 +12872,6 @@ pub mod r#type {
             ///
             /// Note that all the setters affecting `encoding` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigtable_admin_v2::model::r#type::timestamp::Encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::int_64::Encoding;
-            /// let x = Encoding::new().set_unix_micros_int64(Encoding::default()/* use setters */);
-            /// assert!(x.unix_micros_int64().is_some());
-            /// ```
             pub fn set_unix_micros_int64<
                 T: std::convert::Into<std::boxed::Box<crate::model::r#type::int_64::Encoding>>,
             >(
@@ -16976,17 +12953,6 @@ pub mod r#type {
         }
 
         /// Sets the value of [fields][crate::model::r#type::Struct::fields].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Struct;
-        /// use google_cloud_bigtable_admin_v2::model::r#type::r#struct::Field;
-        /// let x = Struct::new()
-        ///     .set_fields([
-        ///         Field::default()/* use setters */,
-        ///         Field::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_fields<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -16998,13 +12964,6 @@ pub mod r#type {
         }
 
         /// Sets the value of [encoding][crate::model::r#type::Struct::encoding].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Struct;
-        /// use google_cloud_bigtable_admin_v2::model::r#type::r#struct::Encoding;
-        /// let x = Struct::new().set_encoding(Encoding::default()/* use setters */);
-        /// ```
         pub fn set_encoding<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::r#type::r#struct::Encoding>,
@@ -17014,14 +12973,6 @@ pub mod r#type {
         }
 
         /// Sets or clears the value of [encoding][crate::model::r#type::Struct::encoding].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Struct;
-        /// use google_cloud_bigtable_admin_v2::model::r#type::r#struct::Encoding;
-        /// let x = Struct::new().set_or_clear_encoding(Some(Encoding::default()/* use setters */));
-        /// let x = Struct::new().set_or_clear_encoding(None::<Encoding>);
-        /// ```
         pub fn set_or_clear_encoding<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::r#type::r#struct::Encoding>,
@@ -17062,12 +13013,6 @@ pub mod r#type {
             }
 
             /// Sets the value of [field_name][crate::model::r#type::r#struct::Field::field_name].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigtable_admin_v2::model::r#type::r#struct::Field;
-            /// let x = Field::new().set_field_name("example");
-            /// ```
             pub fn set_field_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -17077,13 +13022,6 @@ pub mod r#type {
             }
 
             /// Sets the value of [r#type][crate::model::r#type::r#struct::Field::type].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigtable_admin_v2::model::r#type::r#struct::Field;
-            /// use google_cloud_bigtable_admin_v2::model::Type;
-            /// let x = Field::new().set_type(Type::default()/* use setters */);
-            /// ```
             pub fn set_type<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::Type>,
@@ -17093,14 +13031,6 @@ pub mod r#type {
             }
 
             /// Sets or clears the value of [r#type][crate::model::r#type::r#struct::Field::type].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigtable_admin_v2::model::r#type::r#struct::Field;
-            /// use google_cloud_bigtable_admin_v2::model::Type;
-            /// let x = Field::new().set_or_clear_type(Some(Type::default()/* use setters */));
-            /// let x = Field::new().set_or_clear_type(None::<Type>);
-            /// ```
             pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::Type>,
@@ -17135,14 +13065,6 @@ pub mod r#type {
             ///
             /// Note that all the setters affecting `encoding` are mutually
             /// exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigtable_admin_v2::model::r#type::r#struct::Encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::r#struct::encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::r#struct::encoding::Singleton;
-            /// let x = Encoding::new().set_encoding(Some(r#type::r#struct::encoding::Encoding::Singleton(Singleton::default().into())));
-            /// ```
             pub fn set_encoding<
                 T: std::convert::Into<
                         std::option::Option<crate::model::r#type::r#struct::encoding::Encoding>,
@@ -17177,16 +13099,6 @@ pub mod r#type {
             ///
             /// Note that all the setters affecting `encoding` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigtable_admin_v2::model::r#type::r#struct::Encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::r#struct::encoding::Singleton;
-            /// let x = Encoding::new().set_singleton(Singleton::default()/* use setters */);
-            /// assert!(x.singleton().is_some());
-            /// assert!(x.delimited_bytes().is_none());
-            /// assert!(x.ordered_code_bytes().is_none());
-            /// ```
             pub fn set_singleton<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::r#type::r#struct::encoding::Singleton>,
@@ -17223,16 +13135,6 @@ pub mod r#type {
             ///
             /// Note that all the setters affecting `encoding` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigtable_admin_v2::model::r#type::r#struct::Encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::r#struct::encoding::DelimitedBytes;
-            /// let x = Encoding::new().set_delimited_bytes(DelimitedBytes::default()/* use setters */);
-            /// assert!(x.delimited_bytes().is_some());
-            /// assert!(x.singleton().is_none());
-            /// assert!(x.ordered_code_bytes().is_none());
-            /// ```
             pub fn set_delimited_bytes<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::r#type::r#struct::encoding::DelimitedBytes>,
@@ -17269,16 +13171,6 @@ pub mod r#type {
             ///
             /// Note that all the setters affecting `encoding` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigtable_admin_v2::model::r#type::r#struct::Encoding;
-            /// use google_cloud_bigtable_admin_v2::model::r#type::r#struct::encoding::OrderedCodeBytes;
-            /// let x = Encoding::new().set_ordered_code_bytes(OrderedCodeBytes::default()/* use setters */);
-            /// assert!(x.ordered_code_bytes().is_some());
-            /// assert!(x.singleton().is_none());
-            /// assert!(x.delimited_bytes().is_none());
-            /// ```
             pub fn set_ordered_code_bytes<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::r#type::r#struct::encoding::OrderedCodeBytes>,
@@ -17357,12 +13249,6 @@ pub mod r#type {
                 }
 
                 /// Sets the value of [delimiter][crate::model::r#type::r#struct::encoding::DelimitedBytes::delimiter].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_bigtable_admin_v2::model::r#type::r#struct::encoding::DelimitedBytes;
-                /// let x = DelimitedBytes::new().set_delimiter(bytes::Bytes::from_static(b"example"));
-                /// ```
                 pub fn set_delimiter<T: std::convert::Into<::bytes::Bytes>>(
                     mut self,
                     v: T,
@@ -17475,12 +13361,6 @@ pub mod r#type {
         }
 
         /// Sets the value of [schema_bundle_id][crate::model::r#type::Proto::schema_bundle_id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Proto;
-        /// let x = Proto::new().set_schema_bundle_id("example");
-        /// ```
         pub fn set_schema_bundle_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -17490,12 +13370,6 @@ pub mod r#type {
         }
 
         /// Sets the value of [message_name][crate::model::r#type::Proto::message_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Proto;
-        /// let x = Proto::new().set_message_name("example");
-        /// ```
         pub fn set_message_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -17532,12 +13406,6 @@ pub mod r#type {
         }
 
         /// Sets the value of [schema_bundle_id][crate::model::r#type::Enum::schema_bundle_id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Enum;
-        /// let x = Enum::new().set_schema_bundle_id("example");
-        /// ```
         pub fn set_schema_bundle_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -17547,12 +13415,6 @@ pub mod r#type {
         }
 
         /// Sets the value of [enum_name][crate::model::r#type::Enum::enum_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Enum;
-        /// let x = Enum::new().set_enum_name("example");
-        /// ```
         pub fn set_enum_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.enum_name = v.into();
             self
@@ -17582,13 +13444,6 @@ pub mod r#type {
         }
 
         /// Sets the value of [element_type][crate::model::r#type::Array::element_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Array;
-        /// use google_cloud_bigtable_admin_v2::model::Type;
-        /// let x = Array::new().set_element_type(Type::default()/* use setters */);
-        /// ```
         pub fn set_element_type<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Type>,
@@ -17598,14 +13453,6 @@ pub mod r#type {
         }
 
         /// Sets or clears the value of [element_type][crate::model::r#type::Array::element_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Array;
-        /// use google_cloud_bigtable_admin_v2::model::Type;
-        /// let x = Array::new().set_or_clear_element_type(Some(Type::default()/* use setters */));
-        /// let x = Array::new().set_or_clear_element_type(None::<Type>);
-        /// ```
         pub fn set_or_clear_element_type<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Type>,
@@ -17647,13 +13494,6 @@ pub mod r#type {
         }
 
         /// Sets the value of [key_type][crate::model::r#type::Map::key_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Map;
-        /// use google_cloud_bigtable_admin_v2::model::Type;
-        /// let x = Map::new().set_key_type(Type::default()/* use setters */);
-        /// ```
         pub fn set_key_type<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Type>,
@@ -17663,14 +13503,6 @@ pub mod r#type {
         }
 
         /// Sets or clears the value of [key_type][crate::model::r#type::Map::key_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Map;
-        /// use google_cloud_bigtable_admin_v2::model::Type;
-        /// let x = Map::new().set_or_clear_key_type(Some(Type::default()/* use setters */));
-        /// let x = Map::new().set_or_clear_key_type(None::<Type>);
-        /// ```
         pub fn set_or_clear_key_type<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Type>,
@@ -17680,13 +13512,6 @@ pub mod r#type {
         }
 
         /// Sets the value of [value_type][crate::model::r#type::Map::value_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Map;
-        /// use google_cloud_bigtable_admin_v2::model::Type;
-        /// let x = Map::new().set_value_type(Type::default()/* use setters */);
-        /// ```
         pub fn set_value_type<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Type>,
@@ -17696,14 +13521,6 @@ pub mod r#type {
         }
 
         /// Sets or clears the value of [value_type][crate::model::r#type::Map::value_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Map;
-        /// use google_cloud_bigtable_admin_v2::model::Type;
-        /// let x = Map::new().set_or_clear_value_type(Some(Type::default()/* use setters */));
-        /// let x = Map::new().set_or_clear_value_type(None::<Type>);
-        /// ```
         pub fn set_or_clear_value_type<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Type>,
@@ -17749,13 +13566,6 @@ pub mod r#type {
         }
 
         /// Sets the value of [input_type][crate::model::r#type::Aggregate::input_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Aggregate;
-        /// use google_cloud_bigtable_admin_v2::model::Type;
-        /// let x = Aggregate::new().set_input_type(Type::default()/* use setters */);
-        /// ```
         pub fn set_input_type<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Type>,
@@ -17765,14 +13575,6 @@ pub mod r#type {
         }
 
         /// Sets or clears the value of [input_type][crate::model::r#type::Aggregate::input_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Aggregate;
-        /// use google_cloud_bigtable_admin_v2::model::Type;
-        /// let x = Aggregate::new().set_or_clear_input_type(Some(Type::default()/* use setters */));
-        /// let x = Aggregate::new().set_or_clear_input_type(None::<Type>);
-        /// ```
         pub fn set_or_clear_input_type<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Type>,
@@ -17782,13 +13584,6 @@ pub mod r#type {
         }
 
         /// Sets the value of [state_type][crate::model::r#type::Aggregate::state_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Aggregate;
-        /// use google_cloud_bigtable_admin_v2::model::Type;
-        /// let x = Aggregate::new().set_state_type(Type::default()/* use setters */);
-        /// ```
         pub fn set_state_type<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Type>,
@@ -17798,14 +13593,6 @@ pub mod r#type {
         }
 
         /// Sets or clears the value of [state_type][crate::model::r#type::Aggregate::state_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Aggregate;
-        /// use google_cloud_bigtable_admin_v2::model::Type;
-        /// let x = Aggregate::new().set_or_clear_state_type(Some(Type::default()/* use setters */));
-        /// let x = Aggregate::new().set_or_clear_state_type(None::<Type>);
-        /// ```
         pub fn set_or_clear_state_type<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Type>,
@@ -17818,14 +13605,6 @@ pub mod r#type {
         ///
         /// Note that all the setters affecting `aggregator` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Aggregate;
-        /// use google_cloud_bigtable_admin_v2::model::r#type::aggregate;
-        /// use google_cloud_bigtable_admin_v2::model::r#type::aggregate::Sum;
-        /// let x = Aggregate::new().set_aggregator(Some(r#type::aggregate::Aggregator::Sum(Sum::default().into())));
-        /// ```
         pub fn set_aggregator<
             T: std::convert::Into<std::option::Option<crate::model::r#type::aggregate::Aggregator>>,
         >(
@@ -17854,17 +13633,6 @@ pub mod r#type {
         ///
         /// Note that all the setters affecting `aggregator` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Aggregate;
-        /// use google_cloud_bigtable_admin_v2::model::r#type::aggregate::Sum;
-        /// let x = Aggregate::new().set_sum(Sum::default()/* use setters */);
-        /// assert!(x.sum().is_some());
-        /// assert!(x.hllpp_unique_count().is_none());
-        /// assert!(x.max().is_none());
-        /// assert!(x.min().is_none());
-        /// ```
         pub fn set_sum<
             T: std::convert::Into<std::boxed::Box<crate::model::r#type::aggregate::Sum>>,
         >(
@@ -17899,17 +13667,6 @@ pub mod r#type {
         ///
         /// Note that all the setters affecting `aggregator` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Aggregate;
-        /// use google_cloud_bigtable_admin_v2::model::r#type::aggregate::HyperLogLogPlusPlusUniqueCount;
-        /// let x = Aggregate::new().set_hllpp_unique_count(HyperLogLogPlusPlusUniqueCount::default()/* use setters */);
-        /// assert!(x.hllpp_unique_count().is_some());
-        /// assert!(x.sum().is_none());
-        /// assert!(x.max().is_none());
-        /// assert!(x.min().is_none());
-        /// ```
         pub fn set_hllpp_unique_count<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -17944,17 +13701,6 @@ pub mod r#type {
         ///
         /// Note that all the setters affecting `aggregator` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Aggregate;
-        /// use google_cloud_bigtable_admin_v2::model::r#type::aggregate::Max;
-        /// let x = Aggregate::new().set_max(Max::default()/* use setters */);
-        /// assert!(x.max().is_some());
-        /// assert!(x.sum().is_none());
-        /// assert!(x.hllpp_unique_count().is_none());
-        /// assert!(x.min().is_none());
-        /// ```
         pub fn set_max<
             T: std::convert::Into<std::boxed::Box<crate::model::r#type::aggregate::Max>>,
         >(
@@ -17985,17 +13731,6 @@ pub mod r#type {
         ///
         /// Note that all the setters affecting `aggregator` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigtable_admin_v2::model::r#type::Aggregate;
-        /// use google_cloud_bigtable_admin_v2::model::r#type::aggregate::Min;
-        /// let x = Aggregate::new().set_min(Min::default()/* use setters */);
-        /// assert!(x.min().is_some());
-        /// assert!(x.sum().is_none());
-        /// assert!(x.hllpp_unique_count().is_none());
-        /// assert!(x.max().is_none());
-        /// ```
         pub fn set_min<
             T: std::convert::Into<std::boxed::Box<crate::model::r#type::aggregate::Min>>,
         >(

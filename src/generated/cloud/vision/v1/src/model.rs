@@ -58,24 +58,12 @@ impl Vertex {
     }
 
     /// Sets the value of [x][crate::model::Vertex::x].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Vertex;
-    /// let x = Vertex::new().set_x(42);
-    /// ```
     pub fn set_x<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.x = v.into();
         self
     }
 
     /// Sets the value of [y][crate::model::Vertex::y].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Vertex;
-    /// let x = Vertex::new().set_y(42);
-    /// ```
     pub fn set_y<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.y = v.into();
         self
@@ -109,24 +97,12 @@ impl NormalizedVertex {
     }
 
     /// Sets the value of [x][crate::model::NormalizedVertex::x].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::NormalizedVertex;
-    /// let x = NormalizedVertex::new().set_x(42.0);
-    /// ```
     pub fn set_x<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.x = v.into();
         self
     }
 
     /// Sets the value of [y][crate::model::NormalizedVertex::y].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::NormalizedVertex;
-    /// let x = NormalizedVertex::new().set_y(42.0);
-    /// ```
     pub fn set_y<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.y = v.into();
         self
@@ -158,17 +134,6 @@ impl BoundingPoly {
     }
 
     /// Sets the value of [vertices][crate::model::BoundingPoly::vertices].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::BoundingPoly;
-    /// use google_cloud_vision_v1::model::Vertex;
-    /// let x = BoundingPoly::new()
-    ///     .set_vertices([
-    ///         Vertex::default()/* use setters */,
-    ///         Vertex::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_vertices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -180,17 +145,6 @@ impl BoundingPoly {
     }
 
     /// Sets the value of [normalized_vertices][crate::model::BoundingPoly::normalized_vertices].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::BoundingPoly;
-    /// use google_cloud_vision_v1::model::NormalizedVertex;
-    /// let x = BoundingPoly::new()
-    ///     .set_normalized_vertices([
-    ///         NormalizedVertex::default()/* use setters */,
-    ///         NormalizedVertex::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_normalized_vertices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -232,36 +186,18 @@ impl Position {
     }
 
     /// Sets the value of [x][crate::model::Position::x].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Position;
-    /// let x = Position::new().set_x(42.0);
-    /// ```
     pub fn set_x<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.x = v.into();
         self
     }
 
     /// Sets the value of [y][crate::model::Position::y].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Position;
-    /// let x = Position::new().set_y(42.0);
-    /// ```
     pub fn set_y<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.y = v.into();
         self
     }
 
     /// Sets the value of [z][crate::model::Position::z].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Position;
-    /// let x = Position::new().set_z(42.0);
-    /// ```
     pub fn set_z<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.z = v.into();
         self
@@ -302,39 +238,18 @@ impl Feature {
     }
 
     /// Sets the value of [r#type][crate::model::Feature::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Feature;
-    /// use google_cloud_vision_v1::model::feature::Type;
-    /// let x0 = Feature::new().set_type(Type::FaceDetection);
-    /// let x1 = Feature::new().set_type(Type::LandmarkDetection);
-    /// let x2 = Feature::new().set_type(Type::LogoDetection);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::feature::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [max_results][crate::model::Feature::max_results].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Feature;
-    /// let x = Feature::new().set_max_results(42);
-    /// ```
     pub fn set_max_results<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_results = v.into();
         self
     }
 
     /// Sets the value of [model][crate::model::Feature::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Feature;
-    /// let x = Feature::new().set_model("example");
-    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
@@ -601,24 +516,12 @@ impl ImageSource {
     }
 
     /// Sets the value of [gcs_image_uri][crate::model::ImageSource::gcs_image_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImageSource;
-    /// let x = ImageSource::new().set_gcs_image_uri("example");
-    /// ```
     pub fn set_gcs_image_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcs_image_uri = v.into();
         self
     }
 
     /// Sets the value of [image_uri][crate::model::ImageSource::image_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImageSource;
-    /// let x = ImageSource::new().set_image_uri("example");
-    /// ```
     pub fn set_image_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_uri = v.into();
         self
@@ -657,25 +560,12 @@ impl Image {
     }
 
     /// Sets the value of [content][crate::model::Image::content].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Image;
-    /// let x = Image::new().set_content(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [source][crate::model::Image::source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Image;
-    /// use google_cloud_vision_v1::model::ImageSource;
-    /// let x = Image::new().set_source(ImageSource::default()/* use setters */);
-    /// ```
     pub fn set_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ImageSource>,
@@ -685,14 +575,6 @@ impl Image {
     }
 
     /// Sets or clears the value of [source][crate::model::Image::source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Image;
-    /// use google_cloud_vision_v1::model::ImageSource;
-    /// let x = Image::new().set_or_clear_source(Some(ImageSource::default()/* use setters */));
-    /// let x = Image::new().set_or_clear_source(None::<ImageSource>);
-    /// ```
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImageSource>,
@@ -782,13 +664,6 @@ impl FaceAnnotation {
     }
 
     /// Sets the value of [bounding_poly][crate::model::FaceAnnotation::bounding_poly].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::FaceAnnotation;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = FaceAnnotation::new().set_bounding_poly(BoundingPoly::default()/* use setters */);
-    /// ```
     pub fn set_bounding_poly<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -798,14 +673,6 @@ impl FaceAnnotation {
     }
 
     /// Sets or clears the value of [bounding_poly][crate::model::FaceAnnotation::bounding_poly].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::FaceAnnotation;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = FaceAnnotation::new().set_or_clear_bounding_poly(Some(BoundingPoly::default()/* use setters */));
-    /// let x = FaceAnnotation::new().set_or_clear_bounding_poly(None::<BoundingPoly>);
-    /// ```
     pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -815,13 +682,6 @@ impl FaceAnnotation {
     }
 
     /// Sets the value of [fd_bounding_poly][crate::model::FaceAnnotation::fd_bounding_poly].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::FaceAnnotation;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = FaceAnnotation::new().set_fd_bounding_poly(BoundingPoly::default()/* use setters */);
-    /// ```
     pub fn set_fd_bounding_poly<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -831,14 +691,6 @@ impl FaceAnnotation {
     }
 
     /// Sets or clears the value of [fd_bounding_poly][crate::model::FaceAnnotation::fd_bounding_poly].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::FaceAnnotation;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = FaceAnnotation::new().set_or_clear_fd_bounding_poly(Some(BoundingPoly::default()/* use setters */));
-    /// let x = FaceAnnotation::new().set_or_clear_fd_bounding_poly(None::<BoundingPoly>);
-    /// ```
     pub fn set_or_clear_fd_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -848,17 +700,6 @@ impl FaceAnnotation {
     }
 
     /// Sets the value of [landmarks][crate::model::FaceAnnotation::landmarks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::FaceAnnotation;
-    /// use google_cloud_vision_v1::model::face_annotation::Landmark;
-    /// let x = FaceAnnotation::new()
-    ///     .set_landmarks([
-    ///         Landmark::default()/* use setters */,
-    ///         Landmark::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_landmarks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -870,75 +711,36 @@ impl FaceAnnotation {
     }
 
     /// Sets the value of [roll_angle][crate::model::FaceAnnotation::roll_angle].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::FaceAnnotation;
-    /// let x = FaceAnnotation::new().set_roll_angle(42.0);
-    /// ```
     pub fn set_roll_angle<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.roll_angle = v.into();
         self
     }
 
     /// Sets the value of [pan_angle][crate::model::FaceAnnotation::pan_angle].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::FaceAnnotation;
-    /// let x = FaceAnnotation::new().set_pan_angle(42.0);
-    /// ```
     pub fn set_pan_angle<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.pan_angle = v.into();
         self
     }
 
     /// Sets the value of [tilt_angle][crate::model::FaceAnnotation::tilt_angle].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::FaceAnnotation;
-    /// let x = FaceAnnotation::new().set_tilt_angle(42.0);
-    /// ```
     pub fn set_tilt_angle<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.tilt_angle = v.into();
         self
     }
 
     /// Sets the value of [detection_confidence][crate::model::FaceAnnotation::detection_confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::FaceAnnotation;
-    /// let x = FaceAnnotation::new().set_detection_confidence(42.0);
-    /// ```
     pub fn set_detection_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.detection_confidence = v.into();
         self
     }
 
     /// Sets the value of [landmarking_confidence][crate::model::FaceAnnotation::landmarking_confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::FaceAnnotation;
-    /// let x = FaceAnnotation::new().set_landmarking_confidence(42.0);
-    /// ```
     pub fn set_landmarking_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.landmarking_confidence = v.into();
         self
     }
 
     /// Sets the value of [joy_likelihood][crate::model::FaceAnnotation::joy_likelihood].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::FaceAnnotation;
-    /// use google_cloud_vision_v1::model::Likelihood;
-    /// let x0 = FaceAnnotation::new().set_joy_likelihood(Likelihood::VeryUnlikely);
-    /// let x1 = FaceAnnotation::new().set_joy_likelihood(Likelihood::Unlikely);
-    /// let x2 = FaceAnnotation::new().set_joy_likelihood(Likelihood::Possible);
-    /// ```
     pub fn set_joy_likelihood<T: std::convert::Into<crate::model::Likelihood>>(
         mut self,
         v: T,
@@ -948,15 +750,6 @@ impl FaceAnnotation {
     }
 
     /// Sets the value of [sorrow_likelihood][crate::model::FaceAnnotation::sorrow_likelihood].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::FaceAnnotation;
-    /// use google_cloud_vision_v1::model::Likelihood;
-    /// let x0 = FaceAnnotation::new().set_sorrow_likelihood(Likelihood::VeryUnlikely);
-    /// let x1 = FaceAnnotation::new().set_sorrow_likelihood(Likelihood::Unlikely);
-    /// let x2 = FaceAnnotation::new().set_sorrow_likelihood(Likelihood::Possible);
-    /// ```
     pub fn set_sorrow_likelihood<T: std::convert::Into<crate::model::Likelihood>>(
         mut self,
         v: T,
@@ -966,15 +759,6 @@ impl FaceAnnotation {
     }
 
     /// Sets the value of [anger_likelihood][crate::model::FaceAnnotation::anger_likelihood].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::FaceAnnotation;
-    /// use google_cloud_vision_v1::model::Likelihood;
-    /// let x0 = FaceAnnotation::new().set_anger_likelihood(Likelihood::VeryUnlikely);
-    /// let x1 = FaceAnnotation::new().set_anger_likelihood(Likelihood::Unlikely);
-    /// let x2 = FaceAnnotation::new().set_anger_likelihood(Likelihood::Possible);
-    /// ```
     pub fn set_anger_likelihood<T: std::convert::Into<crate::model::Likelihood>>(
         mut self,
         v: T,
@@ -984,15 +768,6 @@ impl FaceAnnotation {
     }
 
     /// Sets the value of [surprise_likelihood][crate::model::FaceAnnotation::surprise_likelihood].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::FaceAnnotation;
-    /// use google_cloud_vision_v1::model::Likelihood;
-    /// let x0 = FaceAnnotation::new().set_surprise_likelihood(Likelihood::VeryUnlikely);
-    /// let x1 = FaceAnnotation::new().set_surprise_likelihood(Likelihood::Unlikely);
-    /// let x2 = FaceAnnotation::new().set_surprise_likelihood(Likelihood::Possible);
-    /// ```
     pub fn set_surprise_likelihood<T: std::convert::Into<crate::model::Likelihood>>(
         mut self,
         v: T,
@@ -1002,15 +777,6 @@ impl FaceAnnotation {
     }
 
     /// Sets the value of [under_exposed_likelihood][crate::model::FaceAnnotation::under_exposed_likelihood].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::FaceAnnotation;
-    /// use google_cloud_vision_v1::model::Likelihood;
-    /// let x0 = FaceAnnotation::new().set_under_exposed_likelihood(Likelihood::VeryUnlikely);
-    /// let x1 = FaceAnnotation::new().set_under_exposed_likelihood(Likelihood::Unlikely);
-    /// let x2 = FaceAnnotation::new().set_under_exposed_likelihood(Likelihood::Possible);
-    /// ```
     pub fn set_under_exposed_likelihood<T: std::convert::Into<crate::model::Likelihood>>(
         mut self,
         v: T,
@@ -1020,15 +786,6 @@ impl FaceAnnotation {
     }
 
     /// Sets the value of [blurred_likelihood][crate::model::FaceAnnotation::blurred_likelihood].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::FaceAnnotation;
-    /// use google_cloud_vision_v1::model::Likelihood;
-    /// let x0 = FaceAnnotation::new().set_blurred_likelihood(Likelihood::VeryUnlikely);
-    /// let x1 = FaceAnnotation::new().set_blurred_likelihood(Likelihood::Unlikely);
-    /// let x2 = FaceAnnotation::new().set_blurred_likelihood(Likelihood::Possible);
-    /// ```
     pub fn set_blurred_likelihood<T: std::convert::Into<crate::model::Likelihood>>(
         mut self,
         v: T,
@@ -1038,15 +795,6 @@ impl FaceAnnotation {
     }
 
     /// Sets the value of [headwear_likelihood][crate::model::FaceAnnotation::headwear_likelihood].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::FaceAnnotation;
-    /// use google_cloud_vision_v1::model::Likelihood;
-    /// let x0 = FaceAnnotation::new().set_headwear_likelihood(Likelihood::VeryUnlikely);
-    /// let x1 = FaceAnnotation::new().set_headwear_likelihood(Likelihood::Unlikely);
-    /// let x2 = FaceAnnotation::new().set_headwear_likelihood(Likelihood::Possible);
-    /// ```
     pub fn set_headwear_likelihood<T: std::convert::Into<crate::model::Likelihood>>(
         mut self,
         v: T,
@@ -1086,15 +834,6 @@ pub mod face_annotation {
         }
 
         /// Sets the value of [r#type][crate::model::face_annotation::Landmark::type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::face_annotation::Landmark;
-        /// use google_cloud_vision_v1::model::face_annotation::landmark::Type;
-        /// let x0 = Landmark::new().set_type(Type::LeftEye);
-        /// let x1 = Landmark::new().set_type(Type::RightEye);
-        /// let x2 = Landmark::new().set_type(Type::LeftOfLeftEyebrow);
-        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::face_annotation::landmark::Type>>(
             mut self,
             v: T,
@@ -1104,13 +843,6 @@ pub mod face_annotation {
         }
 
         /// Sets the value of [position][crate::model::face_annotation::Landmark::position].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::face_annotation::Landmark;
-        /// use google_cloud_vision_v1::model::Position;
-        /// let x = Landmark::new().set_position(Position::default()/* use setters */);
-        /// ```
         pub fn set_position<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Position>,
@@ -1120,14 +852,6 @@ pub mod face_annotation {
         }
 
         /// Sets or clears the value of [position][crate::model::face_annotation::Landmark::position].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::face_annotation::Landmark;
-        /// use google_cloud_vision_v1::model::Position;
-        /// let x = Landmark::new().set_or_clear_position(Some(Position::default()/* use setters */));
-        /// let x = Landmark::new().set_or_clear_position(None::<Position>);
-        /// ```
         pub fn set_or_clear_position<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Position>,
@@ -1556,13 +1280,6 @@ impl LocationInfo {
     }
 
     /// Sets the value of [lat_lng][crate::model::LocationInfo::lat_lng].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::LocationInfo;
-    /// use gtype::model::LatLng;
-    /// let x = LocationInfo::new().set_lat_lng(LatLng::default()/* use setters */);
-    /// ```
     pub fn set_lat_lng<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -1572,14 +1289,6 @@ impl LocationInfo {
     }
 
     /// Sets or clears the value of [lat_lng][crate::model::LocationInfo::lat_lng].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::LocationInfo;
-    /// use gtype::model::LatLng;
-    /// let x = LocationInfo::new().set_or_clear_lat_lng(Some(LatLng::default()/* use setters */));
-    /// let x = LocationInfo::new().set_or_clear_lat_lng(None::<LatLng>);
-    /// ```
     pub fn set_or_clear_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -1617,36 +1326,18 @@ impl Property {
     }
 
     /// Sets the value of [name][crate::model::Property::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Property;
-    /// let x = Property::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::Property::value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Property;
-    /// let x = Property::new().set_value("example");
-    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }
 
     /// Sets the value of [uint64_value][crate::model::Property::uint64_value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Property;
-    /// let x = Property::new().set_uint64_value(42);
-    /// ```
     pub fn set_uint64_value<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
         self.uint64_value = v.into();
         self
@@ -1717,60 +1408,30 @@ impl EntityAnnotation {
     }
 
     /// Sets the value of [mid][crate::model::EntityAnnotation::mid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::EntityAnnotation;
-    /// let x = EntityAnnotation::new().set_mid("example");
-    /// ```
     pub fn set_mid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mid = v.into();
         self
     }
 
     /// Sets the value of [locale][crate::model::EntityAnnotation::locale].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::EntityAnnotation;
-    /// let x = EntityAnnotation::new().set_locale("example");
-    /// ```
     pub fn set_locale<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.locale = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::EntityAnnotation::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::EntityAnnotation;
-    /// let x = EntityAnnotation::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [score][crate::model::EntityAnnotation::score].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::EntityAnnotation;
-    /// let x = EntityAnnotation::new().set_score(42.0);
-    /// ```
     pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.score = v.into();
         self
     }
 
     /// Sets the value of [confidence][crate::model::EntityAnnotation::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::EntityAnnotation;
-    /// let x = EntityAnnotation::new().set_confidence(42.0);
-    /// ```
     #[deprecated]
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
@@ -1778,25 +1439,12 @@ impl EntityAnnotation {
     }
 
     /// Sets the value of [topicality][crate::model::EntityAnnotation::topicality].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::EntityAnnotation;
-    /// let x = EntityAnnotation::new().set_topicality(42.0);
-    /// ```
     pub fn set_topicality<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.topicality = v.into();
         self
     }
 
     /// Sets the value of [bounding_poly][crate::model::EntityAnnotation::bounding_poly].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::EntityAnnotation;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = EntityAnnotation::new().set_bounding_poly(BoundingPoly::default()/* use setters */);
-    /// ```
     pub fn set_bounding_poly<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -1806,14 +1454,6 @@ impl EntityAnnotation {
     }
 
     /// Sets or clears the value of [bounding_poly][crate::model::EntityAnnotation::bounding_poly].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::EntityAnnotation;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = EntityAnnotation::new().set_or_clear_bounding_poly(Some(BoundingPoly::default()/* use setters */));
-    /// let x = EntityAnnotation::new().set_or_clear_bounding_poly(None::<BoundingPoly>);
-    /// ```
     pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -1823,17 +1463,6 @@ impl EntityAnnotation {
     }
 
     /// Sets the value of [locations][crate::model::EntityAnnotation::locations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::EntityAnnotation;
-    /// use google_cloud_vision_v1::model::LocationInfo;
-    /// let x = EntityAnnotation::new()
-    ///     .set_locations([
-    ///         LocationInfo::default()/* use setters */,
-    ///         LocationInfo::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1845,17 +1474,6 @@ impl EntityAnnotation {
     }
 
     /// Sets the value of [properties][crate::model::EntityAnnotation::properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::EntityAnnotation;
-    /// use google_cloud_vision_v1::model::Property;
-    /// let x = EntityAnnotation::new()
-    ///     .set_properties([
-    ///         Property::default()/* use setters */,
-    ///         Property::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_properties<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1903,61 +1521,30 @@ impl LocalizedObjectAnnotation {
     }
 
     /// Sets the value of [mid][crate::model::LocalizedObjectAnnotation::mid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::LocalizedObjectAnnotation;
-    /// let x = LocalizedObjectAnnotation::new().set_mid("example");
-    /// ```
     pub fn set_mid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mid = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::LocalizedObjectAnnotation::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::LocalizedObjectAnnotation;
-    /// let x = LocalizedObjectAnnotation::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::LocalizedObjectAnnotation::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::LocalizedObjectAnnotation;
-    /// let x = LocalizedObjectAnnotation::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [score][crate::model::LocalizedObjectAnnotation::score].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::LocalizedObjectAnnotation;
-    /// let x = LocalizedObjectAnnotation::new().set_score(42.0);
-    /// ```
     pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.score = v.into();
         self
     }
 
     /// Sets the value of [bounding_poly][crate::model::LocalizedObjectAnnotation::bounding_poly].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::LocalizedObjectAnnotation;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = LocalizedObjectAnnotation::new().set_bounding_poly(BoundingPoly::default()/* use setters */);
-    /// ```
     pub fn set_bounding_poly<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -1967,14 +1554,6 @@ impl LocalizedObjectAnnotation {
     }
 
     /// Sets or clears the value of [bounding_poly][crate::model::LocalizedObjectAnnotation::bounding_poly].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::LocalizedObjectAnnotation;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = LocalizedObjectAnnotation::new().set_or_clear_bounding_poly(Some(BoundingPoly::default()/* use setters */));
-    /// let x = LocalizedObjectAnnotation::new().set_or_clear_bounding_poly(None::<BoundingPoly>);
-    /// ```
     pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -2029,75 +1608,30 @@ impl SafeSearchAnnotation {
     }
 
     /// Sets the value of [adult][crate::model::SafeSearchAnnotation::adult].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::SafeSearchAnnotation;
-    /// use google_cloud_vision_v1::model::Likelihood;
-    /// let x0 = SafeSearchAnnotation::new().set_adult(Likelihood::VeryUnlikely);
-    /// let x1 = SafeSearchAnnotation::new().set_adult(Likelihood::Unlikely);
-    /// let x2 = SafeSearchAnnotation::new().set_adult(Likelihood::Possible);
-    /// ```
     pub fn set_adult<T: std::convert::Into<crate::model::Likelihood>>(mut self, v: T) -> Self {
         self.adult = v.into();
         self
     }
 
     /// Sets the value of [spoof][crate::model::SafeSearchAnnotation::spoof].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::SafeSearchAnnotation;
-    /// use google_cloud_vision_v1::model::Likelihood;
-    /// let x0 = SafeSearchAnnotation::new().set_spoof(Likelihood::VeryUnlikely);
-    /// let x1 = SafeSearchAnnotation::new().set_spoof(Likelihood::Unlikely);
-    /// let x2 = SafeSearchAnnotation::new().set_spoof(Likelihood::Possible);
-    /// ```
     pub fn set_spoof<T: std::convert::Into<crate::model::Likelihood>>(mut self, v: T) -> Self {
         self.spoof = v.into();
         self
     }
 
     /// Sets the value of [medical][crate::model::SafeSearchAnnotation::medical].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::SafeSearchAnnotation;
-    /// use google_cloud_vision_v1::model::Likelihood;
-    /// let x0 = SafeSearchAnnotation::new().set_medical(Likelihood::VeryUnlikely);
-    /// let x1 = SafeSearchAnnotation::new().set_medical(Likelihood::Unlikely);
-    /// let x2 = SafeSearchAnnotation::new().set_medical(Likelihood::Possible);
-    /// ```
     pub fn set_medical<T: std::convert::Into<crate::model::Likelihood>>(mut self, v: T) -> Self {
         self.medical = v.into();
         self
     }
 
     /// Sets the value of [violence][crate::model::SafeSearchAnnotation::violence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::SafeSearchAnnotation;
-    /// use google_cloud_vision_v1::model::Likelihood;
-    /// let x0 = SafeSearchAnnotation::new().set_violence(Likelihood::VeryUnlikely);
-    /// let x1 = SafeSearchAnnotation::new().set_violence(Likelihood::Unlikely);
-    /// let x2 = SafeSearchAnnotation::new().set_violence(Likelihood::Possible);
-    /// ```
     pub fn set_violence<T: std::convert::Into<crate::model::Likelihood>>(mut self, v: T) -> Self {
         self.violence = v.into();
         self
     }
 
     /// Sets the value of [racy][crate::model::SafeSearchAnnotation::racy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::SafeSearchAnnotation;
-    /// use google_cloud_vision_v1::model::Likelihood;
-    /// let x0 = SafeSearchAnnotation::new().set_racy(Likelihood::VeryUnlikely);
-    /// let x1 = SafeSearchAnnotation::new().set_racy(Likelihood::Unlikely);
-    /// let x2 = SafeSearchAnnotation::new().set_racy(Likelihood::Possible);
-    /// ```
     pub fn set_racy<T: std::convert::Into<crate::model::Likelihood>>(mut self, v: T) -> Self {
         self.racy = v.into();
         self
@@ -2129,13 +1663,6 @@ impl LatLongRect {
     }
 
     /// Sets the value of [min_lat_lng][crate::model::LatLongRect::min_lat_lng].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::LatLongRect;
-    /// use gtype::model::LatLng;
-    /// let x = LatLongRect::new().set_min_lat_lng(LatLng::default()/* use setters */);
-    /// ```
     pub fn set_min_lat_lng<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -2145,14 +1672,6 @@ impl LatLongRect {
     }
 
     /// Sets or clears the value of [min_lat_lng][crate::model::LatLongRect::min_lat_lng].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::LatLongRect;
-    /// use gtype::model::LatLng;
-    /// let x = LatLongRect::new().set_or_clear_min_lat_lng(Some(LatLng::default()/* use setters */));
-    /// let x = LatLongRect::new().set_or_clear_min_lat_lng(None::<LatLng>);
-    /// ```
     pub fn set_or_clear_min_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -2162,13 +1681,6 @@ impl LatLongRect {
     }
 
     /// Sets the value of [max_lat_lng][crate::model::LatLongRect::max_lat_lng].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::LatLongRect;
-    /// use gtype::model::LatLng;
-    /// let x = LatLongRect::new().set_max_lat_lng(LatLng::default()/* use setters */);
-    /// ```
     pub fn set_max_lat_lng<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -2178,14 +1690,6 @@ impl LatLongRect {
     }
 
     /// Sets or clears the value of [max_lat_lng][crate::model::LatLongRect::max_lat_lng].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::LatLongRect;
-    /// use gtype::model::LatLng;
-    /// let x = LatLongRect::new().set_or_clear_max_lat_lng(Some(LatLng::default()/* use setters */));
-    /// let x = LatLongRect::new().set_or_clear_max_lat_lng(None::<LatLng>);
-    /// ```
     pub fn set_or_clear_max_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -2225,13 +1729,6 @@ impl ColorInfo {
     }
 
     /// Sets the value of [color][crate::model::ColorInfo::color].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ColorInfo;
-    /// use gtype::model::Color;
-    /// let x = ColorInfo::new().set_color(Color::default()/* use setters */);
-    /// ```
     pub fn set_color<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Color>,
@@ -2241,14 +1738,6 @@ impl ColorInfo {
     }
 
     /// Sets or clears the value of [color][crate::model::ColorInfo::color].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ColorInfo;
-    /// use gtype::model::Color;
-    /// let x = ColorInfo::new().set_or_clear_color(Some(Color::default()/* use setters */));
-    /// let x = ColorInfo::new().set_or_clear_color(None::<Color>);
-    /// ```
     pub fn set_or_clear_color<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Color>,
@@ -2258,24 +1747,12 @@ impl ColorInfo {
     }
 
     /// Sets the value of [score][crate::model::ColorInfo::score].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ColorInfo;
-    /// let x = ColorInfo::new().set_score(42.0);
-    /// ```
     pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.score = v.into();
         self
     }
 
     /// Sets the value of [pixel_fraction][crate::model::ColorInfo::pixel_fraction].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ColorInfo;
-    /// let x = ColorInfo::new().set_pixel_fraction(42.0);
-    /// ```
     pub fn set_pixel_fraction<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.pixel_fraction = v.into();
         self
@@ -2304,17 +1781,6 @@ impl DominantColorsAnnotation {
     }
 
     /// Sets the value of [colors][crate::model::DominantColorsAnnotation::colors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::DominantColorsAnnotation;
-    /// use google_cloud_vision_v1::model::ColorInfo;
-    /// let x = DominantColorsAnnotation::new()
-    ///     .set_colors([
-    ///         ColorInfo::default()/* use setters */,
-    ///         ColorInfo::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_colors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2348,13 +1814,6 @@ impl ImageProperties {
     }
 
     /// Sets the value of [dominant_colors][crate::model::ImageProperties::dominant_colors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImageProperties;
-    /// use google_cloud_vision_v1::model::DominantColorsAnnotation;
-    /// let x = ImageProperties::new().set_dominant_colors(DominantColorsAnnotation::default()/* use setters */);
-    /// ```
     pub fn set_dominant_colors<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DominantColorsAnnotation>,
@@ -2364,14 +1823,6 @@ impl ImageProperties {
     }
 
     /// Sets or clears the value of [dominant_colors][crate::model::ImageProperties::dominant_colors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImageProperties;
-    /// use google_cloud_vision_v1::model::DominantColorsAnnotation;
-    /// let x = ImageProperties::new().set_or_clear_dominant_colors(Some(DominantColorsAnnotation::default()/* use setters */));
-    /// let x = ImageProperties::new().set_or_clear_dominant_colors(None::<DominantColorsAnnotation>);
-    /// ```
     pub fn set_or_clear_dominant_colors<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DominantColorsAnnotation>,
@@ -2411,13 +1862,6 @@ impl CropHint {
     }
 
     /// Sets the value of [bounding_poly][crate::model::CropHint::bounding_poly].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::CropHint;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = CropHint::new().set_bounding_poly(BoundingPoly::default()/* use setters */);
-    /// ```
     pub fn set_bounding_poly<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -2427,14 +1871,6 @@ impl CropHint {
     }
 
     /// Sets or clears the value of [bounding_poly][crate::model::CropHint::bounding_poly].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::CropHint;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = CropHint::new().set_or_clear_bounding_poly(Some(BoundingPoly::default()/* use setters */));
-    /// let x = CropHint::new().set_or_clear_bounding_poly(None::<BoundingPoly>);
-    /// ```
     pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -2444,24 +1880,12 @@ impl CropHint {
     }
 
     /// Sets the value of [confidence][crate::model::CropHint::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::CropHint;
-    /// let x = CropHint::new().set_confidence(42.0);
-    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
     }
 
     /// Sets the value of [importance_fraction][crate::model::CropHint::importance_fraction].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::CropHint;
-    /// let x = CropHint::new().set_importance_fraction(42.0);
-    /// ```
     pub fn set_importance_fraction<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.importance_fraction = v.into();
         self
@@ -2490,17 +1914,6 @@ impl CropHintsAnnotation {
     }
 
     /// Sets the value of [crop_hints][crate::model::CropHintsAnnotation::crop_hints].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::CropHintsAnnotation;
-    /// use google_cloud_vision_v1::model::CropHint;
-    /// let x = CropHintsAnnotation::new()
-    ///     .set_crop_hints([
-    ///         CropHint::default()/* use setters */,
-    ///         CropHint::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_crop_hints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2539,12 +1952,6 @@ impl CropHintsParams {
     }
 
     /// Sets the value of [aspect_ratios][crate::model::CropHintsParams::aspect_ratios].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::CropHintsParams;
-    /// let x = CropHintsParams::new().set_aspect_ratios([1.0, 2.0, 3.0]);
-    /// ```
     pub fn set_aspect_ratios<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2579,12 +1986,6 @@ impl WebDetectionParams {
     }
 
     /// Sets the value of [include_geo_results][crate::model::WebDetectionParams::include_geo_results].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::WebDetectionParams;
-    /// let x = WebDetectionParams::new().set_include_geo_results(true);
-    /// ```
     #[deprecated]
     pub fn set_include_geo_results<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_geo_results = v.into();
@@ -2626,12 +2027,6 @@ impl TextDetectionParams {
     }
 
     /// Sets the value of [enable_text_detection_confidence_score][crate::model::TextDetectionParams::enable_text_detection_confidence_score].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::TextDetectionParams;
-    /// let x = TextDetectionParams::new().set_enable_text_detection_confidence_score(true);
-    /// ```
     pub fn set_enable_text_detection_confidence_score<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -2641,12 +2036,6 @@ impl TextDetectionParams {
     }
 
     /// Sets the value of [advanced_ocr_options][crate::model::TextDetectionParams::advanced_ocr_options].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::TextDetectionParams;
-    /// let x = TextDetectionParams::new().set_advanced_ocr_options(["a", "b", "c"]);
-    /// ```
     pub fn set_advanced_ocr_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2702,13 +2091,6 @@ impl ImageContext {
     }
 
     /// Sets the value of [lat_long_rect][crate::model::ImageContext::lat_long_rect].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImageContext;
-    /// use google_cloud_vision_v1::model::LatLongRect;
-    /// let x = ImageContext::new().set_lat_long_rect(LatLongRect::default()/* use setters */);
-    /// ```
     pub fn set_lat_long_rect<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LatLongRect>,
@@ -2718,14 +2100,6 @@ impl ImageContext {
     }
 
     /// Sets or clears the value of [lat_long_rect][crate::model::ImageContext::lat_long_rect].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImageContext;
-    /// use google_cloud_vision_v1::model::LatLongRect;
-    /// let x = ImageContext::new().set_or_clear_lat_long_rect(Some(LatLongRect::default()/* use setters */));
-    /// let x = ImageContext::new().set_or_clear_lat_long_rect(None::<LatLongRect>);
-    /// ```
     pub fn set_or_clear_lat_long_rect<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LatLongRect>,
@@ -2735,12 +2109,6 @@ impl ImageContext {
     }
 
     /// Sets the value of [language_hints][crate::model::ImageContext::language_hints].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImageContext;
-    /// let x = ImageContext::new().set_language_hints(["a", "b", "c"]);
-    /// ```
     pub fn set_language_hints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2752,13 +2120,6 @@ impl ImageContext {
     }
 
     /// Sets the value of [crop_hints_params][crate::model::ImageContext::crop_hints_params].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImageContext;
-    /// use google_cloud_vision_v1::model::CropHintsParams;
-    /// let x = ImageContext::new().set_crop_hints_params(CropHintsParams::default()/* use setters */);
-    /// ```
     pub fn set_crop_hints_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CropHintsParams>,
@@ -2768,14 +2129,6 @@ impl ImageContext {
     }
 
     /// Sets or clears the value of [crop_hints_params][crate::model::ImageContext::crop_hints_params].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImageContext;
-    /// use google_cloud_vision_v1::model::CropHintsParams;
-    /// let x = ImageContext::new().set_or_clear_crop_hints_params(Some(CropHintsParams::default()/* use setters */));
-    /// let x = ImageContext::new().set_or_clear_crop_hints_params(None::<CropHintsParams>);
-    /// ```
     pub fn set_or_clear_crop_hints_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CropHintsParams>,
@@ -2785,13 +2138,6 @@ impl ImageContext {
     }
 
     /// Sets the value of [product_search_params][crate::model::ImageContext::product_search_params].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImageContext;
-    /// use google_cloud_vision_v1::model::ProductSearchParams;
-    /// let x = ImageContext::new().set_product_search_params(ProductSearchParams::default()/* use setters */);
-    /// ```
     pub fn set_product_search_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProductSearchParams>,
@@ -2801,14 +2147,6 @@ impl ImageContext {
     }
 
     /// Sets or clears the value of [product_search_params][crate::model::ImageContext::product_search_params].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImageContext;
-    /// use google_cloud_vision_v1::model::ProductSearchParams;
-    /// let x = ImageContext::new().set_or_clear_product_search_params(Some(ProductSearchParams::default()/* use setters */));
-    /// let x = ImageContext::new().set_or_clear_product_search_params(None::<ProductSearchParams>);
-    /// ```
     pub fn set_or_clear_product_search_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProductSearchParams>,
@@ -2818,13 +2156,6 @@ impl ImageContext {
     }
 
     /// Sets the value of [web_detection_params][crate::model::ImageContext::web_detection_params].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImageContext;
-    /// use google_cloud_vision_v1::model::WebDetectionParams;
-    /// let x = ImageContext::new().set_web_detection_params(WebDetectionParams::default()/* use setters */);
-    /// ```
     pub fn set_web_detection_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WebDetectionParams>,
@@ -2834,14 +2165,6 @@ impl ImageContext {
     }
 
     /// Sets or clears the value of [web_detection_params][crate::model::ImageContext::web_detection_params].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImageContext;
-    /// use google_cloud_vision_v1::model::WebDetectionParams;
-    /// let x = ImageContext::new().set_or_clear_web_detection_params(Some(WebDetectionParams::default()/* use setters */));
-    /// let x = ImageContext::new().set_or_clear_web_detection_params(None::<WebDetectionParams>);
-    /// ```
     pub fn set_or_clear_web_detection_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WebDetectionParams>,
@@ -2851,13 +2174,6 @@ impl ImageContext {
     }
 
     /// Sets the value of [text_detection_params][crate::model::ImageContext::text_detection_params].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImageContext;
-    /// use google_cloud_vision_v1::model::TextDetectionParams;
-    /// let x = ImageContext::new().set_text_detection_params(TextDetectionParams::default()/* use setters */);
-    /// ```
     pub fn set_text_detection_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TextDetectionParams>,
@@ -2867,14 +2183,6 @@ impl ImageContext {
     }
 
     /// Sets or clears the value of [text_detection_params][crate::model::ImageContext::text_detection_params].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImageContext;
-    /// use google_cloud_vision_v1::model::TextDetectionParams;
-    /// let x = ImageContext::new().set_or_clear_text_detection_params(Some(TextDetectionParams::default()/* use setters */));
-    /// let x = ImageContext::new().set_or_clear_text_detection_params(None::<TextDetectionParams>);
-    /// ```
     pub fn set_or_clear_text_detection_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TextDetectionParams>,
@@ -2913,13 +2221,6 @@ impl AnnotateImageRequest {
     }
 
     /// Sets the value of [image][crate::model::AnnotateImageRequest::image].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageRequest;
-    /// use google_cloud_vision_v1::model::Image;
-    /// let x = AnnotateImageRequest::new().set_image(Image::default()/* use setters */);
-    /// ```
     pub fn set_image<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Image>,
@@ -2929,14 +2230,6 @@ impl AnnotateImageRequest {
     }
 
     /// Sets or clears the value of [image][crate::model::AnnotateImageRequest::image].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageRequest;
-    /// use google_cloud_vision_v1::model::Image;
-    /// let x = AnnotateImageRequest::new().set_or_clear_image(Some(Image::default()/* use setters */));
-    /// let x = AnnotateImageRequest::new().set_or_clear_image(None::<Image>);
-    /// ```
     pub fn set_or_clear_image<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Image>,
@@ -2946,17 +2239,6 @@ impl AnnotateImageRequest {
     }
 
     /// Sets the value of [features][crate::model::AnnotateImageRequest::features].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageRequest;
-    /// use google_cloud_vision_v1::model::Feature;
-    /// let x = AnnotateImageRequest::new()
-    ///     .set_features([
-    ///         Feature::default()/* use setters */,
-    ///         Feature::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_features<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2968,13 +2250,6 @@ impl AnnotateImageRequest {
     }
 
     /// Sets the value of [image_context][crate::model::AnnotateImageRequest::image_context].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageRequest;
-    /// use google_cloud_vision_v1::model::ImageContext;
-    /// let x = AnnotateImageRequest::new().set_image_context(ImageContext::default()/* use setters */);
-    /// ```
     pub fn set_image_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ImageContext>,
@@ -2984,14 +2259,6 @@ impl AnnotateImageRequest {
     }
 
     /// Sets or clears the value of [image_context][crate::model::AnnotateImageRequest::image_context].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageRequest;
-    /// use google_cloud_vision_v1::model::ImageContext;
-    /// let x = AnnotateImageRequest::new().set_or_clear_image_context(Some(ImageContext::default()/* use setters */));
-    /// let x = AnnotateImageRequest::new().set_or_clear_image_context(None::<ImageContext>);
-    /// ```
     pub fn set_or_clear_image_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImageContext>,
@@ -3028,24 +2295,12 @@ impl ImageAnnotationContext {
     }
 
     /// Sets the value of [uri][crate::model::ImageAnnotationContext::uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImageAnnotationContext;
-    /// let x = ImageAnnotationContext::new().set_uri("example");
-    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [page_number][crate::model::ImageAnnotationContext::page_number].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImageAnnotationContext;
-    /// let x = ImageAnnotationContext::new().set_page_number(42);
-    /// ```
     pub fn set_page_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_number = v.into();
         self
@@ -3120,17 +2375,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets the value of [face_annotations][crate::model::AnnotateImageResponse::face_annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::FaceAnnotation;
-    /// let x = AnnotateImageResponse::new()
-    ///     .set_face_annotations([
-    ///         FaceAnnotation::default()/* use setters */,
-    ///         FaceAnnotation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_face_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3142,17 +2386,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets the value of [landmark_annotations][crate::model::AnnotateImageResponse::landmark_annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::EntityAnnotation;
-    /// let x = AnnotateImageResponse::new()
-    ///     .set_landmark_annotations([
-    ///         EntityAnnotation::default()/* use setters */,
-    ///         EntityAnnotation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_landmark_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3164,17 +2397,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets the value of [logo_annotations][crate::model::AnnotateImageResponse::logo_annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::EntityAnnotation;
-    /// let x = AnnotateImageResponse::new()
-    ///     .set_logo_annotations([
-    ///         EntityAnnotation::default()/* use setters */,
-    ///         EntityAnnotation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_logo_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3186,17 +2408,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets the value of [label_annotations][crate::model::AnnotateImageResponse::label_annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::EntityAnnotation;
-    /// let x = AnnotateImageResponse::new()
-    ///     .set_label_annotations([
-    ///         EntityAnnotation::default()/* use setters */,
-    ///         EntityAnnotation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_label_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3208,17 +2419,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets the value of [localized_object_annotations][crate::model::AnnotateImageResponse::localized_object_annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::LocalizedObjectAnnotation;
-    /// let x = AnnotateImageResponse::new()
-    ///     .set_localized_object_annotations([
-    ///         LocalizedObjectAnnotation::default()/* use setters */,
-    ///         LocalizedObjectAnnotation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_localized_object_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3230,17 +2430,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets the value of [text_annotations][crate::model::AnnotateImageResponse::text_annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::EntityAnnotation;
-    /// let x = AnnotateImageResponse::new()
-    ///     .set_text_annotations([
-    ///         EntityAnnotation::default()/* use setters */,
-    ///         EntityAnnotation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_text_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3252,13 +2441,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets the value of [full_text_annotation][crate::model::AnnotateImageResponse::full_text_annotation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::TextAnnotation;
-    /// let x = AnnotateImageResponse::new().set_full_text_annotation(TextAnnotation::default()/* use setters */);
-    /// ```
     pub fn set_full_text_annotation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TextAnnotation>,
@@ -3268,14 +2450,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets or clears the value of [full_text_annotation][crate::model::AnnotateImageResponse::full_text_annotation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::TextAnnotation;
-    /// let x = AnnotateImageResponse::new().set_or_clear_full_text_annotation(Some(TextAnnotation::default()/* use setters */));
-    /// let x = AnnotateImageResponse::new().set_or_clear_full_text_annotation(None::<TextAnnotation>);
-    /// ```
     pub fn set_or_clear_full_text_annotation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TextAnnotation>,
@@ -3285,13 +2459,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets the value of [safe_search_annotation][crate::model::AnnotateImageResponse::safe_search_annotation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::SafeSearchAnnotation;
-    /// let x = AnnotateImageResponse::new().set_safe_search_annotation(SafeSearchAnnotation::default()/* use setters */);
-    /// ```
     pub fn set_safe_search_annotation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SafeSearchAnnotation>,
@@ -3301,14 +2468,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets or clears the value of [safe_search_annotation][crate::model::AnnotateImageResponse::safe_search_annotation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::SafeSearchAnnotation;
-    /// let x = AnnotateImageResponse::new().set_or_clear_safe_search_annotation(Some(SafeSearchAnnotation::default()/* use setters */));
-    /// let x = AnnotateImageResponse::new().set_or_clear_safe_search_annotation(None::<SafeSearchAnnotation>);
-    /// ```
     pub fn set_or_clear_safe_search_annotation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SafeSearchAnnotation>,
@@ -3318,13 +2477,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets the value of [image_properties_annotation][crate::model::AnnotateImageResponse::image_properties_annotation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::ImageProperties;
-    /// let x = AnnotateImageResponse::new().set_image_properties_annotation(ImageProperties::default()/* use setters */);
-    /// ```
     pub fn set_image_properties_annotation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ImageProperties>,
@@ -3334,14 +2486,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets or clears the value of [image_properties_annotation][crate::model::AnnotateImageResponse::image_properties_annotation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::ImageProperties;
-    /// let x = AnnotateImageResponse::new().set_or_clear_image_properties_annotation(Some(ImageProperties::default()/* use setters */));
-    /// let x = AnnotateImageResponse::new().set_or_clear_image_properties_annotation(None::<ImageProperties>);
-    /// ```
     pub fn set_or_clear_image_properties_annotation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImageProperties>,
@@ -3351,13 +2495,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets the value of [crop_hints_annotation][crate::model::AnnotateImageResponse::crop_hints_annotation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::CropHintsAnnotation;
-    /// let x = AnnotateImageResponse::new().set_crop_hints_annotation(CropHintsAnnotation::default()/* use setters */);
-    /// ```
     pub fn set_crop_hints_annotation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CropHintsAnnotation>,
@@ -3367,14 +2504,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets or clears the value of [crop_hints_annotation][crate::model::AnnotateImageResponse::crop_hints_annotation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::CropHintsAnnotation;
-    /// let x = AnnotateImageResponse::new().set_or_clear_crop_hints_annotation(Some(CropHintsAnnotation::default()/* use setters */));
-    /// let x = AnnotateImageResponse::new().set_or_clear_crop_hints_annotation(None::<CropHintsAnnotation>);
-    /// ```
     pub fn set_or_clear_crop_hints_annotation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CropHintsAnnotation>,
@@ -3384,13 +2513,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets the value of [web_detection][crate::model::AnnotateImageResponse::web_detection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::WebDetection;
-    /// let x = AnnotateImageResponse::new().set_web_detection(WebDetection::default()/* use setters */);
-    /// ```
     pub fn set_web_detection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WebDetection>,
@@ -3400,14 +2522,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets or clears the value of [web_detection][crate::model::AnnotateImageResponse::web_detection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::WebDetection;
-    /// let x = AnnotateImageResponse::new().set_or_clear_web_detection(Some(WebDetection::default()/* use setters */));
-    /// let x = AnnotateImageResponse::new().set_or_clear_web_detection(None::<WebDetection>);
-    /// ```
     pub fn set_or_clear_web_detection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WebDetection>,
@@ -3417,13 +2531,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets the value of [product_search_results][crate::model::AnnotateImageResponse::product_search_results].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::ProductSearchResults;
-    /// let x = AnnotateImageResponse::new().set_product_search_results(ProductSearchResults::default()/* use setters */);
-    /// ```
     pub fn set_product_search_results<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProductSearchResults>,
@@ -3433,14 +2540,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets or clears the value of [product_search_results][crate::model::AnnotateImageResponse::product_search_results].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::ProductSearchResults;
-    /// let x = AnnotateImageResponse::new().set_or_clear_product_search_results(Some(ProductSearchResults::default()/* use setters */));
-    /// let x = AnnotateImageResponse::new().set_or_clear_product_search_results(None::<ProductSearchResults>);
-    /// ```
     pub fn set_or_clear_product_search_results<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProductSearchResults>,
@@ -3450,13 +2549,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets the value of [error][crate::model::AnnotateImageResponse::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use rpc::model::Status;
-    /// let x = AnnotateImageResponse::new().set_error(Status::default()/* use setters */);
-    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3466,14 +2558,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets or clears the value of [error][crate::model::AnnotateImageResponse::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use rpc::model::Status;
-    /// let x = AnnotateImageResponse::new().set_or_clear_error(Some(Status::default()/* use setters */));
-    /// let x = AnnotateImageResponse::new().set_or_clear_error(None::<Status>);
-    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3483,13 +2567,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets the value of [context][crate::model::AnnotateImageResponse::context].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::ImageAnnotationContext;
-    /// let x = AnnotateImageResponse::new().set_context(ImageAnnotationContext::default()/* use setters */);
-    /// ```
     pub fn set_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ImageAnnotationContext>,
@@ -3499,14 +2576,6 @@ impl AnnotateImageResponse {
     }
 
     /// Sets or clears the value of [context][crate::model::AnnotateImageResponse::context].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use google_cloud_vision_v1::model::ImageAnnotationContext;
-    /// let x = AnnotateImageResponse::new().set_or_clear_context(Some(ImageAnnotationContext::default()/* use setters */));
-    /// let x = AnnotateImageResponse::new().set_or_clear_context(None::<ImageAnnotationContext>);
-    /// ```
     pub fn set_or_clear_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImageAnnotationContext>,
@@ -3560,17 +2629,6 @@ impl BatchAnnotateImagesRequest {
     }
 
     /// Sets the value of [requests][crate::model::BatchAnnotateImagesRequest::requests].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::BatchAnnotateImagesRequest;
-    /// use google_cloud_vision_v1::model::AnnotateImageRequest;
-    /// let x = BatchAnnotateImagesRequest::new()
-    ///     .set_requests([
-    ///         AnnotateImageRequest::default()/* use setters */,
-    ///         AnnotateImageRequest::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3582,27 +2640,12 @@ impl BatchAnnotateImagesRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchAnnotateImagesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::BatchAnnotateImagesRequest;
-    /// let x = BatchAnnotateImagesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::BatchAnnotateImagesRequest::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::BatchAnnotateImagesRequest;
-    /// let x = BatchAnnotateImagesRequest::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3637,17 +2680,6 @@ impl BatchAnnotateImagesResponse {
     }
 
     /// Sets the value of [responses][crate::model::BatchAnnotateImagesResponse::responses].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::BatchAnnotateImagesResponse;
-    /// use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// let x = BatchAnnotateImagesResponse::new()
-    ///     .set_responses([
-    ///         AnnotateImageResponse::default()/* use setters */,
-    ///         AnnotateImageResponse::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_responses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3703,13 +2735,6 @@ impl AnnotateFileRequest {
     }
 
     /// Sets the value of [input_config][crate::model::AnnotateFileRequest::input_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateFileRequest;
-    /// use google_cloud_vision_v1::model::InputConfig;
-    /// let x = AnnotateFileRequest::new().set_input_config(InputConfig::default()/* use setters */);
-    /// ```
     pub fn set_input_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InputConfig>,
@@ -3719,14 +2744,6 @@ impl AnnotateFileRequest {
     }
 
     /// Sets or clears the value of [input_config][crate::model::AnnotateFileRequest::input_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateFileRequest;
-    /// use google_cloud_vision_v1::model::InputConfig;
-    /// let x = AnnotateFileRequest::new().set_or_clear_input_config(Some(InputConfig::default()/* use setters */));
-    /// let x = AnnotateFileRequest::new().set_or_clear_input_config(None::<InputConfig>);
-    /// ```
     pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InputConfig>,
@@ -3736,17 +2753,6 @@ impl AnnotateFileRequest {
     }
 
     /// Sets the value of [features][crate::model::AnnotateFileRequest::features].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateFileRequest;
-    /// use google_cloud_vision_v1::model::Feature;
-    /// let x = AnnotateFileRequest::new()
-    ///     .set_features([
-    ///         Feature::default()/* use setters */,
-    ///         Feature::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_features<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3758,13 +2764,6 @@ impl AnnotateFileRequest {
     }
 
     /// Sets the value of [image_context][crate::model::AnnotateFileRequest::image_context].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateFileRequest;
-    /// use google_cloud_vision_v1::model::ImageContext;
-    /// let x = AnnotateFileRequest::new().set_image_context(ImageContext::default()/* use setters */);
-    /// ```
     pub fn set_image_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ImageContext>,
@@ -3774,14 +2773,6 @@ impl AnnotateFileRequest {
     }
 
     /// Sets or clears the value of [image_context][crate::model::AnnotateFileRequest::image_context].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateFileRequest;
-    /// use google_cloud_vision_v1::model::ImageContext;
-    /// let x = AnnotateFileRequest::new().set_or_clear_image_context(Some(ImageContext::default()/* use setters */));
-    /// let x = AnnotateFileRequest::new().set_or_clear_image_context(None::<ImageContext>);
-    /// ```
     pub fn set_or_clear_image_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImageContext>,
@@ -3791,12 +2782,6 @@ impl AnnotateFileRequest {
     }
 
     /// Sets the value of [pages][crate::model::AnnotateFileRequest::pages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateFileRequest;
-    /// let x = AnnotateFileRequest::new().set_pages([1, 2, 3]);
-    /// ```
     pub fn set_pages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3842,13 +2827,6 @@ impl AnnotateFileResponse {
     }
 
     /// Sets the value of [input_config][crate::model::AnnotateFileResponse::input_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateFileResponse;
-    /// use google_cloud_vision_v1::model::InputConfig;
-    /// let x = AnnotateFileResponse::new().set_input_config(InputConfig::default()/* use setters */);
-    /// ```
     pub fn set_input_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InputConfig>,
@@ -3858,14 +2836,6 @@ impl AnnotateFileResponse {
     }
 
     /// Sets or clears the value of [input_config][crate::model::AnnotateFileResponse::input_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateFileResponse;
-    /// use google_cloud_vision_v1::model::InputConfig;
-    /// let x = AnnotateFileResponse::new().set_or_clear_input_config(Some(InputConfig::default()/* use setters */));
-    /// let x = AnnotateFileResponse::new().set_or_clear_input_config(None::<InputConfig>);
-    /// ```
     pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InputConfig>,
@@ -3875,17 +2845,6 @@ impl AnnotateFileResponse {
     }
 
     /// Sets the value of [responses][crate::model::AnnotateFileResponse::responses].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateFileResponse;
-    /// use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// let x = AnnotateFileResponse::new()
-    ///     .set_responses([
-    ///         AnnotateImageResponse::default()/* use setters */,
-    ///         AnnotateImageResponse::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_responses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3897,25 +2856,12 @@ impl AnnotateFileResponse {
     }
 
     /// Sets the value of [total_pages][crate::model::AnnotateFileResponse::total_pages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateFileResponse;
-    /// let x = AnnotateFileResponse::new().set_total_pages(42);
-    /// ```
     pub fn set_total_pages<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_pages = v.into();
         self
     }
 
     /// Sets the value of [error][crate::model::AnnotateFileResponse::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateFileResponse;
-    /// use rpc::model::Status;
-    /// let x = AnnotateFileResponse::new().set_error(Status::default()/* use setters */);
-    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3925,14 +2871,6 @@ impl AnnotateFileResponse {
     }
 
     /// Sets or clears the value of [error][crate::model::AnnotateFileResponse::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AnnotateFileResponse;
-    /// use rpc::model::Status;
-    /// let x = AnnotateFileResponse::new().set_or_clear_error(Some(Status::default()/* use setters */));
-    /// let x = AnnotateFileResponse::new().set_or_clear_error(None::<Status>);
-    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3987,17 +2925,6 @@ impl BatchAnnotateFilesRequest {
     }
 
     /// Sets the value of [requests][crate::model::BatchAnnotateFilesRequest::requests].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::BatchAnnotateFilesRequest;
-    /// use google_cloud_vision_v1::model::AnnotateFileRequest;
-    /// let x = BatchAnnotateFilesRequest::new()
-    ///     .set_requests([
-    ///         AnnotateFileRequest::default()/* use setters */,
-    ///         AnnotateFileRequest::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4009,27 +2936,12 @@ impl BatchAnnotateFilesRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchAnnotateFilesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::BatchAnnotateFilesRequest;
-    /// let x = BatchAnnotateFilesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::BatchAnnotateFilesRequest::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::BatchAnnotateFilesRequest;
-    /// let x = BatchAnnotateFilesRequest::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4065,17 +2977,6 @@ impl BatchAnnotateFilesResponse {
     }
 
     /// Sets the value of [responses][crate::model::BatchAnnotateFilesResponse::responses].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::BatchAnnotateFilesResponse;
-    /// use google_cloud_vision_v1::model::AnnotateFileResponse;
-    /// let x = BatchAnnotateFilesResponse::new()
-    ///     .set_responses([
-    ///         AnnotateFileResponse::default()/* use setters */,
-    ///         AnnotateFileResponse::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_responses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4118,13 +3019,6 @@ impl AsyncAnnotateFileRequest {
     }
 
     /// Sets the value of [input_config][crate::model::AsyncAnnotateFileRequest::input_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncAnnotateFileRequest;
-    /// use google_cloud_vision_v1::model::InputConfig;
-    /// let x = AsyncAnnotateFileRequest::new().set_input_config(InputConfig::default()/* use setters */);
-    /// ```
     pub fn set_input_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InputConfig>,
@@ -4134,14 +3028,6 @@ impl AsyncAnnotateFileRequest {
     }
 
     /// Sets or clears the value of [input_config][crate::model::AsyncAnnotateFileRequest::input_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncAnnotateFileRequest;
-    /// use google_cloud_vision_v1::model::InputConfig;
-    /// let x = AsyncAnnotateFileRequest::new().set_or_clear_input_config(Some(InputConfig::default()/* use setters */));
-    /// let x = AsyncAnnotateFileRequest::new().set_or_clear_input_config(None::<InputConfig>);
-    /// ```
     pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InputConfig>,
@@ -4151,17 +3037,6 @@ impl AsyncAnnotateFileRequest {
     }
 
     /// Sets the value of [features][crate::model::AsyncAnnotateFileRequest::features].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncAnnotateFileRequest;
-    /// use google_cloud_vision_v1::model::Feature;
-    /// let x = AsyncAnnotateFileRequest::new()
-    ///     .set_features([
-    ///         Feature::default()/* use setters */,
-    ///         Feature::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_features<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4173,13 +3048,6 @@ impl AsyncAnnotateFileRequest {
     }
 
     /// Sets the value of [image_context][crate::model::AsyncAnnotateFileRequest::image_context].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncAnnotateFileRequest;
-    /// use google_cloud_vision_v1::model::ImageContext;
-    /// let x = AsyncAnnotateFileRequest::new().set_image_context(ImageContext::default()/* use setters */);
-    /// ```
     pub fn set_image_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ImageContext>,
@@ -4189,14 +3057,6 @@ impl AsyncAnnotateFileRequest {
     }
 
     /// Sets or clears the value of [image_context][crate::model::AsyncAnnotateFileRequest::image_context].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncAnnotateFileRequest;
-    /// use google_cloud_vision_v1::model::ImageContext;
-    /// let x = AsyncAnnotateFileRequest::new().set_or_clear_image_context(Some(ImageContext::default()/* use setters */));
-    /// let x = AsyncAnnotateFileRequest::new().set_or_clear_image_context(None::<ImageContext>);
-    /// ```
     pub fn set_or_clear_image_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImageContext>,
@@ -4206,13 +3066,6 @@ impl AsyncAnnotateFileRequest {
     }
 
     /// Sets the value of [output_config][crate::model::AsyncAnnotateFileRequest::output_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncAnnotateFileRequest;
-    /// use google_cloud_vision_v1::model::OutputConfig;
-    /// let x = AsyncAnnotateFileRequest::new().set_output_config(OutputConfig::default()/* use setters */);
-    /// ```
     pub fn set_output_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
@@ -4222,14 +3075,6 @@ impl AsyncAnnotateFileRequest {
     }
 
     /// Sets or clears the value of [output_config][crate::model::AsyncAnnotateFileRequest::output_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncAnnotateFileRequest;
-    /// use google_cloud_vision_v1::model::OutputConfig;
-    /// let x = AsyncAnnotateFileRequest::new().set_or_clear_output_config(Some(OutputConfig::default()/* use setters */));
-    /// let x = AsyncAnnotateFileRequest::new().set_or_clear_output_config(None::<OutputConfig>);
-    /// ```
     pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
@@ -4261,13 +3106,6 @@ impl AsyncAnnotateFileResponse {
     }
 
     /// Sets the value of [output_config][crate::model::AsyncAnnotateFileResponse::output_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncAnnotateFileResponse;
-    /// use google_cloud_vision_v1::model::OutputConfig;
-    /// let x = AsyncAnnotateFileResponse::new().set_output_config(OutputConfig::default()/* use setters */);
-    /// ```
     pub fn set_output_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
@@ -4277,14 +3115,6 @@ impl AsyncAnnotateFileResponse {
     }
 
     /// Sets or clears the value of [output_config][crate::model::AsyncAnnotateFileResponse::output_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncAnnotateFileResponse;
-    /// use google_cloud_vision_v1::model::OutputConfig;
-    /// let x = AsyncAnnotateFileResponse::new().set_or_clear_output_config(Some(OutputConfig::default()/* use setters */));
-    /// let x = AsyncAnnotateFileResponse::new().set_or_clear_output_config(None::<OutputConfig>);
-    /// ```
     pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
@@ -4341,17 +3171,6 @@ impl AsyncBatchAnnotateImagesRequest {
     }
 
     /// Sets the value of [requests][crate::model::AsyncBatchAnnotateImagesRequest::requests].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncBatchAnnotateImagesRequest;
-    /// use google_cloud_vision_v1::model::AnnotateImageRequest;
-    /// let x = AsyncBatchAnnotateImagesRequest::new()
-    ///     .set_requests([
-    ///         AnnotateImageRequest::default()/* use setters */,
-    ///         AnnotateImageRequest::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4363,13 +3182,6 @@ impl AsyncBatchAnnotateImagesRequest {
     }
 
     /// Sets the value of [output_config][crate::model::AsyncBatchAnnotateImagesRequest::output_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncBatchAnnotateImagesRequest;
-    /// use google_cloud_vision_v1::model::OutputConfig;
-    /// let x = AsyncBatchAnnotateImagesRequest::new().set_output_config(OutputConfig::default()/* use setters */);
-    /// ```
     pub fn set_output_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
@@ -4379,14 +3191,6 @@ impl AsyncBatchAnnotateImagesRequest {
     }
 
     /// Sets or clears the value of [output_config][crate::model::AsyncBatchAnnotateImagesRequest::output_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncBatchAnnotateImagesRequest;
-    /// use google_cloud_vision_v1::model::OutputConfig;
-    /// let x = AsyncBatchAnnotateImagesRequest::new().set_or_clear_output_config(Some(OutputConfig::default()/* use setters */));
-    /// let x = AsyncBatchAnnotateImagesRequest::new().set_or_clear_output_config(None::<OutputConfig>);
-    /// ```
     pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
@@ -4396,27 +3200,12 @@ impl AsyncBatchAnnotateImagesRequest {
     }
 
     /// Sets the value of [parent][crate::model::AsyncBatchAnnotateImagesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncBatchAnnotateImagesRequest;
-    /// let x = AsyncBatchAnnotateImagesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::AsyncBatchAnnotateImagesRequest::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncBatchAnnotateImagesRequest;
-    /// let x = AsyncBatchAnnotateImagesRequest::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4451,13 +3240,6 @@ impl AsyncBatchAnnotateImagesResponse {
     }
 
     /// Sets the value of [output_config][crate::model::AsyncBatchAnnotateImagesResponse::output_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncBatchAnnotateImagesResponse;
-    /// use google_cloud_vision_v1::model::OutputConfig;
-    /// let x = AsyncBatchAnnotateImagesResponse::new().set_output_config(OutputConfig::default()/* use setters */);
-    /// ```
     pub fn set_output_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
@@ -4467,14 +3249,6 @@ impl AsyncBatchAnnotateImagesResponse {
     }
 
     /// Sets or clears the value of [output_config][crate::model::AsyncBatchAnnotateImagesResponse::output_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncBatchAnnotateImagesResponse;
-    /// use google_cloud_vision_v1::model::OutputConfig;
-    /// let x = AsyncBatchAnnotateImagesResponse::new().set_or_clear_output_config(Some(OutputConfig::default()/* use setters */));
-    /// let x = AsyncBatchAnnotateImagesResponse::new().set_or_clear_output_config(None::<OutputConfig>);
-    /// ```
     pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
@@ -4529,17 +3303,6 @@ impl AsyncBatchAnnotateFilesRequest {
     }
 
     /// Sets the value of [requests][crate::model::AsyncBatchAnnotateFilesRequest::requests].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncBatchAnnotateFilesRequest;
-    /// use google_cloud_vision_v1::model::AsyncAnnotateFileRequest;
-    /// let x = AsyncBatchAnnotateFilesRequest::new()
-    ///     .set_requests([
-    ///         AsyncAnnotateFileRequest::default()/* use setters */,
-    ///         AsyncAnnotateFileRequest::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4551,27 +3314,12 @@ impl AsyncBatchAnnotateFilesRequest {
     }
 
     /// Sets the value of [parent][crate::model::AsyncBatchAnnotateFilesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncBatchAnnotateFilesRequest;
-    /// let x = AsyncBatchAnnotateFilesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::AsyncBatchAnnotateFilesRequest::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncBatchAnnotateFilesRequest;
-    /// let x = AsyncBatchAnnotateFilesRequest::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4607,17 +3355,6 @@ impl AsyncBatchAnnotateFilesResponse {
     }
 
     /// Sets the value of [responses][crate::model::AsyncBatchAnnotateFilesResponse::responses].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AsyncBatchAnnotateFilesResponse;
-    /// use google_cloud_vision_v1::model::AsyncAnnotateFileResponse;
-    /// let x = AsyncBatchAnnotateFilesResponse::new()
-    ///     .set_responses([
-    ///         AsyncAnnotateFileResponse::default()/* use setters */,
-    ///         AsyncAnnotateFileResponse::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_responses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4663,13 +3400,6 @@ impl InputConfig {
     }
 
     /// Sets the value of [gcs_source][crate::model::InputConfig::gcs_source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::InputConfig;
-    /// use google_cloud_vision_v1::model::GcsSource;
-    /// let x = InputConfig::new().set_gcs_source(GcsSource::default()/* use setters */);
-    /// ```
     pub fn set_gcs_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GcsSource>,
@@ -4679,14 +3409,6 @@ impl InputConfig {
     }
 
     /// Sets or clears the value of [gcs_source][crate::model::InputConfig::gcs_source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::InputConfig;
-    /// use google_cloud_vision_v1::model::GcsSource;
-    /// let x = InputConfig::new().set_or_clear_gcs_source(Some(GcsSource::default()/* use setters */));
-    /// let x = InputConfig::new().set_or_clear_gcs_source(None::<GcsSource>);
-    /// ```
     pub fn set_or_clear_gcs_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcsSource>,
@@ -4696,24 +3418,12 @@ impl InputConfig {
     }
 
     /// Sets the value of [content][crate::model::InputConfig::content].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::InputConfig;
-    /// let x = InputConfig::new().set_content(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [mime_type][crate::model::InputConfig::mime_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::InputConfig;
-    /// let x = InputConfig::new().set_mime_type("example");
-    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
@@ -4755,13 +3465,6 @@ impl OutputConfig {
     }
 
     /// Sets the value of [gcs_destination][crate::model::OutputConfig::gcs_destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::OutputConfig;
-    /// use google_cloud_vision_v1::model::GcsDestination;
-    /// let x = OutputConfig::new().set_gcs_destination(GcsDestination::default()/* use setters */);
-    /// ```
     pub fn set_gcs_destination<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GcsDestination>,
@@ -4771,14 +3474,6 @@ impl OutputConfig {
     }
 
     /// Sets or clears the value of [gcs_destination][crate::model::OutputConfig::gcs_destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::OutputConfig;
-    /// use google_cloud_vision_v1::model::GcsDestination;
-    /// let x = OutputConfig::new().set_or_clear_gcs_destination(Some(GcsDestination::default()/* use setters */));
-    /// let x = OutputConfig::new().set_or_clear_gcs_destination(None::<GcsDestination>);
-    /// ```
     pub fn set_or_clear_gcs_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcsDestination>,
@@ -4788,12 +3483,6 @@ impl OutputConfig {
     }
 
     /// Sets the value of [batch_size][crate::model::OutputConfig::batch_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::OutputConfig;
-    /// let x = OutputConfig::new().set_batch_size(42);
-    /// ```
     pub fn set_batch_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.batch_size = v.into();
         self
@@ -4823,12 +3512,6 @@ impl GcsSource {
     }
 
     /// Sets the value of [uri][crate::model::GcsSource::uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::GcsSource;
-    /// let x = GcsSource::new().set_uri("example");
-    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -4879,12 +3562,6 @@ impl GcsDestination {
     }
 
     /// Sets the value of [uri][crate::model::GcsDestination::uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::GcsDestination;
-    /// let x = GcsDestination::new().set_uri("example");
-    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -4919,15 +3596,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [state][crate::model::OperationMetadata::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::OperationMetadata;
-    /// use google_cloud_vision_v1::model::operation_metadata::State;
-    /// let x0 = OperationMetadata::new().set_state(State::Created);
-    /// let x1 = OperationMetadata::new().set_state(State::Running);
-    /// let x2 = OperationMetadata::new().set_state(State::Done);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::operation_metadata::State>>(
         mut self,
         v: T,
@@ -4937,13 +3605,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4953,14 +3614,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4970,13 +3623,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::OperationMetadata::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4986,14 +3632,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::OperationMetadata::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5206,13 +3844,6 @@ impl ProductSearchParams {
     }
 
     /// Sets the value of [bounding_poly][crate::model::ProductSearchParams::bounding_poly].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ProductSearchParams;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = ProductSearchParams::new().set_bounding_poly(BoundingPoly::default()/* use setters */);
-    /// ```
     pub fn set_bounding_poly<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -5222,14 +3853,6 @@ impl ProductSearchParams {
     }
 
     /// Sets or clears the value of [bounding_poly][crate::model::ProductSearchParams::bounding_poly].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ProductSearchParams;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = ProductSearchParams::new().set_or_clear_bounding_poly(Some(BoundingPoly::default()/* use setters */));
-    /// let x = ProductSearchParams::new().set_or_clear_bounding_poly(None::<BoundingPoly>);
-    /// ```
     pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -5239,24 +3862,12 @@ impl ProductSearchParams {
     }
 
     /// Sets the value of [product_set][crate::model::ProductSearchParams::product_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ProductSearchParams;
-    /// let x = ProductSearchParams::new().set_product_set("example");
-    /// ```
     pub fn set_product_set<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product_set = v.into();
         self
     }
 
     /// Sets the value of [product_categories][crate::model::ProductSearchParams::product_categories].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ProductSearchParams;
-    /// let x = ProductSearchParams::new().set_product_categories(["a", "b", "c"]);
-    /// ```
     pub fn set_product_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5268,12 +3879,6 @@ impl ProductSearchParams {
     }
 
     /// Sets the value of [filter][crate::model::ProductSearchParams::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ProductSearchParams;
-    /// let x = ProductSearchParams::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -5313,13 +3918,6 @@ impl ProductSearchResults {
     }
 
     /// Sets the value of [index_time][crate::model::ProductSearchResults::index_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ProductSearchResults;
-    /// use wkt::Timestamp;
-    /// let x = ProductSearchResults::new().set_index_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_index_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5329,14 +3927,6 @@ impl ProductSearchResults {
     }
 
     /// Sets or clears the value of [index_time][crate::model::ProductSearchResults::index_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ProductSearchResults;
-    /// use wkt::Timestamp;
-    /// let x = ProductSearchResults::new().set_or_clear_index_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ProductSearchResults::new().set_or_clear_index_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_index_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5346,17 +3936,6 @@ impl ProductSearchResults {
     }
 
     /// Sets the value of [results][crate::model::ProductSearchResults::results].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ProductSearchResults;
-    /// use google_cloud_vision_v1::model::product_search_results::Result;
-    /// let x = ProductSearchResults::new()
-    ///     .set_results([
-    ///         Result::default()/* use setters */,
-    ///         Result::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5368,17 +3947,6 @@ impl ProductSearchResults {
     }
 
     /// Sets the value of [product_grouped_results][crate::model::ProductSearchResults::product_grouped_results].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ProductSearchResults;
-    /// use google_cloud_vision_v1::model::product_search_results::GroupedResult;
-    /// let x = ProductSearchResults::new()
-    ///     .set_product_grouped_results([
-    ///         GroupedResult::default()/* use setters */,
-    ///         GroupedResult::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_product_grouped_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5425,13 +3993,6 @@ pub mod product_search_results {
         }
 
         /// Sets the value of [product][crate::model::product_search_results::Result::product].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::product_search_results::Result;
-        /// use google_cloud_vision_v1::model::Product;
-        /// let x = Result::new().set_product(Product::default()/* use setters */);
-        /// ```
         pub fn set_product<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Product>,
@@ -5441,14 +4002,6 @@ pub mod product_search_results {
         }
 
         /// Sets or clears the value of [product][crate::model::product_search_results::Result::product].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::product_search_results::Result;
-        /// use google_cloud_vision_v1::model::Product;
-        /// let x = Result::new().set_or_clear_product(Some(Product::default()/* use setters */));
-        /// let x = Result::new().set_or_clear_product(None::<Product>);
-        /// ```
         pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Product>,
@@ -5458,24 +4011,12 @@ pub mod product_search_results {
         }
 
         /// Sets the value of [score][crate::model::product_search_results::Result::score].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::product_search_results::Result;
-        /// let x = Result::new().set_score(42.0);
-        /// ```
         pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.score = v.into();
             self
         }
 
         /// Sets the value of [image][crate::model::product_search_results::Result::image].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::product_search_results::Result;
-        /// let x = Result::new().set_image("example");
-        /// ```
         pub fn set_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.image = v.into();
             self
@@ -5515,24 +4056,12 @@ pub mod product_search_results {
         }
 
         /// Sets the value of [mid][crate::model::product_search_results::ObjectAnnotation::mid].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::product_search_results::ObjectAnnotation;
-        /// let x = ObjectAnnotation::new().set_mid("example");
-        /// ```
         pub fn set_mid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.mid = v.into();
             self
         }
 
         /// Sets the value of [language_code][crate::model::product_search_results::ObjectAnnotation::language_code].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::product_search_results::ObjectAnnotation;
-        /// let x = ObjectAnnotation::new().set_language_code("example");
-        /// ```
         pub fn set_language_code<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5542,24 +4071,12 @@ pub mod product_search_results {
         }
 
         /// Sets the value of [name][crate::model::product_search_results::ObjectAnnotation::name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::product_search_results::ObjectAnnotation;
-        /// let x = ObjectAnnotation::new().set_name("example");
-        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [score][crate::model::product_search_results::ObjectAnnotation::score].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::product_search_results::ObjectAnnotation;
-        /// let x = ObjectAnnotation::new().set_score(42.0);
-        /// ```
         pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.score = v.into();
             self
@@ -5596,13 +4113,6 @@ pub mod product_search_results {
         }
 
         /// Sets the value of [bounding_poly][crate::model::product_search_results::GroupedResult::bounding_poly].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::product_search_results::GroupedResult;
-        /// use google_cloud_vision_v1::model::BoundingPoly;
-        /// let x = GroupedResult::new().set_bounding_poly(BoundingPoly::default()/* use setters */);
-        /// ```
         pub fn set_bounding_poly<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::BoundingPoly>,
@@ -5612,14 +4122,6 @@ pub mod product_search_results {
         }
 
         /// Sets or clears the value of [bounding_poly][crate::model::product_search_results::GroupedResult::bounding_poly].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::product_search_results::GroupedResult;
-        /// use google_cloud_vision_v1::model::BoundingPoly;
-        /// let x = GroupedResult::new().set_or_clear_bounding_poly(Some(BoundingPoly::default()/* use setters */));
-        /// let x = GroupedResult::new().set_or_clear_bounding_poly(None::<BoundingPoly>);
-        /// ```
         pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BoundingPoly>,
@@ -5629,17 +4131,6 @@ pub mod product_search_results {
         }
 
         /// Sets the value of [results][crate::model::product_search_results::GroupedResult::results].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::product_search_results::GroupedResult;
-        /// use google_cloud_vision_v1::model::product_search_results::Result;
-        /// let x = GroupedResult::new()
-        ///     .set_results([
-        ///         Result::default()/* use setters */,
-        ///         Result::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_results<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5651,17 +4142,6 @@ pub mod product_search_results {
         }
 
         /// Sets the value of [object_annotations][crate::model::product_search_results::GroupedResult::object_annotations].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::product_search_results::GroupedResult;
-        /// use google_cloud_vision_v1::model::product_search_results::ObjectAnnotation;
-        /// let x = GroupedResult::new()
-        ///     .set_object_annotations([
-        ///         ObjectAnnotation::default()/* use setters */,
-        ///         ObjectAnnotation::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_object_annotations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5731,48 +4211,24 @@ impl Product {
     }
 
     /// Sets the value of [name][crate::model::Product::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Product;
-    /// let x = Product::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Product::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Product;
-    /// let x = Product::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Product::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Product;
-    /// let x = Product::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [product_category][crate::model::Product::product_category].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Product;
-    /// let x = Product::new().set_product_category("example");
-    /// ```
     pub fn set_product_category<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5782,17 +4238,6 @@ impl Product {
     }
 
     /// Sets the value of [product_labels][crate::model::Product::product_labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Product;
-    /// use google_cloud_vision_v1::model::product::KeyValue;
-    /// let x = Product::new()
-    ///     .set_product_labels([
-    ///         KeyValue::default()/* use setters */,
-    ///         KeyValue::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_product_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5836,24 +4281,12 @@ pub mod product {
         }
 
         /// Sets the value of [key][crate::model::product::KeyValue::key].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::product::KeyValue;
-        /// let x = KeyValue::new().set_key("example");
-        /// ```
         pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.key = v.into();
             self
         }
 
         /// Sets the value of [value][crate::model::product::KeyValue::value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::product::KeyValue;
-        /// let x = KeyValue::new().set_value("example");
-        /// ```
         pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.value = v.into();
             self
@@ -5908,37 +4341,18 @@ impl ProductSet {
     }
 
     /// Sets the value of [name][crate::model::ProductSet::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ProductSet;
-    /// let x = ProductSet::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::ProductSet::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ProductSet;
-    /// let x = ProductSet::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [index_time][crate::model::ProductSet::index_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ProductSet;
-    /// use wkt::Timestamp;
-    /// let x = ProductSet::new().set_index_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_index_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5948,14 +4362,6 @@ impl ProductSet {
     }
 
     /// Sets or clears the value of [index_time][crate::model::ProductSet::index_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ProductSet;
-    /// use wkt::Timestamp;
-    /// let x = ProductSet::new().set_or_clear_index_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ProductSet::new().set_or_clear_index_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_index_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5965,13 +4371,6 @@ impl ProductSet {
     }
 
     /// Sets the value of [index_error][crate::model::ProductSet::index_error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ProductSet;
-    /// use rpc::model::Status;
-    /// let x = ProductSet::new().set_index_error(Status::default()/* use setters */);
-    /// ```
     pub fn set_index_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -5981,14 +4380,6 @@ impl ProductSet {
     }
 
     /// Sets or clears the value of [index_error][crate::model::ProductSet::index_error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ProductSet;
-    /// use rpc::model::Status;
-    /// let x = ProductSet::new().set_or_clear_index_error(Some(Status::default()/* use setters */));
-    /// let x = ProductSet::new().set_or_clear_index_error(None::<Status>);
-    /// ```
     pub fn set_or_clear_index_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -6041,41 +4432,18 @@ impl ReferenceImage {
     }
 
     /// Sets the value of [name][crate::model::ReferenceImage::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ReferenceImage;
-    /// let x = ReferenceImage::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uri][crate::model::ReferenceImage::uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ReferenceImage;
-    /// let x = ReferenceImage::new().set_uri("example");
-    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [bounding_polys][crate::model::ReferenceImage::bounding_polys].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ReferenceImage;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = ReferenceImage::new()
-    ///     .set_bounding_polys([
-    ///         BoundingPoly::default()/* use setters */,
-    ///         BoundingPoly::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_bounding_polys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6121,25 +4489,12 @@ impl CreateProductRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateProductRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::CreateProductRequest;
-    /// let x = CreateProductRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [product][crate::model::CreateProductRequest::product].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::CreateProductRequest;
-    /// use google_cloud_vision_v1::model::Product;
-    /// let x = CreateProductRequest::new().set_product(Product::default()/* use setters */);
-    /// ```
     pub fn set_product<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Product>,
@@ -6149,14 +4504,6 @@ impl CreateProductRequest {
     }
 
     /// Sets or clears the value of [product][crate::model::CreateProductRequest::product].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::CreateProductRequest;
-    /// use google_cloud_vision_v1::model::Product;
-    /// let x = CreateProductRequest::new().set_or_clear_product(Some(Product::default()/* use setters */));
-    /// let x = CreateProductRequest::new().set_or_clear_product(None::<Product>);
-    /// ```
     pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Product>,
@@ -6166,12 +4513,6 @@ impl CreateProductRequest {
     }
 
     /// Sets the value of [product_id][crate::model::CreateProductRequest::product_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::CreateProductRequest;
-    /// let x = CreateProductRequest::new().set_product_id("example");
-    /// ```
     pub fn set_product_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product_id = v.into();
         self
@@ -6209,36 +4550,18 @@ impl ListProductsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListProductsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListProductsRequest;
-    /// let x = ListProductsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListProductsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListProductsRequest;
-    /// let x = ListProductsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListProductsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListProductsRequest;
-    /// let x = ListProductsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6271,17 +4594,6 @@ impl ListProductsResponse {
     }
 
     /// Sets the value of [products][crate::model::ListProductsResponse::products].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListProductsResponse;
-    /// use google_cloud_vision_v1::model::Product;
-    /// let x = ListProductsResponse::new()
-    ///     .set_products([
-    ///         Product::default()/* use setters */,
-    ///         Product::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_products<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6293,12 +4605,6 @@ impl ListProductsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListProductsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListProductsResponse;
-    /// let x = ListProductsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6344,12 +4650,6 @@ impl GetProductRequest {
     }
 
     /// Sets the value of [name][crate::model::GetProductRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::GetProductRequest;
-    /// let x = GetProductRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6388,13 +4688,6 @@ impl UpdateProductRequest {
     }
 
     /// Sets the value of [product][crate::model::UpdateProductRequest::product].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::UpdateProductRequest;
-    /// use google_cloud_vision_v1::model::Product;
-    /// let x = UpdateProductRequest::new().set_product(Product::default()/* use setters */);
-    /// ```
     pub fn set_product<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Product>,
@@ -6404,14 +4697,6 @@ impl UpdateProductRequest {
     }
 
     /// Sets or clears the value of [product][crate::model::UpdateProductRequest::product].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::UpdateProductRequest;
-    /// use google_cloud_vision_v1::model::Product;
-    /// let x = UpdateProductRequest::new().set_or_clear_product(Some(Product::default()/* use setters */));
-    /// let x = UpdateProductRequest::new().set_or_clear_product(None::<Product>);
-    /// ```
     pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Product>,
@@ -6421,13 +4706,6 @@ impl UpdateProductRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateProductRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::UpdateProductRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateProductRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6437,14 +4715,6 @@ impl UpdateProductRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateProductRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::UpdateProductRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateProductRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateProductRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6479,12 +4749,6 @@ impl DeleteProductRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteProductRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::DeleteProductRequest;
-    /// let x = DeleteProductRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6524,25 +4788,12 @@ impl CreateProductSetRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateProductSetRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::CreateProductSetRequest;
-    /// let x = CreateProductSetRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [product_set][crate::model::CreateProductSetRequest::product_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::CreateProductSetRequest;
-    /// use google_cloud_vision_v1::model::ProductSet;
-    /// let x = CreateProductSetRequest::new().set_product_set(ProductSet::default()/* use setters */);
-    /// ```
     pub fn set_product_set<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProductSet>,
@@ -6552,14 +4803,6 @@ impl CreateProductSetRequest {
     }
 
     /// Sets or clears the value of [product_set][crate::model::CreateProductSetRequest::product_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::CreateProductSetRequest;
-    /// use google_cloud_vision_v1::model::ProductSet;
-    /// let x = CreateProductSetRequest::new().set_or_clear_product_set(Some(ProductSet::default()/* use setters */));
-    /// let x = CreateProductSetRequest::new().set_or_clear_product_set(None::<ProductSet>);
-    /// ```
     pub fn set_or_clear_product_set<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProductSet>,
@@ -6569,12 +4812,6 @@ impl CreateProductSetRequest {
     }
 
     /// Sets the value of [product_set_id][crate::model::CreateProductSetRequest::product_set_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::CreateProductSetRequest;
-    /// let x = CreateProductSetRequest::new().set_product_set_id("example");
-    /// ```
     pub fn set_product_set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product_set_id = v.into();
         self
@@ -6611,36 +4848,18 @@ impl ListProductSetsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListProductSetsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListProductSetsRequest;
-    /// let x = ListProductSetsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListProductSetsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListProductSetsRequest;
-    /// let x = ListProductSetsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListProductSetsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListProductSetsRequest;
-    /// let x = ListProductSetsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6673,17 +4892,6 @@ impl ListProductSetsResponse {
     }
 
     /// Sets the value of [product_sets][crate::model::ListProductSetsResponse::product_sets].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListProductSetsResponse;
-    /// use google_cloud_vision_v1::model::ProductSet;
-    /// let x = ListProductSetsResponse::new()
-    ///     .set_product_sets([
-    ///         ProductSet::default()/* use setters */,
-    ///         ProductSet::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_product_sets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6695,12 +4903,6 @@ impl ListProductSetsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListProductSetsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListProductSetsResponse;
-    /// let x = ListProductSetsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6746,12 +4948,6 @@ impl GetProductSetRequest {
     }
 
     /// Sets the value of [name][crate::model::GetProductSetRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::GetProductSetRequest;
-    /// let x = GetProductSetRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6788,13 +4984,6 @@ impl UpdateProductSetRequest {
     }
 
     /// Sets the value of [product_set][crate::model::UpdateProductSetRequest::product_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::UpdateProductSetRequest;
-    /// use google_cloud_vision_v1::model::ProductSet;
-    /// let x = UpdateProductSetRequest::new().set_product_set(ProductSet::default()/* use setters */);
-    /// ```
     pub fn set_product_set<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProductSet>,
@@ -6804,14 +4993,6 @@ impl UpdateProductSetRequest {
     }
 
     /// Sets or clears the value of [product_set][crate::model::UpdateProductSetRequest::product_set].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::UpdateProductSetRequest;
-    /// use google_cloud_vision_v1::model::ProductSet;
-    /// let x = UpdateProductSetRequest::new().set_or_clear_product_set(Some(ProductSet::default()/* use setters */));
-    /// let x = UpdateProductSetRequest::new().set_or_clear_product_set(None::<ProductSet>);
-    /// ```
     pub fn set_or_clear_product_set<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProductSet>,
@@ -6821,13 +5002,6 @@ impl UpdateProductSetRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateProductSetRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::UpdateProductSetRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateProductSetRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6837,14 +5011,6 @@ impl UpdateProductSetRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateProductSetRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::UpdateProductSetRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateProductSetRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateProductSetRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6879,12 +5045,6 @@ impl DeleteProductSetRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteProductSetRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::DeleteProductSetRequest;
-    /// let x = DeleteProductSetRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6927,25 +5087,12 @@ impl CreateReferenceImageRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateReferenceImageRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::CreateReferenceImageRequest;
-    /// let x = CreateReferenceImageRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [reference_image][crate::model::CreateReferenceImageRequest::reference_image].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::CreateReferenceImageRequest;
-    /// use google_cloud_vision_v1::model::ReferenceImage;
-    /// let x = CreateReferenceImageRequest::new().set_reference_image(ReferenceImage::default()/* use setters */);
-    /// ```
     pub fn set_reference_image<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReferenceImage>,
@@ -6955,14 +5102,6 @@ impl CreateReferenceImageRequest {
     }
 
     /// Sets or clears the value of [reference_image][crate::model::CreateReferenceImageRequest::reference_image].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::CreateReferenceImageRequest;
-    /// use google_cloud_vision_v1::model::ReferenceImage;
-    /// let x = CreateReferenceImageRequest::new().set_or_clear_reference_image(Some(ReferenceImage::default()/* use setters */));
-    /// let x = CreateReferenceImageRequest::new().set_or_clear_reference_image(None::<ReferenceImage>);
-    /// ```
     pub fn set_or_clear_reference_image<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReferenceImage>,
@@ -6972,12 +5111,6 @@ impl CreateReferenceImageRequest {
     }
 
     /// Sets the value of [reference_image_id][crate::model::CreateReferenceImageRequest::reference_image_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::CreateReferenceImageRequest;
-    /// let x = CreateReferenceImageRequest::new().set_reference_image_id("example");
-    /// ```
     pub fn set_reference_image_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7021,36 +5154,18 @@ impl ListReferenceImagesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListReferenceImagesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListReferenceImagesRequest;
-    /// let x = ListReferenceImagesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListReferenceImagesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListReferenceImagesRequest;
-    /// let x = ListReferenceImagesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListReferenceImagesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListReferenceImagesRequest;
-    /// let x = ListReferenceImagesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -7085,17 +5200,6 @@ impl ListReferenceImagesResponse {
     }
 
     /// Sets the value of [reference_images][crate::model::ListReferenceImagesResponse::reference_images].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListReferenceImagesResponse;
-    /// use google_cloud_vision_v1::model::ReferenceImage;
-    /// let x = ListReferenceImagesResponse::new()
-    ///     .set_reference_images([
-    ///         ReferenceImage::default()/* use setters */,
-    ///         ReferenceImage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_reference_images<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7107,24 +5211,12 @@ impl ListReferenceImagesResponse {
     }
 
     /// Sets the value of [page_size][crate::model::ListReferenceImagesResponse::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListReferenceImagesResponse;
-    /// let x = ListReferenceImagesResponse::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [next_page_token][crate::model::ListReferenceImagesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListReferenceImagesResponse;
-    /// let x = ListReferenceImagesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -7170,12 +5262,6 @@ impl GetReferenceImageRequest {
     }
 
     /// Sets the value of [name][crate::model::GetReferenceImageRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::GetReferenceImageRequest;
-    /// let x = GetReferenceImageRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7207,12 +5293,6 @@ impl DeleteReferenceImageRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteReferenceImageRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::DeleteReferenceImageRequest;
-    /// let x = DeleteReferenceImageRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7250,24 +5330,12 @@ impl AddProductToProductSetRequest {
     }
 
     /// Sets the value of [name][crate::model::AddProductToProductSetRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AddProductToProductSetRequest;
-    /// let x = AddProductToProductSetRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [product][crate::model::AddProductToProductSetRequest::product].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::AddProductToProductSetRequest;
-    /// let x = AddProductToProductSetRequest::new().set_product("example");
-    /// ```
     pub fn set_product<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product = v.into();
         self
@@ -7306,24 +5374,12 @@ impl RemoveProductFromProductSetRequest {
     }
 
     /// Sets the value of [name][crate::model::RemoveProductFromProductSetRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::RemoveProductFromProductSetRequest;
-    /// let x = RemoveProductFromProductSetRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [product][crate::model::RemoveProductFromProductSetRequest::product].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::RemoveProductFromProductSetRequest;
-    /// let x = RemoveProductFromProductSetRequest::new().set_product("example");
-    /// ```
     pub fn set_product<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product = v.into();
         self
@@ -7361,36 +5417,18 @@ impl ListProductsInProductSetRequest {
     }
 
     /// Sets the value of [name][crate::model::ListProductsInProductSetRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListProductsInProductSetRequest;
-    /// let x = ListProductsInProductSetRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListProductsInProductSetRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListProductsInProductSetRequest;
-    /// let x = ListProductsInProductSetRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListProductsInProductSetRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListProductsInProductSetRequest;
-    /// let x = ListProductsInProductSetRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -7423,17 +5461,6 @@ impl ListProductsInProductSetResponse {
     }
 
     /// Sets the value of [products][crate::model::ListProductsInProductSetResponse::products].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListProductsInProductSetResponse;
-    /// use google_cloud_vision_v1::model::Product;
-    /// let x = ListProductsInProductSetResponse::new()
-    ///     .set_products([
-    ///         Product::default()/* use setters */,
-    ///         Product::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_products<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7445,12 +5472,6 @@ impl ListProductsInProductSetResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListProductsInProductSetResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ListProductsInProductSetResponse;
-    /// let x = ListProductsInProductSetResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -7562,12 +5583,6 @@ impl ImportProductSetsGcsSource {
     }
 
     /// Sets the value of [csv_file_uri][crate::model::ImportProductSetsGcsSource::csv_file_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImportProductSetsGcsSource;
-    /// let x = ImportProductSetsGcsSource::new().set_csv_file_uri("example");
-    /// ```
     pub fn set_csv_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.csv_file_uri = v.into();
         self
@@ -7599,14 +5614,6 @@ impl ImportProductSetsInputConfig {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImportProductSetsInputConfig;
-    /// use google_cloud_vision_v1::model::import_product_sets_input_config;
-    /// use google_cloud_vision_v1::model::ImportProductSetsGcsSource;
-    /// let x = ImportProductSetsInputConfig::new().set_source(Some(import_product_sets_input_config::Source::GcsSource(ImportProductSetsGcsSource::default().into())));
-    /// ```
     pub fn set_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_product_sets_input_config::Source>,
@@ -7639,14 +5646,6 @@ impl ImportProductSetsInputConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImportProductSetsInputConfig;
-    /// use google_cloud_vision_v1::model::ImportProductSetsGcsSource;
-    /// let x = ImportProductSetsInputConfig::new().set_gcs_source(ImportProductSetsGcsSource::default()/* use setters */);
-    /// assert!(x.gcs_source().is_some());
-    /// ```
     pub fn set_gcs_source<
         T: std::convert::Into<std::boxed::Box<crate::model::ImportProductSetsGcsSource>>,
     >(
@@ -7702,25 +5701,12 @@ impl ImportProductSetsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ImportProductSetsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImportProductSetsRequest;
-    /// let x = ImportProductSetsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [input_config][crate::model::ImportProductSetsRequest::input_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImportProductSetsRequest;
-    /// use google_cloud_vision_v1::model::ImportProductSetsInputConfig;
-    /// let x = ImportProductSetsRequest::new().set_input_config(ImportProductSetsInputConfig::default()/* use setters */);
-    /// ```
     pub fn set_input_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ImportProductSetsInputConfig>,
@@ -7730,14 +5716,6 @@ impl ImportProductSetsRequest {
     }
 
     /// Sets or clears the value of [input_config][crate::model::ImportProductSetsRequest::input_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImportProductSetsRequest;
-    /// use google_cloud_vision_v1::model::ImportProductSetsInputConfig;
-    /// let x = ImportProductSetsRequest::new().set_or_clear_input_config(Some(ImportProductSetsInputConfig::default()/* use setters */));
-    /// let x = ImportProductSetsRequest::new().set_or_clear_input_config(None::<ImportProductSetsInputConfig>);
-    /// ```
     pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImportProductSetsInputConfig>,
@@ -7785,17 +5763,6 @@ impl ImportProductSetsResponse {
     }
 
     /// Sets the value of [reference_images][crate::model::ImportProductSetsResponse::reference_images].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImportProductSetsResponse;
-    /// use google_cloud_vision_v1::model::ReferenceImage;
-    /// let x = ImportProductSetsResponse::new()
-    ///     .set_reference_images([
-    ///         ReferenceImage::default()/* use setters */,
-    ///         ReferenceImage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_reference_images<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7807,17 +5774,6 @@ impl ImportProductSetsResponse {
     }
 
     /// Sets the value of [statuses][crate::model::ImportProductSetsResponse::statuses].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ImportProductSetsResponse;
-    /// use rpc::model::Status;
-    /// let x = ImportProductSetsResponse::new()
-    ///     .set_statuses([
-    ///         Status::default()/* use setters */,
-    ///         Status::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_statuses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7864,15 +5820,6 @@ impl BatchOperationMetadata {
     }
 
     /// Sets the value of [state][crate::model::BatchOperationMetadata::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::BatchOperationMetadata;
-    /// use google_cloud_vision_v1::model::batch_operation_metadata::State;
-    /// let x0 = BatchOperationMetadata::new().set_state(State::Processing);
-    /// let x1 = BatchOperationMetadata::new().set_state(State::Successful);
-    /// let x2 = BatchOperationMetadata::new().set_state(State::Failed);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::batch_operation_metadata::State>>(
         mut self,
         v: T,
@@ -7882,13 +5829,6 @@ impl BatchOperationMetadata {
     }
 
     /// Sets the value of [submit_time][crate::model::BatchOperationMetadata::submit_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::BatchOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = BatchOperationMetadata::new().set_submit_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7898,14 +5838,6 @@ impl BatchOperationMetadata {
     }
 
     /// Sets or clears the value of [submit_time][crate::model::BatchOperationMetadata::submit_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::BatchOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = BatchOperationMetadata::new().set_or_clear_submit_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BatchOperationMetadata::new().set_or_clear_submit_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7915,13 +5847,6 @@ impl BatchOperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::BatchOperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::BatchOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = BatchOperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7931,14 +5856,6 @@ impl BatchOperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::BatchOperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::BatchOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = BatchOperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BatchOperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8127,12 +6044,6 @@ impl ProductSetPurgeConfig {
     }
 
     /// Sets the value of [product_set_id][crate::model::ProductSetPurgeConfig::product_set_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::ProductSetPurgeConfig;
-    /// let x = ProductSetPurgeConfig::new().set_product_set_id("example");
-    /// ```
     pub fn set_product_set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product_set_id = v.into();
         self
@@ -8170,24 +6081,12 @@ impl PurgeProductsRequest {
     }
 
     /// Sets the value of [parent][crate::model::PurgeProductsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::PurgeProductsRequest;
-    /// let x = PurgeProductsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::PurgeProductsRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::PurgeProductsRequest;
-    /// let x = PurgeProductsRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -8197,13 +6096,6 @@ impl PurgeProductsRequest {
     ///
     /// Note that all the setters affecting `target` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::PurgeProductsRequest;
-    /// use google_cloud_vision_v1::model::purge_products_request;
-    /// let x = PurgeProductsRequest::new().set_target(Some(purge_products_request::Target::DeleteOrphanProducts(true)));
-    /// ```
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::purge_products_request::Target>>,
     >(
@@ -8234,15 +6126,6 @@ impl PurgeProductsRequest {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::PurgeProductsRequest;
-    /// use google_cloud_vision_v1::model::ProductSetPurgeConfig;
-    /// let x = PurgeProductsRequest::new().set_product_set_purge_config(ProductSetPurgeConfig::default()/* use setters */);
-    /// assert!(x.product_set_purge_config().is_some());
-    /// assert!(x.delete_orphan_products().is_none());
-    /// ```
     pub fn set_product_set_purge_config<
         T: std::convert::Into<std::boxed::Box<crate::model::ProductSetPurgeConfig>>,
     >(
@@ -8273,14 +6156,6 @@ impl PurgeProductsRequest {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::PurgeProductsRequest;
-    /// let x = PurgeProductsRequest::new().set_delete_orphan_products(true);
-    /// assert!(x.delete_orphan_products().is_some());
-    /// assert!(x.product_set_purge_config().is_none());
-    /// ```
     pub fn set_delete_orphan_products<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.target = std::option::Option::Some(
             crate::model::purge_products_request::Target::DeleteOrphanProducts(v.into()),
@@ -8340,17 +6215,6 @@ impl TextAnnotation {
     }
 
     /// Sets the value of [pages][crate::model::TextAnnotation::pages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::TextAnnotation;
-    /// use google_cloud_vision_v1::model::Page;
-    /// let x = TextAnnotation::new()
-    ///     .set_pages([
-    ///         Page::default()/* use setters */,
-    ///         Page::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_pages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8362,12 +6226,6 @@ impl TextAnnotation {
     }
 
     /// Sets the value of [text][crate::model::TextAnnotation::text].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::TextAnnotation;
-    /// let x = TextAnnotation::new().set_text("example");
-    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
         self
@@ -8406,12 +6264,6 @@ pub mod text_annotation {
         }
 
         /// Sets the value of [language_code][crate::model::text_annotation::DetectedLanguage::language_code].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::text_annotation::DetectedLanguage;
-        /// let x = DetectedLanguage::new().set_language_code("example");
-        /// ```
         pub fn set_language_code<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -8421,12 +6273,6 @@ pub mod text_annotation {
         }
 
         /// Sets the value of [confidence][crate::model::text_annotation::DetectedLanguage::confidence].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::text_annotation::DetectedLanguage;
-        /// let x = DetectedLanguage::new().set_confidence(42.0);
-        /// ```
         pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.confidence = v.into();
             self
@@ -8458,15 +6304,6 @@ pub mod text_annotation {
         }
 
         /// Sets the value of [r#type][crate::model::text_annotation::DetectedBreak::type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::text_annotation::DetectedBreak;
-        /// use google_cloud_vision_v1::model::text_annotation::detected_break::BreakType;
-        /// let x0 = DetectedBreak::new().set_type(BreakType::Space);
-        /// let x1 = DetectedBreak::new().set_type(BreakType::SureSpace);
-        /// let x2 = DetectedBreak::new().set_type(BreakType::EolSureSpace);
-        /// ```
         pub fn set_type<
             T: std::convert::Into<crate::model::text_annotation::detected_break::BreakType>,
         >(
@@ -8478,12 +6315,6 @@ pub mod text_annotation {
         }
 
         /// Sets the value of [is_prefix][crate::model::text_annotation::DetectedBreak::is_prefix].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::text_annotation::DetectedBreak;
-        /// let x = DetectedBreak::new().set_is_prefix(true);
-        /// ```
         pub fn set_is_prefix<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.is_prefix = v.into();
             self
@@ -8678,17 +6509,6 @@ pub mod text_annotation {
         }
 
         /// Sets the value of [detected_languages][crate::model::text_annotation::TextProperty::detected_languages].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::text_annotation::TextProperty;
-        /// use google_cloud_vision_v1::model::text_annotation::DetectedLanguage;
-        /// let x = TextProperty::new()
-        ///     .set_detected_languages([
-        ///         DetectedLanguage::default()/* use setters */,
-        ///         DetectedLanguage::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -8700,13 +6520,6 @@ pub mod text_annotation {
         }
 
         /// Sets the value of [detected_break][crate::model::text_annotation::TextProperty::detected_break].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::text_annotation::TextProperty;
-        /// use google_cloud_vision_v1::model::text_annotation::DetectedBreak;
-        /// let x = TextProperty::new().set_detected_break(DetectedBreak::default()/* use setters */);
-        /// ```
         pub fn set_detected_break<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::text_annotation::DetectedBreak>,
@@ -8716,14 +6529,6 @@ pub mod text_annotation {
         }
 
         /// Sets or clears the value of [detected_break][crate::model::text_annotation::TextProperty::detected_break].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::text_annotation::TextProperty;
-        /// use google_cloud_vision_v1::model::text_annotation::DetectedBreak;
-        /// let x = TextProperty::new().set_or_clear_detected_break(Some(DetectedBreak::default()/* use setters */));
-        /// let x = TextProperty::new().set_or_clear_detected_break(None::<DetectedBreak>);
-        /// ```
         pub fn set_or_clear_detected_break<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::text_annotation::DetectedBreak>,
@@ -8770,13 +6575,6 @@ impl Page {
     }
 
     /// Sets the value of [property][crate::model::Page::property].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Page;
-    /// use google_cloud_vision_v1::model::text_annotation::TextProperty;
-    /// let x = Page::new().set_property(TextProperty::default()/* use setters */);
-    /// ```
     pub fn set_property<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::text_annotation::TextProperty>,
@@ -8786,14 +6584,6 @@ impl Page {
     }
 
     /// Sets or clears the value of [property][crate::model::Page::property].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Page;
-    /// use google_cloud_vision_v1::model::text_annotation::TextProperty;
-    /// let x = Page::new().set_or_clear_property(Some(TextProperty::default()/* use setters */));
-    /// let x = Page::new().set_or_clear_property(None::<TextProperty>);
-    /// ```
     pub fn set_or_clear_property<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::text_annotation::TextProperty>,
@@ -8803,41 +6593,18 @@ impl Page {
     }
 
     /// Sets the value of [width][crate::model::Page::width].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Page;
-    /// let x = Page::new().set_width(42);
-    /// ```
     pub fn set_width<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.width = v.into();
         self
     }
 
     /// Sets the value of [height][crate::model::Page::height].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Page;
-    /// let x = Page::new().set_height(42);
-    /// ```
     pub fn set_height<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.height = v.into();
         self
     }
 
     /// Sets the value of [blocks][crate::model::Page::blocks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Page;
-    /// use google_cloud_vision_v1::model::Block;
-    /// let x = Page::new()
-    ///     .set_blocks([
-    ///         Block::default()/* use setters */,
-    ///         Block::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_blocks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8849,12 +6616,6 @@ impl Page {
     }
 
     /// Sets the value of [confidence][crate::model::Page::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Page;
-    /// let x = Page::new().set_confidence(42.0);
-    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
@@ -8919,13 +6680,6 @@ impl Block {
     }
 
     /// Sets the value of [property][crate::model::Block::property].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Block;
-    /// use google_cloud_vision_v1::model::text_annotation::TextProperty;
-    /// let x = Block::new().set_property(TextProperty::default()/* use setters */);
-    /// ```
     pub fn set_property<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::text_annotation::TextProperty>,
@@ -8935,14 +6689,6 @@ impl Block {
     }
 
     /// Sets or clears the value of [property][crate::model::Block::property].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Block;
-    /// use google_cloud_vision_v1::model::text_annotation::TextProperty;
-    /// let x = Block::new().set_or_clear_property(Some(TextProperty::default()/* use setters */));
-    /// let x = Block::new().set_or_clear_property(None::<TextProperty>);
-    /// ```
     pub fn set_or_clear_property<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::text_annotation::TextProperty>,
@@ -8952,13 +6698,6 @@ impl Block {
     }
 
     /// Sets the value of [bounding_box][crate::model::Block::bounding_box].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Block;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = Block::new().set_bounding_box(BoundingPoly::default()/* use setters */);
-    /// ```
     pub fn set_bounding_box<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -8968,14 +6707,6 @@ impl Block {
     }
 
     /// Sets or clears the value of [bounding_box][crate::model::Block::bounding_box].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Block;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = Block::new().set_or_clear_bounding_box(Some(BoundingPoly::default()/* use setters */));
-    /// let x = Block::new().set_or_clear_bounding_box(None::<BoundingPoly>);
-    /// ```
     pub fn set_or_clear_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -8985,17 +6716,6 @@ impl Block {
     }
 
     /// Sets the value of [paragraphs][crate::model::Block::paragraphs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Block;
-    /// use google_cloud_vision_v1::model::Paragraph;
-    /// let x = Block::new()
-    ///     .set_paragraphs([
-    ///         Paragraph::default()/* use setters */,
-    ///         Paragraph::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_paragraphs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9007,15 +6727,6 @@ impl Block {
     }
 
     /// Sets the value of [block_type][crate::model::Block::block_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Block;
-    /// use google_cloud_vision_v1::model::block::BlockType;
-    /// let x0 = Block::new().set_block_type(BlockType::Text);
-    /// let x1 = Block::new().set_block_type(BlockType::Table);
-    /// let x2 = Block::new().set_block_type(BlockType::Picture);
-    /// ```
     pub fn set_block_type<T: std::convert::Into<crate::model::block::BlockType>>(
         mut self,
         v: T,
@@ -9025,12 +6736,6 @@ impl Block {
     }
 
     /// Sets the value of [confidence][crate::model::Block::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Block;
-    /// let x = Block::new().set_confidence(42.0);
-    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
@@ -9242,13 +6947,6 @@ impl Paragraph {
     }
 
     /// Sets the value of [property][crate::model::Paragraph::property].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Paragraph;
-    /// use google_cloud_vision_v1::model::text_annotation::TextProperty;
-    /// let x = Paragraph::new().set_property(TextProperty::default()/* use setters */);
-    /// ```
     pub fn set_property<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::text_annotation::TextProperty>,
@@ -9258,14 +6956,6 @@ impl Paragraph {
     }
 
     /// Sets or clears the value of [property][crate::model::Paragraph::property].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Paragraph;
-    /// use google_cloud_vision_v1::model::text_annotation::TextProperty;
-    /// let x = Paragraph::new().set_or_clear_property(Some(TextProperty::default()/* use setters */));
-    /// let x = Paragraph::new().set_or_clear_property(None::<TextProperty>);
-    /// ```
     pub fn set_or_clear_property<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::text_annotation::TextProperty>,
@@ -9275,13 +6965,6 @@ impl Paragraph {
     }
 
     /// Sets the value of [bounding_box][crate::model::Paragraph::bounding_box].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Paragraph;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = Paragraph::new().set_bounding_box(BoundingPoly::default()/* use setters */);
-    /// ```
     pub fn set_bounding_box<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -9291,14 +6974,6 @@ impl Paragraph {
     }
 
     /// Sets or clears the value of [bounding_box][crate::model::Paragraph::bounding_box].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Paragraph;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = Paragraph::new().set_or_clear_bounding_box(Some(BoundingPoly::default()/* use setters */));
-    /// let x = Paragraph::new().set_or_clear_bounding_box(None::<BoundingPoly>);
-    /// ```
     pub fn set_or_clear_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -9308,17 +6983,6 @@ impl Paragraph {
     }
 
     /// Sets the value of [words][crate::model::Paragraph::words].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Paragraph;
-    /// use google_cloud_vision_v1::model::Word;
-    /// let x = Paragraph::new()
-    ///     .set_words([
-    ///         Word::default()/* use setters */,
-    ///         Word::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_words<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9330,12 +6994,6 @@ impl Paragraph {
     }
 
     /// Sets the value of [confidence][crate::model::Paragraph::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Paragraph;
-    /// let x = Paragraph::new().set_confidence(42.0);
-    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
@@ -9389,13 +7047,6 @@ impl Word {
     }
 
     /// Sets the value of [property][crate::model::Word::property].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Word;
-    /// use google_cloud_vision_v1::model::text_annotation::TextProperty;
-    /// let x = Word::new().set_property(TextProperty::default()/* use setters */);
-    /// ```
     pub fn set_property<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::text_annotation::TextProperty>,
@@ -9405,14 +7056,6 @@ impl Word {
     }
 
     /// Sets or clears the value of [property][crate::model::Word::property].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Word;
-    /// use google_cloud_vision_v1::model::text_annotation::TextProperty;
-    /// let x = Word::new().set_or_clear_property(Some(TextProperty::default()/* use setters */));
-    /// let x = Word::new().set_or_clear_property(None::<TextProperty>);
-    /// ```
     pub fn set_or_clear_property<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::text_annotation::TextProperty>,
@@ -9422,13 +7065,6 @@ impl Word {
     }
 
     /// Sets the value of [bounding_box][crate::model::Word::bounding_box].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Word;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = Word::new().set_bounding_box(BoundingPoly::default()/* use setters */);
-    /// ```
     pub fn set_bounding_box<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -9438,14 +7074,6 @@ impl Word {
     }
 
     /// Sets or clears the value of [bounding_box][crate::model::Word::bounding_box].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Word;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = Word::new().set_or_clear_bounding_box(Some(BoundingPoly::default()/* use setters */));
-    /// let x = Word::new().set_or_clear_bounding_box(None::<BoundingPoly>);
-    /// ```
     pub fn set_or_clear_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -9455,17 +7083,6 @@ impl Word {
     }
 
     /// Sets the value of [symbols][crate::model::Word::symbols].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Word;
-    /// use google_cloud_vision_v1::model::Symbol;
-    /// let x = Word::new()
-    ///     .set_symbols([
-    ///         Symbol::default()/* use setters */,
-    ///         Symbol::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_symbols<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9477,12 +7094,6 @@ impl Word {
     }
 
     /// Sets the value of [confidence][crate::model::Word::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Word;
-    /// let x = Word::new().set_confidence(42.0);
-    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
@@ -9535,13 +7146,6 @@ impl Symbol {
     }
 
     /// Sets the value of [property][crate::model::Symbol::property].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Symbol;
-    /// use google_cloud_vision_v1::model::text_annotation::TextProperty;
-    /// let x = Symbol::new().set_property(TextProperty::default()/* use setters */);
-    /// ```
     pub fn set_property<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::text_annotation::TextProperty>,
@@ -9551,14 +7155,6 @@ impl Symbol {
     }
 
     /// Sets or clears the value of [property][crate::model::Symbol::property].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Symbol;
-    /// use google_cloud_vision_v1::model::text_annotation::TextProperty;
-    /// let x = Symbol::new().set_or_clear_property(Some(TextProperty::default()/* use setters */));
-    /// let x = Symbol::new().set_or_clear_property(None::<TextProperty>);
-    /// ```
     pub fn set_or_clear_property<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::text_annotation::TextProperty>,
@@ -9568,13 +7164,6 @@ impl Symbol {
     }
 
     /// Sets the value of [bounding_box][crate::model::Symbol::bounding_box].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Symbol;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = Symbol::new().set_bounding_box(BoundingPoly::default()/* use setters */);
-    /// ```
     pub fn set_bounding_box<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -9584,14 +7173,6 @@ impl Symbol {
     }
 
     /// Sets or clears the value of [bounding_box][crate::model::Symbol::bounding_box].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Symbol;
-    /// use google_cloud_vision_v1::model::BoundingPoly;
-    /// let x = Symbol::new().set_or_clear_bounding_box(Some(BoundingPoly::default()/* use setters */));
-    /// let x = Symbol::new().set_or_clear_bounding_box(None::<BoundingPoly>);
-    /// ```
     pub fn set_or_clear_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
@@ -9601,24 +7182,12 @@ impl Symbol {
     }
 
     /// Sets the value of [text][crate::model::Symbol::text].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Symbol;
-    /// let x = Symbol::new().set_text("example");
-    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
         self
     }
 
     /// Sets the value of [confidence][crate::model::Symbol::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::Symbol;
-    /// let x = Symbol::new().set_confidence(42.0);
-    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
@@ -9666,17 +7235,6 @@ impl WebDetection {
     }
 
     /// Sets the value of [web_entities][crate::model::WebDetection::web_entities].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::WebDetection;
-    /// use google_cloud_vision_v1::model::web_detection::WebEntity;
-    /// let x = WebDetection::new()
-    ///     .set_web_entities([
-    ///         WebEntity::default()/* use setters */,
-    ///         WebEntity::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_web_entities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9688,17 +7246,6 @@ impl WebDetection {
     }
 
     /// Sets the value of [full_matching_images][crate::model::WebDetection::full_matching_images].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::WebDetection;
-    /// use google_cloud_vision_v1::model::web_detection::WebImage;
-    /// let x = WebDetection::new()
-    ///     .set_full_matching_images([
-    ///         WebImage::default()/* use setters */,
-    ///         WebImage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_full_matching_images<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9710,17 +7257,6 @@ impl WebDetection {
     }
 
     /// Sets the value of [partial_matching_images][crate::model::WebDetection::partial_matching_images].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::WebDetection;
-    /// use google_cloud_vision_v1::model::web_detection::WebImage;
-    /// let x = WebDetection::new()
-    ///     .set_partial_matching_images([
-    ///         WebImage::default()/* use setters */,
-    ///         WebImage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_partial_matching_images<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9732,17 +7268,6 @@ impl WebDetection {
     }
 
     /// Sets the value of [pages_with_matching_images][crate::model::WebDetection::pages_with_matching_images].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::WebDetection;
-    /// use google_cloud_vision_v1::model::web_detection::WebPage;
-    /// let x = WebDetection::new()
-    ///     .set_pages_with_matching_images([
-    ///         WebPage::default()/* use setters */,
-    ///         WebPage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_pages_with_matching_images<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9754,17 +7279,6 @@ impl WebDetection {
     }
 
     /// Sets the value of [visually_similar_images][crate::model::WebDetection::visually_similar_images].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::WebDetection;
-    /// use google_cloud_vision_v1::model::web_detection::WebImage;
-    /// let x = WebDetection::new()
-    ///     .set_visually_similar_images([
-    ///         WebImage::default()/* use setters */,
-    ///         WebImage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_visually_similar_images<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9776,17 +7290,6 @@ impl WebDetection {
     }
 
     /// Sets the value of [best_guess_labels][crate::model::WebDetection::best_guess_labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_vision_v1::model::WebDetection;
-    /// use google_cloud_vision_v1::model::web_detection::WebLabel;
-    /// let x = WebDetection::new()
-    ///     .set_best_guess_labels([
-    ///         WebLabel::default()/* use setters */,
-    ///         WebLabel::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_best_guess_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9832,36 +7335,18 @@ pub mod web_detection {
         }
 
         /// Sets the value of [entity_id][crate::model::web_detection::WebEntity::entity_id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::web_detection::WebEntity;
-        /// let x = WebEntity::new().set_entity_id("example");
-        /// ```
         pub fn set_entity_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.entity_id = v.into();
             self
         }
 
         /// Sets the value of [score][crate::model::web_detection::WebEntity::score].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::web_detection::WebEntity;
-        /// let x = WebEntity::new().set_score(42.0);
-        /// ```
         pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.score = v.into();
             self
         }
 
         /// Sets the value of [description][crate::model::web_detection::WebEntity::description].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::web_detection::WebEntity;
-        /// let x = WebEntity::new().set_description("example");
-        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
@@ -9893,24 +7378,12 @@ pub mod web_detection {
         }
 
         /// Sets the value of [url][crate::model::web_detection::WebImage::url].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::web_detection::WebImage;
-        /// let x = WebImage::new().set_url("example");
-        /// ```
         pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.url = v.into();
             self
         }
 
         /// Sets the value of [score][crate::model::web_detection::WebImage::score].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::web_detection::WebImage;
-        /// let x = WebImage::new().set_score(42.0);
-        /// ```
         pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.score = v.into();
             self
@@ -9955,53 +7428,24 @@ pub mod web_detection {
         }
 
         /// Sets the value of [url][crate::model::web_detection::WebPage::url].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::web_detection::WebPage;
-        /// let x = WebPage::new().set_url("example");
-        /// ```
         pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.url = v.into();
             self
         }
 
         /// Sets the value of [score][crate::model::web_detection::WebPage::score].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::web_detection::WebPage;
-        /// let x = WebPage::new().set_score(42.0);
-        /// ```
         pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.score = v.into();
             self
         }
 
         /// Sets the value of [page_title][crate::model::web_detection::WebPage::page_title].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::web_detection::WebPage;
-        /// let x = WebPage::new().set_page_title("example");
-        /// ```
         pub fn set_page_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.page_title = v.into();
             self
         }
 
         /// Sets the value of [full_matching_images][crate::model::web_detection::WebPage::full_matching_images].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::web_detection::WebPage;
-        /// use google_cloud_vision_v1::model::web_detection::WebImage;
-        /// let x = WebPage::new()
-        ///     .set_full_matching_images([
-        ///         WebImage::default()/* use setters */,
-        ///         WebImage::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_full_matching_images<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10013,17 +7457,6 @@ pub mod web_detection {
         }
 
         /// Sets the value of [partial_matching_images][crate::model::web_detection::WebPage::partial_matching_images].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::web_detection::WebPage;
-        /// use google_cloud_vision_v1::model::web_detection::WebImage;
-        /// let x = WebPage::new()
-        ///     .set_partial_matching_images([
-        ///         WebImage::default()/* use setters */,
-        ///         WebImage::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_partial_matching_images<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10062,24 +7495,12 @@ pub mod web_detection {
         }
 
         /// Sets the value of [label][crate::model::web_detection::WebLabel::label].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::web_detection::WebLabel;
-        /// let x = WebLabel::new().set_label("example");
-        /// ```
         pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.label = v.into();
             self
         }
 
         /// Sets the value of [language_code][crate::model::web_detection::WebLabel::language_code].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_vision_v1::model::web_detection::WebLabel;
-        /// let x = WebLabel::new().set_language_code("example");
-        /// ```
         pub fn set_language_code<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,

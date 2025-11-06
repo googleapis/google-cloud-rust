@@ -99,51 +99,24 @@ impl DataSourceParameter {
     }
 
     /// Sets the value of [param_id][crate::model::DataSourceParameter::param_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// let x = DataSourceParameter::new().set_param_id("example");
-    /// ```
     pub fn set_param_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.param_id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::DataSourceParameter::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// let x = DataSourceParameter::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::DataSourceParameter::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// let x = DataSourceParameter::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::DataSourceParameter::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// use google_cloud_bigquery_datatransfer_v1::model::data_source_parameter::Type;
-    /// let x0 = DataSourceParameter::new().set_type(Type::String);
-    /// let x1 = DataSourceParameter::new().set_type(Type::Integer);
-    /// let x2 = DataSourceParameter::new().set_type(Type::Double);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::data_source_parameter::Type>>(
         mut self,
         v: T,
@@ -153,36 +126,18 @@ impl DataSourceParameter {
     }
 
     /// Sets the value of [required][crate::model::DataSourceParameter::required].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// let x = DataSourceParameter::new().set_required(true);
-    /// ```
     pub fn set_required<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.required = v.into();
         self
     }
 
     /// Sets the value of [repeated][crate::model::DataSourceParameter::repeated].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// let x = DataSourceParameter::new().set_repeated(true);
-    /// ```
     pub fn set_repeated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.repeated = v.into();
         self
     }
 
     /// Sets the value of [validation_regex][crate::model::DataSourceParameter::validation_regex].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// let x = DataSourceParameter::new().set_validation_regex("example");
-    /// ```
     pub fn set_validation_regex<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -192,12 +147,6 @@ impl DataSourceParameter {
     }
 
     /// Sets the value of [allowed_values][crate::model::DataSourceParameter::allowed_values].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// let x = DataSourceParameter::new().set_allowed_values(["a", "b", "c"]);
-    /// ```
     pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -209,13 +158,6 @@ impl DataSourceParameter {
     }
 
     /// Sets the value of [min_value][crate::model::DataSourceParameter::min_value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// use wkt::DoubleValue;
-    /// let x = DataSourceParameter::new().set_min_value(DoubleValue::default()/* use setters */);
-    /// ```
     pub fn set_min_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::DoubleValue>,
@@ -225,14 +167,6 @@ impl DataSourceParameter {
     }
 
     /// Sets or clears the value of [min_value][crate::model::DataSourceParameter::min_value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// use wkt::DoubleValue;
-    /// let x = DataSourceParameter::new().set_or_clear_min_value(Some(DoubleValue::default()/* use setters */));
-    /// let x = DataSourceParameter::new().set_or_clear_min_value(None::<DoubleValue>);
-    /// ```
     pub fn set_or_clear_min_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::DoubleValue>,
@@ -242,13 +176,6 @@ impl DataSourceParameter {
     }
 
     /// Sets the value of [max_value][crate::model::DataSourceParameter::max_value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// use wkt::DoubleValue;
-    /// let x = DataSourceParameter::new().set_max_value(DoubleValue::default()/* use setters */);
-    /// ```
     pub fn set_max_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::DoubleValue>,
@@ -258,14 +185,6 @@ impl DataSourceParameter {
     }
 
     /// Sets or clears the value of [max_value][crate::model::DataSourceParameter::max_value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// use wkt::DoubleValue;
-    /// let x = DataSourceParameter::new().set_or_clear_max_value(Some(DoubleValue::default()/* use setters */));
-    /// let x = DataSourceParameter::new().set_or_clear_max_value(None::<DoubleValue>);
-    /// ```
     pub fn set_or_clear_max_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::DoubleValue>,
@@ -275,17 +194,6 @@ impl DataSourceParameter {
     }
 
     /// Sets the value of [fields][crate::model::DataSourceParameter::fields].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// let x = DataSourceParameter::new()
-    ///     .set_fields([
-    ///         DataSourceParameter::default()/* use setters */,
-    ///         DataSourceParameter::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -297,12 +205,6 @@ impl DataSourceParameter {
     }
 
     /// Sets the value of [validation_description][crate::model::DataSourceParameter::validation_description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// let x = DataSourceParameter::new().set_validation_description("example");
-    /// ```
     pub fn set_validation_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -312,12 +214,6 @@ impl DataSourceParameter {
     }
 
     /// Sets the value of [validation_help_url][crate::model::DataSourceParameter::validation_help_url].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// let x = DataSourceParameter::new().set_validation_help_url("example");
-    /// ```
     pub fn set_validation_help_url<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -327,36 +223,18 @@ impl DataSourceParameter {
     }
 
     /// Sets the value of [immutable][crate::model::DataSourceParameter::immutable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// let x = DataSourceParameter::new().set_immutable(true);
-    /// ```
     pub fn set_immutable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.immutable = v.into();
         self
     }
 
     /// Sets the value of [recurse][crate::model::DataSourceParameter::recurse].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// let x = DataSourceParameter::new().set_recurse(true);
-    /// ```
     pub fn set_recurse<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.recurse = v.into();
         self
     }
 
     /// Sets the value of [deprecated][crate::model::DataSourceParameter::deprecated].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// let x = DataSourceParameter::new().set_deprecated(true);
-    /// ```
     pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deprecated = v.into();
         self
@@ -626,72 +504,36 @@ impl DataSource {
     }
 
     /// Sets the value of [name][crate::model::DataSource::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// let x = DataSource::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [data_source_id][crate::model::DataSource::data_source_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// let x = DataSource::new().set_data_source_id("example");
-    /// ```
     pub fn set_data_source_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_source_id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::DataSource::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// let x = DataSource::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::DataSource::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// let x = DataSource::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [client_id][crate::model::DataSource::client_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// let x = DataSource::new().set_client_id("example");
-    /// ```
     pub fn set_client_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_id = v.into();
         self
     }
 
     /// Sets the value of [scopes][crate::model::DataSource::scopes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// let x = DataSource::new().set_scopes(["a", "b", "c"]);
-    /// ```
     pub fn set_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -703,14 +545,6 @@ impl DataSource {
     }
 
     /// Sets the value of [transfer_type][crate::model::DataSource::transfer_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// use google_cloud_bigquery_datatransfer_v1::model::TransferType;
-    /// let x0 = DataSource::new().set_transfer_type(TransferType::Batch);
-    /// let x1 = DataSource::new().set_transfer_type(TransferType::Streaming);
-    /// ```
     #[deprecated]
     pub fn set_transfer_type<T: std::convert::Into<crate::model::TransferType>>(
         mut self,
@@ -721,12 +555,6 @@ impl DataSource {
     }
 
     /// Sets the value of [supports_multiple_transfers][crate::model::DataSource::supports_multiple_transfers].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// let x = DataSource::new().set_supports_multiple_transfers(true);
-    /// ```
     #[deprecated]
     pub fn set_supports_multiple_transfers<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.supports_multiple_transfers = v.into();
@@ -734,24 +562,12 @@ impl DataSource {
     }
 
     /// Sets the value of [update_deadline_seconds][crate::model::DataSource::update_deadline_seconds].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// let x = DataSource::new().set_update_deadline_seconds(42);
-    /// ```
     pub fn set_update_deadline_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.update_deadline_seconds = v.into();
         self
     }
 
     /// Sets the value of [default_schedule][crate::model::DataSource::default_schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// let x = DataSource::new().set_default_schedule("example");
-    /// ```
     pub fn set_default_schedule<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -761,29 +577,12 @@ impl DataSource {
     }
 
     /// Sets the value of [supports_custom_schedule][crate::model::DataSource::supports_custom_schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// let x = DataSource::new().set_supports_custom_schedule(true);
-    /// ```
     pub fn set_supports_custom_schedule<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.supports_custom_schedule = v.into();
         self
     }
 
     /// Sets the value of [parameters][crate::model::DataSource::parameters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// use google_cloud_bigquery_datatransfer_v1::model::DataSourceParameter;
-    /// let x = DataSource::new()
-    ///     .set_parameters([
-    ///         DataSourceParameter::default()/* use setters */,
-    ///         DataSourceParameter::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -795,27 +594,12 @@ impl DataSource {
     }
 
     /// Sets the value of [help_url][crate::model::DataSource::help_url].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// let x = DataSource::new().set_help_url("example");
-    /// ```
     pub fn set_help_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.help_url = v.into();
         self
     }
 
     /// Sets the value of [authorization_type][crate::model::DataSource::authorization_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// use google_cloud_bigquery_datatransfer_v1::model::data_source::AuthorizationType;
-    /// let x0 = DataSource::new().set_authorization_type(AuthorizationType::AuthorizationCode);
-    /// let x1 = DataSource::new().set_authorization_type(AuthorizationType::GooglePlusAuthorizationCode);
-    /// let x2 = DataSource::new().set_authorization_type(AuthorizationType::FirstPartyOauth);
-    /// ```
     pub fn set_authorization_type<
         T: std::convert::Into<crate::model::data_source::AuthorizationType>,
     >(
@@ -827,14 +611,6 @@ impl DataSource {
     }
 
     /// Sets the value of [data_refresh_type][crate::model::DataSource::data_refresh_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// use google_cloud_bigquery_datatransfer_v1::model::data_source::DataRefreshType;
-    /// let x0 = DataSource::new().set_data_refresh_type(DataRefreshType::SlidingWindow);
-    /// let x1 = DataSource::new().set_data_refresh_type(DataRefreshType::CustomSlidingWindow);
-    /// ```
     pub fn set_data_refresh_type<
         T: std::convert::Into<crate::model::data_source::DataRefreshType>,
     >(
@@ -846,12 +622,6 @@ impl DataSource {
     }
 
     /// Sets the value of [default_data_refresh_window_days][crate::model::DataSource::default_data_refresh_window_days].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// let x = DataSource::new().set_default_data_refresh_window_days(42);
-    /// ```
     pub fn set_default_data_refresh_window_days<T: std::convert::Into<i32>>(
         mut self,
         v: T,
@@ -861,25 +631,12 @@ impl DataSource {
     }
 
     /// Sets the value of [manual_runs_disabled][crate::model::DataSource::manual_runs_disabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// let x = DataSource::new().set_manual_runs_disabled(true);
-    /// ```
     pub fn set_manual_runs_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.manual_runs_disabled = v.into();
         self
     }
 
     /// Sets the value of [minimum_schedule_interval][crate::model::DataSource::minimum_schedule_interval].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// use wkt::Duration;
-    /// let x = DataSource::new().set_minimum_schedule_interval(Duration::default()/* use setters */);
-    /// ```
     pub fn set_minimum_schedule_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -889,14 +646,6 @@ impl DataSource {
     }
 
     /// Sets or clears the value of [minimum_schedule_interval][crate::model::DataSource::minimum_schedule_interval].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// use wkt::Duration;
-    /// let x = DataSource::new().set_or_clear_minimum_schedule_interval(Some(Duration::default()/* use setters */));
-    /// let x = DataSource::new().set_or_clear_minimum_schedule_interval(None::<Duration>);
-    /// ```
     pub fn set_or_clear_minimum_schedule_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1215,12 +964,6 @@ impl GetDataSourceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDataSourceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::GetDataSourceRequest;
-    /// let x = GetDataSourceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1261,36 +1004,18 @@ impl ListDataSourcesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDataSourcesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListDataSourcesRequest;
-    /// let x = ListDataSourcesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDataSourcesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListDataSourcesRequest;
-    /// let x = ListDataSourcesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDataSourcesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListDataSourcesRequest;
-    /// let x = ListDataSourcesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -1325,17 +1050,6 @@ impl ListDataSourcesResponse {
     }
 
     /// Sets the value of [data_sources][crate::model::ListDataSourcesResponse::data_sources].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListDataSourcesResponse;
-    /// use google_cloud_bigquery_datatransfer_v1::model::DataSource;
-    /// let x = ListDataSourcesResponse::new()
-    ///     .set_data_sources([
-    ///         DataSource::default()/* use setters */,
-    ///         DataSource::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_data_sources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1347,12 +1061,6 @@ impl ListDataSourcesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDataSourcesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListDataSourcesResponse;
-    /// let x = ListDataSourcesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1457,25 +1165,12 @@ impl CreateTransferConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTransferConfigRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::CreateTransferConfigRequest;
-    /// let x = CreateTransferConfigRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [transfer_config][crate::model::CreateTransferConfigRequest::transfer_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::CreateTransferConfigRequest;
-    /// use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// let x = CreateTransferConfigRequest::new().set_transfer_config(TransferConfig::default()/* use setters */);
-    /// ```
     pub fn set_transfer_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransferConfig>,
@@ -1485,14 +1180,6 @@ impl CreateTransferConfigRequest {
     }
 
     /// Sets or clears the value of [transfer_config][crate::model::CreateTransferConfigRequest::transfer_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::CreateTransferConfigRequest;
-    /// use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// let x = CreateTransferConfigRequest::new().set_or_clear_transfer_config(Some(TransferConfig::default()/* use setters */));
-    /// let x = CreateTransferConfigRequest::new().set_or_clear_transfer_config(None::<TransferConfig>);
-    /// ```
     pub fn set_or_clear_transfer_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransferConfig>,
@@ -1502,12 +1189,6 @@ impl CreateTransferConfigRequest {
     }
 
     /// Sets the value of [authorization_code][crate::model::CreateTransferConfigRequest::authorization_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::CreateTransferConfigRequest;
-    /// let x = CreateTransferConfigRequest::new().set_authorization_code("example");
-    /// ```
     #[deprecated]
     pub fn set_authorization_code<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1518,24 +1199,12 @@ impl CreateTransferConfigRequest {
     }
 
     /// Sets the value of [version_info][crate::model::CreateTransferConfigRequest::version_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::CreateTransferConfigRequest;
-    /// let x = CreateTransferConfigRequest::new().set_version_info("example");
-    /// ```
     pub fn set_version_info<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version_info = v.into();
         self
     }
 
     /// Sets the value of [service_account_name][crate::model::CreateTransferConfigRequest::service_account_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::CreateTransferConfigRequest;
-    /// let x = CreateTransferConfigRequest::new().set_service_account_name("example");
-    /// ```
     pub fn set_service_account_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1621,13 +1290,6 @@ impl UpdateTransferConfigRequest {
     }
 
     /// Sets the value of [transfer_config][crate::model::UpdateTransferConfigRequest::transfer_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::UpdateTransferConfigRequest;
-    /// use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// let x = UpdateTransferConfigRequest::new().set_transfer_config(TransferConfig::default()/* use setters */);
-    /// ```
     pub fn set_transfer_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransferConfig>,
@@ -1637,14 +1299,6 @@ impl UpdateTransferConfigRequest {
     }
 
     /// Sets or clears the value of [transfer_config][crate::model::UpdateTransferConfigRequest::transfer_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::UpdateTransferConfigRequest;
-    /// use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// let x = UpdateTransferConfigRequest::new().set_or_clear_transfer_config(Some(TransferConfig::default()/* use setters */));
-    /// let x = UpdateTransferConfigRequest::new().set_or_clear_transfer_config(None::<TransferConfig>);
-    /// ```
     pub fn set_or_clear_transfer_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransferConfig>,
@@ -1654,12 +1308,6 @@ impl UpdateTransferConfigRequest {
     }
 
     /// Sets the value of [authorization_code][crate::model::UpdateTransferConfigRequest::authorization_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::UpdateTransferConfigRequest;
-    /// let x = UpdateTransferConfigRequest::new().set_authorization_code("example");
-    /// ```
     #[deprecated]
     pub fn set_authorization_code<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1670,13 +1318,6 @@ impl UpdateTransferConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTransferConfigRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::UpdateTransferConfigRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTransferConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1686,14 +1327,6 @@ impl UpdateTransferConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTransferConfigRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::UpdateTransferConfigRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTransferConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateTransferConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1703,24 +1336,12 @@ impl UpdateTransferConfigRequest {
     }
 
     /// Sets the value of [version_info][crate::model::UpdateTransferConfigRequest::version_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::UpdateTransferConfigRequest;
-    /// let x = UpdateTransferConfigRequest::new().set_version_info("example");
-    /// ```
     pub fn set_version_info<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version_info = v.into();
         self
     }
 
     /// Sets the value of [service_account_name][crate::model::UpdateTransferConfigRequest::service_account_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::UpdateTransferConfigRequest;
-    /// let x = UpdateTransferConfigRequest::new().set_service_account_name("example");
-    /// ```
     pub fn set_service_account_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1754,12 +1375,6 @@ impl GetTransferConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTransferConfigRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::GetTransferConfigRequest;
-    /// let x = GetTransferConfigRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1791,12 +1406,6 @@ impl DeleteTransferConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTransferConfigRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DeleteTransferConfigRequest;
-    /// let x = DeleteTransferConfigRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1828,12 +1437,6 @@ impl GetTransferRunRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTransferRunRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::GetTransferRunRequest;
-    /// let x = GetTransferRunRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1865,12 +1468,6 @@ impl DeleteTransferRunRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTransferRunRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::DeleteTransferRunRequest;
-    /// let x = DeleteTransferRunRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1914,24 +1511,12 @@ impl ListTransferConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTransferConfigsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferConfigsRequest;
-    /// let x = ListTransferConfigsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [data_source_ids][crate::model::ListTransferConfigsRequest::data_source_ids].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferConfigsRequest;
-    /// let x = ListTransferConfigsRequest::new().set_data_source_ids(["a", "b", "c"]);
-    /// ```
     pub fn set_data_source_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1943,24 +1528,12 @@ impl ListTransferConfigsRequest {
     }
 
     /// Sets the value of [page_token][crate::model::ListTransferConfigsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferConfigsRequest;
-    /// let x = ListTransferConfigsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTransferConfigsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferConfigsRequest;
-    /// let x = ListTransferConfigsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -1995,17 +1568,6 @@ impl ListTransferConfigsResponse {
     }
 
     /// Sets the value of [transfer_configs][crate::model::ListTransferConfigsResponse::transfer_configs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferConfigsResponse;
-    /// use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// let x = ListTransferConfigsResponse::new()
-    ///     .set_transfer_configs([
-    ///         TransferConfig::default()/* use setters */,
-    ///         TransferConfig::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_transfer_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2017,12 +1579,6 @@ impl ListTransferConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTransferConfigsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferConfigsResponse;
-    /// let x = ListTransferConfigsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2084,29 +1640,12 @@ impl ListTransferRunsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTransferRunsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferRunsRequest;
-    /// let x = ListTransferRunsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [states][crate::model::ListTransferRunsRequest::states].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferRunsRequest;
-    /// use google_cloud_bigquery_datatransfer_v1::model::TransferState;
-    /// let x = ListTransferRunsRequest::new().set_states([
-    ///     TransferState::Pending,
-    ///     TransferState::Running,
-    ///     TransferState::Succeeded,
-    /// ]);
-    /// ```
     pub fn set_states<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2118,37 +1657,18 @@ impl ListTransferRunsRequest {
     }
 
     /// Sets the value of [page_token][crate::model::ListTransferRunsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferRunsRequest;
-    /// let x = ListTransferRunsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTransferRunsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferRunsRequest;
-    /// let x = ListTransferRunsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [run_attempt][crate::model::ListTransferRunsRequest::run_attempt].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferRunsRequest;
-    /// use google_cloud_bigquery_datatransfer_v1::model::list_transfer_runs_request::RunAttempt;
-    /// let x0 = ListTransferRunsRequest::new().set_run_attempt(RunAttempt::Latest);
-    /// ```
     pub fn set_run_attempt<
         T: std::convert::Into<crate::model::list_transfer_runs_request::RunAttempt>,
     >(
@@ -2319,17 +1839,6 @@ impl ListTransferRunsResponse {
     }
 
     /// Sets the value of [transfer_runs][crate::model::ListTransferRunsResponse::transfer_runs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferRunsResponse;
-    /// use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// let x = ListTransferRunsResponse::new()
-    ///     .set_transfer_runs([
-    ///         TransferRun::default()/* use setters */,
-    ///         TransferRun::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_transfer_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2341,12 +1850,6 @@ impl ListTransferRunsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTransferRunsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferRunsResponse;
-    /// let x = ListTransferRunsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2405,53 +1908,24 @@ impl ListTransferLogsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTransferLogsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferLogsRequest;
-    /// let x = ListTransferLogsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTransferLogsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferLogsRequest;
-    /// let x = ListTransferLogsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTransferLogsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferLogsRequest;
-    /// let x = ListTransferLogsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [message_types][crate::model::ListTransferLogsRequest::message_types].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferLogsRequest;
-    /// use google_cloud_bigquery_datatransfer_v1::model::transfer_message::MessageSeverity;
-    /// let x = ListTransferLogsRequest::new().set_message_types([
-    ///     MessageSeverity::Info,
-    ///     MessageSeverity::Warning,
-    ///     MessageSeverity::Error,
-    /// ]);
-    /// ```
     pub fn set_message_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2491,17 +1965,6 @@ impl ListTransferLogsResponse {
     }
 
     /// Sets the value of [transfer_messages][crate::model::ListTransferLogsResponse::transfer_messages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferLogsResponse;
-    /// use google_cloud_bigquery_datatransfer_v1::model::TransferMessage;
-    /// let x = ListTransferLogsResponse::new()
-    ///     .set_transfer_messages([
-    ///         TransferMessage::default()/* use setters */,
-    ///         TransferMessage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_transfer_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2513,12 +1976,6 @@ impl ListTransferLogsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTransferLogsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ListTransferLogsResponse;
-    /// let x = ListTransferLogsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2568,12 +2025,6 @@ impl CheckValidCredsRequest {
     }
 
     /// Sets the value of [name][crate::model::CheckValidCredsRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::CheckValidCredsRequest;
-    /// let x = CheckValidCredsRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2602,12 +2053,6 @@ impl CheckValidCredsResponse {
     }
 
     /// Sets the value of [has_valid_creds][crate::model::CheckValidCredsResponse::has_valid_creds].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::CheckValidCredsResponse;
-    /// let x = CheckValidCredsResponse::new().set_has_valid_creds(true);
-    /// ```
     pub fn set_has_valid_creds<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.has_valid_creds = v.into();
         self
@@ -2646,25 +2091,12 @@ impl ScheduleTransferRunsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ScheduleTransferRunsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ScheduleTransferRunsRequest;
-    /// let x = ScheduleTransferRunsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::ScheduleTransferRunsRequest::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ScheduleTransferRunsRequest;
-    /// use wkt::Timestamp;
-    /// let x = ScheduleTransferRunsRequest::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2674,14 +2106,6 @@ impl ScheduleTransferRunsRequest {
     }
 
     /// Sets or clears the value of [start_time][crate::model::ScheduleTransferRunsRequest::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ScheduleTransferRunsRequest;
-    /// use wkt::Timestamp;
-    /// let x = ScheduleTransferRunsRequest::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ScheduleTransferRunsRequest::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2691,13 +2115,6 @@ impl ScheduleTransferRunsRequest {
     }
 
     /// Sets the value of [end_time][crate::model::ScheduleTransferRunsRequest::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ScheduleTransferRunsRequest;
-    /// use wkt::Timestamp;
-    /// let x = ScheduleTransferRunsRequest::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2707,14 +2124,6 @@ impl ScheduleTransferRunsRequest {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ScheduleTransferRunsRequest::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ScheduleTransferRunsRequest;
-    /// use wkt::Timestamp;
-    /// let x = ScheduleTransferRunsRequest::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ScheduleTransferRunsRequest::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2746,17 +2155,6 @@ impl ScheduleTransferRunsResponse {
     }
 
     /// Sets the value of [runs][crate::model::ScheduleTransferRunsResponse::runs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ScheduleTransferRunsResponse;
-    /// use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// let x = ScheduleTransferRunsResponse::new()
-    ///     .set_runs([
-    ///         TransferRun::default()/* use setters */,
-    ///         TransferRun::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2796,12 +2194,6 @@ impl StartManualTransferRunsRequest {
     }
 
     /// Sets the value of [parent][crate::model::StartManualTransferRunsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::StartManualTransferRunsRequest;
-    /// let x = StartManualTransferRunsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -2811,14 +2203,6 @@ impl StartManualTransferRunsRequest {
     ///
     /// Note that all the setters affecting `time` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::StartManualTransferRunsRequest;
-    /// use google_cloud_bigquery_datatransfer_v1::model::start_manual_transfer_runs_request;
-    /// use google_cloud_bigquery_datatransfer_v1::model::start_manual_transfer_runs_request::TimeRange;
-    /// let x = StartManualTransferRunsRequest::new().set_time(Some(start_manual_transfer_runs_request::Time::RequestedTimeRange(TimeRange::default().into())));
-    /// ```
     pub fn set_time<
         T: std::convert::Into<
                 std::option::Option<crate::model::start_manual_transfer_runs_request::Time>,
@@ -2853,15 +2237,6 @@ impl StartManualTransferRunsRequest {
     ///
     /// Note that all the setters affecting `time` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::StartManualTransferRunsRequest;
-    /// use google_cloud_bigquery_datatransfer_v1::model::start_manual_transfer_runs_request::TimeRange;
-    /// let x = StartManualTransferRunsRequest::new().set_requested_time_range(TimeRange::default()/* use setters */);
-    /// assert!(x.requested_time_range().is_some());
-    /// assert!(x.requested_run_time().is_none());
-    /// ```
     pub fn set_requested_time_range<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::start_manual_transfer_runs_request::TimeRange>,
@@ -2894,15 +2269,6 @@ impl StartManualTransferRunsRequest {
     ///
     /// Note that all the setters affecting `time` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::StartManualTransferRunsRequest;
-    /// use wkt::Timestamp;
-    /// let x = StartManualTransferRunsRequest::new().set_requested_run_time(Timestamp::default()/* use setters */);
-    /// assert!(x.requested_run_time().is_some());
-    /// assert!(x.requested_time_range().is_none());
-    /// ```
     pub fn set_requested_run_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2951,13 +2317,6 @@ pub mod start_manual_transfer_runs_request {
         }
 
         /// Sets the value of [start_time][crate::model::start_manual_transfer_runs_request::TimeRange::start_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_datatransfer_v1::model::start_manual_transfer_runs_request::TimeRange;
-        /// use wkt::Timestamp;
-        /// let x = TimeRange::new().set_start_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -2967,14 +2326,6 @@ pub mod start_manual_transfer_runs_request {
         }
 
         /// Sets or clears the value of [start_time][crate::model::start_manual_transfer_runs_request::TimeRange::start_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_datatransfer_v1::model::start_manual_transfer_runs_request::TimeRange;
-        /// use wkt::Timestamp;
-        /// let x = TimeRange::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-        /// let x = TimeRange::new().set_or_clear_start_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -2984,13 +2335,6 @@ pub mod start_manual_transfer_runs_request {
         }
 
         /// Sets the value of [end_time][crate::model::start_manual_transfer_runs_request::TimeRange::end_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_datatransfer_v1::model::start_manual_transfer_runs_request::TimeRange;
-        /// use wkt::Timestamp;
-        /// let x = TimeRange::new().set_end_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_end_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3000,14 +2344,6 @@ pub mod start_manual_transfer_runs_request {
         }
 
         /// Sets or clears the value of [end_time][crate::model::start_manual_transfer_runs_request::TimeRange::end_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_datatransfer_v1::model::start_manual_transfer_runs_request::TimeRange;
-        /// use wkt::Timestamp;
-        /// let x = TimeRange::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-        /// let x = TimeRange::new().set_or_clear_end_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3059,17 +2395,6 @@ impl StartManualTransferRunsResponse {
     }
 
     /// Sets the value of [runs][crate::model::StartManualTransferRunsResponse::runs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::StartManualTransferRunsResponse;
-    /// use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// let x = StartManualTransferRunsResponse::new()
-    ///     .set_runs([
-    ///         TransferRun::default()/* use setters */,
-    ///         TransferRun::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3109,24 +2434,12 @@ impl EnrollDataSourcesRequest {
     }
 
     /// Sets the value of [name][crate::model::EnrollDataSourcesRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::EnrollDataSourcesRequest;
-    /// let x = EnrollDataSourcesRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [data_source_ids][crate::model::EnrollDataSourcesRequest::data_source_ids].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::EnrollDataSourcesRequest;
-    /// let x = EnrollDataSourcesRequest::new().set_data_source_ids(["a", "b", "c"]);
-    /// ```
     pub fn set_data_source_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3166,24 +2479,12 @@ impl UnenrollDataSourcesRequest {
     }
 
     /// Sets the value of [name][crate::model::UnenrollDataSourcesRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::UnenrollDataSourcesRequest;
-    /// let x = UnenrollDataSourcesRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [data_source_ids][crate::model::UnenrollDataSourcesRequest::data_source_ids].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::UnenrollDataSourcesRequest;
-    /// let x = UnenrollDataSourcesRequest::new().set_data_source_ids(["a", "b", "c"]);
-    /// ```
     pub fn set_data_source_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3218,12 +2519,6 @@ impl EmailPreferences {
     }
 
     /// Sets the value of [enable_failure_email][crate::model::EmailPreferences::enable_failure_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::EmailPreferences;
-    /// let x = EmailPreferences::new().set_enable_failure_email(true);
-    /// ```
     pub fn set_enable_failure_email<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_failure_email = v.into();
         self
@@ -3268,25 +2563,12 @@ impl ScheduleOptions {
     }
 
     /// Sets the value of [disable_auto_scheduling][crate::model::ScheduleOptions::disable_auto_scheduling].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ScheduleOptions;
-    /// let x = ScheduleOptions::new().set_disable_auto_scheduling(true);
-    /// ```
     pub fn set_disable_auto_scheduling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_auto_scheduling = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::ScheduleOptions::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ScheduleOptions;
-    /// use wkt::Timestamp;
-    /// let x = ScheduleOptions::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3296,14 +2578,6 @@ impl ScheduleOptions {
     }
 
     /// Sets or clears the value of [start_time][crate::model::ScheduleOptions::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ScheduleOptions;
-    /// use wkt::Timestamp;
-    /// let x = ScheduleOptions::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ScheduleOptions::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3313,13 +2587,6 @@ impl ScheduleOptions {
     }
 
     /// Sets the value of [end_time][crate::model::ScheduleOptions::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ScheduleOptions;
-    /// use wkt::Timestamp;
-    /// let x = ScheduleOptions::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3329,14 +2596,6 @@ impl ScheduleOptions {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ScheduleOptions::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ScheduleOptions;
-    /// use wkt::Timestamp;
-    /// let x = ScheduleOptions::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ScheduleOptions::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3374,14 +2633,6 @@ impl ScheduleOptionsV2 {
     ///
     /// Note that all the setters affecting `schedule` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ScheduleOptionsV2;
-    /// use google_cloud_bigquery_datatransfer_v1::model::schedule_options_v_2;
-    /// use google_cloud_bigquery_datatransfer_v1::model::TimeBasedSchedule;
-    /// let x = ScheduleOptionsV2::new().set_schedule(Some(schedule_options_v_2::Schedule::TimeBasedSchedule(TimeBasedSchedule::default().into())));
-    /// ```
     pub fn set_schedule<
         T: std::convert::Into<std::option::Option<crate::model::schedule_options_v_2::Schedule>>,
     >(
@@ -3412,16 +2663,6 @@ impl ScheduleOptionsV2 {
     ///
     /// Note that all the setters affecting `schedule` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ScheduleOptionsV2;
-    /// use google_cloud_bigquery_datatransfer_v1::model::TimeBasedSchedule;
-    /// let x = ScheduleOptionsV2::new().set_time_based_schedule(TimeBasedSchedule::default()/* use setters */);
-    /// assert!(x.time_based_schedule().is_some());
-    /// assert!(x.manual_schedule().is_none());
-    /// assert!(x.event_driven_schedule().is_none());
-    /// ```
     pub fn set_time_based_schedule<
         T: std::convert::Into<std::boxed::Box<crate::model::TimeBasedSchedule>>,
     >(
@@ -3454,16 +2695,6 @@ impl ScheduleOptionsV2 {
     ///
     /// Note that all the setters affecting `schedule` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ScheduleOptionsV2;
-    /// use google_cloud_bigquery_datatransfer_v1::model::ManualSchedule;
-    /// let x = ScheduleOptionsV2::new().set_manual_schedule(ManualSchedule::default()/* use setters */);
-    /// assert!(x.manual_schedule().is_some());
-    /// assert!(x.time_based_schedule().is_none());
-    /// assert!(x.event_driven_schedule().is_none());
-    /// ```
     pub fn set_manual_schedule<
         T: std::convert::Into<std::boxed::Box<crate::model::ManualSchedule>>,
     >(
@@ -3496,16 +2727,6 @@ impl ScheduleOptionsV2 {
     ///
     /// Note that all the setters affecting `schedule` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::ScheduleOptionsV2;
-    /// use google_cloud_bigquery_datatransfer_v1::model::EventDrivenSchedule;
-    /// let x = ScheduleOptionsV2::new().set_event_driven_schedule(EventDrivenSchedule::default()/* use setters */);
-    /// assert!(x.event_driven_schedule().is_some());
-    /// assert!(x.time_based_schedule().is_none());
-    /// assert!(x.manual_schedule().is_none());
-    /// ```
     pub fn set_event_driven_schedule<
         T: std::convert::Into<std::boxed::Box<crate::model::EventDrivenSchedule>>,
     >(
@@ -3588,25 +2809,12 @@ impl TimeBasedSchedule {
     }
 
     /// Sets the value of [schedule][crate::model::TimeBasedSchedule::schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TimeBasedSchedule;
-    /// let x = TimeBasedSchedule::new().set_schedule("example");
-    /// ```
     pub fn set_schedule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schedule = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::TimeBasedSchedule::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TimeBasedSchedule;
-    /// use wkt::Timestamp;
-    /// let x = TimeBasedSchedule::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3616,14 +2824,6 @@ impl TimeBasedSchedule {
     }
 
     /// Sets or clears the value of [start_time][crate::model::TimeBasedSchedule::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TimeBasedSchedule;
-    /// use wkt::Timestamp;
-    /// let x = TimeBasedSchedule::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TimeBasedSchedule::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3633,13 +2833,6 @@ impl TimeBasedSchedule {
     }
 
     /// Sets the value of [end_time][crate::model::TimeBasedSchedule::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TimeBasedSchedule;
-    /// use wkt::Timestamp;
-    /// let x = TimeBasedSchedule::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3649,14 +2842,6 @@ impl TimeBasedSchedule {
     }
 
     /// Sets or clears the value of [end_time][crate::model::TimeBasedSchedule::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TimeBasedSchedule;
-    /// use wkt::Timestamp;
-    /// let x = TimeBasedSchedule::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TimeBasedSchedule::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3709,12 +2894,6 @@ impl EventDrivenSchedule {
     }
 
     /// Sets the value of [pubsub_subscription][crate::model::EventDrivenSchedule::pubsub_subscription].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::EventDrivenSchedule;
-    /// let x = EventDrivenSchedule::new().set_pubsub_subscription("example");
-    /// ```
     pub fn set_pubsub_subscription<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3746,12 +2925,6 @@ impl UserInfo {
     }
 
     /// Sets the value of [email][crate::model::UserInfo::email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::UserInfo;
-    /// let x = UserInfo::new().set_email("example");
-    /// ```
     pub fn set_email<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -3761,14 +2934,6 @@ impl UserInfo {
     }
 
     /// Sets or clears the value of [email][crate::model::UserInfo::email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::UserInfo;
-    /// let x = UserInfo::new().set_or_clear_email("example");
-    /// let x = UserInfo::new().set_or_clear_email(Some("example"));
-    /// let x = UserInfo::new().set_or_clear_email(None::<String>);
-    /// ```
     pub fn set_or_clear_email<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -3905,49 +3070,24 @@ impl TransferConfig {
     }
 
     /// Sets the value of [name][crate::model::TransferConfig::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// let x = TransferConfig::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::TransferConfig::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// let x = TransferConfig::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [data_source_id][crate::model::TransferConfig::data_source_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// let x = TransferConfig::new().set_data_source_id("example");
-    /// ```
     pub fn set_data_source_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_source_id = v.into();
         self
     }
 
     /// Sets the value of [params][crate::model::TransferConfig::params].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use wkt::Struct;
-    /// let x = TransferConfig::new().set_params(Struct::default()/* use setters */);
-    /// ```
     pub fn set_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -3957,14 +3097,6 @@ impl TransferConfig {
     }
 
     /// Sets or clears the value of [params][crate::model::TransferConfig::params].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use wkt::Struct;
-    /// let x = TransferConfig::new().set_or_clear_params(Some(Struct::default()/* use setters */));
-    /// let x = TransferConfig::new().set_or_clear_params(None::<Struct>);
-    /// ```
     pub fn set_or_clear_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -3974,25 +3106,12 @@ impl TransferConfig {
     }
 
     /// Sets the value of [schedule][crate::model::TransferConfig::schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// let x = TransferConfig::new().set_schedule("example");
-    /// ```
     pub fn set_schedule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schedule = v.into();
         self
     }
 
     /// Sets the value of [schedule_options][crate::model::TransferConfig::schedule_options].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use google_cloud_bigquery_datatransfer_v1::model::ScheduleOptions;
-    /// let x = TransferConfig::new().set_schedule_options(ScheduleOptions::default()/* use setters */);
-    /// ```
     pub fn set_schedule_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ScheduleOptions>,
@@ -4002,14 +3121,6 @@ impl TransferConfig {
     }
 
     /// Sets or clears the value of [schedule_options][crate::model::TransferConfig::schedule_options].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use google_cloud_bigquery_datatransfer_v1::model::ScheduleOptions;
-    /// let x = TransferConfig::new().set_or_clear_schedule_options(Some(ScheduleOptions::default()/* use setters */));
-    /// let x = TransferConfig::new().set_or_clear_schedule_options(None::<ScheduleOptions>);
-    /// ```
     pub fn set_or_clear_schedule_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScheduleOptions>,
@@ -4019,13 +3130,6 @@ impl TransferConfig {
     }
 
     /// Sets the value of [schedule_options_v2][crate::model::TransferConfig::schedule_options_v2].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use google_cloud_bigquery_datatransfer_v1::model::ScheduleOptionsV2;
-    /// let x = TransferConfig::new().set_schedule_options_v2(ScheduleOptionsV2::default()/* use setters */);
-    /// ```
     pub fn set_schedule_options_v2<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ScheduleOptionsV2>,
@@ -4035,14 +3139,6 @@ impl TransferConfig {
     }
 
     /// Sets or clears the value of [schedule_options_v2][crate::model::TransferConfig::schedule_options_v2].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use google_cloud_bigquery_datatransfer_v1::model::ScheduleOptionsV2;
-    /// let x = TransferConfig::new().set_or_clear_schedule_options_v2(Some(ScheduleOptionsV2::default()/* use setters */));
-    /// let x = TransferConfig::new().set_or_clear_schedule_options_v2(None::<ScheduleOptionsV2>);
-    /// ```
     pub fn set_or_clear_schedule_options_v2<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScheduleOptionsV2>,
@@ -4052,37 +3148,18 @@ impl TransferConfig {
     }
 
     /// Sets the value of [data_refresh_window_days][crate::model::TransferConfig::data_refresh_window_days].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// let x = TransferConfig::new().set_data_refresh_window_days(42);
-    /// ```
     pub fn set_data_refresh_window_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.data_refresh_window_days = v.into();
         self
     }
 
     /// Sets the value of [disabled][crate::model::TransferConfig::disabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// let x = TransferConfig::new().set_disabled(true);
-    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::TransferConfig::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use wkt::Timestamp;
-    /// let x = TransferConfig::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4092,14 +3169,6 @@ impl TransferConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::TransferConfig::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use wkt::Timestamp;
-    /// let x = TransferConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TransferConfig::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4109,13 +3178,6 @@ impl TransferConfig {
     }
 
     /// Sets the value of [next_run_time][crate::model::TransferConfig::next_run_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use wkt::Timestamp;
-    /// let x = TransferConfig::new().set_next_run_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_next_run_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4125,14 +3187,6 @@ impl TransferConfig {
     }
 
     /// Sets or clears the value of [next_run_time][crate::model::TransferConfig::next_run_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use wkt::Timestamp;
-    /// let x = TransferConfig::new().set_or_clear_next_run_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TransferConfig::new().set_or_clear_next_run_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_next_run_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4142,51 +3196,24 @@ impl TransferConfig {
     }
 
     /// Sets the value of [state][crate::model::TransferConfig::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use google_cloud_bigquery_datatransfer_v1::model::TransferState;
-    /// let x0 = TransferConfig::new().set_state(TransferState::Pending);
-    /// let x1 = TransferConfig::new().set_state(TransferState::Running);
-    /// let x2 = TransferConfig::new().set_state(TransferState::Succeeded);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::TransferState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [user_id][crate::model::TransferConfig::user_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// let x = TransferConfig::new().set_user_id(42);
-    /// ```
     pub fn set_user_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.user_id = v.into();
         self
     }
 
     /// Sets the value of [dataset_region][crate::model::TransferConfig::dataset_region].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// let x = TransferConfig::new().set_dataset_region("example");
-    /// ```
     pub fn set_dataset_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset_region = v.into();
         self
     }
 
     /// Sets the value of [notification_pubsub_topic][crate::model::TransferConfig::notification_pubsub_topic].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// let x = TransferConfig::new().set_notification_pubsub_topic("example");
-    /// ```
     pub fn set_notification_pubsub_topic<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4196,13 +3223,6 @@ impl TransferConfig {
     }
 
     /// Sets the value of [email_preferences][crate::model::TransferConfig::email_preferences].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use google_cloud_bigquery_datatransfer_v1::model::EmailPreferences;
-    /// let x = TransferConfig::new().set_email_preferences(EmailPreferences::default()/* use setters */);
-    /// ```
     pub fn set_email_preferences<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EmailPreferences>,
@@ -4212,14 +3232,6 @@ impl TransferConfig {
     }
 
     /// Sets or clears the value of [email_preferences][crate::model::TransferConfig::email_preferences].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use google_cloud_bigquery_datatransfer_v1::model::EmailPreferences;
-    /// let x = TransferConfig::new().set_or_clear_email_preferences(Some(EmailPreferences::default()/* use setters */));
-    /// let x = TransferConfig::new().set_or_clear_email_preferences(None::<EmailPreferences>);
-    /// ```
     pub fn set_or_clear_email_preferences<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EmailPreferences>,
@@ -4229,13 +3241,6 @@ impl TransferConfig {
     }
 
     /// Sets the value of [owner_info][crate::model::TransferConfig::owner_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use google_cloud_bigquery_datatransfer_v1::model::UserInfo;
-    /// let x = TransferConfig::new().set_owner_info(UserInfo::default()/* use setters */);
-    /// ```
     pub fn set_owner_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserInfo>,
@@ -4245,14 +3250,6 @@ impl TransferConfig {
     }
 
     /// Sets or clears the value of [owner_info][crate::model::TransferConfig::owner_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use google_cloud_bigquery_datatransfer_v1::model::UserInfo;
-    /// let x = TransferConfig::new().set_or_clear_owner_info(Some(UserInfo::default()/* use setters */));
-    /// let x = TransferConfig::new().set_or_clear_owner_info(None::<UserInfo>);
-    /// ```
     pub fn set_or_clear_owner_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserInfo>,
@@ -4262,13 +3259,6 @@ impl TransferConfig {
     }
 
     /// Sets the value of [encryption_configuration][crate::model::TransferConfig::encryption_configuration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use google_cloud_bigquery_datatransfer_v1::model::EncryptionConfiguration;
-    /// let x = TransferConfig::new().set_encryption_configuration(EncryptionConfiguration::default()/* use setters */);
-    /// ```
     pub fn set_encryption_configuration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfiguration>,
@@ -4278,14 +3268,6 @@ impl TransferConfig {
     }
 
     /// Sets or clears the value of [encryption_configuration][crate::model::TransferConfig::encryption_configuration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use google_cloud_bigquery_datatransfer_v1::model::EncryptionConfiguration;
-    /// let x = TransferConfig::new().set_or_clear_encryption_configuration(Some(EncryptionConfiguration::default()/* use setters */));
-    /// let x = TransferConfig::new().set_or_clear_encryption_configuration(None::<EncryptionConfiguration>);
-    /// ```
     pub fn set_or_clear_encryption_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfiguration>,
@@ -4295,13 +3277,6 @@ impl TransferConfig {
     }
 
     /// Sets the value of [error][crate::model::TransferConfig::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use rpc::model::Status;
-    /// let x = TransferConfig::new().set_error(Status::default()/* use setters */);
-    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -4311,14 +3286,6 @@ impl TransferConfig {
     }
 
     /// Sets or clears the value of [error][crate::model::TransferConfig::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use rpc::model::Status;
-    /// let x = TransferConfig::new().set_or_clear_error(Some(Status::default()/* use setters */));
-    /// let x = TransferConfig::new().set_or_clear_error(None::<Status>);
-    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -4331,13 +3298,6 @@ impl TransferConfig {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use google_cloud_bigquery_datatransfer_v1::model::transfer_config;
-    /// let x = TransferConfig::new().set_destination(Some(transfer_config::Destination::DestinationDatasetId("example".to_string())));
-    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::transfer_config::Destination>>,
     >(
@@ -4366,13 +3326,6 @@ impl TransferConfig {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// let x = TransferConfig::new().set_destination_dataset_id("example");
-    /// assert!(x.destination_dataset_id().is_some());
-    /// ```
     pub fn set_destination_dataset_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4420,13 +3373,6 @@ impl EncryptionConfiguration {
     }
 
     /// Sets the value of [kms_key_name][crate::model::EncryptionConfiguration::kms_key_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::EncryptionConfiguration;
-    /// use wkt::StringValue;
-    /// let x = EncryptionConfiguration::new().set_kms_key_name(StringValue::default()/* use setters */);
-    /// ```
     pub fn set_kms_key_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -4436,14 +3382,6 @@ impl EncryptionConfiguration {
     }
 
     /// Sets or clears the value of [kms_key_name][crate::model::EncryptionConfiguration::kms_key_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::EncryptionConfiguration;
-    /// use wkt::StringValue;
-    /// let x = EncryptionConfiguration::new().set_or_clear_kms_key_name(Some(StringValue::default()/* use setters */));
-    /// let x = EncryptionConfiguration::new().set_or_clear_kms_key_name(None::<StringValue>);
-    /// ```
     pub fn set_or_clear_kms_key_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -4537,25 +3475,12 @@ impl TransferRun {
     }
 
     /// Sets the value of [name][crate::model::TransferRun::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// let x = TransferRun::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [schedule_time][crate::model::TransferRun::schedule_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use wkt::Timestamp;
-    /// let x = TransferRun::new().set_schedule_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_schedule_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4565,14 +3490,6 @@ impl TransferRun {
     }
 
     /// Sets or clears the value of [schedule_time][crate::model::TransferRun::schedule_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use wkt::Timestamp;
-    /// let x = TransferRun::new().set_or_clear_schedule_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TransferRun::new().set_or_clear_schedule_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4582,13 +3499,6 @@ impl TransferRun {
     }
 
     /// Sets the value of [run_time][crate::model::TransferRun::run_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use wkt::Timestamp;
-    /// let x = TransferRun::new().set_run_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_run_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4598,14 +3508,6 @@ impl TransferRun {
     }
 
     /// Sets or clears the value of [run_time][crate::model::TransferRun::run_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use wkt::Timestamp;
-    /// let x = TransferRun::new().set_or_clear_run_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TransferRun::new().set_or_clear_run_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_run_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4615,13 +3517,6 @@ impl TransferRun {
     }
 
     /// Sets the value of [error_status][crate::model::TransferRun::error_status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use rpc::model::Status;
-    /// let x = TransferRun::new().set_error_status(Status::default()/* use setters */);
-    /// ```
     pub fn set_error_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -4631,14 +3526,6 @@ impl TransferRun {
     }
 
     /// Sets or clears the value of [error_status][crate::model::TransferRun::error_status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use rpc::model::Status;
-    /// let x = TransferRun::new().set_or_clear_error_status(Some(Status::default()/* use setters */));
-    /// let x = TransferRun::new().set_or_clear_error_status(None::<Status>);
-    /// ```
     pub fn set_or_clear_error_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -4648,13 +3535,6 @@ impl TransferRun {
     }
 
     /// Sets the value of [start_time][crate::model::TransferRun::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use wkt::Timestamp;
-    /// let x = TransferRun::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4664,14 +3544,6 @@ impl TransferRun {
     }
 
     /// Sets or clears the value of [start_time][crate::model::TransferRun::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use wkt::Timestamp;
-    /// let x = TransferRun::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TransferRun::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4681,13 +3553,6 @@ impl TransferRun {
     }
 
     /// Sets the value of [end_time][crate::model::TransferRun::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use wkt::Timestamp;
-    /// let x = TransferRun::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4697,14 +3562,6 @@ impl TransferRun {
     }
 
     /// Sets or clears the value of [end_time][crate::model::TransferRun::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use wkt::Timestamp;
-    /// let x = TransferRun::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TransferRun::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4714,13 +3571,6 @@ impl TransferRun {
     }
 
     /// Sets the value of [update_time][crate::model::TransferRun::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use wkt::Timestamp;
-    /// let x = TransferRun::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4730,14 +3580,6 @@ impl TransferRun {
     }
 
     /// Sets or clears the value of [update_time][crate::model::TransferRun::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use wkt::Timestamp;
-    /// let x = TransferRun::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TransferRun::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4747,13 +3589,6 @@ impl TransferRun {
     }
 
     /// Sets the value of [params][crate::model::TransferRun::params].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use wkt::Struct;
-    /// let x = TransferRun::new().set_params(Struct::default()/* use setters */);
-    /// ```
     pub fn set_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -4763,14 +3598,6 @@ impl TransferRun {
     }
 
     /// Sets or clears the value of [params][crate::model::TransferRun::params].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use wkt::Struct;
-    /// let x = TransferRun::new().set_or_clear_params(Some(Struct::default()/* use setters */));
-    /// let x = TransferRun::new().set_or_clear_params(None::<Struct>);
-    /// ```
     pub fn set_or_clear_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -4780,63 +3607,30 @@ impl TransferRun {
     }
 
     /// Sets the value of [data_source_id][crate::model::TransferRun::data_source_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// let x = TransferRun::new().set_data_source_id("example");
-    /// ```
     pub fn set_data_source_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_source_id = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::TransferRun::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use google_cloud_bigquery_datatransfer_v1::model::TransferState;
-    /// let x0 = TransferRun::new().set_state(TransferState::Pending);
-    /// let x1 = TransferRun::new().set_state(TransferState::Running);
-    /// let x2 = TransferRun::new().set_state(TransferState::Succeeded);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::TransferState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [user_id][crate::model::TransferRun::user_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// let x = TransferRun::new().set_user_id(42);
-    /// ```
     pub fn set_user_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.user_id = v.into();
         self
     }
 
     /// Sets the value of [schedule][crate::model::TransferRun::schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// let x = TransferRun::new().set_schedule("example");
-    /// ```
     pub fn set_schedule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schedule = v.into();
         self
     }
 
     /// Sets the value of [notification_pubsub_topic][crate::model::TransferRun::notification_pubsub_topic].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// let x = TransferRun::new().set_notification_pubsub_topic("example");
-    /// ```
     pub fn set_notification_pubsub_topic<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4846,13 +3640,6 @@ impl TransferRun {
     }
 
     /// Sets the value of [email_preferences][crate::model::TransferRun::email_preferences].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use google_cloud_bigquery_datatransfer_v1::model::EmailPreferences;
-    /// let x = TransferRun::new().set_email_preferences(EmailPreferences::default()/* use setters */);
-    /// ```
     pub fn set_email_preferences<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EmailPreferences>,
@@ -4862,14 +3649,6 @@ impl TransferRun {
     }
 
     /// Sets or clears the value of [email_preferences][crate::model::TransferRun::email_preferences].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use google_cloud_bigquery_datatransfer_v1::model::EmailPreferences;
-    /// let x = TransferRun::new().set_or_clear_email_preferences(Some(EmailPreferences::default()/* use setters */));
-    /// let x = TransferRun::new().set_or_clear_email_preferences(None::<EmailPreferences>);
-    /// ```
     pub fn set_or_clear_email_preferences<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EmailPreferences>,
@@ -4882,13 +3661,6 @@ impl TransferRun {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use google_cloud_bigquery_datatransfer_v1::model::transfer_run;
-    /// let x = TransferRun::new().set_destination(Some(transfer_run::Destination::DestinationDatasetId("example".to_string())));
-    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::transfer_run::Destination>>,
     >(
@@ -4917,13 +3689,6 @@ impl TransferRun {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// let x = TransferRun::new().set_destination_dataset_id("example");
-    /// assert!(x.destination_dataset_id().is_some());
-    /// ```
     pub fn set_destination_dataset_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4977,13 +3742,6 @@ impl TransferMessage {
     }
 
     /// Sets the value of [message_time][crate::model::TransferMessage::message_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferMessage;
-    /// use wkt::Timestamp;
-    /// let x = TransferMessage::new().set_message_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_message_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4993,14 +3751,6 @@ impl TransferMessage {
     }
 
     /// Sets or clears the value of [message_time][crate::model::TransferMessage::message_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferMessage;
-    /// use wkt::Timestamp;
-    /// let x = TransferMessage::new().set_or_clear_message_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TransferMessage::new().set_or_clear_message_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_message_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5010,15 +3760,6 @@ impl TransferMessage {
     }
 
     /// Sets the value of [severity][crate::model::TransferMessage::severity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferMessage;
-    /// use google_cloud_bigquery_datatransfer_v1::model::transfer_message::MessageSeverity;
-    /// let x0 = TransferMessage::new().set_severity(MessageSeverity::Info);
-    /// let x1 = TransferMessage::new().set_severity(MessageSeverity::Warning);
-    /// let x2 = TransferMessage::new().set_severity(MessageSeverity::Error);
-    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::transfer_message::MessageSeverity>>(
         mut self,
         v: T,
@@ -5028,12 +3769,6 @@ impl TransferMessage {
     }
 
     /// Sets the value of [message_text][crate::model::TransferMessage::message_text].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_datatransfer_v1::model::TransferMessage;
-    /// let x = TransferMessage::new().set_message_text("example");
-    /// ```
     pub fn set_message_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message_text = v.into();
         self

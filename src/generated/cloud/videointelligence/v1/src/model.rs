@@ -89,41 +89,18 @@ impl AnnotateVideoRequest {
     }
 
     /// Sets the value of [input_uri][crate::model::AnnotateVideoRequest::input_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::AnnotateVideoRequest;
-    /// let x = AnnotateVideoRequest::new().set_input_uri("example");
-    /// ```
     pub fn set_input_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_uri = v.into();
         self
     }
 
     /// Sets the value of [input_content][crate::model::AnnotateVideoRequest::input_content].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::AnnotateVideoRequest;
-    /// let x = AnnotateVideoRequest::new().set_input_content(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_input_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.input_content = v.into();
         self
     }
 
     /// Sets the value of [features][crate::model::AnnotateVideoRequest::features].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::AnnotateVideoRequest;
-    /// use google_cloud_videointelligence_v1::model::Feature;
-    /// let x = AnnotateVideoRequest::new().set_features([
-    ///     Feature::LabelDetection,
-    ///     Feature::ShotChangeDetection,
-    ///     Feature::ExplicitContentDetection,
-    /// ]);
-    /// ```
     pub fn set_features<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -135,13 +112,6 @@ impl AnnotateVideoRequest {
     }
 
     /// Sets the value of [video_context][crate::model::AnnotateVideoRequest::video_context].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::AnnotateVideoRequest;
-    /// use google_cloud_videointelligence_v1::model::VideoContext;
-    /// let x = AnnotateVideoRequest::new().set_video_context(VideoContext::default()/* use setters */);
-    /// ```
     pub fn set_video_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VideoContext>,
@@ -151,14 +121,6 @@ impl AnnotateVideoRequest {
     }
 
     /// Sets or clears the value of [video_context][crate::model::AnnotateVideoRequest::video_context].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::AnnotateVideoRequest;
-    /// use google_cloud_videointelligence_v1::model::VideoContext;
-    /// let x = AnnotateVideoRequest::new().set_or_clear_video_context(Some(VideoContext::default()/* use setters */));
-    /// let x = AnnotateVideoRequest::new().set_or_clear_video_context(None::<VideoContext>);
-    /// ```
     pub fn set_or_clear_video_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VideoContext>,
@@ -168,24 +130,12 @@ impl AnnotateVideoRequest {
     }
 
     /// Sets the value of [output_uri][crate::model::AnnotateVideoRequest::output_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::AnnotateVideoRequest;
-    /// let x = AnnotateVideoRequest::new().set_output_uri("example");
-    /// ```
     pub fn set_output_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.output_uri = v.into();
         self
     }
 
     /// Sets the value of [location_id][crate::model::AnnotateVideoRequest::location_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::AnnotateVideoRequest;
-    /// let x = AnnotateVideoRequest::new().set_location_id("example");
-    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
@@ -241,17 +191,6 @@ impl VideoContext {
     }
 
     /// Sets the value of [segments][crate::model::VideoContext::segments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoContext;
-    /// use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// let x = VideoContext::new()
-    ///     .set_segments([
-    ///         VideoSegment::default()/* use setters */,
-    ///         VideoSegment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_segments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -263,13 +202,6 @@ impl VideoContext {
     }
 
     /// Sets the value of [label_detection_config][crate::model::VideoContext::label_detection_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoContext;
-    /// use google_cloud_videointelligence_v1::model::LabelDetectionConfig;
-    /// let x = VideoContext::new().set_label_detection_config(LabelDetectionConfig::default()/* use setters */);
-    /// ```
     pub fn set_label_detection_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LabelDetectionConfig>,
@@ -279,14 +211,6 @@ impl VideoContext {
     }
 
     /// Sets or clears the value of [label_detection_config][crate::model::VideoContext::label_detection_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoContext;
-    /// use google_cloud_videointelligence_v1::model::LabelDetectionConfig;
-    /// let x = VideoContext::new().set_or_clear_label_detection_config(Some(LabelDetectionConfig::default()/* use setters */));
-    /// let x = VideoContext::new().set_or_clear_label_detection_config(None::<LabelDetectionConfig>);
-    /// ```
     pub fn set_or_clear_label_detection_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LabelDetectionConfig>,
@@ -296,13 +220,6 @@ impl VideoContext {
     }
 
     /// Sets the value of [shot_change_detection_config][crate::model::VideoContext::shot_change_detection_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoContext;
-    /// use google_cloud_videointelligence_v1::model::ShotChangeDetectionConfig;
-    /// let x = VideoContext::new().set_shot_change_detection_config(ShotChangeDetectionConfig::default()/* use setters */);
-    /// ```
     pub fn set_shot_change_detection_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ShotChangeDetectionConfig>,
@@ -312,14 +229,6 @@ impl VideoContext {
     }
 
     /// Sets or clears the value of [shot_change_detection_config][crate::model::VideoContext::shot_change_detection_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoContext;
-    /// use google_cloud_videointelligence_v1::model::ShotChangeDetectionConfig;
-    /// let x = VideoContext::new().set_or_clear_shot_change_detection_config(Some(ShotChangeDetectionConfig::default()/* use setters */));
-    /// let x = VideoContext::new().set_or_clear_shot_change_detection_config(None::<ShotChangeDetectionConfig>);
-    /// ```
     pub fn set_or_clear_shot_change_detection_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ShotChangeDetectionConfig>,
@@ -329,13 +238,6 @@ impl VideoContext {
     }
 
     /// Sets the value of [explicit_content_detection_config][crate::model::VideoContext::explicit_content_detection_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoContext;
-    /// use google_cloud_videointelligence_v1::model::ExplicitContentDetectionConfig;
-    /// let x = VideoContext::new().set_explicit_content_detection_config(ExplicitContentDetectionConfig::default()/* use setters */);
-    /// ```
     pub fn set_explicit_content_detection_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExplicitContentDetectionConfig>,
@@ -345,14 +247,6 @@ impl VideoContext {
     }
 
     /// Sets or clears the value of [explicit_content_detection_config][crate::model::VideoContext::explicit_content_detection_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoContext;
-    /// use google_cloud_videointelligence_v1::model::ExplicitContentDetectionConfig;
-    /// let x = VideoContext::new().set_or_clear_explicit_content_detection_config(Some(ExplicitContentDetectionConfig::default()/* use setters */));
-    /// let x = VideoContext::new().set_or_clear_explicit_content_detection_config(None::<ExplicitContentDetectionConfig>);
-    /// ```
     pub fn set_or_clear_explicit_content_detection_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -365,13 +259,6 @@ impl VideoContext {
     }
 
     /// Sets the value of [face_detection_config][crate::model::VideoContext::face_detection_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoContext;
-    /// use google_cloud_videointelligence_v1::model::FaceDetectionConfig;
-    /// let x = VideoContext::new().set_face_detection_config(FaceDetectionConfig::default()/* use setters */);
-    /// ```
     pub fn set_face_detection_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FaceDetectionConfig>,
@@ -381,14 +268,6 @@ impl VideoContext {
     }
 
     /// Sets or clears the value of [face_detection_config][crate::model::VideoContext::face_detection_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoContext;
-    /// use google_cloud_videointelligence_v1::model::FaceDetectionConfig;
-    /// let x = VideoContext::new().set_or_clear_face_detection_config(Some(FaceDetectionConfig::default()/* use setters */));
-    /// let x = VideoContext::new().set_or_clear_face_detection_config(None::<FaceDetectionConfig>);
-    /// ```
     pub fn set_or_clear_face_detection_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FaceDetectionConfig>,
@@ -398,13 +277,6 @@ impl VideoContext {
     }
 
     /// Sets the value of [speech_transcription_config][crate::model::VideoContext::speech_transcription_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoContext;
-    /// use google_cloud_videointelligence_v1::model::SpeechTranscriptionConfig;
-    /// let x = VideoContext::new().set_speech_transcription_config(SpeechTranscriptionConfig::default()/* use setters */);
-    /// ```
     pub fn set_speech_transcription_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SpeechTranscriptionConfig>,
@@ -414,14 +286,6 @@ impl VideoContext {
     }
 
     /// Sets or clears the value of [speech_transcription_config][crate::model::VideoContext::speech_transcription_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoContext;
-    /// use google_cloud_videointelligence_v1::model::SpeechTranscriptionConfig;
-    /// let x = VideoContext::new().set_or_clear_speech_transcription_config(Some(SpeechTranscriptionConfig::default()/* use setters */));
-    /// let x = VideoContext::new().set_or_clear_speech_transcription_config(None::<SpeechTranscriptionConfig>);
-    /// ```
     pub fn set_or_clear_speech_transcription_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SpeechTranscriptionConfig>,
@@ -431,13 +295,6 @@ impl VideoContext {
     }
 
     /// Sets the value of [text_detection_config][crate::model::VideoContext::text_detection_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoContext;
-    /// use google_cloud_videointelligence_v1::model::TextDetectionConfig;
-    /// let x = VideoContext::new().set_text_detection_config(TextDetectionConfig::default()/* use setters */);
-    /// ```
     pub fn set_text_detection_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TextDetectionConfig>,
@@ -447,14 +304,6 @@ impl VideoContext {
     }
 
     /// Sets or clears the value of [text_detection_config][crate::model::VideoContext::text_detection_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoContext;
-    /// use google_cloud_videointelligence_v1::model::TextDetectionConfig;
-    /// let x = VideoContext::new().set_or_clear_text_detection_config(Some(TextDetectionConfig::default()/* use setters */));
-    /// let x = VideoContext::new().set_or_clear_text_detection_config(None::<TextDetectionConfig>);
-    /// ```
     pub fn set_or_clear_text_detection_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TextDetectionConfig>,
@@ -464,13 +313,6 @@ impl VideoContext {
     }
 
     /// Sets the value of [person_detection_config][crate::model::VideoContext::person_detection_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoContext;
-    /// use google_cloud_videointelligence_v1::model::PersonDetectionConfig;
-    /// let x = VideoContext::new().set_person_detection_config(PersonDetectionConfig::default()/* use setters */);
-    /// ```
     pub fn set_person_detection_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PersonDetectionConfig>,
@@ -480,14 +322,6 @@ impl VideoContext {
     }
 
     /// Sets or clears the value of [person_detection_config][crate::model::VideoContext::person_detection_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoContext;
-    /// use google_cloud_videointelligence_v1::model::PersonDetectionConfig;
-    /// let x = VideoContext::new().set_or_clear_person_detection_config(Some(PersonDetectionConfig::default()/* use setters */));
-    /// let x = VideoContext::new().set_or_clear_person_detection_config(None::<PersonDetectionConfig>);
-    /// ```
     pub fn set_or_clear_person_detection_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PersonDetectionConfig>,
@@ -497,13 +331,6 @@ impl VideoContext {
     }
 
     /// Sets the value of [object_tracking_config][crate::model::VideoContext::object_tracking_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoContext;
-    /// use google_cloud_videointelligence_v1::model::ObjectTrackingConfig;
-    /// let x = VideoContext::new().set_object_tracking_config(ObjectTrackingConfig::default()/* use setters */);
-    /// ```
     pub fn set_object_tracking_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ObjectTrackingConfig>,
@@ -513,14 +340,6 @@ impl VideoContext {
     }
 
     /// Sets or clears the value of [object_tracking_config][crate::model::VideoContext::object_tracking_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoContext;
-    /// use google_cloud_videointelligence_v1::model::ObjectTrackingConfig;
-    /// let x = VideoContext::new().set_or_clear_object_tracking_config(Some(ObjectTrackingConfig::default()/* use setters */));
-    /// let x = VideoContext::new().set_or_clear_object_tracking_config(None::<ObjectTrackingConfig>);
-    /// ```
     pub fn set_or_clear_object_tracking_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ObjectTrackingConfig>,
@@ -580,15 +399,6 @@ impl LabelDetectionConfig {
     }
 
     /// Sets the value of [label_detection_mode][crate::model::LabelDetectionConfig::label_detection_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LabelDetectionConfig;
-    /// use google_cloud_videointelligence_v1::model::LabelDetectionMode;
-    /// let x0 = LabelDetectionConfig::new().set_label_detection_mode(LabelDetectionMode::ShotMode);
-    /// let x1 = LabelDetectionConfig::new().set_label_detection_mode(LabelDetectionMode::FrameMode);
-    /// let x2 = LabelDetectionConfig::new().set_label_detection_mode(LabelDetectionMode::ShotAndFrameMode);
-    /// ```
     pub fn set_label_detection_mode<T: std::convert::Into<crate::model::LabelDetectionMode>>(
         mut self,
         v: T,
@@ -598,48 +408,24 @@ impl LabelDetectionConfig {
     }
 
     /// Sets the value of [stationary_camera][crate::model::LabelDetectionConfig::stationary_camera].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LabelDetectionConfig;
-    /// let x = LabelDetectionConfig::new().set_stationary_camera(true);
-    /// ```
     pub fn set_stationary_camera<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.stationary_camera = v.into();
         self
     }
 
     /// Sets the value of [model][crate::model::LabelDetectionConfig::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LabelDetectionConfig;
-    /// let x = LabelDetectionConfig::new().set_model("example");
-    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
     /// Sets the value of [frame_confidence_threshold][crate::model::LabelDetectionConfig::frame_confidence_threshold].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LabelDetectionConfig;
-    /// let x = LabelDetectionConfig::new().set_frame_confidence_threshold(42.0);
-    /// ```
     pub fn set_frame_confidence_threshold<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.frame_confidence_threshold = v.into();
         self
     }
 
     /// Sets the value of [video_confidence_threshold][crate::model::LabelDetectionConfig::video_confidence_threshold].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LabelDetectionConfig;
-    /// let x = LabelDetectionConfig::new().set_video_confidence_threshold(42.0);
-    /// ```
     pub fn set_video_confidence_threshold<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.video_confidence_threshold = v.into();
         self
@@ -670,12 +456,6 @@ impl ShotChangeDetectionConfig {
     }
 
     /// Sets the value of [model][crate::model::ShotChangeDetectionConfig::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ShotChangeDetectionConfig;
-    /// let x = ShotChangeDetectionConfig::new().set_model("example");
-    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
@@ -706,12 +486,6 @@ impl ObjectTrackingConfig {
     }
 
     /// Sets the value of [model][crate::model::ObjectTrackingConfig::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ObjectTrackingConfig;
-    /// let x = ObjectTrackingConfig::new().set_model("example");
-    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
@@ -749,36 +523,18 @@ impl FaceDetectionConfig {
     }
 
     /// Sets the value of [model][crate::model::FaceDetectionConfig::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::FaceDetectionConfig;
-    /// let x = FaceDetectionConfig::new().set_model("example");
-    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
     /// Sets the value of [include_bounding_boxes][crate::model::FaceDetectionConfig::include_bounding_boxes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::FaceDetectionConfig;
-    /// let x = FaceDetectionConfig::new().set_include_bounding_boxes(true);
-    /// ```
     pub fn set_include_bounding_boxes<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_bounding_boxes = v.into();
         self
     }
 
     /// Sets the value of [include_attributes][crate::model::FaceDetectionConfig::include_attributes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::FaceDetectionConfig;
-    /// let x = FaceDetectionConfig::new().set_include_attributes(true);
-    /// ```
     pub fn set_include_attributes<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_attributes = v.into();
         self
@@ -818,36 +574,18 @@ impl PersonDetectionConfig {
     }
 
     /// Sets the value of [include_bounding_boxes][crate::model::PersonDetectionConfig::include_bounding_boxes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::PersonDetectionConfig;
-    /// let x = PersonDetectionConfig::new().set_include_bounding_boxes(true);
-    /// ```
     pub fn set_include_bounding_boxes<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_bounding_boxes = v.into();
         self
     }
 
     /// Sets the value of [include_pose_landmarks][crate::model::PersonDetectionConfig::include_pose_landmarks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::PersonDetectionConfig;
-    /// let x = PersonDetectionConfig::new().set_include_pose_landmarks(true);
-    /// ```
     pub fn set_include_pose_landmarks<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_pose_landmarks = v.into();
         self
     }
 
     /// Sets the value of [include_attributes][crate::model::PersonDetectionConfig::include_attributes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::PersonDetectionConfig;
-    /// let x = PersonDetectionConfig::new().set_include_attributes(true);
-    /// ```
     pub fn set_include_attributes<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_attributes = v.into();
         self
@@ -878,12 +616,6 @@ impl ExplicitContentDetectionConfig {
     }
 
     /// Sets the value of [model][crate::model::ExplicitContentDetectionConfig::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ExplicitContentDetectionConfig;
-    /// let x = ExplicitContentDetectionConfig::new().set_model("example");
-    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
@@ -921,12 +653,6 @@ impl TextDetectionConfig {
     }
 
     /// Sets the value of [language_hints][crate::model::TextDetectionConfig::language_hints].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TextDetectionConfig;
-    /// let x = TextDetectionConfig::new().set_language_hints(["a", "b", "c"]);
-    /// ```
     pub fn set_language_hints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -938,12 +664,6 @@ impl TextDetectionConfig {
     }
 
     /// Sets the value of [model][crate::model::TextDetectionConfig::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TextDetectionConfig;
-    /// let x = TextDetectionConfig::new().set_model("example");
-    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
@@ -977,13 +697,6 @@ impl VideoSegment {
     }
 
     /// Sets the value of [start_time_offset][crate::model::VideoSegment::start_time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// use wkt::Duration;
-    /// let x = VideoSegment::new().set_start_time_offset(Duration::default()/* use setters */);
-    /// ```
     pub fn set_start_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -993,14 +706,6 @@ impl VideoSegment {
     }
 
     /// Sets or clears the value of [start_time_offset][crate::model::VideoSegment::start_time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// use wkt::Duration;
-    /// let x = VideoSegment::new().set_or_clear_start_time_offset(Some(Duration::default()/* use setters */));
-    /// let x = VideoSegment::new().set_or_clear_start_time_offset(None::<Duration>);
-    /// ```
     pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1010,13 +715,6 @@ impl VideoSegment {
     }
 
     /// Sets the value of [end_time_offset][crate::model::VideoSegment::end_time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// use wkt::Duration;
-    /// let x = VideoSegment::new().set_end_time_offset(Duration::default()/* use setters */);
-    /// ```
     pub fn set_end_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1026,14 +724,6 @@ impl VideoSegment {
     }
 
     /// Sets or clears the value of [end_time_offset][crate::model::VideoSegment::end_time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// use wkt::Duration;
-    /// let x = VideoSegment::new().set_or_clear_end_time_offset(Some(Duration::default()/* use setters */));
-    /// let x = VideoSegment::new().set_or_clear_end_time_offset(None::<Duration>);
-    /// ```
     pub fn set_or_clear_end_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1068,13 +758,6 @@ impl LabelSegment {
     }
 
     /// Sets the value of [segment][crate::model::LabelSegment::segment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LabelSegment;
-    /// use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// let x = LabelSegment::new().set_segment(VideoSegment::default()/* use setters */);
-    /// ```
     pub fn set_segment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VideoSegment>,
@@ -1084,14 +767,6 @@ impl LabelSegment {
     }
 
     /// Sets or clears the value of [segment][crate::model::LabelSegment::segment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LabelSegment;
-    /// use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// let x = LabelSegment::new().set_or_clear_segment(Some(VideoSegment::default()/* use setters */));
-    /// let x = LabelSegment::new().set_or_clear_segment(None::<VideoSegment>);
-    /// ```
     pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VideoSegment>,
@@ -1101,12 +776,6 @@ impl LabelSegment {
     }
 
     /// Sets the value of [confidence][crate::model::LabelSegment::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LabelSegment;
-    /// let x = LabelSegment::new().set_confidence(42.0);
-    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
@@ -1139,13 +808,6 @@ impl LabelFrame {
     }
 
     /// Sets the value of [time_offset][crate::model::LabelFrame::time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LabelFrame;
-    /// use wkt::Duration;
-    /// let x = LabelFrame::new().set_time_offset(Duration::default()/* use setters */);
-    /// ```
     pub fn set_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1155,14 +817,6 @@ impl LabelFrame {
     }
 
     /// Sets or clears the value of [time_offset][crate::model::LabelFrame::time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LabelFrame;
-    /// use wkt::Duration;
-    /// let x = LabelFrame::new().set_or_clear_time_offset(Some(Duration::default()/* use setters */));
-    /// let x = LabelFrame::new().set_or_clear_time_offset(None::<Duration>);
-    /// ```
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1172,12 +826,6 @@ impl LabelFrame {
     }
 
     /// Sets the value of [confidence][crate::model::LabelFrame::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LabelFrame;
-    /// let x = LabelFrame::new().set_confidence(42.0);
-    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
@@ -1214,36 +862,18 @@ impl Entity {
     }
 
     /// Sets the value of [entity_id][crate::model::Entity::entity_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::Entity;
-    /// let x = Entity::new().set_entity_id("example");
-    /// ```
     pub fn set_entity_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity_id = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Entity::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::Entity;
-    /// let x = Entity::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::Entity::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::Entity;
-    /// let x = Entity::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -1287,13 +917,6 @@ impl LabelAnnotation {
     }
 
     /// Sets the value of [entity][crate::model::LabelAnnotation::entity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LabelAnnotation;
-    /// use google_cloud_videointelligence_v1::model::Entity;
-    /// let x = LabelAnnotation::new().set_entity(Entity::default()/* use setters */);
-    /// ```
     pub fn set_entity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Entity>,
@@ -1303,14 +926,6 @@ impl LabelAnnotation {
     }
 
     /// Sets or clears the value of [entity][crate::model::LabelAnnotation::entity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LabelAnnotation;
-    /// use google_cloud_videointelligence_v1::model::Entity;
-    /// let x = LabelAnnotation::new().set_or_clear_entity(Some(Entity::default()/* use setters */));
-    /// let x = LabelAnnotation::new().set_or_clear_entity(None::<Entity>);
-    /// ```
     pub fn set_or_clear_entity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Entity>,
@@ -1320,17 +935,6 @@ impl LabelAnnotation {
     }
 
     /// Sets the value of [category_entities][crate::model::LabelAnnotation::category_entities].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LabelAnnotation;
-    /// use google_cloud_videointelligence_v1::model::Entity;
-    /// let x = LabelAnnotation::new()
-    ///     .set_category_entities([
-    ///         Entity::default()/* use setters */,
-    ///         Entity::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_category_entities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1342,17 +946,6 @@ impl LabelAnnotation {
     }
 
     /// Sets the value of [segments][crate::model::LabelAnnotation::segments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LabelAnnotation;
-    /// use google_cloud_videointelligence_v1::model::LabelSegment;
-    /// let x = LabelAnnotation::new()
-    ///     .set_segments([
-    ///         LabelSegment::default()/* use setters */,
-    ///         LabelSegment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_segments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1364,17 +957,6 @@ impl LabelAnnotation {
     }
 
     /// Sets the value of [frames][crate::model::LabelAnnotation::frames].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LabelAnnotation;
-    /// use google_cloud_videointelligence_v1::model::LabelFrame;
-    /// let x = LabelAnnotation::new()
-    ///     .set_frames([
-    ///         LabelFrame::default()/* use setters */,
-    ///         LabelFrame::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_frames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1386,12 +968,6 @@ impl LabelAnnotation {
     }
 
     /// Sets the value of [version][crate::model::LabelAnnotation::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LabelAnnotation;
-    /// let x = LabelAnnotation::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -1424,13 +1000,6 @@ impl ExplicitContentFrame {
     }
 
     /// Sets the value of [time_offset][crate::model::ExplicitContentFrame::time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ExplicitContentFrame;
-    /// use wkt::Duration;
-    /// let x = ExplicitContentFrame::new().set_time_offset(Duration::default()/* use setters */);
-    /// ```
     pub fn set_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1440,14 +1009,6 @@ impl ExplicitContentFrame {
     }
 
     /// Sets or clears the value of [time_offset][crate::model::ExplicitContentFrame::time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ExplicitContentFrame;
-    /// use wkt::Duration;
-    /// let x = ExplicitContentFrame::new().set_or_clear_time_offset(Some(Duration::default()/* use setters */));
-    /// let x = ExplicitContentFrame::new().set_or_clear_time_offset(None::<Duration>);
-    /// ```
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1457,15 +1018,6 @@ impl ExplicitContentFrame {
     }
 
     /// Sets the value of [pornography_likelihood][crate::model::ExplicitContentFrame::pornography_likelihood].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ExplicitContentFrame;
-    /// use google_cloud_videointelligence_v1::model::Likelihood;
-    /// let x0 = ExplicitContentFrame::new().set_pornography_likelihood(Likelihood::VeryUnlikely);
-    /// let x1 = ExplicitContentFrame::new().set_pornography_likelihood(Likelihood::Unlikely);
-    /// let x2 = ExplicitContentFrame::new().set_pornography_likelihood(Likelihood::Possible);
-    /// ```
     pub fn set_pornography_likelihood<T: std::convert::Into<crate::model::Likelihood>>(
         mut self,
         v: T,
@@ -1502,17 +1054,6 @@ impl ExplicitContentAnnotation {
     }
 
     /// Sets the value of [frames][crate::model::ExplicitContentAnnotation::frames].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ExplicitContentAnnotation;
-    /// use google_cloud_videointelligence_v1::model::ExplicitContentFrame;
-    /// let x = ExplicitContentAnnotation::new()
-    ///     .set_frames([
-    ///         ExplicitContentFrame::default()/* use setters */,
-    ///         ExplicitContentFrame::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_frames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1524,12 +1065,6 @@ impl ExplicitContentAnnotation {
     }
 
     /// Sets the value of [version][crate::model::ExplicitContentAnnotation::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ExplicitContentAnnotation;
-    /// let x = ExplicitContentAnnotation::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -1569,48 +1104,24 @@ impl NormalizedBoundingBox {
     }
 
     /// Sets the value of [left][crate::model::NormalizedBoundingBox::left].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::NormalizedBoundingBox;
-    /// let x = NormalizedBoundingBox::new().set_left(42.0);
-    /// ```
     pub fn set_left<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.left = v.into();
         self
     }
 
     /// Sets the value of [top][crate::model::NormalizedBoundingBox::top].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::NormalizedBoundingBox;
-    /// let x = NormalizedBoundingBox::new().set_top(42.0);
-    /// ```
     pub fn set_top<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.top = v.into();
         self
     }
 
     /// Sets the value of [right][crate::model::NormalizedBoundingBox::right].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::NormalizedBoundingBox;
-    /// let x = NormalizedBoundingBox::new().set_right(42.0);
-    /// ```
     pub fn set_right<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.right = v.into();
         self
     }
 
     /// Sets the value of [bottom][crate::model::NormalizedBoundingBox::bottom].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::NormalizedBoundingBox;
-    /// let x = NormalizedBoundingBox::new().set_bottom(42.0);
-    /// ```
     pub fn set_bottom<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.bottom = v.into();
         self
@@ -1645,17 +1156,6 @@ impl FaceDetectionAnnotation {
     }
 
     /// Sets the value of [tracks][crate::model::FaceDetectionAnnotation::tracks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::FaceDetectionAnnotation;
-    /// use google_cloud_videointelligence_v1::model::Track;
-    /// let x = FaceDetectionAnnotation::new()
-    ///     .set_tracks([
-    ///         Track::default()/* use setters */,
-    ///         Track::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_tracks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1667,24 +1167,12 @@ impl FaceDetectionAnnotation {
     }
 
     /// Sets the value of [thumbnail][crate::model::FaceDetectionAnnotation::thumbnail].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::FaceDetectionAnnotation;
-    /// let x = FaceDetectionAnnotation::new().set_thumbnail(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_thumbnail<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.thumbnail = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::FaceDetectionAnnotation::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::FaceDetectionAnnotation;
-    /// let x = FaceDetectionAnnotation::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -1716,17 +1204,6 @@ impl PersonDetectionAnnotation {
     }
 
     /// Sets the value of [tracks][crate::model::PersonDetectionAnnotation::tracks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::PersonDetectionAnnotation;
-    /// use google_cloud_videointelligence_v1::model::Track;
-    /// let x = PersonDetectionAnnotation::new()
-    ///     .set_tracks([
-    ///         Track::default()/* use setters */,
-    ///         Track::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_tracks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1738,12 +1215,6 @@ impl PersonDetectionAnnotation {
     }
 
     /// Sets the value of [version][crate::model::PersonDetectionAnnotation::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::PersonDetectionAnnotation;
-    /// let x = PersonDetectionAnnotation::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -1772,13 +1243,6 @@ impl FaceSegment {
     }
 
     /// Sets the value of [segment][crate::model::FaceSegment::segment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::FaceSegment;
-    /// use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// let x = FaceSegment::new().set_segment(VideoSegment::default()/* use setters */);
-    /// ```
     pub fn set_segment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VideoSegment>,
@@ -1788,14 +1252,6 @@ impl FaceSegment {
     }
 
     /// Sets or clears the value of [segment][crate::model::FaceSegment::segment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::FaceSegment;
-    /// use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// let x = FaceSegment::new().set_or_clear_segment(Some(VideoSegment::default()/* use setters */));
-    /// let x = FaceSegment::new().set_or_clear_segment(None::<VideoSegment>);
-    /// ```
     pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VideoSegment>,
@@ -1834,17 +1290,6 @@ impl FaceFrame {
     }
 
     /// Sets the value of [normalized_bounding_boxes][crate::model::FaceFrame::normalized_bounding_boxes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::FaceFrame;
-    /// use google_cloud_videointelligence_v1::model::NormalizedBoundingBox;
-    /// let x = FaceFrame::new()
-    ///     .set_normalized_bounding_boxes([
-    ///         NormalizedBoundingBox::default()/* use setters */,
-    ///         NormalizedBoundingBox::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_normalized_bounding_boxes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1856,13 +1301,6 @@ impl FaceFrame {
     }
 
     /// Sets the value of [time_offset][crate::model::FaceFrame::time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::FaceFrame;
-    /// use wkt::Duration;
-    /// let x = FaceFrame::new().set_time_offset(Duration::default()/* use setters */);
-    /// ```
     pub fn set_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1872,14 +1310,6 @@ impl FaceFrame {
     }
 
     /// Sets or clears the value of [time_offset][crate::model::FaceFrame::time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::FaceFrame;
-    /// use wkt::Duration;
-    /// let x = FaceFrame::new().set_or_clear_time_offset(Some(Duration::default()/* use setters */));
-    /// let x = FaceFrame::new().set_or_clear_time_offset(None::<Duration>);
-    /// ```
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1918,29 +1348,12 @@ impl FaceAnnotation {
     }
 
     /// Sets the value of [thumbnail][crate::model::FaceAnnotation::thumbnail].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::FaceAnnotation;
-    /// let x = FaceAnnotation::new().set_thumbnail(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_thumbnail<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.thumbnail = v.into();
         self
     }
 
     /// Sets the value of [segments][crate::model::FaceAnnotation::segments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::FaceAnnotation;
-    /// use google_cloud_videointelligence_v1::model::FaceSegment;
-    /// let x = FaceAnnotation::new()
-    ///     .set_segments([
-    ///         FaceSegment::default()/* use setters */,
-    ///         FaceSegment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_segments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1952,17 +1365,6 @@ impl FaceAnnotation {
     }
 
     /// Sets the value of [frames][crate::model::FaceAnnotation::frames].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::FaceAnnotation;
-    /// use google_cloud_videointelligence_v1::model::FaceFrame;
-    /// let x = FaceAnnotation::new()
-    ///     .set_frames([
-    ///         FaceFrame::default()/* use setters */,
-    ///         FaceFrame::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_frames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2008,13 +1410,6 @@ impl TimestampedObject {
     }
 
     /// Sets the value of [normalized_bounding_box][crate::model::TimestampedObject::normalized_bounding_box].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TimestampedObject;
-    /// use google_cloud_videointelligence_v1::model::NormalizedBoundingBox;
-    /// let x = TimestampedObject::new().set_normalized_bounding_box(NormalizedBoundingBox::default()/* use setters */);
-    /// ```
     pub fn set_normalized_bounding_box<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NormalizedBoundingBox>,
@@ -2024,14 +1419,6 @@ impl TimestampedObject {
     }
 
     /// Sets or clears the value of [normalized_bounding_box][crate::model::TimestampedObject::normalized_bounding_box].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TimestampedObject;
-    /// use google_cloud_videointelligence_v1::model::NormalizedBoundingBox;
-    /// let x = TimestampedObject::new().set_or_clear_normalized_bounding_box(Some(NormalizedBoundingBox::default()/* use setters */));
-    /// let x = TimestampedObject::new().set_or_clear_normalized_bounding_box(None::<NormalizedBoundingBox>);
-    /// ```
     pub fn set_or_clear_normalized_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NormalizedBoundingBox>,
@@ -2041,13 +1428,6 @@ impl TimestampedObject {
     }
 
     /// Sets the value of [time_offset][crate::model::TimestampedObject::time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TimestampedObject;
-    /// use wkt::Duration;
-    /// let x = TimestampedObject::new().set_time_offset(Duration::default()/* use setters */);
-    /// ```
     pub fn set_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2057,14 +1437,6 @@ impl TimestampedObject {
     }
 
     /// Sets or clears the value of [time_offset][crate::model::TimestampedObject::time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TimestampedObject;
-    /// use wkt::Duration;
-    /// let x = TimestampedObject::new().set_or_clear_time_offset(Some(Duration::default()/* use setters */));
-    /// let x = TimestampedObject::new().set_or_clear_time_offset(None::<Duration>);
-    /// ```
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2074,17 +1446,6 @@ impl TimestampedObject {
     }
 
     /// Sets the value of [attributes][crate::model::TimestampedObject::attributes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TimestampedObject;
-    /// use google_cloud_videointelligence_v1::model::DetectedAttribute;
-    /// let x = TimestampedObject::new()
-    ///     .set_attributes([
-    ///         DetectedAttribute::default()/* use setters */,
-    ///         DetectedAttribute::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_attributes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2096,17 +1457,6 @@ impl TimestampedObject {
     }
 
     /// Sets the value of [landmarks][crate::model::TimestampedObject::landmarks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TimestampedObject;
-    /// use google_cloud_videointelligence_v1::model::DetectedLandmark;
-    /// let x = TimestampedObject::new()
-    ///     .set_landmarks([
-    ///         DetectedLandmark::default()/* use setters */,
-    ///         DetectedLandmark::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_landmarks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2149,13 +1499,6 @@ impl Track {
     }
 
     /// Sets the value of [segment][crate::model::Track::segment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::Track;
-    /// use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// let x = Track::new().set_segment(VideoSegment::default()/* use setters */);
-    /// ```
     pub fn set_segment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VideoSegment>,
@@ -2165,14 +1508,6 @@ impl Track {
     }
 
     /// Sets or clears the value of [segment][crate::model::Track::segment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::Track;
-    /// use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// let x = Track::new().set_or_clear_segment(Some(VideoSegment::default()/* use setters */));
-    /// let x = Track::new().set_or_clear_segment(None::<VideoSegment>);
-    /// ```
     pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VideoSegment>,
@@ -2182,17 +1517,6 @@ impl Track {
     }
 
     /// Sets the value of [timestamped_objects][crate::model::Track::timestamped_objects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::Track;
-    /// use google_cloud_videointelligence_v1::model::TimestampedObject;
-    /// let x = Track::new()
-    ///     .set_timestamped_objects([
-    ///         TimestampedObject::default()/* use setters */,
-    ///         TimestampedObject::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_timestamped_objects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2204,17 +1528,6 @@ impl Track {
     }
 
     /// Sets the value of [attributes][crate::model::Track::attributes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::Track;
-    /// use google_cloud_videointelligence_v1::model::DetectedAttribute;
-    /// let x = Track::new()
-    ///     .set_attributes([
-    ///         DetectedAttribute::default()/* use setters */,
-    ///         DetectedAttribute::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_attributes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2226,12 +1539,6 @@ impl Track {
     }
 
     /// Sets the value of [confidence][crate::model::Track::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::Track;
-    /// let x = Track::new().set_confidence(42.0);
-    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
@@ -2268,36 +1575,18 @@ impl DetectedAttribute {
     }
 
     /// Sets the value of [name][crate::model::DetectedAttribute::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::DetectedAttribute;
-    /// let x = DetectedAttribute::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [confidence][crate::model::DetectedAttribute::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::DetectedAttribute;
-    /// let x = DetectedAttribute::new().set_confidence(42.0);
-    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::DetectedAttribute::value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::DetectedAttribute;
-    /// let x = DetectedAttribute::new().set_value("example");
-    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -2334,25 +1623,12 @@ impl DetectedLandmark {
     }
 
     /// Sets the value of [name][crate::model::DetectedLandmark::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::DetectedLandmark;
-    /// let x = DetectedLandmark::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [point][crate::model::DetectedLandmark::point].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::DetectedLandmark;
-    /// use google_cloud_videointelligence_v1::model::NormalizedVertex;
-    /// let x = DetectedLandmark::new().set_point(NormalizedVertex::default()/* use setters */);
-    /// ```
     pub fn set_point<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NormalizedVertex>,
@@ -2362,14 +1638,6 @@ impl DetectedLandmark {
     }
 
     /// Sets or clears the value of [point][crate::model::DetectedLandmark::point].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::DetectedLandmark;
-    /// use google_cloud_videointelligence_v1::model::NormalizedVertex;
-    /// let x = DetectedLandmark::new().set_or_clear_point(Some(NormalizedVertex::default()/* use setters */));
-    /// let x = DetectedLandmark::new().set_or_clear_point(None::<NormalizedVertex>);
-    /// ```
     pub fn set_or_clear_point<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NormalizedVertex>,
@@ -2379,12 +1647,6 @@ impl DetectedLandmark {
     }
 
     /// Sets the value of [confidence][crate::model::DetectedLandmark::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::DetectedLandmark;
-    /// let x = DetectedLandmark::new().set_confidence(42.0);
-    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
@@ -2478,25 +1740,12 @@ impl VideoAnnotationResults {
     }
 
     /// Sets the value of [input_uri][crate::model::VideoAnnotationResults::input_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// let x = VideoAnnotationResults::new().set_input_uri("example");
-    /// ```
     pub fn set_input_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_uri = v.into();
         self
     }
 
     /// Sets the value of [segment][crate::model::VideoAnnotationResults::segment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// let x = VideoAnnotationResults::new().set_segment(VideoSegment::default()/* use setters */);
-    /// ```
     pub fn set_segment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VideoSegment>,
@@ -2506,14 +1755,6 @@ impl VideoAnnotationResults {
     }
 
     /// Sets or clears the value of [segment][crate::model::VideoAnnotationResults::segment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// let x = VideoAnnotationResults::new().set_or_clear_segment(Some(VideoSegment::default()/* use setters */));
-    /// let x = VideoAnnotationResults::new().set_or_clear_segment(None::<VideoSegment>);
-    /// ```
     pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VideoSegment>,
@@ -2523,17 +1764,6 @@ impl VideoAnnotationResults {
     }
 
     /// Sets the value of [segment_label_annotations][crate::model::VideoAnnotationResults::segment_label_annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use google_cloud_videointelligence_v1::model::LabelAnnotation;
-    /// let x = VideoAnnotationResults::new()
-    ///     .set_segment_label_annotations([
-    ///         LabelAnnotation::default()/* use setters */,
-    ///         LabelAnnotation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_segment_label_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2545,17 +1775,6 @@ impl VideoAnnotationResults {
     }
 
     /// Sets the value of [segment_presence_label_annotations][crate::model::VideoAnnotationResults::segment_presence_label_annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use google_cloud_videointelligence_v1::model::LabelAnnotation;
-    /// let x = VideoAnnotationResults::new()
-    ///     .set_segment_presence_label_annotations([
-    ///         LabelAnnotation::default()/* use setters */,
-    ///         LabelAnnotation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_segment_presence_label_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2567,17 +1786,6 @@ impl VideoAnnotationResults {
     }
 
     /// Sets the value of [shot_label_annotations][crate::model::VideoAnnotationResults::shot_label_annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use google_cloud_videointelligence_v1::model::LabelAnnotation;
-    /// let x = VideoAnnotationResults::new()
-    ///     .set_shot_label_annotations([
-    ///         LabelAnnotation::default()/* use setters */,
-    ///         LabelAnnotation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_shot_label_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2589,17 +1797,6 @@ impl VideoAnnotationResults {
     }
 
     /// Sets the value of [shot_presence_label_annotations][crate::model::VideoAnnotationResults::shot_presence_label_annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use google_cloud_videointelligence_v1::model::LabelAnnotation;
-    /// let x = VideoAnnotationResults::new()
-    ///     .set_shot_presence_label_annotations([
-    ///         LabelAnnotation::default()/* use setters */,
-    ///         LabelAnnotation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_shot_presence_label_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2611,17 +1808,6 @@ impl VideoAnnotationResults {
     }
 
     /// Sets the value of [frame_label_annotations][crate::model::VideoAnnotationResults::frame_label_annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use google_cloud_videointelligence_v1::model::LabelAnnotation;
-    /// let x = VideoAnnotationResults::new()
-    ///     .set_frame_label_annotations([
-    ///         LabelAnnotation::default()/* use setters */,
-    ///         LabelAnnotation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_frame_label_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2633,17 +1819,6 @@ impl VideoAnnotationResults {
     }
 
     /// Sets the value of [face_annotations][crate::model::VideoAnnotationResults::face_annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use google_cloud_videointelligence_v1::model::FaceAnnotation;
-    /// let x = VideoAnnotationResults::new()
-    ///     .set_face_annotations([
-    ///         FaceAnnotation::default()/* use setters */,
-    ///         FaceAnnotation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     #[deprecated]
     pub fn set_face_annotations<T, V>(mut self, v: T) -> Self
     where
@@ -2656,17 +1831,6 @@ impl VideoAnnotationResults {
     }
 
     /// Sets the value of [face_detection_annotations][crate::model::VideoAnnotationResults::face_detection_annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use google_cloud_videointelligence_v1::model::FaceDetectionAnnotation;
-    /// let x = VideoAnnotationResults::new()
-    ///     .set_face_detection_annotations([
-    ///         FaceDetectionAnnotation::default()/* use setters */,
-    ///         FaceDetectionAnnotation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_face_detection_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2678,17 +1842,6 @@ impl VideoAnnotationResults {
     }
 
     /// Sets the value of [shot_annotations][crate::model::VideoAnnotationResults::shot_annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// let x = VideoAnnotationResults::new()
-    ///     .set_shot_annotations([
-    ///         VideoSegment::default()/* use setters */,
-    ///         VideoSegment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_shot_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2700,13 +1853,6 @@ impl VideoAnnotationResults {
     }
 
     /// Sets the value of [explicit_annotation][crate::model::VideoAnnotationResults::explicit_annotation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use google_cloud_videointelligence_v1::model::ExplicitContentAnnotation;
-    /// let x = VideoAnnotationResults::new().set_explicit_annotation(ExplicitContentAnnotation::default()/* use setters */);
-    /// ```
     pub fn set_explicit_annotation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExplicitContentAnnotation>,
@@ -2716,14 +1862,6 @@ impl VideoAnnotationResults {
     }
 
     /// Sets or clears the value of [explicit_annotation][crate::model::VideoAnnotationResults::explicit_annotation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use google_cloud_videointelligence_v1::model::ExplicitContentAnnotation;
-    /// let x = VideoAnnotationResults::new().set_or_clear_explicit_annotation(Some(ExplicitContentAnnotation::default()/* use setters */));
-    /// let x = VideoAnnotationResults::new().set_or_clear_explicit_annotation(None::<ExplicitContentAnnotation>);
-    /// ```
     pub fn set_or_clear_explicit_annotation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExplicitContentAnnotation>,
@@ -2733,17 +1871,6 @@ impl VideoAnnotationResults {
     }
 
     /// Sets the value of [speech_transcriptions][crate::model::VideoAnnotationResults::speech_transcriptions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use google_cloud_videointelligence_v1::model::SpeechTranscription;
-    /// let x = VideoAnnotationResults::new()
-    ///     .set_speech_transcriptions([
-    ///         SpeechTranscription::default()/* use setters */,
-    ///         SpeechTranscription::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_speech_transcriptions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2755,17 +1882,6 @@ impl VideoAnnotationResults {
     }
 
     /// Sets the value of [text_annotations][crate::model::VideoAnnotationResults::text_annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use google_cloud_videointelligence_v1::model::TextAnnotation;
-    /// let x = VideoAnnotationResults::new()
-    ///     .set_text_annotations([
-    ///         TextAnnotation::default()/* use setters */,
-    ///         TextAnnotation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_text_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2777,17 +1893,6 @@ impl VideoAnnotationResults {
     }
 
     /// Sets the value of [object_annotations][crate::model::VideoAnnotationResults::object_annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use google_cloud_videointelligence_v1::model::ObjectTrackingAnnotation;
-    /// let x = VideoAnnotationResults::new()
-    ///     .set_object_annotations([
-    ///         ObjectTrackingAnnotation::default()/* use setters */,
-    ///         ObjectTrackingAnnotation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_object_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2799,17 +1904,6 @@ impl VideoAnnotationResults {
     }
 
     /// Sets the value of [logo_recognition_annotations][crate::model::VideoAnnotationResults::logo_recognition_annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use google_cloud_videointelligence_v1::model::LogoRecognitionAnnotation;
-    /// let x = VideoAnnotationResults::new()
-    ///     .set_logo_recognition_annotations([
-    ///         LogoRecognitionAnnotation::default()/* use setters */,
-    ///         LogoRecognitionAnnotation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_logo_recognition_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2821,17 +1915,6 @@ impl VideoAnnotationResults {
     }
 
     /// Sets the value of [person_detection_annotations][crate::model::VideoAnnotationResults::person_detection_annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use google_cloud_videointelligence_v1::model::PersonDetectionAnnotation;
-    /// let x = VideoAnnotationResults::new()
-    ///     .set_person_detection_annotations([
-    ///         PersonDetectionAnnotation::default()/* use setters */,
-    ///         PersonDetectionAnnotation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_person_detection_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2843,13 +1926,6 @@ impl VideoAnnotationResults {
     }
 
     /// Sets the value of [error][crate::model::VideoAnnotationResults::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use rpc::model::Status;
-    /// let x = VideoAnnotationResults::new().set_error(Status::default()/* use setters */);
-    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -2859,14 +1935,6 @@ impl VideoAnnotationResults {
     }
 
     /// Sets or clears the value of [error][crate::model::VideoAnnotationResults::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use rpc::model::Status;
-    /// let x = VideoAnnotationResults::new().set_or_clear_error(Some(Status::default()/* use setters */));
-    /// let x = VideoAnnotationResults::new().set_or_clear_error(None::<Status>);
-    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -2900,17 +1968,6 @@ impl AnnotateVideoResponse {
     }
 
     /// Sets the value of [annotation_results][crate::model::AnnotateVideoResponse::annotation_results].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::AnnotateVideoResponse;
-    /// use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// let x = AnnotateVideoResponse::new()
-    ///     .set_annotation_results([
-    ///         VideoAnnotationResults::default()/* use setters */,
-    ///         VideoAnnotationResults::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_annotation_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2963,37 +2020,18 @@ impl VideoAnnotationProgress {
     }
 
     /// Sets the value of [input_uri][crate::model::VideoAnnotationProgress::input_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationProgress;
-    /// let x = VideoAnnotationProgress::new().set_input_uri("example");
-    /// ```
     pub fn set_input_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_uri = v.into();
         self
     }
 
     /// Sets the value of [progress_percent][crate::model::VideoAnnotationProgress::progress_percent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationProgress;
-    /// let x = VideoAnnotationProgress::new().set_progress_percent(42);
-    /// ```
     pub fn set_progress_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress_percent = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::VideoAnnotationProgress::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationProgress;
-    /// use wkt::Timestamp;
-    /// let x = VideoAnnotationProgress::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3003,14 +2041,6 @@ impl VideoAnnotationProgress {
     }
 
     /// Sets or clears the value of [start_time][crate::model::VideoAnnotationProgress::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationProgress;
-    /// use wkt::Timestamp;
-    /// let x = VideoAnnotationProgress::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = VideoAnnotationProgress::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3020,13 +2050,6 @@ impl VideoAnnotationProgress {
     }
 
     /// Sets the value of [update_time][crate::model::VideoAnnotationProgress::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationProgress;
-    /// use wkt::Timestamp;
-    /// let x = VideoAnnotationProgress::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3036,14 +2059,6 @@ impl VideoAnnotationProgress {
     }
 
     /// Sets or clears the value of [update_time][crate::model::VideoAnnotationProgress::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationProgress;
-    /// use wkt::Timestamp;
-    /// let x = VideoAnnotationProgress::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = VideoAnnotationProgress::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3053,28 +2068,12 @@ impl VideoAnnotationProgress {
     }
 
     /// Sets the value of [feature][crate::model::VideoAnnotationProgress::feature].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationProgress;
-    /// use google_cloud_videointelligence_v1::model::Feature;
-    /// let x0 = VideoAnnotationProgress::new().set_feature(Feature::LabelDetection);
-    /// let x1 = VideoAnnotationProgress::new().set_feature(Feature::ShotChangeDetection);
-    /// let x2 = VideoAnnotationProgress::new().set_feature(Feature::ExplicitContentDetection);
-    /// ```
     pub fn set_feature<T: std::convert::Into<crate::model::Feature>>(mut self, v: T) -> Self {
         self.feature = v.into();
         self
     }
 
     /// Sets the value of [segment][crate::model::VideoAnnotationProgress::segment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationProgress;
-    /// use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// let x = VideoAnnotationProgress::new().set_segment(VideoSegment::default()/* use setters */);
-    /// ```
     pub fn set_segment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VideoSegment>,
@@ -3084,14 +2083,6 @@ impl VideoAnnotationProgress {
     }
 
     /// Sets or clears the value of [segment][crate::model::VideoAnnotationProgress::segment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::VideoAnnotationProgress;
-    /// use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// let x = VideoAnnotationProgress::new().set_or_clear_segment(Some(VideoSegment::default()/* use setters */));
-    /// let x = VideoAnnotationProgress::new().set_or_clear_segment(None::<VideoSegment>);
-    /// ```
     pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VideoSegment>,
@@ -3125,17 +2116,6 @@ impl AnnotateVideoProgress {
     }
 
     /// Sets the value of [annotation_progress][crate::model::AnnotateVideoProgress::annotation_progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::AnnotateVideoProgress;
-    /// use google_cloud_videointelligence_v1::model::VideoAnnotationProgress;
-    /// let x = AnnotateVideoProgress::new()
-    ///     .set_annotation_progress([
-    ///         VideoAnnotationProgress::default()/* use setters */,
-    ///         VideoAnnotationProgress::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_annotation_progress<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3220,53 +2200,24 @@ impl SpeechTranscriptionConfig {
     }
 
     /// Sets the value of [language_code][crate::model::SpeechTranscriptionConfig::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::SpeechTranscriptionConfig;
-    /// let x = SpeechTranscriptionConfig::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [max_alternatives][crate::model::SpeechTranscriptionConfig::max_alternatives].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::SpeechTranscriptionConfig;
-    /// let x = SpeechTranscriptionConfig::new().set_max_alternatives(42);
-    /// ```
     pub fn set_max_alternatives<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_alternatives = v.into();
         self
     }
 
     /// Sets the value of [filter_profanity][crate::model::SpeechTranscriptionConfig::filter_profanity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::SpeechTranscriptionConfig;
-    /// let x = SpeechTranscriptionConfig::new().set_filter_profanity(true);
-    /// ```
     pub fn set_filter_profanity<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.filter_profanity = v.into();
         self
     }
 
     /// Sets the value of [speech_contexts][crate::model::SpeechTranscriptionConfig::speech_contexts].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::SpeechTranscriptionConfig;
-    /// use google_cloud_videointelligence_v1::model::SpeechContext;
-    /// let x = SpeechTranscriptionConfig::new()
-    ///     .set_speech_contexts([
-    ///         SpeechContext::default()/* use setters */,
-    ///         SpeechContext::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_speech_contexts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3278,24 +2229,12 @@ impl SpeechTranscriptionConfig {
     }
 
     /// Sets the value of [enable_automatic_punctuation][crate::model::SpeechTranscriptionConfig::enable_automatic_punctuation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::SpeechTranscriptionConfig;
-    /// let x = SpeechTranscriptionConfig::new().set_enable_automatic_punctuation(true);
-    /// ```
     pub fn set_enable_automatic_punctuation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_automatic_punctuation = v.into();
         self
     }
 
     /// Sets the value of [audio_tracks][crate::model::SpeechTranscriptionConfig::audio_tracks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::SpeechTranscriptionConfig;
-    /// let x = SpeechTranscriptionConfig::new().set_audio_tracks([1, 2, 3]);
-    /// ```
     pub fn set_audio_tracks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3307,36 +2246,18 @@ impl SpeechTranscriptionConfig {
     }
 
     /// Sets the value of [enable_speaker_diarization][crate::model::SpeechTranscriptionConfig::enable_speaker_diarization].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::SpeechTranscriptionConfig;
-    /// let x = SpeechTranscriptionConfig::new().set_enable_speaker_diarization(true);
-    /// ```
     pub fn set_enable_speaker_diarization<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_speaker_diarization = v.into();
         self
     }
 
     /// Sets the value of [diarization_speaker_count][crate::model::SpeechTranscriptionConfig::diarization_speaker_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::SpeechTranscriptionConfig;
-    /// let x = SpeechTranscriptionConfig::new().set_diarization_speaker_count(42);
-    /// ```
     pub fn set_diarization_speaker_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.diarization_speaker_count = v.into();
         self
     }
 
     /// Sets the value of [enable_word_confidence][crate::model::SpeechTranscriptionConfig::enable_word_confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::SpeechTranscriptionConfig;
-    /// let x = SpeechTranscriptionConfig::new().set_enable_word_confidence(true);
-    /// ```
     pub fn set_enable_word_confidence<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_word_confidence = v.into();
         self
@@ -3371,12 +2292,6 @@ impl SpeechContext {
     }
 
     /// Sets the value of [phrases][crate::model::SpeechContext::phrases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::SpeechContext;
-    /// let x = SpeechContext::new().set_phrases(["a", "b", "c"]);
-    /// ```
     pub fn set_phrases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3418,17 +2333,6 @@ impl SpeechTranscription {
     }
 
     /// Sets the value of [alternatives][crate::model::SpeechTranscription::alternatives].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::SpeechTranscription;
-    /// use google_cloud_videointelligence_v1::model::SpeechRecognitionAlternative;
-    /// let x = SpeechTranscription::new()
-    ///     .set_alternatives([
-    ///         SpeechRecognitionAlternative::default()/* use setters */,
-    ///         SpeechRecognitionAlternative::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_alternatives<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3440,12 +2344,6 @@ impl SpeechTranscription {
     }
 
     /// Sets the value of [language_code][crate::model::SpeechTranscription::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::SpeechTranscription;
-    /// let x = SpeechTranscription::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -3487,41 +2385,18 @@ impl SpeechRecognitionAlternative {
     }
 
     /// Sets the value of [transcript][crate::model::SpeechRecognitionAlternative::transcript].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::SpeechRecognitionAlternative;
-    /// let x = SpeechRecognitionAlternative::new().set_transcript("example");
-    /// ```
     pub fn set_transcript<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.transcript = v.into();
         self
     }
 
     /// Sets the value of [confidence][crate::model::SpeechRecognitionAlternative::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::SpeechRecognitionAlternative;
-    /// let x = SpeechRecognitionAlternative::new().set_confidence(42.0);
-    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
     }
 
     /// Sets the value of [words][crate::model::SpeechRecognitionAlternative::words].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::SpeechRecognitionAlternative;
-    /// use google_cloud_videointelligence_v1::model::WordInfo;
-    /// let x = SpeechRecognitionAlternative::new()
-    ///     .set_words([
-    ///         WordInfo::default()/* use setters */,
-    ///         WordInfo::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_words<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3583,13 +2458,6 @@ impl WordInfo {
     }
 
     /// Sets the value of [start_time][crate::model::WordInfo::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::WordInfo;
-    /// use wkt::Duration;
-    /// let x = WordInfo::new().set_start_time(Duration::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3599,14 +2467,6 @@ impl WordInfo {
     }
 
     /// Sets or clears the value of [start_time][crate::model::WordInfo::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::WordInfo;
-    /// use wkt::Duration;
-    /// let x = WordInfo::new().set_or_clear_start_time(Some(Duration::default()/* use setters */));
-    /// let x = WordInfo::new().set_or_clear_start_time(None::<Duration>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3616,13 +2476,6 @@ impl WordInfo {
     }
 
     /// Sets the value of [end_time][crate::model::WordInfo::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::WordInfo;
-    /// use wkt::Duration;
-    /// let x = WordInfo::new().set_end_time(Duration::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3632,14 +2485,6 @@ impl WordInfo {
     }
 
     /// Sets or clears the value of [end_time][crate::model::WordInfo::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::WordInfo;
-    /// use wkt::Duration;
-    /// let x = WordInfo::new().set_or_clear_end_time(Some(Duration::default()/* use setters */));
-    /// let x = WordInfo::new().set_or_clear_end_time(None::<Duration>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3649,36 +2494,18 @@ impl WordInfo {
     }
 
     /// Sets the value of [word][crate::model::WordInfo::word].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::WordInfo;
-    /// let x = WordInfo::new().set_word("example");
-    /// ```
     pub fn set_word<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.word = v.into();
         self
     }
 
     /// Sets the value of [confidence][crate::model::WordInfo::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::WordInfo;
-    /// let x = WordInfo::new().set_confidence(42.0);
-    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
     }
 
     /// Sets the value of [speaker_tag][crate::model::WordInfo::speaker_tag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::WordInfo;
-    /// let x = WordInfo::new().set_speaker_tag(42);
-    /// ```
     pub fn set_speaker_tag<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.speaker_tag = v.into();
         self
@@ -3712,24 +2539,12 @@ impl NormalizedVertex {
     }
 
     /// Sets the value of [x][crate::model::NormalizedVertex::x].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::NormalizedVertex;
-    /// let x = NormalizedVertex::new().set_x(42.0);
-    /// ```
     pub fn set_x<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.x = v.into();
         self
     }
 
     /// Sets the value of [y][crate::model::NormalizedVertex::y].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::NormalizedVertex;
-    /// let x = NormalizedVertex::new().set_y(42.0);
-    /// ```
     pub fn set_y<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.y = v.into();
         self
@@ -3774,17 +2589,6 @@ impl NormalizedBoundingPoly {
     }
 
     /// Sets the value of [vertices][crate::model::NormalizedBoundingPoly::vertices].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::NormalizedBoundingPoly;
-    /// use google_cloud_videointelligence_v1::model::NormalizedVertex;
-    /// let x = NormalizedBoundingPoly::new()
-    ///     .set_vertices([
-    ///         NormalizedVertex::default()/* use setters */,
-    ///         NormalizedVertex::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_vertices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3825,13 +2629,6 @@ impl TextSegment {
     }
 
     /// Sets the value of [segment][crate::model::TextSegment::segment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TextSegment;
-    /// use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// let x = TextSegment::new().set_segment(VideoSegment::default()/* use setters */);
-    /// ```
     pub fn set_segment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VideoSegment>,
@@ -3841,14 +2638,6 @@ impl TextSegment {
     }
 
     /// Sets or clears the value of [segment][crate::model::TextSegment::segment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TextSegment;
-    /// use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// let x = TextSegment::new().set_or_clear_segment(Some(VideoSegment::default()/* use setters */));
-    /// let x = TextSegment::new().set_or_clear_segment(None::<VideoSegment>);
-    /// ```
     pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VideoSegment>,
@@ -3858,29 +2647,12 @@ impl TextSegment {
     }
 
     /// Sets the value of [confidence][crate::model::TextSegment::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TextSegment;
-    /// let x = TextSegment::new().set_confidence(42.0);
-    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
     }
 
     /// Sets the value of [frames][crate::model::TextSegment::frames].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TextSegment;
-    /// use google_cloud_videointelligence_v1::model::TextFrame;
-    /// let x = TextSegment::new()
-    ///     .set_frames([
-    ///         TextFrame::default()/* use setters */,
-    ///         TextFrame::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_frames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3919,13 +2691,6 @@ impl TextFrame {
     }
 
     /// Sets the value of [rotated_bounding_box][crate::model::TextFrame::rotated_bounding_box].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TextFrame;
-    /// use google_cloud_videointelligence_v1::model::NormalizedBoundingPoly;
-    /// let x = TextFrame::new().set_rotated_bounding_box(NormalizedBoundingPoly::default()/* use setters */);
-    /// ```
     pub fn set_rotated_bounding_box<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NormalizedBoundingPoly>,
@@ -3935,14 +2700,6 @@ impl TextFrame {
     }
 
     /// Sets or clears the value of [rotated_bounding_box][crate::model::TextFrame::rotated_bounding_box].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TextFrame;
-    /// use google_cloud_videointelligence_v1::model::NormalizedBoundingPoly;
-    /// let x = TextFrame::new().set_or_clear_rotated_bounding_box(Some(NormalizedBoundingPoly::default()/* use setters */));
-    /// let x = TextFrame::new().set_or_clear_rotated_bounding_box(None::<NormalizedBoundingPoly>);
-    /// ```
     pub fn set_or_clear_rotated_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NormalizedBoundingPoly>,
@@ -3952,13 +2709,6 @@ impl TextFrame {
     }
 
     /// Sets the value of [time_offset][crate::model::TextFrame::time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TextFrame;
-    /// use wkt::Duration;
-    /// let x = TextFrame::new().set_time_offset(Duration::default()/* use setters */);
-    /// ```
     pub fn set_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3968,14 +2718,6 @@ impl TextFrame {
     }
 
     /// Sets or clears the value of [time_offset][crate::model::TextFrame::time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TextFrame;
-    /// use wkt::Duration;
-    /// let x = TextFrame::new().set_or_clear_time_offset(Some(Duration::default()/* use setters */));
-    /// let x = TextFrame::new().set_or_clear_time_offset(None::<Duration>);
-    /// ```
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4015,29 +2757,12 @@ impl TextAnnotation {
     }
 
     /// Sets the value of [text][crate::model::TextAnnotation::text].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TextAnnotation;
-    /// let x = TextAnnotation::new().set_text("example");
-    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
         self
     }
 
     /// Sets the value of [segments][crate::model::TextAnnotation::segments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TextAnnotation;
-    /// use google_cloud_videointelligence_v1::model::TextSegment;
-    /// let x = TextAnnotation::new()
-    ///     .set_segments([
-    ///         TextSegment::default()/* use setters */,
-    ///         TextSegment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_segments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4049,12 +2774,6 @@ impl TextAnnotation {
     }
 
     /// Sets the value of [version][crate::model::TextAnnotation::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::TextAnnotation;
-    /// let x = TextAnnotation::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -4087,13 +2806,6 @@ impl ObjectTrackingFrame {
     }
 
     /// Sets the value of [normalized_bounding_box][crate::model::ObjectTrackingFrame::normalized_bounding_box].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ObjectTrackingFrame;
-    /// use google_cloud_videointelligence_v1::model::NormalizedBoundingBox;
-    /// let x = ObjectTrackingFrame::new().set_normalized_bounding_box(NormalizedBoundingBox::default()/* use setters */);
-    /// ```
     pub fn set_normalized_bounding_box<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NormalizedBoundingBox>,
@@ -4103,14 +2815,6 @@ impl ObjectTrackingFrame {
     }
 
     /// Sets or clears the value of [normalized_bounding_box][crate::model::ObjectTrackingFrame::normalized_bounding_box].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ObjectTrackingFrame;
-    /// use google_cloud_videointelligence_v1::model::NormalizedBoundingBox;
-    /// let x = ObjectTrackingFrame::new().set_or_clear_normalized_bounding_box(Some(NormalizedBoundingBox::default()/* use setters */));
-    /// let x = ObjectTrackingFrame::new().set_or_clear_normalized_bounding_box(None::<NormalizedBoundingBox>);
-    /// ```
     pub fn set_or_clear_normalized_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NormalizedBoundingBox>,
@@ -4120,13 +2824,6 @@ impl ObjectTrackingFrame {
     }
 
     /// Sets the value of [time_offset][crate::model::ObjectTrackingFrame::time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ObjectTrackingFrame;
-    /// use wkt::Duration;
-    /// let x = ObjectTrackingFrame::new().set_time_offset(Duration::default()/* use setters */);
-    /// ```
     pub fn set_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4136,14 +2833,6 @@ impl ObjectTrackingFrame {
     }
 
     /// Sets or clears the value of [time_offset][crate::model::ObjectTrackingFrame::time_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ObjectTrackingFrame;
-    /// use wkt::Duration;
-    /// let x = ObjectTrackingFrame::new().set_or_clear_time_offset(Some(Duration::default()/* use setters */));
-    /// let x = ObjectTrackingFrame::new().set_or_clear_time_offset(None::<Duration>);
-    /// ```
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4191,13 +2880,6 @@ impl ObjectTrackingAnnotation {
     }
 
     /// Sets the value of [entity][crate::model::ObjectTrackingAnnotation::entity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ObjectTrackingAnnotation;
-    /// use google_cloud_videointelligence_v1::model::Entity;
-    /// let x = ObjectTrackingAnnotation::new().set_entity(Entity::default()/* use setters */);
-    /// ```
     pub fn set_entity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Entity>,
@@ -4207,14 +2889,6 @@ impl ObjectTrackingAnnotation {
     }
 
     /// Sets or clears the value of [entity][crate::model::ObjectTrackingAnnotation::entity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ObjectTrackingAnnotation;
-    /// use google_cloud_videointelligence_v1::model::Entity;
-    /// let x = ObjectTrackingAnnotation::new().set_or_clear_entity(Some(Entity::default()/* use setters */));
-    /// let x = ObjectTrackingAnnotation::new().set_or_clear_entity(None::<Entity>);
-    /// ```
     pub fn set_or_clear_entity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Entity>,
@@ -4224,29 +2898,12 @@ impl ObjectTrackingAnnotation {
     }
 
     /// Sets the value of [confidence][crate::model::ObjectTrackingAnnotation::confidence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ObjectTrackingAnnotation;
-    /// let x = ObjectTrackingAnnotation::new().set_confidence(42.0);
-    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
     }
 
     /// Sets the value of [frames][crate::model::ObjectTrackingAnnotation::frames].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ObjectTrackingAnnotation;
-    /// use google_cloud_videointelligence_v1::model::ObjectTrackingFrame;
-    /// let x = ObjectTrackingAnnotation::new()
-    ///     .set_frames([
-    ///         ObjectTrackingFrame::default()/* use setters */,
-    ///         ObjectTrackingFrame::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_frames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4258,12 +2915,6 @@ impl ObjectTrackingAnnotation {
     }
 
     /// Sets the value of [version][crate::model::ObjectTrackingAnnotation::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ObjectTrackingAnnotation;
-    /// let x = ObjectTrackingAnnotation::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -4273,13 +2924,6 @@ impl ObjectTrackingAnnotation {
     ///
     /// Note that all the setters affecting `track_info` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ObjectTrackingAnnotation;
-    /// use google_cloud_videointelligence_v1::model::object_tracking_annotation;
-    /// let x = ObjectTrackingAnnotation::new().set_track_info(Some(object_tracking_annotation::TrackInfo::TrackId(42)));
-    /// ```
     pub fn set_track_info<
         T: std::convert::Into<
                 std::option::Option<crate::model::object_tracking_annotation::TrackInfo>,
@@ -4310,15 +2954,6 @@ impl ObjectTrackingAnnotation {
     ///
     /// Note that all the setters affecting `track_info` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ObjectTrackingAnnotation;
-    /// use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// let x = ObjectTrackingAnnotation::new().set_segment(VideoSegment::default()/* use setters */);
-    /// assert!(x.segment().is_some());
-    /// assert!(x.track_id().is_none());
-    /// ```
     pub fn set_segment<T: std::convert::Into<std::boxed::Box<crate::model::VideoSegment>>>(
         mut self,
         v: T,
@@ -4347,14 +2982,6 @@ impl ObjectTrackingAnnotation {
     ///
     /// Note that all the setters affecting `track_info` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::ObjectTrackingAnnotation;
-    /// let x = ObjectTrackingAnnotation::new().set_track_id(42);
-    /// assert!(x.track_id().is_some());
-    /// assert!(x.segment().is_none());
-    /// ```
     pub fn set_track_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.track_info = std::option::Option::Some(
             crate::model::object_tracking_annotation::TrackInfo::TrackId(v.into()),
@@ -4417,13 +3044,6 @@ impl LogoRecognitionAnnotation {
     }
 
     /// Sets the value of [entity][crate::model::LogoRecognitionAnnotation::entity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LogoRecognitionAnnotation;
-    /// use google_cloud_videointelligence_v1::model::Entity;
-    /// let x = LogoRecognitionAnnotation::new().set_entity(Entity::default()/* use setters */);
-    /// ```
     pub fn set_entity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Entity>,
@@ -4433,14 +3053,6 @@ impl LogoRecognitionAnnotation {
     }
 
     /// Sets or clears the value of [entity][crate::model::LogoRecognitionAnnotation::entity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LogoRecognitionAnnotation;
-    /// use google_cloud_videointelligence_v1::model::Entity;
-    /// let x = LogoRecognitionAnnotation::new().set_or_clear_entity(Some(Entity::default()/* use setters */));
-    /// let x = LogoRecognitionAnnotation::new().set_or_clear_entity(None::<Entity>);
-    /// ```
     pub fn set_or_clear_entity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Entity>,
@@ -4450,17 +3062,6 @@ impl LogoRecognitionAnnotation {
     }
 
     /// Sets the value of [tracks][crate::model::LogoRecognitionAnnotation::tracks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LogoRecognitionAnnotation;
-    /// use google_cloud_videointelligence_v1::model::Track;
-    /// let x = LogoRecognitionAnnotation::new()
-    ///     .set_tracks([
-    ///         Track::default()/* use setters */,
-    ///         Track::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_tracks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4472,17 +3073,6 @@ impl LogoRecognitionAnnotation {
     }
 
     /// Sets the value of [segments][crate::model::LogoRecognitionAnnotation::segments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_videointelligence_v1::model::LogoRecognitionAnnotation;
-    /// use google_cloud_videointelligence_v1::model::VideoSegment;
-    /// let x = LogoRecognitionAnnotation::new()
-    ///     .set_segments([
-    ///         VideoSegment::default()/* use setters */,
-    ///         VideoSegment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_segments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
