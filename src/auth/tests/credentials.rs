@@ -752,7 +752,7 @@ mod unstable_tests {
         assert!(err.is_not_supported());
         assert!(
             err.to_string()
-                .contains("authorized_user, use user_account::idtoken::Builder directly.")
+                .contains("authorized_user, use idtoken::user_account::Builder directly.")
         );
 
         Ok(())
