@@ -341,7 +341,7 @@ impl Worker {
                             // also need to keep track of any pending flushes, and make sure
                             // all of those resolve as well.
                             let mut flushing = std::mem::take(&mut inflight);
-                            while let Some(_) = flushing.next().await {}
+                            while flushing.next().await.is_some() {}
                             let _ = tx.send(());
                         },
                         None => {
