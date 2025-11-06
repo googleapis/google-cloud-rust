@@ -14,15 +14,17 @@
 
 //! Obtain [OIDC ID Tokens].
 //!
-//! `IDTokenCredentials` provide a way to obtain OIDC ID tokens, which are
-//! commonly used for [service to service authentication], like when services are
-//! hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+//! `IDTokenCredentials` obtain OIDC ID tokens, which are commonly
+//! used for [service to service authentication]. For example, when the
+//! target service is hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+//!
 //! Unlike access tokens, ID tokens are not used to authorize access to
 //! Google Cloud APIs but to verify the identity of a principal.
 //!
-//! This module provides `IDTokenCredentials` which serves as a wrapper around
-//! different credential types that can produce ID tokens, such as service
-//! accounts or metadata server credentials.
+//! The main type in this module is [IDTokenCredentials].  This is an opaque type
+//! that implements the [IDTokenCredentialsProvider] trait and can be used to
+//! obtain OIDC ID tokens.  Use the builders in each submodule to create
+//! `IDTokenCredentials` based on different token sources.
 //!
 //! ## Example: Generating ID Tokens using Application Default Credentials
 //!
@@ -67,15 +69,19 @@ use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use tokio::time::Instant;
 
 pub mod impersonated;
+
 pub mod mds;
+
 pub mod service_account;
+
 pub mod user_account;
 
 /// Obtain [OIDC ID Tokens].
 ///
-/// `IDTokenCredentials` provide a way to obtain OIDC ID tokens, which are
-/// commonly used for [service to service authentication], like when services are
-/// hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+/// `IDTokenCredentials` obtain OIDC ID tokens, which are commonly
+/// used for [service to service authentication]. For example, when the
+/// target service is hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+///
 /// Unlike access tokens, ID tokens are not used to authorize access to
 /// Google Cloud APIs but to verify the identity of a principal.
 ///

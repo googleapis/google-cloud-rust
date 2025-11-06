@@ -13,6 +13,7 @@
 // limitations under the License.
 
 //! Credentials for authenticating with [ID tokens] using [impersonated service accounts].
+//! Obtain [OIDC ID tokens] using [impersonated service accounts].
 //!
 //! When the principal you are using doesn't have the permissions you need to
 //! accomplish your task, or you want to use a service account in a development

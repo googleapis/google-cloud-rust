@@ -12,20 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Credentials for authenticating with [ID tokens] using [Service Accounts].
-//!
-//! The types in this module allow you to create id tokens, based on
-//! service account keys and can be used for [service to service authentication].
-//! For example, when services are hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
-//! ID tokens are only used to verify the identity of a principal. Google Cloud APIs do not use ID tokens
-//! for authorization, and therefore cannot be used to access Google Cloud APIs.
+//! Obtain [OIDC ID tokens] using [Service Accounts].
 //!
 //! While the Google Cloud client libraries for Rust automatically use the types
 //! in this module when ADC finds a service account key file, you may want to
 //! use these types directly when the service account key is obtained from
 //! Cloud Secret Manager or a similar service.
 //!
-//! # Example
+//! `IDTokenCredentials` obtain OIDC ID tokens, which are commonly
+//! used for [service to service authentication]. For example, when the
+//! target service is hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+//!
+//! Unlike access tokens, ID tokens are not used to authorize access to
+//! Google Cloud APIs but to verify the identity of a principal.
+//!
+//! # Example: Creating Service Account sourced credentials with target audience and sending ID Tokens.
 //! ```
 //! # use google_cloud_auth::credentials::idtoken;
 //! # use reqwest;

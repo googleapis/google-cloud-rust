@@ -12,16 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Credentials for authenticating with [ID tokens] from an [user account].
+//! Obtain [OIDC ID tokens] from an [user account].
 //!
 //! This module provides a builder for `IDTokenCredentials` from
 //! authorized user credentials, which are typically obtained by running
 //! `gcloud auth application-default login`.
 //!
-//! These credentials are commonly used for [service to service authentication].
-//! For example, when services are hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
-//! ID tokens are only used to verify the identity of a principal. Google Cloud APIs do not use ID tokens
-//! for authorization, and therefore cannot be used to access Google Cloud APIs.
+//! `IDTokenCredentials` obtain OIDC ID tokens, which are commonly
+//! used for [service to service authentication]. For example, when the
+//! target service is hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+//!
+//! Unlike access tokens, ID tokens are not used to authorize access to
+//! Google Cloud APIs but to verify the identity of a principal.
 //!
 //! ## Example: Creating user account sourced credentials from a JSON object with target audience and sending ID Tokens.
 //!

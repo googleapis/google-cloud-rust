@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Credentials for authenticating with [ID tokens] using [Metadata Service].
+//! Obtain [OIDC ID tokens] using [Metadata Service].
 //!
 //! Google Cloud environments such as [Google Compute Engine (GCE)][gce-link],
 //! [Google Kubernetes Engine (GKE)][gke-link], or [Cloud Run] provide a metadata service.
 //! This is a local service to the VM (or pod) which (as the name implies) provides
-//! metadata information about the VM. The service also provides access
+//! metadata information about the environment. The service also provides access
 //! tokens associated with the [default service account] for the corresponding
 //! VM. This module provides a builder for `IDTokenCredentials`
 //! from such metadata service.
@@ -26,10 +26,12 @@
 //! If you would like to use a different hostname, you can set it using the
 //! `GCE_METADATA_HOST` environment variable.
 //!
-//! These credentials are commonly used for [service to service authentication].
-//! For example, when services are hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
-//! ID tokens are only used to verify the identity of a principal. Google Cloud APIs do not use ID tokens
-//! for authorization, and therefore cannot be used to access Google Cloud APIs.
+//! `IDTokenCredentials` obtain OIDC ID tokens, which are commonly
+//! used for [service to service authentication]. For example, when the
+//! target service is hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+//!
+//! Unlike access tokens, ID tokens are not used to authorize access to
+//! Google Cloud APIs but to verify the identity of a principal.
 //!
 //! ## Example: Creating MDS sourced credentials with target audience and sending ID Tokens.
 //!
