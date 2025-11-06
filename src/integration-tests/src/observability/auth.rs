@@ -13,16 +13,16 @@
 // limitations under the License.
 
 use auth::credentials::{CacheableResource, Credentials, EntityTag};
-use http::HeaderMap;
 use tokio::sync::watch;
 use tokio::time::{Duration, sleep};
+use tonic::metadata::MetadataMap;
 use tonic::service::Interceptor;
 use tonic::{Request, Status};
 
-const REFRESH_INTERVAL: Duration = Duration::from_secs(300); // 5 minutes
+const REFRESH_INTERVAL: Duration = Duration::from_secs(5);
 const ERROR_RETRY_DELAY: Duration = Duration::from_secs(10);
 
-/// A `tonic` interceptor that injects Google Cloud authentication headers into
+/// A [tonic] interceptor that injects Google Cloud authentication headers into
 /// every gRPC request.
 ///
 /// This is a special-purpose interceptor for the Cloud Telemetry API. We chose
@@ -33,13 +33,18 @@ const ERROR_RETRY_DELAY: Duration = Duration::from_secs(10);
 ///     hardcodes the underlying `Channel` type, making it difficult to inject
 ///     generic middleware. It does, however, provide a simple way to add a
 ///     `tonic` interceptor.
-/// 2.  **Sync/Async Bridge:** `tonic` interceptors must be synchronous. To
-///     handle asynchronous token refreshing, we use a background `tokio` task
-///     that pushes the latest valid headers to a shared `watch` channel. The
-///     interceptor then synchronously and instantly retrieves them.
+/// 3.  **Performance:** The background task pre-converts the `HeaderMap` into
+///     a `tonic::metadata::MetadataMap`. This ensures the critical path in the
+///     interceptor's `call` method is fast, as it only needs to clone the
+///     pre-converted metadata.
+///
+/// [tonic]: https://docs.rs/tonic/latest/tonic/service/trait.Interceptor.html
 #[derive(Clone)]
 pub struct CloudTelemetryAuthInterceptor {
-    rx: watch::Receiver<Option<HeaderMap>>,
+    // Our plan of record is to migrate to Google's gRPC at some point. However,
+    // this is for integration with `opentelemetry-otlp` which uses Tonic and may
+    // never migrate.
+    rx: watch::Receiver<Option<MetadataMap>>,
 }
 
 impl CloudTelemetryAuthInterceptor {
@@ -56,27 +61,32 @@ impl Interceptor for CloudTelemetryAuthInterceptor {
     fn call(&mut self, mut request: Request<()>) -> Result<Request<()>, Status> {
         // Read the latest headers from the watch channel.
         let rx_ref = self.rx.borrow();
-        if let Some(headers) = rx_ref.as_ref() {
-            for (name, value) in headers.iter() {
-                let key = tonic::metadata::MetadataKey::from_bytes(name.as_str().as_bytes())
-                    .map_err(|e| Status::internal(format!("invalid header name: {e}")))?;
-                let val = tonic::metadata::MetadataValue::try_from(value.as_bytes())
-                    .map_err(|e| Status::internal(format!("invalid header value: {e}")))?;
-                request.metadata_mut().insert(key, val);
-            }
-            Ok(request)
-        } else {
+        let metadata = rx_ref.as_ref().ok_or_else(|| {
             // If the first refresh hasn't completed yet, fail the request.
             // The OTLP exporter is expected to handle this transient failure
             // with its built-in retry mechanism.
-            Err(Status::unauthenticated("GCP credentials not yet available"))
+            Status::unauthenticated("GCP credentials not yet available")
+        })?;
+
+        for entry in metadata.iter() {
+            match entry {
+                tonic::metadata::KeyAndValueRef::Ascii(key, value) => {
+                    request.metadata_mut().insert(key.clone(), value.clone());
+                }
+                tonic::metadata::KeyAndValueRef::Binary(key, value) => {
+                    request
+                        .metadata_mut()
+                        .insert_bin(key.clone(), value.clone());
+                }
+            }
         }
+        Ok(request)
     }
 }
 
 /// Background task that periodically refreshes credentials and sends them
 /// to the interceptor via a watch channel.
-async fn refresh_task(credentials: Credentials, tx: watch::Sender<Option<HeaderMap>>) {
+async fn refresh_task(credentials: Credentials, tx: watch::Sender<Option<MetadataMap>>) {
     let mut last_etag: Option<EntityTag> = None;
     loop {
         let mut extensions = http::Extensions::new();
@@ -86,7 +96,21 @@ async fn refresh_task(credentials: Credentials, tx: watch::Sender<Option<HeaderM
 
         match credentials.headers(extensions).await {
             Ok(CacheableResource::New { entity_tag, data }) => {
-                if tx.send(Some(data)).is_err() {
+                let mut metadata = MetadataMap::new();
+                for (name, value) in data.iter() {
+                    if let (Ok(key), Ok(val)) = (
+                        tonic::metadata::MetadataKey::from_bytes(name.as_str().as_bytes()),
+                        tonic::metadata::MetadataValue::try_from(value.as_bytes()),
+                    ) {
+                        metadata.insert(key, val);
+                    } else {
+                        // Skip invalid headers. This can happen if the header name or value
+                        // contains characters that are not allowed in HTTP/2 metadata
+                        // (e.g., non-ASCII characters in values without -bin suffix).
+                    }
+                }
+
+                if tx.send(Some(metadata)).is_err() {
                     // Receiver dropped (all interceptors are gone), stop task.
                     break;
                 }
@@ -109,7 +133,7 @@ mod tests {
     use super::*;
     use auth::credentials::{CredentialsProvider, EntityTag};
     use auth::errors::CredentialsError;
-    use http::{Extensions, HeaderValue};
+    use http::{Extensions, HeaderMap, HeaderValue};
     use std::sync::{Arc, Mutex};
 
     #[tokio::test]
@@ -126,16 +150,10 @@ mod tests {
         ));
 
         // 2. Send headers
-        let mut headers = HeaderMap::new();
-        headers.insert(
-            "Authorization",
-            HeaderValue::from_static("Bearer test-token"),
-        );
-        headers.insert(
-            "x-goog-user-project",
-            HeaderValue::from_static("test-project"),
-        );
-        tx.send(Some(headers)).unwrap();
+        let mut metadata = MetadataMap::new();
+        metadata.insert("authorization", "Bearer test-token".parse().unwrap());
+        metadata.insert("x-goog-user-project", "test-project".parse().unwrap());
+        tx.send(Some(metadata)).unwrap();
 
         // 3. Verify injection
         let req = Request::new(());
@@ -224,7 +242,7 @@ mod tests {
         // Wait for the first update
         rx.changed().await.unwrap();
         let received = rx.borrow().clone().unwrap();
-        assert_eq!(received.get("Authorization").unwrap(), "Bearer token1");
+        assert_eq!(received.get("authorization").unwrap(), "Bearer token1");
     }
 
     #[tokio::test]
@@ -244,7 +262,7 @@ mod tests {
         // First update
         rx.changed().await.unwrap();
         let received = rx.borrow().clone().unwrap();
-        assert_eq!(received.get("Authorization").unwrap(), "Bearer token1");
+        assert_eq!(received.get("authorization").unwrap(), "Bearer token1");
 
         // Switch to NotModified
         mock.set_state(MockState::NotModified(etag));
@@ -256,7 +274,7 @@ mod tests {
         // so we check the value remains the same and no error occurred in task)
         assert!(!rx.has_changed().unwrap_or(false));
         let received = rx.borrow().clone().unwrap();
-        assert_eq!(received.get("Authorization").unwrap(), "Bearer token1");
+        assert_eq!(received.get("authorization").unwrap(), "Bearer token1");
     }
 
     #[tokio::test]
@@ -290,7 +308,7 @@ mod tests {
         // Should receive update
         rx.changed().await.unwrap();
         let received = rx.borrow().clone().unwrap();
-        assert_eq!(received.get("Authorization").unwrap(), "Bearer token2");
+        assert_eq!(received.get("authorization").unwrap(), "Bearer token2");
     }
 
     #[tokio::test]
