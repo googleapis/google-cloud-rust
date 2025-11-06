@@ -66,61 +66,9 @@ use std::sync::Arc;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use tokio::time::Instant;
 
+pub mod impersonated;
 pub mod mds;
-pub mod impersonated {
-    //! Credentials for authenticating with [ID tokens] using [impersonated service accounts].
-    //!
-    //! When the principal you are using doesn't have the permissions you need to
-    //! accomplish your task, or you want to use a service account in a development
-    //! environment, you can use service account impersonation. The typical principals
-    //! used to impersonate a service account are [User Account] or another [Service Account].
-    //!
-    //! The principal that is trying to impersonate a target service account should have
-    //! [Service Account Token Creator Role] on the target service account.
-    //!
-    //! ## Example: Creating impersonated credentials from a JSON object with target audience and sending ID Tokens.
-    //!
-    //! ```
-    //! # use google_cloud_auth::credentials::idtoken;
-    //! # use serde_json::json;
-    //! # use reqwest;    
-    //! # tokio_test::block_on(async {
-    //! let source_credentials = json!({
-    //!     "type": "authorized_user",
-    //!     "client_id": "test-client-id",
-    //!     "client_secret": "test-client-secret",
-    //!     "refresh_token": "test-refresh-token"
-    //! });
-    //!
-    //! let impersonated_credential = json!({
-    //!     "type": "impersonated_service_account",
-    //!     "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
-    //!     "source_credentials": source_credentials,
-    //! });
-    //!
-    //! let audience = "https://example.com"
-    //! let credentials = idtoken::impersonated::Builder::new(audience, impersonated_credential)
-    //!     .build()?;
-    //! let id_token = credentials.id_token().await?;
-    //!
-    //! // Make request with ID Token as Bearer Token.
-    //! let client = reqwest::Client::new();
-    //! let target_url = format!("{audience}/api/method");
-    //! client.get(target_url)
-    //!     .bearer_auth(id_token)
-    //!     .send()
-    //!     .await?;
-    //! # Ok::<(), anyhow::Error>(())
-    //! # });
-    //! ```
-    //!
-    //! [Impersonated service accounts]: https://cloud.google.com/docs/authentication/use-service-account-impersonation
-    //! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
-    //! [User Account]: https://cloud.google.com/docs/authentication#user-accounts
-    //! [Service Account]: https://cloud.google.com/iam/docs/service-account-overview
-    //! [Service Account Token Creator Role]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#required-roles
-    pub use crate::credentials::impersonated::idtoken::Builder;
-}
+
 pub mod service_account {
     //! Credentials for authenticating with [ID tokens] using [Service Accounts].
     //!
