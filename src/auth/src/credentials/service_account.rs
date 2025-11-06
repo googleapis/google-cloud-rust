@@ -303,16 +303,16 @@ impl Builder {
 pub(crate) struct ServiceAccountKey {
     /// The client email address of the service account.
     /// (e.g., "my-sa@my-project.iam.gserviceaccount.com").
-    pub(crate) client_email: String,
+    client_email: String,
     /// ID of the service account's private key.
-    pub(crate) private_key_id: String,
+    private_key_id: String,
     /// The PEM-encoded PKCS#8 private key string associated with the service account.
     /// Begins with `-----BEGIN PRIVATE KEY-----`.
-    pub(crate) private_key: String,
+    private_key: String,
     /// The project id the service account belongs to.
-    pub(crate) project_id: String,
+    project_id: String,
     /// The universe domain this service account belongs to.
-    pub(crate) universe_domain: Option<String>,
+    universe_domain: Option<String>,
 }
 
 impl std::fmt::Debug for ServiceAccountKey {
@@ -378,13 +378,27 @@ impl TokenProvider for ServiceAccountTokenProvider {
 
 #[derive(Default, Clone)]
 pub(crate) struct ServiceAccountTokenGenerator {
-    pub(crate) service_account_key: ServiceAccountKey,
-    pub(crate) audience: Option<String>,
-    pub(crate) scopes: Option<String>,
-    pub(crate) target_audience: Option<String>,
+    service_account_key: ServiceAccountKey,
+    audience: Option<String>,
+    scopes: Option<String>,
+    target_audience: Option<String>,
 }
 
 impl ServiceAccountTokenGenerator {
+    #[cfg(google_cloud_unstable_id_token)]
+    pub(crate) fn new_id_token_generator(
+        target_audience: String,
+        audience: String,
+        service_account_key: ServiceAccountKey,
+    ) -> Self {
+        Self {
+            service_account_key,
+            target_audience: Some(target_audience),
+            audience: Some(audience),
+            scopes: None
+        }
+    }
+
     pub(crate) fn generate(&self) -> Result<String> {
         let signer = self.signer(&self.service_account_key.private_key)?;
 

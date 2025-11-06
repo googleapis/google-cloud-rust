@@ -113,14 +113,9 @@ struct ServiceAccountTokenProvider {
 impl TokenProvider for ServiceAccountTokenProvider {
     async fn token(&self) -> Result<Token> {
         let audience = self.audience.clone();
-        let target_audience = Some(self.target_audience.clone());
+        let target_audience = self.target_audience.clone();
         let service_account_key = self.service_account_key.clone();
-        let tg = ServiceAccountTokenGenerator {
-            audience: Some(audience),
-            service_account_key,
-            target_audience,
-            scopes: None,
-        };
+        let tg = ServiceAccountTokenGenerator::new_id_token_generator(target_audience, audience, service_account_key);
         let assertion = tg.generate()?;
 
         let client = Client::new();
