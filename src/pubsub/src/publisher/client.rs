@@ -14,7 +14,32 @@
 
 use crate::publisher::publisher::PublisherBuilder;
 
-/// Client for publishing messages to Pub/Sub topics.
+/// A factory for creating [`Publisher`](super::publisher::Publisher) instances.
+///
+/// This is the main entry point for the publisher API. A single `PublisherFactory`
+/// can be used to create multiple `Publisher` clients for different topics.
+/// It manages the underlying gRPC connection and authentication.
+///
+/// # Example
+///
+/// ```
+/// # async fn sample() -> anyhow::Result<()> {
+/// # use google_cloud_pubsub::client::PublisherFactory;
+/// # use google_cloud_pubsub::model::PubsubMessage;
+///
+/// // Create a factory.
+/// let factory = PublisherFactory::builder().build().await?;
+///
+/// // Create a publisher for a specific topic.
+/// let publisher = factory.publisher("projects/my-project/topics/my-topic").build();
+///
+/// // Publish a message.
+/// let handle = publisher.publish(PubsubMessage::new().set_data("hello world"));
+/// let message_id = handle.await?;
+/// println!("Message sent with ID: {}", message_id);
+/// # Ok(())
+/// # }
+/// ```
 #[derive(Clone, Debug)]
 pub struct PublisherFactory {
     pub(crate) inner: crate::generated::gapic_dataplane::client::Publisher,

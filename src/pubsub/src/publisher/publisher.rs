@@ -25,12 +25,14 @@ const MAX_DELAY: Duration = Duration::from_secs(60 * 60 * 24); // 1 day
 const MAX_MESSAGES: u32 = 1000;
 const MAX_BYTES: u32 = 1e7 as u32; // 10MB
 
-/// Publishes messages to a single topic.
+/// A `Publisher` sends messages to a specific topic. It manages message batching
+/// and sending in a background task.
+///
+/// Publishers are created via a [`PublisherFactory`](crate::client::PublisherFactory).
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
-/// # use builder::publisher::ClientBuilder;
 /// # use client::PublisherFactory;
 /// # use model::PubsubMessage;
 /// let client = PublisherFactory::builder()
@@ -69,7 +71,11 @@ impl Publisher {
     }
 }
 
-/// A builder for [Publisher].
+/// A builder for creating a `Publisher`.
+///
+/// Publishers are created via a [`PublisherFactory`][crate::client::PublisherFactory].
+///
+/// # Example
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
@@ -151,6 +157,11 @@ impl PublisherBuilder {
         self
     }
 
+    /// Creates a new [`Publisher`] from the builder's configuration.
+    // This method starts a background task to manage the batching
+    // and sending of messages. The returned `Publisher` is a
+    // lightweight handle for sending messages to that background task
+    // over a channel.
     pub fn build(self) -> Publisher {
         // Enforce limits by clamping the user-provided options.
         let batching_options = BatchingOptions::new()
