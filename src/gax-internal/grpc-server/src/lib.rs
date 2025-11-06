@@ -33,7 +33,7 @@ pub async fn start_echo_server() -> anyhow::Result<(String, JoinHandle<()>)> {
     let addr = listener.local_addr()?;
 
     let server = tokio::spawn(async {
-        let echo = Echo;
+        let echo = Echo::default();
         let stream = tokio_stream::wrappers::TcpListenerStream::new(listener);
 
         let _ = tonic::transport::Server::builder()
@@ -85,7 +85,7 @@ impl gax::client_builder::internal::ClientFactory for Factory {
 }
 
 #[derive(Debug, Default)]
-struct Echo;
+struct Echo {}
 
 #[tonic::async_trait]
 impl google::test::v1::echo_service_server::EchoService for Echo {
