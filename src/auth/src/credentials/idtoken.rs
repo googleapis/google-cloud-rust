@@ -69,50 +69,7 @@ use tokio::time::Instant;
 pub mod impersonated;
 pub mod mds;
 pub mod service_account;
-pub mod user_account {
-    //! Credentials for authenticating with [ID tokens] from an [user account].
-    //!
-    //! This module provides a builder for `IDTokenCredentials` from
-    //! authorized user credentials, which are typically obtained by running
-    //! `gcloud auth application-default login`.
-    //!
-    //! These credentials are commonly used for [service to service authentication].
-    //! For example, when services are hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
-    //! ID tokens are only used to verify the identity of a principal. Google Cloud APIs do not use ID tokens
-    //! for authorization, and therefore cannot be used to access Google Cloud APIs.
-    //!
-    //! ## Example: Creating user account sourced credentials from a JSON object with target audience and sending ID Tokens.
-    //!
-    //! ```
-    //! # use google_cloud_auth::credentials::idtoken;
-    //! # use reqwest;
-    //! # tokio_test::block_on(async {
-    //! let authorized_user = serde_json::json!({
-    //!     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com", // Replace with your actual Client ID
-    //!     "client_secret": "YOUR_CLIENT_SECRET", // Replace with your actual Client Secret - LOAD SECURELY!
-    //!     "refresh_token": "YOUR_REFRESH_TOKEN", // Replace with the user's refresh token - LOAD SECURELY!
-    //!     "type": "authorized_user",
-    //! });
-    //! let credentials = idtoken::user_account::Builder::new(authorized_user).build()?;
-    //! let id_token = credentials.id_token().await?;
-    //!
-    //! // Make request with ID Token as Bearer Token.
-    //! let client = reqwest::Client::new();
-    //! let target_url = format!("{audience}/api/method");
-    //! client.get(target_url)
-    //!     .bearer_auth(id_token)
-    //!     .send()
-    //!     .await?;
-    //! # Ok::<(), anyhow::Error>(())
-    //! # });
-    //! ```
-    //!
-    //! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
-    //! [user account]: https://cloud.google.com/docs/authentication#user-accounts
-    //! [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
-
-    pub use crate::credentials::user_account::idtoken::Builder;
-}
+pub mod user_account;
 
 /// Obtain [OIDC ID Tokens].
 ///
