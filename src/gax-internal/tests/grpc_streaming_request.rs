@@ -101,6 +101,23 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn request_error_status() -> anyhow::Result<()> {
+        let (endpoint, _server) = start_echo_server().await?;
+        let client = builder(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
+
+        let (_tx, rx) = tokio::sync::mpsc::channel(100);
+        let response =
+            send_streaming_request_with_status(client.clone(), rx, "resource=error").await?;
+        let status = response.unwrap_err();
+        assert_eq!(status.code(), tonic::Code::Aborted, "{status:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn credentials_error() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
 
@@ -158,6 +175,36 @@ mod tests {
         };
         client
             .bidi_stream::<EchoRequest, EchoResponse>(
+                extensions,
+                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
+                tokio_stream::wrappers::ReceiverStream::new(rx),
+                request_options,
+                "test-only-api-client/1.0",
+                request_params,
+            )
+            .await
+    }
+
+    async fn send_streaming_request_with_status(
+        client: grpc::Client,
+        rx: tokio::sync::mpsc::Receiver<EchoRequest>,
+        request_params: &str,
+    ) -> gax::Result<tonic::Result<tonic::Response<tonic::codec::Streaming<EchoResponse>>>> {
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.test.v1.EchoServices",
+                "Chat",
+            ));
+            e
+        };
+        let request_options = {
+            let mut o = RequestOptions::default();
+            o.set_retry_policy(NeverRetry);
+            o
+        };
+        client
+            .bidi_stream_with_status::<EchoRequest, EchoResponse>(
                 extensions,
                 http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
                 tokio_stream::wrappers::ReceiverStream::new(rx),

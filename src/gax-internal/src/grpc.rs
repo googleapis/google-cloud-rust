@@ -125,6 +125,37 @@ impl Client {
         Request: prost::Message + 'static,
         Response: prost::Message + Default + 'static,
     {
+        self.bidi_stream_with_status(
+            extensions,
+            path,
+            request,
+            options,
+            api_client_header,
+            request_params,
+        )
+        .await?
+        .map_err(to_gax_error)
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    /// Opens a bidirectional stream.
+    ///
+    /// Some services (notably Storage) need to examine the `tonic::Status` to
+    /// extract data from the error details. Typically this data is encoded
+    /// using protobuf messages unavailable in this library.
+    pub async fn bidi_stream_with_status<Request, Response>(
+        &self,
+        extensions: tonic::Extensions,
+        path: http::uri::PathAndQuery,
+        request: impl tokio_stream::Stream<Item = Request> + Send + 'static,
+        options: gax::options::RequestOptions,
+        api_client_header: &'static str,
+        request_params: &str,
+    ) -> Result<tonic::Result<tonic::Response<tonic::codec::Streaming<Response>>>>
+    where
+        Request: prost::Message + 'static,
+        Response: prost::Message + Default + 'static,
+    {
         use tonic::IntoStreamingRequest;
 
         let cached_auth_headers = self
@@ -147,10 +178,9 @@ impl Client {
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
         let mut inner = self.inner.clone();
         inner.ready().await.map_err(Error::io)?;
-        inner
+        Ok(inner
             .streaming(request.into_streaming_request(), path, codec)
-            .await
-            .map_err(to_gax_error)
+            .await)
     }
 
     /// Runs the retry loop.
