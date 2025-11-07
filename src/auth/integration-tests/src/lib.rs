@@ -533,10 +533,9 @@ pub mod unstable {
         Builder as IDTokenCredentialBuilder, impersonated::Builder as ImpersonatedIDTokenBuilder,
         mds::Builder as IDTokenMDSBuilder,
         service_account::Builder as ServiceAccountIDTokenBuilder,
+        verifier::Builder as VerifierBuilder,
     };
-    use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
     use scoped_env::ScopedEnv;
-    use serde_json::Value;
 
     pub async fn mds_id_token() -> anyhow::Result<()> {
         let audience = "https://example.com";
@@ -564,11 +563,11 @@ pub mod unstable {
             .await
             .expect("failed to get id token");
 
-        let claims = parse_id_token(token)?;
+        let verifier = VerifierBuilder::new(audience)
+            .with_email(expected_email)
+            .build();
 
-        assert_eq!(claims["aud"], audience);
-        assert_eq!(claims["email"], expected_email);
-        assert_eq!(claims["email_verified"], true);
+        verifier.verify(&token).await?;
 
         Ok(())
     }
@@ -595,11 +594,11 @@ pub mod unstable {
             .await
             .expect("failed to get id token");
 
-        let claims = parse_id_token(token)?;
+        let verifier = VerifierBuilder::new(target_audience)
+            .with_email(expected_email)
+            .build();
 
-        assert_eq!(claims["aud"], target_audience);
-        assert_eq!(claims["email"], expected_email);
-        assert_eq!(claims["email_verified"], true);
+        verifier.verify(&token).await?;
 
         Ok(())
     }
@@ -621,11 +620,11 @@ pub mod unstable {
             .await
             .expect("failed to get id token");
 
-        let claims = parse_id_token(token)?;
+        let verifier = VerifierBuilder::new(target_audience)
+            .with_email(expected_email)
+            .build();
 
-        assert_eq!(claims["aud"], target_audience);
-        assert_eq!(claims["email"], expected_email);
-        assert_eq!(claims["email_verified"], true);
+        verifier.verify(&token).await?;
 
         Ok(())
     }
@@ -653,21 +652,12 @@ pub mod unstable {
             .await
             .expect("failed to generate id token");
 
-        let claims = parse_id_token(token)?;
+        let verifier = VerifierBuilder::new(target_audience)
+            .with_email(target_principal_email)
+            .build();
 
-        assert_eq!(claims["aud"], target_audience);
-        assert_eq!(claims["email"], target_principal_email);
-        assert_eq!(claims["email_verified"], true);
+        verifier.verify(&token).await?;
 
         Ok(())
-    }
-
-    fn parse_id_token(token: String) -> anyhow::Result<Value> {
-        // Decode the JWT and verify its claims
-        let parts: Vec<&str> = token.split('.').collect();
-        anyhow::ensure!(parts.len() == 3, "ID token is not a valid JWT");
-        let payload = URL_SAFE_NO_PAD.decode(parts[1])?;
-
-        serde_json::from_slice(&payload).map_err(anyhow::Error::from)
     }
 }
