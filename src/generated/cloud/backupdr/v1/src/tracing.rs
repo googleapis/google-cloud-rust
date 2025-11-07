@@ -164,6 +164,17 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn fetch_backups_for_resource_type(
+        &self,
+        req: crate::model::FetchBackupsForResourceTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::FetchBackupsForResourceTypeResponse>> {
+        self.inner
+            .fetch_backups_for_resource_type(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
@@ -342,6 +353,15 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DataSourceReference>> {
         self.inner.get_data_source_reference(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_data_source_references(
+        &self,
+        req: crate::model::ListDataSourceReferencesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListDataSourceReferencesResponse>> {
+        self.inner.list_data_source_references(req, options).await
     }
 
     #[tracing::instrument(ret)]

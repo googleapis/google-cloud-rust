@@ -14544,6 +14544,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DataProfileSpec {
             __post_scan_actions,
             __include_fields,
             __exclude_fields,
+            __catalog_publishing_enabled,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -14574,6 +14575,12 @@ impl<'de> serde::de::Deserialize<'de> for super::DataProfileSpec {
                             "include_fields" => Ok(__FieldTag::__include_fields),
                             "excludeFields" => Ok(__FieldTag::__exclude_fields),
                             "exclude_fields" => Ok(__FieldTag::__exclude_fields),
+                            "catalogPublishingEnabled" => {
+                                Ok(__FieldTag::__catalog_publishing_enabled)
+                            }
+                            "catalog_publishing_enabled" => {
+                                Ok(__FieldTag::__catalog_publishing_enabled)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -14658,6 +14665,16 @@ impl<'de> serde::de::Deserialize<'de> for super::DataProfileSpec {
                             result.exclude_fields = map.next_value::<std::option::Option<
                                 crate::model::data_profile_spec::SelectedFields,
                             >>()?;
+                        }
+                        __FieldTag::__catalog_publishing_enabled => {
+                            if !fields.insert(__FieldTag::__catalog_publishing_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for catalog_publishing_enabled",
+                                ));
+                            }
+                            result.catalog_publishing_enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -14929,6 +14946,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DataProfileResult {
             __profile,
             __scanned_data,
             __post_scan_actions_result,
+            __catalog_publishing_status,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -14957,6 +14975,12 @@ impl<'de> serde::de::Deserialize<'de> for super::DataProfileResult {
                             "postScanActionsResult" => Ok(__FieldTag::__post_scan_actions_result),
                             "post_scan_actions_result" => {
                                 Ok(__FieldTag::__post_scan_actions_result)
+                            }
+                            "catalogPublishingStatus" => {
+                                Ok(__FieldTag::__catalog_publishing_status)
+                            }
+                            "catalog_publishing_status" => {
+                                Ok(__FieldTag::__catalog_publishing_status)
                             }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -15029,6 +15053,17 @@ impl<'de> serde::de::Deserialize<'de> for super::DataProfileResult {
                             result.post_scan_actions_result = map
                                 .next_value::<std::option::Option<
                                     crate::model::data_profile_result::PostScanActionsResult,
+                                >>()?;
+                        }
+                        __FieldTag::__catalog_publishing_status => {
+                            if !fields.insert(__FieldTag::__catalog_publishing_status) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for catalog_publishing_status",
+                                ));
+                            }
+                            result.catalog_publishing_status = map
+                                .next_value::<std::option::Option<
+                                    crate::model::DataScanCatalogPublishingStatus,
                                 >>()?;
                         }
                         __FieldTag::Unknown(key) => {

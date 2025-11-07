@@ -77,6 +77,7 @@ impl std::fmt::Debug for super::ListBucketsRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("prefix", &self.prefix);
         debug_struct.field("read_mask", &self.read_mask);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -89,6 +90,7 @@ impl std::fmt::Debug for super::ListBucketsResponse {
         let mut debug_struct = f.debug_struct("ListBucketsResponse");
         debug_struct.field("buckets", &self.buckets);
         debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

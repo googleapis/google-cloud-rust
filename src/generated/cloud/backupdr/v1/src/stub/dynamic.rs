@@ -101,6 +101,12 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>;
 
+    async fn fetch_backups_for_resource_type(
+        &self,
+        req: crate::model::FetchBackupsForResourceTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::FetchBackupsForResourceTypeResponse>>;
+
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
@@ -216,6 +222,12 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         req: crate::model::GetDataSourceReferenceRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::DataSourceReference>>;
+
+    async fn list_data_source_references(
+        &self,
+        req: crate::model::ListDataSourceReferencesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDataSourceReferencesResponse>>;
 
     async fn fetch_data_source_references_for_resource_type(
         &self,
@@ -426,6 +438,16 @@ impl<T: super::BackupDR> BackupDR for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn fetch_backups_for_resource_type(
+        &self,
+        req: crate::model::FetchBackupsForResourceTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::FetchBackupsForResourceTypeResponse>>
+    {
+        T::fetch_backups_for_resource_type(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
@@ -597,6 +619,16 @@ impl<T: super::BackupDR> BackupDR for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::DataSourceReference>> {
         T::get_data_source_reference(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_data_source_references(
+        &self,
+        req: crate::model::ListDataSourceReferencesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDataSourceReferencesResponse>>
+    {
+        T::list_data_source_references(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

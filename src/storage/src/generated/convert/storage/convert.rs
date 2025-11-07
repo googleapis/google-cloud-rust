@@ -97,6 +97,7 @@ impl gaxi::prost::ToProto<ListBucketsRequest> for crate::generated::gapic::model
             page_token: self.page_token.to_proto()?,
             prefix: self.prefix.to_proto()?,
             read_mask: self.read_mask.map(|v| v.to_proto()).transpose()?,
+            return_partial_success: self.return_partial_success.to_proto()?,
         })
     }
 }
@@ -110,6 +111,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ListBucketsRequest> 
                 .set_page_token(self.page_token)
                 .set_prefix(self.prefix)
                 .set_or_clear_read_mask(self.read_mask.map(|v| v.cnv()).transpose()?)
+                .set_return_partial_success(self.return_partial_success)
         )
     }
 }
@@ -123,6 +125,10 @@ impl gaxi::prost::ToProto<ListBucketsResponse> for crate::generated::gapic::mode
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             next_page_token: self.next_page_token.to_proto()?,
+            unreachable: self.unreachable
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
 }
@@ -134,6 +140,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ListBucketsResponse>
                 .set_buckets(self.buckets.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_next_page_token(self.next_page_token)
+                .set_unreachable(self.unreachable.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }
