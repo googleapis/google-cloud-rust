@@ -75,7 +75,7 @@
 //! [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
 
 use crate::build_errors::Error as BuilderError;
-use crate::credentials::{AdcContents, extract_credential_type, load_adc};
+use crate::credentials::{AdcContents, CredentialsError, extract_credential_type, load_adc};
 use crate::token::Token;
 use crate::{BuildResult, Result};
 use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
