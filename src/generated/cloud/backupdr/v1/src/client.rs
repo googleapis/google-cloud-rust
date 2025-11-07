@@ -250,6 +250,13 @@ impl BackupDR {
         super::builder::backup_dr::ListBackups::new(self.inner.clone())
     }
 
+    /// Fetch Backups for a given resource type.
+    pub fn fetch_backups_for_resource_type(
+        &self,
+    ) -> super::builder::backup_dr::FetchBackupsForResourceType {
+        super::builder::backup_dr::FetchBackupsForResourceType::new(self.inner.clone())
+    }
+
     /// Gets details of a Backup.
     pub fn get_backup(&self) -> super::builder::backup_dr::GetBackup {
         super::builder::backup_dr::GetBackup::new(self.inner.clone())
@@ -457,6 +464,13 @@ impl BackupDR {
     /// Gets details of a single DataSourceReference.
     pub fn get_data_source_reference(&self) -> super::builder::backup_dr::GetDataSourceReference {
         super::builder::backup_dr::GetDataSourceReference::new(self.inner.clone())
+    }
+
+    /// Lists DataSourceReferences for a given project and location.
+    pub fn list_data_source_references(
+        &self,
+    ) -> super::builder::backup_dr::ListDataSourceReferences {
+        super::builder::backup_dr::ListDataSourceReferences::new(self.inner.clone())
     }
 
     /// Fetch DataSourceReferences for a given project, location and resource type.

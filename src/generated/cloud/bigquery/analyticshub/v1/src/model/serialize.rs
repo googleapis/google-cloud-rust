@@ -634,6 +634,9 @@ impl serde::ser::Serialize for super::Listing {
         if self.restricted_export_config.is_some() {
             state.serialize_entry("restrictedExportConfig", &self.restricted_export_config)?;
         }
+        if self.stored_procedure_config.is_some() {
+            state.serialize_entry("storedProcedureConfig", &self.stored_procedure_config)?;
+        }
         if self.discovery_type.is_some() {
             state.serialize_entry("discoveryType", &self.discovery_type)?;
         }
@@ -875,6 +878,34 @@ impl serde::ser::Serialize for super::listing::commercial_info::GoogleCloudMarke
         }
         if self.commercial_state.is_some() {
             state.serialize_entry("commercialState", &self.commercial_state)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::StoredProcedureConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.enabled) {
+            state.serialize_entry("enabled", &self.enabled)?;
+        }
+        if !self.allowed_stored_procedure_types.is_empty() {
+            state.serialize_entry(
+                "allowedStoredProcedureTypes",
+                &self.allowed_stored_procedure_types,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1890,6 +1921,9 @@ impl serde::ser::Serialize for super::PubSubSubscription {
         }
         if !self.message_transforms.is_empty() {
             state.serialize_entry("messageTransforms", &self.message_transforms)?;
+        }
+        if !self.tags.is_empty() {
+            state.serialize_entry("tags", &self.tags)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

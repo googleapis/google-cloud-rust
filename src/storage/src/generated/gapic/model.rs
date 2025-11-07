@@ -21,7 +21,9 @@ mod debug;
 mod deserialize;
 mod serialize;
 
-/// Request message for DeleteBucket.
+/// Request message for [DeleteBucket][google.storage.v2.Storage.DeleteBucket].
+///
+/// [google.storage.v2.Storage.DeleteBucket]: crate::client::StorageControl::delete_bucket
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBucketRequest {
@@ -92,24 +94,26 @@ impl wkt::message::Message for DeleteBucketRequest {
     }
 }
 
-/// Request message for GetBucket.
+/// Request message for [GetBucket][google.storage.v2.Storage.GetBucket].
+///
+/// [google.storage.v2.Storage.GetBucket]: crate::client::StorageControl::get_bucket
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBucketRequest {
     /// Required. Name of a bucket.
     pub name: std::string::String,
 
-    /// If set, and if the bucket's current metageneration does not match the
-    /// specified value, the request will return an error.
+    /// If set, only gets the bucket metadata if its metageneration matches this
+    /// value.
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// If set, and if the bucket's current metageneration matches the specified
-    /// value, the request will return an error.
+    /// value, the request returns an error.
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Mask specifying which fields to read.
-    /// A "*" field may be used to indicate all fields.
-    /// If no mask is specified, will default to all fields.
+    /// A `*` field might be used to indicate all fields.
+    /// If no mask is specified, it defaults to all fields.
     pub read_mask: std::option::Option<wkt::FieldMask>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -187,37 +191,39 @@ impl wkt::message::Message for GetBucketRequest {
     }
 }
 
-/// Request message for CreateBucket.
+/// Request message for [CreateBucket][google.storage.v2.Storage.CreateBucket].
+///
+/// [google.storage.v2.Storage.CreateBucket]: crate::client::StorageControl::create_bucket
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBucketRequest {
-    /// Required. The project to which this bucket will belong. This field must
-    /// either be empty or `projects/_`. The project ID that owns this bucket
-    /// should be specified in the `bucket.project` field.
+    /// Required. The project to which this bucket belongs. This field must either
+    /// be empty or `projects/_`. The project ID that owns this bucket should be
+    /// specified in the `bucket.project` field.
     pub parent: std::string::String,
 
     /// Optional. Properties of the new bucket being inserted.
     /// The name of the bucket is specified in the `bucket_id` field. Populating
-    /// `bucket.name` field will result in an error.
+    /// `bucket.name` field results in an error.
     /// The project of the bucket must be specified in the `bucket.project` field.
     /// This field must be in `projects/{projectIdentifier}` format,
     /// {projectIdentifier} can be the project ID or project number. The `parent`
     /// field must be either empty or `projects/_`.
     pub bucket: std::option::Option<crate::model::Bucket>,
 
-    /// Required. The ID to use for this bucket, which will become the final
-    /// component of the bucket's resource name. For example, the value `foo` might
-    /// result in a bucket with the name `projects/123456/buckets/foo`.
+    /// Required. The ID to use for this bucket, which becomes the final component
+    /// of the bucket's resource name. For example, the value `foo` might result in
+    /// a bucket with the name `projects/123456/buckets/foo`.
     pub bucket_id: std::string::String,
 
     /// Optional. Apply a predefined set of access controls to this bucket.
-    /// Valid values are "authenticatedRead", "private", "projectPrivate",
-    /// "publicRead", or "publicReadWrite".
+    /// Valid values are `authenticatedRead`, `private`, `projectPrivate`,
+    /// `publicRead`, or `publicReadWrite`.
     pub predefined_acl: std::string::String,
 
     /// Optional. Apply a predefined set of default object access controls to this
-    /// bucket. Valid values are "authenticatedRead", "bucketOwnerFullControl",
-    /// "bucketOwnerRead", "private", "projectPrivate", or "publicRead".
+    /// bucket. Valid values are `authenticatedRead`, `bucketOwnerFullControl`,
+    /// `bucketOwnerRead`, `private`, `projectPrivate`, or `publicRead`.
     pub predefined_default_object_acl: std::string::String,
 
     /// Optional. If true, enable object retention on the bucket.
@@ -289,7 +295,9 @@ impl wkt::message::Message for CreateBucketRequest {
     }
 }
 
-/// Request message for ListBuckets.
+/// Request message for [ListBuckets][google.storage.v2.Storage.ListBuckets].
+///
+/// [google.storage.v2.Storage.ListBuckets]: crate::client::StorageControl::list_buckets
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBucketsRequest {
@@ -297,9 +305,9 @@ pub struct ListBucketsRequest {
     pub parent: std::string::String,
 
     /// Optional. Maximum number of buckets to return in a single response. The
-    /// service will use this parameter or 1,000 items, whichever is smaller. If
-    /// "acl" is present in the read_mask, the service will use this parameter of
-    /// 200 items, whichever is smaller.
+    /// service uses this parameter or `1,000` items, whichever is smaller. If
+    /// `acl` is present in the `read_mask`, the service uses this parameter of
+    /// `200` items, whichever is smaller.
     pub page_size: i32,
 
     /// Optional. A previously-returned page token representing part of the larger
@@ -310,11 +318,14 @@ pub struct ListBucketsRequest {
     pub prefix: std::string::String,
 
     /// Mask specifying which fields to read from each result.
-    /// If no mask is specified, will default to all fields except items.owner,
-    /// items.acl, and items.default_object_acl.
-    ///
-    /// * may be used to mean "all fields".
+    /// If no mask is specified, it defaults to all fields except `items.
+    /// owner`, `items.acl`, and `items.default_object_acl`.
+    /// `*` might be used to mean "all fields".
     pub read_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. Allows listing of buckets, even if there are buckets that are
+    /// unreachable.
+    pub return_partial_success: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -365,6 +376,12 @@ impl ListBucketsRequest {
         self.read_mask = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [return_partial_success][crate::model::ListBucketsRequest::return_partial_success].
+    pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.return_partial_success = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ListBucketsRequest {
@@ -373,7 +390,9 @@ impl wkt::message::Message for ListBucketsRequest {
     }
 }
 
-/// The result of a call to Buckets.ListBuckets
+/// Response message for [ListBuckets][google.storage.v2.Storage.ListBuckets].
+///
+/// [google.storage.v2.Storage.ListBuckets]: crate::client::StorageControl::list_buckets
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBucketsResponse {
@@ -383,6 +402,18 @@ pub struct ListBucketsResponse {
     /// The continuation token, used to page through large result sets. Provide
     /// this value in a subsequent request to return the next page of results.
     pub next_page_token: std::string::String,
+
+    /// Unreachable resources.
+    /// This field can only be present if the caller specified
+    /// return_partial_success to be true in the request to receive indications
+    /// of temporarily missing resources.
+    /// unreachable might be:
+    /// unreachable = [
+    /// "projects/_/buckets/bucket1",
+    /// "projects/_/buckets/bucket2",
+    /// "projects/_/buckets/bucket3",
+    /// ]
+    pub unreachable: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -408,6 +439,17 @@ impl ListBucketsResponse {
         self.next_page_token = v.into();
         self
     }
+
+    /// Sets the value of [unreachable][crate::model::ListBucketsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for ListBucketsResponse {
@@ -430,7 +472,10 @@ impl gax::paginator::internal::PageableResponse for ListBucketsResponse {
     }
 }
 
-/// Request message for LockBucketRetentionPolicyRequest.
+/// Request message for
+/// [LockBucketRetentionPolicy][google.storage.v2.Storage.LockBucketRetentionPolicy].
+///
+/// [google.storage.v2.Storage.LockBucketRetentionPolicy]: crate::client::StorageControl::lock_bucket_retention_policy
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LockBucketRetentionPolicyRequest {
@@ -468,30 +513,32 @@ impl wkt::message::Message for LockBucketRetentionPolicyRequest {
     }
 }
 
-/// Request for UpdateBucket method.
+/// Request for [UpdateBucket][google.storage.v2.Storage.UpdateBucket] method.
+///
+/// [google.storage.v2.Storage.UpdateBucket]: crate::client::StorageControl::update_bucket
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBucketRequest {
     /// Required. The bucket to update.
-    /// The bucket's `name` field will be used to identify the bucket.
+    /// The bucket's `name` field is used to identify the bucket.
     pub bucket: std::option::Option<crate::model::Bucket>,
 
-    /// If set, will only modify the bucket if its metageneration matches this
+    /// If set, the request modifies the bucket if its metageneration matches this
     /// value.
     pub if_metageneration_match: std::option::Option<i64>,
 
-    /// If set, will only modify the bucket if its metageneration does not match
-    /// this value.
+    /// If set, the request modifies the bucket if its metageneration doesn't
+    /// match this value.
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Optional. Apply a predefined set of access controls to this bucket.
-    /// Valid values are "authenticatedRead", "private", "projectPrivate",
-    /// "publicRead", or "publicReadWrite".
+    /// Valid values are `authenticatedRead`, `private`, `projectPrivate`,
+    /// `publicRead`, or `publicReadWrite`.
     pub predefined_acl: std::string::String,
 
     /// Optional. Apply a predefined set of default object access controls to this
-    /// bucket. Valid values are "authenticatedRead", "bucketOwnerFullControl",
-    /// "bucketOwnerRead", "private", "projectPrivate", or "publicRead".
+    /// bucket. Valid values are `authenticatedRead`, `bucketOwnerFullControl`,
+    /// `bucketOwnerRead`, `private`, `projectPrivate`, or `publicRead`.
     pub predefined_default_object_acl: std::string::String,
 
     /// Required. List of fields to be updated.
@@ -499,7 +546,7 @@ pub struct UpdateBucketRequest {
     /// To specify ALL fields, equivalent to the JSON API's "update" function,
     /// specify a single field with the value `*`. Note: not recommended. If a new
     /// field is introduced at a later time, an older client updating with the `*`
-    /// may accidentally reset the new field's value.
+    /// might accidentally reset the new field's value.
     ///
     /// Not specifying any fields is an error.
     pub update_mask: std::option::Option<wkt::FieldMask>,
@@ -606,20 +653,22 @@ impl wkt::message::Message for UpdateBucketRequest {
     }
 }
 
-/// Request message for ComposeObject.
+/// Request message for [ComposeObject][google.storage.v2.Storage.ComposeObject].
+///
+/// [google.storage.v2.Storage.ComposeObject]: crate::client::StorageControl::compose_object
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComposeObjectRequest {
     /// Required. Properties of the resulting object.
     pub destination: std::option::Option<crate::model::Object>,
 
-    /// Optional. The list of source objects that will be concatenated into a
-    /// single object.
+    /// Optional. The list of source objects that is concatenated into a single
+    /// object.
     pub source_objects: std::vec::Vec<crate::model::compose_object_request::SourceObject>,
 
     /// Optional. Apply a predefined set of access controls to the destination
-    /// object. Valid values are "authenticatedRead", "bucketOwnerFullControl",
-    /// "bucketOwnerRead", "private", "projectPrivate", or "publicRead".
+    /// object. Valid values are `authenticatedRead`, `bucketOwnerFullControl`,
+    /// `bucketOwnerRead`, `private`, `projectPrivate`, or `publicRead`.
     pub destination_predefined_acl: std::string::String,
 
     /// Makes the operation conditional on whether the object's current generation
@@ -633,7 +682,7 @@ pub struct ComposeObjectRequest {
 
     /// Optional. Resource name of the Cloud KMS key, of the form
     /// `projects/my-project/locations/my-location/keyRings/my-kr/cryptoKeys/my-key`,
-    /// that will be used to encrypt the object. Overrides the object
+    /// that is used to encrypt the object. Overrides the object
     /// metadata's `kms_key_name` value, if any.
     pub kms_key: std::string::String,
 
@@ -641,8 +690,8 @@ pub struct ComposeObjectRequest {
     /// object.
     pub common_object_request_params: std::option::Option<crate::model::CommonObjectRequestParams>,
 
-    /// Optional. The checksums of the complete object. This will be validated
-    /// against the combined checksums of the component objects.
+    /// Optional. The checksums of the complete object. This is validated against
+    /// the combined checksums of the component objects.
     pub object_checksums: std::option::Option<crate::model::ObjectChecksums>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -857,7 +906,7 @@ pub mod compose_object_request {
         pub struct ObjectPreconditions {
             /// Only perform the composition if the generation of the source object
             /// that would be used matches this value.  If this value and a generation
-            /// are both specified, they must be the same value or the call will fail.
+            /// are both specified, they must be the same value or the call fails.
             pub if_generation_match: std::option::Option<i64>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -895,8 +944,7 @@ pub mod compose_object_request {
     }
 }
 
-/// Message for deleting an object.
-/// `bucket` and `object` **must** be set.
+/// Request message for deleting an object.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteObjectRequest {
@@ -1058,8 +1106,11 @@ impl wkt::message::Message for DeleteObjectRequest {
     }
 }
 
-/// Message for restoring an object.
+/// Request message for
+/// [RestoreObject][google.storage.v2.Storage.RestoreObject].
 /// `bucket`, `object`, and `generation` **must** be set.
+///
+/// [google.storage.v2.Storage.RestoreObject]: crate::client::StorageControl::restore_object
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreObjectRequest {
@@ -1098,7 +1149,7 @@ pub struct RestoreObjectRequest {
     /// metageneration does not match the given value.
     pub if_metageneration_not_match: std::option::Option<i64>,
 
-    /// If false or unset, the bucket's default object ACL will be used.
+    /// If false or unset, the bucket's default object ACL is used.
     /// If true, copy the source object's access controls.
     /// Return an error if bucket has UBLA enabled.
     pub copy_source_acl: std::option::Option<bool>,
@@ -1254,7 +1305,7 @@ impl wkt::message::Message for RestoreObjectRequest {
     }
 }
 
-/// Request message for ReadObject.
+/// Request message for [ReadObject][google.storage.v2.Storage.ReadObject].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReadObjectRequest {
@@ -1271,17 +1322,17 @@ pub struct ReadObjectRequest {
     /// Optional. The offset for the first byte to return in the read, relative to
     /// the start of the object.
     ///
-    /// A negative `read_offset` value will be interpreted as the number of bytes
+    /// A negative `read_offset` value is interpreted as the number of bytes
     /// back from the end of the object to be returned. For example, if an object's
-    /// length is 15 bytes, a ReadObjectRequest with `read_offset` = -5 and
-    /// `read_limit` = 3 would return bytes 10 through 12 of the object. Requesting
-    /// a negative offset with magnitude larger than the size of the object will
-    /// return the entire object.
+    /// length is `15` bytes, a `ReadObjectRequest` with `read_offset` = `-5` and
+    /// `read_limit` = `3` would return bytes `10` through `12` of the object.
+    /// Requesting a negative offset with magnitude larger than the size of the
+    /// object returns the entire object.
     pub read_offset: i64,
 
     /// Optional. The maximum number of `data` bytes the server is allowed to
     /// return in the sum of all `Object` messages. A `read_limit` of zero
-    /// indicates that there is no limit, and a negative `read_limit` will cause an
+    /// indicates that there is no limit, and a negative `read_limit` causes an
     /// error.
     ///
     /// If the stream returns fewer bytes than allowed by the `read_limit` and no
@@ -1313,11 +1364,10 @@ pub struct ReadObjectRequest {
     pub common_object_request_params: std::option::Option<crate::model::CommonObjectRequestParams>,
 
     /// Mask specifying which fields to read.
-    /// The checksummed_data field and its children will always be present.
-    /// If no mask is specified, will default to all fields except metadata.owner
-    /// and metadata.acl.
-    ///
-    /// * may be used to mean "all fields".
+    /// The `checksummed_data` field and its children are always present.
+    /// If no mask is specified, it defaults to all fields except `metadata.
+    /// owner` and `metadata.acl`.
+    /// `*` might be used to mean "all fields".
     pub read_mask: std::option::Option<wkt::FieldMask>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1473,7 +1523,9 @@ impl wkt::message::Message for ReadObjectRequest {
     }
 }
 
-/// Request message for GetObject.
+/// Request message for [GetObject][google.storage.v2.Storage.GetObject].
+///
+/// [google.storage.v2.Storage.GetObject]: crate::client::StorageControl::get_object
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetObjectRequest {
@@ -1514,17 +1566,16 @@ pub struct GetObjectRequest {
     pub common_object_request_params: std::option::Option<crate::model::CommonObjectRequestParams>,
 
     /// Mask specifying which fields to read.
-    /// If no mask is specified, will default to all fields except metadata.acl and
-    /// metadata.owner.
-    ///
-    /// * may be used to mean "all fields".
+    /// If no mask is specified, it defaults to all fields except `metadata.
+    /// acl` and `metadata.owner`.
+    /// `*` might be used to mean "all fields".
     pub read_mask: std::option::Option<wkt::FieldMask>,
 
     /// Optional. Restore token used to differentiate soft-deleted objects with the
     /// same name and generation. Only applicable for hierarchical namespace
-    /// buckets and if soft_deleted is set to true. This parameter is optional, and
-    /// is only required in the rare case when there are multiple soft-deleted
-    /// objects with the same name and generation.
+    /// buckets and if `soft_deleted` is set to `true`. This parameter is optional,
+    /// and is only required in the rare case when there are multiple soft-deleted
+    /// objects with the same `name` and `generation`.
     pub restore_token: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1700,18 +1751,18 @@ pub struct WriteObjectSpec {
     pub resource: std::option::Option<crate::model::Object>,
 
     /// Optional. Apply a predefined set of access controls to this object.
-    /// Valid values are "authenticatedRead", "bucketOwnerFullControl",
-    /// "bucketOwnerRead", "private", "projectPrivate", or "publicRead".
+    /// Valid values are `authenticatedRead`, `bucketOwnerFullControl`,
+    /// `bucketOwnerRead`, `private`, `projectPrivate`, or `publicRead`.
     pub predefined_acl: std::string::String,
 
     /// Makes the operation conditional on whether the object's current
-    /// generation matches the given value. Setting to 0 makes the operation
+    /// generation matches the given value. Setting to `0` makes the operation
     /// succeed only if there are no live versions of the object.
     pub if_generation_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's live
     /// generation does not match the given value. If no live object exists, the
-    /// precondition fails. Setting to 0 makes the operation succeed only if
+    /// precondition fails. Setting to `0` makes the operation succeed only if
     /// there is a live version of the object.
     pub if_generation_not_match: std::option::Option<i64>,
 
@@ -1725,15 +1776,15 @@ pub struct WriteObjectSpec {
 
     /// The expected final object size being uploaded.
     /// If this value is set, closing the stream after writing fewer or more than
-    /// `object_size` bytes will result in an OUT_OF_RANGE error.
+    /// `object_size` bytes results in an `OUT_OF_RANGE` error.
     ///
     /// This situation is considered a client error, and if such an error occurs
     /// you must start the upload over from scratch, this time sending the correct
     /// number of bytes.
     pub object_size: std::option::Option<i64>,
 
-    /// If true, the object will be created in appendable mode.
-    /// This field may only be set when using BidiWriteObject.
+    /// If `true`, the object is created in appendable mode.
+    /// This field might only be set when using `BidiWriteObject`.
     pub appendable: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1883,7 +1934,9 @@ impl wkt::message::Message for WriteObjectSpec {
     }
 }
 
-/// Request message for ListObjects.
+/// Request message for [ListObjects][google.storage.v2.Storage.ListObjects].
+///
+/// [google.storage.v2.Storage.ListObjects]: crate::client::StorageControl::list_objects
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListObjectsRequest {
@@ -1892,23 +1945,23 @@ pub struct ListObjectsRequest {
 
     /// Optional. Maximum number of `items` plus `prefixes` to return
     /// in a single page of responses. As duplicate `prefixes` are
-    /// omitted, fewer total results may be returned than requested. The service
-    /// will use this parameter or 1,000 items, whichever is smaller.
+    /// omitted, fewer total results might be returned than requested. The service
+    /// uses this parameter or 1,000 items, whichever is smaller.
     pub page_size: i32,
 
     /// Optional. A previously-returned page token representing part of the larger
     /// set of results to view.
     pub page_token: std::string::String,
 
-    /// Optional. If set, returns results in a directory-like mode. `items` will
-    /// contain only objects whose names, aside from the `prefix`, do not contain
+    /// Optional. If set, returns results in a directory-like mode. `items`
+    /// contains only objects whose names, aside from the `prefix`, do not contain
     /// `delimiter`. Objects whose names, aside from the `prefix`, contain
-    /// `delimiter` will have their name, truncated after the `delimiter`, returned
-    /// in `prefixes`. Duplicate `prefixes` are omitted.
+    /// `delimiter` has their name, truncated after the `delimiter`, returned in
+    /// `prefixes`. Duplicate `prefixes` are omitted.
     pub delimiter: std::string::String,
 
     /// Optional. If true, objects that end in exactly one instance of `delimiter`
-    /// will have their metadata included in `items` in addition to
+    /// has their metadata included in `items` in addition to
     /// `prefixes`.
     pub include_trailing_delimiter: bool,
 
@@ -1916,47 +1969,45 @@ pub struct ListObjectsRequest {
     pub prefix: std::string::String,
 
     /// Optional. If `true`, lists all versions of an object as distinct results.
-    /// For more information, see
-    /// [Object
-    /// Versioning](https://cloud.google.com/storage/docs/object-versioning).
     pub versions: bool,
 
     /// Mask specifying which fields to read from each result.
-    /// If no mask is specified, will default to all fields except items.acl and
-    /// items.owner.
-    ///
-    /// * may be used to mean "all fields".
+    /// If no mask is specified, defaults to all fields except `items.acl` and
+    /// `items.owner`.
+    /// `*` might be used to mean all fields.
     pub read_mask: std::option::Option<wkt::FieldMask>,
 
     /// Optional. Filter results to objects whose names are lexicographically equal
-    /// to or after lexicographic_start. If lexicographic_end is also set, the
-    /// objects listed have names between lexicographic_start (inclusive) and
-    /// lexicographic_end (exclusive).
+    /// to or after `lexicographic_start`. If `lexicographic_end` is also set, the
+    /// objects listed have names between `lexicographic_start` (inclusive) and
+    /// `lexicographic_end` (exclusive).
     pub lexicographic_start: std::string::String,
 
     /// Optional. Filter results to objects whose names are lexicographically
-    /// before lexicographic_end. If lexicographic_start is also set, the objects
-    /// listed have names between lexicographic_start (inclusive) and
-    /// lexicographic_end (exclusive).
+    /// before `lexicographic_end`. If `lexicographic_start` is also set, the
+    /// objects listed have names between `lexicographic_start` (inclusive) and
+    /// `lexicographic_end` (exclusive).
     pub lexicographic_end: std::string::String,
 
     /// Optional. If true, only list all soft-deleted versions of the object.
     /// Soft delete policy is required to set this option.
     pub soft_deleted: bool,
 
-    /// Optional. If true, will also include folders and managed folders (besides
-    /// objects) in the returned `prefixes`. Requires `delimiter` to be set to '/'.
+    /// Optional. If true, includes folders and managed folders (besides objects)
+    /// in the returned `prefixes`. Requires `delimiter` to be set to '/'.
     pub include_folders_as_prefixes: bool,
 
     /// Optional. Filter results to objects and prefixes that match this glob
-    /// pattern. See [List Objects Using
-    /// Glob](https://cloud.google.com/storage/docs/json_api/v1/objects/list#list-objects-and-prefixes-using-glob)
+    /// pattern. See [List objects using
+    /// glob](https://cloud.google.com/storage/docs/json_api/v1/objects/list#list-objects-and-prefixes-using-glob)
     /// for the full syntax.
     pub match_glob: std::string::String,
 
-    /// Optional. Filter the returned objects. Currently only supported for the
-    /// `contexts` field. If `delimiter` is set, the returned `prefixes` are exempt
-    /// from this filter.
+    /// Optional. An expression used to filter the returned objects by the
+    /// `context` field. For the full syntax, see [Filter objects by contexts
+    /// syntax](https://cloud.google.com/storage/docs/listing-objects#filter-by-object-contexts-syntax).
+    /// If a `delimiter` is set, the returned `prefixes` are exempt from this
+    /// filter.
     pub filter: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2076,14 +2127,17 @@ impl wkt::message::Message for ListObjectsRequest {
     }
 }
 
-/// Request message for RewriteObject.
+/// Request message for [RewriteObject][google.storage.v2.Storage.RewriteObject].
 /// If the source object is encrypted using a Customer-Supplied Encryption Key
-/// the key information must be provided in the copy_source_encryption_algorithm,
-/// copy_source_encryption_key_bytes, and copy_source_encryption_key_sha256_bytes
-/// fields. If the destination object should be encrypted the keying information
-/// should be provided in the encryption_algorithm, encryption_key_bytes, and
-/// encryption_key_sha256_bytes fields of the
-/// common_object_request_params.customer_encryption field.
+/// the key information must be provided in the
+/// `copy_source_encryption_algorithm`, `copy_source_encryption_key_bytes`, and
+/// `copy_source_encryption_key_sha256_bytes` fields. If the destination object
+/// should be encrypted the keying information should be provided in the
+/// `encryption_algorithm`, `encryption_key_bytes`, and
+/// `encryption_key_sha256_bytes` fields of the
+/// `common_object_request_params.customer_encryption` field.
+///
+/// [google.storage.v2.Storage.RewriteObject]: crate::client::StorageControl::rewrite_object
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RewriteObjectRequest {
@@ -2100,7 +2154,7 @@ pub struct RewriteObjectRequest {
     /// object.
     pub destination_bucket: std::string::String,
 
-    /// Optional. The name of the Cloud KMS key that will be used to encrypt the
+    /// Optional. The name of the Cloud KMS key that is used to encrypt the
     /// destination object. The Cloud KMS key must be located in same location as
     /// the object. If the parameter is not specified, the request uses the
     /// destination bucket's default encryption key, if any, or else the
@@ -2111,8 +2165,8 @@ pub struct RewriteObjectRequest {
     /// The `name`, `bucket` and `kms_key` fields must not be populated (these
     /// values are specified in the `destination_name`, `destination_bucket`, and
     /// `destination_kms_key` fields).
-    /// If `destination` is present it will be used to construct the destination
-    /// object's metadata; otherwise the destination object's metadata will be
+    /// If `destination` is present it is used to construct the destination
+    /// object's metadata; otherwise the destination object's metadata is
     /// copied from the source object.
     pub destination: std::option::Option<crate::model::Object>,
 
@@ -2134,8 +2188,8 @@ pub struct RewriteObjectRequest {
     pub rewrite_token: std::string::String,
 
     /// Optional. Apply a predefined set of access controls to the destination
-    /// object. Valid values are "authenticatedRead", "bucketOwnerFullControl",
-    /// "bucketOwnerRead", "private", "projectPrivate", or "publicRead".
+    /// object. Valid values are `authenticatedRead`, `bucketOwnerFullControl`,
+    /// `bucketOwnerRead`, `private`, `projectPrivate`, or `publicRead`.
     pub destination_predefined_acl: std::string::String,
 
     /// Makes the operation conditional on whether the object's current generation
@@ -2173,7 +2227,7 @@ pub struct RewriteObjectRequest {
     /// metageneration does not match the given value.
     pub if_source_metageneration_not_match: std::option::Option<i64>,
 
-    /// Optional. The maximum number of bytes that will be rewritten per rewrite
+    /// Optional. The maximum number of bytes that are rewritten per rewrite
     /// request. Most callers shouldn't need to specify this parameter - it is
     /// primarily in place to support testing. If specified the value must be an
     /// integral multiple of 1 MiB (1048576). Also, this only applies to requests
@@ -2200,8 +2254,8 @@ pub struct RewriteObjectRequest {
     /// object.
     pub common_object_request_params: std::option::Option<crate::model::CommonObjectRequestParams>,
 
-    /// Optional. The checksums of the complete object. This will be used to
-    /// validate the destination object after rewriting.
+    /// Optional. The checksums of the complete object. This is used to validate
+    /// the destination object after rewriting.
     pub object_checksums: std::option::Option<crate::model::ObjectChecksums>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2600,7 +2654,9 @@ impl wkt::message::Message for RewriteResponse {
     }
 }
 
-/// Request message for MoveObject.
+/// Request message for [MoveObject][google.storage.v2.Storage.MoveObject].
+///
+/// [google.storage.v2.Storage.MoveObject]: crate::client::StorageControl::move_object
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveObjectRequest {
@@ -2858,7 +2914,9 @@ impl wkt::message::Message for MoveObjectRequest {
     }
 }
 
-/// Request message for UpdateObject.
+/// Request message for [UpdateObject][google.storage.v2.Storage.UpdateObject].
+///
+/// [google.storage.v2.Storage.UpdateObject]: crate::client::StorageControl::update_object
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateObjectRequest {
@@ -2898,7 +2956,7 @@ pub struct UpdateObjectRequest {
     /// To specify ALL fields, equivalent to the JSON API's "update" function,
     /// specify a single field with the value `*`. Note: not recommended. If a new
     /// field is introduced at a later time, an older client updating with the `*`
-    /// may accidentally reset the new field's value.
+    /// might accidentally reset the new field's value.
     ///
     /// Not specifying any fields is an error.
     pub update_mask: std::option::Option<wkt::FieldMask>,
@@ -3075,8 +3133,8 @@ pub struct CommonObjectRequestParams {
     /// feature. In raw bytes format (not base64-encoded).
     pub encryption_key_bytes: ::bytes::Bytes,
 
-    /// Optional. SHA256 hash of encryption key used with the Customer-Supplied
-    /// Encryption Keys feature.
+    /// Optional. SHA256 hash of encryption key used with the Customer-supplied
+    /// encryption keys feature.
     pub encryption_key_sha256_bytes: ::bytes::Bytes,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3128,18 +3186,18 @@ pub struct Bucket {
 
     /// Output only. The user-chosen part of the bucket name. The `{bucket}`
     /// portion of the `name` field. For globally unique buckets, this is equal to
-    /// the "bucket name" of other Cloud Storage APIs. Example: "pub".
+    /// the `bucket name` of other Cloud Storage APIs. Example: `pub`.
     pub bucket_id: std::string::String,
 
     /// The etag of the bucket.
-    /// If included in the metadata of an UpdateBucketRequest, the operation will
-    /// only be performed if the etag matches that of the bucket.
+    /// If included in the metadata of an `UpdateBucketRequest`, the operation is
+    /// only performed if the `etag` matches that of the bucket.
     pub etag: std::string::String,
 
     /// Immutable. The project which owns this bucket, in the format of
-    /// "projects/{projectIdentifier}".
-    /// {projectIdentifier} can be the project ID or project number.
-    /// Output values will always be in project number format.
+    /// `projects/{projectIdentifier}`.
+    /// `{projectIdentifier}` can be the project ID or project number.
+    /// Output values are always in the project number format.
     pub project: std::string::String,
 
     /// Output only. The metadata generation of this bucket.
@@ -3147,10 +3205,8 @@ pub struct Bucket {
 
     /// Immutable. The location of the bucket. Object data for objects in the
     /// bucket resides in physical storage within this region.  Defaults to `US`.
-    /// See the
-    /// [<https://developers.google.com/storage/docs/concepts-techniques#specifyinglocations>"][developer's
-    /// guide] for the authoritative list. Attempting to update this field after
-    /// the bucket is created will result in an error.
+    /// Attempting to update this field after the bucket is created results in an
+    /// error.
     pub location: std::string::String,
 
     /// Output only. The location type of the bucket (region, dual-region,
@@ -3160,39 +3216,39 @@ pub struct Bucket {
     /// Optional. The bucket's default storage class, used whenever no storageClass
     /// is specified for a newly-created object. This defines how objects in the
     /// bucket are stored and determines the SLA and the cost of storage.
-    /// If this value is not specified when the bucket is created, it will default
-    /// to `STANDARD`. For more information, see
-    /// <https://developers.google.com/storage/docs/storage-classes>.
+    /// If this value is not specified when the bucket is created, it defaults
+    /// to `STANDARD`. For more information, see [Storage
+    /// classes](https://developers.google.com/storage/docs/storage-classes).
     pub storage_class: std::string::String,
 
     /// Optional. The recovery point objective for cross-region replication of the
-    /// bucket. Applicable only for dual- and multi-region buckets. "DEFAULT" uses
-    /// default replication. "ASYNC_TURBO" enables turbo replication, valid for
+    /// bucket. Applicable only for dual- and multi-region buckets. `DEFAULT` uses
+    /// default replication. `ASYNC_TURBO` enables turbo replication, valid for
     /// dual-region buckets only. If rpo is not specified when the bucket is
-    /// created, it defaults to "DEFAULT". For more information, see
-    /// <https://cloud.google.com/storage/docs/availability-durability#turbo-replication>.
+    /// created, it defaults to `DEFAULT`. For more information, see [Turbo
+    /// replication](https://cloud.google.com/storage/docs/availability-durability#turbo-replication).
     pub rpo: std::string::String,
 
     /// Optional. Access controls on the bucket.
-    /// If iam_config.uniform_bucket_level_access is enabled on this bucket,
+    /// If `iam_config.uniform_bucket_level_access` is enabled on this bucket,
     /// requests to set, read, or modify acl is an error.
     pub acl: std::vec::Vec<crate::model::BucketAccessControl>,
 
     /// Optional. Default access controls to apply to new objects when no ACL is
-    /// provided. If iam_config.uniform_bucket_level_access is enabled on this
+    /// provided. If `iam_config.uniform_bucket_level_access` is enabled on this
     /// bucket, requests to set, read, or modify acl is an error.
     pub default_object_acl: std::vec::Vec<crate::model::ObjectAccessControl>,
 
-    /// Optional. The bucket's lifecycle config. See
-    /// [<https://developers.google.com/storage/docs/lifecycle>]Lifecycle Management]
-    /// for more information.
+    /// Optional. The bucket's lifecycle configuration. See [Lifecycle
+    /// Management](https://developers.google.com/storage/docs/lifecycle) for more
+    /// information.
     pub lifecycle: std::option::Option<crate::model::bucket::Lifecycle>,
 
     /// Output only. The creation time of the bucket.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// Optional. The bucket's [<https://www.w3.org/TR/cors/>][Cross-Origin Resource
-    /// Sharing] (CORS) config.
+    /// Optional. The bucket's [CORS](https://www.w3.org/TR/cors/)
+    /// configuration.
     pub cors: std::vec::Vec<crate::model::bucket::Cors>,
 
     /// Output only. The modification time of the bucket.
@@ -3201,11 +3257,11 @@ pub struct Bucket {
     /// Optional. The default value for event-based hold on newly created objects
     /// in this bucket.  Event-based hold is a way to retain objects indefinitely
     /// until an event occurs, signified by the hold's release. After being
-    /// released, such objects will be subject to bucket-level retention (if any).
-    /// One sample use case of this flag is for banks to hold loan documents for at
+    /// released, such objects are subject to bucket-level retention (if any).  One
+    /// sample use case of this flag is for banks to hold loan documents for at
     /// least 3 years after loan is paid in full. Here, bucket-level retention is 3
     /// years and the event is loan being paid in full. In this example, these
-    /// objects will be held intact for any number of years until the event has
+    /// objects are held intact for any number of years until the event has
     /// occurred (event-based hold on the object is released) and then 3 more years
     /// after that. That means retention duration of the objects begins from the
     /// moment event-based hold transitioned from true to false.  Objects under
@@ -3217,12 +3273,12 @@ pub struct Bucket {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. The bucket's website config, controlling how the service behaves
-    /// when accessing bucket contents as a web site. See the
-    /// [<https://cloud.google.com/storage/docs/static-website>][Static Website
-    /// Examples] for more information.
+    /// when accessing bucket contents as a web site. See the [Static website
+    /// examples](https://cloud.google.com/storage/docs/static-website) for more
+    /// information.
     pub website: std::option::Option<crate::model::bucket::Website>,
 
-    /// Optional. The bucket's versioning config.
+    /// Optional. The bucket's versioning configuration.
     pub versioning: std::option::Option<crate::model::bucket::Versioning>,
 
     /// Optional. The bucket's logging config, which defines the destination bucket
@@ -3236,39 +3292,38 @@ pub struct Bucket {
     /// Optional. Encryption config for a bucket.
     pub encryption: std::option::Option<crate::model::bucket::Encryption>,
 
-    /// Optional. The bucket's billing config.
+    /// Optional. The bucket's billing configuration.
     pub billing: std::option::Option<crate::model::bucket::Billing>,
 
     /// Optional. The bucket's retention policy. The retention policy enforces a
     /// minimum retention time for all objects contained in the bucket, based on
     /// their creation time. Any attempt to overwrite or delete objects younger
-    /// than the retention period will result in a PERMISSION_DENIED error.  An
+    /// than the retention period results in a `PERMISSION_DENIED` error.  An
     /// unlocked retention policy can be modified or removed from the bucket via a
     /// storage.buckets.update operation. A locked retention policy cannot be
     /// removed or shortened in duration for the lifetime of the bucket.
-    /// Attempting to remove or decrease period of a locked retention policy will
-    /// result in a PERMISSION_DENIED error.
+    /// Attempting to remove or decrease period of a locked retention policy
+    /// results in a `PERMISSION_DENIED` error.
     pub retention_policy: std::option::Option<crate::model::bucket::RetentionPolicy>,
 
-    /// Optional. The bucket's IAM config.
+    /// Optional. The bucket's IAM configuration.
     pub iam_config: std::option::Option<crate::model::bucket::IamConfig>,
 
     /// Optional. Reserved for future use.
     pub satisfies_pzs: bool,
 
     /// Optional. Configuration that, if present, specifies the data placement for
-    /// a
-    /// [<https://cloud.google.com/storage/docs/locations#location-dr>][configurable
-    /// dual-region].
+    /// a [configurable
+    /// dual-region](https://cloud.google.com/storage/docs/locations#location-dr).
     pub custom_placement_config: std::option::Option<crate::model::bucket::CustomPlacementConfig>,
 
     /// Optional. The bucket's Autoclass configuration. If there is no
-    /// configuration, the Autoclass feature will be disabled and have no effect on
-    /// the bucket.
+    /// configuration, the Autoclass feature is disabled and has no effect on the
+    /// bucket.
     pub autoclass: std::option::Option<crate::model::bucket::Autoclass>,
 
     /// Optional. The bucket's hierarchical namespace configuration. If there is no
-    /// configuration, the hierarchical namespace feature will be disabled and have
+    /// configuration, the hierarchical namespace feature is disabled and has
     /// no effect on the bucket.
     pub hierarchical_namespace: std::option::Option<crate::model::bucket::HierarchicalNamespace>,
 
@@ -3277,7 +3332,7 @@ pub struct Bucket {
     pub soft_delete_policy: std::option::Option<crate::model::bucket::SoftDeletePolicy>,
 
     /// Optional. The bucket's object retention configuration. Must be enabled
-    /// before objects in the bucket may have retention configured.
+    /// before objects in the bucket might have retention configured.
     pub object_retention: std::option::Option<crate::model::bucket::ObjectRetention>,
 
     /// Optional. The bucket's IP filter configuration.
@@ -3755,25 +3810,26 @@ pub mod bucket {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Cors {
-        /// Optional. The list of Origins eligible to receive CORS response headers.
-        /// See [<https://tools.ietf.org/html/rfc6454>][RFC 6454] for more on origins.
-        /// Note: "*" is permitted in the list of origins, and means "any Origin".
+        /// Optional. The list of origins eligible to receive CORS response headers.
+        /// For more information about origins, see [RFC
+        /// 6454](https://tools.ietf.org/html/rfc6454). Note: `*` is permitted in the
+        /// list of origins, and means `any origin`.
         pub origin: std::vec::Vec<std::string::String>,
 
         /// Optional. The list of HTTP methods on which to include CORS response
         /// headers,
-        /// (`GET`, `OPTIONS`, `POST`, etc) Note: "*" is permitted in the list of
+        /// (`GET`, `OPTIONS`, `POST`, etc) Note: `*` is permitted in the list of
         /// methods, and means "any method".
         pub method: std::vec::Vec<std::string::String>,
 
-        /// Optional. The list of HTTP headers other than the
-        /// [<https://www.w3.org/TR/cors/#simple-response-header>][simple response
-        /// headers] to give permission for the user-agent to share across domains.
+        /// Optional. The list of HTTP headers other than the [simple response
+        /// headers](https://www.w3.org/TR/cors/#simple-response-headers) to give
+        /// permission for the user-agent to share across domains.
         pub response_header: std::vec::Vec<std::string::String>,
 
-        /// Optional. The value, in seconds, to return in the
-        /// [<https://www.w3.org/TR/cors/#access-control-max-age-response-header>][Access-Control-Max-Age
-        /// header] used in preflight responses.
+        /// Optional. The value, in seconds, to return in the [Access-Control-Max-Age
+        /// header](https://www.w3.org/TR/cors/#access-control-max-age-response-header)
+        /// used in preflight responses.
         pub max_age_seconds: i32,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3834,8 +3890,8 @@ pub mod bucket {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Encryption {
-        /// Optional. The name of the Cloud KMS key that will be used to encrypt
-        /// objects inserted into this bucket, if no encryption method is specified.
+        /// Optional. The name of the Cloud KMS key that is used to encrypt objects
+        /// inserted into this bucket, if no encryption method is specified.
         pub default_kms_key: std::string::String,
 
         /// Optional. If omitted, then new objects with GMEK encryption-type is
@@ -3973,7 +4029,7 @@ pub mod bucket {
         #[non_exhaustive]
         pub struct GoogleManagedEncryptionEnforcementConfig {
             /// Restriction mode for google-managed encryption for new objects within
-            /// the bucket. Valid values are: "NotRestricted", "FullyRestricted".
+            /// the bucket. Valid values are: `NotRestricted` and `FullyRestricted`.
             /// If `NotRestricted` or unset, creation of new objects with
             /// google-managed encryption is allowed.
             /// If `FullyRestricted`, new objects can't be created using google-managed
@@ -4039,7 +4095,7 @@ pub mod bucket {
         #[non_exhaustive]
         pub struct CustomerManagedEncryptionEnforcementConfig {
             /// Restriction mode for customer-managed encryption for new objects within
-            /// the bucket. Valid values are: "NotRestricted", "FullyRestricted".
+            /// the bucket. Valid values are: `NotRestricted` and `FullyRestricted`.
             /// If `NotRestricted` or unset, creation of new objects with
             /// customer-managed encryption is allowed.
             /// If `FullyRestricted`, new objects can't be created using
@@ -4105,8 +4161,8 @@ pub mod bucket {
         #[non_exhaustive]
         pub struct CustomerSuppliedEncryptionEnforcementConfig {
             /// Restriction mode for customer-supplied encryption for new objects
-            /// within the bucket. Valid values are: "NotRestricted",
-            /// "FullyRestricted".
+            /// within the bucket. Valid values are: `NotRestricted` and
+            /// `FullyRestricted`.
             /// If `NotRestricted` or unset, creation of new objects with
             /// customer-supplied encryption is allowed.
             /// If `FullyRestricted`, new objects can't be created using
@@ -4176,8 +4232,8 @@ pub mod bucket {
         pub uniform_bucket_level_access:
             std::option::Option<crate::model::bucket::iam_config::UniformBucketLevelAccess>,
 
-        /// Optional. Whether IAM will enforce public access prevention. Valid values
-        /// are "enforced" or "inherited".
+        /// Optional. Whether IAM enforces public access prevention. Valid values are
+        /// `enforced` or `inherited`.
         pub public_access_prevention: std::string::String,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4286,12 +4342,13 @@ pub mod bucket {
     }
 
     /// Lifecycle properties of a bucket.
-    /// For more information, see <https://cloud.google.com/storage/docs/lifecycle>.
+    /// For more information, see [Object Lifecycle
+    /// Management](https://cloud.google.com/storage/docs/lifecycle).
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Lifecycle {
         /// Optional. A lifecycle management rule, which is made of an action to take
-        /// and the condition(s) under which the action will be taken.
+        /// and the condition under which the action is taken.
         pub rule: std::vec::Vec<crate::model::bucket::lifecycle::Rule>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4326,14 +4383,14 @@ pub mod bucket {
         use super::*;
 
         /// A lifecycle Rule, combining an action to take on an object and a
-        /// condition which will trigger that action.
+        /// condition which triggers that action.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Rule {
             /// Optional. The action to take.
             pub action: std::option::Option<crate::model::bucket::lifecycle::rule::Action>,
 
-            /// Optional. The condition(s) under which the action will be taken.
+            /// Optional. The condition under which the action is taken.
             pub condition: std::option::Option<crate::model::bucket::lifecycle::rule::Condition>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4463,8 +4520,8 @@ pub mod bucket {
                 pub num_newer_versions: std::option::Option<i32>,
 
                 /// Optional. Objects having any of the storage classes specified by this
-                /// condition will be matched. Values include `MULTI_REGIONAL`,
-                /// `REGIONAL`, `NEARLINE`, `COLDLINE`, `STANDARD`, and
+                /// condition are matched. Values include `MULTI_REGIONAL`, `REGIONAL`,
+                /// `NEARLINE`, `COLDLINE`, `STANDARD`, and
                 /// `DURABLE_REDUCED_AVAILABILITY`.
                 pub matches_storage_class: std::vec::Vec<std::string::String>,
 
@@ -4480,7 +4537,7 @@ pub mod bucket {
                 /// This condition is relevant only for versioned objects. An object
                 /// version satisfies this condition only if these many days have been
                 /// passed since it became noncurrent. The value of the field must be a
-                /// nonnegative integer. If it's zero, the object version will become
+                /// nonnegative integer. If it's zero, the object version becomes
                 /// eligible for Lifecycle action as soon as it becomes noncurrent.
                 pub days_since_noncurrent_time: std::option::Option<i32>,
 
@@ -4791,7 +4848,7 @@ pub mod bucket {
         /// duration must be greater than zero and less than 100 years. Note that
         /// enforcement of retention periods less than a day is not guaranteed. Such
         /// periods should only be used for testing purposes. Any `nanos` value
-        /// specified will be rounded down to the nearest second.
+        /// specified is rounded down to the nearest second.
         pub retention_duration: std::option::Option<wkt::Duration>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4915,8 +4972,8 @@ pub mod bucket {
     }
 
     /// Properties of a bucket related to versioning.
-    /// For more on Cloud Storage versioning, see
-    /// <https://cloud.google.com/storage/docs/object-versioning>.
+    /// For more information about Cloud Storage versioning, see [Object
+    /// versioning](https://cloud.google.com/storage/docs/object-versioning).
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Versioning {
@@ -4945,21 +5002,21 @@ pub mod bucket {
     }
 
     /// Properties of a bucket related to accessing the contents as a static
-    /// website. For more on hosting a static website via Cloud Storage, see
-    /// <https://cloud.google.com/storage/docs/hosting-static-website>.
+    /// website. For details, see [hosting a static website using Cloud
+    /// Storage](https://cloud.google.com/storage/docs/hosting-static-website).
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Website {
-        /// Optional. If the requested object path is missing, the service will
-        /// ensure the path has a trailing '/', append this suffix, and attempt to
-        /// retrieve the resulting object. This allows the creation of `index.html`
-        /// objects to represent directory pages.
+        /// Optional. If the requested object path is missing, the service ensures
+        /// the path has a trailing '/', append this suffix, and attempt to retrieve
+        /// the resulting object. This allows the creation of `index.html` objects to
+        /// represent directory pages.
         pub main_page_suffix: std::string::String,
 
         /// Optional. If the requested object path is missing, and any
         /// `mainPageSuffix` object is missing, if applicable, the service
-        /// will return the named object from this bucket as the content for a
-        /// [<https://tools.ietf.org/html/rfc7231#section-6.5.4>][404 Not Found]
+        /// returns the named object from this bucket as the content for a
+        /// [404 Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)
         /// result.
         pub not_found_page: std::string::String,
 
@@ -4996,9 +5053,11 @@ pub mod bucket {
         }
     }
 
-    /// Configuration for Custom Dual Regions.  It should specify precisely two
-    /// eligible regions within the same Multiregion. More information on regions
-    /// may be found [here](https://cloud.google.com/storage/docs/locations).
+    /// Configuration for [configurable dual-
+    /// regions](https://cloud.google.com/storage/docs/locations#configurable). It
+    /// should specify precisely two eligible regions within the same multi-region.
+    /// For details, see
+    /// [locations](https://cloud.google.com/storage/docs/locations).
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CustomPlacementConfig {
@@ -5040,11 +5099,11 @@ pub mod bucket {
 
         /// Output only. Latest instant at which the `enabled` field was set to true
         /// after being disabled/unconfigured or set to false after being enabled. If
-        /// Autoclass is enabled when the bucket is created, the toggle_time is set
-        /// to the bucket creation time.
+        /// Autoclass is enabled when the bucket is created, the value of the
+        /// `toggle_time` field is set to the bucket `create_time`.
         pub toggle_time: std::option::Option<wkt::Timestamp>,
 
-        /// An object in an Autoclass bucket will eventually cool down to the
+        /// An object in an Autoclass bucket eventually cools down to the
         /// terminal storage class if there is no access to the object.
         /// The only valid values are NEARLINE and ARCHIVE.
         pub terminal_storage_class: std::option::Option<std::string::String>,
@@ -5142,7 +5201,7 @@ pub mod bucket {
         /// `Disabled`. When set to `Enabled`, IP filtering rules are applied to a
         /// bucket and all incoming requests to the bucket are evaluated against
         /// these rules. When set to `Disabled`, IP filtering rules are not applied
-        /// to a bucket.".
+        /// to a bucket.
         pub mode: std::option::Option<std::string::String>,
 
         /// Public IPs allowed to operate or access the bucket.
@@ -5156,12 +5215,12 @@ pub mod bucket {
         /// Optional. Whether or not to allow VPCs from orgs different than the
         /// bucket's parent org to access the bucket. When set to true, validations
         /// on the existence of the VPCs won't be performed. If set to false, each
-        /// VPC network source will be checked to belong to the same org as the
-        /// bucket as well as validated for existence.
+        /// VPC network source is checked to belong to the same org as the bucket as
+        /// well as validated for existence.
         pub allow_cross_org_vpcs: bool,
 
         /// Whether or not to allow all P4SA access to the bucket. When set to true,
-        /// IP filter config validation will not apply.
+        /// IP filter config validation doesn't apply.
         pub allow_all_service_agent_access: std::option::Option<bool>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5411,21 +5470,21 @@ pub struct BucketAccessControl {
     ///   `group-example@googlegroups.com`
     /// * All members of the Google Apps for Business domain `example.com` would be
     ///   `domain-example.com`
-    ///   For project entities, `project-{team}-{projectnumber}` format will be
+    ///   For project entities, `project-{team}-{projectnumber}` format is
     ///   returned on response.
     pub entity: std::string::String,
 
     /// Output only. The alternative entity format, if exists. For project
-    /// entities, `project-{team}-{projectid}` format will be returned on response.
+    /// entities, `project-{team}-{projectid}` format is returned in the response.
     pub entity_alt: std::string::String,
 
     /// Optional. The ID for the entity, if any.
     pub entity_id: std::string::String,
 
-    /// Optional. The etag of the BucketAccessControl.
+    /// Optional. The `etag` of the `BucketAccessControl`.
     /// If included in the metadata of an update or delete request message, the
-    /// operation operation will only be performed if the etag matches that of the
-    /// bucket's BucketAccessControl.
+    /// operation operation is only performed if the etag matches that of the
+    /// bucket's `BucketAccessControl`.
     pub etag: std::string::String,
 
     /// Optional. The email address associated with the entity, if any.
@@ -5524,17 +5583,16 @@ impl wkt::message::Message for BucketAccessControl {
 pub struct ObjectChecksums {
     /// CRC32C digest of the object data. Computed by the Cloud Storage service for
     /// all written objects.
-    /// If set in a WriteObjectRequest, service will validate that the stored
+    /// If set in a WriteObjectRequest, service validates that the stored
     /// object matches this checksum.
     pub crc32c: std::option::Option<u32>,
 
-    /// Optional. 128 bit MD5 hash of the object data.
-    /// For more information about using the MD5 hash, see
-    /// [<https://cloud.google.com/storage/docs/hashes-etags#json-api>][Hashes and
-    /// ETags: Best Practices].
-    /// Not all objects will provide an MD5 hash. For example, composite objects
-    /// provide only crc32c hashes. This value is equivalent to running `cat
-    /// object.txt | openssl md5 -binary`
+    /// Optional. 128 bit MD5 hash of the object data. For more information about
+    /// using the MD5 hash, see [Data validation and change
+    /// detection](https://cloud.google.com/storage/docs/data-validation). Not all
+    /// objects provide an MD5 hash. For example, composite objects provide only
+    /// crc32c hashes. This value is equivalent to running `cat object.txt |
+    /// openssl md5 -binary`
     pub md5_hash: ::bytes::Bytes,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5681,8 +5739,8 @@ impl wkt::message::Message for ObjectContexts {
     }
 }
 
-/// Describes the Customer-Supplied Encryption Key mechanism used to store an
-/// Object's data at rest.
+/// Describes the customer-supplied encryption key mechanism used to store an
+/// object's data at rest.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomerEncryption {
@@ -5739,9 +5797,9 @@ pub struct Object {
     /// Immutable. The name of the bucket containing this object.
     pub bucket: std::string::String,
 
-    /// Optional. The etag of the object.
+    /// Optional. The `etag` of an object.
     /// If included in the metadata of an update or delete request message, the
-    /// operation will only be performed if the etag matches that of the live
+    /// operation is only performed if the etag matches that of the live
     /// object.
     pub etag: std::string::String,
 
@@ -5764,30 +5822,30 @@ pub struct Object {
     pub storage_class: std::string::String,
 
     /// Output only. Content-Length of the object data in bytes, matching
-    /// [<https://tools.ietf.org/html/rfc7230#section-3.3.2>][RFC 7230 §3.3.2].
+    /// [RFC 7230 §3.3.2](<https://tools.ietf.org/html/rfc7230#section-3.3.2>]).
     pub size: i64,
 
     /// Optional. Content-Encoding of the object data, matching
-    /// [<https://tools.ietf.org/html/rfc7231#section-3.1.2.2>][RFC 7231 §3.1.2.2]
+    /// [RFC 7231 §3.1.2.2](https://tools.ietf.org/html/rfc7231#section-3.1.2.2)
     pub content_encoding: std::string::String,
 
     /// Optional. Content-Disposition of the object data, matching
-    /// [<https://tools.ietf.org/html/rfc6266>][RFC 6266].
+    /// [RFC 6266](https://tools.ietf.org/html/rfc6266).
     pub content_disposition: std::string::String,
 
     /// Optional. Cache-Control directive for the object data, matching
-    /// [<https://tools.ietf.org/html/rfc7234#section-5.2>"][RFC 7234 §5.2].
+    /// [RFC 7234 §5.2](https://tools.ietf.org/html/rfc7234#section-5.2).
     /// If omitted, and the object is accessible to all anonymous users, the
-    /// default will be `public, max-age=3600`.
+    /// default is `public, max-age=3600`.
     pub cache_control: std::string::String,
 
     /// Optional. Access controls on the object.
-    /// If iam_config.uniform_bucket_level_access is enabled on the parent
+    /// If `iam_config.uniform_bucket_level_access` is enabled on the parent
     /// bucket, requests to set, read, or modify acl is an error.
     pub acl: std::vec::Vec<crate::model::ObjectAccessControl>,
 
     /// Optional. Content-Language of the object data, matching
-    /// [<https://tools.ietf.org/html/rfc7231#section-3.1.3.2>][RFC 7231 §3.1.3.2].
+    /// [RFC 7231 §3.1.3.2](https://tools.ietf.org/html/rfc7231#section-3.1.3.2).
     pub content_language: std::string::String,
 
     /// Output only. If this object is noncurrent, this is the time when the object
@@ -5798,7 +5856,7 @@ pub struct Object {
     pub finalize_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Content-Type of the object data, matching
-    /// [<https://tools.ietf.org/html/rfc7231#section-3.1.1.5>][RFC 7231 §3.1.1.5].
+    /// [RFC 7231 §3.1.1.5](https://tools.ietf.org/html/rfc7231#section-3.1.1.5).
     /// If an object is stored without a Content-Type, it is served as
     /// `application/octet-stream`.
     pub content_type: std::string::String,
@@ -5811,7 +5869,7 @@ pub struct Object {
     pub component_count: i32,
 
     /// Output only. Hashes for the data part of this object. This field is used
-    /// for output only and will be silently ignored if provided in requests. The
+    /// for output only and is silently ignored if provided in requests. The
     /// checksums of the complete object regardless of data range. If the object is
     /// downloaded in full, the client should compute one of these checksums over
     /// the downloaded object and compare it against the value provided here.
@@ -5830,7 +5888,7 @@ pub struct Object {
     pub kms_key: std::string::String,
 
     /// Output only. The time at which the object's storage class was last changed.
-    /// When the object is initially created, it will be set to time_created.
+    /// When the object is initially created, it is set to `time_created`.
     pub update_storage_class_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Whether an object is under temporary hold. While this flag is set
@@ -5860,21 +5918,21 @@ pub struct Object {
     /// Whether an object is under event-based hold.
     /// An event-based hold is a way to force the retention of an object until
     /// after some event occurs. Once the hold is released by explicitly setting
-    /// this field to false, the object will become subject to any bucket-level
-    /// retention policy, except that the retention duration will be calculated
+    /// this field to `false`, the object becomes subject to any bucket-level
+    /// retention policy, except that the retention duration is calculated
     /// from the time the event based hold was lifted, rather than the time the
     /// object was created.
     ///
-    /// In a WriteObject request, not setting this field implies that the value
-    /// should be taken from the parent bucket's "default_event_based_hold" field.
-    /// In a response, this field will always be set to true or false.
+    /// In a `WriteObject` request, not setting this field implies that the value
+    /// should be taken from the parent bucket's `default_event_based_hold` field.
+    /// In a response, this field is always set to `true` or `false`.
     pub event_based_hold: std::option::Option<bool>,
 
-    /// Output only. The owner of the object. This will always be the uploader of
-    /// the object.
+    /// Output only. The owner of the object. This is always the uploader of the
+    /// object.
     pub owner: std::option::Option<crate::model::Owner>,
 
-    /// Optional. Metadata of Customer-Supplied Encryption Key, if the object is
+    /// Optional. Metadata of customer-supplied encryption key, if the object is
     /// encrypted by such a key.
     pub customer_encryption: std::option::Option<crate::model::CustomerEncryption>,
 
@@ -5884,17 +5942,17 @@ pub struct Object {
     /// Output only. This is the time when the object became soft-deleted.
     ///
     /// Soft-deleted objects are only accessible if a soft_delete_policy is
-    /// enabled. Also see hard_delete_time.
+    /// enabled. Also see `hard_delete_time`.
     pub soft_delete_time: std::option::Option<wkt::Timestamp>,
 
-    /// Output only. The time when the object will be permanently deleted.
+    /// Output only. The time when the object is permanently deleted.
     ///
-    /// Only set when an object becomes soft-deleted with a soft_delete_policy.
-    /// Otherwise, the object will not be accessible.
+    /// Only set when an object becomes soft-deleted with a `soft_delete_policy`.
+    /// Otherwise, the object is not accessible.
     pub hard_delete_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Retention configuration of this object.
-    /// May only be configured if the bucket has object retention enabled.
+    /// Might only be configured if the bucket has object retention enabled.
     pub retention: std::option::Option<crate::model::object::Retention>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6406,11 +6464,11 @@ pub mod object {
         pub enum Mode {
             /// No specified mode. Object is not under retention.
             Unspecified,
-            /// Retention period may be decreased or increased.
-            /// The Retention configuration may be removed.
-            /// The mode may be changed to locked.
+            /// Retention period might be decreased or increased.
+            /// The Retention configuration might be removed.
+            /// The mode might be changed to locked.
             Unlocked,
-            /// Retention period may be increased.
+            /// Retention period might be increased.
             /// The Retention configuration cannot be removed.
             /// The mode cannot be changed.
             Locked,
@@ -6559,12 +6617,12 @@ pub struct ObjectAccessControl {
     ///   `group-example@googlegroups.com`.
     /// * All members of the Google Apps for Business domain `example.com` would be
     ///   `domain-example.com`.
-    ///   For project entities, `project-{team}-{projectnumber}` format will be
-    ///   returned on response.
+    ///   For project entities, `project-{team}-{projectnumber}` format is
+    ///   returned in the response.
     pub entity: std::string::String,
 
     /// Output only. The alternative entity format, if exists. For project
-    /// entities, `project-{team}-{projectid}` format will be returned on response.
+    /// entities, `project-{team}-{projectid}` format is returned in the response.
     pub entity_alt: std::string::String,
 
     /// Optional. The ID for the entity, if any.
@@ -6572,7 +6630,7 @@ pub struct ObjectAccessControl {
 
     /// Optional. The etag of the ObjectAccessControl.
     /// If included in the metadata of an update or delete request message, the
-    /// operation will only be performed if the etag matches that of the live
+    /// operation is only performed if the etag matches that of the live
     /// object's ObjectAccessControl.
     pub etag: std::string::String,
 

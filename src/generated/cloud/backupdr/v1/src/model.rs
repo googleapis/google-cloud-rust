@@ -7000,6 +7000,9 @@ pub struct Backup {
     /// Configuration Info has the resource format-specific configuration.
     pub plan_info: std::option::Option<crate::model::backup::PlanInfo>,
 
+    /// Resource that is being backed up.
+    pub source_resource: std::option::Option<crate::model::backup::SourceResource>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7415,6 +7418,49 @@ impl Backup {
             std::option::Option::Some(crate::model::backup::PlanInfo::GcpBackupPlanInfo(v.into()));
         self
     }
+
+    /// Sets the value of [source_resource][crate::model::Backup::source_resource].
+    ///
+    /// Note that all the setters affecting `source_resource` are mutually
+    /// exclusive.
+    pub fn set_source_resource<
+        T: std::convert::Into<std::option::Option<crate::model::backup::SourceResource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_resource = v.into();
+        self
+    }
+
+    /// The value of [source_resource][crate::model::Backup::source_resource]
+    /// if it holds a `GcpResource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gcp_resource(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BackupGcpResource>> {
+        #[allow(unreachable_patterns)]
+        self.source_resource.as_ref().and_then(|v| match v {
+            crate::model::backup::SourceResource::GcpResource(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_resource][crate::model::Backup::source_resource]
+    /// to hold a `GcpResource`.
+    ///
+    /// Note that all the setters affecting `source_resource` are
+    /// mutually exclusive.
+    pub fn set_gcp_resource<
+        T: std::convert::Into<std::boxed::Box<crate::model::BackupGcpResource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_resource =
+            std::option::Option::Some(crate::model::backup::SourceResource::GcpResource(v.into()));
+        self
+    }
 }
 
 impl wkt::message::Message for Backup {
@@ -7820,6 +7866,15 @@ pub mod backup {
         /// Output only. Configuration for a Google Cloud resource.
         GcpBackupPlanInfo(std::boxed::Box<crate::model::backup::GCPBackupPlanInfo>),
     }
+
+    /// Resource that is being backed up.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SourceResource {
+        /// Output only. Unique identifier of the GCP resource that is being backed
+        /// up.
+        GcpResource(std::boxed::Box<crate::model::BackupGcpResource>),
+    }
 }
 
 /// Message for creating a BackupVault.
@@ -8209,6 +8264,162 @@ impl gax::paginator::internal::PageableResponse for FetchUsableBackupVaultsRespo
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.backup_vaults
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request for the FetchBackupsForResourceType method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FetchBackupsForResourceTypeRequest {
+    /// Required. Datasources are the parent resource for the backups.
+    /// Format:
+    /// projects/{project}/locations/{location}/backupVaults/{backupVaultId}/dataSources/{datasourceId}
+    pub parent: std::string::String,
+
+    /// Required. The type of the GCP resource.
+    /// Ex: sqladmin.googleapis.com/Instance
+    pub resource_type: std::string::String,
+
+    /// Optional. The maximum number of Backups to return. The service may
+    /// return fewer than this value. If unspecified, at most 50
+    /// Backups will be returned. The maximum value is 100; values
+    /// above 100 will be coerced to 100.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous call of
+    /// `FetchBackupsForResourceType`.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `FetchBackupsForResourceType` must match
+    /// the call that provided the page token.
+    pub page_token: std::string::String,
+
+    /// Optional. A filter expression that filters the results fetched in the
+    /// response. The expression must specify the field name, a comparison
+    /// operator, and the value that you want to use for filtering. Supported
+    /// fields:
+    pub filter: std::string::String,
+
+    /// Optional. A comma-separated list of fields to order by, sorted in ascending
+    /// order. Use "desc" after a field name for descending.
+    pub order_by: std::string::String,
+
+    /// Optional. This parameter is used to specify the view of the backup.
+    /// If not specified, the default view is BASIC.
+    pub view: crate::model::BackupView,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FetchBackupsForResourceTypeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::FetchBackupsForResourceTypeRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [resource_type][crate::model::FetchBackupsForResourceTypeRequest::resource_type].
+    pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.resource_type = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::FetchBackupsForResourceTypeRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::FetchBackupsForResourceTypeRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::FetchBackupsForResourceTypeRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::FetchBackupsForResourceTypeRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+
+    /// Sets the value of [view][crate::model::FetchBackupsForResourceTypeRequest::view].
+    pub fn set_view<T: std::convert::Into<crate::model::BackupView>>(mut self, v: T) -> Self {
+        self.view = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FetchBackupsForResourceTypeRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.FetchBackupsForResourceTypeRequest"
+    }
+}
+
+/// Response for the FetchBackupsForResourceType method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FetchBackupsForResourceTypeResponse {
+    /// The Backups from the specified parent.
+    pub backups: std::vec::Vec<crate::model::Backup>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FetchBackupsForResourceTypeResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [backups][crate::model::FetchBackupsForResourceTypeResponse::backups].
+    pub fn set_backups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Backup>,
+    {
+        use std::iter::Iterator;
+        self.backups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::FetchBackupsForResourceTypeResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FetchBackupsForResourceTypeResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.FetchBackupsForResourceTypeResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for FetchBackupsForResourceTypeResponse {
+    type PageItem = crate::model::Backup;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.backups
     }
 
     fn next_page_token(&self) -> std::string::String {
@@ -9532,6 +9743,56 @@ impl wkt::message::Message for GcpResource {
     }
 }
 
+/// Minimum details to identify a Google Cloud resource for a backup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BackupGcpResource {
+    /// Name of the Google Cloud resource.
+    pub gcp_resourcename: std::string::String,
+
+    /// Location of the resource: \<region\>/\<zone\>/"global"/"unspecified".
+    pub location: std::string::String,
+
+    /// Type of the resource. Use the Unified Resource Type,
+    /// eg. compute.googleapis.com/Instance.
+    pub r#type: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BackupGcpResource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [gcp_resourcename][crate::model::BackupGcpResource::gcp_resourcename].
+    pub fn set_gcp_resourcename<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.gcp_resourcename = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::BackupGcpResource::location].
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::BackupGcpResource::type].
+    pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.r#type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BackupGcpResource {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.BackupGcpResource"
+    }
+}
+
 /// BackupApplianceBackupProperties represents BackupDR backup appliance's
 /// properties.
 #[derive(Clone, Default, PartialEq)]
@@ -9729,9 +9990,15 @@ pub struct CloudSqlInstanceBackupProperties {
     /// projects/{project}/instances/{instance}
     pub source_instance: std::string::String,
 
+    /// Output only. The instance creation timestamp.
+    pub instance_create_time: std::option::Option<wkt::Timestamp>,
+
     /// Output only. The tier (or machine type) for this instance. Example:
     /// `db-custom-1-3840`
     pub instance_tier: std::string::String,
+
+    /// Output only. The instance delete timestamp.
+    pub instance_delete_time: std::option::Option<wkt::Timestamp>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -9762,9 +10029,45 @@ impl CloudSqlInstanceBackupProperties {
         self
     }
 
+    /// Sets the value of [instance_create_time][crate::model::CloudSqlInstanceBackupProperties::instance_create_time].
+    pub fn set_instance_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.instance_create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [instance_create_time][crate::model::CloudSqlInstanceBackupProperties::instance_create_time].
+    pub fn set_or_clear_instance_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.instance_create_time = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [instance_tier][crate::model::CloudSqlInstanceBackupProperties::instance_tier].
     pub fn set_instance_tier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_tier = v.into();
+        self
+    }
+
+    /// Sets the value of [instance_delete_time][crate::model::CloudSqlInstanceBackupProperties::instance_delete_time].
+    pub fn set_instance_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.instance_delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [instance_delete_time][crate::model::CloudSqlInstanceBackupProperties::instance_delete_time].
+    pub fn set_or_clear_instance_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.instance_delete_time = v.map(|x| x.into());
         self
     }
 }
@@ -16722,6 +17025,10 @@ pub struct DataSourceReference {
     /// Output only. The GCP resource that the DataSource is associated with.
     pub data_source_gcp_resource_info: std::option::Option<crate::model::DataSourceGcpResourceInfo>,
 
+    /// Output only. Total size of the storage used by all backup resources for the
+    /// referenced datasource.
+    pub total_stored_bytes: std::option::Option<i64>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -16816,6 +17123,24 @@ impl DataSourceReference {
         T: std::convert::Into<crate::model::DataSourceGcpResourceInfo>,
     {
         self.data_source_gcp_resource_info = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [total_stored_bytes][crate::model::DataSourceReference::total_stored_bytes].
+    pub fn set_total_stored_bytes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.total_stored_bytes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [total_stored_bytes][crate::model::DataSourceReference::total_stored_bytes].
+    pub fn set_or_clear_total_stored_bytes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.total_stored_bytes = v.map(|x| x.into());
         self
     }
 }
@@ -17036,6 +17361,163 @@ impl GetDataSourceReferenceRequest {
 impl wkt::message::Message for GetDataSourceReferenceRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.backupdr.v1.GetDataSourceReferenceRequest"
+    }
+}
+
+/// Request for the ListDataSourceReferences method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDataSourceReferencesRequest {
+    /// Required. The parent resource name.
+    /// Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of DataSourceReferences to return. The service
+    /// may return fewer than this value. If unspecified, at most 50
+    /// DataSourceReferences will be returned. The maximum value is 100; values
+    /// above 100 will be coerced to 100.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListDataSourceReferences`
+    /// call. Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `ListDataSourceReferences` must match the call that provided the page
+    /// token.
+    pub page_token: std::string::String,
+
+    /// Optional. A filter expression that filters the results listed in the
+    /// response. The expression must specify the field name, a comparison
+    /// operator, and the value that you want to use for filtering.
+    ///
+    /// The following field and operator combinations are supported:
+    ///
+    /// * data_source_gcp_resource_info.gcp_resourcename with `=`, `!=`
+    /// * data_source_gcp_resource_info.type with `=`, `!=`
+    pub filter: std::string::String,
+
+    /// Optional. A comma-separated list of fields to order by, sorted in ascending
+    /// order. Use "desc" after a field name for descending.
+    ///
+    /// Supported fields:
+    ///
+    /// * data_source
+    /// * data_source_gcp_resource_info.gcp_resourcename
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDataSourceReferencesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListDataSourceReferencesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListDataSourceReferencesRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListDataSourceReferencesRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListDataSourceReferencesRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListDataSourceReferencesRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDataSourceReferencesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListDataSourceReferencesRequest"
+    }
+}
+
+/// Response for the ListDataSourceReferences method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDataSourceReferencesResponse {
+    /// The DataSourceReferences from the specified parent.
+    pub data_source_references: std::vec::Vec<crate::model::DataSourceReference>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDataSourceReferencesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [data_source_references][crate::model::ListDataSourceReferencesResponse::data_source_references].
+    pub fn set_data_source_references<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataSourceReference>,
+    {
+        use std::iter::Iterator;
+        self.data_source_references = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDataSourceReferencesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListDataSourceReferencesResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDataSourceReferencesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListDataSourceReferencesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDataSourceReferencesResponse {
+    type PageItem = crate::model::DataSourceReference;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.data_source_references
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
