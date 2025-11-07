@@ -23,7 +23,7 @@ on:
     types: [published]
 env:
   GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.91", "rust:nightly": "nightly" }'
-  GHA_GO_VERSIONS: '{ "go:current": "1.25.0" }'
+  GHA_GO_VERSIONS: '{ "go:current": "1.25.4" }'
   # Define the unstable flags once
   UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_id_token --cfg google_cloud_unstable_storage_bidi'
 
