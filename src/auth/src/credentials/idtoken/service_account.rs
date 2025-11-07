@@ -66,6 +66,7 @@ use crate::build_errors::Error as BuilderError;
 use crate::constants::{JWT_BEARER_GRANT_TYPE, OAUTH2_TOKEN_SERVER_URL};
 use crate::credentials::CacheableResource;
 use crate::credentials::idtoken::dynamic::IDTokenCredentialsProvider;
+use crate::credentials::idtoken::parse_id_token_from_str;
 use crate::credentials::service_account::{ServiceAccountKey, ServiceAccountTokenGenerator};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -109,6 +110,11 @@ struct ServiceAccountTokenProvider {
     token_server_url: String,
 }
 
+#[derive(serde::Deserialize)]
+struct IdTokenResponse {
+    id_token: String,
+}
+
 #[async_trait]
 impl TokenProvider for ServiceAccountTokenProvider {
     async fn token(&self) -> Result<Token> {
@@ -138,17 +144,12 @@ impl TokenProvider for ServiceAccountTokenProvider {
             return Err(err);
         }
 
-        let token = response
-            .text()
+        let token_res: IdTokenResponse = response
+            .json()
             .await
             .map_err(|e| CredentialsError::from_source(!e.is_decode(), e))?;
 
-        Ok(Token {
-            token,
-            token_type: "Bearer".to_string(),
-            expires_at: None,
-            metadata: None,
-        })
+        parse_id_token_from_str(token_res.id_token)
     }
 }
 
@@ -209,8 +210,10 @@ impl Builder {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::constants::JWT_BEARER_GRANT_TYPE;
     use crate::credentials::tests::PKCS8_PK;
+    use crate::{
+        constants::JWT_BEARER_GRANT_TYPE, credentials::idtoken::tests::generate_test_id_token,
+    };
     use httptest::{
         Expectation, Server,
         matchers::{all_of, any, contains, request, url_decoded},
@@ -232,6 +235,8 @@ mod tests {
 
     #[tokio::test]
     async fn idtoken_success() -> TestResult {
+        let audience = "test-audience";
+        let token = generate_test_id_token(audience);
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
@@ -240,18 +245,18 @@ mod tests {
                 request::body(url_decoded(contains(("grant_type", JWT_BEARER_GRANT_TYPE)))),
                 request::body(url_decoded(contains(("assertion", any())))),
             ])
-            .respond_with(status_code(200).body("test-id-token")),
+            .respond_with(json_encoded(json!({ "id_token": token}))),
         );
 
         let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
 
-        let creds = Builder::new("test-audience", service_account_key)
+        let creds = Builder::new(audience, service_account_key)
             .with_token_server_url(server.url("/").to_string())
             .build()?;
 
-        let token = creds.id_token().await?;
-        assert_eq!(token, "test-id-token");
+        let id_token = creds.id_token().await?;
+        assert_eq!(id_token, token);
         Ok(())
     }
 
@@ -277,6 +282,8 @@ mod tests {
 
     #[tokio::test]
     async fn idtoken_caching() -> TestResult {
+        let audience = "test-audience";
+        let token = generate_test_id_token(audience);
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
@@ -286,7 +293,7 @@ mod tests {
                 request::body(url_decoded(contains(("assertion", any())))),
             ])
             .times(1)
-            .respond_with(status_code(200).body("test-id-token")),
+            .respond_with(json_encoded(json!({ "id_token": token}))),
         );
 
         let mut service_account_key = get_mock_service_key();
@@ -297,10 +304,10 @@ mod tests {
             .build()?;
 
         let id_token = creds.id_token().await?;
-        assert_eq!(id_token, "test-id-token");
+        assert_eq!(id_token, token);
 
         let id_token = creds.id_token().await?;
-        assert_eq!(id_token, "test-id-token");
+        assert_eq!(id_token, token);
 
         Ok(())
     }
