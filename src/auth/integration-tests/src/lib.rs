@@ -566,7 +566,7 @@ pub mod unstable {
         let verifier = VerifierBuilder::new(audience)
             .with_email(expected_email)
             .build();
-        
+
         verifier.verify(&token).await?;
 
         Ok(())
@@ -597,7 +597,7 @@ pub mod unstable {
         let verifier = VerifierBuilder::new(target_audience)
             .with_email(expected_email)
             .build();
-        
+
         verifier.verify(&token).await?;
 
         Ok(())
@@ -623,7 +623,7 @@ pub mod unstable {
         let verifier = VerifierBuilder::new(target_audience)
             .with_email(expected_email)
             .build();
-        
+
         verifier.verify(&token).await?;
 
         Ok(())
@@ -655,7 +655,7 @@ pub mod unstable {
         let verifier = VerifierBuilder::new(target_audience)
             .with_email(target_principal_email)
             .build();
-        
+
         verifier.verify(&token).await?;
 
         Ok(())
