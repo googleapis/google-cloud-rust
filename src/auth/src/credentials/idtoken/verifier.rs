@@ -297,8 +297,10 @@ pub(crate) mod tests {
     };
     use base64::Engine;
     use httptest::matchers::{all_of, request};
-    use httptest::responders::json_encoded;
+    use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
+    use jsonwebtoken::{Algorithm, EncodingKey, Header};
+    use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::traits::PublicKeyParts;
     use std::collections::HashMap;
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
@@ -534,6 +536,66 @@ pub(crate) mod tests {
 
         let result = verifier.verify(token).await;
         assert!(result.is_ok());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_verify_decode_error() -> TestResult {
+        let audience = "https://example.com";
+        let verifier = Builder::new(audience).build();
+        let invalid_token = "invalid.token.format";
+
+        let result = verifier.verify(invalid_token).await;
+        assert!(result.is_err());
+        assert!(result.unwrap_err().is_decode());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_verify_missing_kid() -> TestResult {
+        let header = Header::new(Algorithm::RS256);
+        let claims: HashMap<&str, Value> = HashMap::new();
+
+        let private_cert = crate::credentials::tests::RSA_PRIVATE_KEY
+            .to_pkcs1_der()
+            .expect("Failed to encode private key to PKCS#1 DER");
+
+        let private_key = EncodingKey::from_rsa_der(private_cert.as_bytes());
+
+        let token =
+            jsonwebtoken::encode(&header, &claims, &private_key).expect("failed to encode jwt");
+
+        let verifier = Builder::new("https://example.com").build();
+
+        let result = verifier.verify(&token).await;
+        assert!(result.is_err());
+        assert!(result.unwrap_err().is_invalid_field());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_verify_load_cert_error() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path("/certs"),])
+                .times(1)
+                .respond_with(status_code(404)),
+        );
+
+        let audience = "https://example.com";
+        let token = generate_test_id_token(audience);
+        let token = token.as_str();
+
+        let verifier = Builder::new(audience)
+            .with_jwks_url(format!("http://{}/certs", server.addr()))
+            .build();
+
+        let result = verifier.verify(token).await;
+        assert!(result.is_err());
+        assert!(result.unwrap_err().is_load_cert());
 
         Ok(())
     }
