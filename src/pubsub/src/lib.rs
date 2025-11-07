@@ -20,9 +20,26 @@
 //! about the APIs, documentation, missing features, bugs, etc.
 //!
 //! This crate contains traits, types, and functions to interact with
-//! [Pub/Sub].
+//! [Pub/Sub]. Most applications will use the structs defined in the
+//! [client] module.
+//!
+//! For administrative operations:
+//! * [TopicAdmin][client::TopicAdmin]
+//! * [SubscriptionAdmin][client::SubscriptionAdmin]
+//! * [SchemaService][client::SchemaService]
+//!
+//! For publishing messages:
+//! * [PublisherFactory][client::PublisherFactory] and [Publisher][client::Publisher]
+//!
+//! Receiving messages is not yet supported by this crate.
+//!
+//! **NOTE:** This crate used to contain a different implementation, with a
+//! different surface. [@yoshidan](https://github.com/yoshidan) generously
+//! donated the crate name to Google. Their crate continues to live as
+//! [gcloud-pubsub].
 //!
 //! [pub/sub]: https://cloud.google.com/pubsub
+//! [gcloud-pubsub]: https://crates.io/crates/gcloud-pubsub
 
 pub(crate) mod generated;
 
