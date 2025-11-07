@@ -53,7 +53,7 @@ pub mod builder {
     pub mod publisher {
         #[doc(hidden)]
         pub use crate::generated::gapic_dataplane::builder::publisher::*;
-        pub use crate::publisher::client::ClientBuilder;
+        pub use crate::publisher::client::PublisherFactoryBuilder;
         pub use crate::publisher::publisher::PublisherBuilder;
     }
 }
