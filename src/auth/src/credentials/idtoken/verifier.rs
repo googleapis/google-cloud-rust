@@ -162,7 +162,7 @@ impl Verifier {
 
         let key_id = header
             .kid
-            .ok_or_else(|| Error::missing_header_field("kid"))?;
+            .ok_or_else(|| Error::invalid_field("kid", "kid header is missing"))?;
 
         let mut validation = Validation::new(header.alg);
         validation.leeway = self.clock_skew.as_secs();
@@ -181,48 +181,34 @@ impl Verifier {
 
         let token = jsonwebtoken::decode::<Map<String, Value>>(&token, &cert, &validation)
             .map_err(|e| match e.clone().into_kind() {
-                jsonwebtoken::errors::ErrorKind::InvalidToken
-                | jsonwebtoken::errors::ErrorKind::Base64(_)
-                | jsonwebtoken::errors::ErrorKind::Json(_)
-                | jsonwebtoken::errors::ErrorKind::Utf8(_) => Error::decode(e),
-                jsonwebtoken::errors::ErrorKind::InvalidAlgorithm => Error::invalid("algorithm", e),
-                jsonwebtoken::errors::ErrorKind::InvalidIssuer => Error::invalid("issuer", e),
-                jsonwebtoken::errors::ErrorKind::InvalidAudience => Error::invalid("audience", e),
-                jsonwebtoken::errors::ErrorKind::InvalidSubject => Error::invalid("subject", e),
-                jsonwebtoken::errors::ErrorKind::ExpiredSignature
-                | jsonwebtoken::errors::ErrorKind::ImmatureSignature => {
-                    Error::invalid("expiration", e)
-                }
+                jsonwebtoken::errors::ErrorKind::InvalidIssuer => Error::invalid_field("iss", e),
+                jsonwebtoken::errors::ErrorKind::InvalidAudience => Error::invalid_field("aud", e),
                 jsonwebtoken::errors::ErrorKind::MissingRequiredClaim(field) => {
-                    Error::missing_claim_field(field.as_str())
+                    Error::invalid_field(field.as_str(), e)
                 }
-                jsonwebtoken::errors::ErrorKind::InvalidSignature
-                | jsonwebtoken::errors::ErrorKind::InvalidEcdsaKey
-                | jsonwebtoken::errors::ErrorKind::InvalidEddsaKey
-                | jsonwebtoken::errors::ErrorKind::InvalidRsaKey(_)
-                | jsonwebtoken::errors::ErrorKind::RsaFailedSigning
-                | jsonwebtoken::errors::ErrorKind::InvalidAlgorithmName
-                | jsonwebtoken::errors::ErrorKind::InvalidKeyFormat => {
-                    Error::invalid("signature", e)
-                }
-                _ => Error::invalid("unknown", e),
+                _ => Error::invalid(e),
             })?;
 
         let claims = token.claims;
         if let Some(email) = expected_email {
-            let email_verified = claims["email_verified"].as_bool().unwrap_or(false);
-            if !email_verified {
-                return Err(Error::invalid(
+            let email_verified = claims["email_verified"]
+                .as_bool()
+                .ok_or(Error::invalid_field(
                     "email_verified",
-                    "email_verified claim is missing or value is `false`",
+                    "email_verified claim is missing",
+                ))?;
+            if !email_verified {
+                return Err(Error::invalid_field(
+                    "email_verified",
+                    "email_verified claim value is `false`",
                 ));
             }
             let token_email = claims["email"]
                 .as_str()
-                .ok_or_else(|| Error::missing_claim_field("email"))?;
+                .ok_or_else(|| Error::invalid_field("email", "email claim is missing"))?;
             if !email.eq(token_email) {
                 let err_msg = format!("expected `{email}`, but found `{token_email}`");
-                return Err(Error::invalid("email", err_msg));
+                return Err(Error::invalid_field("email", err_msg));
             }
         }
 
@@ -245,22 +231,17 @@ impl Error {
 
     /// A problem validating JWT token accordingly to set criteria.
     pub fn is_invalid(&self) -> bool {
-        matches!(self.0, ErrorKind::Invalid(_, _))
+        matches!(self.0, ErrorKind::Invalid(_))
+    }
+
+    /// A problem validating JWT token on a specific field.
+    pub fn is_invalid_field(&self) -> bool {
+        matches!(self.0, ErrorKind::InvalidField(_, _))
     }
 
     /// A problem fetching certificates to validate the JWT token.
     pub fn is_load_cert(&self) -> bool {
         matches!(self.0, ErrorKind::LoadingCertificate(_))
-    }
-
-    /// A required field was missing from JWT token header.
-    pub fn is_missing_header_field(&self) -> bool {
-        matches!(self.0, ErrorKind::MissingHeaderField(_))
-    }
-
-    /// A required field was missing from JWT token claims.
-    pub fn is_missing_claim_field(&self) -> bool {
-        matches!(self.0, ErrorKind::MissingClaimField(_))
     }
 
     /// A problem to decode the JWT token.
@@ -279,22 +260,20 @@ impl Error {
         Error(ErrorKind::LoadingCertificate(source.into()))
     }
 
-    /// Validation error in a given area of the JWT Token.
-    pub(crate) fn invalid<T>(area: &'static str, source: T) -> Error
+    /// Validation error of the JWT Token.
+    pub(crate) fn invalid<T>(source: T) -> Error
     where
         T: Into<BoxError>,
     {
-        Error(ErrorKind::Invalid(area, source.into()))
+        Error(ErrorKind::Invalid(source.into()))
     }
 
-    /// A required field was missing from the JWT token header.
-    pub(crate) fn missing_header_field(field: &'static str) -> Error {
-        Error(ErrorKind::MissingHeaderField(field))
-    }
-
-    /// A required field was missing from the JWT token claims.
-    pub(crate) fn missing_claim_field<S: Into<String>>(field: S) -> Error {
-        Error(ErrorKind::MissingClaimField(field.into()))
+    /// Validation error of the JWT Token on a specific field.
+    pub(crate) fn invalid_field<S: Into<String>, T>(field: S, source: T) -> Error
+    where
+        T: Into<BoxError>,
+    {
+        Error(ErrorKind::InvalidField(field.into(), source.into()))
     }
 }
 
@@ -302,14 +281,12 @@ impl Error {
 enum ErrorKind {
     #[error("cannot decode JWT token: {0}")]
     Decode(#[source] BoxError),
-    #[error("JWT token {0} is invalid: {1}")]
-    Invalid(&'static str, #[source] BoxError),
+    #[error("JWT token is invalid: {0}")]
+    Invalid(#[source] BoxError),
+    #[error("JWT token `{0}` field is invalid: {1}")]
+    InvalidField(String, #[source] BoxError),
     #[error("Failed to fetch certificate: {0}")]
     LoadingCertificate(#[source] BoxError),
-    #[error("JWT token header is missing required field: {0}")]
-    MissingHeaderField(&'static str),
-    #[error("JWT token claims is missing required field: {0}")]
-    MissingClaimField(String),
 }
 
 #[cfg(test)]
@@ -390,7 +367,7 @@ pub(crate) mod tests {
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
-        assert!(result.unwrap_err().is_invalid());
+        assert!(result.unwrap_err().is_invalid_field());
 
         Ok(())
     }
@@ -416,7 +393,7 @@ pub(crate) mod tests {
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
-        assert!(result.unwrap_err().is_invalid());
+        assert!(result.unwrap_err().is_invalid_field());
 
         Ok(())
     }
@@ -475,7 +452,7 @@ pub(crate) mod tests {
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
-        assert!(result.unwrap_err().is_invalid());
+        assert!(result.unwrap_err().is_invalid_field());
         Ok(())
     }
 
@@ -530,7 +507,7 @@ pub(crate) mod tests {
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
-        assert!(result.unwrap_err().is_invalid());
+        assert!(result.unwrap_err().is_invalid_field());
         Ok(())
     }
 
