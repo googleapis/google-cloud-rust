@@ -1279,6 +1279,8 @@ impl super::stub::Compliance for Compliance {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
@@ -2406,6 +2408,8 @@ impl super::stub::Echo for Echo {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
@@ -3501,6 +3505,8 @@ impl super::stub::Identity for Identity {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
@@ -5170,6 +5176,8 @@ impl super::stub::Messaging for Messaging {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
@@ -6261,6 +6269,8 @@ impl super::stub::SequenceService for SequenceService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
@@ -7512,6 +7522,8 @@ impl super::stub::Testing for Testing {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })

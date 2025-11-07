@@ -702,6 +702,8 @@ impl super::stub::Audit for Audit {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -1427,6 +1429,8 @@ impl super::stub::CmEnrollmentService for CmEnrollmentService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -2491,6 +2495,8 @@ impl super::stub::Config for Config {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -3263,6 +3269,8 @@ impl super::stub::Deployment for Deployment {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -4509,6 +4517,8 @@ impl super::stub::Monitoring for Monitoring {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })

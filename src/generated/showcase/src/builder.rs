@@ -2148,6 +2148,12 @@ pub mod compliance {
             self.0.request.page_token = v.into();
             self
         }
+
+        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -3793,6 +3799,12 @@ pub mod echo {
             self.0.request.page_token = v.into();
             self
         }
+
+        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -4942,6 +4954,12 @@ pub mod identity {
         /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
             self
         }
     }
@@ -6643,6 +6661,12 @@ pub mod messaging {
             self.0.request.page_token = v.into();
             self
         }
+
+        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -7785,6 +7809,12 @@ pub mod sequence_service {
         /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
             self
         }
     }
@@ -9142,6 +9172,12 @@ pub mod testing {
         /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
             self
         }
     }
