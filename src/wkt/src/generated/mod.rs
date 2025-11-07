@@ -89,7 +89,7 @@ impl Api {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Api;
+    /// # use google_cloud_wkt::Api;
     /// let x = Api::new().set_name("example");
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -101,8 +101,8 @@ impl Api {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Api;
-    /// use google_cloud_wkt::generated::Method;
+    /// # use google_cloud_wkt::Api;
+    /// use google_cloud_wkt::Method;
     /// let x = Api::new()
     ///     .set_methods([
     ///         Method::default()/* use setters */,
@@ -123,8 +123,8 @@ impl Api {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Api;
-    /// use google_cloud_wkt::generated::Option;
+    /// # use google_cloud_wkt::Api;
+    /// use google_cloud_wkt::Option;
     /// let x = Api::new()
     ///     .set_options([
     ///         Option::default()/* use setters */,
@@ -145,7 +145,7 @@ impl Api {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Api;
+    /// # use google_cloud_wkt::Api;
     /// let x = Api::new().set_version("example");
     /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -157,8 +157,8 @@ impl Api {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Api;
-    /// use google_cloud_wkt::generated::SourceContext;
+    /// # use google_cloud_wkt::Api;
+    /// use google_cloud_wkt::SourceContext;
     /// let x = Api::new().set_source_context(SourceContext::default()/* use setters */);
     /// ```
     pub fn set_source_context<T>(mut self, v: T) -> Self
@@ -173,8 +173,8 @@ impl Api {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Api;
-    /// use google_cloud_wkt::generated::SourceContext;
+    /// # use google_cloud_wkt::Api;
+    /// use google_cloud_wkt::SourceContext;
     /// let x = Api::new().set_or_clear_source_context(Some(SourceContext::default()/* use setters */));
     /// let x = Api::new().set_or_clear_source_context(None::<SourceContext>);
     /// ```
@@ -190,8 +190,8 @@ impl Api {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Api;
-    /// use google_cloud_wkt::generated::Mixin;
+    /// # use google_cloud_wkt::Api;
+    /// use google_cloud_wkt::Mixin;
     /// let x = Api::new()
     ///     .set_mixins([
     ///         Mixin::default()/* use setters */,
@@ -212,8 +212,8 @@ impl Api {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Api;
-    /// use google_cloud_wkt::generated::Syntax;
+    /// # use google_cloud_wkt::Api;
+    /// use google_cloud_wkt::Syntax;
     /// let x0 = Api::new().set_syntax(Syntax::Proto3);
     /// let x1 = Api::new().set_syntax(Syntax::Editions);
     /// ```
@@ -266,7 +266,7 @@ impl Method {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Method;
+    /// # use google_cloud_wkt::Method;
     /// let x = Method::new().set_name("example");
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -278,7 +278,7 @@ impl Method {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Method;
+    /// # use google_cloud_wkt::Method;
     /// let x = Method::new().set_request_type_url("example");
     /// ```
     pub fn set_request_type_url<T: std::convert::Into<std::string::String>>(
@@ -293,7 +293,7 @@ impl Method {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Method;
+    /// # use google_cloud_wkt::Method;
     /// let x = Method::new().set_request_streaming(true);
     /// ```
     pub fn set_request_streaming<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -305,7 +305,7 @@ impl Method {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Method;
+    /// # use google_cloud_wkt::Method;
     /// let x = Method::new().set_response_type_url("example");
     /// ```
     pub fn set_response_type_url<T: std::convert::Into<std::string::String>>(
@@ -320,7 +320,7 @@ impl Method {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Method;
+    /// # use google_cloud_wkt::Method;
     /// let x = Method::new().set_response_streaming(true);
     /// ```
     pub fn set_response_streaming<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -332,8 +332,8 @@ impl Method {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Method;
-    /// use google_cloud_wkt::generated::Option;
+    /// # use google_cloud_wkt::Method;
+    /// use google_cloud_wkt::Option;
     /// let x = Method::new()
     ///     .set_options([
     ///         Option::default()/* use setters */,
@@ -354,8 +354,8 @@ impl Method {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Method;
-    /// use google_cloud_wkt::generated::Syntax;
+    /// # use google_cloud_wkt::Method;
+    /// use google_cloud_wkt::Syntax;
     /// let x0 = Method::new().set_syntax(Syntax::Proto3);
     /// let x1 = Method::new().set_syntax(Syntax::Editions);
     /// ```
@@ -484,7 +484,7 @@ impl Mixin {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Mixin;
+    /// # use google_cloud_wkt::Mixin;
     /// let x = Mixin::new().set_name("example");
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -496,7 +496,7 @@ impl Mixin {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Mixin;
+    /// # use google_cloud_wkt::Mixin;
     /// let x = Mixin::new().set_root("example");
     /// ```
     pub fn set_root<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -530,8 +530,8 @@ impl FileDescriptorSet {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileDescriptorSet;
-    /// use google_cloud_wkt::generated::FileDescriptorProto;
+    /// # use google_cloud_wkt::FileDescriptorSet;
+    /// use google_cloud_wkt::FileDescriptorProto;
     /// let x = FileDescriptorSet::new()
     ///     .set_file([
     ///         FileDescriptorProto::default()/* use setters */,
@@ -611,7 +611,7 @@ impl FileDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileDescriptorProto;
+    /// # use google_cloud_wkt::FileDescriptorProto;
     /// let x = FileDescriptorProto::new().set_name("example");
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -623,7 +623,7 @@ impl FileDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileDescriptorProto;
+    /// # use google_cloud_wkt::FileDescriptorProto;
     /// let x = FileDescriptorProto::new().set_package("example");
     /// ```
     pub fn set_package<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -635,7 +635,7 @@ impl FileDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileDescriptorProto;
+    /// # use google_cloud_wkt::FileDescriptorProto;
     /// let x = FileDescriptorProto::new().set_dependency(["a", "b", "c"]);
     /// ```
     pub fn set_dependency<T, V>(mut self, v: T) -> Self
@@ -652,7 +652,7 @@ impl FileDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileDescriptorProto;
+    /// # use google_cloud_wkt::FileDescriptorProto;
     /// let x = FileDescriptorProto::new().set_public_dependency([1, 2, 3]);
     /// ```
     pub fn set_public_dependency<T, V>(mut self, v: T) -> Self
@@ -669,7 +669,7 @@ impl FileDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileDescriptorProto;
+    /// # use google_cloud_wkt::FileDescriptorProto;
     /// let x = FileDescriptorProto::new().set_weak_dependency([1, 2, 3]);
     /// ```
     pub fn set_weak_dependency<T, V>(mut self, v: T) -> Self
@@ -686,8 +686,8 @@ impl FileDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileDescriptorProto;
-    /// use google_cloud_wkt::generated::DescriptorProto;
+    /// # use google_cloud_wkt::FileDescriptorProto;
+    /// use google_cloud_wkt::DescriptorProto;
     /// let x = FileDescriptorProto::new()
     ///     .set_message_type([
     ///         DescriptorProto::default()/* use setters */,
@@ -708,8 +708,8 @@ impl FileDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileDescriptorProto;
-    /// use google_cloud_wkt::generated::EnumDescriptorProto;
+    /// # use google_cloud_wkt::FileDescriptorProto;
+    /// use google_cloud_wkt::EnumDescriptorProto;
     /// let x = FileDescriptorProto::new()
     ///     .set_enum_type([
     ///         EnumDescriptorProto::default()/* use setters */,
@@ -730,8 +730,8 @@ impl FileDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileDescriptorProto;
-    /// use google_cloud_wkt::generated::ServiceDescriptorProto;
+    /// # use google_cloud_wkt::FileDescriptorProto;
+    /// use google_cloud_wkt::ServiceDescriptorProto;
     /// let x = FileDescriptorProto::new()
     ///     .set_service([
     ///         ServiceDescriptorProto::default()/* use setters */,
@@ -752,8 +752,8 @@ impl FileDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileDescriptorProto;
-    /// use google_cloud_wkt::generated::FieldDescriptorProto;
+    /// # use google_cloud_wkt::FileDescriptorProto;
+    /// use google_cloud_wkt::FieldDescriptorProto;
     /// let x = FileDescriptorProto::new()
     ///     .set_extension([
     ///         FieldDescriptorProto::default()/* use setters */,
@@ -774,8 +774,8 @@ impl FileDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileDescriptorProto;
-    /// use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileDescriptorProto;
+    /// use google_cloud_wkt::FileOptions;
     /// let x = FileDescriptorProto::new().set_options(FileOptions::default()/* use setters */);
     /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
@@ -790,8 +790,8 @@ impl FileDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileDescriptorProto;
-    /// use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileDescriptorProto;
+    /// use google_cloud_wkt::FileOptions;
     /// let x = FileDescriptorProto::new().set_or_clear_options(Some(FileOptions::default()/* use setters */));
     /// let x = FileDescriptorProto::new().set_or_clear_options(None::<FileOptions>);
     /// ```
@@ -807,8 +807,8 @@ impl FileDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileDescriptorProto;
-    /// use google_cloud_wkt::generated::SourceCodeInfo;
+    /// # use google_cloud_wkt::FileDescriptorProto;
+    /// use google_cloud_wkt::SourceCodeInfo;
     /// let x = FileDescriptorProto::new().set_source_code_info(SourceCodeInfo::default()/* use setters */);
     /// ```
     pub fn set_source_code_info<T>(mut self, v: T) -> Self
@@ -823,8 +823,8 @@ impl FileDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileDescriptorProto;
-    /// use google_cloud_wkt::generated::SourceCodeInfo;
+    /// # use google_cloud_wkt::FileDescriptorProto;
+    /// use google_cloud_wkt::SourceCodeInfo;
     /// let x = FileDescriptorProto::new().set_or_clear_source_code_info(Some(SourceCodeInfo::default()/* use setters */));
     /// let x = FileDescriptorProto::new().set_or_clear_source_code_info(None::<SourceCodeInfo>);
     /// ```
@@ -840,7 +840,7 @@ impl FileDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileDescriptorProto;
+    /// # use google_cloud_wkt::FileDescriptorProto;
     /// let x = FileDescriptorProto::new().set_syntax("example");
     /// ```
     pub fn set_syntax<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -852,8 +852,8 @@ impl FileDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileDescriptorProto;
-    /// use google_cloud_wkt::generated::Edition;
+    /// # use google_cloud_wkt::FileDescriptorProto;
+    /// use google_cloud_wkt::Edition;
     /// let x0 = FileDescriptorProto::new().set_edition(Edition::Legacy);
     /// let x1 = FileDescriptorProto::new().set_edition(Edition::Proto2);
     /// let x2 = FileDescriptorProto::new().set_edition(Edition::Proto3);
@@ -908,7 +908,7 @@ impl DescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::DescriptorProto;
+    /// # use google_cloud_wkt::DescriptorProto;
     /// let x = DescriptorProto::new().set_name("example");
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -920,8 +920,8 @@ impl DescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::DescriptorProto;
-    /// use google_cloud_wkt::generated::FieldDescriptorProto;
+    /// # use google_cloud_wkt::DescriptorProto;
+    /// use google_cloud_wkt::FieldDescriptorProto;
     /// let x = DescriptorProto::new()
     ///     .set_field([
     ///         FieldDescriptorProto::default()/* use setters */,
@@ -942,8 +942,8 @@ impl DescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::DescriptorProto;
-    /// use google_cloud_wkt::generated::FieldDescriptorProto;
+    /// # use google_cloud_wkt::DescriptorProto;
+    /// use google_cloud_wkt::FieldDescriptorProto;
     /// let x = DescriptorProto::new()
     ///     .set_extension([
     ///         FieldDescriptorProto::default()/* use setters */,
@@ -964,8 +964,8 @@ impl DescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::DescriptorProto;
-    /// use google_cloud_wkt::generated::DescriptorProto;
+    /// # use google_cloud_wkt::DescriptorProto;
+    /// use google_cloud_wkt::DescriptorProto;
     /// let x = DescriptorProto::new()
     ///     .set_nested_type([
     ///         DescriptorProto::default()/* use setters */,
@@ -986,8 +986,8 @@ impl DescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::DescriptorProto;
-    /// use google_cloud_wkt::generated::EnumDescriptorProto;
+    /// # use google_cloud_wkt::DescriptorProto;
+    /// use google_cloud_wkt::EnumDescriptorProto;
     /// let x = DescriptorProto::new()
     ///     .set_enum_type([
     ///         EnumDescriptorProto::default()/* use setters */,
@@ -1008,8 +1008,8 @@ impl DescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::DescriptorProto;
-    /// use google_cloud_wkt::generated::descriptor_proto::ExtensionRange;
+    /// # use google_cloud_wkt::DescriptorProto;
+    /// use google_cloud_wkt::descriptor_proto::ExtensionRange;
     /// let x = DescriptorProto::new()
     ///     .set_extension_range([
     ///         ExtensionRange::default()/* use setters */,
@@ -1030,8 +1030,8 @@ impl DescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::DescriptorProto;
-    /// use google_cloud_wkt::generated::OneofDescriptorProto;
+    /// # use google_cloud_wkt::DescriptorProto;
+    /// use google_cloud_wkt::OneofDescriptorProto;
     /// let x = DescriptorProto::new()
     ///     .set_oneof_decl([
     ///         OneofDescriptorProto::default()/* use setters */,
@@ -1052,8 +1052,8 @@ impl DescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::DescriptorProto;
-    /// use google_cloud_wkt::generated::MessageOptions;
+    /// # use google_cloud_wkt::DescriptorProto;
+    /// use google_cloud_wkt::MessageOptions;
     /// let x = DescriptorProto::new().set_options(MessageOptions::default()/* use setters */);
     /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
@@ -1068,8 +1068,8 @@ impl DescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::DescriptorProto;
-    /// use google_cloud_wkt::generated::MessageOptions;
+    /// # use google_cloud_wkt::DescriptorProto;
+    /// use google_cloud_wkt::MessageOptions;
     /// let x = DescriptorProto::new().set_or_clear_options(Some(MessageOptions::default()/* use setters */));
     /// let x = DescriptorProto::new().set_or_clear_options(None::<MessageOptions>);
     /// ```
@@ -1085,8 +1085,8 @@ impl DescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::DescriptorProto;
-    /// use google_cloud_wkt::generated::descriptor_proto::ReservedRange;
+    /// # use google_cloud_wkt::DescriptorProto;
+    /// use google_cloud_wkt::descriptor_proto::ReservedRange;
     /// let x = DescriptorProto::new()
     ///     .set_reserved_range([
     ///         ReservedRange::default()/* use setters */,
@@ -1107,7 +1107,7 @@ impl DescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::DescriptorProto;
+    /// # use google_cloud_wkt::DescriptorProto;
     /// let x = DescriptorProto::new().set_reserved_name(["a", "b", "c"]);
     /// ```
     pub fn set_reserved_name<T, V>(mut self, v: T) -> Self
@@ -1153,7 +1153,7 @@ pub mod descriptor_proto {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::descriptor_proto::ExtensionRange;
+        /// # use google_cloud_wkt::descriptor_proto::ExtensionRange;
         /// let x = ExtensionRange::new().set_start(42);
         /// ```
         pub fn set_start<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -1165,7 +1165,7 @@ pub mod descriptor_proto {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::descriptor_proto::ExtensionRange;
+        /// # use google_cloud_wkt::descriptor_proto::ExtensionRange;
         /// let x = ExtensionRange::new().set_end(42);
         /// ```
         pub fn set_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -1177,8 +1177,8 @@ pub mod descriptor_proto {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::descriptor_proto::ExtensionRange;
-        /// use google_cloud_wkt::generated::ExtensionRangeOptions;
+        /// # use google_cloud_wkt::descriptor_proto::ExtensionRange;
+        /// use google_cloud_wkt::ExtensionRangeOptions;
         /// let x = ExtensionRange::new().set_options(ExtensionRangeOptions::default()/* use setters */);
         /// ```
         pub fn set_options<T>(mut self, v: T) -> Self
@@ -1193,8 +1193,8 @@ pub mod descriptor_proto {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::descriptor_proto::ExtensionRange;
-        /// use google_cloud_wkt::generated::ExtensionRangeOptions;
+        /// # use google_cloud_wkt::descriptor_proto::ExtensionRange;
+        /// use google_cloud_wkt::ExtensionRangeOptions;
         /// let x = ExtensionRange::new().set_or_clear_options(Some(ExtensionRangeOptions::default()/* use setters */));
         /// let x = ExtensionRange::new().set_or_clear_options(None::<ExtensionRangeOptions>);
         /// ```
@@ -1235,7 +1235,7 @@ pub mod descriptor_proto {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::descriptor_proto::ReservedRange;
+        /// # use google_cloud_wkt::descriptor_proto::ReservedRange;
         /// let x = ReservedRange::new().set_start(42);
         /// ```
         pub fn set_start<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -1247,7 +1247,7 @@ pub mod descriptor_proto {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::descriptor_proto::ReservedRange;
+        /// # use google_cloud_wkt::descriptor_proto::ReservedRange;
         /// let x = ReservedRange::new().set_end(42);
         /// ```
         pub fn set_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -1294,8 +1294,8 @@ impl ExtensionRangeOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::ExtensionRangeOptions;
-    /// use google_cloud_wkt::generated::UninterpretedOption;
+    /// # use google_cloud_wkt::ExtensionRangeOptions;
+    /// use google_cloud_wkt::UninterpretedOption;
     /// let x = ExtensionRangeOptions::new()
     ///     .set_uninterpreted_option([
     ///         UninterpretedOption::default()/* use setters */,
@@ -1316,8 +1316,8 @@ impl ExtensionRangeOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::ExtensionRangeOptions;
-    /// use google_cloud_wkt::generated::extension_range_options::Declaration;
+    /// # use google_cloud_wkt::ExtensionRangeOptions;
+    /// use google_cloud_wkt::extension_range_options::Declaration;
     /// let x = ExtensionRangeOptions::new()
     ///     .set_declaration([
     ///         Declaration::default()/* use setters */,
@@ -1338,8 +1338,8 @@ impl ExtensionRangeOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::ExtensionRangeOptions;
-    /// use google_cloud_wkt::generated::FeatureSet;
+    /// # use google_cloud_wkt::ExtensionRangeOptions;
+    /// use google_cloud_wkt::FeatureSet;
     /// let x = ExtensionRangeOptions::new().set_features(FeatureSet::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
@@ -1354,8 +1354,8 @@ impl ExtensionRangeOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::ExtensionRangeOptions;
-    /// use google_cloud_wkt::generated::FeatureSet;
+    /// # use google_cloud_wkt::ExtensionRangeOptions;
+    /// use google_cloud_wkt::FeatureSet;
     /// let x = ExtensionRangeOptions::new().set_or_clear_features(Some(FeatureSet::default()/* use setters */));
     /// let x = ExtensionRangeOptions::new().set_or_clear_features(None::<FeatureSet>);
     /// ```
@@ -1371,8 +1371,8 @@ impl ExtensionRangeOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::ExtensionRangeOptions;
-    /// use google_cloud_wkt::generated::extension_range_options::VerificationState;
+    /// # use google_cloud_wkt::ExtensionRangeOptions;
+    /// use google_cloud_wkt::extension_range_options::VerificationState;
     /// let x0 = ExtensionRangeOptions::new().set_verification(VerificationState::Unverified);
     /// ```
     pub fn set_verification<
@@ -1433,7 +1433,7 @@ pub mod extension_range_options {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::extension_range_options::Declaration;
+        /// # use google_cloud_wkt::extension_range_options::Declaration;
         /// let x = Declaration::new().set_number(42);
         /// ```
         pub fn set_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -1445,7 +1445,7 @@ pub mod extension_range_options {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::extension_range_options::Declaration;
+        /// # use google_cloud_wkt::extension_range_options::Declaration;
         /// let x = Declaration::new().set_full_name("example");
         /// ```
         pub fn set_full_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1457,7 +1457,7 @@ pub mod extension_range_options {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::extension_range_options::Declaration;
+        /// # use google_cloud_wkt::extension_range_options::Declaration;
         /// let x = Declaration::new().set_type("example");
         /// ```
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1469,7 +1469,7 @@ pub mod extension_range_options {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::extension_range_options::Declaration;
+        /// # use google_cloud_wkt::extension_range_options::Declaration;
         /// let x = Declaration::new().set_reserved(true);
         /// ```
         pub fn set_reserved<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -1481,7 +1481,7 @@ pub mod extension_range_options {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::extension_range_options::Declaration;
+        /// # use google_cloud_wkt::extension_range_options::Declaration;
         /// let x = Declaration::new().set_repeated(true);
         /// ```
         pub fn set_repeated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -1699,7 +1699,7 @@ impl FieldDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldDescriptorProto;
+    /// # use google_cloud_wkt::FieldDescriptorProto;
     /// let x = FieldDescriptorProto::new().set_name("example");
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1711,7 +1711,7 @@ impl FieldDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldDescriptorProto;
+    /// # use google_cloud_wkt::FieldDescriptorProto;
     /// let x = FieldDescriptorProto::new().set_number(42);
     /// ```
     pub fn set_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -1723,8 +1723,8 @@ impl FieldDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldDescriptorProto;
-    /// use google_cloud_wkt::generated::field_descriptor_proto::Label;
+    /// # use google_cloud_wkt::FieldDescriptorProto;
+    /// use google_cloud_wkt::field_descriptor_proto::Label;
     /// let x0 = FieldDescriptorProto::new().set_label(Label::Optional);
     /// let x1 = FieldDescriptorProto::new().set_label(Label::Repeated);
     /// let x2 = FieldDescriptorProto::new().set_label(Label::Required);
@@ -1741,8 +1741,8 @@ impl FieldDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldDescriptorProto;
-    /// use google_cloud_wkt::generated::field_descriptor_proto::Type;
+    /// # use google_cloud_wkt::FieldDescriptorProto;
+    /// use google_cloud_wkt::field_descriptor_proto::Type;
     /// let x0 = FieldDescriptorProto::new().set_type(Type::Double);
     /// let x1 = FieldDescriptorProto::new().set_type(Type::Float);
     /// let x2 = FieldDescriptorProto::new().set_type(Type::Int64);
@@ -1759,7 +1759,7 @@ impl FieldDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldDescriptorProto;
+    /// # use google_cloud_wkt::FieldDescriptorProto;
     /// let x = FieldDescriptorProto::new().set_type_name("example");
     /// ```
     pub fn set_type_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1771,7 +1771,7 @@ impl FieldDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldDescriptorProto;
+    /// # use google_cloud_wkt::FieldDescriptorProto;
     /// let x = FieldDescriptorProto::new().set_extendee("example");
     /// ```
     pub fn set_extendee<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1783,7 +1783,7 @@ impl FieldDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldDescriptorProto;
+    /// # use google_cloud_wkt::FieldDescriptorProto;
     /// let x = FieldDescriptorProto::new().set_default_value("example");
     /// ```
     pub fn set_default_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1795,7 +1795,7 @@ impl FieldDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldDescriptorProto;
+    /// # use google_cloud_wkt::FieldDescriptorProto;
     /// let x = FieldDescriptorProto::new().set_oneof_index(42);
     /// ```
     pub fn set_oneof_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -1807,7 +1807,7 @@ impl FieldDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldDescriptorProto;
+    /// # use google_cloud_wkt::FieldDescriptorProto;
     /// let x = FieldDescriptorProto::new().set_json_name("example");
     /// ```
     pub fn set_json_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1819,8 +1819,8 @@ impl FieldDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldDescriptorProto;
-    /// use google_cloud_wkt::generated::FieldOptions;
+    /// # use google_cloud_wkt::FieldDescriptorProto;
+    /// use google_cloud_wkt::FieldOptions;
     /// let x = FieldDescriptorProto::new().set_options(FieldOptions::default()/* use setters */);
     /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
@@ -1835,8 +1835,8 @@ impl FieldDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldDescriptorProto;
-    /// use google_cloud_wkt::generated::FieldOptions;
+    /// # use google_cloud_wkt::FieldDescriptorProto;
+    /// use google_cloud_wkt::FieldOptions;
     /// let x = FieldDescriptorProto::new().set_or_clear_options(Some(FieldOptions::default()/* use setters */));
     /// let x = FieldDescriptorProto::new().set_or_clear_options(None::<FieldOptions>);
     /// ```
@@ -1852,7 +1852,7 @@ impl FieldDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldDescriptorProto;
+    /// # use google_cloud_wkt::FieldDescriptorProto;
     /// let x = FieldDescriptorProto::new().set_proto3_optional(true);
     /// ```
     pub fn set_proto3_optional<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -2255,7 +2255,7 @@ impl OneofDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::OneofDescriptorProto;
+    /// # use google_cloud_wkt::OneofDescriptorProto;
     /// let x = OneofDescriptorProto::new().set_name("example");
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2267,8 +2267,8 @@ impl OneofDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::OneofDescriptorProto;
-    /// use google_cloud_wkt::generated::OneofOptions;
+    /// # use google_cloud_wkt::OneofDescriptorProto;
+    /// use google_cloud_wkt::OneofOptions;
     /// let x = OneofDescriptorProto::new().set_options(OneofOptions::default()/* use setters */);
     /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
@@ -2283,8 +2283,8 @@ impl OneofDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::OneofDescriptorProto;
-    /// use google_cloud_wkt::generated::OneofOptions;
+    /// # use google_cloud_wkt::OneofDescriptorProto;
+    /// use google_cloud_wkt::OneofOptions;
     /// let x = OneofDescriptorProto::new().set_or_clear_options(Some(OneofOptions::default()/* use setters */));
     /// let x = OneofDescriptorProto::new().set_or_clear_options(None::<OneofOptions>);
     /// ```
@@ -2334,7 +2334,7 @@ impl EnumDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumDescriptorProto;
+    /// # use google_cloud_wkt::EnumDescriptorProto;
     /// let x = EnumDescriptorProto::new().set_name("example");
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2346,8 +2346,8 @@ impl EnumDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumDescriptorProto;
-    /// use google_cloud_wkt::generated::EnumValueDescriptorProto;
+    /// # use google_cloud_wkt::EnumDescriptorProto;
+    /// use google_cloud_wkt::EnumValueDescriptorProto;
     /// let x = EnumDescriptorProto::new()
     ///     .set_value([
     ///         EnumValueDescriptorProto::default()/* use setters */,
@@ -2368,8 +2368,8 @@ impl EnumDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumDescriptorProto;
-    /// use google_cloud_wkt::generated::EnumOptions;
+    /// # use google_cloud_wkt::EnumDescriptorProto;
+    /// use google_cloud_wkt::EnumOptions;
     /// let x = EnumDescriptorProto::new().set_options(EnumOptions::default()/* use setters */);
     /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
@@ -2384,8 +2384,8 @@ impl EnumDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumDescriptorProto;
-    /// use google_cloud_wkt::generated::EnumOptions;
+    /// # use google_cloud_wkt::EnumDescriptorProto;
+    /// use google_cloud_wkt::EnumOptions;
     /// let x = EnumDescriptorProto::new().set_or_clear_options(Some(EnumOptions::default()/* use setters */));
     /// let x = EnumDescriptorProto::new().set_or_clear_options(None::<EnumOptions>);
     /// ```
@@ -2401,8 +2401,8 @@ impl EnumDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumDescriptorProto;
-    /// use google_cloud_wkt::generated::enum_descriptor_proto::EnumReservedRange;
+    /// # use google_cloud_wkt::EnumDescriptorProto;
+    /// use google_cloud_wkt::enum_descriptor_proto::EnumReservedRange;
     /// let x = EnumDescriptorProto::new()
     ///     .set_reserved_range([
     ///         EnumReservedRange::default()/* use setters */,
@@ -2423,7 +2423,7 @@ impl EnumDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumDescriptorProto;
+    /// # use google_cloud_wkt::EnumDescriptorProto;
     /// let x = EnumDescriptorProto::new().set_reserved_name(["a", "b", "c"]);
     /// ```
     pub fn set_reserved_name<T, V>(mut self, v: T) -> Self
@@ -2473,7 +2473,7 @@ pub mod enum_descriptor_proto {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::enum_descriptor_proto::EnumReservedRange;
+        /// # use google_cloud_wkt::enum_descriptor_proto::EnumReservedRange;
         /// let x = EnumReservedRange::new().set_start(42);
         /// ```
         pub fn set_start<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -2485,7 +2485,7 @@ pub mod enum_descriptor_proto {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::enum_descriptor_proto::EnumReservedRange;
+        /// # use google_cloud_wkt::enum_descriptor_proto::EnumReservedRange;
         /// let x = EnumReservedRange::new().set_end(42);
         /// ```
         pub fn set_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -2523,7 +2523,7 @@ impl EnumValueDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumValueDescriptorProto;
+    /// # use google_cloud_wkt::EnumValueDescriptorProto;
     /// let x = EnumValueDescriptorProto::new().set_name("example");
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2535,7 +2535,7 @@ impl EnumValueDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumValueDescriptorProto;
+    /// # use google_cloud_wkt::EnumValueDescriptorProto;
     /// let x = EnumValueDescriptorProto::new().set_number(42);
     /// ```
     pub fn set_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -2547,8 +2547,8 @@ impl EnumValueDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumValueDescriptorProto;
-    /// use google_cloud_wkt::generated::EnumValueOptions;
+    /// # use google_cloud_wkt::EnumValueDescriptorProto;
+    /// use google_cloud_wkt::EnumValueOptions;
     /// let x = EnumValueDescriptorProto::new().set_options(EnumValueOptions::default()/* use setters */);
     /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
@@ -2563,8 +2563,8 @@ impl EnumValueDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumValueDescriptorProto;
-    /// use google_cloud_wkt::generated::EnumValueOptions;
+    /// # use google_cloud_wkt::EnumValueDescriptorProto;
+    /// use google_cloud_wkt::EnumValueOptions;
     /// let x = EnumValueDescriptorProto::new().set_or_clear_options(Some(EnumValueOptions::default()/* use setters */));
     /// let x = EnumValueDescriptorProto::new().set_or_clear_options(None::<EnumValueOptions>);
     /// ```
@@ -2605,7 +2605,7 @@ impl ServiceDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::ServiceDescriptorProto;
+    /// # use google_cloud_wkt::ServiceDescriptorProto;
     /// let x = ServiceDescriptorProto::new().set_name("example");
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2617,8 +2617,8 @@ impl ServiceDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::ServiceDescriptorProto;
-    /// use google_cloud_wkt::generated::MethodDescriptorProto;
+    /// # use google_cloud_wkt::ServiceDescriptorProto;
+    /// use google_cloud_wkt::MethodDescriptorProto;
     /// let x = ServiceDescriptorProto::new()
     ///     .set_method([
     ///         MethodDescriptorProto::default()/* use setters */,
@@ -2639,8 +2639,8 @@ impl ServiceDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::ServiceDescriptorProto;
-    /// use google_cloud_wkt::generated::ServiceOptions;
+    /// # use google_cloud_wkt::ServiceDescriptorProto;
+    /// use google_cloud_wkt::ServiceOptions;
     /// let x = ServiceDescriptorProto::new().set_options(ServiceOptions::default()/* use setters */);
     /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
@@ -2655,8 +2655,8 @@ impl ServiceDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::ServiceDescriptorProto;
-    /// use google_cloud_wkt::generated::ServiceOptions;
+    /// # use google_cloud_wkt::ServiceDescriptorProto;
+    /// use google_cloud_wkt::ServiceOptions;
     /// let x = ServiceDescriptorProto::new().set_or_clear_options(Some(ServiceOptions::default()/* use setters */));
     /// let x = ServiceDescriptorProto::new().set_or_clear_options(None::<ServiceOptions>);
     /// ```
@@ -2707,7 +2707,7 @@ impl MethodDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MethodDescriptorProto;
+    /// # use google_cloud_wkt::MethodDescriptorProto;
     /// let x = MethodDescriptorProto::new().set_name("example");
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2719,7 +2719,7 @@ impl MethodDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MethodDescriptorProto;
+    /// # use google_cloud_wkt::MethodDescriptorProto;
     /// let x = MethodDescriptorProto::new().set_input_type("example");
     /// ```
     pub fn set_input_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2731,7 +2731,7 @@ impl MethodDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MethodDescriptorProto;
+    /// # use google_cloud_wkt::MethodDescriptorProto;
     /// let x = MethodDescriptorProto::new().set_output_type("example");
     /// ```
     pub fn set_output_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2743,8 +2743,8 @@ impl MethodDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MethodDescriptorProto;
-    /// use google_cloud_wkt::generated::MethodOptions;
+    /// # use google_cloud_wkt::MethodDescriptorProto;
+    /// use google_cloud_wkt::MethodOptions;
     /// let x = MethodDescriptorProto::new().set_options(MethodOptions::default()/* use setters */);
     /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
@@ -2759,8 +2759,8 @@ impl MethodDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MethodDescriptorProto;
-    /// use google_cloud_wkt::generated::MethodOptions;
+    /// # use google_cloud_wkt::MethodDescriptorProto;
+    /// use google_cloud_wkt::MethodOptions;
     /// let x = MethodDescriptorProto::new().set_or_clear_options(Some(MethodOptions::default()/* use setters */));
     /// let x = MethodDescriptorProto::new().set_or_clear_options(None::<MethodOptions>);
     /// ```
@@ -2776,7 +2776,7 @@ impl MethodDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MethodDescriptorProto;
+    /// # use google_cloud_wkt::MethodDescriptorProto;
     /// let x = MethodDescriptorProto::new().set_client_streaming(true);
     /// ```
     pub fn set_client_streaming<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -2788,7 +2788,7 @@ impl MethodDescriptorProto {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MethodDescriptorProto;
+    /// # use google_cloud_wkt::MethodDescriptorProto;
     /// let x = MethodDescriptorProto::new().set_server_streaming(true);
     /// ```
     pub fn set_server_streaming<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -2930,7 +2930,7 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_java_package("example");
     /// ```
     pub fn set_java_package<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2942,7 +2942,7 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_java_outer_classname("example");
     /// ```
     pub fn set_java_outer_classname<T: std::convert::Into<std::string::String>>(
@@ -2957,7 +2957,7 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_java_multiple_files(true);
     /// ```
     pub fn set_java_multiple_files<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -2969,7 +2969,7 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_java_generate_equals_and_hash(true);
     /// ```
     #[deprecated]
@@ -2982,7 +2982,7 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_java_string_check_utf8(true);
     /// ```
     pub fn set_java_string_check_utf8<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -2994,8 +2994,8 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
-    /// use google_cloud_wkt::generated::file_options::OptimizeMode;
+    /// # use google_cloud_wkt::FileOptions;
+    /// use google_cloud_wkt::file_options::OptimizeMode;
     /// let x0 = FileOptions::new().set_optimize_for(OptimizeMode::Speed);
     /// let x1 = FileOptions::new().set_optimize_for(OptimizeMode::CodeSize);
     /// let x2 = FileOptions::new().set_optimize_for(OptimizeMode::LiteRuntime);
@@ -3012,7 +3012,7 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_go_package("example");
     /// ```
     pub fn set_go_package<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3024,7 +3024,7 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_cc_generic_services(true);
     /// ```
     pub fn set_cc_generic_services<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -3036,7 +3036,7 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_java_generic_services(true);
     /// ```
     pub fn set_java_generic_services<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -3048,7 +3048,7 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_py_generic_services(true);
     /// ```
     pub fn set_py_generic_services<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -3060,7 +3060,7 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_deprecated(true);
     /// ```
     pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -3072,7 +3072,7 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_cc_enable_arenas(true);
     /// ```
     pub fn set_cc_enable_arenas<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -3084,7 +3084,7 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_objc_class_prefix("example");
     /// ```
     pub fn set_objc_class_prefix<T: std::convert::Into<std::string::String>>(
@@ -3099,7 +3099,7 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_csharp_namespace("example");
     /// ```
     pub fn set_csharp_namespace<T: std::convert::Into<std::string::String>>(
@@ -3114,7 +3114,7 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_swift_prefix("example");
     /// ```
     pub fn set_swift_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3126,7 +3126,7 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_php_class_prefix("example");
     /// ```
     pub fn set_php_class_prefix<T: std::convert::Into<std::string::String>>(
@@ -3141,7 +3141,7 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_php_namespace("example");
     /// ```
     pub fn set_php_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3153,7 +3153,7 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_php_metadata_namespace("example");
     /// ```
     pub fn set_php_metadata_namespace<T: std::convert::Into<std::string::String>>(
@@ -3168,7 +3168,7 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
+    /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_ruby_package("example");
     /// ```
     pub fn set_ruby_package<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3180,8 +3180,8 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
-    /// use google_cloud_wkt::generated::FeatureSet;
+    /// # use google_cloud_wkt::FileOptions;
+    /// use google_cloud_wkt::FeatureSet;
     /// let x = FileOptions::new().set_features(FeatureSet::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
@@ -3196,8 +3196,8 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
-    /// use google_cloud_wkt::generated::FeatureSet;
+    /// # use google_cloud_wkt::FileOptions;
+    /// use google_cloud_wkt::FeatureSet;
     /// let x = FileOptions::new().set_or_clear_features(Some(FeatureSet::default()/* use setters */));
     /// let x = FileOptions::new().set_or_clear_features(None::<FeatureSet>);
     /// ```
@@ -3213,8 +3213,8 @@ impl FileOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FileOptions;
-    /// use google_cloud_wkt::generated::UninterpretedOption;
+    /// # use google_cloud_wkt::FileOptions;
+    /// use google_cloud_wkt::UninterpretedOption;
     /// let x = FileOptions::new()
     ///     .set_uninterpreted_option([
     ///         UninterpretedOption::default()/* use setters */,
@@ -3462,7 +3462,7 @@ impl MessageOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MessageOptions;
+    /// # use google_cloud_wkt::MessageOptions;
     /// let x = MessageOptions::new().set_message_set_wire_format(true);
     /// ```
     pub fn set_message_set_wire_format<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -3474,7 +3474,7 @@ impl MessageOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MessageOptions;
+    /// # use google_cloud_wkt::MessageOptions;
     /// let x = MessageOptions::new().set_no_standard_descriptor_accessor(true);
     /// ```
     pub fn set_no_standard_descriptor_accessor<T: std::convert::Into<bool>>(
@@ -3489,7 +3489,7 @@ impl MessageOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MessageOptions;
+    /// # use google_cloud_wkt::MessageOptions;
     /// let x = MessageOptions::new().set_deprecated(true);
     /// ```
     pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -3501,7 +3501,7 @@ impl MessageOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MessageOptions;
+    /// # use google_cloud_wkt::MessageOptions;
     /// let x = MessageOptions::new().set_map_entry(true);
     /// ```
     pub fn set_map_entry<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -3513,7 +3513,7 @@ impl MessageOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MessageOptions;
+    /// # use google_cloud_wkt::MessageOptions;
     /// let x = MessageOptions::new().set_deprecated_legacy_json_field_conflicts(true);
     /// ```
     #[deprecated]
@@ -3529,8 +3529,8 @@ impl MessageOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MessageOptions;
-    /// use google_cloud_wkt::generated::FeatureSet;
+    /// # use google_cloud_wkt::MessageOptions;
+    /// use google_cloud_wkt::FeatureSet;
     /// let x = MessageOptions::new().set_features(FeatureSet::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
@@ -3545,8 +3545,8 @@ impl MessageOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MessageOptions;
-    /// use google_cloud_wkt::generated::FeatureSet;
+    /// # use google_cloud_wkt::MessageOptions;
+    /// use google_cloud_wkt::FeatureSet;
     /// let x = MessageOptions::new().set_or_clear_features(Some(FeatureSet::default()/* use setters */));
     /// let x = MessageOptions::new().set_or_clear_features(None::<FeatureSet>);
     /// ```
@@ -3562,8 +3562,8 @@ impl MessageOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MessageOptions;
-    /// use google_cloud_wkt::generated::UninterpretedOption;
+    /// # use google_cloud_wkt::MessageOptions;
+    /// use google_cloud_wkt::UninterpretedOption;
     /// let x = MessageOptions::new()
     ///     .set_uninterpreted_option([
     ///         UninterpretedOption::default()/* use setters */,
@@ -3689,8 +3689,8 @@ impl FieldOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldOptions;
-    /// use google_cloud_wkt::generated::field_options::CType;
+    /// # use google_cloud_wkt::FieldOptions;
+    /// use google_cloud_wkt::field_options::CType;
     /// let x0 = FieldOptions::new().set_ctype(CType::Cord);
     /// let x1 = FieldOptions::new().set_ctype(CType::StringPiece);
     /// ```
@@ -3703,7 +3703,7 @@ impl FieldOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldOptions;
+    /// # use google_cloud_wkt::FieldOptions;
     /// let x = FieldOptions::new().set_packed(true);
     /// ```
     pub fn set_packed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -3715,8 +3715,8 @@ impl FieldOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldOptions;
-    /// use google_cloud_wkt::generated::field_options::JSType;
+    /// # use google_cloud_wkt::FieldOptions;
+    /// use google_cloud_wkt::field_options::JSType;
     /// let x0 = FieldOptions::new().set_jstype(JSType::JsString);
     /// let x1 = FieldOptions::new().set_jstype(JSType::JsNumber);
     /// ```
@@ -3729,7 +3729,7 @@ impl FieldOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldOptions;
+    /// # use google_cloud_wkt::FieldOptions;
     /// let x = FieldOptions::new().set_lazy(true);
     /// ```
     pub fn set_lazy<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -3741,7 +3741,7 @@ impl FieldOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldOptions;
+    /// # use google_cloud_wkt::FieldOptions;
     /// let x = FieldOptions::new().set_unverified_lazy(true);
     /// ```
     pub fn set_unverified_lazy<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -3753,7 +3753,7 @@ impl FieldOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldOptions;
+    /// # use google_cloud_wkt::FieldOptions;
     /// let x = FieldOptions::new().set_deprecated(true);
     /// ```
     pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -3765,7 +3765,7 @@ impl FieldOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldOptions;
+    /// # use google_cloud_wkt::FieldOptions;
     /// let x = FieldOptions::new().set_weak(true);
     /// ```
     pub fn set_weak<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -3777,7 +3777,7 @@ impl FieldOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldOptions;
+    /// # use google_cloud_wkt::FieldOptions;
     /// let x = FieldOptions::new().set_debug_redact(true);
     /// ```
     pub fn set_debug_redact<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -3789,8 +3789,8 @@ impl FieldOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldOptions;
-    /// use google_cloud_wkt::generated::field_options::OptionRetention;
+    /// # use google_cloud_wkt::FieldOptions;
+    /// use google_cloud_wkt::field_options::OptionRetention;
     /// let x0 = FieldOptions::new().set_retention(OptionRetention::RetentionRuntime);
     /// let x1 = FieldOptions::new().set_retention(OptionRetention::RetentionSource);
     /// ```
@@ -3806,8 +3806,8 @@ impl FieldOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldOptions;
-    /// use google_cloud_wkt::generated::field_options::OptionTargetType;
+    /// # use google_cloud_wkt::FieldOptions;
+    /// use google_cloud_wkt::field_options::OptionTargetType;
     /// let x = FieldOptions::new().set_targets([
     ///     OptionTargetType::TargetTypeFile,
     ///     OptionTargetType::TargetTypeExtensionRange,
@@ -3828,8 +3828,8 @@ impl FieldOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldOptions;
-    /// use google_cloud_wkt::generated::field_options::EditionDefault;
+    /// # use google_cloud_wkt::FieldOptions;
+    /// use google_cloud_wkt::field_options::EditionDefault;
     /// let x = FieldOptions::new()
     ///     .set_edition_defaults([
     ///         EditionDefault::default()/* use setters */,
@@ -3850,8 +3850,8 @@ impl FieldOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldOptions;
-    /// use google_cloud_wkt::generated::FeatureSet;
+    /// # use google_cloud_wkt::FieldOptions;
+    /// use google_cloud_wkt::FeatureSet;
     /// let x = FieldOptions::new().set_features(FeatureSet::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
@@ -3866,8 +3866,8 @@ impl FieldOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldOptions;
-    /// use google_cloud_wkt::generated::FeatureSet;
+    /// # use google_cloud_wkt::FieldOptions;
+    /// use google_cloud_wkt::FeatureSet;
     /// let x = FieldOptions::new().set_or_clear_features(Some(FeatureSet::default()/* use setters */));
     /// let x = FieldOptions::new().set_or_clear_features(None::<FeatureSet>);
     /// ```
@@ -3883,8 +3883,8 @@ impl FieldOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldOptions;
-    /// use google_cloud_wkt::generated::field_options::FeatureSupport;
+    /// # use google_cloud_wkt::FieldOptions;
+    /// use google_cloud_wkt::field_options::FeatureSupport;
     /// let x = FieldOptions::new().set_feature_support(FeatureSupport::default()/* use setters */);
     /// ```
     pub fn set_feature_support<T>(mut self, v: T) -> Self
@@ -3899,8 +3899,8 @@ impl FieldOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldOptions;
-    /// use google_cloud_wkt::generated::field_options::FeatureSupport;
+    /// # use google_cloud_wkt::FieldOptions;
+    /// use google_cloud_wkt::field_options::FeatureSupport;
     /// let x = FieldOptions::new().set_or_clear_feature_support(Some(FeatureSupport::default()/* use setters */));
     /// let x = FieldOptions::new().set_or_clear_feature_support(None::<FeatureSupport>);
     /// ```
@@ -3916,8 +3916,8 @@ impl FieldOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FieldOptions;
-    /// use google_cloud_wkt::generated::UninterpretedOption;
+    /// # use google_cloud_wkt::FieldOptions;
+    /// use google_cloud_wkt::UninterpretedOption;
     /// let x = FieldOptions::new()
     ///     .set_uninterpreted_option([
     ///         UninterpretedOption::default()/* use setters */,
@@ -3965,8 +3965,8 @@ pub mod field_options {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::field_options::EditionDefault;
-        /// use google_cloud_wkt::generated::Edition;
+        /// # use google_cloud_wkt::field_options::EditionDefault;
+        /// use google_cloud_wkt::Edition;
         /// let x0 = EditionDefault::new().set_edition(Edition::Legacy);
         /// let x1 = EditionDefault::new().set_edition(Edition::Proto2);
         /// let x2 = EditionDefault::new().set_edition(Edition::Proto3);
@@ -3980,7 +3980,7 @@ pub mod field_options {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::field_options::EditionDefault;
+        /// # use google_cloud_wkt::field_options::EditionDefault;
         /// let x = EditionDefault::new().set_value("example");
         /// ```
         pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -4029,8 +4029,8 @@ pub mod field_options {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::field_options::FeatureSupport;
-        /// use google_cloud_wkt::generated::Edition;
+        /// # use google_cloud_wkt::field_options::FeatureSupport;
+        /// use google_cloud_wkt::Edition;
         /// let x0 = FeatureSupport::new().set_edition_introduced(Edition::Legacy);
         /// let x1 = FeatureSupport::new().set_edition_introduced(Edition::Proto2);
         /// let x2 = FeatureSupport::new().set_edition_introduced(Edition::Proto3);
@@ -4047,8 +4047,8 @@ pub mod field_options {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::field_options::FeatureSupport;
-        /// use google_cloud_wkt::generated::Edition;
+        /// # use google_cloud_wkt::field_options::FeatureSupport;
+        /// use google_cloud_wkt::Edition;
         /// let x0 = FeatureSupport::new().set_edition_deprecated(Edition::Legacy);
         /// let x1 = FeatureSupport::new().set_edition_deprecated(Edition::Proto2);
         /// let x2 = FeatureSupport::new().set_edition_deprecated(Edition::Proto3);
@@ -4065,7 +4065,7 @@ pub mod field_options {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::field_options::FeatureSupport;
+        /// # use google_cloud_wkt::field_options::FeatureSupport;
         /// let x = FeatureSupport::new().set_deprecation_warning("example");
         /// ```
         pub fn set_deprecation_warning<T: std::convert::Into<std::string::String>>(
@@ -4080,8 +4080,8 @@ pub mod field_options {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::field_options::FeatureSupport;
-        /// use google_cloud_wkt::generated::Edition;
+        /// # use google_cloud_wkt::field_options::FeatureSupport;
+        /// use google_cloud_wkt::Edition;
         /// let x0 = FeatureSupport::new().set_edition_removed(Edition::Legacy);
         /// let x1 = FeatureSupport::new().set_edition_removed(Edition::Proto2);
         /// let x2 = FeatureSupport::new().set_edition_removed(Edition::Proto3);
@@ -4690,8 +4690,8 @@ impl OneofOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::OneofOptions;
-    /// use google_cloud_wkt::generated::FeatureSet;
+    /// # use google_cloud_wkt::OneofOptions;
+    /// use google_cloud_wkt::FeatureSet;
     /// let x = OneofOptions::new().set_features(FeatureSet::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
@@ -4706,8 +4706,8 @@ impl OneofOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::OneofOptions;
-    /// use google_cloud_wkt::generated::FeatureSet;
+    /// # use google_cloud_wkt::OneofOptions;
+    /// use google_cloud_wkt::FeatureSet;
     /// let x = OneofOptions::new().set_or_clear_features(Some(FeatureSet::default()/* use setters */));
     /// let x = OneofOptions::new().set_or_clear_features(None::<FeatureSet>);
     /// ```
@@ -4723,8 +4723,8 @@ impl OneofOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::OneofOptions;
-    /// use google_cloud_wkt::generated::UninterpretedOption;
+    /// # use google_cloud_wkt::OneofOptions;
+    /// use google_cloud_wkt::UninterpretedOption;
     /// let x = OneofOptions::new()
     ///     .set_uninterpreted_option([
     ///         UninterpretedOption::default()/* use setters */,
@@ -4788,7 +4788,7 @@ impl EnumOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumOptions;
+    /// # use google_cloud_wkt::EnumOptions;
     /// let x = EnumOptions::new().set_allow_alias(true);
     /// ```
     pub fn set_allow_alias<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -4800,7 +4800,7 @@ impl EnumOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumOptions;
+    /// # use google_cloud_wkt::EnumOptions;
     /// let x = EnumOptions::new().set_deprecated(true);
     /// ```
     pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -4812,7 +4812,7 @@ impl EnumOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumOptions;
+    /// # use google_cloud_wkt::EnumOptions;
     /// let x = EnumOptions::new().set_deprecated_legacy_json_field_conflicts(true);
     /// ```
     #[deprecated]
@@ -4828,8 +4828,8 @@ impl EnumOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumOptions;
-    /// use google_cloud_wkt::generated::FeatureSet;
+    /// # use google_cloud_wkt::EnumOptions;
+    /// use google_cloud_wkt::FeatureSet;
     /// let x = EnumOptions::new().set_features(FeatureSet::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
@@ -4844,8 +4844,8 @@ impl EnumOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumOptions;
-    /// use google_cloud_wkt::generated::FeatureSet;
+    /// # use google_cloud_wkt::EnumOptions;
+    /// use google_cloud_wkt::FeatureSet;
     /// let x = EnumOptions::new().set_or_clear_features(Some(FeatureSet::default()/* use setters */));
     /// let x = EnumOptions::new().set_or_clear_features(None::<FeatureSet>);
     /// ```
@@ -4861,8 +4861,8 @@ impl EnumOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumOptions;
-    /// use google_cloud_wkt::generated::UninterpretedOption;
+    /// # use google_cloud_wkt::EnumOptions;
+    /// use google_cloud_wkt::UninterpretedOption;
     /// let x = EnumOptions::new()
     ///     .set_uninterpreted_option([
     ///         UninterpretedOption::default()/* use setters */,
@@ -4921,7 +4921,7 @@ impl EnumValueOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumValueOptions;
+    /// # use google_cloud_wkt::EnumValueOptions;
     /// let x = EnumValueOptions::new().set_deprecated(true);
     /// ```
     pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -4933,8 +4933,8 @@ impl EnumValueOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumValueOptions;
-    /// use google_cloud_wkt::generated::FeatureSet;
+    /// # use google_cloud_wkt::EnumValueOptions;
+    /// use google_cloud_wkt::FeatureSet;
     /// let x = EnumValueOptions::new().set_features(FeatureSet::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
@@ -4949,8 +4949,8 @@ impl EnumValueOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumValueOptions;
-    /// use google_cloud_wkt::generated::FeatureSet;
+    /// # use google_cloud_wkt::EnumValueOptions;
+    /// use google_cloud_wkt::FeatureSet;
     /// let x = EnumValueOptions::new().set_or_clear_features(Some(FeatureSet::default()/* use setters */));
     /// let x = EnumValueOptions::new().set_or_clear_features(None::<FeatureSet>);
     /// ```
@@ -4966,7 +4966,7 @@ impl EnumValueOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumValueOptions;
+    /// # use google_cloud_wkt::EnumValueOptions;
     /// let x = EnumValueOptions::new().set_debug_redact(true);
     /// ```
     pub fn set_debug_redact<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -4978,8 +4978,8 @@ impl EnumValueOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumValueOptions;
-    /// use google_cloud_wkt::generated::field_options::FeatureSupport;
+    /// # use google_cloud_wkt::EnumValueOptions;
+    /// use google_cloud_wkt::field_options::FeatureSupport;
     /// let x = EnumValueOptions::new().set_feature_support(FeatureSupport::default()/* use setters */);
     /// ```
     pub fn set_feature_support<T>(mut self, v: T) -> Self
@@ -4994,8 +4994,8 @@ impl EnumValueOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumValueOptions;
-    /// use google_cloud_wkt::generated::field_options::FeatureSupport;
+    /// # use google_cloud_wkt::EnumValueOptions;
+    /// use google_cloud_wkt::field_options::FeatureSupport;
     /// let x = EnumValueOptions::new().set_or_clear_feature_support(Some(FeatureSupport::default()/* use setters */));
     /// let x = EnumValueOptions::new().set_or_clear_feature_support(None::<FeatureSupport>);
     /// ```
@@ -5011,8 +5011,8 @@ impl EnumValueOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumValueOptions;
-    /// use google_cloud_wkt::generated::UninterpretedOption;
+    /// # use google_cloud_wkt::EnumValueOptions;
+    /// use google_cloud_wkt::UninterpretedOption;
     /// let x = EnumValueOptions::new()
     ///     .set_uninterpreted_option([
     ///         UninterpretedOption::default()/* use setters */,
@@ -5063,8 +5063,8 @@ impl ServiceOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::ServiceOptions;
-    /// use google_cloud_wkt::generated::FeatureSet;
+    /// # use google_cloud_wkt::ServiceOptions;
+    /// use google_cloud_wkt::FeatureSet;
     /// let x = ServiceOptions::new().set_features(FeatureSet::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
@@ -5079,8 +5079,8 @@ impl ServiceOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::ServiceOptions;
-    /// use google_cloud_wkt::generated::FeatureSet;
+    /// # use google_cloud_wkt::ServiceOptions;
+    /// use google_cloud_wkt::FeatureSet;
     /// let x = ServiceOptions::new().set_or_clear_features(Some(FeatureSet::default()/* use setters */));
     /// let x = ServiceOptions::new().set_or_clear_features(None::<FeatureSet>);
     /// ```
@@ -5096,7 +5096,7 @@ impl ServiceOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::ServiceOptions;
+    /// # use google_cloud_wkt::ServiceOptions;
     /// let x = ServiceOptions::new().set_deprecated(true);
     /// ```
     pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -5108,8 +5108,8 @@ impl ServiceOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::ServiceOptions;
-    /// use google_cloud_wkt::generated::UninterpretedOption;
+    /// # use google_cloud_wkt::ServiceOptions;
+    /// use google_cloud_wkt::UninterpretedOption;
     /// let x = ServiceOptions::new()
     ///     .set_uninterpreted_option([
     ///         UninterpretedOption::default()/* use setters */,
@@ -5162,7 +5162,7 @@ impl MethodOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MethodOptions;
+    /// # use google_cloud_wkt::MethodOptions;
     /// let x = MethodOptions::new().set_deprecated(true);
     /// ```
     pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -5174,8 +5174,8 @@ impl MethodOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MethodOptions;
-    /// use google_cloud_wkt::generated::method_options::IdempotencyLevel;
+    /// # use google_cloud_wkt::MethodOptions;
+    /// use google_cloud_wkt::method_options::IdempotencyLevel;
     /// let x0 = MethodOptions::new().set_idempotency_level(IdempotencyLevel::NoSideEffects);
     /// let x1 = MethodOptions::new().set_idempotency_level(IdempotencyLevel::Idempotent);
     /// ```
@@ -5191,8 +5191,8 @@ impl MethodOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MethodOptions;
-    /// use google_cloud_wkt::generated::FeatureSet;
+    /// # use google_cloud_wkt::MethodOptions;
+    /// use google_cloud_wkt::FeatureSet;
     /// let x = MethodOptions::new().set_features(FeatureSet::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
@@ -5207,8 +5207,8 @@ impl MethodOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MethodOptions;
-    /// use google_cloud_wkt::generated::FeatureSet;
+    /// # use google_cloud_wkt::MethodOptions;
+    /// use google_cloud_wkt::FeatureSet;
     /// let x = MethodOptions::new().set_or_clear_features(Some(FeatureSet::default()/* use setters */));
     /// let x = MethodOptions::new().set_or_clear_features(None::<FeatureSet>);
     /// ```
@@ -5224,8 +5224,8 @@ impl MethodOptions {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::MethodOptions;
-    /// use google_cloud_wkt::generated::UninterpretedOption;
+    /// # use google_cloud_wkt::MethodOptions;
+    /// use google_cloud_wkt::UninterpretedOption;
     /// let x = MethodOptions::new()
     ///     .set_uninterpreted_option([
     ///         UninterpretedOption::default()/* use setters */,
@@ -5423,8 +5423,8 @@ impl UninterpretedOption {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::UninterpretedOption;
-    /// use google_cloud_wkt::generated::uninterpreted_option::NamePart;
+    /// # use google_cloud_wkt::UninterpretedOption;
+    /// use google_cloud_wkt::uninterpreted_option::NamePart;
     /// let x = UninterpretedOption::new()
     ///     .set_name([
     ///         NamePart::default()/* use setters */,
@@ -5445,7 +5445,7 @@ impl UninterpretedOption {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::UninterpretedOption;
+    /// # use google_cloud_wkt::UninterpretedOption;
     /// let x = UninterpretedOption::new().set_identifier_value("example");
     /// ```
     pub fn set_identifier_value<T: std::convert::Into<std::string::String>>(
@@ -5460,7 +5460,7 @@ impl UninterpretedOption {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::UninterpretedOption;
+    /// # use google_cloud_wkt::UninterpretedOption;
     /// let x = UninterpretedOption::new().set_positive_int_value(42u32);
     /// ```
     pub fn set_positive_int_value<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
@@ -5472,7 +5472,7 @@ impl UninterpretedOption {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::UninterpretedOption;
+    /// # use google_cloud_wkt::UninterpretedOption;
     /// let x = UninterpretedOption::new().set_negative_int_value(42);
     /// ```
     pub fn set_negative_int_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
@@ -5484,7 +5484,7 @@ impl UninterpretedOption {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::UninterpretedOption;
+    /// # use google_cloud_wkt::UninterpretedOption;
     /// let x = UninterpretedOption::new().set_double_value(42.0);
     /// ```
     pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
@@ -5496,7 +5496,7 @@ impl UninterpretedOption {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::UninterpretedOption;
+    /// # use google_cloud_wkt::UninterpretedOption;
     /// let x = UninterpretedOption::new().set_string_value(bytes::Bytes::from_static(b"example"));
     /// ```
     pub fn set_string_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
@@ -5508,7 +5508,7 @@ impl UninterpretedOption {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::UninterpretedOption;
+    /// # use google_cloud_wkt::UninterpretedOption;
     /// let x = UninterpretedOption::new().set_aggregate_value("example");
     /// ```
     pub fn set_aggregate_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5552,7 +5552,7 @@ pub mod uninterpreted_option {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::uninterpreted_option::NamePart;
+        /// # use google_cloud_wkt::uninterpreted_option::NamePart;
         /// let x = NamePart::new().set_name_part("example");
         /// ```
         pub fn set_name_part<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5564,7 +5564,7 @@ pub mod uninterpreted_option {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::uninterpreted_option::NamePart;
+        /// # use google_cloud_wkt::uninterpreted_option::NamePart;
         /// let x = NamePart::new().set_is_extension(true);
         /// ```
         pub fn set_is_extension<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -5613,8 +5613,8 @@ impl FeatureSet {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FeatureSet;
-    /// use google_cloud_wkt::generated::feature_set::FieldPresence;
+    /// # use google_cloud_wkt::FeatureSet;
+    /// use google_cloud_wkt::feature_set::FieldPresence;
     /// let x0 = FeatureSet::new().set_field_presence(FieldPresence::Explicit);
     /// let x1 = FeatureSet::new().set_field_presence(FieldPresence::Implicit);
     /// let x2 = FeatureSet::new().set_field_presence(FieldPresence::LegacyRequired);
@@ -5631,8 +5631,8 @@ impl FeatureSet {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FeatureSet;
-    /// use google_cloud_wkt::generated::feature_set::EnumType;
+    /// # use google_cloud_wkt::FeatureSet;
+    /// use google_cloud_wkt::feature_set::EnumType;
     /// let x0 = FeatureSet::new().set_enum_type(EnumType::Open);
     /// let x1 = FeatureSet::new().set_enum_type(EnumType::Closed);
     /// ```
@@ -5648,8 +5648,8 @@ impl FeatureSet {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FeatureSet;
-    /// use google_cloud_wkt::generated::feature_set::RepeatedFieldEncoding;
+    /// # use google_cloud_wkt::FeatureSet;
+    /// use google_cloud_wkt::feature_set::RepeatedFieldEncoding;
     /// let x0 = FeatureSet::new().set_repeated_field_encoding(RepeatedFieldEncoding::Packed);
     /// let x1 = FeatureSet::new().set_repeated_field_encoding(RepeatedFieldEncoding::Expanded);
     /// ```
@@ -5667,8 +5667,8 @@ impl FeatureSet {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FeatureSet;
-    /// use google_cloud_wkt::generated::feature_set::Utf8Validation;
+    /// # use google_cloud_wkt::FeatureSet;
+    /// use google_cloud_wkt::feature_set::Utf8Validation;
     /// let x0 = FeatureSet::new().set_utf8_validation(Utf8Validation::Verify);
     /// let x1 = FeatureSet::new().set_utf8_validation(Utf8Validation::None);
     /// ```
@@ -5684,8 +5684,8 @@ impl FeatureSet {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FeatureSet;
-    /// use google_cloud_wkt::generated::feature_set::MessageEncoding;
+    /// # use google_cloud_wkt::FeatureSet;
+    /// use google_cloud_wkt::feature_set::MessageEncoding;
     /// let x0 = FeatureSet::new().set_message_encoding(MessageEncoding::LengthPrefixed);
     /// let x1 = FeatureSet::new().set_message_encoding(MessageEncoding::Delimited);
     /// ```
@@ -5701,8 +5701,8 @@ impl FeatureSet {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FeatureSet;
-    /// use google_cloud_wkt::generated::feature_set::JsonFormat;
+    /// # use google_cloud_wkt::FeatureSet;
+    /// use google_cloud_wkt::feature_set::JsonFormat;
     /// let x0 = FeatureSet::new().set_json_format(JsonFormat::Allow);
     /// let x1 = FeatureSet::new().set_json_format(JsonFormat::LegacyBestEffort);
     /// ```
@@ -6530,8 +6530,8 @@ impl FeatureSetDefaults {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FeatureSetDefaults;
-    /// use google_cloud_wkt::generated::feature_set_defaults::FeatureSetEditionDefault;
+    /// # use google_cloud_wkt::FeatureSetDefaults;
+    /// use google_cloud_wkt::feature_set_defaults::FeatureSetEditionDefault;
     /// let x = FeatureSetDefaults::new()
     ///     .set_defaults([
     ///         FeatureSetEditionDefault::default()/* use setters */,
@@ -6552,8 +6552,8 @@ impl FeatureSetDefaults {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FeatureSetDefaults;
-    /// use google_cloud_wkt::generated::Edition;
+    /// # use google_cloud_wkt::FeatureSetDefaults;
+    /// use google_cloud_wkt::Edition;
     /// let x0 = FeatureSetDefaults::new().set_minimum_edition(Edition::Legacy);
     /// let x1 = FeatureSetDefaults::new().set_minimum_edition(Edition::Proto2);
     /// let x2 = FeatureSetDefaults::new().set_minimum_edition(Edition::Proto3);
@@ -6567,8 +6567,8 @@ impl FeatureSetDefaults {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::FeatureSetDefaults;
-    /// use google_cloud_wkt::generated::Edition;
+    /// # use google_cloud_wkt::FeatureSetDefaults;
+    /// use google_cloud_wkt::Edition;
     /// let x0 = FeatureSetDefaults::new().set_maximum_edition(Edition::Legacy);
     /// let x1 = FeatureSetDefaults::new().set_maximum_edition(Edition::Proto2);
     /// let x2 = FeatureSetDefaults::new().set_maximum_edition(Edition::Proto3);
@@ -6617,8 +6617,8 @@ pub mod feature_set_defaults {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::feature_set_defaults::FeatureSetEditionDefault;
-        /// use google_cloud_wkt::generated::Edition;
+        /// # use google_cloud_wkt::feature_set_defaults::FeatureSetEditionDefault;
+        /// use google_cloud_wkt::Edition;
         /// let x0 = FeatureSetEditionDefault::new().set_edition(Edition::Legacy);
         /// let x1 = FeatureSetEditionDefault::new().set_edition(Edition::Proto2);
         /// let x2 = FeatureSetEditionDefault::new().set_edition(Edition::Proto3);
@@ -6632,8 +6632,8 @@ pub mod feature_set_defaults {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::feature_set_defaults::FeatureSetEditionDefault;
-        /// use google_cloud_wkt::generated::FeatureSet;
+        /// # use google_cloud_wkt::feature_set_defaults::FeatureSetEditionDefault;
+        /// use google_cloud_wkt::FeatureSet;
         /// let x = FeatureSetEditionDefault::new().set_overridable_features(FeatureSet::default()/* use setters */);
         /// ```
         pub fn set_overridable_features<T>(mut self, v: T) -> Self
@@ -6648,8 +6648,8 @@ pub mod feature_set_defaults {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::feature_set_defaults::FeatureSetEditionDefault;
-        /// use google_cloud_wkt::generated::FeatureSet;
+        /// # use google_cloud_wkt::feature_set_defaults::FeatureSetEditionDefault;
+        /// use google_cloud_wkt::FeatureSet;
         /// let x = FeatureSetEditionDefault::new().set_or_clear_overridable_features(Some(FeatureSet::default()/* use setters */));
         /// let x = FeatureSetEditionDefault::new().set_or_clear_overridable_features(None::<FeatureSet>);
         /// ```
@@ -6665,8 +6665,8 @@ pub mod feature_set_defaults {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::feature_set_defaults::FeatureSetEditionDefault;
-        /// use google_cloud_wkt::generated::FeatureSet;
+        /// # use google_cloud_wkt::feature_set_defaults::FeatureSetEditionDefault;
+        /// use google_cloud_wkt::FeatureSet;
         /// let x = FeatureSetEditionDefault::new().set_fixed_features(FeatureSet::default()/* use setters */);
         /// ```
         pub fn set_fixed_features<T>(mut self, v: T) -> Self
@@ -6681,8 +6681,8 @@ pub mod feature_set_defaults {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::feature_set_defaults::FeatureSetEditionDefault;
-        /// use google_cloud_wkt::generated::FeatureSet;
+        /// # use google_cloud_wkt::feature_set_defaults::FeatureSetEditionDefault;
+        /// use google_cloud_wkt::FeatureSet;
         /// let x = FeatureSetEditionDefault::new().set_or_clear_fixed_features(Some(FeatureSet::default()/* use setters */));
         /// let x = FeatureSetEditionDefault::new().set_or_clear_fixed_features(None::<FeatureSet>);
         /// ```
@@ -6765,8 +6765,8 @@ impl SourceCodeInfo {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::SourceCodeInfo;
-    /// use google_cloud_wkt::generated::source_code_info::Location;
+    /// # use google_cloud_wkt::SourceCodeInfo;
+    /// use google_cloud_wkt::source_code_info::Location;
     /// let x = SourceCodeInfo::new()
     ///     .set_location([
     ///         Location::default()/* use setters */,
@@ -6896,7 +6896,7 @@ pub mod source_code_info {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::source_code_info::Location;
+        /// # use google_cloud_wkt::source_code_info::Location;
         /// let x = Location::new().set_path([1, 2, 3]);
         /// ```
         pub fn set_path<T, V>(mut self, v: T) -> Self
@@ -6913,7 +6913,7 @@ pub mod source_code_info {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::source_code_info::Location;
+        /// # use google_cloud_wkt::source_code_info::Location;
         /// let x = Location::new().set_span([1, 2, 3]);
         /// ```
         pub fn set_span<T, V>(mut self, v: T) -> Self
@@ -6930,7 +6930,7 @@ pub mod source_code_info {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::source_code_info::Location;
+        /// # use google_cloud_wkt::source_code_info::Location;
         /// let x = Location::new().set_leading_comments("example");
         /// ```
         pub fn set_leading_comments<T: std::convert::Into<std::string::String>>(
@@ -6945,7 +6945,7 @@ pub mod source_code_info {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::source_code_info::Location;
+        /// # use google_cloud_wkt::source_code_info::Location;
         /// let x = Location::new().set_trailing_comments("example");
         /// ```
         pub fn set_trailing_comments<T: std::convert::Into<std::string::String>>(
@@ -6960,7 +6960,7 @@ pub mod source_code_info {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::source_code_info::Location;
+        /// # use google_cloud_wkt::source_code_info::Location;
         /// let x = Location::new().set_leading_detached_comments(["a", "b", "c"]);
         /// ```
         pub fn set_leading_detached_comments<T, V>(mut self, v: T) -> Self
@@ -7003,8 +7003,8 @@ impl GeneratedCodeInfo {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::GeneratedCodeInfo;
-    /// use google_cloud_wkt::generated::generated_code_info::Annotation;
+    /// # use google_cloud_wkt::GeneratedCodeInfo;
+    /// use google_cloud_wkt::generated_code_info::Annotation;
     /// let x = GeneratedCodeInfo::new()
     ///     .set_annotation([
     ///         Annotation::default()/* use setters */,
@@ -7066,7 +7066,7 @@ pub mod generated_code_info {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::generated_code_info::Annotation;
+        /// # use google_cloud_wkt::generated_code_info::Annotation;
         /// let x = Annotation::new().set_path([1, 2, 3]);
         /// ```
         pub fn set_path<T, V>(mut self, v: T) -> Self
@@ -7083,7 +7083,7 @@ pub mod generated_code_info {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::generated_code_info::Annotation;
+        /// # use google_cloud_wkt::generated_code_info::Annotation;
         /// let x = Annotation::new().set_source_file("example");
         /// ```
         pub fn set_source_file<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7095,7 +7095,7 @@ pub mod generated_code_info {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::generated_code_info::Annotation;
+        /// # use google_cloud_wkt::generated_code_info::Annotation;
         /// let x = Annotation::new().set_begin(42);
         /// ```
         pub fn set_begin<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -7107,7 +7107,7 @@ pub mod generated_code_info {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::generated_code_info::Annotation;
+        /// # use google_cloud_wkt::generated_code_info::Annotation;
         /// let x = Annotation::new().set_end(42);
         /// ```
         pub fn set_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -7119,8 +7119,8 @@ pub mod generated_code_info {
         ///
         /// # Example
         /// ```
-        /// # use google_cloud_wkt::generated::generated_code_info::Annotation;
-        /// use google_cloud_wkt::generated::generated_code_info::annotation::Semantic;
+        /// # use google_cloud_wkt::generated_code_info::Annotation;
+        /// use google_cloud_wkt::generated_code_info::annotation::Semantic;
         /// let x0 = Annotation::new().set_semantic(Semantic::Set);
         /// let x1 = Annotation::new().set_semantic(Semantic::Alias);
         /// ```
@@ -7305,7 +7305,7 @@ impl SourceContext {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::SourceContext;
+    /// # use google_cloud_wkt::SourceContext;
     /// let x = SourceContext::new().set_file_name("example");
     /// ```
     pub fn set_file_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7357,7 +7357,7 @@ impl Type {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Type;
+    /// # use google_cloud_wkt::Type;
     /// let x = Type::new().set_name("example");
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7369,8 +7369,8 @@ impl Type {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Type;
-    /// use google_cloud_wkt::generated::Field;
+    /// # use google_cloud_wkt::Type;
+    /// use google_cloud_wkt::Field;
     /// let x = Type::new()
     ///     .set_fields([
     ///         Field::default()/* use setters */,
@@ -7391,7 +7391,7 @@ impl Type {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Type;
+    /// # use google_cloud_wkt::Type;
     /// let x = Type::new().set_oneofs(["a", "b", "c"]);
     /// ```
     pub fn set_oneofs<T, V>(mut self, v: T) -> Self
@@ -7408,8 +7408,8 @@ impl Type {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Type;
-    /// use google_cloud_wkt::generated::Option;
+    /// # use google_cloud_wkt::Type;
+    /// use google_cloud_wkt::Option;
     /// let x = Type::new()
     ///     .set_options([
     ///         Option::default()/* use setters */,
@@ -7430,8 +7430,8 @@ impl Type {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Type;
-    /// use google_cloud_wkt::generated::SourceContext;
+    /// # use google_cloud_wkt::Type;
+    /// use google_cloud_wkt::SourceContext;
     /// let x = Type::new().set_source_context(SourceContext::default()/* use setters */);
     /// ```
     pub fn set_source_context<T>(mut self, v: T) -> Self
@@ -7446,8 +7446,8 @@ impl Type {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Type;
-    /// use google_cloud_wkt::generated::SourceContext;
+    /// # use google_cloud_wkt::Type;
+    /// use google_cloud_wkt::SourceContext;
     /// let x = Type::new().set_or_clear_source_context(Some(SourceContext::default()/* use setters */));
     /// let x = Type::new().set_or_clear_source_context(None::<SourceContext>);
     /// ```
@@ -7463,8 +7463,8 @@ impl Type {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Type;
-    /// use google_cloud_wkt::generated::Syntax;
+    /// # use google_cloud_wkt::Type;
+    /// use google_cloud_wkt::Syntax;
     /// let x0 = Type::new().set_syntax(Syntax::Proto3);
     /// let x1 = Type::new().set_syntax(Syntax::Editions);
     /// ```
@@ -7477,7 +7477,7 @@ impl Type {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Type;
+    /// # use google_cloud_wkt::Type;
     /// let x = Type::new().set_edition("example");
     /// ```
     pub fn set_edition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7540,8 +7540,8 @@ impl Field {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Field;
-    /// use google_cloud_wkt::generated::field::Kind;
+    /// # use google_cloud_wkt::Field;
+    /// use google_cloud_wkt::field::Kind;
     /// let x0 = Field::new().set_kind(Kind::TypeDouble);
     /// let x1 = Field::new().set_kind(Kind::TypeFloat);
     /// let x2 = Field::new().set_kind(Kind::TypeInt64);
@@ -7555,8 +7555,8 @@ impl Field {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Field;
-    /// use google_cloud_wkt::generated::field::Cardinality;
+    /// # use google_cloud_wkt::Field;
+    /// use google_cloud_wkt::field::Cardinality;
     /// let x0 = Field::new().set_cardinality(Cardinality::Optional);
     /// let x1 = Field::new().set_cardinality(Cardinality::Required);
     /// let x2 = Field::new().set_cardinality(Cardinality::Repeated);
@@ -7573,7 +7573,7 @@ impl Field {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Field;
+    /// # use google_cloud_wkt::Field;
     /// let x = Field::new().set_number(42);
     /// ```
     pub fn set_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -7585,7 +7585,7 @@ impl Field {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Field;
+    /// # use google_cloud_wkt::Field;
     /// let x = Field::new().set_name("example");
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7597,7 +7597,7 @@ impl Field {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Field;
+    /// # use google_cloud_wkt::Field;
     /// let x = Field::new().set_type_url("example");
     /// ```
     pub fn set_type_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7609,7 +7609,7 @@ impl Field {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Field;
+    /// # use google_cloud_wkt::Field;
     /// let x = Field::new().set_oneof_index(42);
     /// ```
     pub fn set_oneof_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -7621,7 +7621,7 @@ impl Field {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Field;
+    /// # use google_cloud_wkt::Field;
     /// let x = Field::new().set_packed(true);
     /// ```
     pub fn set_packed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -7633,8 +7633,8 @@ impl Field {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Field;
-    /// use google_cloud_wkt::generated::Option;
+    /// # use google_cloud_wkt::Field;
+    /// use google_cloud_wkt::Option;
     /// let x = Field::new()
     ///     .set_options([
     ///         Option::default()/* use setters */,
@@ -7655,7 +7655,7 @@ impl Field {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Field;
+    /// # use google_cloud_wkt::Field;
     /// let x = Field::new().set_json_name("example");
     /// ```
     pub fn set_json_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7667,7 +7667,7 @@ impl Field {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Field;
+    /// # use google_cloud_wkt::Field;
     /// let x = Field::new().set_default_value("example");
     /// ```
     pub fn set_default_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8105,7 +8105,7 @@ impl Enum {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Enum;
+    /// # use google_cloud_wkt::Enum;
     /// let x = Enum::new().set_name("example");
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8117,8 +8117,8 @@ impl Enum {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Enum;
-    /// use google_cloud_wkt::generated::EnumValue;
+    /// # use google_cloud_wkt::Enum;
+    /// use google_cloud_wkt::EnumValue;
     /// let x = Enum::new()
     ///     .set_enumvalue([
     ///         EnumValue::default()/* use setters */,
@@ -8139,8 +8139,8 @@ impl Enum {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Enum;
-    /// use google_cloud_wkt::generated::Option;
+    /// # use google_cloud_wkt::Enum;
+    /// use google_cloud_wkt::Option;
     /// let x = Enum::new()
     ///     .set_options([
     ///         Option::default()/* use setters */,
@@ -8161,8 +8161,8 @@ impl Enum {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Enum;
-    /// use google_cloud_wkt::generated::SourceContext;
+    /// # use google_cloud_wkt::Enum;
+    /// use google_cloud_wkt::SourceContext;
     /// let x = Enum::new().set_source_context(SourceContext::default()/* use setters */);
     /// ```
     pub fn set_source_context<T>(mut self, v: T) -> Self
@@ -8177,8 +8177,8 @@ impl Enum {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Enum;
-    /// use google_cloud_wkt::generated::SourceContext;
+    /// # use google_cloud_wkt::Enum;
+    /// use google_cloud_wkt::SourceContext;
     /// let x = Enum::new().set_or_clear_source_context(Some(SourceContext::default()/* use setters */));
     /// let x = Enum::new().set_or_clear_source_context(None::<SourceContext>);
     /// ```
@@ -8194,8 +8194,8 @@ impl Enum {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Enum;
-    /// use google_cloud_wkt::generated::Syntax;
+    /// # use google_cloud_wkt::Enum;
+    /// use google_cloud_wkt::Syntax;
     /// let x0 = Enum::new().set_syntax(Syntax::Proto3);
     /// let x1 = Enum::new().set_syntax(Syntax::Editions);
     /// ```
@@ -8208,7 +8208,7 @@ impl Enum {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Enum;
+    /// # use google_cloud_wkt::Enum;
     /// let x = Enum::new().set_edition("example");
     /// ```
     pub fn set_edition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8248,7 +8248,7 @@ impl EnumValue {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumValue;
+    /// # use google_cloud_wkt::EnumValue;
     /// let x = EnumValue::new().set_name("example");
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8260,7 +8260,7 @@ impl EnumValue {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumValue;
+    /// # use google_cloud_wkt::EnumValue;
     /// let x = EnumValue::new().set_number(42);
     /// ```
     pub fn set_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -8272,8 +8272,8 @@ impl EnumValue {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::EnumValue;
-    /// use google_cloud_wkt::generated::Option;
+    /// # use google_cloud_wkt::EnumValue;
+    /// use google_cloud_wkt::Option;
     /// let x = EnumValue::new()
     ///     .set_options([
     ///         Option::default()/* use setters */,
@@ -8326,7 +8326,7 @@ impl Option {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Option;
+    /// # use google_cloud_wkt::Option;
     /// let x = Option::new().set_name("example");
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8338,8 +8338,8 @@ impl Option {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Option;
-    /// use google_cloud_wkt::generated::Any;
+    /// # use google_cloud_wkt::Option;
+    /// use google_cloud_wkt::Any;
     /// let x = Option::new().set_value(Any::default()/* use setters */);
     /// ```
     pub fn set_value<T>(mut self, v: T) -> Self
@@ -8354,8 +8354,8 @@ impl Option {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_wkt::generated::Option;
-    /// use google_cloud_wkt::generated::Any;
+    /// # use google_cloud_wkt::Option;
+    /// use google_cloud_wkt::Any;
     /// let x = Option::new().set_or_clear_value(Some(Any::default()/* use setters */));
     /// let x = Option::new().set_or_clear_value(None::<Any>);
     /// ```
