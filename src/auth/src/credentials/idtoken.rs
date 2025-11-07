@@ -14,15 +14,17 @@
 
 //! Obtain [OIDC ID Tokens].
 //!
-//! `IDTokenCredentials` provide a way to obtain OIDC ID tokens, which are
-//! commonly used for [service to service authentication], like when services are
-//! hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+//! `IDTokenCredentials` obtain OIDC ID tokens, which are commonly
+//! used for [service to service authentication]. For example, when the
+//! target service is hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+//!
 //! Unlike access tokens, ID tokens are not used to authorize access to
 //! Google Cloud APIs but to verify the identity of a principal.
 //!
-//! This module provides `IDTokenCredentials` which serves as a wrapper around
-//! different credential types that can produce ID tokens, such as service
-//! accounts or metadata server credentials.
+//! The main type in this module is [IDTokenCredentials].  This is an opaque type
+//! that implements the [IDTokenCredentialsProvider] trait and can be used to
+//! obtain OIDC ID tokens.  Use the builders in each submodule to create
+//! `IDTokenCredentials` based on different token sources.
 //!
 //! ## Example: Generating ID Tokens using Application Default Credentials
 //!
@@ -30,9 +32,8 @@
 //! Application Default Credentials (ADC) flow. The builder will locate
 //! and use the credentials from the environment.
 //!
-//! ```no_run
+//! ```
 //! # use google_cloud_auth::credentials::idtoken;
-//! # use std::time::Duration;
 //! # use reqwest;
 //! #
 //! # async fn send_id_token() -> anyhow::Result<()> {
@@ -74,10 +75,7 @@
 //! [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
 
 use crate::build_errors::Error as BuilderError;
-use crate::credentials::{
-    AdcContents, extract_credential_type, impersonated, load_adc, mds, service_account,
-};
-use crate::errors::CredentialsError;
+use crate::credentials::{AdcContents, extract_credential_type, load_adc};
 use crate::token::Token;
 use crate::{BuildResult, Result};
 use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
@@ -88,11 +86,19 @@ use std::sync::Arc;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use tokio::time::Instant;
 
+pub mod impersonated;
+pub mod mds;
+pub mod service_account;
+pub mod user_account;
+// Verify ID Tokens.
+pub mod verifier;
+
 /// Obtain [OIDC ID Tokens].
 ///
-/// `IDTokenCredentials` provide a way to obtain OIDC ID tokens, which are
-/// commonly used for [service to service authentication], like when services are
-/// hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+/// `IDTokenCredentials` obtain OIDC ID tokens, which are commonly
+/// used for [service to service authentication]. For example, when the
+/// target service is hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+///
 /// Unlike access tokens, ID tokens are not used to authorize access to
 /// Google Cloud APIs but to verify the identity of a principal.
 ///
@@ -219,19 +225,17 @@ fn build_id_token_credentials(
     match json {
         None => {
             // TODO(#3587): pass context that is being built from ADC flow.
-            mds::idtoken::Builder::new(audience)
-                .with_format("full")
-                .build()
+            mds::Builder::new(audience).with_format("full").build()
         }
         Some(json) => {
             let cred_type = extract_credential_type(&json)?;
             match cred_type {
                 "authorized_user" => Err(BuilderError::not_supported(format!(
-                    "{cred_type}, use user_account::idtoken::Builder directly."
+                    "{cred_type}, use idtoken::user_account::Builder directly."
                 ))),
-                "service_account" => service_account::idtoken::Builder::new(audience, json).build(),
+                "service_account" => service_account::Builder::new(audience, json).build(),
                 "impersonated_service_account" => {
-                    impersonated::idtoken::Builder::new(audience, json).build()
+                    impersonated::Builder::new(audience, json).build()
                 }
                 "external_account" => {
                     // never gonna be supported for id tokens
@@ -278,9 +282,6 @@ fn instant_from_epoch_seconds(secs: u64, now: SystemTime) -> Option<Instant> {
         Instant::now() + diff
     })
 }
-
-// Verify ID Tokens.
-pub mod verifier;
 
 #[cfg(test)]
 pub(crate) mod tests {
@@ -383,7 +384,7 @@ pub(crate) mod tests {
         assert!(err.is_not_supported());
         assert!(
             err.to_string()
-                .contains("authorized_user, use user_account::idtoken::Builder directly.")
+                .contains("authorized_user, use idtoken::user_account::Builder directly.")
         );
         Ok(())
     }
