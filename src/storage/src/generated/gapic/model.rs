@@ -8183,7 +8183,7 @@ impl ObjectChecksums {
     /// # Example
     /// ```
     /// # use google_cloud_storage::model::ObjectChecksums;
-    /// let x = ObjectChecksums::new().set_crc32c(42);
+    /// let x = ObjectChecksums::new().set_crc32c(42u32);
     /// ```
     pub fn set_crc32c<T>(mut self, v: T) -> Self
     where
@@ -8198,8 +8198,8 @@ impl ObjectChecksums {
     /// # Example
     /// ```
     /// # use google_cloud_storage::model::ObjectChecksums;
-    /// let x = ObjectChecksums::new().set_or_clear_crc32c(Some(42));
-    /// let x = ObjectChecksums::new().set_or_clear_crc32c(None::<i32>);
+    /// let x = ObjectChecksums::new().set_or_clear_crc32c(Some(42u32));
+    /// let x = ObjectChecksums::new().set_or_clear_crc32c(None::<u32>);
     /// ```
     pub fn set_or_clear_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where

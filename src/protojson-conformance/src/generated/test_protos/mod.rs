@@ -427,7 +427,7 @@ impl TestAllTypesProto3 {
     /// # Example
     /// ```
     /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
-    /// let x = TestAllTypesProto3::new().set_optional_fixed32(42);
+    /// let x = TestAllTypesProto3::new().set_optional_fixed32(42u32);
     /// ```
     pub fn set_optional_fixed32<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
         self.optional_fixed32 = v.into();
@@ -439,7 +439,7 @@ impl TestAllTypesProto3 {
     /// # Example
     /// ```
     /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
-    /// let x = TestAllTypesProto3::new().set_optional_fixed64(42);
+    /// let x = TestAllTypesProto3::new().set_optional_fixed64(42u32);
     /// ```
     pub fn set_optional_fixed64<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
         self.optional_fixed64 = v.into();
@@ -822,7 +822,7 @@ impl TestAllTypesProto3 {
     /// # Example
     /// ```
     /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
-    /// let x = TestAllTypesProto3::new().set_repeated_fixed32([1, 2, 3]);
+    /// let x = TestAllTypesProto3::new().set_repeated_fixed32([1u32, 2u32, 3u32]);
     /// ```
     pub fn set_repeated_fixed32<T, V>(mut self, v: T) -> Self
     where
@@ -839,7 +839,7 @@ impl TestAllTypesProto3 {
     /// # Example
     /// ```
     /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
-    /// let x = TestAllTypesProto3::new().set_repeated_fixed64([1, 2, 3]);
+    /// let x = TestAllTypesProto3::new().set_repeated_fixed64([1u32, 2u32, 3u32]);
     /// ```
     pub fn set_repeated_fixed64<T, V>(mut self, v: T) -> Self
     where
@@ -1198,7 +1198,7 @@ impl TestAllTypesProto3 {
     /// # Example
     /// ```
     /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
-    /// let x = TestAllTypesProto3::new().set_packed_fixed32([1, 2, 3]);
+    /// let x = TestAllTypesProto3::new().set_packed_fixed32([1u32, 2u32, 3u32]);
     /// ```
     pub fn set_packed_fixed32<T, V>(mut self, v: T) -> Self
     where
@@ -1215,7 +1215,7 @@ impl TestAllTypesProto3 {
     /// # Example
     /// ```
     /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
-    /// let x = TestAllTypesProto3::new().set_packed_fixed64([1, 2, 3]);
+    /// let x = TestAllTypesProto3::new().set_packed_fixed64([1u32, 2u32, 3u32]);
     /// ```
     pub fn set_packed_fixed64<T, V>(mut self, v: T) -> Self
     where
@@ -1439,7 +1439,7 @@ impl TestAllTypesProto3 {
     /// # Example
     /// ```
     /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
-    /// let x = TestAllTypesProto3::new().set_unpacked_fixed32([1, 2, 3]);
+    /// let x = TestAllTypesProto3::new().set_unpacked_fixed32([1u32, 2u32, 3u32]);
     /// ```
     pub fn set_unpacked_fixed32<T, V>(mut self, v: T) -> Self
     where
@@ -1456,7 +1456,7 @@ impl TestAllTypesProto3 {
     /// # Example
     /// ```
     /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
-    /// let x = TestAllTypesProto3::new().set_unpacked_fixed64([1, 2, 3]);
+    /// let x = TestAllTypesProto3::new().set_unpacked_fixed64([1u32, 2u32, 3u32]);
     /// ```
     pub fn set_unpacked_fixed64<T, V>(mut self, v: T) -> Self
     where
@@ -1705,8 +1705,8 @@ impl TestAllTypesProto3 {
     /// ```
     /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
     /// let x = TestAllTypesProto3::new().set_map_fixed32_fixed32([
-    ///     (0, 123),
-    ///     (1, 456),
+    ///     (0u32, 123u32),
+    ///     (1u32, 456u32),
     /// ]);
     /// ```
     pub fn set_map_fixed32_fixed32<T, K, V>(mut self, v: T) -> Self
@@ -1726,8 +1726,8 @@ impl TestAllTypesProto3 {
     /// ```
     /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
     /// let x = TestAllTypesProto3::new().set_map_fixed64_fixed64([
-    ///     (0, 123),
-    ///     (1, 456),
+    ///     (0u32, 123u32),
+    ///     (1u32, 456u32),
     /// ]);
     /// ```
     pub fn set_map_fixed64_fixed64<T, K, V>(mut self, v: T) -> Self

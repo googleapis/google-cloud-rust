@@ -615,7 +615,7 @@ impl ComplianceData {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
-    /// let x = ComplianceData::new().set_f_fixed32(42);
+    /// let x = ComplianceData::new().set_f_fixed32(42u32);
     /// ```
     pub fn set_f_fixed32<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
         self.f_fixed32 = v.into();
@@ -675,7 +675,7 @@ impl ComplianceData {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
-    /// let x = ComplianceData::new().set_f_fixed64(42);
+    /// let x = ComplianceData::new().set_f_fixed64(42u32);
     /// ```
     pub fn set_f_fixed64<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
         self.f_fixed64 = v.into();

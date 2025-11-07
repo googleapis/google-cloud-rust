@@ -47670,7 +47670,7 @@ impl Streamingbuffer {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::model::Streamingbuffer;
-    /// let x = Streamingbuffer::new().set_oldest_entry_time(42);
+    /// let x = Streamingbuffer::new().set_oldest_entry_time(42u32);
     /// ```
     pub fn set_oldest_entry_time<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
         self.oldest_entry_time = v.into();
@@ -48480,7 +48480,7 @@ impl Table {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::model::Table;
-    /// let x = Table::new().set_last_modified_time(42);
+    /// let x = Table::new().set_last_modified_time(42u32);
     /// ```
     pub fn set_last_modified_time<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
         self.last_modified_time = v.into();
