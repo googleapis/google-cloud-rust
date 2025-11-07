@@ -71,7 +71,7 @@ impl Publisher {
     }
 }
 
-/// A builder for creating a `Publisher`.
+/// Creates `Publisher`s.
 ///
 /// Publishers are created via a [`PublisherFactory`][crate::client::PublisherFactory].
 ///

@@ -14,7 +14,7 @@
 
 use crate::publisher::publisher::PublisherBuilder;
 
-/// A factory for creating [`Publisher`](super::publisher::Publisher) instances.
+/// Creates [`Publisher`](super::publisher::Publisher) instances.
 ///
 /// This is the main entry point for the publisher API. A single `PublisherFactory`
 /// can be used to create multiple `Publisher` clients for different topics.
