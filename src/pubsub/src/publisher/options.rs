@@ -13,26 +13,6 @@
 // limitations under the License.
 
 /// Configure publisher batching behavior.
-///
-/// # Examples
-///
-/// Configure message count threshold and delay
-///
-/// ```
-/// # use google_cloud_pubsub::options::publisher::BatchingOptions;
-/// use std::time::Duration;
-/// let options = BatchingOptions::new()
-///     .set_message_count_threshold(100_u32)
-///     .set_delay_threshold(Duration::from_millis(20));
-/// ```
-///
-/// Set batch size to 1 to disable batching
-///
-/// ```
-/// # use google_cloud_pubsub::options::publisher::BatchingOptions;
-/// let options = BatchingOptions::new()
-///     .set_message_count_threshold(1_u32);
-/// ```
 #[derive(Clone, Debug)]
 #[non_exhaustive]
 pub struct BatchingOptions {
@@ -48,24 +28,12 @@ impl BatchingOptions {
     }
 
     /// Set the [BatchingOptions][Self::message_count_threshold] field.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_pubsub::options::publisher::BatchingOptions;
-    /// let options = BatchingOptions::new().set_message_count_threshold(100_u32);
-    /// ```
     pub fn set_message_count_threshold<V: Into<u32>>(mut self, v: V) -> Self {
         self.message_count_threshold = v.into();
         self
     }
 
     /// Set the [BatchingOptions][Self::byte_threshold] field.
-    ///
-    /// # Example
-    /// ```ignore
-    /// # use google_cloud_pubsub::options::publisher::BatchingOptions;
-    /// let options = BatchingOptions::new().set_byte_threshold(1000_u32);
-    /// ```
     // TODO(#3686): support byte thresholds.
     #[allow(dead_code)]
     pub(crate) fn set_byte_threshold<V: Into<u32>>(mut self, v: V) -> Self {
@@ -74,13 +42,6 @@ impl BatchingOptions {
     }
 
     /// Set the [BatchingOptions][Self::delay_threshold] field.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_pubsub::options::publisher::BatchingOptions;
-    /// let options =
-    ///     BatchingOptions::new().set_delay_threshold(std::time::Duration::from_millis(10));
-    /// ```
     pub fn set_delay_threshold<V: Into<std::time::Duration>>(mut self, v: V) -> Self {
         self.delay_threshold = v.into();
         self
