@@ -85,7 +85,7 @@ impl PublisherFactory {
     /// ```no_run
     /// # tokio_test::block_on(async {
     /// # use google_cloud_pubsub::client::PublisherFactory;
-    /// let client = PublisherFactory::builder().build().await?;
+    /// let factory = PublisherFactory::builder().build().await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> PublisherFactoryBuilder {
