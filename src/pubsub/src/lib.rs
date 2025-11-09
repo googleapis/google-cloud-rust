@@ -78,6 +78,46 @@ pub mod model_ext {
 }
 
 /// Clients to interact with Google Cloud Pub/Sub.
+///
+/// This module contains the primary entry points for the library, including
+/// clients for publishing messages and managing topics and subscriptions.
+///
+/// # Example: Publishing Messages
+///
+/// ```
+/// # async fn sample() -> anyhow::Result<()> {
+/// use google_cloud_pubsub::client::PublisherFactory;
+/// use google_cloud_pubsub::model::PubsubMessage;
+///
+/// // Create a factory for creating publishers.
+/// let factory = PublisherFactory::builder().build().await?;
+///
+/// // Create a publisher that handles batching for a specific topic.
+/// let publisher = factory.publisher("projects/my-project/topics/my-topic").build();
+///
+/// // Publish several messages.
+/// // The client will automatically batch them in the background.
+/// let mut handles = Vec::new();
+/// for i in 0..10 {
+///     let msg = PubsubMessage::new().set_data(format!("message {}", i));
+///     handles.push(publisher.publish(msg));
+/// }
+///
+/// // Optionally flush the messages from the publisher. This bypasses
+/// // the configured batching settings to send the queued messages
+/// // as soon as possible.
+/// publisher.flush().await;
+///
+/// // The handles are futures that resolve to the server-assigned message IDs.
+/// // You can await them to get the results. Messages will still be sent even
+/// // if the handles are dropped.
+/// for (i, handle) in handles.into_iter().enumerate() {
+///     let message_id = handle.await?;
+///     println!("Message {} sent with ID: {}", i, message_id);
+/// }
+/// # Ok(())
+/// # }
+/// ```
 pub mod client {
     pub use crate::generated::gapic::client::*;
     pub use crate::publisher::client::PublisherFactory;
