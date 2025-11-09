@@ -80,14 +80,11 @@ impl Publisher {
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
-/// # use builder::publisher::ClientBuilder;
+/// # use builder::publisher::PublisherFactoryBuilder;
 /// # use client::PublisherFactory;
 /// # use options::publisher::BatchingOptions;
-/// let builder : ClientBuilder = PublisherFactory::builder();
-/// let client = builder
-///     .with_endpoint("https://pubsub.googleapis.com")
-///     .build().await?;
-/// let publisher = client.publisher("projects/my-project/topics/topic")
+/// let factory = PublisherFactory::builder().build().await?;
+/// let publisher = factory.publisher("projects/my-project/topics/topic")
 ///     .with_batching(BatchingOptions::new().set_message_count_threshold(1_u32))
 ///     .build();
 /// # Ok(()) }
@@ -118,7 +115,7 @@ impl PublisherBuilder {
     /// ```
     /// # async fn sample() -> anyhow::Result<()> {
     /// # use google_cloud_pubsub::*;
-    /// # use builder::publisher::ClientBuilder;
+    /// # use builder::publisher::PublisherFactoryBuilder;
     /// # use client::PublisherFactory;
     /// # use std::time::Duration;
     /// # use options::publisher::BatchingOptions;
@@ -137,12 +134,12 @@ impl PublisherBuilder {
     /// ```
     /// # async fn sample() -> anyhow::Result<()> {
     /// # use google_cloud_pubsub::*;
-    /// # use builder::publisher::ClientBuilder;
+    /// # use builder::publisher::PublisherFactoryBuilder;
     /// # use client::PublisherFactory;
     /// # use std::time::Duration;
     /// # use options::publisher::BatchingOptions;
-    /// let client = PublisherFactory::builder().build().await?;
-    /// let publisher = client.publisher("projects/my-project/topics/topic")
+    /// let factory = PublisherFactory::builder().build().await?;
+    /// let publisher = factory.publisher("projects/my-project/topics/topic")
     ///     // Disable batching by setting batch size to 1.
     ///     // This will send messages to the server as soon as possible.
     ///     //
