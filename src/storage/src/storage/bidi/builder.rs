@@ -80,7 +80,7 @@ impl OpenObject {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
     /// let response = client
-    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
     ///     .set_generation(123456)
     ///     .send()
     ///     .await?;
@@ -100,7 +100,7 @@ impl OpenObject {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
     /// let response = client
-    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
     ///     .set_if_generation_match(123456)
     ///     .send()
     ///     .await?;
@@ -124,7 +124,7 @@ impl OpenObject {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
     /// let response = client
-    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
     ///     .set_if_generation_not_match(123456)
     ///     .send()
     ///     .await?;
@@ -147,7 +147,7 @@ impl OpenObject {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
     /// let response = client
-    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
     ///     .set_if_metageneration_match(123456)
     ///     .send()
     ///     .await?;
@@ -170,7 +170,7 @@ impl OpenObject {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
     /// let response = client
-    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
     ///     .set_if_metageneration_not_match(123456)
     ///     .send()
     ///     .await?;
