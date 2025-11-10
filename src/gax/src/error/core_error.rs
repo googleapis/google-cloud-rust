@@ -436,13 +436,26 @@ impl Error {
         status_code: Option<u16>,
         headers: Option<http::HeaderMap>,
     ) -> Self {
+        Self::service_full(status, status_code, headers, None)
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// Create service errors including transport metadata.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn service_full(
+        status: Status,
+        status_code: Option<u16>,
+        headers: Option<http::HeaderMap>,
+        source: Option<BoxError>,
+    ) -> Self {
         let details = ServiceDetails {
             status_code,
             headers,
             status,
         };
         let kind = ErrorKind::Service(Box::new(details));
-        Self { kind, source: None }
+        Self { kind, source }
     }
 
     /// Not part of the public API, subject to change without notice.
@@ -900,6 +913,43 @@ mod tests {
         assert_eq!(error.http_headers(), Some(&headers));
         assert!(error.http_payload().is_none(), "{error:?}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn service_full() {
+        let status = Status::default()
+            .set_code(Code::NotFound)
+            .set_message("NOT FOUND");
+        let status_code = 404_u16;
+        let headers = {
+            let mut headers = http::HeaderMap::new();
+            headers.insert(
+                "content-type",
+                http::HeaderValue::from_static("application/json"),
+            );
+            headers
+        };
+        let error = Error::service_full(
+            status.clone(),
+            Some(status_code),
+            Some(headers.clone()),
+            Some(Box::new(wkt::TimestampError::OutOfRange)),
+        );
+        assert_eq!(error.status(), Some(&status));
+        assert!(error.to_string().contains("NOT FOUND"), "{error}");
+        assert!(error.to_string().contains(Code::NotFound.name()), "{error}");
+        assert_eq!(error.http_status_code(), Some(status_code));
+        assert_eq!(error.http_headers(), Some(&headers));
+        assert!(error.http_payload().is_none(), "{error:?}");
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+        assert!(error.source().is_some(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
     }
 
     #[test]
