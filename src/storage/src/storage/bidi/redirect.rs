@@ -12,10 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::Error;
 use crate::google::rpc::Status as RpcStatus;
 use crate::google::storage::v2::{BidiReadObjectRedirectedError, BidiReadObjectSpec};
+use gax::error::rpc::Code;
 use gaxi::grpc::from_status::to_gax_error;
 use prost::Message;
+use std::error::Error as _;
 use std::sync::{Arc, Mutex};
 
 pub fn handle_redirect(
@@ -35,8 +38,31 @@ pub fn handle_redirect(
     to_gax_error(status)
 }
 
+/// Determine if an error is a redirect error.
+pub fn is_redirect(error: &Error) -> bool {
+    if error.status().is_none_or(|s| s.code != Code::Aborted) {
+        return false;
+    }
+    let Some(status) = error
+        .status()
+        .and_then(|_| error.source())
+        .and_then(|e| e.downcast_ref::<tonic::Status>())
+    else {
+        return false;
+    };
+
+    let Ok(status) = RpcStatus::decode(status.details()) else {
+        return false;
+    };
+    status
+        .details
+        .iter()
+        .any(|d| d.to_msg::<BidiReadObjectRedirectedError>().is_ok())
+}
+
 #[cfg(test)]
 mod tests {
+    use super::super::tests::{permanent_error, redirect_error, transient_error};
     use super::*;
     use crate::google::storage::v2::BidiReadHandle;
     use test_case::test_case;
@@ -102,5 +128,31 @@ mod tests {
         let guard = spec.lock().expect("not poisoned");
         assert_eq!(guard.routing_token.as_deref(), Some("initial-token"));
         assert_eq!(guard.read_handle, Some(initial_handle));
+    }
+
+    #[test_case(permanent_error(), false)]
+    #[test_case(transient_error(), false)]
+    #[test_case(non_grpc_abort_error(), false)]
+    #[test_case(redirect_error("r1"), true)]
+    #[test_case(to_gax_error(tonic::Status::aborted("without-details")), false)]
+    #[test_case(
+        to_gax_error(tonic::Status::with_details(
+            Code::Aborted,
+            "with bad details",
+            bytes::Bytes::from_static(b"\x01")
+        )),
+        false
+    )]
+    fn redirect(input: Error, want: bool) {
+        assert_eq!(is_redirect(&input), want, "{input:?}");
+    }
+
+    pub fn non_grpc_abort_error() -> Error {
+        use gax::error::rpc::{Code, Status};
+        Error::service(
+            Status::default()
+                .set_code(Code::Aborted)
+                .set_message("aborted-not-gRPC"),
+        )
     }
 }
