@@ -73,14 +73,39 @@ impl OpenObject {
 
     /// If present, selects a specific revision of this object (as
     /// opposed to the latest version, the default).
+    ///
+    /// # Example
+    /// ```ignore
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .set_generation(123456)
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
     pub fn set_generation<T: Into<i64>>(mut self, v: T) -> Self {
         self.spec.generation = v.into();
         self
     }
 
     /// Makes the operation conditional on whether the object's current generation
-    /// matches the given value. Setting to 0 makes the operation succeed only if
-    /// there are no live versions of the object.
+    /// matches the given value.
+    ///
+    /// # Example
+    /// ```ignore
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .set_if_generation_match(123456)
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
@@ -91,8 +116,20 @@ impl OpenObject {
 
     /// Makes the operation conditional on whether the object's live generation
     /// does not match the given value. If no live object exists, the precondition
-    /// fails. Setting to 0 makes the operation succeed only if there is a live
-    /// version of the object.
+    /// fails.
+    ///
+    /// # Example
+    /// ```ignore
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .set_if_generation_not_match(123456)
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
     pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
@@ -103,6 +140,19 @@ impl OpenObject {
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration matches the given value.
+    ///
+    /// # Example
+    /// ```ignore
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .set_if_metageneration_match(123456)
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
@@ -113,6 +163,19 @@ impl OpenObject {
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration does not match the given value.
+    ///
+    /// # Example
+    /// ```ignore
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .set_if_metageneration_not_match(123456)
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
@@ -129,7 +192,7 @@ impl OpenObject {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let key: &[u8] = &[97; 32];
     /// let response = client
-    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
     ///     .set_key(KeyAes256::new(key)?)
     ///     .send()
     ///     .await?;
@@ -154,7 +217,7 @@ impl OpenObject {
     /// use std::time::Duration;
     /// use gax::retry_policy::RetryPolicyExt;
     /// let response = client
-    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
     ///     .with_retry_policy(
     ///         RetryableErrors
     ///             .with_attempt_limit(5)
@@ -179,7 +242,7 @@ impl OpenObject {
     /// use std::time::Duration;
     /// use gax::exponential_backoff::ExponentialBackoff;
     /// let response = client
-    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
     ///     .with_backoff_policy(ExponentialBackoff::default())
     ///     .send()
     ///     .await?;
