@@ -572,16 +572,29 @@ pub mod unstable {
         Ok(())
     }
 
-    pub async fn id_token_adc() -> anyhow::Result<()> {
+    pub async fn id_token_adc(with_impersonation: bool) -> anyhow::Result<()> {
         let (project, adc_json) = get_project_and_service_account().await?;
+        let mut source_sa_json: serde_json::Value = serde_json::from_slice(&adc_json)?;
+
+        let mut expected_email = format!("test-sa-creds@{project}.iam.gserviceaccount.com");
+        let target_audience = "https://example.com";
+
+        if with_impersonation {
+            let target_principal_email =
+                format!("impersonation-target@{project}.iam.gserviceaccount.com");
+            source_sa_json = serde_json::json!({
+                "type": "impersonated_service_account",
+                "service_account_impersonation_url": format!("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{target_principal_email}:generateAccessToken"),
+                "source_credentials": source_sa_json,
+            });
+            expected_email = target_principal_email;
+        }
 
         // Write the ADC to a temporary file
         let file = tempfile::NamedTempFile::new().unwrap();
         let path = file.into_temp_path();
-        std::fs::write(&path, adc_json).expect("Unable to write to temporary file.");
-
-        let expected_email = format!("test-sa-creds@{project}.iam.gserviceaccount.com");
-        let target_audience = "https://example.com";
+        std::fs::write(&path, source_sa_json.to_string())
+            .expect("Unable to write to temporary file.");
 
         // Create credentials for the principal under test.
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());

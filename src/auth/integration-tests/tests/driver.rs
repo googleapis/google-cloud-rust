@@ -95,7 +95,16 @@ mod driver {
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
     async fn run_id_token_adc() -> anyhow::Result<()> {
-        auth_integration_tests::unstable::id_token_adc().await
+        let with_impersonation = false;
+        auth_integration_tests::unstable::id_token_adc(with_impersonation).await
+    }
+
+    #[cfg(all(test, google_cloud_unstable_id_token))]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    #[serial_test::serial]
+    async fn run_id_token_adc_impersonated() -> anyhow::Result<()> {
+        let with_impersonation = true;
+        auth_integration_tests::unstable::id_token_adc(with_impersonation).await
     }
 
     #[cfg(all(test, google_cloud_unstable_id_token))]
