@@ -103,11 +103,6 @@ pub mod model_ext {
 ///     handles.push(publisher.publish(msg));
 /// }
 ///
-/// // Optionally flush the messages from the publisher. This bypasses
-/// // the configured batching settings to send the queued messages
-/// // as soon as possible.
-/// publisher.flush().await;
-///
 /// // The handles are futures that resolve to the server-assigned message IDs.
 /// // You can await them to get the results. Messages will still be sent even
 /// // if the handles are dropped.
