@@ -37,10 +37,8 @@ const MAX_BYTES: u32 = 1e7 as u32; // 10MB
 /// # use google_cloud_pubsub::*;
 /// # use client::PublisherFactory;
 /// # use model::PubsubMessage;
-/// let client = PublisherFactory::builder()
-///     .with_endpoint("https://pubsub.googleapis.com")
-///     .build().await?;
-/// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
+/// let factory = PublisherFactory::builder().build().await?;
+/// let publisher = factory.publisher("projects/my-project/topics/my-topic").build();
 /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World"));
 /// # Ok(()) }
 /// ```
@@ -794,8 +792,8 @@ mod tests {
 
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
-        let client = PublisherFactory::builder().build().await?;
-        let builder = client.publisher("projects/my-project/topics/my-topic".to_string());
+        let factory = PublisherFactory::builder().build().await?;
+        let builder = factory.publisher("projects/my-project/topics/my-topic".to_string());
         let publisher = builder.set_message_count_threshold(1_u32).build();
         assert_eq!(publisher.batching_options.message_count_threshold, 1_u32);
         Ok(())
