@@ -24,7 +24,7 @@ use std::sync::Arc;
 /// ignore these errors in the retry loop while respecting any limits set by the
 /// application.
 ///
-/// The client library uses this policy to decorate whatever policy set by the
+/// The client library uses this policy to decorate any policy set by the
 /// application. If the policy is exhausted, or the error is transient, then
 /// the decorator has no effect. If the error is "permanent", but happens to be
 /// a redirect, then it is treated as retryable.
