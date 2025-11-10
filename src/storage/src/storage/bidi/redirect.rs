@@ -156,6 +156,8 @@ mod tests {
         )),
         false
     )]
+    #[test_case(deep_redirect("r2", 4), true)]
+    #[test_case(deep_redirect("r2", 64), false)]
     fn redirect(input: Error, want: bool) {
         assert_eq!(is_redirect(&input), want, "{input:?}");
     }
@@ -167,5 +169,17 @@ mod tests {
                 .set_code(Code::Aborted)
                 .set_message("aborted-not-gRPC"),
         )
+    }
+
+    pub fn deep_redirect(routing: &str, depth: i32) -> Error {
+        use gax::error::rpc::{Code, Status};
+        let status = Status::default()
+            .set_code(Code::Aborted)
+            .set_message("aborted-recurse");
+        let mut err = redirect_error(routing);
+        for _ in 0..depth {
+            err = Error::service_full(status.clone(), None, None, Some(Box::new(err)));
+        }
+        err
     }
 }
