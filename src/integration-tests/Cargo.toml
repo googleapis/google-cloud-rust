@@ -50,7 +50,7 @@ tokio                             = { workspace = true, features = ["process", "
 tonic.workspace                   = true
 tracing.workspace                 = true
 tracing-opentelemetry.workspace   = true
-tracing-subscriber                = { workspace = true, features = ["fmt", "std"] }
+tracing-subscriber                = { workspace = true, features = ["env-filter", "fmt", "std"] }
 uuid                              = { workspace = true, features = ["std", "v4"] }
 wkt.workspace                     = true
 # Formatting trick: this comment preserves formatting in the preceding block.
@@ -124,6 +124,7 @@ path    = "../../src/generated/cloud/workflows/executions/v1"
 anyhow.workspace            = true
 httptest.workspace          = true
 mockall.workspace           = true
+opentelemetry_sdk           = { workspace = true, features = ["testing"] }
 reqwest.workspace           = true
 serde.workspace             = true
 serde_with.workspace        = true

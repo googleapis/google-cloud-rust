@@ -330,7 +330,7 @@ tonic-prost-build     = { default-features = false, version = "0.14.1" }
 tracing               = { default-features = false, version = "0.1.41", features = ["attributes"] }
 tracing-log           = { default-features = false, version = "0.2" }
 tracing-opentelemetry = { default-features = false, version = "0.32" }
-tracing-subscriber    = { default-features = false, version = "0.3" }
+tracing-subscriber    = { default-features = false, version = "0.3.18" }
 url                   = { default-features = false, version = "2" }
 uuid                  = { default-features = false, version = "1", features = ["v4"] }
 
