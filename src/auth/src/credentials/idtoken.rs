@@ -234,11 +234,9 @@ fn build_id_token_credentials(
                     "{cred_type}, use idtoken::user_account::Builder directly."
                 ))),
                 "service_account" => service_account::Builder::new(audience, json).build(),
-                "impersonated_service_account" => {
-                    impersonated::Builder::new(audience, json)
-                        .with_include_email(true)
-                        .build()
-                }
+                "impersonated_service_account" => impersonated::Builder::new(audience, json)
+                    .with_include_email(true)
+                    .build(),
                 "external_account" => {
                     // never gonna be supported for id tokens
                     Err(BuilderError::not_supported(cred_type))
