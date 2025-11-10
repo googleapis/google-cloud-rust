@@ -43,11 +43,7 @@ pub fn is_redirect(error: &Error) -> bool {
     if error.status().is_none_or(|s| s.code != Code::Aborted) {
         return false;
     }
-    let Some(status) = error
-        .status()
-        .and_then(|_| error.source())
-        .and_then(|e| e.downcast_ref::<tonic::Status>())
-    else {
+    let Some(status) = as_inner::<tonic::Status, Error>(&error) else {
         return false;
     };
 
@@ -58,6 +54,24 @@ pub fn is_redirect(error: &Error) -> bool {
         .details
         .iter()
         .any(|d| d.to_msg::<BidiReadObjectRedirectedError>().is_ok())
+}
+
+fn as_inner<T, E>(error: &E) -> Option<&T>
+where
+    T: std::error::Error + 'static,
+    E: std::error::Error,
+{
+    let mut e = error.source()?;
+    // Prevent infinite loops due to cycles in the `source()` errors. This seems
+    // unlikely, and it would require effort to create, but it is easy to
+    // prevent.
+    for _ in 0..32 {
+        if let Some(value) = e.downcast_ref::<T>() {
+            return Some(value);
+        }
+        e = e.source()?;
+    }
+    None
 }
 
 #[cfg(test)]
