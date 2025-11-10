@@ -183,6 +183,7 @@ impl OpenObject {
         self.spec.if_metageneration_not_match = Some(v.into());
         self
     }
+
     /// The encryption key used with the Customer-Supplied Encryption Keys
     /// feature. In raw bytes format (not base64-encoded).
     ///
