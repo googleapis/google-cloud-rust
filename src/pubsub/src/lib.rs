@@ -48,30 +48,43 @@ pub(crate) mod publisher;
 pub use gax::Result;
 pub use gax::error::Error;
 
+/// Request and client builders.
 pub mod builder {
-    pub use crate::generated::gapic::builder::*;
+    /// Request and client builders for the [Publisher][crate::client::Publisher] client.
     pub mod publisher {
         #[doc(hidden)]
         pub use crate::generated::gapic_dataplane::builder::publisher::*;
         pub use crate::publisher::client::PublisherFactoryBuilder;
         pub use crate::publisher::publisher::PublisherBuilder;
     }
+    /// Request and client builders for the [SchemaService][crate::client::SchemaService] client.
+    pub use crate::generated::gapic::builder::schema_service;
+    /// Request and client builders for the [SubscriptionAdmin][crate::client::SubscriptionAdmin] client.
+    pub use crate::generated::gapic::builder::subscription_admin;
+    /// Request and client builders for the [TopicAdmin][crate::client::TopicAdmin] client.
+    pub use crate::generated::gapic::builder::topic_admin;
 }
+
+/// The messages and enums that are part of this client library.
 pub mod model {
     pub use crate::generated::gapic::model::*;
     pub use crate::generated::gapic_dataplane::model::PubsubMessage;
     pub(crate) use crate::generated::gapic_dataplane::model::{PublishRequest, PublishResponse};
 }
 
+/// Extends [model] with types that improve type safety and/or ergonomics.
 pub mod model_ext {
     pub use crate::publisher::model_ext::*;
 }
 
+/// Clients to interact with Google Cloud Pub/Sub.
 pub mod client {
     pub use crate::generated::gapic::client::*;
     pub use crate::publisher::client::PublisherFactory;
     pub use crate::publisher::publisher::Publisher;
 }
+
+/// Traits to mock the clients in this library.
 pub mod stub {
     pub use crate::generated::gapic::stub::*;
 }
