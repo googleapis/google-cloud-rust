@@ -22,11 +22,34 @@ use tokio::sync::oneshot;
 /// This struct is a `Future`. You can `.await` it to get the final
 /// result of the publish call: either a server-assigned message ID `String`
 /// or an `Error` if the publish failed.
+///
+/// A `PublishHandle` is returned from every call to [`Publisher::publish`][crate::client::Publisher::publish]
+///
+/// # Example
+///
+/// ```
+/// # use google_cloud_pubsub::client::Publisher;
+/// # use google_cloud_pubsub::model::PubsubMessage;
+/// # async fn sample(publisher: Publisher) -> anyhow::Result<()> {
+/// // publish() returns a handle immediately.
+/// let handle = publisher.publish(PubsubMessage::new().set_data("hello world"));
+///
+/// // The handle can be awaited later to get the result.
+/// match handle.await {
+///     Ok(message_id) => println!("Message published with ID: {}", message_id),
+///     Err(e) => eprintln!("Failed to publish message: {}", e),
+/// }
+/// # Ok(())
+/// # }
+/// ```
 pub struct PublishHandle {
     pub(crate) rx: oneshot::Receiver<crate::Result<String>>,
 }
 
 impl Future for PublishHandle {
+    /// The result of the publish operation.
+    /// - `Ok(String)`: The server-assigned message ID.
+    /// - `Err(Error)`: An error indicating the publish failed.
     type Output = crate::Result<String>;
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
