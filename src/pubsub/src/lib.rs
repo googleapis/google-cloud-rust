@@ -74,11 +74,6 @@ pub mod client {
 pub mod stub {
     pub use crate::generated::gapic::stub::*;
 }
-pub mod options {
-    pub mod publisher {
-        pub use crate::publisher::options::BatchingOptions;
-    }
-}
 
 const DEFAULT_HOST: &str = "https://pubsub.googleapis.com";
 

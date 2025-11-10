@@ -52,7 +52,7 @@ pub struct PublisherFactory {
 /// # use google_cloud_pubsub::*;
 /// # use builder::publisher::PublisherFactoryBuilder;
 /// # use client::PublisherFactory;
-/// let builder : PublisherFactoryBuilder = PublisherFactory::builder();
+/// let builder: PublisherFactoryBuilder = PublisherFactory::builder();
 /// let factory = builder
 ///     .with_endpoint("https://pubsub.googleapis.com")
 ///     .build().await?;
