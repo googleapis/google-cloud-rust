@@ -14,11 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Override authentication credentials
+# Authentication
 
 The Google Cloud client libraries for Rust automatically authenticate your
-requests to Google Cloud services. Some applications may need to override the
-default authentication. This guide shows you how to override the default.
+requests to Google Cloud services. This section shows you how use the different 
+authentication methods.
 
 ## Prerequisites
 
@@ -63,92 +63,6 @@ Use this client as usual:
 {{#include ../samples/src/authentication/adc.rs:rust_auth_adc_call}}
 ```
 
-## Override the default credentials: API keys
-
-[API keys] are text strings that grant access to some Google Cloud services.
-Using API keys may simplify development as they require less configuration than
-other [authentication methods]. There are some risks associated with API keys,
-we recommended you read [Best practices for managing API keys] if you plan to
-use them.
-
-First, add some use declarations to simplify the rest of the example:
-
-```rust,ignore
-{{#include ../samples/src/authentication/api_key.rs:rust_auth_api_key_use}}
-```
-
-This example receives the API key string as an input parameter:
-
-```rust,ignore
-{{#include ../samples/src/authentication/api_key.rs:rust_auth_api_key_parameter}}
-```
-
-Use the API Keys [Builder][api keys builder] to create the credentials:
-
-```rust,ignore
-{{#include ../samples/src/authentication/api_key.rs:rust_auth_api_key_credentials}}
-```
-
-Initialize the client using the result:
-
-```rust,ignore
-{{#include ../samples/src/authentication/api_key.rs:rust_auth_api_key_client}}
-```
-
-Use this client as usual:
-
-```rust,ignore
-{{#include ../samples/src/authentication/api_key.rs:rust_auth_api_key_call}}
-```
-
-## Override the default credentials: service account impersonation
-
-Service account impersonation allows you to make API calls on behalf of a
-service account. [Use service account impersonation] discusses this form of
-authentication in detail.
-
-When you use service account impersonation, you start with an authenticated
-principal (your user account or a service account) and request short-lived
-credentials for a service account that has the authorization that your use case
-requires.
-
-It is more secure than downloading a service account key for the target service
-account, as you do not need to hold the credentials in the file system or even
-in memory.
-
-First, add some use declarations to simplify the rest of the example:
-
-```rust,ignore
-{{#include ../samples/src/authentication/impersonation.rs:rust_auth_impersonation_use}}
-```
-
-This example receives the service account identifier as an input parameter. This
-can be the service account email or the unique numeric id assigned by Google
-when you created the service account:
-
-```rust,ignore
-{{#include ../samples/src/authentication/impersonation.rs:rust_auth_impersonation_parameter}}
-```
-
-Use the impersonated service account [Builder][impersonated builder] to create
-the credentials:
-
-```rust,ignore
-{{#include ../samples/src/authentication/impersonation.rs:rust_auth_impersonation_credentials}}
-```
-
-Initialize the client using the result:
-
-```rust,ignore
-{{#include ../samples/src/authentication/impersonation.rs:rust_auth_impersonation_client}}
-```
-
-Use this client as usual:
-
-```rust,ignore
-{{#include ../samples/src/authentication/impersonation.rs:rust_auth_impersonation_call}}
-```
-
 ## More Information
 
 Learn about other authentication methods in the Rust client libraries:
@@ -159,6 +73,8 @@ Learn about other authentication methods in the Rust client libraries:
   [Workload identity federation] with the Rust client libraries.
 - [Service Accounts][service account builder]: to initialize credentials from a
   [service account key].
+- [Override Credentials][/credentials/override.md]: to override the default credentials.
+- [ID Tokens][/credentials/id_tokens.md]: obtains and verify [OIDC ID Tokens][OIDC ID Tokens].
 
 [anonymous builder]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/anonymous/struct.Builder.html
 [api keys]: https://cloud.google.com/docs/authentication/api-keys
@@ -174,3 +90,4 @@ Learn about other authentication methods in the Rust client libraries:
 [service quickstart]: https://cloud.google.com/natural-language/docs/setup
 [use service account impersonation]: https://cloud.google.com/docs/authentication/use-service-account-impersonation
 [workload identity federation]: https://cloud.google.com/iam/docs/workload-identity-federation
+[OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens

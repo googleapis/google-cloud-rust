@@ -68,3 +68,6 @@ test-case.workspace         = true
 run-integration-tests = []
 log-integration-tests = []
 run-large-downloads   = []
+
+[lints]
+workspace = true

@@ -24,6 +24,17 @@ mod driver {
         Ok(())
     }
 
+    #[cfg(all(test, google_cloud_unstable_id_token))]
+    #[tokio::test(flavor = "multi_thread")]
+    async fn id_token() -> anyhow::Result<()> {
+        let audience = "https://example.com/";
+        let id_token =
+            user_guide_samples::authentication::request_id_token::sample(audience).await?;
+        user_guide_samples::authentication::verify_id_token::sample(id_token.as_str(), audience)
+            .await?;
+        Ok(())
+    }
+
     #[tokio::test(flavor = "multi_thread")]
     async fn endpoint() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
