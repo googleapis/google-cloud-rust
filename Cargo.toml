@@ -357,7 +357,7 @@ md5               = { default-features = false, version = "0.8" }
 mockall           = { default-features = false, version = "0.13" }
 multer            = { default-features = false, version = "3" }
 mutants           = { default-features = false, version = "0.0.3" }
-num-bigint-dig    = { default-features = false, version = "0.8" }
+num-bigint-dig    = { default-features = false, version = "0.9" }
 once_cell         = { default-features = false, version = "1.19.0" }
 paste             = { default-features = false, version = "1" }
 regex             = { default-features = false, version = "1" }

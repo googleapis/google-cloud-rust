@@ -1354,7 +1354,7 @@ dependencies = [
  "jsonwebtoken",
  "mockall",
  "mutants",
- "num-bigint-dig",
+ "num-bigint-dig 0.9.1",
  "regex",
  "reqwest",
  "rsa",
@@ -5834,6 +5834,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "num-bigint-dig"
+version = "0.9.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a7f9a86e097b0d187ad0e65667c2f58b9254671e86e7dbb78036b16692eae099"
+dependencies = [
+ "libm",
+ "num-integer",
+ "num-iter",
+ "num-traits",
+ "once_cell",
+ "smallvec",
+]
+
+[[package]]
 name = "num-conv"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6507,7 +6521,7 @@ checksum = "78928ac1ed176a5ca1d17e578a1825f3d81ca54cf41053a592584b020cfd691b"
 dependencies = [
  "const-oid",
  "digest",
- "num-bigint-dig",
+ "num-bigint-dig 0.8.5",
  "num-integer",
  "num-traits",
  "pkcs1",
