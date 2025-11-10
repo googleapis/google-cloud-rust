@@ -80,8 +80,8 @@ the [Set Up Development Environment] and the [Architecture] guides useful.
 
 Apache 2.0 - See [LICENSE] for more information.
 
-\[^1\]: That is, once 1.85 is at least a year old we will bump to 1.86 or
-higher, and we will bump from 1.86 to 1.87 once 1.86 is at least a year old.
+[^1]: That is, once 1.85 is at least a year old we will bump to 1.86 or higher,
+    and we will bump from 1.86 to 1.87 once 1.86 is at least a year old.
 
 [architecture]: ARCHITECTURE.md
 [contributing]: CONTRIBUTING.md
