@@ -59,7 +59,8 @@ pub mod builder {
 }
 pub mod model {
     pub use crate::generated::gapic::model::*;
-    pub use crate::generated::gapic_dataplane::model::*;
+    pub use crate::generated::gapic_dataplane::model::PubsubMessage;
+    pub(crate) use crate::generated::gapic_dataplane::model::{PublishRequest, PublishResponse};
 }
 
 pub mod model_ext {
