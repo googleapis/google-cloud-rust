@@ -18,7 +18,6 @@ use crate::google::storage::v2::{BidiReadObjectRedirectedError, BidiReadObjectSp
 use gax::error::rpc::Code;
 use gaxi::grpc::from_status::to_gax_error;
 use prost::Message;
-use std::error::Error as _;
 use std::sync::{Arc, Mutex};
 
 pub fn handle_redirect(
@@ -43,7 +42,7 @@ pub fn is_redirect(error: &Error) -> bool {
     if error.status().is_none_or(|s| s.code != Code::Aborted) {
         return false;
     }
-    let Some(status) = as_inner::<tonic::Status, Error>(&error) else {
+    let Some(status) = as_inner::<tonic::Status, Error>(error) else {
         return false;
     };
 
