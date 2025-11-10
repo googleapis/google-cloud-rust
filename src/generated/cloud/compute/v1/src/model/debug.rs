@@ -17278,6 +17278,7 @@ impl std::fmt::Debug for super::SecurityPolicy {
         debug_struct.field("label_fingerprint", &self.label_fingerprint);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("name", &self.name);
+        debug_struct.field("parent", &self.parent);
         debug_struct.field("recaptcha_options_config", &self.recaptcha_options_config);
         debug_struct.field("region", &self.region);
         debug_struct.field("rules", &self.rules);
