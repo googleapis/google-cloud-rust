@@ -327,6 +327,7 @@ tokio-metrics         = { default-features = false, version = "0.4" }
 tonic                 = { default-features = false, version = "0.14.1", features = ["tls-native-roots", "tls-ring"] }
 tonic-prost           = { default-features = false, version = "0.14.2" }
 tonic-prost-build     = { default-features = false, version = "0.14.1" }
+tower                 = { default-features = false, version = "0.5", features = ["util"] }
 tracing               = { default-features = false, version = "0.1.41", features = ["attributes"] }
 tracing-log           = { default-features = false, version = "0.2" }
 tracing-opentelemetry = { default-features = false, version = "0.32" }
