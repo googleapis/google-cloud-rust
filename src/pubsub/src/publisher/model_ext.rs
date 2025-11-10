@@ -36,8 +36,8 @@ use tokio::sync::oneshot;
 ///
 /// // The handle can be awaited later to get the result.
 /// match handle.await {
-///     Ok(message_id) => println!("Message published with ID: {}", message_id),
-///     Err(e) => eprintln!("Failed to publish message: {}", e),
+///     Ok(message_id) => println!("Message published with ID: {message_id}"),
+///     Err(e) => eprintln!("Failed to publish message: {e:?}"),
 /// }
 /// # Ok(())
 /// # }
