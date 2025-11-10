@@ -83,19 +83,16 @@ of as the regex `[^/]+`.
 
 Here are some examples:
 
-| Template                   | Input                         | Match?  |
-| -------------------------- | ----------------------------- | ------- |
-| `"*"`                      | `"simple-string-123"`         | `true`  |
-| `"projects/*"`             | `"projects/p"`                | `true`  |
-| `"projects/*/locations"`   | `"projects/p/locations"`      | `true`  |
-| `"projects/*/locations/*"` | `"projects/p/locations/l"`    | `true`  |
-| `"*"`                      | `""` (empty)                  | `false` |
-| `"*"`                      | `"string/with/slashes"`       | `false` |
-| `"projects/*"`             | `"projects/"` (empty)         | `false` |
-| `"projects/*"`             | `"projects/p/"` (extra slash) | `false` |
-| `"projects/*"`             | `"projects/p/locations/l"`    | `false` |
-| `"projects/*/locations"`   | `"projects/p"`                | `false` |
-| `"projects/*/locations"`   | `"projects/p/locations/l"`    | `false` |
+| Template | Input | Match? | | -------------------------- |
+----------------------------- | ------- | | `"*"` | `"simple-string-123"` |
+`true` | | `"projects/*"` | `"projects/p"` | `true` | | `"projects/*/locations"`
+| `"projects/p/locations"` | `true` | | `"projects/*/locations/*"` |
+`"projects/p/locations/l"` | `true` | | `"*"` | `""` (empty) | `false` | | `"*"`
+| `"string/with/slashes"` | `false` | | `"projects/*"` | `"projects/"` (empty) |
+`false` | | `"projects/*"` | `"projects/p/"` (extra slash) | `false` | |
+`"projects/*"` | `"projects/p/locations/l"` | `false` | |
+`"projects/*/locations"` | `"projects/p"` | `false` | | `"projects/*/locations"`
+| `"projects/p/locations/l"` | `false` |
 
 ### Double wildcard
 
@@ -104,16 +101,13 @@ empty or contain any number of `/`'s. It can be thought of as the regex `.*`.
 
 Also, when a template ends in `/**`, that initial slash is optionally included.
 
-| Template          | Input                      | Match?  |
-| ----------------- | -------------------------- | ------- |
-| `"**"`            | `""`                       | `true`  |
-| `"**"`            | `"simple-string-123"`      | `true`  |
-| `"**"`            | `"string/with/slashes"`    | `true`  |
-| `"projects/*/**"` | `"projects/p"`             | `true`  |
-| `"projects/*/**"` | `"projects/p/locations"`   | `true`  |
-| `"projects/*/**"` | `"projects/p/locations/l"` | `true`  |
-| `"projects/*/**"` | `"locations/l"`            | `false` |
-| `"projects/*/**"` | `"projects//locations/l"`  | `false` |
+| Template | Input | Match? | | ----------------- | -------------------------- |
+------- | | `"**"` | `""` | `true` | | `"**"` | `"simple-string-123"` | `true` |
+| `"**"` | `"string/with/slashes"` | `true` | | `"projects/*/**"` |
+`"projects/p"` | `true` | | `"projects/*/**"` | `"projects/p/locations"` |
+`true` | | `"projects/*/**"` | `"projects/p/locations/l"` | `true` | |
+`"projects/*/**"` | `"locations/l"` | `false` | | `"projects/*/**"` |
+`"projects//locations/l"` | `false` |
 
 ## Inspecting the error
 

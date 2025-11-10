@@ -17,7 +17,7 @@ limitations under the License.
 # Authentication
 
 The Google Cloud client libraries for Rust automatically authenticate your
-requests to Google Cloud services. This section shows you how use the different 
+requests to Google Cloud services. This section shows you how use the different
 authentication methods.
 
 ## Prerequisites
@@ -73,21 +73,17 @@ Learn about other authentication methods in the Rust client libraries:
   [Workload identity federation] with the Rust client libraries.
 - [Service Accounts][service account builder]: to initialize credentials from a
   [service account key].
-- [Override Credentials][/credentials/override.md]: to override the default credentials.
-- [ID Tokens][/credentials/id_tokens.md]: obtains and verify [OIDC ID Tokens][OIDC ID Tokens].
+- [Override Credentials]: to override the default credentials.
+- [ID Tokens]: obtains and verify [OIDC ID Tokens].
 
 [anonymous builder]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/anonymous/struct.Builder.html
-[api keys]: https://cloud.google.com/docs/authentication/api-keys
-[api keys builder]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/api_key_credentials/struct.Builder.html
-[authentication methods]: https://cloud.google.com/docs/authentication
-[best practices for managing api keys]: https://cloud.google.com/docs/authentication/api-keys-best-practices
 [cloud natural language api]: https://cloud.google.com/natural-language
 [external account builder]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/external_account/struct.Builder.html
 [how application default credentials work]: https://cloud.google.com/docs/authentication/application-default-credentials
-[impersonated builder]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/impersonated/struct.Builder.html
+[id tokens]: credentials/id_tokens.md
+[oidc id tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+[override credentials]: credentials/override.md
 [service account builder]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/impersonated/struct.Builder.html
 [service account key]: https://cloud.google.com/iam/docs/service-account-creds#key-types
 [service quickstart]: https://cloud.google.com/natural-language/docs/setup
-[use service account impersonation]: https://cloud.google.com/docs/authentication/use-service-account-impersonation
 [workload identity federation]: https://cloud.google.com/iam/docs/workload-identity-federation
-[OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens

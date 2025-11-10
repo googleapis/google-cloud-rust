@@ -16,20 +16,33 @@ limitations under the License.
 
 # ID Tokens
 
-This guide shows you how to generate, use and verify [OIDC ID tokens] using the `google-cloud-auth` crate.
+This guide shows you how to generate, use and verify [OIDC ID tokens] using the
+`google-cloud-auth` crate.
 
-ID tokens are a standardized way to verify the identity of a principal in a secure and portable manner. Unlike access tokens, which are used to authorize access to Google Cloud APIs, ID tokens are used for service-to-service authentication. The requesting service can generate an ID token and
-include it in the `Authorization` header of a request to the receiving service.
-The receiving service can then verify the token to authenticate the caller.
+ID tokens are a standardized way to verify the identity of a principal in a
+secure and portable manner. Unlike access tokens, which are used to authorize
+access to Google Cloud APIs, ID tokens are used for service-to-service
+authentication. The requesting service can generate an ID token and include it
+in the `Authorization` header of a request to the receiving service. The
+receiving service can then verify the token to authenticate the caller.
 
-ID tokens are particularly useful in scenarios where you need to authenticate to a service that is not a Google Cloud API. For example, if you have a service running on Cloud Run or behind an Identity-Aware Proxy (IAP), you can use ID tokens to securely authenticate requests between your services.
+ID tokens are particularly useful in scenarios where you need to authenticate to
+a service that is not a Google Cloud API. For example, if you have a service
+running on Cloud Run or behind an Identity-Aware Proxy (IAP), you can use ID
+tokens to securely authenticate requests between your services.
 
 ## Prerequisites
 
 For complete setup instructions for the Rust libraries, see
 [Setting up your development environment](/setting_up_your_development_environment.md).
 
-> **Note on User Credentials:** The `idtoken::Builder` does not currently support generating audience-specific ID tokens from user credentials obtained via `gcloud auth application-default login` (which are of type `authorized_user`). For local development and testing, it is recommended to use a service account key file and set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable or impersonate a service account using `gcloud auth application-default login --impersonate-service-account <service-account-email>`.
+> **Note on User Credentials:** The `idtoken::Builder` does not currently
+> support generating audience-specific ID tokens from user credentials obtained
+> via `gcloud auth application-default login` (which are of type
+> `authorized_user`). For local development and testing, it is recommended to
+> use a service account key file and set the `GOOGLE_APPLICATION_CREDENTIALS`
+> environment variable or impersonate a service account using
+> `gcloud auth application-default login --impersonate-service-account <service-account-email>`.
 
 ### Dependencies
 
@@ -48,7 +61,7 @@ First, add a `use` declaration to simplify the rest of the example:
 ```
 
 This example receives the audience as an input parameter. The audience must
-match the audience of the service that receives the token. 
+match the audience of the service that receives the token.
 
 Use the ID Token [Builder][id token builder] to create the credentials:
 
@@ -56,15 +69,15 @@ Use the ID Token [Builder][id token builder] to create the credentials:
 {{#include ../../samples/src/authentication/request_id_token.rs:request_id_token_client}}
 ```
 
-Then, fetch the ID token. Note that the client libraries automatically cache
-the token and refresh it as needed.
+Then, fetch the ID token. Note that the client libraries automatically cache the
+token and refresh it as needed.
 
 ```rust
 {{#include ../../samples/src/authentication/request_id_token.rs:request_id_token_call}}
 ```
 
-Your application can now use this token to authenticate with other services.
-A common use-case is to send the token in the `Authorization:` header.
+Your application can now use this token to authenticate with other services. A
+common use-case is to send the token in the `Authorization:` header.
 
 ```rust
 use reqwest;
@@ -79,7 +92,8 @@ client.get(target_url)
 
 ## Verify ID Tokens
 
-A receiving service can verify an ID token to authenticate the service making the request.
+A receiving service can verify an ID token to authenticate the service making
+the request.
 
 First, add a `use` declaration to simplify the rest of the example:
 
@@ -90,7 +104,7 @@ First, add a `use` declaration to simplify the rest of the example:
 This example receives the ID token string and the expected audience as input
 parameters. The audience must match the audience of the service.
 
-Use the ID Token [Verifier Builder][verifier builder] to create the verifier:
+Use the ID Token [Verifier Builder] to create the verifier:
 
 ```rust
 {{#include ../../samples/src/authentication/verify_id_token.rs:verify_id_token_verifier}}
@@ -109,10 +123,9 @@ the `verify` method will return an error.
 ## More Information
 
 - [OIDC ID Tokens]
-- [ID Token Builder][id token builder]
-- [Verifier Builder][verifier builder]
+- [ID Token Builder]
+- [Verifier Builder]
 
-
-[OIDC ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 [id token builder]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/idtoken/struct.Builder.html
+[oidc id tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 [verifier builder]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/idtoken/verifier/struct.Builder.html

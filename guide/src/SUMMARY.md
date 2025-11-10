@@ -21,7 +21,7 @@ limitations under the License.
 - [Setting up Rust on Cloud Shell](setting_up_rust_on_cloud_shell.md)
 - [How to initialize a client](initialize_a_client.md)
 - [Authentication](credentials.md)
-  - [Override the authentication credentials](credentials/override_credentials.md)
+  - [Override the authentication credentials](credentials/override.md)
   - [ID Tokens](credentials/id_tokens.md)
 - [Generate text using the Vertex AI Gemini API](generate_text_using_the_vertex_ai_gemini_api.md)
 - [Using Google Cloud Storage](storage.md)
