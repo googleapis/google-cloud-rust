@@ -27,6 +27,7 @@ limitations under the License.
   - [Speed up large object downloads](storage/striped_downloads.md)
   - [Use errors to terminate uploads](storage/terminate_uploads.md)
   - [How to write tests using the Storage client](storage/mocking.md)
+- [Using Google Cloud Pub/Sub](pubsub.md)
 - [Using the Compute Engine API](compute.md)
 - [Update a resource using a field mask](update_resource.md)
 - [Override the default endpoint](endpoint.md)
