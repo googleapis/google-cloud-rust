@@ -29,7 +29,7 @@ pub async fn sample(token: &str, audience: &str) -> anyhow::Result<()> {
 
     // [START rust_auth_id_verify_token_verify_call] ANCHOR: verify_id_token_verify_call
     let claims = verifier.verify(token).await?;
-    println!("ID Token claims {claims:?}");
+    println!("Hello {}", claims["sub"]);
     // [END rust_auth_id_verify_token_verify_call] ANCHOR_END: verify_id_token_verify_call
     Ok(())
 }
