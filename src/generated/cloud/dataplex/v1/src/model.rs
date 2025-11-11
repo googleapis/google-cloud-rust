@@ -5809,14 +5809,17 @@ pub struct ListEntriesRequest {
     ///
     /// * entry_type
     /// * entry_source.display_name
+    /// * parent_entry
     ///
     /// The comparison operators are =, !=, <, >, <=, >=. The service compares
     /// strings according to lexical order.
     ///
     /// You can use the logical operators AND, OR, NOT in the filter.
     ///
-    /// You can use Wildcard "*", but for entry_type you need to provide the
-    /// full project id or number.
+    /// You can use Wildcard "*", but for entry_type and parent_entry you need to
+    /// provide the full project id or number.
+    ///
+    /// You cannot use parent_entry in conjunction with other fields.
     ///
     /// Example filter expressions:
     ///
@@ -5825,6 +5828,7 @@ pub struct ListEntriesRequest {
     /// * "entry_type=projects/example-project/locations/us/entryTypes/a* OR
     ///   entry_type=projects/another-project/locations/*"
     /// * "NOT entry_source.display_name=AnotherExampleDisplayName"
+    /// * "parent_entry=projects/example-project/locations/us/entryGroups/example-entry-group/entries/example-entry"
     pub filter: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -11257,6 +11261,10 @@ pub struct DataProfileSpec {
     /// `include_fields` value.
     pub exclude_fields: std::option::Option<crate::model::data_profile_spec::SelectedFields>,
 
+    /// Optional. If set, the latest DataScan job result will be published as
+    /// Dataplex Universal Catalog metadata.
+    pub catalog_publishing_enabled: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -11328,6 +11336,12 @@ impl DataProfileSpec {
         T: std::convert::Into<crate::model::data_profile_spec::SelectedFields>,
     {
         self.exclude_fields = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [catalog_publishing_enabled][crate::model::DataProfileSpec::catalog_publishing_enabled].
+    pub fn set_catalog_publishing_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.catalog_publishing_enabled = v.into();
         self
     }
 }
@@ -11486,6 +11500,11 @@ pub struct DataProfileResult {
     pub post_scan_actions_result:
         std::option::Option<crate::model::data_profile_result::PostScanActionsResult>,
 
+    /// Output only. The status of publishing the data scan as Dataplex Universal
+    /// Catalog metadata.
+    pub catalog_publishing_status:
+        std::option::Option<crate::model::DataScanCatalogPublishingStatus>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -11551,6 +11570,24 @@ impl DataProfileResult {
         T: std::convert::Into<crate::model::data_profile_result::PostScanActionsResult>,
     {
         self.post_scan_actions_result = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [catalog_publishing_status][crate::model::DataProfileResult::catalog_publishing_status].
+    pub fn set_catalog_publishing_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataScanCatalogPublishingStatus>,
+    {
+        self.catalog_publishing_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [catalog_publishing_status][crate::model::DataProfileResult::catalog_publishing_status].
+    pub fn set_or_clear_catalog_publishing_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataScanCatalogPublishingStatus>,
+    {
+        self.catalog_publishing_status = v.map(|x| x.into());
         self
     }
 }

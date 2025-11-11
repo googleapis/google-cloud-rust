@@ -69,7 +69,7 @@ impl Status {
 /// the most specific error code that applies.  For example, prefer
 /// `OUT_OF_RANGE` over `FAILED_PRECONDITION` if both codes apply.
 /// Similarly prefer `NOT_FOUND` or `ALREADY_EXISTS` over `FAILED_PRECONDITION`.
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub enum Code {
     /// Not an error; returned on success.
@@ -89,6 +89,7 @@ pub enum Code {
     /// may be converted to this error.
     ///
     /// HTTP Mapping: 500 Internal Server Error
+    #[default]
     Unknown = 2,
 
     /// The client specified an invalid argument.  Note that this differs
@@ -250,12 +251,6 @@ impl Code {
             Code::DataLoss => "DATA_LOSS",
             Code::Unauthenticated => "UNAUTHENTICATED",
         }
-    }
-}
-
-impl Default for Code {
-    fn default() -> Self {
-        Self::Unknown
     }
 }
 

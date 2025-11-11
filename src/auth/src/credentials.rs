@@ -274,7 +274,7 @@ pub trait CredentialsProvider: std::fmt::Debug {
     /// # Parameters
     /// * `extensions` - An `http::Extensions` map that can be used to pass additional
     ///   context to the credential provider. For caching purposes, this can include
-    ///   an [EntityTag] from a previously returned [`CacheableResource<HeaderMap>`].    
+    ///   an [EntityTag] from a previously returned [`CacheableResource<HeaderMap>`].
     ///   If a valid `EntityTag` is provided and the underlying authentication data
     ///   has not changed, this method returns `Ok(CacheableResource::NotModified)`.
     ///
@@ -311,7 +311,7 @@ pub(crate) mod dynamic {
         /// # Parameters
         /// * `extensions` - An `http::Extensions` map that can be used to pass additional
         ///   context to the credential provider. For caching purposes, this can include
-        ///   an [EntityTag] from a previously returned [CacheableResource<HeaderMap>].    
+        ///   an [EntityTag] from a previously returned [CacheableResource<HeaderMap>].
         ///   If a valid `EntityTag` is provided and the underlying authentication data
         ///   has not changed, this method returns `Ok(CacheableResource::NotModified)`.
         ///
@@ -753,8 +753,8 @@ pub(crate) mod tests {
     use gax::retry_state::RetryState;
     use gax::retry_throttler::RetryThrottler;
     use mockall::mock;
-    use num_bigint_dig::BigUint;
     use reqwest::header::AUTHORIZATION;
+    use rsa::BigUint;
     use rsa::RsaPrivateKey;
     use rsa::pkcs8::{EncodePrivateKey, LineEnding};
     use scoped_env::ScopedEnv;

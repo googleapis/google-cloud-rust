@@ -1712,6 +1712,10 @@ impl std::fmt::Debug for super::DataProfileSpec {
         debug_struct.field("post_scan_actions", &self.post_scan_actions);
         debug_struct.field("include_fields", &self.include_fields);
         debug_struct.field("exclude_fields", &self.exclude_fields);
+        debug_struct.field(
+            "catalog_publishing_enabled",
+            &self.catalog_publishing_enabled,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1759,6 +1763,7 @@ impl std::fmt::Debug for super::DataProfileResult {
         debug_struct.field("profile", &self.profile);
         debug_struct.field("scanned_data", &self.scanned_data);
         debug_struct.field("post_scan_actions_result", &self.post_scan_actions_result);
+        debug_struct.field("catalog_publishing_status", &self.catalog_publishing_status);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -381,7 +381,7 @@ impl Builder {
 }
 
 #[derive(PartialEq)]
-struct UserTokenProvider {
+pub(crate) struct UserTokenProvider {
     client_id: String,
     client_secret: String,
     refresh_token: String,
@@ -406,6 +406,26 @@ impl std::fmt::Debug for UserTokenProvider {
             .field("endpoint", &self.endpoint)
             .field("scopes", &self.scopes)
             .finish()
+    }
+}
+
+impl UserTokenProvider {
+    #[cfg(google_cloud_unstable_id_token)]
+    pub(crate) fn new_id_token_provider(
+        authorized_user: AuthorizedUser,
+        token_uri: Option<String>,
+    ) -> UserTokenProvider {
+        let endpoint = token_uri
+            .or(authorized_user.token_uri)
+            .unwrap_or(OAUTH2_TOKEN_SERVER_URL.to_string());
+        UserTokenProvider {
+            client_id: authorized_user.client_id,
+            client_secret: authorized_user.client_secret,
+            refresh_token: authorized_user.refresh_token,
+            endpoint,
+            source: UserTokenSource::IdToken,
+            scopes: None,
+        }
     }
 }
 
@@ -512,151 +532,32 @@ pub(crate) struct AuthorizedUser {
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-enum RefreshGrantType {
+pub(crate) enum RefreshGrantType {
     #[serde(rename = "refresh_token")]
     RefreshToken,
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-struct Oauth2RefreshRequest {
-    grant_type: RefreshGrantType,
-    client_id: String,
-    client_secret: String,
-    refresh_token: String,
+pub(crate) struct Oauth2RefreshRequest {
+    pub(crate) grant_type: RefreshGrantType,
+    pub(crate) client_id: String,
+    pub(crate) client_secret: String,
+    pub(crate) refresh_token: String,
     scopes: Option<String>,
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-struct Oauth2RefreshResponse {
-    access_token: String,
+pub(crate) struct Oauth2RefreshResponse {
+    pub(crate) access_token: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    id_token: Option<String>,
+    pub(crate) id_token: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    scope: Option<String>,
+    pub(crate) scope: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    expires_in: Option<u64>,
-    token_type: String,
+    pub(crate) expires_in: Option<u64>,
+    pub(crate) token_type: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    refresh_token: Option<String>,
-}
-
-#[cfg(google_cloud_unstable_id_token)]
-pub mod idtoken {
-    /// Credentials for authenticating with [ID tokens] from a [user account].
-    ///
-    /// This module provides a builder for [`IDTokenCredentials`] from
-    /// authorized user credentials, which are typically obtained by running
-    /// `gcloud auth application-default login`.
-    ///
-    /// These credentials are commonly used for [service to service authentication].
-    /// For example, when services are hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
-    /// ID tokens are only used to verify the identity of a principal. Google Cloud APIs do not use ID tokens
-    /// for authorization, and therefore cannot be used to access Google Cloud APIs.
-    ///
-    /// [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
-    /// [user account]: https://cloud.google.com/docs/authentication#user-accounts
-    /// [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
-    use crate::build_errors::Error as BuilderError;
-    use crate::constants::OAUTH2_TOKEN_SERVER_URL;
-    use crate::{
-        BuildResult, Result,
-        credentials::{
-            idtoken::{IDTokenCredentials, dynamic::IDTokenCredentialsProvider},
-            user_account::AuthorizedUser,
-        },
-        token::TokenProvider,
-    };
-    use async_trait::async_trait;
-    use serde_json::Value;
-    use std::sync::Arc;
-
-    #[derive(Debug)]
-    struct UserAccountCredentials<T>
-    where
-        T: TokenProvider,
-    {
-        token_provider: T,
-    }
-
-    #[async_trait]
-    impl<T> IDTokenCredentialsProvider for UserAccountCredentials<T>
-    where
-        T: TokenProvider,
-    {
-        async fn id_token(&self) -> Result<String> {
-            self.token_provider.token().await.map(|token| token.token)
-        }
-    }
-
-    /// A builder for [`IDTokenCredentials`] instances backed by user account credentials.
-    pub struct Builder {
-        authorized_user: Value,
-        token_uri: Option<String>,
-    }
-
-    impl Builder {
-        /// Creates a new builder for `IDTokenCredentials` from a `serde_json::Value`
-        /// representing the authorized user credentials.
-        ///
-        /// The `authorized_user` JSON is typically generated when a user
-        /// authenticates using the [application-default login] process.
-        ///
-        /// [application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
-        pub fn new(authorized_user: Value) -> Self {
-            Self {
-                authorized_user,
-                token_uri: None,
-            }
-        }
-
-        /// Sets the URI for the token endpoint used to fetch access tokens.
-        ///
-        /// Any value provided here overrides a `token_uri` value from the input `authorized_user` JSON.
-        /// Defaults to `https://oauth2.googleapis.com/token` if not specified here or in the `authorized_user` JSON.
-        pub fn with_token_uri<S: Into<String>>(mut self, token_uri: S) -> Self {
-            self.token_uri = Some(token_uri.into());
-            self
-        }
-
-        fn build_token_provider(self) -> BuildResult<super::UserTokenProvider> {
-            let authorized_user = serde_json::from_value::<AuthorizedUser>(self.authorized_user)
-                .map_err(BuilderError::parsing)?;
-            let endpoint = self
-                .token_uri
-                .or(authorized_user.token_uri)
-                .unwrap_or(OAUTH2_TOKEN_SERVER_URL.to_string());
-            Ok(super::UserTokenProvider {
-                client_id: authorized_user.client_id,
-                client_secret: authorized_user.client_secret,
-                refresh_token: authorized_user.refresh_token,
-                endpoint,
-                source: super::UserTokenSource::IdToken,
-                scopes: None,
-            })
-        }
-
-        /// Returns an [`IDTokenCredentials`] instance with the configured
-        /// settings.
-        ///
-        /// # Errors
-        ///
-        /// Returns a `BuildError` if the `authorized_user`
-        /// provided to [`Builder::new`] cannot be successfully deserialized into the
-        /// expected format. This typically happens if the JSON value is malformed or
-        /// missing required fields. For more information on how to generate
-        /// `authorized_user` json, consult the relevant section in the
-        /// [application-default credentials] guide.
-        ///
-        /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
-        pub fn build(self) -> BuildResult<IDTokenCredentials> {
-            let creds = UserAccountCredentials {
-                token_provider: self.build_token_provider()?,
-            };
-            Ok(IDTokenCredentials {
-                inner: Arc::new(creds),
-            })
-        }
-    }
+    pub(crate) refresh_token: Option<String>,
 }
 
 #[cfg(test)]
@@ -679,7 +580,7 @@ mod tests {
 
     type TestResult = anyhow::Result<()>;
 
-    pub(crate) fn authorized_user_json(token_uri: String) -> Value {
+    fn authorized_user_json(token_uri: String) -> Value {
         serde_json::json!({
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
@@ -1020,10 +921,7 @@ mod tests {
         assert_eq!(response, roundtrip);
     }
 
-    pub(crate) fn check_request(
-        request: &Oauth2RefreshRequest,
-        expected_scopes: Option<String>,
-    ) -> bool {
+    fn check_request(request: &Oauth2RefreshRequest, expected_scopes: Option<String>) -> bool {
         request.client_id == "test-client-id"
             && request.client_secret == "test-client-secret"
             && request.refresh_token == "test-refresh-token"
@@ -1398,129 +1296,6 @@ mod tests {
         let e = Builder::new(authorized_user).build().unwrap_err();
         assert!(e.is_parsing(), "{e}");
 
-        Ok(())
-    }
-}
-
-#[cfg(all(test, google_cloud_unstable_id_token))]
-mod unstable_tests {
-    use super::tests::*;
-    use super::*;
-    use crate::credentials::tests::find_source_error;
-    use http::StatusCode;
-    use httptest::matchers::{all_of, json_decoded, request};
-    use httptest::responders::{json_encoded, status_code};
-    use httptest::{Expectation, Server};
-
-    type TestResult = anyhow::Result<()>;
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn id_token_success() -> TestResult {
-        let server = Server::run();
-        let response = Oauth2RefreshResponse {
-            access_token: "test-access-token".to_string(),
-            id_token: Some("test-id-token".to_string()),
-            expires_in: Some(3600),
-            refresh_token: Some("test-refresh-token".to_string()),
-            scope: None,
-            token_type: "Bearer".to_string(),
-        };
-        server.expect(
-            Expectation::matching(all_of![
-                request::path("/token"),
-                request::body(json_decoded(|req: &Oauth2RefreshRequest| {
-                    check_request(req, None)
-                }))
-            ])
-            .respond_with(json_encoded(response)),
-        );
-
-        let authorized_user = authorized_user_json(server.url("/token").to_string());
-        let creds = super::idtoken::Builder::new(authorized_user).build()?;
-        let id_token = creds.id_token().await?;
-        assert_eq!(id_token, "test-id-token");
-        Ok(())
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn id_token_missing_id_token_in_response() -> TestResult {
-        let server = Server::run();
-        let response = Oauth2RefreshResponse {
-            access_token: "test-access-token".to_string(),
-            id_token: None, // Missing ID token
-            expires_in: Some(3600),
-            refresh_token: Some("test-refresh-token".to_string()),
-            scope: None,
-            token_type: "Bearer".to_string(),
-        };
-        server.expect(
-            Expectation::matching(all_of![
-                request::path("/token"),
-                request::body(json_decoded(|req: &Oauth2RefreshRequest| {
-                    check_request(req, None)
-                }))
-            ])
-            .respond_with(json_encoded(response)),
-        );
-
-        let authorized_user = authorized_user_json(server.url("/token").to_string());
-        let creds = super::idtoken::Builder::new(authorized_user).build()?;
-        let err = creds.id_token().await.unwrap_err();
-        assert!(!err.is_transient());
-        assert!(err.to_string().contains(MISSING_ID_TOKEN_MSG));
-        Ok(())
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn id_token_builder_malformed_authorized_json_nonretryable() -> TestResult {
-        let authorized_user = serde_json::json!({
-            "client_secret": "test-client-secret",
-            "refresh_token": "test-refresh-token",
-            "type": "authorized_user",
-        });
-
-        let e = super::idtoken::Builder::new(authorized_user)
-            .build()
-            .unwrap_err();
-        assert!(e.is_parsing(), "{e}");
-        Ok(())
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn id_token_retryable_error() -> TestResult {
-        let server = Server::run();
-        server
-            .expect(Expectation::matching(request::path("/token")).respond_with(status_code(503)));
-
-        let authorized_user = authorized_user_json(server.url("/token").to_string());
-        let creds = super::idtoken::Builder::new(authorized_user).build()?;
-        let err = creds.id_token().await.unwrap_err();
-        assert!(err.is_transient());
-
-        let source = find_source_error::<reqwest::Error>(&err);
-        assert!(
-            matches!(source, Some(e) if e.status() == Some(StatusCode::SERVICE_UNAVAILABLE)),
-            "{err:?}"
-        );
-        Ok(())
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn id_token_nonretryable_error() -> TestResult {
-        let server = Server::run();
-        server
-            .expect(Expectation::matching(request::path("/token")).respond_with(status_code(401)));
-
-        let authorized_user = authorized_user_json(server.url("/token").to_string());
-        let creds = super::idtoken::Builder::new(authorized_user).build()?;
-        let err = creds.id_token().await.unwrap_err();
-        assert!(!err.is_transient());
-
-        let source = find_source_error::<reqwest::Error>(&err);
-        assert!(
-            matches!(source, Some(e) if e.status() == Some(StatusCode::UNAUTHORIZED)),
-            "{err:?}"
-        );
         Ok(())
     }
 }

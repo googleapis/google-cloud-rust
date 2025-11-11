@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::Result;
-use futures::stream::StreamExt;
+use futures::stream::{StreamExt, TryStreamExt};
 use gax::paginator::ItemPaginator;
 use rand::Rng;
 use sql::model;
@@ -56,6 +56,7 @@ pub async fn run_sql_instances_service() -> Result<()> {
     assert_eq!(get.name, name);
     let settings = get
         .settings
+        .as_ref()
         .ok_or_else(|| anyhow::Error::msg("settings should contain a value"))?;
     assert_eq!(settings.tier, "db-f1-micro");
 
@@ -66,11 +67,13 @@ pub async fn run_sql_instances_service() -> Result<()> {
         .set_filter(format!("name:{name}"))
         .by_item()
         .into_stream();
-    let items = list.collect::<Vec<gax::Result<_>>>().await;
-    println!("SUCCESS on list sql instance");
-    // TODO(#2067) - this assertion checks for <= instead of == 1 because the
-    // list may not include the newly inserted instance.
-    assert!(items.len() <= 1, "{items:?}");
+    // We expect at most one result, so collect and pop yields the element.
+    let found = list.try_collect::<Vec<_>>().await?.pop();
+    println!("SUCCESS on list sql instance: {found:?}");
+    // Sometimes the list returns no elements. We speculate this is because the
+    // index of all instances is not updated fast enough. But if it contains an
+    // element it should be the expected instance.
+    assert!(found.as_ref().is_none_or(|d| d == &get), "{found:?}");
 
     println!("Testing delete sql instance");
     let delete = client

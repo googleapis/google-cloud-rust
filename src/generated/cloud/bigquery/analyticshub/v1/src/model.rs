@@ -1604,6 +1604,10 @@ pub struct Listing {
     pub restricted_export_config:
         std::option::Option<crate::model::listing::RestrictedExportConfig>,
 
+    /// Optional. If set, stored procedure configuration will be propagated and
+    /// enforced on the linked dataset.
+    pub stored_procedure_config: std::option::Option<crate::model::StoredProcedureConfig>,
+
     /// Optional. Type of discovery of the listing on the discovery page.
     pub discovery_type: std::option::Option<crate::model::DiscoveryType>,
 
@@ -1743,6 +1747,24 @@ impl Listing {
         T: std::convert::Into<crate::model::listing::RestrictedExportConfig>,
     {
         self.restricted_export_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [stored_procedure_config][crate::model::Listing::stored_procedure_config].
+    pub fn set_stored_procedure_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::StoredProcedureConfig>,
+    {
+        self.stored_procedure_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [stored_procedure_config][crate::model::Listing::stored_procedure_config].
+    pub fn set_or_clear_stored_procedure_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::StoredProcedureConfig>,
+    {
+        self.stored_procedure_config = v.map(|x| x.into());
         self
     }
 
@@ -3313,6 +3335,181 @@ pub mod listing {
         BigqueryDataset(std::boxed::Box<crate::model::listing::BigQueryDatasetSource>),
         /// Pub/Sub topic source.
         PubsubTopic(std::boxed::Box<crate::model::listing::PubSubTopicSource>),
+    }
+}
+
+/// Stored procedure configuration, used to configure stored procedure sharing
+/// on linked dataset.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StoredProcedureConfig {
+    /// Optional. If true, enable sharing of stored procedure.
+    pub enabled: bool,
+
+    /// Output only. Types of stored procedure supported to share.
+    pub allowed_stored_procedure_types:
+        std::vec::Vec<crate::model::stored_procedure_config::StoredProcedureType>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StoredProcedureConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::StoredProcedureConfig::enabled].
+    pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [allowed_stored_procedure_types][crate::model::StoredProcedureConfig::allowed_stored_procedure_types].
+    pub fn set_allowed_stored_procedure_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::stored_procedure_config::StoredProcedureType>,
+    {
+        use std::iter::Iterator;
+        self.allowed_stored_procedure_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for StoredProcedureConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.StoredProcedureConfig"
+    }
+}
+
+/// Defines additional types related to [StoredProcedureConfig].
+pub mod stored_procedure_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Enum to specify the type of stored procedure to share.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum StoredProcedureType {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// SQL stored procedure.
+        SqlProcedure,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [StoredProcedureType::value] or
+        /// [StoredProcedureType::name].
+        UnknownValue(stored_procedure_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod stored_procedure_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl StoredProcedureType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::SqlProcedure => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STORED_PROCEDURE_TYPE_UNSPECIFIED"),
+                Self::SqlProcedure => std::option::Option::Some("SQL_PROCEDURE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for StoredProcedureType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for StoredProcedureType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for StoredProcedureType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::SqlProcedure,
+                _ => Self::UnknownValue(stored_procedure_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for StoredProcedureType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STORED_PROCEDURE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "SQL_PROCEDURE" => Self::SqlProcedure,
+                _ => Self::UnknownValue(stored_procedure_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for StoredProcedureType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::SqlProcedure => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for StoredProcedureType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<StoredProcedureType>::new(
+                ".google.cloud.bigquery.analyticshub.v1.StoredProcedureConfig.StoredProcedureType",
+            ))
+        }
     }
 }
 
@@ -5632,6 +5829,12 @@ pub struct PubSubSubscription {
     /// subscribers. Transforms are applied in the order specified.
     pub message_transforms: std::vec::Vec<crate::model::MessageTransform>,
 
+    /// Optional. Input only. Immutable. Tag keys/values directly bound to this
+    /// resource. For example:
+    /// "123/environment": "production",
+    /// "123/costCenter": "marketing"
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5828,6 +6031,18 @@ impl PubSubSubscription {
     {
         use std::iter::Iterator;
         self.message_transforms = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::PubSubSubscription::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }

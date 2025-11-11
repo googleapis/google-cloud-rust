@@ -286,6 +286,7 @@ impl std::fmt::Debug for super::Listing {
         debug_struct.field("publisher", &self.publisher);
         debug_struct.field("request_access", &self.request_access);
         debug_struct.field("restricted_export_config", &self.restricted_export_config);
+        debug_struct.field("stored_procedure_config", &self.stored_procedure_config);
         debug_struct.field("discovery_type", &self.discovery_type);
         debug_struct.field("resource_type", &self.resource_type);
         debug_struct.field("commercial_info", &self.commercial_info);
@@ -404,6 +405,21 @@ impl std::fmt::Debug for super::listing::commercial_info::GoogleCloudMarketplace
         let mut debug_struct = f.debug_struct("GoogleCloudMarketplaceInfo");
         debug_struct.field("service", &self.service);
         debug_struct.field("commercial_state", &self.commercial_state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::StoredProcedureConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StoredProcedureConfig");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field(
+            "allowed_stored_procedure_types",
+            &self.allowed_stored_procedure_types,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -857,6 +873,7 @@ impl std::fmt::Debug for super::PubSubSubscription {
             &self.enable_exactly_once_delivery,
         );
         debug_struct.field("message_transforms", &self.message_transforms);
+        debug_struct.field("tags", &self.tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

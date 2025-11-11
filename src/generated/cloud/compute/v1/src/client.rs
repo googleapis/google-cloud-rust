@@ -127,7 +127,7 @@ impl AcceleratorTypes {
 
     /// Retrieves an aggregated list of accelerator types.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::accelerator_types::AggregatedList {
         super::builder::accelerator_types::AggregatedList::new(self.inner.clone())
@@ -252,7 +252,7 @@ impl Addresses {
 
     /// Retrieves an aggregated list of addresses.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::addresses::AggregatedList {
         super::builder::addresses::AggregatedList::new(self.inner.clone())
@@ -409,7 +409,7 @@ impl Autoscalers {
 
     /// Retrieves an aggregated list of autoscalers.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::autoscalers::AggregatedList {
         super::builder::autoscalers::AggregatedList::new(self.inner.clone())
@@ -757,7 +757,7 @@ impl BackendServices {
     /// Retrieves the list of all BackendService resources, regional and global,
     /// available to the specified project.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::backend_services::AggregatedList {
         super::builder::backend_services::AggregatedList::new(self.inner.clone())
@@ -1119,7 +1119,7 @@ impl DiskTypes {
 
     /// Retrieves an aggregated list of disk types.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::disk_types::AggregatedList {
         super::builder::disk_types::AggregatedList::new(self.inner.clone())
@@ -1251,7 +1251,7 @@ impl Disks {
 
     /// Retrieves an aggregated list of persistent disks.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::disks::AggregatedList {
         super::builder::disks::AggregatedList::new(self.inner.clone())
@@ -1865,6 +1865,11 @@ impl Firewalls {
         super::builder::firewalls::Patch::new(self.inner.clone())
     }
 
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::firewalls::TestIamPermissions {
+        super::builder::firewalls::TestIamPermissions::new(self.inner.clone())
+    }
+
     /// Updates the specified firewall rule with the data included in the
     /// request.
     /// Note that all fields will be updated if using PUT, even fields that are not
@@ -1989,7 +1994,7 @@ impl ForwardingRules {
 
     /// Retrieves an aggregated list of forwarding rules.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::forwarding_rules::AggregatedList {
         super::builder::forwarding_rules::AggregatedList::new(self.inner.clone())
@@ -2155,7 +2160,7 @@ impl FutureReservations {
 
     /// Retrieves an aggregated list of future reservations.
     ///
-    /// To prevent failure, recommendation is that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::future_reservations::AggregatedList {
         super::builder::future_reservations::AggregatedList::new(self.inner.clone())
@@ -7693,7 +7698,7 @@ impl NetworkFirewallPolicies {
     /// firewall policies from all applicable scopes (global and regional) and
     /// grouping the results per scope.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::network_firewall_policies::AggregatedList {
         super::builder::network_firewall_policies::AggregatedList::new(self.inner.clone())
@@ -8698,8 +8703,10 @@ impl OrganizationSecurityPolicies {
     /// hierarchical security policies will be automatically enrolled into Cloud
     /// Armor Enterprise if not already enrolled.
     ///
-    /// Use of this API to modify firewall policies is deprecated. Use
-    /// firewallPolicies.addAssociation instead if possible.
+    /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to modify firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.addAssociation
+    /// instead.
     pub fn add_association(
         &self,
     ) -> super::builder::organization_security_policies::AddAssociation {
@@ -8707,38 +8714,48 @@ impl OrganizationSecurityPolicies {
     }
 
     /// Inserts a rule into a security policy.
+    ///
+    /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to modify firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.addRule instead.
     pub fn add_rule(&self) -> super::builder::organization_security_policies::AddRule {
         super::builder::organization_security_policies::AddRule::new(self.inner.clone())
     }
 
     /// Copies rules to the specified security policy.
     ///
-    /// Use of this API to modify firewall policies is deprecated. Use
-    /// firewallPolicies.copyRules instead.
+    /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to modify firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.cloneRules
+    /// instead.
     pub fn copy_rules(&self) -> super::builder::organization_security_policies::CopyRules {
         super::builder::organization_security_policies::CopyRules::new(self.inner.clone())
     }
 
     /// Deletes the specified policy.
     ///
-    /// Use of this API to remove firewall policies is deprecated. Use
-    /// firewallPolicies.delete instead.
+    /// Use this API to remove Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to remove firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.delete instead.
     pub fn delete(&self) -> super::builder::organization_security_policies::Delete {
         super::builder::organization_security_policies::Delete::new(self.inner.clone())
     }
 
     /// List all of the ordered rules present in a single specified policy.
     ///
-    /// Use of this API to read firewall policies is deprecated. Use
-    /// firewallPolicies.get instead.
+    /// Use this API to read Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to read firewall policies. This usage is now
+    /// disabled for most organizations. Use firewallPolicies.get instead.
     pub fn get(&self) -> super::builder::organization_security_policies::Get {
         super::builder::organization_security_policies::Get::new(self.inner.clone())
     }
 
     /// Gets an association with the specified name.
     ///
-    /// Use of this API to read firewall policies is deprecated. Use
-    /// firewallPolicies.getAssociation instead if possible.
+    /// Use this API to read Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to read firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.getAssociation
+    /// instead.
     pub fn get_association(
         &self,
     ) -> super::builder::organization_security_policies::GetAssociation {
@@ -8747,8 +8764,9 @@ impl OrganizationSecurityPolicies {
 
     /// Gets a rule at the specified priority.
     ///
-    /// Use of this API to read firewall policies is deprecated. Use
-    /// firewallPolicies.getRule instead.
+    /// Use this API to read Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to read firewall policies. This usage is now
+    /// disabled for most organizations. Use firewallPolicies.getRule instead.
     pub fn get_rule(&self) -> super::builder::organization_security_policies::GetRule {
         super::builder::organization_security_policies::GetRule::new(self.inner.clone())
     }
@@ -8756,8 +8774,9 @@ impl OrganizationSecurityPolicies {
     /// Creates a new policy in the specified organization using the data included
     /// in the request.
     ///
-    /// Use of this API to insert firewall policies is deprecated. Use
-    /// firewallPolicies.insert instead.
+    /// Use this API to add Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to add firewall policies. This usage is now
+    /// disabled for most organizations. Use firewallPolicies.insert instead.
     pub fn insert(&self) -> super::builder::organization_security_policies::Insert {
         super::builder::organization_security_policies::Insert::new(self.inner.clone())
     }
@@ -8765,16 +8784,19 @@ impl OrganizationSecurityPolicies {
     /// List all the policies that have been configured for the specified
     /// organization.
     ///
-    /// Use of this API to read firewall policies is deprecated. Use
-    /// firewallPolicies.list instead.
+    /// Use this API to read Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to read firewall policies. This usage is now
+    /// disabled for most organizations. Use firewallPolicies.list instead.
     pub fn list(&self) -> super::builder::organization_security_policies::List {
         super::builder::organization_security_policies::List::new(self.inner.clone())
     }
 
     /// Lists associations of a specified target, i.e., organization or folder.
     ///
-    /// Use of this API to read firewall policies is deprecated. Use
-    /// firewallPolicies.listAssociations instead if possible.
+    /// Use this API to read Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to read firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.listAssociations
+    /// instead.
     pub fn list_associations(
         &self,
     ) -> super::builder::organization_security_policies::ListAssociations {
@@ -8793,32 +8815,38 @@ impl OrganizationSecurityPolicies {
 
     /// Moves the specified security policy.
     ///
-    /// Use of this API to modify firewall policies is deprecated. Use
-    /// firewallPolicies.move instead.
+    /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to modify firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.move instead.
     pub fn r#move(&self) -> super::builder::organization_security_policies::Move {
         super::builder::organization_security_policies::Move::new(self.inner.clone())
     }
 
     /// Patches the specified policy with the data included in the request.
     ///
-    /// Use of this API to modify firewall policies is deprecated. Use
-    /// firewallPolicies.patch instead.
+    /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to modify firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.patch instead.
     pub fn patch(&self) -> super::builder::organization_security_policies::Patch {
         super::builder::organization_security_policies::Patch::new(self.inner.clone())
     }
 
     /// Patches a rule at the specified priority.
     ///
-    /// Use of this API to modify firewall policies is deprecated. Use
-    /// firewallPolicies.patchRule instead.
+    /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to modify firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.patchRule
+    /// instead.
     pub fn patch_rule(&self) -> super::builder::organization_security_policies::PatchRule {
         super::builder::organization_security_policies::PatchRule::new(self.inner.clone())
     }
 
     /// Removes an association for the specified security policy.
     ///
-    /// Use of this API to modify firewall policies is deprecated. Use
-    /// firewallPolicies.removeAssociation instead if possible.
+    /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to modify firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.removeAssociation
+    /// instead.
     pub fn remove_association(
         &self,
     ) -> super::builder::organization_security_policies::RemoveAssociation {
@@ -8826,6 +8854,11 @@ impl OrganizationSecurityPolicies {
     }
 
     /// Deletes a rule at the specified priority.
+    ///
+    /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to modify firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.removeRule
+    /// instead.
     pub fn remove_rule(&self) -> super::builder::organization_security_policies::RemoveRule {
         super::builder::organization_security_policies::RemoveRule::new(self.inner.clone())
     }
@@ -9282,10 +9315,13 @@ impl Projects {
         super::builder::projects::ListXpnHosts::new(self.inner.clone())
     }
 
+    /// Moves a persistent disk from one zone to another.
+    /// *Note*: The moveDisk API will be deprecated on September 29, 2026.
+    ///
     /// Starting September 29, 2025, you can't use the moveDisk API on new
     /// projects. To move a disk to a different region or zone, follow the steps in
     /// [Change the location of a
-    /// disk](https://{$universe.dns_names.final_documentation_domain}/compute/docs/disks/migrate-to-hyperdisk#migrate-to-hd).
+    /// disk](https://cloud.google.com/compute/docs/disks/migrate-to-hyperdisk#migrate-to-hd).
     ///
     /// Projects that already use the moveDisk API can continue usage until
     /// September 29, 2026.
@@ -10117,7 +10153,7 @@ impl RegionCommitments {
 
     /// Retrieves an aggregated list of commitments by region.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::region_commitments::AggregatedList {
         super::builder::region_commitments::AggregatedList::new(self.inner.clone())
@@ -14186,7 +14222,7 @@ impl Reservations {
 
     /// Retrieves an aggregated list of reservations.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::reservations::AggregatedList {
         super::builder::reservations::AggregatedList::new(self.inner.clone())

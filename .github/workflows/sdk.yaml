@@ -22,8 +22,8 @@ on:
   release:
     types: [published]
 env:
-  GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.90", "rust:nightly": "nightly" }'
-  GHA_GO_VERSIONS: '{ "go:current": "1.25.0" }'
+  GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.91", "rust:nightly": "nightly" }'
+  GHA_GO_VERSIONS: '{ "go:current": "1.25.4" }'
   # Define the unstable flags once
   UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_id_token --cfg google_cloud_unstable_storage_bidi'
 
@@ -268,6 +268,7 @@ jobs:
           cargo minimal-versions test --package integration-tests
           cargo minimal-versions test --package user-guide-samples
           cargo minimal-versions test --package storage-samples
+          cargo minimal-versions test --package pubsub-samples
           cargo minimal-versions test --package google-cloud-storage
           cargo minimal-versions check --package google-cloud-storage
           cargo minimal-versions test --package google-cloud-gax-internal
@@ -595,7 +596,7 @@ jobs:
           sudo unzip -x /tmp/protoc.zip
           protoc --version
       - name: Regenerate all the code
-        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.4.1-0.20251020204149-2c94a53f0fb5 refreshall
+        run: go run github.com/googleapis/librarian/cmd/sidekick@v1.0.1-0.20251107152048-d798500afbbd refreshall
       - run: cargo fmt
         # If there is any difference between the generated code and the
         # committed code that is an error. All the inputs should be pinned,

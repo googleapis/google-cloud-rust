@@ -196,6 +196,19 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::BackupDR::fetch_backups_for_resource_type].
+    fn fetch_backups_for_resource_type(
+        &self,
+        _req: crate::model::FetchBackupsForResourceTypeRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::FetchBackupsForResourceTypeResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::BackupDR::get_backup].
     fn get_backup(
         &self,
@@ -409,6 +422,19 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::DataSourceReference>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::list_data_source_references].
+    fn list_data_source_references(
+        &self,
+        _req: crate::model::ListDataSourceReferencesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListDataSourceReferencesResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

@@ -36,6 +36,7 @@ mod driver {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    #[serial_test::serial]
     async fn run_api_key() -> anyhow::Result<()> {
         auth_integration_tests::api_key().await
     }
@@ -68,6 +69,7 @@ mod driver {
 
     #[cfg(all(test, feature = "run-byoid-integration-tests"))]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    #[serial_test::serial]
     async fn run_workload_identity_provider_programmatic_sourced() -> anyhow::Result<()> {
         auth_integration_tests::workload_identity_provider_programmatic_sourced().await
     }
@@ -84,7 +86,29 @@ mod driver {
 
     #[cfg(all(test, google_cloud_unstable_id_token))]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    #[serial_test::serial]
     async fn run_mds_id_token() -> anyhow::Result<()> {
         auth_integration_tests::unstable::mds_id_token().await
+    }
+
+    #[cfg(all(test, google_cloud_unstable_id_token))]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    #[serial_test::serial]
+    async fn run_id_token_adc() -> anyhow::Result<()> {
+        auth_integration_tests::unstable::id_token_adc().await
+    }
+
+    #[cfg(all(test, google_cloud_unstable_id_token))]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    #[serial_test::serial]
+    async fn run_id_token_service_account() -> anyhow::Result<()> {
+        auth_integration_tests::unstable::id_token_service_account().await
+    }
+
+    #[cfg(all(test, google_cloud_unstable_id_token))]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    #[serial_test::serial]
+    async fn run_id_token_impersonated() -> anyhow::Result<()> {
+        auth_integration_tests::unstable::id_token_impersonated().await
     }
 }

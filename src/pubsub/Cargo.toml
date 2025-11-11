@@ -14,8 +14,7 @@
 
 [package]
 name        = "google-cloud-pubsub"
-publish     = false
-version     = "0.0.0"
+version     = "0.1.0-preview"
 description = "Google Cloud Client Libraries for Rust - Pub/Sub"
 # Inherit other attributes from the workspace.
 edition.workspace      = true
@@ -29,6 +28,7 @@ rust-version.workspace = true
 [dependencies]
 async-trait.workspace = true
 bytes.workspace       = true
+futures.workspace     = true
 gax.workspace         = true
 gaxi                  = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-http-client"] }
 http.workspace        = true
@@ -41,11 +41,14 @@ serde.workspace       = true
 serde_json.workspace  = true
 serde_with.workspace  = true
 tonic.workspace       = true
+tokio                 = { workspace = true, features = ["sync"] }
 tracing.workspace     = true
 wkt.workspace         = true
 
 [dev-dependencies]
 auth.workspace       = true
 anyhow.workspace     = true
+mockall.workspace    = true
 tokio-test.workspace = true
 tokio.workspace      = true
+tonic.workspace      = true

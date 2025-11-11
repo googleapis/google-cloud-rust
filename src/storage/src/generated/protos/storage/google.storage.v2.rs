@@ -76,6 +76,8 @@ pub struct ListBucketsRequest {
     pub prefix: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "5")]
     pub read_mask: ::core::option::Option<::prost_types::FieldMask>,
+    #[prost(bool, tag = "9")]
+    pub return_partial_success: bool,
 }
 impl ::prost::Name for ListBucketsRequest {
     const NAME: &'static str = "ListBucketsRequest";
@@ -93,6 +95,8 @@ pub struct ListBucketsResponse {
     pub buckets: ::prost::alloc::vec::Vec<Bucket>,
     #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag = "3")]
+    pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 impl ::prost::Name for ListBucketsResponse {
     const NAME: &'static str = "ListBucketsResponse";

@@ -89,9 +89,9 @@ use std::sync::Arc;
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
-pub struct Storage<S = crate::storage::transport::Storage>
+pub struct Storage<S = crate::stub::DefaultStorage>
 where
-    S: crate::storage::stub::Storage + 'static,
+    S: crate::stub::Storage + 'static,
 {
     stub: std::sync::Arc<S>,
     options: RequestOptions,
@@ -248,7 +248,7 @@ impl Storage {
                 .build()
                 .map_err(Error::cred)?
         };
-        let endpoint = endpoint.unwrap_or_else(|| self::DEFAULT_HOST.to_string());
+        let endpoint = endpoint.unwrap_or_else(|| super::DEFAULT_HOST.to_string());
         let inner = Arc::new(StorageInner::new(client, cred, endpoint, options));
         let options = inner.options.clone();
         let stub = crate::storage::transport::Storage::new(inner);
@@ -571,24 +571,6 @@ impl ClientBuilder {
         let request_options =
             RequestOptions::new_with_client_config(&self.config, self.common_options);
         (self.config.cred, self.config.endpoint, request_options)
-    }
-}
-
-/// The default host used by the service.
-const DEFAULT_HOST: &str = "https://storage.googleapis.com";
-
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref X_GOOG_API_CLIENT_HEADER: String = {
-            let ac = gaxi::api_header::XGoogApiClient{
-                name:          NAME,
-                version:       VERSION,
-                library_type:  gaxi::api_header::GCCL,
-            };
-            ac.grpc_header_value()
-        };
     }
 }
 

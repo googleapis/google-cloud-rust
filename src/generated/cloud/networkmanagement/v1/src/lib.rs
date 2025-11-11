@@ -33,6 +33,7 @@
 //!
 //! * [ReachabilityService](client/struct.ReachabilityService.html)
 //! * [VpcFlowLogsService](client/struct.VpcFlowLogsService.html)
+//! * [OrganizationVpcFlowLogsService](client/struct.OrganizationVpcFlowLogsService.html)
 
 #![allow(deprecated)]
 

@@ -436,13 +436,26 @@ impl Error {
         status_code: Option<u16>,
         headers: Option<http::HeaderMap>,
     ) -> Self {
+        Self::service_full(status, status_code, headers, None)
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// Create service errors including transport metadata.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn service_full(
+        status: Status,
+        status_code: Option<u16>,
+        headers: Option<http::HeaderMap>,
+        source: Option<BoxError>,
+    ) -> Self {
         let details = ServiceDetails {
             status_code,
             headers,
             status,
         };
         let kind = ErrorKind::Service(Box::new(details));
-        Self { kind, source: None }
+        Self { kind, source }
     }
 
     /// Not part of the public API, subject to change without notice.
@@ -580,6 +593,36 @@ impl Error {
 
     /// Not part of the public API, subject to change without notice.
     ///
+    /// A problem connecting with the endpoint.
+    ///
+    /// Examples include DNS errors and broken connections.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn connect<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Connect,
+            source: Some(source.into()),
+        }
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// A problem connecting with the endpoint.
+    ///
+    /// Examples include DNS errors and broken connections.
+    ///
+    /// # Troubleshooting
+    ///
+    /// This indicates a problem starting the request. It always occurs before a
+    /// request is made, so it is always safe to retry, even if the request is
+    /// not idempotent. However, retrying does not indicate the request will
+    /// ever succeed (e.g. if a network is permanently down).
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn is_connect(&self) -> bool {
+        matches!(&self.kind, ErrorKind::Connect)
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
     /// A problem reported by the transport layer.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn transport<T: Into<BoxError>>(headers: HeaderMap, source: T) -> Self {
@@ -625,14 +668,16 @@ impl Error {
     /// The error was generated before the RPC started and is transient.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn is_transient_and_before_rpc(&self) -> bool {
-        if !matches!(&self.kind, ErrorKind::Authentication) {
-            return false;
+        match &self.kind {
+            ErrorKind::Connect => true,
+            ErrorKind::Authentication => self
+                .source
+                .as_ref()
+                .and_then(|e| e.downcast_ref::<CredentialsError>())
+                .map(|e| e.is_transient())
+                .unwrap_or(false),
+            _ => false,
         }
-        self.source
-            .as_ref()
-            .and_then(|e| e.downcast_ref::<CredentialsError>())
-            .map(|e| e.is_transient())
-            .unwrap_or(false)
     }
 }
 
@@ -654,6 +699,9 @@ impl std::fmt::Display for Error {
             }
             (ErrorKind::Exhausted, Some(e)) => {
                 write!(f, "{e}")
+            }
+            (ErrorKind::Connect, Some(e)) => {
+                write!(f, "cannot connect to endpoint: {e}")
             }
             (ErrorKind::Transport(details), _) => details.display(self.source(), f),
             (ErrorKind::Service(d), _) => {
@@ -685,6 +733,7 @@ enum ErrorKind {
     Authentication,
     Timeout,
     Exhausted,
+    Connect,
     Transport(Box<TransportDetails>),
     Service(Box<ServiceDetails>),
 }
@@ -816,6 +865,29 @@ mod tests {
     }
 
     #[test]
+    fn connect() {
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::connect(source);
+        assert!(error.is_connect(), "{error:?}");
+        assert!(error.source().is_some(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
+        let source = wkt::TimestampError::OutOfRange;
+        assert!(error.to_string().contains(&source.to_string()), "{error}");
+        assert!(error.is_transient_and_before_rpc(), "{error:?}");
+
+        assert!(error.http_headers().is_none(), "{error:?}");
+        assert!(error.http_status_code().is_none(), "{error:?}");
+        assert!(error.http_payload().is_none(), "{error:?}");
+        assert!(error.status().is_none(), "{error:?}");
+    }
+
+    #[test]
     fn service_with_http_metadata() {
         let status = Status::default()
             .set_code(Code::NotFound)
@@ -841,6 +913,43 @@ mod tests {
         assert_eq!(error.http_headers(), Some(&headers));
         assert!(error.http_payload().is_none(), "{error:?}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn service_full() {
+        let status = Status::default()
+            .set_code(Code::NotFound)
+            .set_message("NOT FOUND");
+        let status_code = 404_u16;
+        let headers = {
+            let mut headers = http::HeaderMap::new();
+            headers.insert(
+                "content-type",
+                http::HeaderValue::from_static("application/json"),
+            );
+            headers
+        };
+        let error = Error::service_full(
+            status.clone(),
+            Some(status_code),
+            Some(headers.clone()),
+            Some(Box::new(wkt::TimestampError::OutOfRange)),
+        );
+        assert_eq!(error.status(), Some(&status));
+        assert!(error.to_string().contains("NOT FOUND"), "{error}");
+        assert!(error.to_string().contains(Code::NotFound.name()), "{error}");
+        assert_eq!(error.http_status_code(), Some(status_code));
+        assert_eq!(error.http_headers(), Some(&headers));
+        assert!(error.http_payload().is_none(), "{error:?}");
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+        assert!(error.source().is_some(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
     }
 
     #[test]

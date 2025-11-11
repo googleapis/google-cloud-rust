@@ -437,8 +437,8 @@ impl VpcFlowLogsService {
     /// ID is different), the creation fails.
     /// Notes:
     ///
-    /// 1. Creating a configuration with state=DISABLED will fail
-    /// 1. The following fields are not considered as `settings` for the purpose
+    /// 1. Creating a configuration with `state=DISABLED` will fail
+    /// 1. The following fields are not considered as settings for the purpose
     ///    of the check mentioned above, therefore - creating another configuration
     ///    with the same fields but different values for the following fields will
     ///    fail as well:
@@ -468,8 +468,8 @@ impl VpcFlowLogsService {
     /// ID is different), the creation fails.
     /// Notes:
     ///
-    /// 1. Updating a configuration with state=DISABLED will fail.
-    /// 1. The following fields are not considered as `settings` for the purpose
+    /// 1. Updating a configuration with `state=DISABLED` will fail.
+    /// 1. The following fields are not considered as settings for the purpose
     ///    of the check mentioned above, therefore - updating another configuration
     ///    with the same fields but different values for the following fields will
     ///    fail as well:
@@ -509,6 +509,22 @@ impl VpcFlowLogsService {
         &self,
     ) -> super::builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig {
         super::builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig::new(self.inner.clone())
+    }
+
+    /// QueryOrgVpcFlowLogsConfigs returns a list of all organization-level VPC
+    /// Flow Logs configurations applicable to the specified project.
+    pub fn query_org_vpc_flow_logs_configs(
+        &self,
+    ) -> super::builder::vpc_flow_logs_service::QueryOrgVpcFlowLogsConfigs {
+        super::builder::vpc_flow_logs_service::QueryOrgVpcFlowLogsConfigs::new(self.inner.clone())
+    }
+
+    /// ShowEffectiveFlowLogsConfigs returns a list of all VPC Flow Logs
+    /// configurations applicable to a specified resource.
+    pub fn show_effective_flow_logs_configs(
+        &self,
+    ) -> super::builder::vpc_flow_logs_service::ShowEffectiveFlowLogsConfigs {
+        super::builder::vpc_flow_logs_service::ShowEffectiveFlowLogsConfigs::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
@@ -575,5 +591,300 @@ impl VpcFlowLogsService {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::vpc_flow_logs_service::CancelOperation {
         super::builder::vpc_flow_logs_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Network Management API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+/// let client = OrganizationVpcFlowLogsService::builder().build().await?;
+/// // use `client` to make requests to the Network Management API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// The VPC Flow Logs organization service in the Google Cloud Network Management
+/// API provides organization level configurations that generate Flow Logs. The
+/// service and the configuration resources created using this service are
+/// global.
+///
+/// # Configuration
+///
+/// To configure `OrganizationVpcFlowLogsService` use the `with_*` methods in the type returned
+/// by [builder()][OrganizationVpcFlowLogsService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://networkmanagement.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::organization_vpc_flow_logs_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::organization_vpc_flow_logs_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `OrganizationVpcFlowLogsService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `OrganizationVpcFlowLogsService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct OrganizationVpcFlowLogsService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::OrganizationVpcFlowLogsService>,
+}
+
+impl OrganizationVpcFlowLogsService {
+    /// Returns a builder for [OrganizationVpcFlowLogsService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// let client = OrganizationVpcFlowLogsService::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::organization_vpc_flow_logs_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::organization_vpc_flow_logs_service::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::OrganizationVpcFlowLogsService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::OrganizationVpcFlowLogsService>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::OrganizationVpcFlowLogsService> {
+        super::transport::OrganizationVpcFlowLogsService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::OrganizationVpcFlowLogsService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::OrganizationVpcFlowLogsService::new)
+    }
+
+    /// Lists all `VpcFlowLogsConfigs` in a given organization.
+    pub fn list_vpc_flow_logs_configs(
+        &self,
+    ) -> super::builder::organization_vpc_flow_logs_service::ListVpcFlowLogsConfigs {
+        super::builder::organization_vpc_flow_logs_service::ListVpcFlowLogsConfigs::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Gets the details of a specific `VpcFlowLogsConfig`.
+    pub fn get_vpc_flow_logs_config(
+        &self,
+    ) -> super::builder::organization_vpc_flow_logs_service::GetVpcFlowLogsConfig {
+        super::builder::organization_vpc_flow_logs_service::GetVpcFlowLogsConfig::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Creates a new `VpcFlowLogsConfig`.
+    /// If a configuration with the exact same settings already exists (even if the
+    /// ID is different), the creation fails.
+    /// Notes:
+    ///
+    /// 1. Creating a configuration with `state=DISABLED` will fail
+    /// 1. The following fields are not considered as settings for the purpose
+    ///    of the check mentioned above, therefore - creating another configuration
+    ///    with the same fields but different values for the following fields will
+    ///    fail as well:
+    ///    * name
+    ///    * create_time
+    ///    * update_time
+    ///    * labels
+    ///    * description
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_vpc_flow_logs_config(
+        &self,
+    ) -> super::builder::organization_vpc_flow_logs_service::CreateVpcFlowLogsConfig {
+        super::builder::organization_vpc_flow_logs_service::CreateVpcFlowLogsConfig::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Updates an existing `VpcFlowLogsConfig`.
+    /// If a configuration with the exact same settings already exists (even if the
+    /// ID is different), the creation fails.
+    /// Notes:
+    ///
+    /// 1. Updating a configuration with `state=DISABLED` will fail
+    /// 1. The following fields are not considered as settings for the purpose
+    ///    of the check mentioned above, therefore - updating another configuration
+    ///    with the same fields but different values for the following fields will
+    ///    fail as well:
+    ///    * name
+    ///    * create_time
+    ///    * update_time
+    ///    * labels
+    ///    * description
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_vpc_flow_logs_config(
+        &self,
+    ) -> super::builder::organization_vpc_flow_logs_service::UpdateVpcFlowLogsConfig {
+        super::builder::organization_vpc_flow_logs_service::UpdateVpcFlowLogsConfig::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Deletes a specific `VpcFlowLogsConfig`.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_vpc_flow_logs_config(
+        &self,
+    ) -> super::builder::organization_vpc_flow_logs_service::DeleteVpcFlowLogsConfig {
+        super::builder::organization_vpc_flow_logs_service::DeleteVpcFlowLogsConfig::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(
+        &self,
+    ) -> super::builder::organization_vpc_flow_logs_service::ListLocations {
+        super::builder::organization_vpc_flow_logs_service::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::organization_vpc_flow_logs_service::GetLocation {
+        super::builder::organization_vpc_flow_logs_service::GetLocation::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    pub fn set_iam_policy(
+        &self,
+    ) -> super::builder::organization_vpc_flow_logs_service::SetIamPolicy {
+        super::builder::organization_vpc_flow_logs_service::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    pub fn get_iam_policy(
+        &self,
+    ) -> super::builder::organization_vpc_flow_logs_service::GetIamPolicy {
+        super::builder::organization_vpc_flow_logs_service::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::organization_vpc_flow_logs_service::TestIamPermissions {
+        super::builder::organization_vpc_flow_logs_service::TestIamPermissions::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(
+        &self,
+    ) -> super::builder::organization_vpc_flow_logs_service::ListOperations {
+        super::builder::organization_vpc_flow_logs_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(
+        &self,
+    ) -> super::builder::organization_vpc_flow_logs_service::GetOperation {
+        super::builder::organization_vpc_flow_logs_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn delete_operation(
+        &self,
+    ) -> super::builder::organization_vpc_flow_logs_service::DeleteOperation {
+        super::builder::organization_vpc_flow_logs_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(
+        &self,
+    ) -> super::builder::organization_vpc_flow_logs_service::CancelOperation {
+        super::builder::organization_vpc_flow_logs_service::CancelOperation::new(self.inner.clone())
     }
 }
