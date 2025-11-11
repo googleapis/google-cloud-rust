@@ -248,7 +248,7 @@ mod tests {
     use super::super::tests::{permanent_error, redirect_handle, redirect_status, test_options};
     use super::*;
     use crate::google::storage::v2::{BidiReadHandle, Object, ObjectRangeData};
-    use crate::read_resume_policy::{ReadResumePolicyExt, Recommended};
+    use crate::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
     use anyhow::Result;
     use gax::error::binding::{BindingError, SubstitutionFail};
     use gax::retry_policy::NeverRetry;
@@ -771,7 +771,7 @@ mod tests {
         };
 
         let mut options = test_options();
-        options.set_read_resume_policy(Arc::new(Recommended.with_attempt_limit(1)));
+        options.set_read_resume_policy(Arc::new(AlwaysResume.with_attempt_limit(1)));
         let mut connector = Connector::new(spec, options, client);
         let status = tonic::Status::unavailable("try-again");
         let err = connector.reconnect(status, Vec::new()).await.unwrap_err();
