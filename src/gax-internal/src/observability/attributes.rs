@@ -69,6 +69,8 @@ pub const OTEL_KIND_CLIENT: &str = "Client";
 pub const OTEL_KIND_INTERNAL: &str = "Internal";
 /// Value for `rpc.system`.
 pub const RPC_SYSTEM_HTTP: &str = "http";
+/// Value for `rpc.system`.
+pub const RPC_SYSTEM_GRPC: &str = "grpc";
 /// Value for [keys::GCP_CLIENT_REPO].
 pub const GCP_CLIENT_REPO_GOOGLEAPIS: &str = "googleapis/google-cloud-rust";
 /// Value for [keys::GCP_CLIENT_LANGUAGE].

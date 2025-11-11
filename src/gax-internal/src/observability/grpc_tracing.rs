@@ -12,8 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::observability::attributes::{self, keys::*};
+use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use std::future::Future;
 use std::pin::Pin;
+use std::sync::Arc;
 use std::task::{Context, Poll};
 use tower::{Layer, Service};
 use tracing::Instrument;
@@ -26,12 +29,33 @@ use tracing::Instrument;
 /// It is typically used with [`tower::ServiceBuilder`] to add tracing middleware
 /// to a gRPC client.
 #[derive(Clone, Debug, Default)]
-pub struct TracingTowerLayer;
+pub struct TracingTowerLayer {
+    inner: Arc<TracingTowerLayerInner>,
+}
+
+#[derive(Debug, Default)]
+struct TracingTowerLayerInner {
+    server_address: String,
+    server_port: Option<i64>,
+    url_domain: String,
+}
 
 impl TracingTowerLayer {
     /// Creates a new `TracingTowerLayer`.
-    pub fn new() -> Self {
-        Self
+    pub fn new(uri: &http::Uri, default_domain: String) -> Self {
+        let host = uri.host().unwrap_or("").to_string();
+        let port = uri.port_u16().or_else(|| match uri.scheme_str() {
+            Some("https") => Some(443),
+            Some("http") => Some(80),
+            _ => None,
+        });
+        Self {
+            inner: Arc::new(TracingTowerLayerInner {
+                server_address: host,
+                server_port: port.map(|p| p as i64),
+                url_domain: default_domain,
+            }),
+        }
     }
 }
 
@@ -39,7 +63,10 @@ impl<S> Layer<S> for TracingTowerLayer {
     type Service = TracingTowerService<S>;
 
     fn layer(&self, inner: S) -> Self::Service {
-        TracingTowerService { inner }
+        TracingTowerService {
+            inner,
+            layer: self.clone(),
+        }
     }
 }
 
@@ -51,6 +78,7 @@ impl<S> Layer<S> for TracingTowerLayer {
 #[derive(Clone, Debug)]
 pub struct TracingTowerService<S> {
     inner: S,
+    layer: TracingTowerLayer,
 }
 
 impl<S, B, ResBody> Service<http::Request<B>> for TracingTowerService<S>
@@ -74,8 +102,136 @@ where
     }
 
     fn call(&mut self, req: http::Request<B>) -> Self::Future {
-        // TODO(#3418): Fill in details.
-        let span = tracing::info_span!("grpc.request");
+        let span = create_grpc_span(req.uri(), &self.layer.inner);
         Box::pin(self.inner.call(req).instrument(span))
+    }
+}
+
+fn create_grpc_span(uri: &http::Uri, layer_inner: &TracingTowerLayerInner) -> tracing::Span {
+    let (rpc_service, rpc_method) =
+        parse_method(uri.path()).unwrap_or_else(|_| ("unknown".to_string(), "unknown".to_string()));
+    let span_name = uri.path().trim_start_matches('/');
+    tracing::info_span!(
+        "grpc.request",
+        { OTEL_NAME } = span_name,
+        { otel_trace::RPC_SYSTEM } = attributes::RPC_SYSTEM_GRPC,
+        { OTEL_KIND } = attributes::OTEL_KIND_CLIENT,
+        { otel_trace::RPC_SERVICE } = rpc_service,
+        { otel_trace::RPC_METHOD } = rpc_method,
+        { otel_trace::SERVER_ADDRESS } = layer_inner.server_address,
+        { otel_trace::SERVER_PORT } = layer_inner.server_port,
+        { otel_attr::URL_DOMAIN } = layer_inner.url_domain,
+        // Standard attributes that will be populated later
+        { otel_attr::RPC_GRPC_STATUS_CODE } = tracing::field::Empty,
+        { GRPC_STATUS } = tracing::field::Empty,
+        { OTEL_STATUS_CODE } = tracing::field::Empty,
+        { otel_trace::ERROR_TYPE } = tracing::field::Empty,
+    )
+}
+
+fn parse_method(path: &str) -> Result<(String, String), &'static str> {
+    let path = path.trim_start_matches('/');
+    let parts: Vec<&str> = path.split('/').collect();
+    if parts.len() == 2 {
+        Ok((parts[0].to_string(), parts[1].to_string()))
+    } else {
+        Err("invalid path format")
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
+    use std::collections::HashMap;
+
+    #[test]
+    fn test_parse_method() {
+        assert_eq!(
+            parse_method("/google.pubsub.v1.Publisher/Publish"),
+            Ok((
+                "google.pubsub.v1.Publisher".to_string(),
+                "Publish".to_string()
+            ))
+        );
+        assert_eq!(
+            parse_method("google.pubsub.v1.Publisher/Publish"),
+            Ok((
+                "google.pubsub.v1.Publisher".to_string(),
+                "Publish".to_string()
+            ))
+        );
+        assert!(parse_method("/invalid/path/format").is_err());
+        assert!(parse_method("invalid").is_err());
+    }
+
+    #[test]
+    fn test_layer_new() {
+        let uri = "https://pubsub.googleapis.com".parse().unwrap();
+        let layer = TracingTowerLayer::new(&uri, "pubsub.googleapis.com".to_string());
+        assert_eq!(layer.inner.server_address, "pubsub.googleapis.com");
+        assert_eq!(layer.inner.server_port, Some(443));
+        assert_eq!(layer.inner.url_domain, "pubsub.googleapis.com");
+
+        let uri = "http://localhost:8080".parse().unwrap();
+        let layer = TracingTowerLayer::new(&uri, "localhost".to_string());
+        assert_eq!(layer.inner.server_address, "localhost");
+        assert_eq!(layer.inner.server_port, Some(8080));
+        assert_eq!(layer.inner.url_domain, "localhost");
+    }
+
+    #[test]
+    fn test_layer_new_with_different_domain() {
+        let uri = "http://localhost:8080".parse().unwrap();
+        let layer = TracingTowerLayer::new(&uri, "example.com".to_string());
+        assert_eq!(layer.inner.server_address, "localhost");
+        assert_eq!(layer.inner.server_port, Some(8080));
+        assert_eq!(layer.inner.url_domain, "example.com");
+    }
+
+    #[test]
+    fn test_layer_new_schemes() {
+        let uri = "http://example.com".parse().unwrap();
+        let layer = TracingTowerLayer::new(&uri, "example.com".to_string());
+        assert_eq!(layer.inner.server_port, Some(80));
+
+        let uri = "ftp://example.com".parse().unwrap();
+        let layer = TracingTowerLayer::new(&uri, "example.com".to_string());
+        assert_eq!(layer.inner.server_port, None);
+    }
+
+    #[test]
+    fn test_create_grpc_span() {
+        let guard = TestLayer::initialize();
+        let uri = http::Uri::from_static(
+            "https://pubsub.googleapis.com/google.pubsub.v1.Publisher/Publish",
+        );
+        let endpoint_uri = "https://pubsub.googleapis.com".parse().unwrap();
+        let layer = TracingTowerLayer::new(&endpoint_uri, "pubsub.googleapis.com".to_string());
+        let _span = create_grpc_span(&uri, &layer.inner);
+
+        let captured = TestLayer::capture(&guard);
+        assert_eq!(captured.len(), 1);
+        let span = &captured[0];
+        assert_eq!(span.name, "grpc.request");
+
+        let expected_attributes: HashMap<String, AttributeValue> = [
+            (OTEL_NAME, "google.pubsub.v1.Publisher/Publish".into()),
+            (
+                otel_trace::RPC_SYSTEM,
+                crate::observability::attributes::RPC_SYSTEM_GRPC.into(),
+            ),
+            (OTEL_KIND, "Client".into()),
+            (otel_trace::RPC_SERVICE, "google.pubsub.v1.Publisher".into()),
+            (otel_trace::RPC_METHOD, "Publish".into()),
+            (otel_trace::SERVER_ADDRESS, "pubsub.googleapis.com".into()),
+            (otel_trace::SERVER_PORT, 443_i64.into()),
+            (otel_attr::URL_DOMAIN, "pubsub.googleapis.com".into()),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v))
+        .collect();
+
+        assert_eq!(span.attributes, expected_attributes);
     }
 }
