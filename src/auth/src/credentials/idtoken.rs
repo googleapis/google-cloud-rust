@@ -235,9 +235,7 @@ fn build_id_token_credentials(
                 ))),
                 "service_account" => service_account::Builder::new(audience, json).build(),
                 "impersonated_service_account" => {
-                    impersonated::Builder::new(audience, json)
-                        .with_include_email(true)
-                        .build()
+                    impersonated::Builder::new(audience, json).build()
                 }
                 "external_account" => {
                     // never gonna be supported for id tokens
