@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[cfg(google_cloud_unstable_storage_bidi)]
 #[allow(dead_code)]
 pub(crate) mod bidi;
 pub(crate) mod checksum;
