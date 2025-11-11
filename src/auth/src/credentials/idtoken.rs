@@ -180,6 +180,7 @@ pub(crate) mod dynamic {
 /// [AIP-4110]: https://google.aip.dev/auth/4110
 pub struct Builder {
     target_audience: String,
+    include_email: bool,
 }
 
 impl Builder {
@@ -193,7 +194,14 @@ impl Builder {
     pub fn new<S: Into<String>>(target_audience: S) -> Self {
         Self {
             target_audience: target_audience.into(),
+            include_email: false,
         }
+    }
+
+    /// Sets whether the ID token should include the `email` claim of the user in the token.
+    pub fn with_include_email(mut self, include_email: bool) -> Self {
+        self.include_email = include_email;
+        self
     }
 
     /// Returns a [IDTokenCredentials] instance with the configured settings.
@@ -214,18 +222,20 @@ impl Builder {
             AdcContents::FallbackToMds => None,
         };
 
-        build_id_token_credentials(self.target_audience, json_data)
+        build_id_token_credentials(self.target_audience, self.include_email, json_data)
     }
 }
 
 fn build_id_token_credentials(
     audience: String,
+    include_email: bool,
     json: Option<Value>,
 ) -> BuildResult<IDTokenCredentials> {
     match json {
         None => {
             // TODO(#3587): pass context that is being built from ADC flow.
-            mds::Builder::new(audience).with_format("full").build()
+            let format = if include_email { "full" } else { "standard" };
+            mds::Builder::new(audience).with_format(format).build()
         }
         Some(json) => {
             let cred_type = extract_credential_type(&json)?;
@@ -235,7 +245,7 @@ fn build_id_token_credentials(
                 ))),
                 "service_account" => service_account::Builder::new(audience, json).build(),
                 "impersonated_service_account" => impersonated::Builder::new(audience, json)
-                    .with_include_email(true)
+                    .with_include_email(include_email)
                     .build(),
                 "external_account" => {
                     // never gonna be supported for id tokens
