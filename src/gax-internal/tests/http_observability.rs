@@ -452,4 +452,79 @@ mod tests {
                 .contains_key(otel_trace::HTTP_RESPONSE_STATUS_CODE)
         );
     }
+
+    use google_cloud_gax_internal::observability::{
+        create_client_request_span, record_client_request_span,
+    };
+
+    #[tokio::test]
+    async fn test_t3_span_creation_and_enrichment() {
+        let server = Server::run();
+        let server_addr = server.addr();
+        let server_url = format!("http://{}", server_addr);
+        server.expect(
+            Expectation::matching(all_of![method("GET"), path("/test"),])
+                .respond_with(status_code(200).body("{\"hello\": \"world\"}")),
+        );
+
+        let client = create_client(true, server_url.clone()).await;
+        let guard = TestLayer::initialize();
+
+        let options = gax::options::internal::set_path_template(RequestOptions::default(), "/test");
+        let request = client.builder(Method::GET, "/test".to_string());
+
+        // 1. Create the T3 span using the helper
+        let t3_span = create_client_request_span(
+            "google.cloud.test.service.TestMethod",
+            "TestMethod",
+            &TEST_INSTRUMENTATION_INFO,
+        );
+
+        // 2. Execute the request within the T3 span
+        let result: gax::Result<Response<TestResponse>> = client
+            .execute(request, None::<NoBody>, options)
+            .instrument(t3_span.clone())
+            .await;
+
+        // 3. Enrich the span based on the result
+        record_client_request_span(&result, &t3_span);
+
+        let captured = TestLayer::capture(&guard);
+
+        // Find the T3 span
+        let t3_captured = captured
+            .iter()
+            .find(|s| s.name == "client_request")
+            .expect("client_request span not found");
+
+        let attrs = &t3_captured.attributes;
+
+        let expected_attributes: HashMap<String, AttributeValue> = [
+            (OTEL_NAME, "google.cloud.test.service.TestMethod".into()),
+            (OTEL_KIND, "Internal".into()),
+            (otel_trace::RPC_SYSTEM, "http".into()),
+            (otel_trace::RPC_SERVICE, TEST_SERVICE.into()),
+            (otel_trace::RPC_METHOD, "TestMethod".into()),
+            (GCP_CLIENT_SERVICE, TEST_SERVICE.into()),
+            (GCP_CLIENT_VERSION, TEST_VERSION.into()),
+            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
+            (GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
+            (GCP_CLIENT_LANGUAGE, "rust".into()),
+            (otel_trace::HTTP_RESPONSE_STATUS_CODE, 200_i64.into()),
+            (
+                otel_trace::SERVER_ADDRESS,
+                server_addr.ip().to_string().into(),
+            ),
+            (otel_trace::SERVER_PORT, (server_addr.port() as i64).into()),
+            (otel_trace::URL_FULL, format!("{}/test", server_url).into()),
+            (otel_trace::HTTP_REQUEST_METHOD, "GET".into()),
+            (OTEL_STATUS_CODE, "OK".into()),
+            ("gax.client.span", true.into()),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v))
+        .collect();
+
+        assert_eq!(attrs, &expected_attributes);
+    }
 }

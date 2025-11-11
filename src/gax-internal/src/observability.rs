@@ -33,3 +33,9 @@ pub(crate) use http_tracing::{
 
 #[cfg(all(google_cloud_unstable_tracing, feature = "_internal-grpc-client"))]
 pub mod grpc_tracing;
+
+#[cfg(google_cloud_unstable_tracing)]
+mod client_tracing;
+
+#[cfg(google_cloud_unstable_tracing)]
+pub use client_tracing::{create_client_request_span, record_client_request_span};
