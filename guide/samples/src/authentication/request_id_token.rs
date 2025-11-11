@@ -35,7 +35,7 @@ pub async fn sample(audience: &str) -> anyhow::Result<String> {
 
 // [START request_id_token_send] ANCHOR: request_id_token_send
 // # Parameters
-// * `target_url`: The receving service target URL.
+// * `target_url`: The receiving service target URL.
 // * `id_token`: The ID token string to be used for authentication.
 pub async fn api_call_with_id_token(target_url: &str, id_token: &str) -> anyhow::Result<()> {
     use reqwest;
