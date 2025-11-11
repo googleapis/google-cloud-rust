@@ -32,7 +32,17 @@ use http::HeaderMap;
 use std::sync::Arc;
 use std::time::Duration;
 
-pub type InnerClient = tonic::client::Grpc<tonic::transport::Channel>;
+#[cfg(not(google_cloud_unstable_tracing))]
+pub type GrpcService = tonic::transport::Channel;
+
+#[cfg(google_cloud_unstable_tracing)]
+pub type GrpcService = tower::util::Either<
+    crate::observability::grpc_tracing::TracingTowerService<tonic::transport::Channel>,
+    tonic::transport::Channel,
+>;
+
+/// The inner gRPC client type.
+pub type InnerClient = tonic::client::Grpc<GrpcService>;
 
 #[derive(Clone, Debug)]
 pub struct Client {
@@ -54,7 +64,8 @@ impl Client {
         default_endpoint: &str,
     ) -> gax::client_builder::Result<Self> {
         let credentials = Self::make_credentials(&config).await?;
-        let inner = Self::make_inner(config.endpoint, default_endpoint).await?;
+        let tracing_enabled = crate::options::tracing_enabled(&config);
+        let inner = Self::make_inner(config.endpoint, default_endpoint, tracing_enabled).await?;
         Ok(Self {
             inner,
             credentials,
@@ -244,6 +255,7 @@ impl Client {
     async fn make_inner(
         endpoint: Option<String>,
         default_endpoint: &str,
+        tracing_enabled: bool,
     ) -> gax::client_builder::Result<InnerClient> {
         use tonic::transport::{ClientTlsConfig, Endpoint};
 
@@ -257,7 +269,28 @@ impl Client {
                 .tls_config(ClientTlsConfig::new().with_enabled_roots())
                 .map_err(BuilderError::transport)?
                 .origin(origin);
-        Ok(InnerClient::new(endpoint.connect_lazy()))
+        let channel = endpoint.connect_lazy();
+
+        #[cfg(not(google_cloud_unstable_tracing))]
+        {
+            let _ = tracing_enabled;
+            Ok(InnerClient::new(channel))
+        }
+
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use crate::observability::grpc_tracing::TracingTowerLayer;
+            use tower::ServiceBuilder;
+            use tower::util::Either;
+
+            if tracing_enabled {
+                let layer = TracingTowerLayer::new();
+                let service = ServiceBuilder::new().layer(layer).service(channel);
+                Ok(InnerClient::new(Either::Left(service)))
+            } else {
+                Ok(InnerClient::new(Either::Right(channel)))
+            }
+        }
     }
 
     async fn make_credentials(

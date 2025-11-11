@@ -20,13 +20,16 @@
 #[cfg(google_cloud_unstable_tracing)]
 pub mod attributes;
 
-#[cfg(google_cloud_unstable_tracing)]
+#[cfg(all(google_cloud_unstable_tracing, feature = "_internal-http-client"))]
 mod errors;
 
-#[cfg(google_cloud_unstable_tracing)]
+#[cfg(all(google_cloud_unstable_tracing, feature = "_internal-http-client"))]
 mod http_tracing;
 
-#[cfg(google_cloud_unstable_tracing)]
+#[cfg(all(google_cloud_unstable_tracing, feature = "_internal-http-client"))]
 pub(crate) use http_tracing::{
     create_http_attempt_span, record_http_response_attributes, record_intermediate_client_request,
 };
+
+#[cfg(all(google_cloud_unstable_tracing, feature = "_internal-grpc-client"))]
+pub mod grpc_tracing;
