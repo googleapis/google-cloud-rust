@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[cfg(google_cloud_unstable_storage_bidi)]
+pub mod bidi_read;
 pub mod read_object;
 pub mod write_object;
 
@@ -26,7 +28,9 @@ use storage::model::Bucket;
 use storage::model::bucket::iam_config::UniformBucketLevelAccess;
 use storage::model::bucket::{HierarchicalNamespace, IamConfig};
 use storage::read_object::ReadObjectResponse;
-pub use storage_samples::{cleanup_stale_buckets, create_test_bucket, create_test_hns_bucket};
+pub use storage_samples::{
+    cleanup_stale_buckets, create_test_bucket, create_test_hns_bucket, create_test_zonal_bucket,
+};
 
 pub async fn objects(
     builder: storage::builder::storage::ClientBuilder,

@@ -17,6 +17,8 @@ use crate::Error;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::WriteObject;
 use crate::read_resume_policy::ReadResumePolicy;
+#[cfg(google_cloud_unstable_storage_bidi)]
+use crate::storage::bidi::OpenObject;
 use crate::storage::common_options::CommonOptions;
 use crate::streaming_source::Payload;
 use auth::credentials::CacheableResource;
@@ -104,6 +106,8 @@ pub(crate) struct StorageInner {
     pub cred: auth::credentials::Credentials,
     pub endpoint: String,
     pub options: RequestOptions,
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    pub grpc: gaxi::grpc::Client,
 }
 
 impl Storage {
@@ -226,6 +230,16 @@ where
     {
         ReadObject::new(self.stub.clone(), bucket, object, self.options.clone())
     }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    pub fn open_object<B, O>(&self, bucket: B, object: O) -> OpenObject
+    where
+        B: Into<String>,
+        O: Into<String>,
+    {
+        self.stub
+            .open_object(bucket.into(), object.into(), self.options.clone())
+    }
 }
 
 impl Storage {
@@ -254,12 +268,15 @@ impl StorageInner {
         cred: Credentials,
         endpoint: String,
         options: RequestOptions,
+        #[cfg(google_cloud_unstable_storage_bidi)] grpc: gaxi::grpc::Client,
     ) -> Self {
         Self {
             client,
             cred,
             endpoint,
             options,
+            #[cfg(google_cloud_unstable_storage_bidi)]
+            grpc,
         }
     }
 
@@ -277,7 +294,14 @@ impl StorageInner {
             .clone()
             .expect("into_parts() assigns default credentials");
 
-        let inner = StorageInner::new(client, cred, endpoint, options);
+        let inner = StorageInner::new(
+            client,
+            cred,
+            endpoint,
+            options,
+            #[cfg(google_cloud_unstable_storage_bidi)]
+            gaxi::grpc::Client::new(config, super::DEFAULT_HOST).await?,
+        );
         Ok(inner)
     }
 

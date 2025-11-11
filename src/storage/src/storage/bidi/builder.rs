@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::connector::Connector;
+use super::object_descriptor::ObjectDescriptor;
+use super::transport::ObjectDescriptorTransport;
+use crate::Result;
 use crate::google::storage::v2::BidiReadObjectSpec;
 use crate::model_ext::KeyAes256;
 use crate::read_resume_policy::ReadResumePolicy;
@@ -69,6 +73,26 @@ impl OpenObject {
             client,
             reconnect_attempts: 0_u32,
         }
+    }
+
+    /// Sends the request, returning a new object descriptor.
+    ///
+    /// Example:
+    /// ```ignore
+    /// # use google_cloud_storage::{model_ext::KeyAes256, client::Storage};
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let open = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .send()
+    ///     .await?;
+    /// println!("object metadata={:?}", open.object());
+    /// # Ok(()) }
+    /// ```
+    pub async fn send(self) -> Result<ObjectDescriptor> {
+        let connector = Connector::new(self.spec, self.options, self.client);
+        let transport = ObjectDescriptorTransport::new(connector).await?;
+
+        Ok(ObjectDescriptor::new(transport))
     }
 
     /// If present, selects a specific revision of this object (as

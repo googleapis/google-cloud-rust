@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[cfg(google_cloud_unstable_storage_bidi)]
+use super::bidi::OpenObject;
 use crate::Result;
 use crate::model::{Object, ReadObjectRequest};
 use crate::model_ext::WriteObjectRequest;
@@ -92,5 +94,10 @@ impl super::stub::Storage for Storage {
         PerformUpload::new(payload, self.inner.clone(), req.spec, req.params, options)
             .send_unbuffered()
             .await
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    fn open_object(&self, bucket: String, object: String, options: RequestOptions) -> OpenObject {
+        OpenObject::new(bucket, object, self.inner.grpc.clone(), options)
     }
 }
