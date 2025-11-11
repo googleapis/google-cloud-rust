@@ -14,6 +14,7 @@
 
 mod builder;
 mod pending_range;
+mod range_reader;
 mod redirect;
 mod resume_redirect;
 mod retry_redirect;
