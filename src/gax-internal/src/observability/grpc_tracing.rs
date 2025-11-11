@@ -64,6 +64,9 @@ where
     // We use `Box<dyn Future...>` (type erasure) here to simplify the type signature.
     // Without this, we would need to explicitly name the complex type returned by
     // `.instrument()` (and any implementation changes in `call`), which can be verbose and brittle.
+    //
+    // The allocation cost is negligible as `call` is invoked once per RPC (or stream initialization),
+    // not per message in a streaming call.
     type Future = Pin<Box<dyn Future<Output = Result<Self::Response, Self::Error>> + Send>>;
 
     fn poll_ready(&mut self, cx: &mut Context<'_>) -> Poll<Result<(), Self::Error>> {

@@ -33,21 +33,16 @@ use std::sync::Arc;
 use std::time::Duration;
 
 #[cfg(not(google_cloud_unstable_tracing))]
-pub type InnerClient = tonic::client::Grpc<tonic::transport::Channel>;
+pub type GrpcService = tonic::transport::Channel;
 
 #[cfg(google_cloud_unstable_tracing)]
-/// The inner gRPC client type.
-///
-/// When tracing is enabled (via the `google_cloud_unstable_tracing` config flag),
-/// this type uses `tower::util::Either` to dynamically dispatch between a
-/// traced client (wrapped with `TracingTowerService`) and a raw client. This allows
-/// tracing to be enabled or disabled at runtime based on configuration.
-pub type InnerClient = tonic::client::Grpc<
-    tower::util::Either<
-        crate::observability::grpc_tracing::TracingTowerService<tonic::transport::Channel>,
-        tonic::transport::Channel,
-    >,
+pub type GrpcService = tower::util::Either<
+    crate::observability::grpc_tracing::TracingTowerService<tonic::transport::Channel>,
+    tonic::transport::Channel,
 >;
+
+/// The inner gRPC client type.
+pub type InnerClient = tonic::client::Grpc<GrpcService>;
 
 #[derive(Clone, Debug)]
 pub struct Client {

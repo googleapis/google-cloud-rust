@@ -66,6 +66,7 @@ _internal-grpc-client = [
   "dep:tonic",
   "dep:tonic-prost",
   "dep:tower",
+  "dep:tracing",
   "dep:wkt",
 ]
 _internal-common = ["dep:auth", "dep:gax", "dep:percent-encoding", "dep:thiserror"]

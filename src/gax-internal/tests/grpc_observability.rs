@@ -67,6 +67,12 @@ mod tests {
             "Should capture one grpc.request span: {:?}",
             grpc_spans
         );
+        // In this basic PR, we only create the span. Attributes are added in subsequent PRs.
+        assert!(
+            grpc_spans[0].attributes.is_empty(),
+            "Span should have no attributes yet: {:?}",
+            grpc_spans[0].attributes
+        );
 
         Ok(())
     }
