@@ -137,11 +137,10 @@ pub(crate) fn record_intermediate_client_request(
 
     // Only enrich spans that are explicitly marked as GAX client spans.
     // This prevents accidental enrichment of user-provided spans that happen to have the same fields.
-    if let Some(metadata) = span.metadata() {
-        if metadata.fields().field("gax.client.span").is_none() {
-            return;
-        }
-    } else {
+    if span
+        .metadata()
+        .is_none_or(|m| m.fields().field("gax.client.span").is_none())
+    {
         return;
     }
 
