@@ -298,6 +298,7 @@ pub(crate) mod tests {
     use super::*;
     use jsonwebtoken::{Algorithm, EncodingKey, Header};
     use rsa::pkcs1::EncodeRsaPrivateKey;
+    use serde_json::json;
     use serial_test::parallel;
     use std::collections::HashMap;
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
@@ -437,6 +438,62 @@ pub(crate) mod tests {
         let err = result.unwrap_err();
         assert!(err.is_unknown_type());
         assert!(err.to_string().contains("unknown_credential_type"));
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_build_id_token_include_email_mds() -> TestResult {
+        let audience = "test_audience".to_string();
+
+        // Test with include_email = true and no source credentials (MDS Fallback)
+        let creds_true = build_id_token_credentials(audience.clone(), true, None)?;
+        let fmt = format!("{:?}", creds_true.inner);
+        assert!(fmt.contains("MDSCredentials"));
+        assert!(fmt.contains("format: Some(\"full\")"));
+
+        // Test with include_email = false and no source credentials (MDS Fallback)
+        let creds_false = build_id_token_credentials(audience.clone(), false, None)?;
+        let fmt = format!("{:?}", creds_false.inner);
+        assert!(fmt.contains("MDSCredentials"));
+        assert!(fmt.contains("format: Some(\"standard\")"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_build_id_token_include_email_impersonated() -> TestResult {
+        let audience = "test_audience".to_string();
+        let json = json!({
+            "type": "impersonated_service_account",
+            "source_credentials": {
+                "type": "service_account",
+                "project_id": "test-project",
+                "private_key_id": "test-key-id",
+                "private_key": "-----BEGIN PRIVATE KEY-----\n-----END PRIVATE KEY-----",
+                "client_email": "source@test-project.iam.gserviceaccount.com",
+                "client_id": "test-client-id",
+                "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+                "token_uri": "https://oauth2.googleapis.com/token",
+                "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+                "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/source%40test-project.iam.gserviceaccount.com"
+            },
+            "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/target@test-project.iam.gserviceaccount.com:generateIdToken"
+        });
+
+        // Test with include_email = true and impersonated source credentials
+        let creds_true = build_id_token_credentials(audience.clone(), true, Some(json.clone()))?;
+        let fmt = format!("{:?}", creds_true.inner);
+        assert!(fmt.contains("ImpersonatedServiceAccount"));
+        assert!(fmt.contains("include_email: Some(true)"));
+
+        // Test with include_email = false and impersonated source credentials
+        let creds_false = build_id_token_credentials(audience.clone(), false, Some(json))?;
+        let fmt = format!("{:?}", creds_false.inner);
+        assert!(fmt.contains("ImpersonatedServiceAccount"));
+        assert!(fmt.contains("include_email: Some(false)"));
+
         Ok(())
     }
 }
