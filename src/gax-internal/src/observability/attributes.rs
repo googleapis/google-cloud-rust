@@ -65,6 +65,8 @@ pub mod keys {
 
 /// Value for [keys::OTEL_KIND].
 pub const OTEL_KIND_CLIENT: &str = "Client";
+/// Value for [keys::OTEL_KIND].
+pub const OTEL_KIND_INTERNAL: &str = "Internal";
 /// Value for `rpc.system`.
 pub const RPC_SYSTEM_HTTP: &str = "http";
 /// Value for [keys::GCP_CLIENT_REPO].

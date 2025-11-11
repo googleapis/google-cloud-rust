@@ -131,6 +131,7 @@ pub(crate) fn record_http_response_attributes(
 pub(crate) fn record_intermediate_client_request(
     result: Result<&reqwest::Response, &gax::error::Error>,
     prior_attempt_count: u32,
+    method: &http::Method,
 ) {
     let span = Span::current();
     if span.is_disabled() {
@@ -145,6 +146,8 @@ pub(crate) fn record_intermediate_client_request(
     {
         return;
     }
+
+    span.record(otel_trace::HTTP_REQUEST_METHOD, method.as_str());
 
     match result {
         Ok(response) => {
@@ -185,6 +188,7 @@ pub(crate) fn record_intermediate_client_request(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::observability::client_tracing::create_client_request_span;
     use crate::options::InstrumentationClientInfo;
     use gax::options::RequestOptions;
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
@@ -193,6 +197,13 @@ mod tests {
     use reqwest::{self, StatusCode};
     use std::collections::HashMap;
     use test_case::test_case;
+
+    const TEST_INFO: InstrumentationClientInfo = InstrumentationClientInfo {
+        service_name: "test.service",
+        client_version: "1.2.3",
+        client_artifact: "google-cloud-test",
+        default_host: "example.com",
+    };
 
     #[tokio::test]
     async fn test_create_span_attributes() {
@@ -204,13 +215,7 @@ mod tests {
             options,
             "//example.com/projects/p/resources/r".to_string(),
         );
-        const INFO: InstrumentationClientInfo = InstrumentationClientInfo {
-            service_name: "test.service",
-            client_version: "1.2.3",
-            client_artifact: "google-cloud-test",
-            default_host: "example.com",
-        };
-        let _span = create_http_attempt_span(&request, &options, Some(&INFO), 1);
+        let _span = create_http_attempt_span(&request, &options, Some(&TEST_INFO), 1);
 
         let expected_attributes: HashMap<String, AttributeValue> = [
             (OTEL_NAME, "GET /test".into()),
@@ -532,15 +537,7 @@ mod tests {
     #[tokio::test]
     async fn test_record_intermediate_client_request() {
         let guard = TestLayer::initialize();
-        let span = tracing::info_span!(
-            "test_span",
-            { otel_trace::SERVER_ADDRESS } = field::Empty,
-            { otel_trace::SERVER_PORT } = field::Empty,
-            { otel_trace::URL_FULL } = field::Empty,
-            { otel_trace::HTTP_RESPONSE_STATUS_CODE } = field::Empty,
-            { otel_trace::HTTP_REQUEST_RESEND_COUNT } = field::Empty,
-            "gax.client.span" = field::Empty, // Add marker field
-        );
+        let span = create_client_request_span("test_span", "test_method", &TEST_INFO);
         let _enter = span.enter();
 
         let response = http::Response::builder()
@@ -548,7 +545,7 @@ mod tests {
             .body("")
             .unwrap();
         let reqwest_response: reqwest::Response = response.into();
-        record_intermediate_client_request(Ok(&reqwest_response), 1);
+        record_intermediate_client_request(Ok(&reqwest_response), 1, &Method::GET);
 
         let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
@@ -561,6 +558,10 @@ mod tests {
         assert_eq!(
             attributes.get(otel_trace::HTTP_REQUEST_RESEND_COUNT),
             Some(&(1_i64).into())
+        );
+        assert_eq!(
+            attributes.get(otel_trace::HTTP_REQUEST_METHOD),
+            Some(&"GET".into())
         );
     }
 
@@ -580,7 +581,7 @@ mod tests {
             .body("")
             .unwrap();
         let reqwest_response: reqwest::Response = response.into();
-        record_intermediate_client_request(Ok(&reqwest_response), 1);
+        record_intermediate_client_request(Ok(&reqwest_response), 1, &Method::GET);
 
         let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
@@ -594,17 +595,12 @@ mod tests {
     #[tokio::test]
     async fn test_record_intermediate_client_request_error() {
         let guard = TestLayer::initialize();
-        let span = tracing::info_span!(
-            "test_span",
-            { otel_trace::HTTP_RESPONSE_STATUS_CODE } = field::Empty,
-            { otel_trace::HTTP_REQUEST_RESEND_COUNT } = field::Empty,
-            "gax.client.span" = field::Empty, // Add marker field
-        );
+        let span = create_client_request_span("test_span", "test_method", &TEST_INFO);
         let _enter = span.enter();
 
         // Simulate a 404 error
         let error = gax::error::Error::http(404, http::HeaderMap::new(), bytes::Bytes::new());
-        record_intermediate_client_request(Err(&error), 1);
+        record_intermediate_client_request(Err(&error), 1, &Method::POST);
 
         let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
@@ -617,6 +613,10 @@ mod tests {
         assert_eq!(
             attributes.get(otel_trace::HTTP_REQUEST_RESEND_COUNT),
             Some(&(1_i64).into())
+        );
+        assert_eq!(
+            attributes.get(otel_trace::HTTP_REQUEST_METHOD),
+            Some(&"POST".into())
         );
     }
 }
