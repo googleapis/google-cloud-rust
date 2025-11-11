@@ -29,7 +29,8 @@ receiving service can then verify the token to authenticate the caller.
 ID tokens are particularly useful in scenarios where you need to authenticate to
 a service that is not a Google Cloud API. For example, you can use ID tokens to
 securely authenticate requests if your target service is running on [Cloud Run]
-or behind an [Identity-Aware Proxy].
+or behind an [Identity-Aware Proxy]. See the [service-to-service authentication]
+guide for more information.
 
 ## Prerequisites
 
@@ -54,35 +55,35 @@ cargo add google-cloud-auth
 
 ## Obtaining ID Tokens
 
-First, add a `use` declaration to simplify the rest of the example:
-
-```rust,ignore
-{{#include ../../samples/src/authentication/request_id_token.rs:request_id_token_use}}
-```
-
-This example receives the audience as an input parameter. The audience must
-match the audience of the service that receives the token.
+1. This example receives the audience as an input parameter. The audience must
+   match the audience of the service that receives the token.
 
 ```rust,ignore
 {{#include ../../samples/src/authentication/request_id_token.rs:request_id_token_parameters}}
 ```
 
-Use the ID Token [Builder][id token builder] to create the credentials:
+2. Add some `use` declarations to simplify the rest of the example:
+
+```rust,ignore
+{{#include ../../samples/src/authentication/request_id_token.rs:request_id_token_use}}
+```
+
+3. Use the ID Token [Builder][id token builder] to create the credentials:
 
 ```rust,ignore
 {{#include ../../samples/src/authentication/request_id_token.rs:request_id_token_client}}
 ```
 
-Then, fetch the ID token. Note that the client libraries automatically cache the
-token and refresh it as needed.
+4. Then, fetch the ID token. Note that the client libraries automatically cache
+   the token and refresh it as needed.
 
 ```rust,ignore
 {{#include ../../samples/src/authentication/request_id_token.rs:request_id_token_call}}
 ```
 
 Your application can now use this token to authenticate with other services. A
-common use-case is to send the token in the `Authorization:` header. Here an
-example using the [reqwest] crate.
+common use-case is to send the token in the `Authorization:` header. For
+example, if you are using the [reqwest] crate you may write this code:
 
 ```rust,ignore
 {{#include ../../samples/src/authentication/request_id_token.rs:request_id_token_send}}
@@ -93,23 +94,27 @@ example using the [reqwest] crate.
 A receiving service can verify an ID token to authenticate the service making
 the request.
 
-First, add a `use` declaration to simplify the rest of the example:
+1. This example receives the ID token string and the expected audience as input
+   parameters. The audience must match the audience of the service.
+
+```rust,ignore
+{{#include ../../samples/src/authentication/verify_id_token.rs:verify_id_token_parameters}}
+```
+
+2. Add some `use` declarations to simplify the rest of the example:
 
 ```rust,ignore
 {{#include ../../samples/src/authentication/verify_id_token.rs:verify_id_token_use}}
 ```
 
-This example receives the ID token string and the expected audience as input
-parameters. The audience must match the audience of the service.
-
-Use the ID Token [Verifier Builder] to create the verifier:
+3. Use the ID Token [Verifier Builder] to create the verifier:
 
 ```rust,ignore
 {{#include ../../samples/src/authentication/verify_id_token.rs:verify_id_token_verifier}}
 ```
 
-Then, verify the token. If verification is successful, it returns the claims
-from the token payload.
+4. Then, verify the token. If verification is successful, it returns the claims
+   from the token payload.
 
 ```rust,ignore
 {{#include ../../samples/src/authentication/verify_id_token.rs:verify_id_token_verify_call}}
@@ -129,4 +134,5 @@ the `verify` method will return an error.
 [identity-aware proxy]: https://cloud.google.com/security/products/iap
 [oidc id tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 [reqwest]: https://docs.rs/reqwest/latest/reqwest/
+[service-to-service authentication]: https://docs.cloud.google.com/run/docs/authenticating/service-to-service
 [verifier builder]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/idtoken/verifier/struct.Builder.html
