@@ -535,8 +535,10 @@ mod tests {
             "token_type": "Bearer"
         });
         server.expect(
-            Expectation::matching(request::path("/computeMetadata/v1/instance/service-accounts/default/token"))
-                .respond_with(json_encoded(response)),
+            Expectation::matching(request::path(
+                "/computeMetadata/v1/instance/service-accounts/default/token",
+            ))
+            .respond_with(json_encoded(response)),
         );
 
         let test_quota_project = "test-quota-project";

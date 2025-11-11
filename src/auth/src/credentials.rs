@@ -177,7 +177,7 @@ impl AccessTokenCredentials {
 }
 
 /// Makes [AccessTokenCredentials] compatible with clients that expect
-/// a [Credentials] and/or a [CredentialsProvider]. 
+/// a [Credentials] and/or a [CredentialsProvider].
 impl CredentialsProvider for AccessTokenCredentials {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         self.inner.headers(extensions).await
