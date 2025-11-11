@@ -260,6 +260,40 @@ impl ReadRange {
             limit: count,
         })
     }
+
+    /// Maps the range to a `(offset, limit)` pair.
+    ///
+    /// Once the size of the object is known it is possible to normalize the
+    /// range. This is useful in bidi streaming reads because the size is always
+    /// known when the range is requested.
+    #[allow(dead_code)]
+    pub(crate) fn normalize(&self, object_size: i64) -> (i64, i64) {
+        use crate::model_ext::Range;
+        match self.0 {
+            Range::All => (0, object_size),
+            Range::Offset(o) => {
+                let o = o.clamp(0, i64::MAX as u64) as i64;
+                (
+                    o.clamp(0, object_size),
+                    (object_size - o).clamp(0, object_size),
+                )
+            }
+            Range::Tail(t) => {
+                let t = t.clamp(0, i64::MAX as u64) as i64;
+                (
+                    (object_size - t).clamp(0, object_size),
+                    t.clamp(0, object_size),
+                )
+            }
+            Range::Segment { offset, limit } => {
+                let offset = offset.clamp(0, i64::MAX as u64) as i64;
+                let offset = offset.clamp(0, object_size);
+                let limit = limit.clamp(0, i64::MAX as u64) as i64;
+                let limit = limit.clamp(0, object_size - offset);
+                (offset, limit)
+            }
+        }
+    }
 }
 
 impl crate::model::ReadObjectRequest {
@@ -365,6 +399,21 @@ pub(crate) mod tests {
         assert_eq!(params.encryption_key_bytes, key);
         assert_eq!(params.encryption_key_sha256_bytes, key_sha256);
         Ok(())
+    }
+
+    #[test_case(ReadRange::all(), 100, (0, 100))]
+    #[test_case(ReadRange::offset(50), 100, (50, 50))]
+    #[test_case(ReadRange::offset(200), 100, (100, 0))]
+    #[test_case(ReadRange::tail(20), 100, (80, 20))]
+    #[test_case(ReadRange::tail(200), 100, (0, 100))]
+    #[test_case(ReadRange::head(20), 100, (0, 20))]
+    #[test_case(ReadRange::head(200), 100, (0, 100))]
+    #[test_case(ReadRange::segment(20, 40), 100, (20, 40))]
+    #[test_case(ReadRange::segment(20, 200), 100, (20, 80))]
+    #[test_case(ReadRange::segment(200, 10), 100, (100, 0))]
+    fn normalize(input: ReadRange, size: i64, want: (i64, i64)) {
+        let got = input.normalize(size);
+        assert_eq!(got, want, "{input:?}");
     }
 
     #[test_case(100, 100)]
