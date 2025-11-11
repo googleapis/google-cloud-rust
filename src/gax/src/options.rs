@@ -50,6 +50,8 @@ pub struct RequestOptions {
     polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
     polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
     path_template: Option<&'static str>,
+    #[cfg(google_cloud_unstable_tracing)]
+    resource_name: Option<String>,
 }
 
 impl RequestOptions {
@@ -164,6 +166,18 @@ impl RequestOptions {
     pub(crate) fn set_path_template(&mut self, v: &'static str) {
         self.path_template = Some(v);
     }
+
+    /// Get the current resource name, if any.
+    #[cfg(google_cloud_unstable_tracing)]
+    pub(crate) fn resource_name(&self) -> Option<&str> {
+        self.resource_name.as_deref()
+    }
+
+    /// Sets the resource name for the request.
+    #[cfg(google_cloud_unstable_tracing)]
+    pub(crate) fn set_resource_name(&mut self, v: String) {
+        self.resource_name = Some(v);
+    }
 }
 
 /// Implementations of this trait provide setters to configure request options.
@@ -233,6 +247,17 @@ pub mod internal {
 
     pub fn get_path_template(options: &RequestOptions) -> Option<&'static str> {
         options.path_template()
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    pub fn set_resource_name(mut options: RequestOptions, resource_name: String) -> RequestOptions {
+        options.set_resource_name(resource_name);
+        options
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    pub fn get_resource_name(options: &RequestOptions) -> Option<&str> {
+        options.resource_name()
     }
 }
 
@@ -360,6 +385,15 @@ mod tests {
         assert_eq!(opts.path_template(), None);
         let opts = set_path_template(opts, "test");
         assert_eq!(opts.path_template(), Some("test"));
+    }
+
+    #[test]
+    #[cfg(google_cloud_unstable_tracing)]
+    fn request_options_resource_name() {
+        let opts = RequestOptions::default();
+        assert_eq!(opts.resource_name(), None);
+        let opts = set_resource_name(opts, "test".to_string());
+        assert_eq!(opts.resource_name(), Some("test"));
     }
 
     #[test]

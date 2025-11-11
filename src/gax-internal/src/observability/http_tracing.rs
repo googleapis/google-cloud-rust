@@ -34,6 +34,7 @@ pub(crate) fn create_http_attempt_span(
     let method = request.method();
 
     let url_template = gax::options::internal::get_path_template(options);
+    let resource_name = gax::options::internal::get_resource_name(options);
     let otel_name = url_template.map_or_else(
         || method.to_string(),
         |template| format!("{} {}", method, template),
@@ -75,6 +76,7 @@ pub(crate) fn create_http_attempt_span(
         { GCP_CLIENT_REPO } = GCP_CLIENT_REPO_GOOGLEAPIS,
         { GCP_CLIENT_ARTIFACT } = gcp_client_artifact,
         { GCP_CLIENT_LANGUAGE } = GCP_CLIENT_LANGUAGE_RUST,
+        { GCP_RESOURCE_NAME } = resource_name,
         { otel_trace::HTTP_REQUEST_RESEND_COUNT } = http_request_resend_count,
         // Fields to be recorded later
         { OTEL_STATUS_CODE } = otel_status_codes::UNSET, // Initial state
@@ -198,6 +200,10 @@ mod tests {
         let request =
             reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
         let options = gax::options::internal::set_path_template(RequestOptions::default(), "/test");
+        let options = gax::options::internal::set_resource_name(
+            options,
+            "//example.com/projects/p/resources/r".to_string(),
+        );
         const INFO: InstrumentationClientInfo = InstrumentationClientInfo {
             service_name: "test.service",
             client_version: "1.2.3",
@@ -222,6 +228,10 @@ mod tests {
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (GCP_CLIENT_ARTIFACT, "google-cloud-test".into()),
             (GCP_CLIENT_LANGUAGE, "rust".into()),
+            (
+                GCP_RESOURCE_NAME,
+                "//example.com/projects/p/resources/r".into(),
+            ),
             (otel_trace::HTTP_REQUEST_RESEND_COUNT, 1_i64.into()),
             (OTEL_STATUS_CODE, "UNSET".into()),
         ]
