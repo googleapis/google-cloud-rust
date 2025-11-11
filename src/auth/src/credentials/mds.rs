@@ -292,7 +292,22 @@ impl Builder {
         Ok(self.build_access_token_credentials()?.into())
     }
 
-    /// Returns a [AccessTokenCredentials] instance with the configured settings.
+    /// Returns an [AccessTokenCredentials] instance with the configured settings.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::mds::Builder;
+    /// # use google_cloud_auth::credentials::{AccessTokenCredentials, AccessTokenCredentialsProvider};
+    /// # tokio_test::block_on(async {
+    /// let credentials: AccessTokenCredentials = Builder::default()
+    ///     .with_quota_project_id("my-quota-project")
+    ///     .build_access_token_credentials()?;
+    /// // let token = credentials.token().await?;
+    /// // println!("Token: {}", token.token);
+    /// # Ok::<(), anyhow::Error>(())
+    /// # });
+    /// ```
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
         let mdsc = MDSCredentials {
             quota_project_id: self.quota_project_id.clone(),

@@ -292,6 +292,29 @@ impl Builder {
 
     /// Returns a [AccessTokenCredentials] instance with the configured settings.
     ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::service_account::Builder;
+    /// # use google_cloud_auth::credentials::{AccessTokenCredentials, AccessTokenCredentialsProvider};
+    /// # use serde_json::json;
+    /// # tokio_test::block_on(async {
+    /// let service_account_key = json!({
+    ///     "client_email": "test-client-email",
+    ///     "private_key_id": "test-private-key-id",
+    ///     "private_key": "-----BEGIN PRIVATE KEY-----\nBLAHBLAHBLAH\n-----END PRIVATE KEY-----\n",
+    ///     "project_id": "test-project-id",
+    ///     "universe_domain": "test-universe-domain",
+    /// });
+    /// let credentials: AccessTokenCredentials = Builder::new(service_account_key)
+    ///     .with_quota_project_id("my-quota-project")
+    ///     .build_access_token_credentials()?;
+    /// // let token = credentials.token().await?;
+    /// // println!("Token: {}", token.token);
+    /// # Ok::<(), anyhow::Error>(())
+    /// # });
+    /// ```
+    ///
     /// # Errors
     ///
     /// Returns a [CredentialsError] if the `service_account_key`

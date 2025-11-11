@@ -320,6 +320,27 @@ impl Builder {
 
     /// Returns a [AccessTokenCredentials] instance with the configured settings.
     ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::user_account::Builder;
+    /// # use google_cloud_auth::credentials::{AccessTokenCredentials, AccessTokenCredentialsProvider};
+    /// # use serde_json::json;
+    /// # tokio_test::block_on(async {
+    /// let authorized_user = json!({
+    ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
+    ///     "client_secret": "YOUR_CLIENT_SECRET",
+    ///     "refresh_token": "YOUR_REFRESH_TOKEN",
+    ///     "type": "authorized_user",
+    /// });
+    /// let credentials: AccessTokenCredentials = Builder::new(authorized_user)
+    ///     .build_access_token_credentials()?;
+    /// // let token = credentials.token().await?;
+    /// // println!("Token: {}", token.token);
+    /// # Ok::<(), anyhow::Error>(())
+    /// # });
+    /// ```
+    ///
     /// # Errors
     ///
     /// Returns a [CredentialsError] if the `authorized_user`

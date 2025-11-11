@@ -425,7 +425,32 @@ impl Builder {
         Ok(self.build_access_token_credentials()?.into())
     }
 
-    /// Returns a [Credentials] instance with the configured settings.
+    /// Returns an [AccessTokenCredentials] instance with the configured settings.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::impersonated::Builder;
+    /// # use google_cloud_auth::credentials::{AccessTokenCredentials, AccessTokenCredentialsProvider};
+    /// # use serde_json::json;
+    /// # tokio_test::block_on(async {
+    /// let impersonated_credential = json!({
+    ///     "type": "impersonated_service_account",
+    ///     "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+    ///     "source_credentials": {
+    ///         "type": "authorized_user",
+    ///         "client_id": "test-client-id",
+    ///         "client_secret": "test-client-secret",
+    ///         "refresh_token": "test-refresh-token"
+    ///     }
+    /// });
+    /// let credentials: AccessTokenCredentials = Builder::new(impersonated_credential.into())
+    ///     .build_access_token_credentials()?;
+    /// // let token = credentials.token().await?;
+    /// // println!("Token: {}", token.token);
+    /// # Ok::<(), anyhow::Error>(())
+    /// # });
+    /// ```
     ///
     /// # Errors
     ///

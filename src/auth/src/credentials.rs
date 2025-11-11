@@ -139,6 +139,13 @@ impl Credentials {
     }
 }
 
+/// An implementation of [crate::credentials::CredentialsProvider] that can also
+/// provide direct access to the underlying access token.
+///
+/// This struct is returned by the `build_access_token_credentials()` method on
+/// the various credential builders. It can be used to obtain an access token
+/// directly via the `token()` method, or it can be converted into a `Credentials`
+/// object to be used with the Google Cloud client libraries.
 #[derive(Clone, Debug)]
 pub struct AccessTokenCredentials {
     // We use an `Arc` to hold the inner implementation.
@@ -179,9 +186,14 @@ impl CredentialsProvider for AccessTokenCredentials {
     }
 }
 
+/// Represents an OAuth 2.0 access token.
+#[derive(Clone, Debug)]
 pub struct AccessToken {
+    /// The access token string.
     pub token: String,
+    /// The type of the token.
     pub token_type: String,
+    /// The time at which the token expires.
     pub expires_at: Option<Instant>,
 }
 
@@ -207,7 +219,9 @@ impl std::convert::From<Token> for AccessToken {
     }
 }
 
+/// A trait for credential types that can provide direct access to an access token.
 pub trait AccessTokenCredentialsProvider: CredentialsProvider + std::fmt::Debug {
+    /// Asynchronously retrieves an access token.
     fn token(&self) -> impl Future<Output = Result<AccessToken>> + Send;
 }
 
@@ -500,6 +514,20 @@ impl Builder {
     }
 
     /// Returns a [Credentials] instance with the configured settings.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// # use google_cloud_auth::credentials::{Builder, AccessTokenCredentials, AccessTokenCredentialsProvider};
+    /// # tokio_test::block_on(async {
+    /// // This will search for Application Default Credentials and build AccessTokenCredentials.
+    /// let credentials: AccessTokenCredentials = Builder::default()
+    ///     .build_access_token_credentials()?;
+    /// // let token = credentials.token().await?;
+    /// // println!("Token: {}", token.token);
+    /// # Ok::<(), anyhow::Error>(())
+    /// # });
+    /// ```
     ///
     /// # Errors
     ///

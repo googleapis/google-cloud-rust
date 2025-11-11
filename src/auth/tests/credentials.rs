@@ -18,6 +18,7 @@ mod tests {
     use std::fmt;
 
     use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
+    use google_cloud_auth::credentials::impersonated::Builder as ImpersonatedBuilder;
     use google_cloud_auth::credentials::subject_token::{
         Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
     };
@@ -522,6 +523,97 @@ mod tests {
         let fmt = format!("{service_account:?}");
         assert!(fmt.contains("ServiceAccountCredentials"));
         assert!(fmt.contains(test_quota_project));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn get_mds_access_token_credentials_from_builder() -> Result<()> {
+        let server = Server::run();
+        let response = json!({
+            "access_token": "test-access-token",
+            "expires_in": 3600,
+            "token_type": "Bearer"
+        });
+        server.expect(
+            Expectation::matching(request::path("/computeMetadata/v1/instance/service-accounts/default/token"))
+                .respond_with(json_encoded(response)),
+        );
+
+        let test_quota_project = "test-quota-project";
+        let mdcs = MdsBuilder::default()
+            .with_endpoint(server.url("").to_string().trim_end_matches("/"))
+            .with_quota_project_id(test_quota_project)
+            .build_access_token_credentials()?;
+
+        let fmt = format!("{mdcs:?}");
+        assert!(fmt.contains("MDSCredentials"));
+        assert!(fmt.contains(test_quota_project));
+
+        let token = mdcs.token().await?;
+        assert_eq!(token.token, "test-access-token");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn get_service_account_access_token_credentials_from_builder() -> Result<()> {
+        let test_quota_project = "test-quota-project";
+        let service_account_info_json = json!({
+            "client_email": "test-client-email",
+            "private_key_id": "test-private-key-id",
+            "private_key": "-----BEGIN PRIVATE KEY-----\nBLAHBLAHBLAH\n-----END PRIVATE KEY-----\n",
+            "project_id": "test-project-id",
+            "universe_domain": "test-universe-domain",
+        });
+        let service_account = ServiceAccountBuilder::new(service_account_info_json)
+            .with_quota_project_id(test_quota_project)
+            .build_access_token_credentials()?;
+        let fmt = format!("{service_account:?}");
+        assert!(fmt.contains("ServiceAccountCredentials"));
+        assert!(fmt.contains(test_quota_project));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn get_user_account_access_token_credentials_from_builder() -> Result<()> {
+        let test_quota_project = "test-quota-project";
+        let authorized_user = serde_json::json!({
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
+        });
+        let user_account = UserAccountCredentialBuilder::new(authorized_user)
+            .with_quota_project_id(test_quota_project)
+            .build_access_token_credentials()?;
+        let fmt = format!("{user_account:?}");
+        assert!(fmt.contains("UserCredentials"), "{fmt:?}");
+        assert!(fmt.contains(test_quota_project));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn get_impersonated_access_token_credentials_from_builder() -> Result<()> {
+        let contents = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token"
+            }
+        });
+
+        let quota_project = "test-quota-project";
+
+        let ic = ImpersonatedBuilder::new(contents)
+            .with_quota_project_id(quota_project)
+            .build_access_token_credentials()
+            .unwrap();
+
+        let fmt = format!("{ic:?}");
+        assert!(fmt.contains("ImpersonatedServiceAccount"));
+        assert!(fmt.contains(quota_project));
         Ok(())
     }
 
