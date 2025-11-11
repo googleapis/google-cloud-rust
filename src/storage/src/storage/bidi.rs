@@ -13,6 +13,7 @@
 // limitations under the License.
 
 mod builder;
+mod pending_range;
 mod redirect;
 mod resume_redirect;
 mod retry_redirect;
