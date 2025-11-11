@@ -388,7 +388,7 @@ pub(crate) mod tests {
             "refresh_token": "test_refresh_token",
         });
 
-        let result = build_id_token_credentials(audience, Some(json));
+        let result = build_id_token_credentials(audience, false, Some(json));
         assert!(result.is_err());
         let err = result.unwrap_err();
         assert!(err.is_not_supported());
@@ -416,7 +416,7 @@ pub(crate) mod tests {
             }
         });
 
-        let result = build_id_token_credentials(audience, Some(json));
+        let result = build_id_token_credentials(audience, false, Some(json));
         assert!(result.is_err());
         let err = result.unwrap_err();
         assert!(err.is_not_supported());
@@ -432,7 +432,7 @@ pub(crate) mod tests {
             "type": "unknown_credential_type",
         });
 
-        let result = build_id_token_credentials(audience, Some(json));
+        let result = build_id_token_credentials(audience, false, Some(json));
         assert!(result.is_err());
         let err = result.unwrap_err();
         assert!(err.is_unknown_type());
