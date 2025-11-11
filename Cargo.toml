@@ -305,6 +305,7 @@ hyper                 = { default-features = false, version = "1" }
 jsonwebtoken          = { default-features = false, version = "10" }
 lazy_static           = { default-features = false, version = "1.2" }
 opentelemetry         = { default-features = false, version = "0.31", features = ["trace"] }
+opentelemetry-proto   = { default-features = false, version = "0.31", features = ["gen-tonic", "trace"] }
 opentelemetry_sdk     = { default-features = false, version = "0.31", features = ["rt-tokio", "trace"] }
 parse-size            = { default-features = false, version = "1.1" }
 percent-encoding      = { default-features = false, version = "2" }
