@@ -13,6 +13,7 @@
 // limitations under the License.
 
 mod builder;
+mod connector;
 mod redirect;
 mod resume_redirect;
 mod retry_redirect;
@@ -21,8 +22,10 @@ mod retry_redirect;
 mod tests {
     use crate::Error;
     use crate::google::storage::v2::{BidiReadHandle, BidiReadObjectRedirectedError};
+    use crate::request_options::RequestOptions;
     use gax::error::rpc::{Code, Status};
     use prost::Message as _;
+    use std::sync::Arc;
 
     pub(super) fn redirect_handle() -> BidiReadHandle {
         BidiReadHandle {
@@ -64,5 +67,20 @@ mod tests {
                 .set_code(Code::Unavailable)
                 .set_message("try-again"),
         )
+    }
+
+    pub(super) fn test_options() -> RequestOptions {
+        let mut options = RequestOptions::new();
+        options.backoff_policy = Arc::new(test_backoff());
+        options
+    }
+
+    fn test_backoff() -> impl gax::backoff_policy::BackoffPolicy {
+        use std::time::Duration;
+        gax::exponential_backoff::ExponentialBackoffBuilder::new()
+            .with_initial_delay(Duration::from_micros(1))
+            .with_maximum_delay(Duration::from_micros(1))
+            .build()
+            .expect("a valid backoff policy")
     }
 }
