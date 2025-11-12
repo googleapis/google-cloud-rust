@@ -599,7 +599,7 @@ pub mod unstable {
         // Create credentials for the principal under test.
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
         let id_token_creds = IDTokenCredentialBuilder::new(target_audience)
-            .with_include_email(true)
+            .with_include_email()
             .build()
             .expect("failed to create id token credentials");
 

@@ -199,8 +199,11 @@ impl Builder {
     }
 
     /// Sets whether the ID token should include the `email` claim of the user in the token.
-    pub fn with_include_email(mut self, include_email: bool) -> Self {
-        self.include_email = include_email;
+    /// For some credentials sources like Metadata Server and Impersonated Credentials, the default is
+    /// to not include the `email` claim. For other sources, they always include it.
+    /// This option is only relevant for credentials sources that do not include the `email` claim by default.
+    pub fn with_include_email(mut self) -> Self {
+        self.include_email = true;
         self
     }
 
