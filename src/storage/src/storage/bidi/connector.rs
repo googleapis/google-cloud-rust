@@ -303,6 +303,8 @@ mod tests {
         options.retry_policy = Arc::new(NeverRetry);
         let mut connector = Connector::new(spec, options, client);
         let start = connector.connect(Vec::new());
+        // Verify the result is `Send`. Eventually this will be called from
+        // functions that need to be `send()` themselves.
         need_send(&start);
 
         let err = start.await.unwrap_err();
@@ -314,8 +316,9 @@ mod tests {
     #[tokio::test]
     #[test_case("")]
     #[test_case("my-bucket")]
-    async fn binding(bucket_name: &str) -> Result<()> {
+    async fn binding_error(bucket_name: &str) -> Result<()> {
         let mut mock = MockTestClient::new();
+        // Binding errors are detected before a request is sent.
         mock.expect_start().never();
         let client = SharedMockClient::new(mock);
 
@@ -527,8 +530,9 @@ mod tests {
         Ok(())
     }
 
+    // Verify redirects *after* the stream opens work as expected.
     #[tokio::test]
-    async fn start_redirect_open_then_redirect() -> Result<()> {
+    async fn start_redirect_open_with_redirect_then_error() -> Result<()> {
         let (tx, rx) = tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(5);
         let stream = tonic::Response::from(rx);
 
