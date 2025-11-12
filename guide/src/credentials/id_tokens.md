@@ -37,12 +37,12 @@ guide for more information.
 For complete setup instructions for the Rust libraries, see
 [Setting up your development environment](/setting_up_your_development_environment.md).
 
-> **Note:** The `idtoken::Builder` does not currently
-> support generating audience-specific ID tokens from user credentials obtained
-> via `gcloud auth application-default login` (which are of type
-> `authorized_user`). For local development and testing, it is recommended to
-> use a service account key file and set the `GOOGLE_APPLICATION_CREDENTIALS`
-> environment variable or impersonate a service account using
+> **Note:** The `idtoken::Builder` does not currently support generating
+> audience-specific ID tokens from user credentials obtained via
+> `gcloud auth application-default login` (which are of type `authorized_user`).
+> For local development and testing, it is recommended to use a service account
+> key file and set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable or
+> impersonate a service account using
 > `gcloud auth application-default login --impersonate-service-account <service-account-email>`.
 
 ### Dependencies

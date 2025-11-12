@@ -61,6 +61,7 @@
 //! [default service account]: https://cloud.google.com/iam/docs/service-account-types#default
 //! [gce-link]: https://cloud.google.com/products/compute
 //! [gke-link]: https://cloud.google.com/kubernetes-engine
+//! [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
 use crate::Result;
