@@ -51,7 +51,7 @@
 //! # });
 //! ```
 //!
-//! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+//! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 //! [user account]: https://cloud.google.com/docs/authentication#user-accounts
 //! [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
 

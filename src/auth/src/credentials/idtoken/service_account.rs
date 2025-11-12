@@ -55,7 +55,7 @@
 //! ```
 //!
 //! [Best practices for using service accounts]: https://cloud.google.com/iam/docs/best-practices-service-accounts#choose-when-to-use
-//! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+//! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 //! [create a service account key]: https://cloud.google.com/iam/docs/keys-create-delete#creating
 //! [Service Accounts]: https://cloud.google.com/iam/docs/service-account-overview
 //! [service account key]: https://cloud.google.com/iam/docs/keys-create-delete#creating

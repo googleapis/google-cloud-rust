@@ -38,6 +38,7 @@
 
 use crate::credentials::internal::jwk_client::JwkClient;
 use jsonwebtoken::Validation;
+/// Represents the claims in an ID token.
 pub use serde_json::{Map, Value};
 use std::time::Duration;
 

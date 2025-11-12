@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Obtain [OIDC ID Tokens].
+//! Obtain, use, and verify [OIDC ID Tokens].
 //!
 //! `IDTokenCredentials` obtain OIDC ID tokens, which are commonly
 //! used for [service to service authentication]. For example, when the
@@ -70,7 +70,7 @@
 //! #   Ok(())
 //! }
 //! ```
-//!
+//! [Verifier]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/idtoken/struct.Verifier.html
 //! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 //! [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
 
@@ -79,7 +79,7 @@ use crate::credentials::{AdcContents, CredentialsError, extract_credential_type,
 use crate::token::Token;
 use crate::{BuildResult, Result};
 use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
-pub use serde_json::{Map, Value};
+use serde_json::Value;
 use std::collections::HashMap;
 use std::future::Future;
 use std::sync::Arc;

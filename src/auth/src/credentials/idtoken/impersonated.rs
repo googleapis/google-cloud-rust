@@ -59,7 +59,7 @@
 //! ```
 //!
 //! [Impersonated service accounts]: https://cloud.google.com/docs/authentication/use-service-account-impersonation
-//! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+//! [OIDC ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 //! [User Account]: https://cloud.google.com/docs/authentication#user-accounts
 //! [Service Account]: https://cloud.google.com/iam/docs/service-account-overview
 //! [Service Account Token Creator Role]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#required-roles

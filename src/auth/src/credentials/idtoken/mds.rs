@@ -56,7 +56,7 @@
 //! ```    
 //!
 //! [Application Default Credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
-//! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+//! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 //! [Cloud Run]: https://cloud.google.com/run
 //! [default service account]: https://cloud.google.com/iam/docs/service-account-types#default
 //! [gce-link]: https://cloud.google.com/products/compute
