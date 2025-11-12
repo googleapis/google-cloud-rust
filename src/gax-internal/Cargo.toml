@@ -57,6 +57,7 @@ _internal-grpc-client = [
   "dep:bytes",
   "dep:gax",
   "dep:http",
+  "dep:opentelemetry-semantic-conventions",
   "dep:prost",
   "dep:prost-types",
   "dep:rpc",

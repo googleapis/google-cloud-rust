@@ -284,7 +284,11 @@ impl Client {
             use tower::util::Either;
 
             if tracing_enabled {
-                let layer = TracingTowerLayer::new();
+                let default_uri = default_endpoint
+                    .parse::<tonic::transport::Uri>()
+                    .map_err(BuilderError::transport)?;
+                let default_host = default_uri.host().unwrap_or("").to_string();
+                let layer = TracingTowerLayer::new(endpoint.uri(), default_host);
                 let service = ServiceBuilder::new().layer(layer).service(channel);
                 Ok(InnerClient::new(Either::Left(service)))
             } else {
