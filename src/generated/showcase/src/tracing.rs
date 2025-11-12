@@ -38,8 +38,6 @@ where
     T: super::stub::Compliance + std::fmt::Debug + Send + Sync,
 {
     #[cfg(google_cloud_unstable_tracing)]
-    const SERVICE_NAME: &'static str = "Compliance";
-    #[cfg(google_cloud_unstable_tracing)]
     async fn repeat_data_body(
         &self,
         req: crate::model::RepeatRequest,
@@ -49,7 +47,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::repeat_data_body"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -87,7 +85,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::repeat_data_body_info"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -125,7 +123,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::repeat_data_query"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -163,7 +161,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::repeat_data_simple_path"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -201,7 +199,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::repeat_data_path_resource"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -239,7 +237,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::repeat_data_path_trailing_resource"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -279,7 +277,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::repeat_data_body_put"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -317,7 +315,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::repeat_data_body_patch"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -355,7 +353,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::get_enum"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -393,7 +391,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::verify_enum"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -431,7 +429,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::list_locations"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -469,7 +467,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::get_location"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -507,7 +505,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::set_iam_policy"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -545,7 +543,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::get_iam_policy"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -583,7 +581,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::test_iam_permissions"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -621,7 +619,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::list_operations"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -659,7 +657,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::get_operation"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -697,7 +695,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::delete_operation"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -735,7 +733,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Compliance",
             "::cancel_operation"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -788,20 +786,13 @@ where
     T: super::stub::Echo + std::fmt::Debug + Send + Sync,
 {
     #[cfg(google_cloud_unstable_tracing)]
-    const SERVICE_NAME: &'static str = "Echo";
-    #[cfg(google_cloud_unstable_tracing)]
     async fn echo(
         &self,
         req: crate::model::EchoRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EchoResponse>> {
         use tracing::Instrument;
-        let span_name = concat!(
-            env!("CARGO_PKG_NAME"),
-            "::client::",
-            Self::SERVICE_NAME,
-            "::echo"
-        );
+        let span_name = concat!(env!("CARGO_PKG_NAME"), "::client::", "Echo", "::echo");
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "echo",
@@ -837,7 +828,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Echo",
             "::echo_error_details"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -875,7 +866,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Echo",
             "::fail_echo_with_details"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -913,7 +904,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Echo",
             "::paged_expand"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -951,7 +942,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Echo",
             "::paged_expand_legacy"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -989,7 +980,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Echo",
             "::paged_expand_legacy_mapped"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1024,12 +1015,7 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use tracing::Instrument;
-        let span_name = concat!(
-            env!("CARGO_PKG_NAME"),
-            "::client::",
-            Self::SERVICE_NAME,
-            "::wait"
-        );
+        let span_name = concat!(env!("CARGO_PKG_NAME"), "::client::", "Echo", "::wait");
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "wait",
@@ -1062,12 +1048,7 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BlockResponse>> {
         use tracing::Instrument;
-        let span_name = concat!(
-            env!("CARGO_PKG_NAME"),
-            "::client::",
-            Self::SERVICE_NAME,
-            "::block"
-        );
+        let span_name = concat!(env!("CARGO_PKG_NAME"), "::client::", "Echo", "::block");
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "block",
@@ -1103,7 +1084,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Echo",
             "::list_locations"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1141,7 +1122,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Echo",
             "::get_location"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1179,7 +1160,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Echo",
             "::set_iam_policy"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1217,7 +1198,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Echo",
             "::get_iam_policy"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1255,7 +1236,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Echo",
             "::test_iam_permissions"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1293,7 +1274,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Echo",
             "::list_operations"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1331,7 +1312,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Echo",
             "::get_operation"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1369,7 +1350,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Echo",
             "::delete_operation"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1407,7 +1388,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Echo",
             "::cancel_operation"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1474,8 +1455,6 @@ where
     T: super::stub::Identity + std::fmt::Debug + Send + Sync,
 {
     #[cfg(google_cloud_unstable_tracing)]
-    const SERVICE_NAME: &'static str = "Identity";
-    #[cfg(google_cloud_unstable_tracing)]
     async fn create_user(
         &self,
         req: crate::model::CreateUserRequest,
@@ -1485,7 +1464,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Identity",
             "::create_user"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1523,7 +1502,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Identity",
             "::get_user"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1561,7 +1540,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Identity",
             "::update_user"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1599,7 +1578,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Identity",
             "::delete_user"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1637,7 +1616,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Identity",
             "::list_users"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1675,7 +1654,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Identity",
             "::list_locations"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1713,7 +1692,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Identity",
             "::get_location"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1751,7 +1730,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Identity",
             "::set_iam_policy"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1789,7 +1768,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Identity",
             "::get_iam_policy"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1827,7 +1806,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Identity",
             "::test_iam_permissions"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1865,7 +1844,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Identity",
             "::list_operations"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1903,7 +1882,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Identity",
             "::get_operation"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1941,7 +1920,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Identity",
             "::delete_operation"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1979,7 +1958,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Identity",
             "::cancel_operation"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2032,8 +2011,6 @@ where
     T: super::stub::Messaging + std::fmt::Debug + Send + Sync,
 {
     #[cfg(google_cloud_unstable_tracing)]
-    const SERVICE_NAME: &'static str = "Messaging";
-    #[cfg(google_cloud_unstable_tracing)]
     async fn create_room(
         &self,
         req: crate::model::CreateRoomRequest,
@@ -2043,7 +2020,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::create_room"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2081,7 +2058,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::get_room"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2119,7 +2096,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::update_room"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2157,7 +2134,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::delete_room"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2195,7 +2172,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::list_rooms"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2233,7 +2210,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::create_blurb"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2271,7 +2248,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::get_blurb"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2309,7 +2286,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::update_blurb"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2347,7 +2324,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::delete_blurb"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2385,7 +2362,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::list_blurbs"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2423,7 +2400,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::search_blurbs"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2461,7 +2438,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::list_locations"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2499,7 +2476,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::get_location"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2537,7 +2514,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::set_iam_policy"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2575,7 +2552,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::get_iam_policy"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2613,7 +2590,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::test_iam_permissions"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2651,7 +2628,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::list_operations"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2689,7 +2666,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::get_operation"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2727,7 +2704,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::delete_operation"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2765,7 +2742,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Messaging",
             "::cancel_operation"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2832,8 +2809,6 @@ where
     T: super::stub::SequenceService + std::fmt::Debug + Send + Sync,
 {
     #[cfg(google_cloud_unstable_tracing)]
-    const SERVICE_NAME: &'static str = "SequenceService";
-    #[cfg(google_cloud_unstable_tracing)]
     async fn create_sequence(
         &self,
         req: crate::model::CreateSequenceRequest,
@@ -2843,7 +2818,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "SequenceService",
             "::create_sequence"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2881,7 +2856,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "SequenceService",
             "::create_streaming_sequence"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2919,7 +2894,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "SequenceService",
             "::get_sequence_report"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2957,7 +2932,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "SequenceService",
             "::get_streaming_sequence_report"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -2995,7 +2970,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "SequenceService",
             "::attempt_sequence"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3033,7 +3008,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "SequenceService",
             "::list_locations"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3071,7 +3046,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "SequenceService",
             "::get_location"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3109,7 +3084,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "SequenceService",
             "::set_iam_policy"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3147,7 +3122,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "SequenceService",
             "::get_iam_policy"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3185,7 +3160,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "SequenceService",
             "::test_iam_permissions"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3223,7 +3198,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "SequenceService",
             "::list_operations"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3261,7 +3236,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "SequenceService",
             "::get_operation"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3299,7 +3274,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "SequenceService",
             "::delete_operation"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3337,7 +3312,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "SequenceService",
             "::cancel_operation"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3390,8 +3365,6 @@ where
     T: super::stub::Testing + std::fmt::Debug + Send + Sync,
 {
     #[cfg(google_cloud_unstable_tracing)]
-    const SERVICE_NAME: &'static str = "Testing";
-    #[cfg(google_cloud_unstable_tracing)]
     async fn create_session(
         &self,
         req: crate::model::CreateSessionRequest,
@@ -3401,7 +3374,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Testing",
             "::create_session"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3439,7 +3412,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Testing",
             "::get_session"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3477,7 +3450,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Testing",
             "::list_sessions"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3515,7 +3488,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Testing",
             "::delete_session"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3553,7 +3526,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Testing",
             "::report_session"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3591,7 +3564,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Testing",
             "::list_tests"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3629,7 +3602,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Testing",
             "::delete_test"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3667,7 +3640,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Testing",
             "::verify_test"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3705,7 +3678,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Testing",
             "::list_locations"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3743,7 +3716,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Testing",
             "::get_location"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3781,7 +3754,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Testing",
             "::set_iam_policy"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3819,7 +3792,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Testing",
             "::get_iam_policy"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3857,7 +3830,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Testing",
             "::test_iam_permissions"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3895,7 +3868,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Testing",
             "::list_operations"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3933,7 +3906,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Testing",
             "::get_operation"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -3971,7 +3944,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Testing",
             "::delete_operation"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -4009,7 +3982,7 @@ where
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
             "::client::",
-            Self::SERVICE_NAME,
+            "Testing",
             "::cancel_operation"
         );
         let client_request_span = gaxi::observability::create_client_request_span(
