@@ -37,7 +37,7 @@ guide for more information.
 For complete setup instructions for the Rust libraries, see
 [Setting up your development environment](/setting_up_your_development_environment.md).
 
-> **Note on User Credentials:** The `idtoken::Builder` does not currently
+> **Note:** The `idtoken::Builder` does not currently
 > support generating audience-specific ID tokens from user credentials obtained
 > via `gcloud auth application-default login` (which are of type
 > `authorized_user`). For local development and testing, it is recommended to
