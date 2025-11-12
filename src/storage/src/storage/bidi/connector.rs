@@ -38,7 +38,22 @@ impl<S> Connection<S> {
     }
 }
 
-/// Establishes connections to gRPC for bidi streaming reads.
+/// Establishes (and reconnects) bidi streaming reads.
+///
+/// Connecting and reconnecting bidirectional streaming reads requires:
+/// - Updating the object spec with the generation, so future reconnects will
+///   use the same object.
+/// - Updating the object spec with any read handles, so future reconnects are
+///   more efficient.
+/// - If the connection is redirected via an error, one must update the object
+///   spec with the new routing token and handle.
+/// - The application may want to stop reconnects after a number of attempts,
+///   something must keep that count.
+///
+/// This struct implements all these activities.
+///
+/// # Parameters
+/// - `T`: a type implementing the [Client] trait, this is used in tests.
 #[derive(Clone, Debug)]
 pub struct Connector<T = GrpcClient> {
     spec: Arc<Mutex<BidiReadObjectSpec>>,
@@ -66,6 +81,7 @@ where
         &mut self,
         ranges: Vec<ProtoRange>,
     ) -> Result<(BidiReadObjectResponse, Connection<T::Stream>)> {
+        // Copy a number of elements so the retry loop can be `Send` and `Sync`.
         let throttler = self.options.retry_throttler.clone();
         let retry = Arc::new(RetryRedirect::new(self.options.retry_policy.clone()));
         let backoff = self.options.backoff_policy.clone();
@@ -76,10 +92,12 @@ where
         };
         let options = self.options.clone();
         let spec = self.spec.clone();
+        let sleep = async |backoff| tokio::time::sleep(backoff).await;
+
+        // Move the copies and invoke the retry loop to call `connect_attempt()`.
         let inner = async move |_| {
             Self::connect_attempt(client.clone(), spec.clone(), &request, &options).await
         };
-        let sleep = async |backoff| tokio::time::sleep(backoff).await;
         gax::retry_loop_internal::retry_loop(inner, sleep, true, throttler, retry, backoff).await
     }
 
@@ -91,6 +109,7 @@ where
         use crate::read_resume_policy::ReadResumePolicy;
 
         let error = handle_redirect(self.spec.clone(), status);
+        // This is a new attempt, increment the count.
         self.reconnect_attempts += 1;
         let policy = ResumeRedirect::new(self.options.read_resume_policy());
         match policy.on_error(&ResumeQuery::new(self.reconnect_attempts), error) {
@@ -100,6 +119,15 @@ where
         }
     }
 
+    /// Makes an attempt to establish a bidi streaming read RPC.
+    ///
+    /// Note that establishing the stream requires sending at least one message
+    /// and receiving at least one message. The initial request message includes
+    /// the bucket, object, generation, read handle, and the right routing
+    /// headers. The initial response potentially includes a new read handle for
+    /// future calls to `connect_attempt()`.
+    ///
+    /// The function returns this initial response and the new connection.
     async fn connect_attempt(
         client: T,
         spec: Arc<Mutex<BidiReadObjectSpec>>,
@@ -165,18 +193,13 @@ where
                 &x_goog_request_params,
             )
             .await?;
-        Self::started(spec, tx, response).await
-    }
 
-    async fn started(
-        spec: Arc<Mutex<BidiReadObjectSpec>>,
-        tx: Sender<BidiReadObjectRequest>,
-        response: tonic::Result<tonic::Response<T::Stream>>,
-    ) -> Result<(BidiReadObjectResponse, Connection<T::Stream>)> {
+        // Handle any immediate redirects, this is unexpected, but possible.
         let response = match response {
             Ok(r) => r,
             Err(status) => return Err(handle_redirect(spec, status)),
         };
+        // Handle the initial response.
         let (_metadata, mut stream, _) = response.into_parts();
         match stream.next_message().await {
             Ok(Some(m)) => {
