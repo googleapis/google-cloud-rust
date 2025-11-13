@@ -108,7 +108,6 @@ where
 
 /// Creates [`IDTokenCredentials`] instances that fetch ID tokens from the
 /// metadata service.
-#[derive(Debug, Default)]
 pub struct Builder {
     endpoint: Option<String>,
     format: Option<String>,
