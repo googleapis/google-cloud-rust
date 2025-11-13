@@ -17,5 +17,5 @@ specification-source = 'google/logging/v2'
 service-config = 'google/logging/v2/logging_v2.yaml'
 
 [codec]
-version        = '1.2.0'
+version        = '1.2.1'
 copyright-year = '2025'

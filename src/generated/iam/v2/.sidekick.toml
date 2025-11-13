@@ -17,5 +17,5 @@ specification-source = 'google/iam/v2'
 service-config = 'google/iam/v2/iam_v2.yaml'
 
 [codec]
-version        = '1.1.0'
+version        = '1.1.1'
 copyright-year = '2025'

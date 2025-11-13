@@ -17,5 +17,5 @@ specification-source = 'google/cloud/redis/cluster/v1'
 service-config = 'google/cloud/redis/cluster/v1/redis_v1.yaml'
 
 [codec]
-version        = '1.2.0'
+version        = '1.2.1'
 copyright-year = '2025'

@@ -17,6 +17,6 @@ specification-source = 'google/identity/accesscontextmanager/v1'
 service-config = 'google/identity/accesscontextmanager/v1/accesscontextmanager_v1.yaml'
 
 [codec]
-version        = '1.1.0'
+version        = '1.1.1'
 copyright-year = '2025'
 'package:accesscontextmanager_type' = 'package=google-cloud-identity-accesscontextmanager-type,source=google.identity.accesscontextmanager.type'

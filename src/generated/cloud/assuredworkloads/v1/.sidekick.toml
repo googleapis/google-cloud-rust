@@ -17,5 +17,5 @@ service-config = 'google/cloud/assuredworkloads/v1/assuredworkloads_v1.yaml'
 specification-source = 'google/cloud/assuredworkloads/v1'
 
 [codec]
-version        = '1.2.0'
+version        = '1.2.1'
 copyright-year = '2025'

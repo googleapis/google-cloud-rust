@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-baremetalsolution-v2"
-version                = "1.1.0"
+version                = "1.1.1"
 description            = "Google Cloud Client Libraries for Rust - Bare Metal Solution API"
 edition.workspace      = true
 authors.workspace      = true
