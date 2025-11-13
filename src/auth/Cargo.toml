@@ -46,7 +46,6 @@ thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
 bon.workspace         = true
-jsonwebtoken          = { workspace = true, features = ["rust_crypto"] }
 # Local dependencies
 gax.workspace = true
 
@@ -64,6 +63,9 @@ tokio                 = { workspace = true, features = ["macros", "rt-multi-thre
 tokio-test.workspace  = true
 url.workspace         = true
 mutants.workspace     = true
+
+[target.'cfg(google_cloud_unstable_id_token)'.dependencies]
+jsonwebtoken = { workspace = true, features = ["rust_crypto"] }
 
 [lints]
 workspace = true
