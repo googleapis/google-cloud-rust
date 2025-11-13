@@ -160,7 +160,6 @@ hand-crafted code. The main directories are:
   libraries. Types in this crate are **not** intended for application developers
   to use.
 - `src/lro`: support code for long-running operations.
-- `generator/`: the code generator, also known as `sidekick`.
 - `src/integration-tests`: the integration tests. These run against production
   and validate (using a small number of services) that the generator produces
   working code.
