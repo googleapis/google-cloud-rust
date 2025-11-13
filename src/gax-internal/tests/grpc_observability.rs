@@ -36,7 +36,18 @@ mod tests {
         config.tracing = true;
         config.cred = Some(test_credentials());
 
-        let client = grpc::Client::new(config, &endpoint).await?;
+        lazy_static::lazy_static! {
+            static ref TEST_INFO: google_cloud_gax_internal::options::InstrumentationClientInfo = {
+                let mut info = google_cloud_gax_internal::options::InstrumentationClientInfo::default();
+                info.service_name = "test-service";
+                info.client_version = "1.0.0";
+                info.client_artifact = "test-artifact";
+                info.default_host = "example.com";
+                info
+            };
+        }
+
+        let client = grpc::Client::new_with_instrumentation(config, &endpoint, &TEST_INFO).await?;
 
         // Send a request
         let extensions = {
@@ -91,6 +102,10 @@ mod tests {
             (otel_trace::SERVER_ADDRESS, expected_host.clone().into()),
             (otel_trace::SERVER_PORT, (expected_port as i64).into()),
             (otel_attr::URL_DOMAIN, expected_host.into()),
+            (GCP_CLIENT_SERVICE, "test-service".into()),
+            (GCP_CLIENT_VERSION, "1.0.0".into()),
+            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
+            (GCP_CLIENT_ARTIFACT, "test-artifact".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))

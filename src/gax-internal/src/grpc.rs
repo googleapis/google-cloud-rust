@@ -53,8 +53,6 @@ pub struct Client {
     retry_throttler: SharedRetryThrottler,
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
-    #[cfg(google_cloud_unstable_tracing)]
-    instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
 }
 
 impl Client {
@@ -63,9 +61,44 @@ impl Client {
         config: crate::options::ClientConfig,
         default_endpoint: &str,
     ) -> gax::client_builder::Result<Self> {
+        Self::build(
+            config,
+            default_endpoint,
+            #[cfg(google_cloud_unstable_tracing)]
+            None,
+        )
+        .await
+    }
+
+    /// Create a new client with instrumentation info.
+    #[cfg(google_cloud_unstable_tracing)]
+    pub async fn new_with_instrumentation(
+        config: crate::options::ClientConfig,
+        default_endpoint: &str,
+        instrumentation: &'static crate::options::InstrumentationClientInfo,
+    ) -> gax::client_builder::Result<Self> {
+        Self::build(config, default_endpoint, Some(instrumentation)).await
+    }
+
+    async fn build(
+        config: crate::options::ClientConfig,
+        default_endpoint: &str,
+        #[cfg(google_cloud_unstable_tracing)] instrumentation: Option<
+            &'static crate::options::InstrumentationClientInfo,
+        >,
+    ) -> gax::client_builder::Result<Self> {
         let credentials = Self::make_credentials(&config).await?;
         let tracing_enabled = crate::options::tracing_enabled(&config);
-        let inner = Self::make_inner(config.endpoint, default_endpoint, tracing_enabled).await?;
+
+        let inner = Self::make_inner(
+            config.endpoint,
+            default_endpoint,
+            tracing_enabled,
+            #[cfg(google_cloud_unstable_tracing)]
+            instrumentation,
+        )
+        .await?;
+
         Ok(Self {
             inner,
             credentials,
@@ -87,19 +120,7 @@ impl Client {
             polling_backoff_policy: config
                 .polling_backoff_policy
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
-            #[cfg(google_cloud_unstable_tracing)]
-            instrumentation: None,
         })
-    }
-
-    /// Sets the instrumentation client info.
-    #[cfg(google_cloud_unstable_tracing)]
-    pub fn with_instrumentation(
-        mut self,
-        instrumentation: &'static crate::options::InstrumentationClientInfo,
-    ) -> Self {
-        self.instrumentation = Some(instrumentation);
-        self
     }
 
     /// Sends a request.
@@ -256,6 +277,9 @@ impl Client {
         endpoint: Option<String>,
         default_endpoint: &str,
         tracing_enabled: bool,
+        #[cfg(google_cloud_unstable_tracing)] instrumentation: Option<
+            &'static crate::options::InstrumentationClientInfo,
+        >,
     ) -> gax::client_builder::Result<InnerClient> {
         use tonic::transport::{ClientTlsConfig, Endpoint};
 
@@ -288,7 +312,7 @@ impl Client {
                     .parse::<tonic::transport::Uri>()
                     .map_err(BuilderError::transport)?;
                 let default_host = default_uri.host().unwrap_or("").to_string();
-                let layer = TracingTowerLayer::new(endpoint.uri(), default_host);
+                let layer = TracingTowerLayer::new(endpoint.uri(), default_host, instrumentation);
                 let service = ServiceBuilder::new().layer(layer).service(channel);
                 Ok(InnerClient::new(Either::Left(service)))
             } else {
@@ -422,18 +446,18 @@ mod tests {
     use crate::options::InstrumentationClientInfo;
 
     #[tokio::test]
-    async fn test_with_instrumentation() {
+    async fn test_new_with_instrumentation() {
         let config = crate::options::ClientConfig::default();
-        let client = Client::new(config, "http://example.com").await.unwrap();
-        assert!(client.instrumentation.is_none());
         static TEST_INFO: InstrumentationClientInfo = InstrumentationClientInfo {
             service_name: "test-service",
             client_version: "1.0.0",
             client_artifact: "test-artifact",
             default_host: "example.com",
         };
-        let client = client.with_instrumentation(&TEST_INFO);
-        assert!(client.instrumentation.is_some());
-        assert_eq!(client.instrumentation.unwrap().service_name, "test-service");
+        let _client = Client::new_with_instrumentation(config, "http://example.com", &TEST_INFO)
+            .await
+            .unwrap();
+        // We can't easily assert the internal state without exposing more internals,
+        // but this verifies the method exists and runs.
     }
 }
