@@ -165,7 +165,7 @@ impl std::fmt::Display for KeyAes256 {
 ///
 /// [ReadObject]: crate::builder::storage::ReadObject
 #[derive(Clone, Debug)]
-pub struct ReadRange(Range);
+pub struct ReadRange(pub(crate) RequestedRange);
 
 impl ReadRange {
     /// Returns a range representing all the bytes in the object.
@@ -201,7 +201,7 @@ impl ReadRange {
     /// println!("response details={response:?}");
     /// # Ok(()) }
     pub fn offset(offset: u64) -> Self {
-        Self(Range::Offset(offset))
+        Self(RequestedRange::Offset(offset))
     }
 
     /// Returns a range representing the last `count` bytes of the object.
@@ -219,7 +219,7 @@ impl ReadRange {
     /// println!("response details={response:?}");
     /// # Ok(()) }
     pub fn tail(count: u64) -> Self {
-        Self(Range::Tail(count))
+        Self(RequestedRange::Tail(count))
     }
 
     /// Returns a range representing the first `count` bytes of the object.
@@ -255,7 +255,7 @@ impl ReadRange {
     /// println!("response details={response:?}");
     /// # Ok(()) }
     pub fn segment(offset: u64, count: u64) -> Self {
-        Self(Range::Segment {
+        Self(RequestedRange::Segment {
             offset,
             limit: count,
         })
@@ -269,15 +269,15 @@ impl crate::model::ReadObjectRequest {
         // `[0, i64::MAX]`` range is safe, in that it does not lose any
         // functionality.
         match range.0 {
-            Range::Offset(o) => {
+            RequestedRange::Offset(o) => {
                 self.read_offset = o.clamp(0, i64::MAX as u64) as i64;
             }
-            Range::Tail(t) => {
+            RequestedRange::Tail(t) => {
                 // Yes, -i64::MAX is different from i64::MIN, but both are
                 // safe in this context.
                 self.read_offset = -(t.clamp(0, i64::MAX as u64) as i64);
             }
-            Range::Segment { offset, limit } => {
+            RequestedRange::Segment { offset, limit } => {
                 self.read_offset = offset.clamp(0, i64::MAX as u64) as i64;
                 self.read_limit = limit.clamp(0, i64::MAX as u64) as i64;
             }
@@ -285,8 +285,8 @@ impl crate::model::ReadObjectRequest {
     }
 }
 
-#[derive(Clone, Debug)]
-enum Range {
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub(crate) enum RequestedRange {
     Offset(u64),
     Tail(u64),
     Segment { offset: u64, limit: u64 },
