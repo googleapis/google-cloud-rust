@@ -61,6 +61,10 @@ pub mod keys {
     ///
     /// Example: //pubsub.googleapis.com/projects/my-project/topics/my-topic
     pub const GCP_RESOURCE_NAME: &str = "gcp.resource.name";
+    /// The number of times this same gRPC request has been resent due to retries.
+    ///
+    /// 1 for the first retry.
+    pub const GCP_GRPC_RESEND_COUNT: &str = "gcp.grpc.resend_count";
 }
 
 /// Value for [keys::OTEL_KIND].

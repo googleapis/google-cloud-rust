@@ -21,6 +21,10 @@ use std::task::{Context, Poll};
 use tower::{Layer, Service};
 use tracing::Instrument;
 
+/// A wrapper for the attempt count to be stored in request extensions.
+#[derive(Clone, Copy, Debug)]
+pub struct AttemptCount(pub i64);
+
 /// A Tower layer that adds structured tracing to gRPC requests that is compatible with OpenTelemetry.
 ///
 /// This layer is responsible for wrapping the inner service with a
@@ -108,12 +112,17 @@ where
     }
 
     fn call(&mut self, req: http::Request<B>) -> Self::Future {
-        let span = create_grpc_span(req.uri(), &self.layer.inner);
+        let attempt_count = req.extensions().get::<AttemptCount>().map(|a| a.0);
+        let span = create_grpc_span(req.uri(), &self.layer.inner, attempt_count);
         Box::pin(self.inner.call(req).instrument(span))
     }
 }
 
-fn create_grpc_span(uri: &http::Uri, layer_inner: &TracingTowerLayerInner) -> tracing::Span {
+fn create_grpc_span(
+    uri: &http::Uri,
+    layer_inner: &TracingTowerLayerInner,
+    attempt_count: Option<i64>,
+) -> tracing::Span {
     let (rpc_service, rpc_method) =
         parse_method(uri.path()).unwrap_or_else(|_| ("unknown".to_string(), "unknown".to_string()));
     let span_name = uri.path().trim_start_matches('/');
@@ -128,6 +137,8 @@ fn create_grpc_span(uri: &http::Uri, layer_inner: &TracingTowerLayerInner) -> tr
     } else {
         (None, None, None, None)
     };
+
+    let resend_count = attempt_count.filter(|&c| c > 0);
 
     let span = tracing::info_span!(
         "grpc.request",
@@ -149,6 +160,7 @@ fn create_grpc_span(uri: &http::Uri, layer_inner: &TracingTowerLayerInner) -> tr
         { GCP_CLIENT_VERSION } = version,
         { GCP_CLIENT_REPO } = repo,
         { GCP_CLIENT_ARTIFACT } = artifact,
+        { GCP_GRPC_RESEND_COUNT } = resend_count,
     );
 
     span
@@ -234,7 +246,8 @@ mod tests {
         let endpoint_uri = "https://pubsub.googleapis.com".parse().unwrap();
         let layer =
             TracingTowerLayer::new(&endpoint_uri, "pubsub.googleapis.com".to_string(), None);
-        let _span = create_grpc_span(&uri, &layer.inner);
+        // First attempt (0) should not have resend count
+        let _span = create_grpc_span(&uri, &layer.inner, Some(0));
 
         let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1);
@@ -282,7 +295,8 @@ mod tests {
             "pubsub.googleapis.com".to_string(),
             Some(&TEST_INFO),
         );
-        let _span = create_grpc_span(&uri, &layer.inner);
+        // Retry attempt (1) should have resend count 1
+        let _span = create_grpc_span(&uri, &layer.inner, Some(1));
 
         let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1);
@@ -305,6 +319,7 @@ mod tests {
             (GCP_CLIENT_VERSION, "1.0.0".into()),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (GCP_CLIENT_ARTIFACT, "test-artifact".into()),
+            (GCP_GRPC_RESEND_COUNT, 1_i64.into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))

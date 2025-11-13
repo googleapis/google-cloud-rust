@@ -219,7 +219,10 @@ impl Client {
         let retry_policy = self.get_retry_policy(&options);
         let backoff_policy = self.get_backoff_policy(&options);
         let this = self.clone();
+        let mut prior_attempt_count: i64 = 0;
         let inner = async move |remaining_time: Option<Duration>| {
+            let current_attempt = prior_attempt_count;
+            prior_attempt_count += 1;
             this.clone()
                 .request_attempt::<Request, Response>(
                     extensions.clone(),
@@ -228,6 +231,7 @@ impl Client {
                     &options,
                     remaining_time,
                     headers.clone(),
+                    current_attempt,
                 )
                 .await
         };
@@ -244,6 +248,7 @@ impl Client {
     }
 
     /// Makes a single request attempt.
+    #[allow(clippy::too_many_arguments)]
     async fn request_attempt<Request, Response>(
         &self,
         extensions: tonic::Extensions,
@@ -252,6 +257,7 @@ impl Client {
         options: &gax::options::RequestOptions,
         remaining_time: Option<std::time::Duration>,
         headers: HeaderMap,
+        prior_attempt_count: i64,
     ) -> Result<tonic::Response<Response>>
     where
         Request: prost::Message + 'static,
@@ -260,6 +266,17 @@ impl Client {
         let headers = self.add_auth_headers(headers).await?;
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
         let mut request = tonic::Request::from_parts(metadata, extensions, request);
+
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use crate::observability::grpc_tracing::AttemptCount;
+            request
+                .extensions_mut()
+                .insert(AttemptCount(prior_attempt_count));
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        let _ = prior_attempt_count;
+
         if let Some(timeout) = gax::retry_loop_internal::effective_timeout(options, remaining_time)
         {
             request.set_timeout(timeout);
