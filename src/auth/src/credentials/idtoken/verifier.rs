@@ -24,7 +24,7 @@
 //! # use google_cloud_auth::credentials::idtoken;
 //! # use std::time::Duration;
 //! let audience = "https://my-service.a.run.app";
-//! let verifier = idtoken::verifier::Builder::new(audience).build();
+//! let verifier = idtoken::verifier::Builder::new([audience]).build();
 //!
 //! async fn verify_my_token(token: &str) -> anyhow::Result<()> {
 //!     let claims = verifier.verify(token).await?;
@@ -78,8 +78,7 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::idtoken::verifier::Builder;
-    /// let audience = "https://example.com";
-    /// let verifier = Builder::new(vec![audience])
+    /// let verifier = Builder::new(["https://my-service.a.run.app"])
     ///     .with_email("service-account@example.com")
     ///     .build();
     /// ```
@@ -97,8 +96,7 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::idtoken::verifier::Builder;
-    /// let audience = "https://example.com";
-    /// let verifier = Builder::new(vec![audience])
+    /// let verifier = Builder::new(["https://my-service.a.run.app"])
     ///     .with_jwks_url("https://www.googleapis.com/oauth2/v3/certs")
     ///     .build();    
     /// ```
@@ -117,8 +115,7 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::idtoken::Builder;
     /// # use std::time::Duration;
-    /// let audience = "https://example.com";
-    /// let verifier = Builder::new(vec![audience])
+    /// let verifier = Builder::new(["https://my-service.a.run.app"])
     ///     .with_clock_skew(Duration::from_secs(60))
     ///     .build();
     /// ```
@@ -148,8 +145,7 @@ impl Builder {
 /// # use std::time::Duration;
 ///
 /// async fn verify_id_token(token: &str) {
-///     let audience = "https://example.com";
-///     let verifier = Builder::new(vec![audience]).build();
+///     let verifier = Builder::new(["https://my-service.a.run.app"]).build();
 ///
 ///     let claims = verifier.verify(token).await.expect("Failed to verify ID token");
 ///     println!("Verified claims: {:?}", claims);
@@ -346,7 +342,7 @@ pub(crate) mod tests {
         let token = generate_test_id_token(audience);
         let token = token.as_str();
 
-        let verifier = Builder::new(vec![audience])
+        let verifier = Builder::new([audience])
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .build();
 
@@ -372,7 +368,7 @@ pub(crate) mod tests {
         let token = generate_test_id_token(audience);
         let token = token.as_str();
 
-        let verifier = Builder::new(vec!["https://wrong-audience.com"])
+        let verifier = Builder::new(["https://wrong-audience.com"])
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .build();
 
@@ -392,7 +388,7 @@ pub(crate) mod tests {
                 .respond_with(json_encoded(create_jwk_set_response())),
         );
 
-        let audiences = vec!["https://example.com", "https://another_example.com"];
+        let audiences = ["https://example.com", "https://another_example.com"];
         let verifier = Builder::new(audiences.clone())
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .build();
@@ -422,7 +418,7 @@ pub(crate) mod tests {
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
-        let verifier = Builder::new(vec![audience])
+        let verifier = Builder::new([audience])
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .build();
 
@@ -450,7 +446,7 @@ pub(crate) mod tests {
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
-        let verifier = Builder::new(vec![audience])
+        let verifier = Builder::new([audience])
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .with_email(email)
             .build();
@@ -480,7 +476,7 @@ pub(crate) mod tests {
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
-        let verifier = Builder::new(vec![audience])
+        let verifier = Builder::new([audience])
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .with_email("wrong@example.com")
             .build();
@@ -507,7 +503,7 @@ pub(crate) mod tests {
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
-        let verifier = Builder::new(vec![audience])
+        let verifier = Builder::new([audience])
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .build();
 
@@ -535,7 +531,7 @@ pub(crate) mod tests {
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
-        let verifier = Builder::new(vec![audience])
+        let verifier = Builder::new([audience])
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .with_email(email)
             .build();
@@ -562,7 +558,7 @@ pub(crate) mod tests {
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
-        let verifier = Builder::new(vec![audience])
+        let verifier = Builder::new([audience])
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .with_clock_skew(Duration::from_secs(10))
             .build();
@@ -576,7 +572,7 @@ pub(crate) mod tests {
     #[tokio::test]
     async fn test_verify_decode_error() -> TestResult {
         let audience = "https://example.com";
-        let verifier = Builder::new(vec![audience]).build();
+        let verifier = Builder::new([audience]).build();
         let invalid_token = "invalid.token.format";
 
         let result = verifier.verify(invalid_token).await;
@@ -600,7 +596,7 @@ pub(crate) mod tests {
         let token =
             jsonwebtoken::encode(&header, &claims, &private_key).expect("failed to encode jwt");
 
-        let verifier = Builder::new(vec!["https://example.com"]).build();
+        let verifier = Builder::new(["https://example.com"]).build();
 
         let result = verifier.verify(&token).await;
         assert!(result.is_err());
@@ -622,7 +618,7 @@ pub(crate) mod tests {
         let token = generate_test_id_token(audience);
         let token = token.as_str();
 
-        let verifier = Builder::new(vec![audience])
+        let verifier = Builder::new([audience])
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .build();
 
