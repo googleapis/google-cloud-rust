@@ -42,7 +42,6 @@ pub use serde_json::{Map, Value};
 use std::time::Duration;
 
 /// Builder is used construct a [Verifier] of id tokens.
-#[derive(Debug, Default)]
 pub struct Builder {
     audience: String,
     email: Option<String>,
@@ -56,7 +55,9 @@ impl Builder {
     pub fn new<S: Into<String>>(audience: S) -> Self {
         Self {
             audience: audience.into(),
-            ..Self::default()
+            clock_skew: None,
+            email: None,
+            jwks_url: None,
         }
     }
 
