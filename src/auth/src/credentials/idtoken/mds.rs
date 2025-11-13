@@ -118,11 +118,11 @@ pub enum Format {
 }
 
 impl Format {
-    fn to_string(&self) -> String {
+    fn as_str(&self) -> &str {
         match self {
-            Format::Standard => "standard".to_string(),
-            Format::Full => "full".to_string(),
-            Format::UnknownValue(value) => value.clone(),
+            Format::Standard => "standard",
+            Format::Full => "full",
+            Format::UnknownValue(value) => value.as_str(),
         }
     }
 }
@@ -245,7 +245,7 @@ impl TokenProvider for MDSTokenProvider {
             .query(&[("audience", audience)]);
 
         let request = self.format.iter().fold(request, |builder, format| {
-            builder.query(&[("format", format.to_string())])
+            builder.query(&[("format", format.as_str())])
         });
         let request = self.licenses.iter().fold(request, |builder, licenses| {
             builder.query(&[("licenses", licenses)])
@@ -294,11 +294,12 @@ mod tests {
         let server = Server::run();
         let audience = "test-audience";
         let token_string = generate_test_id_token(audience);
+        let format_str = format.as_str().to_string();
         server.expect(
             Expectation::matching(all_of![
                 request::path(format!("{MDS_DEFAULT_URI}/identity")),
                 request::query(url_decoded(contains(("audience", audience)))),
-                request::query(url_decoded(contains(("format", format.to_string())))),
+                request::query(url_decoded(contains(("format", format_str)))),
                 request::query(url_decoded(contains(("licenses", "TRUE"))))
             ])
             .respond_with(status_code(200).body(token_string.clone())),
