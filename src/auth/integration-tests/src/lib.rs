@@ -643,7 +643,7 @@ pub mod unstable {
             &target_principal_email,
             source_sa_creds,
         )
-        .with_include_email(true)
+        .with_include_email()
         .build()
         .expect("failed to setup id token credentials");
 
