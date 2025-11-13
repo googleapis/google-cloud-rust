@@ -225,7 +225,9 @@ fn build_id_token_credentials(
     match json {
         None => {
             // TODO(#3587): pass context that is being built from ADC flow.
-            mds::Builder::new(audience).with_format("full").build()
+            mds::Builder::new(audience)
+                .with_format(mds::Format::Full)
+                .build()
         }
         Some(json) => {
             let cred_type = extract_credential_type(&json)?;
