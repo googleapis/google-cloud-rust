@@ -60,7 +60,7 @@
 //! # use google_cloud_auth::credentials::idtoken;
 //! # use std::time::Duration;
 //! let audience = "https://my-service.a.run.app";
-//! let verifier = idtoken::verifier::Builder::new(audience).build();
+//! let verifier = idtoken::verifier::Builder::new(vec![audience]).build();
 //!
 //! async fn verify_id_token(token: &str) -> anyhow::Result<()> {
 //!     let claims = verifier.verify(token).await?;
