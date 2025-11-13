@@ -117,7 +117,7 @@ pub enum Format {
     UnknownValue(String),
 }
 
-impl std::string::ToString for Format {
+impl Format {
     fn to_string(&self) -> String {
         match self {
             Format::Standard => "standard".to_string(),
