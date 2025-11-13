@@ -141,7 +141,6 @@ impl CloudTelemetryTracerProviderBuilder {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::observability::TestTokenProvider;
     use opentelemetry::trace::{Tracer, TracerProvider as _};
 
     /// A test credentials provider that returns static, known values.
