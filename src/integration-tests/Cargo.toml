@@ -96,10 +96,6 @@ path    = "../../src/generated/cloud/secretmanager/v1"
 package = "secretmanager-openapi-v1"
 path    = "../../src/generated/openapi-validation"
 
-[dependencies.sql]
-package = "google-cloud-sql-v1"
-path    = "../../src/generated/cloud/sql/v1"
-
 [dependencies.storage]
 package  = "google-cloud-storage"
 path     = "../../src/storage"

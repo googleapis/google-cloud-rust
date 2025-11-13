@@ -5544,7 +5544,6 @@ dependencies = [
  "google-cloud-pubsub",
  "google-cloud-secretmanager-v1",
  "google-cloud-showcase-v1beta1",
- "google-cloud-sql-v1",
  "google-cloud-storage",
  "google-cloud-telcoautomation-v1",
  "google-cloud-test-utils",
