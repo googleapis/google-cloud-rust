@@ -70,7 +70,7 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::idtoken::verifier::Builder;
-    /// let audience = "https://example.com";
+    /// let audience = "https://my-service.a.run.app";
     /// let verifier = Builder::new(audience)
     ///     .with_email("service-account@example.com")
     ///     .build();
@@ -89,7 +89,7 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::idtoken::verifier::Builder;
-    /// let audience = "https://example.com";
+    /// let audience = "https://my-service.a.run.app";
     /// let verifier = Builder::new(audience)
     ///     .with_jwks_url("https://www.googleapis.com/oauth2/v3/certs")
     ///     .build();    
@@ -109,7 +109,7 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::idtoken::Builder;
     /// # use std::time::Duration;
-    /// let audience = "https://example.com";
+    /// let audience = "https://my-service.a.run.app";
     /// let verifier = Builder::new(audience)
     ///     .with_clock_skew(Duration::from_secs(60))
     ///     .build();
@@ -140,7 +140,7 @@ impl Builder {
 /// # use std::time::Duration;
 ///
 /// async fn verify_id_token(token: &str) {
-///     let audience = "https://example.com";
+///     let audience = "https://my-service.a.run.app";
 ///     let verifier = Builder::new(audience).build();
 ///
 ///     let claims = verifier.verify(token).await.expect("Failed to verify ID token");

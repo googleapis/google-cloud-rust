@@ -39,7 +39,7 @@
 //! # use google_cloud_auth::credentials::idtoken;
 //! # use reqwest;
 //! # tokio_test::block_on(async {
-//! let audience = "https://example.com";
+//! let audience = "https://my-service.a.run.app";
 //! let credentials = idtoken::mds::Builder::new(audience)
 //!     .build()?;
 //! let id_token = credentials.id_token().await?;

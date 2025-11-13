@@ -42,7 +42,7 @@
 //!     "source_credentials": source_credentials,
 //! });
 //!
-//! let audience = "https://example.com"
+//! let audience = "https://my-service.a.run.app";
 //! let credentials = idtoken::impersonated::Builder::new(audience, impersonated_credential)
 //!     .build()?;
 //! let id_token = credentials.id_token().await?;

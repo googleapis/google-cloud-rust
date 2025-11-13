@@ -29,9 +29,10 @@
 //!
 //! ```
 //! # use google_cloud_auth::credentials::idtoken;
+//! # use serde_json::json;
 //! # use reqwest;
 //! # tokio_test::block_on(async {
-//! let authorized_user = serde_json::json!({
+//! let authorized_user = json!({
 //!     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com", // Replace with your actual Client ID
 //!     "client_secret": "YOUR_CLIENT_SECRET", // Replace with your actual Client Secret - LOAD SECURELY!
 //!     "refresh_token": "YOUR_REFRESH_TOKEN", // Replace with the user's refresh token - LOAD SECURELY!

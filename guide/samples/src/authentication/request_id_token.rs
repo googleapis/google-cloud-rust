@@ -22,12 +22,12 @@ pub async fn sample(audience: &str) -> anyhow::Result<String> {
     use google_cloud_auth::credentials::idtoken::Builder;
     // [END rust_auth_request_id_token_use] ANCHOR_END: request_id_token_use
 
-    // [START rust_auth_request_id_token_client] ANCHOR: request_id_token_client
-    let client = Builder::new(audience).build()?;
-    // [END rust_auth_request_id_token_client] ANCHOR_END: request_id_token_client
+    // [START rust_auth_request_id_token_credentials] ANCHOR: request_id_token_credentials
+    let credentials = Builder::new(audience).build()?;
+    // [END rust_auth_request_id_token_credentials] ANCHOR_END: request_id_token_credentials
 
     // [START rust_auth_request_id_token_call] ANCHOR: request_id_token_call
-    let id_token = client.id_token().await?;
+    let id_token = credentials.id_token().await?;
     println!("ID Token: {id_token:?}");
     // [END rust_auth_request_id_token_call] ANCHOR_END: request_id_token_call
     Ok(id_token)
@@ -36,10 +36,14 @@ pub async fn sample(audience: &str) -> anyhow::Result<String> {
 // [START request_id_token_send] ANCHOR: request_id_token_send
 // # Parameters
 // * `target_url`: The receiving service target URL.
-// * `id_token`: The ID token string to be used for authentication.
-pub async fn api_call_with_id_token(target_url: &str, id_token: &str) -> anyhow::Result<()> {
+// * `credentials`: The IDTokenCredentials to use for authentication.
+pub async fn api_call_with_id_token(
+    target_url: &str,
+    credentials: &google_cloud_auth::credentials::idtoken::IDTokenCredentials,
+) -> anyhow::Result<()> {
     use reqwest;
 
+    let id_token = credentials.id_token().await?;
     let client = reqwest::Client::new();
     client.get(target_url).bearer_auth(id_token).send().await?;
 

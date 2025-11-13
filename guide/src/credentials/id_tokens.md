@@ -37,12 +37,12 @@ guide for more information.
 For complete setup instructions for the Rust libraries, see
 [Setting up your development environment](/setting_up_your_development_environment.md).
 
-> **Note:** The `idtoken::Builder` does not currently support generating
-> audience-specific ID tokens from user credentials obtained via
-> `gcloud auth application-default login` (which are of type `authorized_user`).
-> For local development and testing, it is recommended to use a service account
-> key file and set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable or
-> impersonate a service account using
+> **Note:** To obtain ID tokens using user credentials from
+> `gcloud auth application-default login` (which is of type `authorized_user`),
+> use the `google_cloud_auth::credentials::idtoken::user_account::Builder`
+> directly. The main `idtoken::Builder` does not support this flow. For local
+> development and testing, it is recommended to impersonate a service account
+> using
 > `gcloud auth application-default login --impersonate-service-account <service-account-email>`.
 
 ### Dependencies
@@ -54,6 +54,12 @@ cargo add google-cloud-auth
 ```
 
 ## Obtaining ID Tokens
+
+An ID token contains claims about the identity of a principal, such as a service
+account or user. The `aud` (audience) claim specifies the intended recipient of
+the token. This is typically the URL of the service that will verify the token's
+signature and claims to authenticate the caller. For example, if you are calling
+a Cloud Run service, the audience should be the URL of that service.
 
 1. This example receives the audience as an input parameter. The audience must
    match the audience of the service that receives the token.
@@ -71,7 +77,7 @@ cargo add google-cloud-auth
 3. Use the ID Token [Builder][id token builder] to create the credentials:
 
 ```rust,ignore
-{{#include ../../samples/src/authentication/request_id_token.rs:request_id_token_client}}
+{{#include ../../samples/src/authentication/request_id_token.rs:request_id_token_credentials}}
 ```
 
 4. Then, fetch the ID token. Note that the client libraries automatically cache
