@@ -144,8 +144,8 @@ impl Builder {
     }
 
     /// Should include email claims in the ID Token.
-    pub fn with_include_email(mut self, include_email: bool) -> Self {
-        self.include_email = Some(include_email);
+    pub fn with_include_email(mut self) -> Self {
+        self.include_email = Some(true);
         self
     }
 
@@ -428,7 +428,7 @@ mod tests {
         });
         let creds = Builder::new("test-audience", impersonated_credential)
             .with_delegates(vec!["delegate1", "delegate2"])
-            .with_include_email(true)
+            .with_include_email()
             .build()?;
 
         let token = creds.id_token().await?;
