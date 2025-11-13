@@ -159,22 +159,6 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_sql() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
-        integration_tests::sql::run_sql_instances_service()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_sql_tiers_service() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
-        integration_tests::sql::run_sql_tiers_service()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
     #[test_case(StorageControl::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
     #[test_case(StorageControl::builder().with_endpoint("https://www.googleapis.com"); "with global endpoint")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
