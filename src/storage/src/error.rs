@@ -130,6 +130,36 @@ pub enum ReadError {
         &'static str,
         #[source] Box<dyn std::error::Error + Send + Sync + 'static>,
     ),
+
+    /// A bidi read was interrupted with an unrecoverable error.
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[error("cannot recover from an underlying read error: {0}")]
+    UnrecoverableBidiReadInterrupt(#[source] std::sync::Arc<crate::Error>),
+
+    /// A bidi read received an invalid offset.
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[error("invalid offset in bidi response: {0}")]
+    BadOffsetInBidiResponse(i64),
+
+    /// A bidi read received an invalid length.
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[error("invalid length in bidi response: {0}")]
+    BadLengthInBidiResponse(i64),
+
+    /// A bidi read without a valid range.
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[error("missing range in bidi response")]
+    MissingRangeInBidiResponse,
+
+    /// An out of order bidi read.
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[error("out of order bidi response, expected offset={expected}, got={got}")]
+    OutOfOrderBidiResponse { got: i64, expected: i64 },
+
+    /// An unexpected range id.
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[error("unknown range id in bidi response: {0}")]
+    UnknownRange(i64),
 }
 
 /// An unrecoverable problem in the upload protocol.
