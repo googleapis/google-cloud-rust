@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::observability::attributes::{self, keys::*};
+use crate::observability::attributes::{self, keys::*, otel_status_codes};
+use crate::observability::errors::ErrorType;
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use std::future::Future;
 use std::pin::Pin;
 use std::sync::Arc;
 use std::task::{Context, Poll};
 use tower::{Layer, Service};
-use tracing::Instrument;
 
 /// A wrapper for the attempt count to be stored in request extensions.
 #[derive(Clone, Copy, Debug)]
@@ -114,8 +114,73 @@ where
     fn call(&mut self, req: http::Request<B>) -> Self::Future {
         let attempt_count = req.extensions().get::<AttemptCount>().map(|a| a.0);
         let span = create_grpc_span(req.uri(), &self.layer.inner, attempt_count);
-        Box::pin(self.inner.call(req).instrument(span))
+        let future = self.inner.call(req);
+        Box::pin(ResponseFuture {
+            inner: future,
+            span,
+        })
     }
+}
+
+/// A future that wraps the inner service's future and records the status code on completion.
+#[pin_project::pin_project]
+pub struct ResponseFuture<F> {
+    #[pin]
+    inner: F,
+    span: tracing::Span,
+}
+
+impl<F, ResBody, Error> Future for ResponseFuture<F>
+where
+    F: Future<Output = Result<http::Response<ResBody>, Error>>,
+    Error: std::fmt::Display,
+{
+    type Output = Result<http::Response<ResBody>, Error>;
+
+    fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
+        let this = self.project();
+        let _guard = this.span.enter();
+        let result = futures_util::ready!(this.inner.poll(cx));
+
+        match &result {
+            Ok(response) => record_response_status(this.span, response),
+            Err(e) => record_error_status(this.span, e),
+        }
+        Poll::Ready(result)
+    }
+}
+
+fn record_response_status<ResBody>(span: &tracing::Span, response: &http::Response<ResBody>) {
+    match tonic::Status::from_header_map(response.headers()) {
+        Some(status) => {
+            let code = status.code();
+            span.record(otel_attr::RPC_GRPC_STATUS_CODE, i32::from(code) as i64);
+            if code != tonic::Code::Ok {
+                span.record(OTEL_STATUS_CODE, otel_status_codes::ERROR);
+                let gax_error = crate::grpc::from_status::to_gax_error(status);
+                span.record(
+                    otel_trace::ERROR_TYPE,
+                    ErrorType::from_gax_error(&gax_error).as_str(),
+                );
+            }
+        }
+        None => {
+            // If grpc-status is missing but we got a response, assume OK (0)
+            // This happens for successful unary calls where status is in trailers,
+            // but for now we only check headers.
+            span.record(otel_attr::RPC_GRPC_STATUS_CODE, 0_i64);
+        }
+    }
+}
+
+fn record_error_status<Error: std::fmt::Display>(span: &tracing::Span, error: &Error) {
+    span.record(OTEL_STATUS_CODE, otel_status_codes::ERROR);
+    let gax_error = gax::error::Error::io(error.to_string());
+    span.record(
+        otel_trace::ERROR_TYPE,
+        ErrorType::from_gax_error(&gax_error).as_str(),
+    );
+    span.record(OTEL_STATUS_DESCRIPTION, error.to_string());
 }
 
 fn create_grpc_span(
@@ -153,7 +218,8 @@ fn create_grpc_span(
         // Standard attributes that will be populated later
         { otel_attr::RPC_GRPC_STATUS_CODE } = tracing::field::Empty,
         { GRPC_STATUS } = tracing::field::Empty,
-        { OTEL_STATUS_CODE } = tracing::field::Empty,
+        { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
+        { OTEL_STATUS_DESCRIPTION } = tracing::field::Empty,
         { otel_trace::ERROR_TYPE } = tracing::field::Empty,
         // Client library metadata
         { GCP_CLIENT_SERVICE } = service,
@@ -266,6 +332,7 @@ mod tests {
             (otel_trace::SERVER_ADDRESS, "pubsub.googleapis.com".into()),
             (otel_trace::SERVER_PORT, 443_i64.into()),
             (otel_attr::URL_DOMAIN, "pubsub.googleapis.com".into()),
+            (OTEL_STATUS_CODE, "UNSET".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -320,6 +387,7 @@ mod tests {
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (GCP_CLIENT_ARTIFACT, "test-artifact".into()),
             (GCP_GRPC_RESEND_COUNT, 1_i64.into()),
+            (OTEL_STATUS_CODE, "UNSET".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
