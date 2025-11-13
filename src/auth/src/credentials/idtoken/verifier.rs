@@ -389,7 +389,7 @@ pub(crate) mod tests {
         );
 
         let audiences = ["https://example.com", "https://another_example.com"];
-        let verifier = Builder::new(audiences.clone())
+        let verifier = Builder::new(audiences)
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .build();
 
