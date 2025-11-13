@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Validate that HTTP tracing makes it all the way to OTLP collectors like
+/// Validates that HTTP tracing makes it all the way to OTLP collectors like
 /// Cloud Telemetry.
 ///
 /// This test sets up an in-memory service endpoint and OTLP collector
