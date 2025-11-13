@@ -531,7 +531,7 @@ pub mod unstable {
     use super::*;
     use auth::credentials::idtoken::{
         Builder as IDTokenCredentialBuilder, impersonated::Builder as ImpersonatedIDTokenBuilder,
-        mds::Builder as IDTokenMDSBuilder,
+        mds::Builder as IDTokenMDSBuilder, mds::Format,
         service_account::Builder as ServiceAccountIDTokenBuilder,
         verifier::Builder as VerifierBuilder,
     };
@@ -554,7 +554,7 @@ pub mod unstable {
 
         // Only works when running on an env that has MDS.
         let id_token_creds = IDTokenMDSBuilder::new(audience)
-            .with_format("full")
+            .with_format(Format::Full)
             .build()
             .expect("failed to create id token credentials");
 
