@@ -117,9 +117,9 @@ impl Builder {
 
     /// Creates a new builder with a source [Credentials] object, target principal and audience.
     /// Target principal is the email of the service account to impersonate.
-    pub fn from_source_credentials<S: Into<String>>(
-        target_audience: S,
-        target_principal: S,
+    pub fn from_source_credentials<SA: Into<String>, SP: Into<String>>(
+        target_audience: SA,
+        target_principal: SP,
         source_credentials: Credentials,
     ) -> Self {
         Self {
