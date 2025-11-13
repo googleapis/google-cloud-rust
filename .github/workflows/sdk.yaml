@@ -263,14 +263,30 @@ jobs:
         run: cargo version
       - name: Display rustc version
         run: rustup show active-toolchain -v
+      - name: Check disk stats
+        run: df -h
       - run: |
           set -e
           cargo minimal-versions test --package integration-tests
           cargo minimal-versions test --package user-guide-samples
           cargo minimal-versions test --package storage-samples
           cargo minimal-versions test --package pubsub-samples
+      - name: Check disk stats
+        run: df -h
+      - name: Clean up
+        run: cargo clean
+      - name: Check disk stats
+        run: df -h
+      - run: |
           cargo minimal-versions test --package google-cloud-storage
           cargo minimal-versions check --package google-cloud-storage
+      - name: Check disk stats
+        run: df -h
+      - name: Clean up
+        run: cargo clean
+      - name: Check disk stats
+        run: df -h
+      - run: |
           cargo minimal-versions test --package google-cloud-gax-internal
           cargo minimal-versions check --package google-cloud-gax-internal
           cargo minimal-versions test --package google-cloud-auth
@@ -279,7 +295,12 @@ jobs:
           cargo minimal-versions check --package google-cloud-gax
           cargo minimal-versions test --package google-cloud-wkt
           cargo minimal-versions check --package google-cloud-wkt
-
+      - name: Check disk stats
+        run: df -h
+      - name: Clean up
+        run: cargo clean
+      - name: Check disk stats
+        run: df -h
   semver-checks:
     runs-on: ubuntu-24.04
     strategy:
