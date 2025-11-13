@@ -106,24 +106,23 @@ where
     }
 }
 
-// Parameter that specifies whether or not the project and instance details are included in the ID Token
-// fetched from the Metadata Service.
+/// Specifies what assertions are included in ID Tokens fetched from the Metadata Service.
 #[derive(Debug, Clone)]
 pub enum Format {
-    // Omit project and instance details from the payload. It's the default value.
+    /// Omit project and instance details from the payload. It's the default value.
     Standard,
-    // Include project and instance details in the payload.
+    /// Include project and instance details in the payload.
     Full,
-    // Use this variant to handle new values that are not yet known to this library.
+    /// Use this variant to handle new values that are not yet known to this library.
     UnknownValue(String),
 }
 
-impl Format {
-    fn as_str(&self) -> &str {
+impl std::string::ToString for Format {
+    fn to_string(&self) -> String {
         match self {
-            Format::Standard => "standard",
-            Format::Full => "full",
-            Format::UnknownValue(value) => value.as_str(),
+            Format::Standard => "standard".to_string(),
+            Format::Full => "full".to_string(),
+            Format::UnknownValue(value) => value.clone(),
         }
     }
 }
@@ -246,7 +245,7 @@ impl TokenProvider for MDSTokenProvider {
             .query(&[("audience", audience)]);
 
         let request = self.format.iter().fold(request, |builder, format| {
-            builder.query(&[("format", format.as_str())])
+            builder.query(&[("format", format.to_string())])
         });
         let request = self.licenses.iter().fold(request, |builder, licenses| {
             builder.query(&[("licenses", licenses)])
@@ -282,21 +281,24 @@ mod tests {
     use reqwest::StatusCode;
     use scoped_env::ScopedEnv;
     use serial_test::{parallel, serial};
+    use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
 
     #[tokio::test]
+    #[test_case(Format::Standard)]
+    #[test_case(Format::Full)]
+    #[test_case(Format::UnknownValue("minimal".to_string()))]
     #[parallel]
-    async fn test_idtoken_builder_build() -> TestResult {
+    async fn test_idtoken_builder_build(format: Format) -> TestResult {
         let server = Server::run();
         let audience = "test-audience";
-        let format = "minimal";
         let token_string = generate_test_id_token(audience);
         server.expect(
             Expectation::matching(all_of![
                 request::path(format!("{MDS_DEFAULT_URI}/identity")),
                 request::query(url_decoded(contains(("audience", audience)))),
-                request::query(url_decoded(contains(("format", format)))),
+                request::query(url_decoded(contains(("format", format.to_string())))),
                 request::query(url_decoded(contains(("licenses", "TRUE"))))
             ])
             .respond_with(status_code(200).body(token_string.clone())),
@@ -304,7 +306,7 @@ mod tests {
 
         let creds = Builder::new(audience)
             .with_endpoint(format!("http://{}", server.addr()))
-            .with_format(Format::UnknownValue(format.to_string()))
+            .with_format(format)
             .with_licenses(true)
             .build()?;
 
