@@ -271,13 +271,9 @@ jobs:
           cargo minimal-versions test --package pubsub-samples
           cargo minimal-versions test --package google-cloud-storage
           cargo minimal-versions check --package google-cloud-storage
-          cargo minimal-versions test --package google-cloud-gax-internal
           cargo minimal-versions check --package google-cloud-gax-internal
-          cargo minimal-versions test --package google-cloud-auth
           cargo minimal-versions check --package google-cloud-auth
-          cargo minimal-versions test --package google-cloud-gax
           cargo minimal-versions check --package google-cloud-gax
-          cargo minimal-versions test --package google-cloud-wkt
           cargo minimal-versions check --package google-cloud-wkt
 
   semver-checks:
