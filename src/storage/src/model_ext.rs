@@ -183,7 +183,7 @@ impl ReadRange {
     /// println!("response details={response:?}");
     /// # Ok(()) }
     pub fn all() -> Self {
-        Self(Range::All)
+        Self::offset(0)
     }
 
     /// Returns a range representing the bytes starting at `offset`.
@@ -269,10 +269,6 @@ impl crate::model::ReadObjectRequest {
         // `[0, i64::MAX]`` range is safe, in that it does not lose any
         // functionality.
         match range.0 {
-            Range::All => {
-                self.read_offset = 0;
-                self.read_limit = 0;
-            }
             Range::Offset(o) => {
                 self.read_offset = o.clamp(0, i64::MAX as u64) as i64;
             }
@@ -291,7 +287,6 @@ impl crate::model::ReadObjectRequest {
 
 #[derive(Clone, Debug)]
 enum Range {
-    All,
     Offset(u64),
     Tail(u64),
     Segment { offset: u64, limit: u64 },
