@@ -136,6 +136,17 @@ impl Builder {
     ///
     /// A trailing slash is significant, so specify the base URL without a trailing  
     /// slash. If not set, the credentials use `http://metadata.google.internal`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::idtoken;
+    /// let audience = "https://my-service.a.run.app";
+    /// let credentials = idtoken::mds::Builder::new(audience)
+    ///     .with_endpoint("http://169.254.169.254")
+    ///     .build();
+    /// // Now you can use credentials.id_token().await to fetch the token.
+    /// ```
     pub fn with_endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
         self.endpoint = Some(endpoint.into());
         self
@@ -148,6 +159,17 @@ impl Builder {
     /// from the payload. The default value is `standard`.
     ///
     /// [format]: https://cloud.google.com/compute/docs/instances/verifying-instance-identity#token_format
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::idtoken;
+    /// let audience = "https://my-service.a.run.app";
+    /// let credentials = idtoken::mds::Builder::new(audience)
+    ///     .with_format("full")
+    ///     .build();
+    /// // Now you can use credentials.id_token().await to fetch the token.
+    /// ```
     pub fn with_format<S: Into<String>>(mut self, format: S) -> Self {
         self.format = Some(format.into());
         self
@@ -159,6 +181,18 @@ impl Builder {
     /// The default value is `false`. Has no effect unless format is `full`.
     ///
     /// [license codes]: https://cloud.google.com/compute/docs/reference/rest/v1/images/get#body.Image.FIELDS.license_code
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::idtoken;
+    /// let audience = "https://my-service.a.run.app";
+    /// let credentials = idtoken::mds::Builder::new(audience)
+    ///     .with_format("full") // licenses only works with format = "full"
+    ///     .with_licenses(true)
+    ///     .build();
+    /// // Now you can use credentials.id_token().await to fetch the token.
+    /// ```
     pub fn with_licenses(mut self, licenses: bool) -> Self {
         self.licenses = if licenses {
             Some("TRUE".to_string())
