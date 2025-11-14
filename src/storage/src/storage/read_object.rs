@@ -616,6 +616,23 @@ mod tests {
         reader.http_request_builder().await
     }
 
+    #[tokio::test]
+    async fn test_clone() {
+        let inner = test_inner_client(test_builder());
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let options = {
+            let mut o = RequestOptions::new();
+            o.set_resumable_upload_threshold(12345_usize);
+            o
+        };
+        let builder = ReadObject::new(stub, "projects/_/buckets/bucket", "object", options);
+
+        let clone = builder.clone();
+        assert!(Arc::ptr_eq(&clone.stub, &builder.stub));
+        assert_eq!(clone.request, builder.request);
+        assert_eq!(clone.options.resumable_upload_threshold(), 12345_usize);
+    }
+
     // Verify `read_object()` meets normal Send, Sync, requirements.
     #[tokio::test]
     async fn test_read_is_send_and_static() -> Result {
