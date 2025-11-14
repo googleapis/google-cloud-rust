@@ -24,7 +24,7 @@ pub async fn sample(token: &str, audience: &str) -> anyhow::Result<()> {
     // [END rust_auth_verify_id_token_use] ANCHOR_END: verify_id_token_use
 
     // [START rust_auth_id_verify_token_verifier] ANCHOR: verify_id_token_verifier
-    let verifier = IdTokenVerifierBuilder::new(audience).build();
+    let verifier = IdTokenVerifierBuilder::new([audience]).build();
     // [END rust_auth_id_verify_token_verifier] ANCHOR_END: verify_id_token_verifier
 
     // [START rust_auth_id_verify_token_verify_call] ANCHOR: verify_id_token_verify_call
