@@ -18,7 +18,7 @@ use crate::google::storage::v2::ReadRange as ProtoRange;
 type ReadResult<T> = std::result::Result<T, ReadError>;
 
 /// A normalized range represents a range of bytes normalized with a positive
-/// offset.
+/// offset and length.
 ///
 /// The client library needs to keep track of pending reads ranges, and resend
 /// them if the stream needs to be resumed. The range needs to be updated as
@@ -30,6 +30,13 @@ type ReadResult<T> = std::result::Result<T, ReadError>;
 ///
 /// After the first response arrives these requested ranges can be normalized to
 /// have a positive offset. This struct represent such normalized changes.
+///
+/// While the proto messages accept and return negative values, this type is
+/// never constructed (or updated) with negative values. The constructors fail
+/// if either `offset` or `length` are negative. The update operations also
+/// fail if they would change the range. We could have used `u64` but then
+/// we would need to enforce that the values are smaller than `i64::MAX` so they
+/// can be put into protos.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct NormalizedRange {
     offset: i64,
@@ -111,6 +118,9 @@ impl NormalizedRange {
     pub fn handle_empty(&self, end: bool) -> ReadResult<()> {
         match (end, self.length) {
             (true, Some(l)) if l > 0 => Err(ReadError::ShortRead(l as u64)),
+            (true, Some(_)) => Ok(()),
+            // In all other cases the range is validated in `update()`, before
+            // calling this function. See `ActiveRead::handle_data()`.
             _ => Ok(()),
         }
     }

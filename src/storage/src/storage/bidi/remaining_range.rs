@@ -21,8 +21,8 @@ type ReadResult<T> = std::result::Result<T, ReadError>;
 
 /// Tracks the remaining range.
 ///
-/// [PendingRange][super::pending_range::PendingRange] is initialized with
-/// the requested ranges. These are normalized when the first response arrives.
+/// [ActiveRead][super::active_read::ActiveRead] is initialized with the
+/// requested range. The range is normalized when the first response arrives.
 /// Both the normalized and initial ranges must be usable to resume connections.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum RemainingRange {
