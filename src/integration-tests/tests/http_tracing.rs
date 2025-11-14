@@ -160,6 +160,7 @@ async fn test_http_tracing_success_testlayer() -> anyhow::Result<()> {
     use std::collections::HashMap;
 
     let (guard, echo_server, client, server_port) = setup_echo_client().await;
+    let server_addr = echo_server.addr();
 
     echo_server.expect(
         Expectation::matching(all_of![
@@ -206,13 +207,13 @@ async fn test_http_tracing_success_testlayer() -> anyhow::Result<()> {
         ("gax.client.span", true.into()),
         ("http.response.status_code", 200_i64.into()),
         ("http.request.method", "POST".into()),
-        ("server.address", "::1".into()),
+        ("server.address", server_addr.ip().to_string().into()),
         ("server.port", (server_port as i64).into()),
         (
             "url.full",
             format!(
-                "http://[::1]:{}/v1beta1/echo:echo?%24alt=json%3Benum-encoding%3Dint",
-                server_port
+                "http://{}/v1beta1/echo:echo?%24alt=json%3Benum-encoding%3Dint",
+                server_addr
             )
             .into(),
         ),
@@ -234,6 +235,7 @@ async fn test_http_tracing_parse_error() -> anyhow::Result<()> {
     use std::collections::HashMap;
 
     let (guard, echo_server, client, server_port) = setup_echo_client().await;
+    let server_addr = echo_server.addr();
 
     // Return invalid JSON (missing closing brace)
     echo_server.expect(
@@ -288,13 +290,13 @@ async fn test_http_tracing_parse_error() -> anyhow::Result<()> {
             "cannot deserialize the response EOF while parsing an object at line 1 column 18"
                 .into(),
         ),
-        ("server.address", "::1".into()),
+        ("server.address", server_addr.ip().to_string().into()),
         ("server.port", (server_port as i64).into()),
         (
             "url.full",
             format!(
-                "http://[::1]:{}/v1beta1/echo:echo?%24alt=json%3Benum-encoding%3Dint",
-                server_port
+                "http://{}/v1beta1/echo:echo?%24alt=json%3Benum-encoding%3Dint",
+                server_addr
             )
             .into(),
         ),
@@ -316,6 +318,7 @@ async fn test_http_tracing_api_error() -> anyhow::Result<()> {
     use std::collections::HashMap;
 
     let (guard, echo_server, client, server_port) = setup_echo_client().await;
+    let server_addr = echo_server.addr();
 
     // 404 Not Found
     echo_server.expect(
@@ -369,13 +372,13 @@ async fn test_http_tracing_api_error() -> anyhow::Result<()> {
             "otel.status_description",
             "the service reports an error with code UNKNOWN described as: Not Found".into(),
         ),
-        ("server.address", "::1".into()),
+        ("server.address", server_addr.ip().to_string().into()),
         ("server.port", (server_port as i64).into()),
         (
             "url.full",
             format!(
-                "http://[::1]:{}/v1beta1/echo:echo?%24alt=json%3Benum-encoding%3Dint",
-                server_port
+                "http://{}/v1beta1/echo:echo?%24alt=json%3Benum-encoding%3Dint",
+                server_addr
             )
             .into(),
         ),
