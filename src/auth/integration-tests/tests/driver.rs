@@ -102,7 +102,7 @@ mod driver {
     #[cfg(all(test, google_cloud_unstable_id_token))]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
-    // verify that include_email via ADC flow is passed down to the impersonated 
+    // verify that include_email via ADC flow is passed down to the impersonated
     // builder and email claim is included in the token.
     async fn run_id_token_adc_impersonated() -> anyhow::Result<()> {
         let with_impersonation = true;
