@@ -60,7 +60,7 @@
 //! # use google_cloud_auth::credentials::idtoken;
 //! # use std::time::Duration;
 //! let audience = "https://my-service.a.run.app";
-//! let verifier = idtoken::verifier::Builder::new(audience).build();
+//! let verifier = idtoken::verifier::Builder::new([audience]).build();
 //!
 //! async fn verify_id_token(token: &str) -> anyhow::Result<()> {
 //!     let claims = verifier.verify(token).await?;
@@ -237,7 +237,11 @@ fn build_id_token_credentials(
     match json {
         None => {
             // TODO(#3587): pass context that is being built from ADC flow.
-            let format = if include_email { "full" } else { "standard" };
+            let format = if include_email {
+                mds::Format::Full
+            } else {
+                mds::Format::Standard
+            };
             mds::Builder::new(audience).with_format(format).build()
         }
         Some(json) => {

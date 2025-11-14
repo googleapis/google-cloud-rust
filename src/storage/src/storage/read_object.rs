@@ -61,7 +61,7 @@ use gaxi::http::map_send_error;
 ///     Ok(())
 /// }
 /// ```
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct ReadObject<S = crate::storage::transport::Storage>
 where
     S: crate::storage::stub::Storage + 'static,
@@ -69,6 +69,19 @@ where
     stub: std::sync::Arc<S>,
     request: crate::model::ReadObjectRequest,
     options: RequestOptions,
+}
+
+impl<S> Clone for ReadObject<S>
+where
+    S: crate::storage::stub::Storage + 'static,
+{
+    fn clone(&self) -> Self {
+        Self {
+            stub: self.stub.clone(),
+            request: self.request.clone(),
+            options: self.options.clone(),
+        }
+    }
 }
 
 impl<S> ReadObject<S>

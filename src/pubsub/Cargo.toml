@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-pubsub"
-version     = "0.1.0-preview"
+version     = "0.31.0-preview"
 description = "Google Cloud Client Libraries for Rust - Pub/Sub"
 # Inherit other attributes from the workspace.
 edition.workspace      = true
@@ -28,6 +28,7 @@ rust-version.workspace = true
 [dependencies]
 async-trait.workspace = true
 bytes.workspace       = true
+futures.workspace     = true
 gax.workspace         = true
 gaxi                  = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-http-client"] }
 http.workspace        = true

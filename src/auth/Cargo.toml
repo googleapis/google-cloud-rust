@@ -46,25 +46,26 @@ thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
 bon.workspace         = true
-jsonwebtoken          = { workspace = true, features = ["rust_crypto"] }
 # Local dependencies
 gax.workspace = true
 
 [dev-dependencies]
-anyhow.workspace         = true
-httptest.workspace       = true
-mockall.workspace        = true
-regex.workspace          = true
-rsa                      = { workspace = true, features = ["pem"] }
-scoped-env.workspace     = true
-serial_test.workspace    = true
-tempfile.workspace       = true
-test-case.workspace      = true
-tokio                    = { workspace = true, features = ["macros", "rt-multi-thread", "test-util"] }
-tokio-test.workspace     = true
-url.workspace            = true
-mutants.workspace        = true
-num-bigint-dig.workspace = true
+anyhow.workspace      = true
+httptest.workspace    = true
+mockall.workspace     = true
+regex.workspace       = true
+rsa                   = { workspace = true, features = ["pem"] }
+scoped-env.workspace  = true
+serial_test.workspace = true
+tempfile.workspace    = true
+test-case.workspace   = true
+tokio                 = { workspace = true, features = ["macros", "rt-multi-thread", "test-util"] }
+tokio-test.workspace  = true
+url.workspace         = true
+mutants.workspace     = true
+
+[target.'cfg(google_cloud_unstable_id_token)'.dependencies]
+jsonwebtoken = { workspace = true, features = ["rust_crypto"] }
 
 [lints]
 workspace = true

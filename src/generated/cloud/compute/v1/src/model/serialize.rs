@@ -38938,6 +38938,9 @@ impl serde::ser::Serialize for super::SecurityPolicy {
         if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;
         }
+        if self.parent.is_some() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
         if self.recaptcha_options_config.is_some() {
             state.serialize_entry("recaptchaOptionsConfig", &self.recaptcha_options_config)?;
         }

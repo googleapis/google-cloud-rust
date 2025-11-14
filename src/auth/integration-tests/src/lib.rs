@@ -531,7 +531,7 @@ pub mod unstable {
     use super::*;
     use auth::credentials::idtoken::{
         Builder as IDTokenCredentialBuilder, impersonated::Builder as ImpersonatedIDTokenBuilder,
-        mds::Builder as IDTokenMDSBuilder,
+        mds::Builder as IDTokenMDSBuilder, mds::Format,
         service_account::Builder as ServiceAccountIDTokenBuilder,
         verifier::Builder as VerifierBuilder,
     };
@@ -554,7 +554,7 @@ pub mod unstable {
 
         // Only works when running on an env that has MDS.
         let id_token_creds = IDTokenMDSBuilder::new(audience)
-            .with_format("full")
+            .with_format(Format::Full)
             .build()
             .expect("failed to create id token credentials");
 
@@ -563,7 +563,7 @@ pub mod unstable {
             .await
             .expect("failed to get id token");
 
-        let verifier = VerifierBuilder::new(audience)
+        let verifier = VerifierBuilder::new([audience])
             .with_email(expected_email)
             .build();
 
@@ -608,7 +608,7 @@ pub mod unstable {
             .await
             .expect("failed to get id token");
 
-        let verifier = VerifierBuilder::new(target_audience)
+        let verifier = VerifierBuilder::new([target_audience])
             .with_email(expected_email)
             .build();
 
@@ -634,7 +634,7 @@ pub mod unstable {
             .await
             .expect("failed to get id token");
 
-        let verifier = VerifierBuilder::new(target_audience)
+        let verifier = VerifierBuilder::new([target_audience])
             .with_email(expected_email)
             .build();
 
@@ -657,7 +657,7 @@ pub mod unstable {
             &target_principal_email,
             source_sa_creds,
         )
-        .with_include_email(true)
+        .with_include_email()
         .build()
         .expect("failed to setup id token credentials");
 
@@ -666,7 +666,7 @@ pub mod unstable {
             .await
             .expect("failed to generate id token");
 
-        let verifier = VerifierBuilder::new(target_audience)
+        let verifier = VerifierBuilder::new([target_audience])
             .with_email(target_principal_email)
             .build();
 

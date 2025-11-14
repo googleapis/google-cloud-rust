@@ -13,4 +13,6 @@
 // limitations under the License.
 
 pub mod auth;
+pub mod mock_collector;
 pub mod otlp;
+pub mod tracing;

@@ -12,8 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::options::BatchingOptions;
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
-use crate::publisher::options::BatchingOptions;
+use futures::StreamExt as _;
+use futures::stream::FuturesUnordered;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::sync::mpsc::UnboundedSender;
@@ -35,10 +37,8 @@ const MAX_BYTES: u32 = 1e7 as u32; // 10MB
 /// # use google_cloud_pubsub::*;
 /// # use client::PublisherFactory;
 /// # use model::PubsubMessage;
-/// let client = PublisherFactory::builder()
-///     .with_endpoint("https://pubsub.googleapis.com")
-///     .build().await?;
-/// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
+/// let factory = PublisherFactory::builder().build().await?;
+/// let publisher = factory.publisher("projects/my-project/topics/my-topic").build();
 /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World"));
 /// # Ok(()) }
 /// ```
@@ -46,7 +46,7 @@ const MAX_BYTES: u32 = 1e7 as u32; // 10MB
 pub struct Publisher {
     #[allow(dead_code)]
     pub(crate) batching_options: BatchingOptions,
-    tx: UnboundedSender<BundledMessage>,
+    tx: UnboundedSender<ToWorker>,
 }
 
 impl Publisher {
@@ -64,10 +64,59 @@ impl Publisher {
 
         // If this fails, the worker is gone, which indicates something bad has happened.
         // The PublishHandle will automatically receive an error when `tx` is dropped.
-        if self.tx.send(BundledMessage { msg, tx }).is_err() {
+        if self
+            .tx
+            .send(ToWorker::Publish(BundledMessage { msg, tx }))
+            .is_err()
+        {
             // `tx` is dropped here if the send errors.
         }
         crate::model_ext::PublishHandle { rx }
+    }
+
+    /// Flushes all outstanding messages.
+    ///
+    /// This method sends any messages that have been published but not yet sent,
+    /// regardless of the configured batching options (`delay_threshold`, etc.).
+    ///
+    /// This method is `async` and returns only after all publish attempts for the
+    /// messages in the snapshot have completed. A "completed" attempt means the
+    /// message has either been successfully sent, or has failed permanently after
+    /// exhausting any applicable retry policies.
+    ///
+    /// After flush()` returns, the final result of each individual publish
+    /// operation (i.e., a success with a message ID or a terminal error) will
+    /// be available on its corresponding [PublishHandle](crate::model_ext::PublishHandle).
+    ///
+    /// Messages published after `flush()` is called will be buffered for a
+    /// subsequent batch and are not included in this flush operation.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::model::PubsubMessage;
+    /// # async fn sample(publisher: google_cloud_pubsub::client::Publisher) -> anyhow::Result<()> {
+    /// // Publish some messages. They will be buffered according to batching options.
+    /// let handle1 = publisher.publish(PubsubMessage::new().set_data("foo".to_string()));
+    /// let handle2 = publisher.publish(PubsubMessage::new().set_data("bar".to_string()));
+    ///
+    /// // Flush ensures that these messages are sent immediately and waits for
+    /// // the send to complete.
+    /// publisher.flush().await;
+    ///
+    /// // The results for handle1 and handle2 are available.
+    /// let id1 = handle1.await?;
+    /// let id2 = handle2.await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub async fn flush(&self) {
+        let (tx, rx) = oneshot::channel();
+        if self.tx.send(ToWorker::Flush(tx)).is_err() {
+            // `tx` is dropped here if the send errors.
+        }
+        rx.await
+            .expect("the client library should not release the sender");
     }
 }
 
@@ -80,16 +129,10 @@ impl Publisher {
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
-/// # use builder::publisher::ClientBuilder;
+/// # use builder::publisher::PublisherFactoryBuilder;
 /// # use client::PublisherFactory;
-/// # use options::publisher::BatchingOptions;
-/// let builder : ClientBuilder = PublisherFactory::builder();
-/// let client = builder
-///     .with_endpoint("https://pubsub.googleapis.com")
-///     .build().await?;
-/// let publisher = client.publisher("projects/my-project/topics/topic")
-///     .with_batching(BatchingOptions::new().set_message_count_threshold(1_u32))
-///     .build();
+/// let factory = PublisherFactory::builder().build().await?;
+/// let publisher = factory.publisher("projects/my-project/topics/topic").build();
 /// # Ok(()) }
 /// ```
 #[derive(Clone, Debug)]
@@ -109,51 +152,43 @@ impl PublisherBuilder {
         }
     }
 
-    /// Configure publisher batching behavior.
+    /// Sets the maximum number of messages to be batched together for a single `Publish` call.
+    /// When this number is reached, the batch is sent.
     ///
-    /// # Examples
+    /// Setting this to `1` disables batching by message count.
     ///
-    /// Configure message count and delay
-    ///
+    /// # Example
     /// ```
+    /// # use google_cloud_pubsub::client::PublisherFactory;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// # use google_cloud_pubsub::*;
-    /// # use builder::publisher::ClientBuilder;
-    /// # use client::PublisherFactory;
-    /// # use std::time::Duration;
-    /// # use options::publisher::BatchingOptions;
-    /// let client = PublisherFactory::builder().build().await?;
-    /// let publisher = client.publisher("projects/my-project/topics/topic")
-    ///     .with_batching(BatchingOptions::new()
-    ///         .set_message_count_threshold(100_u32)
-    ///         .set_delay_threshold(Duration::from_millis(20))
-    ///     )
+    /// # let factory = PublisherFactory::builder().build().await?;
+    /// let publisher = factory.publisher("projects/my-project/topics/my-topic")
+    ///     .set_message_count_threshold(100)
     ///     .build();
     /// # Ok(()) }
     /// ```
+    pub fn set_message_count_threshold(mut self, threshold: u32) -> PublisherBuilder {
+        self.batching_options = self.batching_options.set_message_count_threshold(threshold);
+        self
+    }
+
+    /// Sets the maximum amount of time the publisher will wait before sending a
+    /// batch. When this delay is reached, the current batch is sent, regardless
+    /// of the number of messages or total byte size.
     ///
-    /// Disable batching
-    ///
+    /// # Example
     /// ```
-    /// # async fn sample() -> anyhow::Result<()> {
-    /// # use google_cloud_pubsub::*;
-    /// # use builder::publisher::ClientBuilder;
-    /// # use client::PublisherFactory;
+    /// # use google_cloud_pubsub::client::PublisherFactory;
     /// # use std::time::Duration;
-    /// # use options::publisher::BatchingOptions;
-    /// let client = PublisherFactory::builder().build().await?;
-    /// let publisher = client.publisher("projects/my-project/topics/topic")
-    ///     // Disable batching by setting batch size to 1.
-    ///     // This will send messages to the server as soon as possible.
-    ///     //
-    ///     // Messages may still be batched if it is not possible to send messages
-    ///     // at the time they are received, which can occur when using ordering keys.
-    ///     .with_batching(BatchingOptions::new().set_message_count_threshold(1_u32))
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # let factory = PublisherFactory::builder().build().await?;
+    /// let publisher = factory.publisher("projects/my-project/topics/my-topic")
+    ///     .set_delay_threshold(Duration::from_millis(50))
     ///     .build();
     /// # Ok(()) }
     /// ```
-    pub fn with_batching(mut self, options: BatchingOptions) -> PublisherBuilder {
-        self.batching_options = options;
+    pub fn set_delay_threshold(mut self, threshold: Duration) -> PublisherBuilder {
+        self.batching_options = self.batching_options.set_delay_threshold(threshold);
         self
     }
 
@@ -192,6 +227,14 @@ impl PublisherBuilder {
     }
 }
 
+/// A command sent from the `Publisher` to the background `Worker`.
+enum ToWorker {
+    /// A request to publish a single message.
+    Publish(BundledMessage),
+    /// A request to flush all outstanding messages.
+    Flush(oneshot::Sender<()>),
+}
+
 /// Object that is passed to the worker task over the
 /// main channel. This represents a single message and the sender
 /// half of the channel to resolve the [PublishHandle].
@@ -209,7 +252,7 @@ struct Worker {
     client: GapicPublisher,
     #[allow(dead_code)]
     batching_options: BatchingOptions,
-    rx: mpsc::UnboundedReceiver<BundledMessage>,
+    rx: mpsc::UnboundedReceiver<ToWorker>,
 }
 
 impl Worker {
@@ -217,7 +260,7 @@ impl Worker {
         topic_name: String,
         client: GapicPublisher,
         batching_options: BatchingOptions,
-        rx: mpsc::UnboundedReceiver<BundledMessage>,
+        rx: mpsc::UnboundedReceiver<ToWorker>,
     ) -> Self {
         Self {
             topic_name,
@@ -227,50 +270,74 @@ impl Worker {
         }
     }
 
+    /// The main loop of the background worker.
+    ///
+    /// This method concurrently handles four main events:
+    ///
+    /// 1. Messages from the `Publisher` are received from the `rx` channel
+    ///    and added to the current `batch`.
+    /// 2. A timer is armed when the first message is added to a batch.
+    ///    If that timer fires, the batch is sent.
+    /// 3. A `Flush` command from the `Publisher` causes the current batch to be
+    ///    sent immediately, and all in-flight send tasks to be awaited.
+    /// 4. The `inflight` set is continuously polled to remove `JoinHandle`s for
+    ///    send tasks that have completed, preventing the set from growing indefinitely.
+    ///
+    /// The loop terminates when the `rx` channel is closed, which happens when all
+    /// `Publisher` clones have been dropped.
     async fn run(mut self) {
         let mut batch = Batch::new();
         let delay = self.batching_options.delay_threshold;
         let message_limit = self.batching_options.message_count_threshold;
-
-        let flush = |b: Batch| {
-            tokio::spawn(b.send(self.client.clone(), self.topic_name.clone()));
-        };
+        let mut inflight = FuturesUnordered::new();
 
         let timer = tokio::time::sleep(delay);
         // Pin the timer to the stack.
         tokio::pin!(timer);
         loop {
             tokio::select! {
+                // Remove finished futures from the inflight messages.
+                _ = inflight.next(), if !inflight.is_empty() => {},
                 // Handle timer events.
                 // This branch will only be checked when there is a non-empty batch,
                 // so this will not fire continuously.
                 _ = &mut timer, if !batch.is_empty() => {
-                    flush(std::mem::take(&mut batch));
+                    batch.flush(self.client.clone(), self.topic_name.clone(), &mut inflight);
                 }
                 // Handle receiving a message from the channel.
                 msg = self.rx.recv() => {
                     match msg {
-                        Some(msg) => {
+                        Some(ToWorker::Publish(msg)) => {
                             // Reset the timer if this is the first message to be added to the batch.
                             if batch.is_empty() {
                                 timer.as_mut().reset(tokio::time::Instant::now() + delay);
                             }
                             batch.push(msg);
                             if batch.len() as u32 >= message_limit {
-                                flush(std::mem::take(&mut batch));
+                                batch.flush(self.client.clone(), self.topic_name.clone(), &mut inflight);
                             }
+                        },
+                        Some(ToWorker::Flush(tx)) => {
+                            batch.flush(self.client.clone(), self.topic_name.clone(), &mut inflight);
+                            // Wait on all the tasks that exist right now.
+                            // We could instead tokio::spawn this as well so the publisher
+                            // can keep working on additional messages. The worker would
+                            // also need to keep track of any pending flushes, and make sure
+                            // all of those resolve as well.
+                            let mut flushing = std::mem::take(&mut inflight);
+                            while flushing.next().await.is_some() {}
+                            let _ = tx.send(());
                         },
                         None => {
                             // The sender has been dropped send batch and stop running.
                             // This isn't guaranteed to execute if a user does not .await on the
                             // corresponding PublishHandles for the batch and the program ends.
-                            if !batch.is_empty() {
-                                flush(batch);
-                            }
+                            batch.flush(self.client.clone(), self.topic_name.clone(), &mut inflight);
                             break;
                         }
                     }
                 }
+
             }
         }
     }
@@ -306,6 +373,27 @@ impl Batch {
 
     fn push(&mut self, msg: BundledMessage) {
         self.messages.push(msg);
+    }
+
+    /// Drains the batch and spawns a task to send the messages.
+    ///
+    /// This method mutably drains the messages from the current batch, leaving it
+    /// empty, and returns a `JoinHandle` for the spawned send operation. This allows
+    /// the `Worker` to immediately begin creating a new batch while the old one is
+    /// being sent in the background.
+    fn flush(
+        &mut self,
+        client: GapicPublisher,
+        topic: String,
+        inflight: &mut FuturesUnordered<tokio::task::JoinHandle<()>>,
+    ) {
+        if self.is_empty() {
+            return;
+        }
+        let batch_to_send = Self {
+            messages: self.messages.drain(..).collect(),
+        };
+        inflight.push(tokio::spawn(batch_to_send.send(client, topic)));
     }
 
     /// Send the batch to the service and process the results.
@@ -375,7 +463,7 @@ mod tests {
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherBuilder::new(client, "my-topic".to_string())
-            .with_batching(BatchingOptions::default().set_message_count_threshold(1_u32))
+            .set_message_count_threshold(1_u32)
             .build();
 
         let messages = vec![
@@ -414,11 +502,8 @@ mod tests {
         });
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherBuilder::new(client, "my-topic".to_string())
-            .with_batching(
-                BatchingOptions::new()
-                    .set_message_count_threshold(1000_u32)
-                    .set_delay_threshold(Duration::from_secs(60)),
-            )
+            .set_message_count_threshold(1000_u32)
+            .set_delay_threshold(Duration::from_secs(60))
             .build();
 
         let start = tokio::time::Instant::now();
@@ -456,7 +541,7 @@ mod tests {
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherBuilder::new(client, "my-topic".to_string())
-            .with_batching(BatchingOptions::default().set_message_count_threshold(1_u32))
+            .set_message_count_threshold(1_u32)
             .build();
 
         let messages = vec![
@@ -474,6 +559,110 @@ mod tests {
             let got = rx.await;
             assert!(got.is_err());
         }
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn test_worker_flush() {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish().returning({
+            |r, _| {
+                assert_eq!(r.topic, "my-topic");
+                let ids = r
+                    .messages
+                    .iter()
+                    .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
+                Ok(gax::response::Response::from(
+                    PublishResponse::new().set_message_ids(ids),
+                ))
+            }
+        });
+
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+            // Set a long delay.
+            .set_message_count_threshold(1000_u32)
+            .set_delay_threshold(Duration::from_secs(60))
+            .build();
+
+        let start = tokio::time::Instant::now();
+        let messages = vec![
+            PubsubMessage::new().set_data("hello".to_string()),
+            PubsubMessage::new().set_data("world".to_string()),
+        ];
+        let mut handles = Vec::new();
+        for msg in messages {
+            let handle = publisher.publish(msg.clone());
+            handles.push((msg, handle));
+        }
+
+        publisher.flush().await;
+        assert_eq!(start.elapsed(), Duration::ZERO);
+
+        let post = publisher.publish(PubsubMessage::new().set_data("after".to_string()));
+        for (id, rx) in handles.into_iter() {
+            let got = rx.await.expect("expected message id");
+            let id = String::from_utf8(id.data.to_vec()).unwrap();
+            assert_eq!(got, id);
+            assert_eq!(start.elapsed(), Duration::ZERO);
+        }
+
+        // The last message is only sent after the next timeout
+        // (worker does not continue to flush).
+        let got = post.await.expect("expected message id");
+        assert_eq!(got, "after");
+        assert_eq!(start.elapsed(), Duration::from_secs(60));
+    }
+
+    // User's should be able to drop handles and the messages will still send.
+    #[tokio::test(start_paused = true)]
+    async fn test_worker_drop_handles() {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish().return_once({
+            move |r, _| {
+                assert_eq!(r.topic, "my-topic");
+                let ids = r
+                    .messages
+                    .iter()
+                    .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
+                assert_eq!(ids.len(), 2);
+                let ids = ids.collect::<Vec<_>>();
+                assert_eq!(ids.clone(), vec!["hello", "world"]);
+                Ok(gax::response::Response::from(
+                    PublishResponse::new().set_message_ids(ids),
+                ))
+            }
+        });
+
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+            // Set a long delay.
+            .set_message_count_threshold(1000_u32)
+            .set_delay_threshold(Duration::from_secs(60))
+            .build();
+
+        let start = tokio::time::Instant::now();
+        let messages = vec![
+            PubsubMessage::new().set_data("hello".to_string()),
+            PubsubMessage::new().set_data("world".to_string()),
+        ];
+        for msg in messages {
+            publisher.publish(msg.clone());
+        }
+
+        publisher.flush().await;
+        assert_eq!(start.elapsed(), Duration::ZERO);
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn test_empty_flush() {
+        let mock = MockGapicPublisher::new();
+
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string()).build();
+
+        let start = tokio::time::Instant::now();
+        publisher.flush().await;
+        assert_eq!(start.elapsed(), Duration::ZERO);
     }
 
     #[tokio::test]
@@ -496,13 +685,8 @@ mod tests {
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherBuilder::new(client, "my-topic".to_string())
-            .with_batching(BatchingOptions {
-                message_count_threshold: 2_u32,
-                // Maximizing byte and delay threshold to make sure that
-                // message count is the metric used.
-                byte_threshold: u32::MAX,
-                delay_threshold: std::time::Duration::MAX,
-            })
+            .set_message_count_threshold(2_u32)
+            .set_delay_threshold(std::time::Duration::MAX)
             .build();
 
         let messages = vec![
@@ -536,13 +720,8 @@ mod tests {
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherBuilder::new(client, "my-topic".to_string())
-            .with_batching(BatchingOptions {
-                message_count_threshold: 2_u32,
-                // Maximizing byte and delay threshold to make sure that
-                // message count is the metric used.
-                byte_threshold: u32::MAX,
-                delay_threshold: std::time::Duration::MAX,
-            })
+            .set_message_count_threshold(2_u32)
+            .set_delay_threshold(std::time::Duration::MAX)
             .build();
 
         let messages = vec![
@@ -580,13 +759,8 @@ mod tests {
         let client = GapicPublisher::from_stub(mock);
         let delay = std::time::Duration::from_millis(10);
         let publisher = PublisherBuilder::new(client, "my-topic".to_string())
-            .with_batching(BatchingOptions {
-                delay_threshold: delay,
-                // Maximizing byte and message count threshold to make sure that
-                // delay is used.
-                byte_threshold: u32::MAX,
-                message_count_threshold: u32::MAX,
-            })
+            .set_message_count_threshold(u32::MAX)
+            .set_delay_threshold(delay)
             .build();
 
         // Test that messages send after delay.
@@ -618,11 +792,9 @@ mod tests {
 
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
-        let client = PublisherFactory::builder().build().await?;
-        let builder = client.publisher("projects/my-project/topics/my-topic".to_string());
-        let publisher = builder
-            .with_batching(BatchingOptions::new().set_message_count_threshold(1_u32))
-            .build();
+        let factory = PublisherFactory::builder().build().await?;
+        let builder = factory.publisher("projects/my-project/topics/my-topic".to_string());
+        let publisher = builder.set_message_count_threshold(1_u32).build();
         assert_eq!(publisher.batching_options.message_count_threshold, 1_u32);
         Ok(())
     }
@@ -660,23 +832,23 @@ mod tests {
         let client = PublisherFactory::builder().build().await?;
         let publisher = client
             .publisher("projects/my-project/topics/my-topic".to_string())
-            .with_batching(oversized_options)
+            .set_delay_threshold(oversized_options.delay_threshold)
+            .set_message_count_threshold(oversized_options.message_count_threshold)
             .build();
         let got = publisher.batching_options;
 
         assert_eq!(got.delay_threshold, MAX_DELAY);
         assert_eq!(got.message_count_threshold, MAX_MESSAGES);
-        assert_eq!(got.byte_threshold, MAX_BYTES);
 
         // Test values that are within limits and should not be changed.
         let normal_options = BatchingOptions::new()
             .set_delay_threshold(Duration::from_secs(10))
-            .set_message_count_threshold(10_u32)
-            .set_byte_threshold(100_u32);
+            .set_message_count_threshold(10_u32);
 
         let publisher = client
             .publisher("projects/my-project/topics/my-topic".to_string())
-            .with_batching(normal_options.clone())
+            .set_delay_threshold(normal_options.delay_threshold)
+            .set_message_count_threshold(normal_options.message_count_threshold)
             .build();
         let got = publisher.batching_options;
 
@@ -685,7 +857,6 @@ mod tests {
             got.message_count_threshold,
             normal_options.message_count_threshold
         );
-        assert_eq!(got.byte_threshold, normal_options.byte_threshold);
 
         Ok(())
     }

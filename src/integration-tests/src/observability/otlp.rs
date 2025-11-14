@@ -110,15 +110,20 @@ impl CloudTelemetryTracerProviderBuilder {
             ])
             .build();
 
+        let is_https = self.endpoint.starts_with("https");
         let mut exporter_builder = opentelemetry_otlp::SpanExporter::builder()
             .with_tonic()
             .with_endpoint(self.endpoint)
             .with_interceptor(interceptor);
 
-        let tls_config = ClientTlsConfig::new()
-            .with_enabled_roots()
-            .domain_name(self.domain_name);
-        exporter_builder = exporter_builder.with_tls_config(tls_config);
+        // Only enable TLS if the endpoint is HTTPS.
+        // This allows using http://localhost for testing.
+        if is_https {
+            let tls_config = ClientTlsConfig::new()
+                .with_enabled_roots()
+                .domain_name(self.domain_name);
+            exporter_builder = exporter_builder.with_tls_config(tls_config);
+        }
 
         let exporter = exporter_builder
             .build()
@@ -136,6 +141,35 @@ impl CloudTelemetryTracerProviderBuilder {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use opentelemetry::trace::{Tracer, TracerProvider as _};
+
+    /// A test credentials provider that returns static, known values.
+    ///
+    /// This provider is used to verify that the authentication interceptor correctly
+    /// retrieves and injects credentials. It returns a fixed "Bearer test-token"
+    /// authorization header and "test-project" project header.
+    #[derive(Debug)]
+    pub struct TestTokenProvider;
+    impl ::auth::credentials::CredentialsProvider for TestTokenProvider {
+        async fn headers(
+            &self,
+            _: http::Extensions,
+        ) -> Result<
+            ::auth::credentials::CacheableResource<http::HeaderMap>,
+            ::auth::errors::CredentialsError,
+        > {
+            let mut map = http::HeaderMap::new();
+            map.insert("authorization", "Bearer test-token".parse().unwrap());
+            map.insert("x-goog-user-project", "test-project".parse().unwrap());
+            Ok(::auth::credentials::CacheableResource::New {
+                entity_tag: ::auth::credentials::EntityTag::new(),
+                data: map,
+            })
+        }
+        async fn universe_domain(&self) -> Option<String> {
+            None
+        }
+    }
 
     #[tokio::test]
     async fn test_builder_configuration() {
@@ -154,5 +188,63 @@ mod tests {
         let debug_output = format!("{:?}", provider);
         assert!(debug_output.contains(project_id));
         assert!(debug_output.contains(service_name));
+    }
+
+    /// Tests that the provider sends authenticated results to a mock
+    /// collector.
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn test_otlp_export_with_mock_collector() {
+        use crate::observability::mock_collector::MockCollector;
+
+        let mock_collector = MockCollector::default();
+        let endpoint = mock_collector.start().await;
+
+        let credentials = Credentials::from(TestTokenProvider);
+
+        let provider = CloudTelemetryTracerProviderBuilder::new("test-project", "test-service")
+            .with_credentials(credentials)
+            .with_endpoint(endpoint)
+            .build()
+            .await
+            .expect("failed to build provider");
+
+        let tracer = provider.tracer("test-tracer");
+        tracer.start("test-span");
+
+        // Wait for credentials to be refreshed
+        tokio::time::sleep(std::time::Duration::from_millis(100)).await;
+
+        // Force flush to ensure spans are sent
+        let _ = provider.force_flush();
+
+        let requests = mock_collector.requests.lock().unwrap();
+        assert!(
+            !requests.is_empty(),
+            "mock collector should have received requests"
+        );
+
+        let request = &requests[0];
+        let resource_spans = &request.resource_spans;
+        assert!(!resource_spans.is_empty());
+        let scope_spans = &resource_spans[0].scope_spans;
+        assert!(!scope_spans.is_empty());
+        let spans = &scope_spans[0].spans;
+        assert!(!spans.is_empty());
+        assert_eq!(spans[0].name, "test-span");
+
+        let headers = mock_collector.headers.lock().unwrap();
+        let last_headers = headers.last().unwrap();
+        assert_eq!(
+            last_headers.get("x-goog-user-project").unwrap(),
+            "test-project"
+        );
+        assert!(
+            last_headers
+                .get("authorization")
+                .unwrap()
+                .to_str()
+                .unwrap()
+                .starts_with("Bearer ")
+        );
     }
 }
