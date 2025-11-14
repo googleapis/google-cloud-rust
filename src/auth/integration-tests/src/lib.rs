@@ -594,7 +594,7 @@ pub mod unstable {
             .await
             .expect("failed to get id token");
 
-        let verifier = VerifierBuilder::new(vec![target_audience])
+        let verifier = VerifierBuilder::new([target_audience])
             .with_email(expected_email)
             .build();
 
@@ -620,7 +620,7 @@ pub mod unstable {
             .await
             .expect("failed to get id token");
 
-        let verifier = VerifierBuilder::new(vec![target_audience])
+        let verifier = VerifierBuilder::new([target_audience])
             .with_email(expected_email)
             .build();
 
@@ -652,7 +652,7 @@ pub mod unstable {
             .await
             .expect("failed to generate id token");
 
-        let verifier = VerifierBuilder::new(vec![target_audience])
+        let verifier = VerifierBuilder::new([target_audience])
             .with_email(target_principal_email)
             .build();
 
