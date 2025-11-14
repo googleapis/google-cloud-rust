@@ -17,5 +17,5 @@ specification-source = 'google/cloud/securesourcemanager/v1'
 service-config = 'google/cloud/securesourcemanager/v1/securesourcemanager_v1.yaml'
 
 [codec]
-version        = '1.2.0'
+version        = '1.2.1'
 copyright-year = '2025'
