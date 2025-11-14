@@ -173,30 +173,20 @@ async fn test_http_tracing_success_testlayer() -> anyhow::Result<()> {
 
     let spans = TestLayer::capture(&guard);
 
-    let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
-    let t3_span = spans.iter().find(|s| {
-        s.name == "client_request"
-            && s.attributes
-                .get("otel.name")
-                .and_then(|v| v.as_string())
-                .as_deref()
-                == Some(expected_otel_name)
-    });
+    let client_request_spans: Vec<_> = spans
+        .iter()
+        .filter(|s| s.name == "client_request")
+        .collect();
 
-    assert!(
-        t3_span.is_some(),
-        "Should have a T3 Client Request Span with otel.name '{}'. Found spans: {:?}",
-        expected_otel_name,
+    assert_eq!(
+        client_request_spans.len(),
+        1,
+        "Should have exactly one 'client_request' span. Found spans: {:?}",
         spans
-            .iter()
-            .map(|s| format!(
-                "name={}, otel.name={:?}",
-                s.name,
-                s.attributes.get("otel.name")
-            ))
-            .collect::<Vec<_>>()
     );
-    let t3_span = t3_span.unwrap();
+
+    let t3_span = client_request_spans[0];
+    let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
 
     let expected_attributes: HashMap<String, AttributeValue> = [
         ("otel.name", expected_otel_name.into()),
@@ -259,30 +249,20 @@ async fn test_http_tracing_parse_error() -> anyhow::Result<()> {
 
     let spans = TestLayer::capture(&guard);
 
-    let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
-    let t3_span = spans.iter().find(|s| {
-        s.name == "client_request"
-            && s.attributes
-                .get("otel.name")
-                .and_then(|v| v.as_string())
-                .as_deref()
-                == Some(expected_otel_name)
-    });
+    let client_request_spans: Vec<_> = spans
+        .iter()
+        .filter(|s| s.name == "client_request")
+        .collect();
 
-    assert!(
-        t3_span.is_some(),
-        "Should have a T3 Client Request Span with otel.name '{}'. Found spans: {:?}",
-        expected_otel_name,
+    assert_eq!(
+        client_request_spans.len(),
+        1,
+        "Should have exactly one 'client_request' span. Found spans: {:?}",
         spans
-            .iter()
-            .map(|s| format!(
-                "name={}, otel.name={:?}",
-                s.name,
-                s.attributes.get("otel.name")
-            ))
-            .collect::<Vec<_>>()
     );
-    let t3_span = t3_span.unwrap();
+
+    let t3_span = client_request_spans[0];
+    let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
 
     let expected_attributes: HashMap<String, AttributeValue> = [
         ("otel.name", expected_otel_name.into()),
@@ -351,30 +331,20 @@ async fn test_http_tracing_api_error() -> anyhow::Result<()> {
 
     let spans = TestLayer::capture(&guard);
 
-    let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
-    let t3_span = spans.iter().find(|s| {
-        s.name == "client_request"
-            && s.attributes
-                .get("otel.name")
-                .and_then(|v| v.as_string())
-                .as_deref()
-                == Some(expected_otel_name)
-    });
+    let client_request_spans: Vec<_> = spans
+        .iter()
+        .filter(|s| s.name == "client_request")
+        .collect();
 
-    assert!(
-        t3_span.is_some(),
-        "Should have a T3 Client Request Span with otel.name '{}'. Found spans: {:?}",
-        expected_otel_name,
+    assert_eq!(
+        client_request_spans.len(),
+        1,
+        "Should have exactly one 'client_request' span. Found spans: {:?}",
         spans
-            .iter()
-            .map(|s| format!(
-                "name={}, otel.name={:?}",
-                s.name,
-                s.attributes.get("otel.name")
-            ))
-            .collect::<Vec<_>>()
     );
-    let t3_span = t3_span.unwrap();
+
+    let t3_span = client_request_spans[0];
+    let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
 
     let expected_attributes: HashMap<String, AttributeValue> = [
         ("otel.name", expected_otel_name.into()),
