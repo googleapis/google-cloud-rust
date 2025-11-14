@@ -131,7 +131,7 @@ impl Format {
 /// metadata service.
 pub struct Builder {
     endpoint: Option<String>,
-    format: Option<Format>,
+    pub(crate) format: Option<Format>,
     licenses: Option<String>,
     target_audience: String,
 }
