@@ -17,5 +17,5 @@ specification-source = 'google/cloud/securityposture/v1'
 service-config = 'google/cloud/securityposture/v1/securityposture_v1.yaml'
 
 [codec]
-version        = '1.1.0'
+version        = '1.2.0'
 copyright-year = '2025'

@@ -61,7 +61,7 @@ pub fn to_gax_error(status: tonic::Status) -> Error {
     }
 
     let gax_status = to_gax_status(&status);
-    gax::error::Error::service_with_http_metadata(gax_status, None, Some(headers))
+    gax::error::Error::service_full(gax_status, None, Some(headers), Some(Box::new(status)))
 }
 
 #[derive(Debug, thiserror::Error)]
@@ -111,16 +111,24 @@ mod tests {
 
     #[test]
     fn gax_error() {
-        let mut status = tonic::Status::invalid_argument("test-only");
-        status.metadata_mut().append(
+        let mut input = tonic::Status::invalid_argument("test-only");
+        input.metadata_mut().append(
             "content-type",
             tonic::metadata::AsciiMetadataValue::from_static("application/grpc"),
         );
-        let got = to_gax_error(status);
+        let got = to_gax_error(input.clone());
         assert!(got.status().is_some(), "{got:?}");
         let status = got.status().unwrap();
         assert_eq!(status.code, Code::InvalidArgument);
         assert_eq!(&status.message, "test-only");
+
+        let source = got
+            .source()
+            .and_then(|e| e.downcast_ref::<tonic::Status>())
+            .unwrap();
+        assert_eq!(source.code(), input.code());
+        assert_eq!(source.message(), input.message());
+        assert_eq!(source.details(), input.details());
     }
 
     #[test]

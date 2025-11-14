@@ -8703,8 +8703,10 @@ impl OrganizationSecurityPolicies {
     /// hierarchical security policies will be automatically enrolled into Cloud
     /// Armor Enterprise if not already enrolled.
     ///
-    /// Use of this API to modify firewall policies is deprecated. Use
-    /// firewallPolicies.addAssociation instead if possible.
+    /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to modify firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.addAssociation
+    /// instead.
     pub fn add_association(
         &self,
     ) -> super::builder::organization_security_policies::AddAssociation {
@@ -8712,38 +8714,48 @@ impl OrganizationSecurityPolicies {
     }
 
     /// Inserts a rule into a security policy.
+    ///
+    /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to modify firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.addRule instead.
     pub fn add_rule(&self) -> super::builder::organization_security_policies::AddRule {
         super::builder::organization_security_policies::AddRule::new(self.inner.clone())
     }
 
     /// Copies rules to the specified security policy.
     ///
-    /// Use of this API to modify firewall policies is deprecated. Use
-    /// firewallPolicies.copyRules instead.
+    /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to modify firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.cloneRules
+    /// instead.
     pub fn copy_rules(&self) -> super::builder::organization_security_policies::CopyRules {
         super::builder::organization_security_policies::CopyRules::new(self.inner.clone())
     }
 
     /// Deletes the specified policy.
     ///
-    /// Use of this API to remove firewall policies is deprecated. Use
-    /// firewallPolicies.delete instead.
+    /// Use this API to remove Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to remove firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.delete instead.
     pub fn delete(&self) -> super::builder::organization_security_policies::Delete {
         super::builder::organization_security_policies::Delete::new(self.inner.clone())
     }
 
     /// List all of the ordered rules present in a single specified policy.
     ///
-    /// Use of this API to read firewall policies is deprecated. Use
-    /// firewallPolicies.get instead.
+    /// Use this API to read Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to read firewall policies. This usage is now
+    /// disabled for most organizations. Use firewallPolicies.get instead.
     pub fn get(&self) -> super::builder::organization_security_policies::Get {
         super::builder::organization_security_policies::Get::new(self.inner.clone())
     }
 
     /// Gets an association with the specified name.
     ///
-    /// Use of this API to read firewall policies is deprecated. Use
-    /// firewallPolicies.getAssociation instead if possible.
+    /// Use this API to read Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to read firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.getAssociation
+    /// instead.
     pub fn get_association(
         &self,
     ) -> super::builder::organization_security_policies::GetAssociation {
@@ -8752,8 +8764,9 @@ impl OrganizationSecurityPolicies {
 
     /// Gets a rule at the specified priority.
     ///
-    /// Use of this API to read firewall policies is deprecated. Use
-    /// firewallPolicies.getRule instead.
+    /// Use this API to read Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to read firewall policies. This usage is now
+    /// disabled for most organizations. Use firewallPolicies.getRule instead.
     pub fn get_rule(&self) -> super::builder::organization_security_policies::GetRule {
         super::builder::organization_security_policies::GetRule::new(self.inner.clone())
     }
@@ -8761,8 +8774,9 @@ impl OrganizationSecurityPolicies {
     /// Creates a new policy in the specified organization using the data included
     /// in the request.
     ///
-    /// Use of this API to insert firewall policies is deprecated. Use
-    /// firewallPolicies.insert instead.
+    /// Use this API to add Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to add firewall policies. This usage is now
+    /// disabled for most organizations. Use firewallPolicies.insert instead.
     pub fn insert(&self) -> super::builder::organization_security_policies::Insert {
         super::builder::organization_security_policies::Insert::new(self.inner.clone())
     }
@@ -8770,16 +8784,19 @@ impl OrganizationSecurityPolicies {
     /// List all the policies that have been configured for the specified
     /// organization.
     ///
-    /// Use of this API to read firewall policies is deprecated. Use
-    /// firewallPolicies.list instead.
+    /// Use this API to read Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to read firewall policies. This usage is now
+    /// disabled for most organizations. Use firewallPolicies.list instead.
     pub fn list(&self) -> super::builder::organization_security_policies::List {
         super::builder::organization_security_policies::List::new(self.inner.clone())
     }
 
     /// Lists associations of a specified target, i.e., organization or folder.
     ///
-    /// Use of this API to read firewall policies is deprecated. Use
-    /// firewallPolicies.listAssociations instead if possible.
+    /// Use this API to read Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to read firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.listAssociations
+    /// instead.
     pub fn list_associations(
         &self,
     ) -> super::builder::organization_security_policies::ListAssociations {
@@ -8798,32 +8815,38 @@ impl OrganizationSecurityPolicies {
 
     /// Moves the specified security policy.
     ///
-    /// Use of this API to modify firewall policies is deprecated. Use
-    /// firewallPolicies.move instead.
+    /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to modify firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.move instead.
     pub fn r#move(&self) -> super::builder::organization_security_policies::Move {
         super::builder::organization_security_policies::Move::new(self.inner.clone())
     }
 
     /// Patches the specified policy with the data included in the request.
     ///
-    /// Use of this API to modify firewall policies is deprecated. Use
-    /// firewallPolicies.patch instead.
+    /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to modify firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.patch instead.
     pub fn patch(&self) -> super::builder::organization_security_policies::Patch {
         super::builder::organization_security_policies::Patch::new(self.inner.clone())
     }
 
     /// Patches a rule at the specified priority.
     ///
-    /// Use of this API to modify firewall policies is deprecated. Use
-    /// firewallPolicies.patchRule instead.
+    /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to modify firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.patchRule
+    /// instead.
     pub fn patch_rule(&self) -> super::builder::organization_security_policies::PatchRule {
         super::builder::organization_security_policies::PatchRule::new(self.inner.clone())
     }
 
     /// Removes an association for the specified security policy.
     ///
-    /// Use of this API to modify firewall policies is deprecated. Use
-    /// firewallPolicies.removeAssociation instead if possible.
+    /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to modify firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.removeAssociation
+    /// instead.
     pub fn remove_association(
         &self,
     ) -> super::builder::organization_security_policies::RemoveAssociation {
@@ -8831,6 +8854,11 @@ impl OrganizationSecurityPolicies {
     }
 
     /// Deletes a rule at the specified priority.
+    ///
+    /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
+    /// versions of this API were used to modify firewall policies. This usage is
+    /// now disabled for most organizations. Use firewallPolicies.removeRule
+    /// instead.
     pub fn remove_rule(&self) -> super::builder::organization_security_policies::RemoveRule {
         super::builder::organization_security_policies::RemoveRule::new(self.inner.clone())
     }

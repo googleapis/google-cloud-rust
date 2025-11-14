@@ -48,36 +48,80 @@ pub(crate) mod publisher;
 pub use gax::Result;
 pub use gax::error::Error;
 
+/// Request and client builders.
 pub mod builder {
-    pub use crate::generated::gapic::builder::*;
+    /// Request and client builders for the [Publisher][crate::client::Publisher] client.
     pub mod publisher {
         #[doc(hidden)]
         pub use crate::generated::gapic_dataplane::builder::publisher::*;
-        pub use crate::publisher::client::ClientBuilder;
+        pub use crate::publisher::client::PublisherFactoryBuilder;
         pub use crate::publisher::publisher::PublisherBuilder;
     }
-}
-pub mod model {
-    pub use crate::generated::gapic::model::*;
-    pub use crate::generated::gapic_dataplane::model::*;
+    /// Request and client builders for the [SchemaService][crate::client::SchemaService] client.
+    pub use crate::generated::gapic::builder::schema_service;
+    /// Request and client builders for the [SubscriptionAdmin][crate::client::SubscriptionAdmin] client.
+    pub use crate::generated::gapic::builder::subscription_admin;
+    /// Request and client builders for the [TopicAdmin][crate::client::TopicAdmin] client.
+    pub use crate::generated::gapic::builder::topic_admin;
 }
 
+/// The messages and enums that are part of this client library.
+pub mod model {
+    pub use crate::generated::gapic::model::*;
+    pub use crate::generated::gapic_dataplane::model::PubsubMessage;
+    pub(crate) use crate::generated::gapic_dataplane::model::{PublishRequest, PublishResponse};
+}
+
+/// Extends [model] with types that improve type safety and/or ergonomics.
 pub mod model_ext {
     pub use crate::publisher::model_ext::*;
 }
 
+/// Clients to interact with Google Cloud Pub/Sub.
+///
+/// This module contains the primary entry points for the library, including
+/// clients for publishing messages and managing topics and subscriptions.
+///
+/// # Example: Publishing Messages
+///
+/// ```
+/// # async fn sample() -> anyhow::Result<()> {
+/// use google_cloud_pubsub::client::PublisherFactory;
+/// use google_cloud_pubsub::model::PubsubMessage;
+///
+/// // Create a factory for creating publishers.
+/// let factory = PublisherFactory::builder().build().await?;
+///
+/// // Create a publisher that handles batching for a specific topic.
+/// let publisher = factory.publisher("projects/my-project/topics/my-topic").build();
+///
+/// // Publish several messages.
+/// // The client will automatically batch them in the background.
+/// let mut handles = Vec::new();
+/// for i in 0..10 {
+///     let msg = PubsubMessage::new().set_data(format!("message {}", i));
+///     handles.push(publisher.publish(msg));
+/// }
+///
+/// // The handles are futures that resolve to the server-assigned message IDs.
+/// // You can await them to get the results. Messages will still be sent even
+/// // if the handles are dropped.
+/// for (i, handle) in handles.into_iter().enumerate() {
+///     let message_id = handle.await?;
+///     println!("Message {} sent with ID: {}", i, message_id);
+/// }
+/// # Ok(())
+/// # }
+/// ```
 pub mod client {
     pub use crate::generated::gapic::client::*;
     pub use crate::publisher::client::PublisherFactory;
     pub use crate::publisher::publisher::Publisher;
 }
+
+/// Traits to mock the clients in this library.
 pub mod stub {
     pub use crate::generated::gapic::stub::*;
-}
-pub mod options {
-    pub mod publisher {
-        pub use crate::publisher::options::BatchingOptions;
-    }
 }
 
 const DEFAULT_HOST: &str = "https://pubsub.googleapis.com";

@@ -57,12 +57,24 @@ pub mod keys {
     ///
     /// Always "rust".
     pub const GCP_CLIENT_LANGUAGE: &str = "gcp.client.language";
+    /// The Google Cloud resource name.
+    ///
+    /// Example: //pubsub.googleapis.com/projects/my-project/topics/my-topic
+    pub const GCP_RESOURCE_NAME: &str = "gcp.resource.name";
+    /// The number of times this same gRPC request has been resent due to retries.
+    ///
+    /// 1 for the first retry.
+    pub const GCP_GRPC_RESEND_COUNT: &str = "gcp.grpc.resend_count";
 }
 
 /// Value for [keys::OTEL_KIND].
 pub const OTEL_KIND_CLIENT: &str = "Client";
+/// Value for [keys::OTEL_KIND].
+pub const OTEL_KIND_INTERNAL: &str = "Internal";
 /// Value for `rpc.system`.
 pub const RPC_SYSTEM_HTTP: &str = "http";
+/// Value for `rpc.system`.
+pub const RPC_SYSTEM_GRPC: &str = "grpc";
 /// Value for [keys::GCP_CLIENT_REPO].
 pub const GCP_CLIENT_REPO_GOOGLEAPIS: &str = "googleapis/google-cloud-rust";
 /// Value for [keys::GCP_CLIENT_LANGUAGE].

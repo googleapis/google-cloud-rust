@@ -50,17 +50,15 @@ pub struct PublisherFactory {
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
-/// # use builder::publisher::ClientBuilder;
+/// # use builder::publisher::PublisherFactoryBuilder;
 /// # use client::PublisherFactory;
-/// let builder : ClientBuilder = PublisherFactory::builder();
-/// let client = builder
+/// let builder: PublisherFactoryBuilder = PublisherFactory::builder();
+/// let factory = builder
 ///     .with_endpoint("https://pubsub.googleapis.com")
 ///     .build().await?;
-/// let publisher_a = client.publisher("projects/my-project/topics/topic-a").build();
-/// let publisher_b = client.publisher("projects/my-project/topics/topic-b").build();
 /// # Ok(()) }
 /// ```
-pub type ClientBuilder =
+pub type PublisherFactoryBuilder =
     gax::client_builder::ClientBuilder<client_builder::Factory, gaxi::options::Credentials>;
 
 pub(crate) mod client_builder {
@@ -87,10 +85,10 @@ impl PublisherFactory {
     /// ```no_run
     /// # tokio_test::block_on(async {
     /// # use google_cloud_pubsub::client::PublisherFactory;
-    /// let client = PublisherFactory::builder().build().await?;
+    /// let factory = PublisherFactory::builder().build().await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
-    pub fn builder() -> ClientBuilder {
+    pub fn builder() -> PublisherFactoryBuilder {
         gax::client_builder::internal::new_builder(client_builder::Factory)
     }
 
@@ -107,13 +105,11 @@ impl PublisherFactory {
     /// ```
     /// # async fn sample() -> anyhow::Result<()> {
     /// # use google_cloud_pubsub::*;
-    /// # use builder::publisher::ClientBuilder;
+    /// # use builder::publisher::PublisherFactoryBuilder;
     /// # use client::PublisherFactory;
     /// # use model::PubsubMessage;
-    /// let client = PublisherFactory::builder()
-    ///     .with_endpoint("https://pubsub.googleapis.com")
-    ///     .build().await?;
-    /// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
+    /// let factory = PublisherFactory::builder().build().await?;
+    /// let publisher = factory.publisher("projects/my-project/topics/my-topic").build();
     /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World")).await?;
     /// # Ok(()) }
     /// ```
