@@ -93,10 +93,10 @@ impl NormalizedRange {
                 expected: self.offset,
             });
         }
-        match (self.length, update.length) {
-            (None, _) => (),
-            (Some(_), None) => (),
-            (Some(expected), Some(got)) if got <= expected => (),
+        self.length = match (self.length, update.length) {
+            (None, _) => None,
+            (Some(l), None) => Some(l),
+            (Some(expected), Some(got)) if got <= expected => Some(expected - got),
             (Some(expected), Some(got)) => {
                 return Err(ReadError::LongRead {
                     got: got as u64,
@@ -105,17 +105,6 @@ impl NormalizedRange {
             }
         };
         self.offset = update.offset + update.length().unwrap_or_default();
-        self.length = match (&self.length, &update.length) {
-            (None, _) => None,
-            (Some(l), None) => Some(*l),
-            (Some(expected), Some(got)) if expected < got => {
-                return Err(ReadError::LongRead {
-                    got: *got as u64,
-                    expected: *expected as u64,
-                });
-            }
-            (Some(expected), Some(got)) => Some(*expected - *got),
-        };
         Ok(())
     }
 
