@@ -125,3 +125,170 @@ async fn test_http_tracing_to_otlp() -> anyhow::Result<()> {
 
     Ok(())
 }
+
+#[cfg(google_cloud_unstable_tracing)]
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn test_http_tracing_success_testlayer() -> anyhow::Result<()> {
+    use google_cloud_test_utils::test_layer::TestLayer;
+    use httptest::{Expectation, Server, matchers::*, responders::status_code};
+
+    // 1. Initialize TestLayer
+    let guard = TestLayer::initialize();
+
+    // 2. Start Mock HTTP Server
+    let echo_server = Server::run();
+    echo_server.expect(
+        Expectation::matching(all_of![
+            request::method("POST"),
+            request::path("/v1beta1/echo:echo"),
+        ])
+        .respond_with(status_code(200).body(r#"{"content": "test"}"#)),
+    );
+
+    // 3. Configure Client
+    let endpoint = echo_server.url("/").to_string();
+    let endpoint = endpoint.trim_end_matches('/');
+    let client = showcase::client::Echo::builder()
+        .with_endpoint(endpoint)
+        .with_credentials(auth::credentials::anonymous::Builder::new().build())
+        .with_tracing()
+        .build()
+        .await?;
+
+    // 4. Make Request
+    let _ = client.echo().set_content("test").send().await?;
+
+    // 5. Capture Spans
+    let spans = TestLayer::capture(&guard);
+
+    // 6. Verify Spans
+    let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
+    let t3_span = spans.iter().find(|s| {
+        s.name == "client_request"
+            && s.attributes
+                .get("otel.name")
+                .and_then(|v| v.as_string())
+                .as_deref()
+                == Some(expected_otel_name)
+    });
+
+    assert!(
+        t3_span.is_some(),
+        "Should have a T3 Client Request Span with otel.name '{}'. Found spans: {:?}",
+        expected_otel_name,
+        spans
+            .iter()
+            .map(|s| format!(
+                "name={}, otel.name={:?}",
+                s.name,
+                s.attributes.get("otel.name")
+            ))
+            .collect::<Vec<_>>()
+    );
+    let t3_span = t3_span.unwrap();
+    let attrs = &t3_span.attributes;
+
+    assert_eq!(
+        attrs.get("otel.kind").and_then(|v| v.as_string()).as_deref(),
+        Some("Internal")
+    );
+    assert_eq!(
+        attrs.get("otel.status_code").and_then(|v| v.as_string()).as_deref(),
+        Some("OK")
+    );
+    assert_eq!(
+        attrs.get("http.response.status_code").and_then(|v| v.as_i64()),
+        Some(200)
+    );
+    assert_eq!(
+        attrs.get("http.request.method").and_then(|v| v.as_string()).as_deref(),
+        Some("POST")
+    );
+
+    Ok(())
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn test_http_tracing_parse_error() -> anyhow::Result<()> {
+    use google_cloud_test_utils::test_layer::TestLayer;
+    use httptest::{Expectation, Server, matchers::*, responders::status_code};
+
+    // 1. Initialize TestLayer
+    let guard = TestLayer::initialize();
+
+    // 2. Start Mock HTTP Server
+    let echo_server = Server::run();
+    // Return invalid JSON (missing closing brace)
+    echo_server.expect(
+        Expectation::matching(all_of![
+            request::method("POST"),
+            request::path("/v1beta1/echo:echo"),
+        ])
+        .respond_with(status_code(200).body(r#"{"content": "test""#)),
+    );
+
+    // 3. Configure Client
+    let endpoint = echo_server.url("/").to_string();
+    let endpoint = endpoint.trim_end_matches('/');
+    let client = showcase::client::Echo::builder()
+        .with_endpoint(endpoint)
+        .with_credentials(auth::credentials::anonymous::Builder::new().build())
+        .with_tracing()
+        .build()
+        .await?;
+
+    // 4. Make Request (Expect failure)
+    let result = client.echo().set_content("test").send().await;
+    assert!(result.is_err(), "Request should fail due to parse error");
+
+    // 5. Capture Spans
+    let spans = TestLayer::capture(&guard);
+
+    // 6. Verify Spans
+    let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
+    let t3_span = spans.iter().find(|s| {
+        s.name == "client_request"
+            && s.attributes
+                .get("otel.name")
+                .and_then(|v| v.as_string())
+                .as_deref()
+                == Some(expected_otel_name)
+    });
+
+    assert!(
+        t3_span.is_some(),
+        "Should have a T3 Client Request Span with otel.name '{}'. Found spans: {:?}",
+        expected_otel_name,
+        spans
+            .iter()
+            .map(|s| format!(
+                "name={}, otel.name={:?}",
+                s.name,
+                s.attributes.get("otel.name")
+            ))
+            .collect::<Vec<_>>()
+    );
+    let t3_span = t3_span.unwrap();
+    let attrs = &t3_span.attributes;
+
+    assert_eq!(
+        attrs.get("otel.kind").and_then(|v| v.as_string()).as_deref(),
+        Some("Internal")
+    );
+    assert_eq!(
+        attrs.get("otel.status_code").and_then(|v| v.as_string()).as_deref(),
+        Some("ERROR")
+    );
+    assert_eq!(
+        attrs.get("http.response.status_code").and_then(|v| v.as_i64()),
+        Some(200)
+    );
+    // Check that error.type is present
+    assert!(
+        attrs.contains_key("error.type"),
+        "Should contain error.type attribute"
+    );
+
+    Ok(())
+}
