@@ -131,6 +131,7 @@ async fn setup_echo_client() -> (
     google_cloud_test_utils::test_layer::TestLayerGuard,
     httptest::Server,
     showcase::client::Echo,
+    u16,
 ) {
     use google_cloud_test_utils::test_layer::TestLayer;
     use httptest::Server;
@@ -146,8 +147,9 @@ async fn setup_echo_client() -> (
         .build()
         .await
         .expect("failed to build client");
+    let port = server.addr().port();
 
-    (guard, server, client)
+    (guard, server, client, port)
 }
 
 #[cfg(google_cloud_unstable_tracing)]
@@ -157,8 +159,7 @@ async fn test_http_tracing_success_testlayer() -> anyhow::Result<()> {
     use httptest::{Expectation, matchers::*, responders::status_code};
     use std::collections::HashMap;
 
-    let (guard, echo_server, client) = setup_echo_client().await;
-    let server_port = echo_server.addr().port();
+    let (guard, echo_server, client, server_port) = setup_echo_client().await;
 
     echo_server.expect(
         Expectation::matching(all_of![
@@ -242,8 +243,7 @@ async fn test_http_tracing_parse_error() -> anyhow::Result<()> {
     use httptest::{Expectation, matchers::*, responders::status_code};
     use std::collections::HashMap;
 
-    let (guard, echo_server, client) = setup_echo_client().await;
-    let server_port = echo_server.addr().port();
+    let (guard, echo_server, client, server_port) = setup_echo_client().await;
 
     // Return invalid JSON (missing closing brace)
     echo_server.expect(
@@ -335,8 +335,7 @@ async fn test_http_tracing_api_error() -> anyhow::Result<()> {
     use httptest::{Expectation, matchers::*, responders::status_code};
     use std::collections::HashMap;
 
-    let (guard, echo_server, client) = setup_echo_client().await;
-    let server_port = echo_server.addr().port();
+    let (guard, echo_server, client, server_port) = setup_echo_client().await;
 
     // 404 Not Found
     echo_server.expect(

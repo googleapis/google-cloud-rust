@@ -132,7 +132,7 @@ pub(crate) fn record_intermediate_client_request(
     result: Result<&reqwest::Response, &gax::error::Error>,
     prior_attempt_count: u32,
     method: &http::Method,
-    url: &reqwest::Url,
+    request_url: &reqwest::Url,
 ) {
     let span = Span::current();
     if span.is_disabled() {
@@ -140,7 +140,7 @@ pub(crate) fn record_intermediate_client_request(
     }
 
     // Only enrich spans that are explicitly marked as GAX client spans.
-    // This prevents accidental enrichment of user-provided spans that happen to have the same fields.
+    // This prevents accidental enrichment of user-provided spans that happen to have the same fields. 
     if span
         .metadata()
         .is_none_or(|m| m.fields().field("gax.client.span").is_none())
@@ -152,7 +152,7 @@ pub(crate) fn record_intermediate_client_request(
 
     let final_url = match result {
         Ok(response) => response.url(),
-        Err(_) => url,
+        Err(_) => request_url,
     };
 
     span.record(
