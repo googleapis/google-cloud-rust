@@ -93,12 +93,17 @@ impl NormalizedRange {
                 expected: self.offset,
             });
         }
-        if self.length.is_some_and(|l| update.offset > self.offset + l) {
-            return Err(ReadError::OutOfOrderBidiResponse {
-                got: update.offset,
-                expected: self.offset,
-            });
-        }
+        match (self.length, update.length) {
+            (None, _) => (),
+            (Some(_), None) => (),
+            (Some(expected), Some(got)) if got <= expected => (),
+            (Some(expected), Some(got)) => {
+                return Err(ReadError::LongRead {
+                    got: got as u64,
+                    expected: expected as u64,
+                });
+            }
+        };
         self.offset = update.offset + update.length().unwrap_or_default();
         self.length = match (&self.length, &update.length) {
             (None, _) => None,
@@ -250,6 +255,10 @@ mod tests {
         assert_eq!((normalized.offset(), normalized.length()), (125, None));
 
         let response = proto_range(125, 50);
+        normalized.update(response)?;
+        assert_eq!((normalized.offset(), normalized.length()), (175, None));
+
+        let response = proto_range(175, 0);
         normalized.update(response)?;
         assert_eq!((normalized.offset(), normalized.length()), (175, None));
         Ok(())
