@@ -251,9 +251,15 @@ fn build_id_token_credentials(
                     "{cred_type}, use idtoken::user_account::Builder directly."
                 ))),
                 "service_account" => service_account::Builder::new(audience, json).build(),
-                "impersonated_service_account" => impersonated::Builder::new(audience, json)
-                    .with_include_email(include_email)
-                    .build(),
+                "impersonated_service_account" => {
+                    let builder = impersonated::Builder::new(audience, json);
+                    let builder = if include_email {
+                        builder.with_include_email()
+                    } else {
+                        builder
+                    };
+                    builder.build()
+                }
                 "external_account" => {
                     // never gonna be supported for id tokens
                     Err(BuilderError::not_supported(cred_type))
@@ -457,13 +463,13 @@ pub(crate) mod tests {
         let creds_true = build_id_token_credentials(audience.clone(), true, None)?;
         let fmt = format!("{:?}", creds_true.inner);
         assert!(fmt.contains("MDSCredentials"));
-        assert!(fmt.contains("format: Some(\"full\")"));
+        assert!(fmt.contains("format: Some(Full)"));
 
         // Test with include_email = false and no source credentials (MDS Fallback)
         let creds_false = build_id_token_credentials(audience.clone(), false, None)?;
         let fmt = format!("{:?}", creds_false.inner);
         assert!(fmt.contains("MDSCredentials"));
-        assert!(fmt.contains("format: Some(\"standard\")"));
+        assert!(fmt.contains("format: Some(Standard)"));
 
         Ok(())
     }
@@ -499,7 +505,7 @@ pub(crate) mod tests {
         let creds_false = build_id_token_credentials(audience.clone(), false, Some(json))?;
         let fmt = format!("{:?}", creds_false.inner);
         assert!(fmt.contains("ImpersonatedServiceAccount"));
-        assert!(fmt.contains("include_email: Some(false)"));
+        assert!(fmt.contains("include_email: None"));
 
         Ok(())
     }
