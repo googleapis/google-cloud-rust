@@ -125,7 +125,7 @@ impl Builder {
         self
     }
 
-    /// Verifies the ID token and returns the claims.
+    /// Returns a [Verifier] instance with the configured settings.
     pub fn build(self) -> Verifier {
         Verifier {
             jwk_client: JwkClient::new(),
@@ -144,7 +144,6 @@ impl Builder {
 /// ```
 /// # use google_cloud_auth::credentials::idtoken::verifier::Builder;
 /// # use std::time::Duration;
-///
 /// async fn verify_id_token(token: &str) {
 ///     let verifier = Builder::new(["https://my-service.a.run.app"]).build();
 ///
