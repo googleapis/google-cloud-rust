@@ -151,10 +151,28 @@ async fn setup_echo_client() -> (
 }
 
 #[cfg(google_cloud_unstable_tracing)]
-fn assert_t3_span(
-    spans: &[google_cloud_test_utils::test_layer::CapturedSpan],
-    expected_otel_name: &str,
-) -> google_cloud_test_utils::test_layer::CapturedSpan {
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn test_http_tracing_success_testlayer() -> anyhow::Result<()> {
+    use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
+    use httptest::{Expectation, matchers::*, responders::status_code};
+    use std::collections::HashMap;
+
+    let (guard, echo_server, client) = setup_echo_client().await;
+    let server_port = echo_server.addr().port();
+
+    echo_server.expect(
+        Expectation::matching(all_of![
+            request::method("POST"),
+            request::path("/v1beta1/echo:echo"),
+        ])
+        .respond_with(status_code(200).body(r#"{"content": "test"}"#)),
+    );
+
+    let _ = client.echo().set_content("test").send().await?;
+
+    let spans = TestLayer::capture(&guard);
+
+    let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
     let t3_span = spans.iter().find(|s| {
         s.name == "client_request"
             && s.attributes
@@ -177,48 +195,42 @@ fn assert_t3_span(
             ))
             .collect::<Vec<_>>()
     );
-    t3_span.unwrap().clone()
-}
+    let t3_span = t3_span.unwrap();
 
-#[cfg(google_cloud_unstable_tracing)]
-#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-async fn test_http_tracing_success_testlayer() -> anyhow::Result<()> {
-    use httptest::{Expectation, matchers::*, responders::status_code};
+    let expected_attributes: HashMap<String, AttributeValue> = [
+        ("otel.name", expected_otel_name.into()),
+        ("otel.kind", "Internal".into()),
+        ("rpc.system", "http".into()),
+        ("rpc.service", "showcase".into()),
+        ("rpc.method", "echo".into()),
+        ("gcp.client.service", "showcase".into()),
+        ("gcp.client.version", "1.0.0".into()),
+        ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
+        (
+            "gcp.client.artifact",
+            "google-cloud-showcase-v1beta1".into(),
+        ),
+        ("gcp.client.language", "rust".into()),
+        ("otel.status_code", "OK".into()),
+        ("gax.client.span", true.into()),
+        ("http.response.status_code", 200_i64.into()),
+        ("http.request.method", "POST".into()),
+        ("server.address", "::1".into()),
+        ("server.port", (server_port as i64).into()),
+        (
+            "url.full",
+            format!(
+                "http://[::1]:{}/v1beta1/echo:echo?%24alt=json%3Benum-encoding%3Dint",
+                server_port
+            )
+            .into(),
+        ),
+    ]
+    .into_iter()
+    .map(|(k, v)| (k.to_string(), v))
+    .collect();
 
-    let (guard, echo_server, client) = setup_echo_client().await;
-
-    echo_server.expect(
-        Expectation::matching(all_of![
-            request::method("POST"),
-            request::path("/v1beta1/echo:echo"),
-        ])
-        .respond_with(status_code(200).body(r#"{"content": "test"}"#)),
-    );
-
-    let _ = client.echo().set_content("test").send().await?;
-
-    use google_cloud_test_utils::test_layer::TestLayer;
-    let spans = TestLayer::capture(&guard);
-
-    let t3_span = assert_t3_span(&spans, "google-cloud-showcase-v1beta1::client::Echo::echo");
-    let attrs = &t3_span.attributes;
-
-    assert_eq!(
-        attrs.get("otel.kind").and_then(|v| v.as_string()).as_deref(),
-        Some("Internal")
-    );
-    assert_eq!(
-        attrs.get("otel.status_code").and_then(|v| v.as_string()).as_deref(),
-        Some("OK")
-    );
-    assert_eq!(
-        attrs.get("http.response.status_code").and_then(|v| v.as_i64()),
-        Some(200)
-    );
-    assert_eq!(
-        attrs.get("http.request.method").and_then(|v| v.as_string()).as_deref(),
-        Some("POST")
-    );
+    assert_eq!(t3_span.attributes, expected_attributes);
 
     Ok(())
 }
@@ -226,9 +238,12 @@ async fn test_http_tracing_success_testlayer() -> anyhow::Result<()> {
 #[cfg(google_cloud_unstable_tracing)]
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
 async fn test_http_tracing_parse_error() -> anyhow::Result<()> {
+    use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use httptest::{Expectation, matchers::*, responders::status_code};
+    use std::collections::HashMap;
 
     let (guard, echo_server, client) = setup_echo_client().await;
+    let server_port = echo_server.addr().port();
 
     // Return invalid JSON (missing closing brace)
     echo_server.expect(
@@ -242,28 +257,73 @@ async fn test_http_tracing_parse_error() -> anyhow::Result<()> {
     let result = client.echo().set_content("test").send().await;
     assert!(result.is_err(), "Request should fail due to parse error");
 
-    use google_cloud_test_utils::test_layer::TestLayer;
     let spans = TestLayer::capture(&guard);
 
-    let t3_span = assert_t3_span(&spans, "google-cloud-showcase-v1beta1::client::Echo::echo");
-    let attrs = &t3_span.attributes;
+    let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
+    let t3_span = spans.iter().find(|s| {
+        s.name == "client_request"
+            && s.attributes
+                .get("otel.name")
+                .and_then(|v| v.as_string())
+                .as_deref()
+                == Some(expected_otel_name)
+    });
 
-    assert_eq!(
-        attrs.get("otel.kind").and_then(|v| v.as_string()).as_deref(),
-        Some("Internal")
-    );
-    assert_eq!(
-        attrs.get("otel.status_code").and_then(|v| v.as_string()).as_deref(),
-        Some("ERROR")
-    );
-    assert_eq!(
-        attrs.get("http.response.status_code").and_then(|v| v.as_i64()),
-        Some(200)
-    );
     assert!(
-        attrs.contains_key("error.type"),
-        "Should contain error.type attribute"
+        t3_span.is_some(),
+        "Should have a T3 Client Request Span with otel.name '{}'. Found spans: {:?}",
+        expected_otel_name,
+        spans
+            .iter()
+            .map(|s| format!(
+                "name={}, otel.name={:?}",
+                s.name,
+                s.attributes.get("otel.name")
+            ))
+            .collect::<Vec<_>>()
     );
+    let t3_span = t3_span.unwrap();
+
+    let expected_attributes: HashMap<String, AttributeValue> = [
+        ("otel.name", expected_otel_name.into()),
+        ("otel.kind", "Internal".into()),
+        ("rpc.system", "http".into()),
+        ("rpc.service", "showcase".into()),
+        ("rpc.method", "echo".into()),
+        ("gcp.client.service", "showcase".into()),
+        ("gcp.client.version", "1.0.0".into()),
+        ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
+        (
+            "gcp.client.artifact",
+            "google-cloud-showcase-v1beta1".into(),
+        ),
+        ("gcp.client.language", "rust".into()),
+        ("otel.status_code", "ERROR".into()),
+        ("gax.client.span", true.into()),
+        ("http.response.status_code", 200_i64.into()),
+        ("http.request.method", "POST".into()),
+        ("error.type", "CLIENT_RESPONSE_DECODE_ERROR".into()),
+        (
+            "otel.status_description",
+            "cannot deserialize the response EOF while parsing an object at line 1 column 18"
+                .into(),
+        ),
+        ("server.address", "::1".into()),
+        ("server.port", (server_port as i64).into()),
+        (
+            "url.full",
+            format!(
+                "http://[::1]:{}/v1beta1/echo:echo?%24alt=json%3Benum-encoding%3Dint",
+                server_port
+            )
+            .into(),
+        ),
+    ]
+    .into_iter()
+    .map(|(k, v)| (k.to_string(), v))
+    .collect();
+
+    assert_eq!(t3_span.attributes, expected_attributes);
 
     Ok(())
 }
@@ -271,9 +331,12 @@ async fn test_http_tracing_parse_error() -> anyhow::Result<()> {
 #[cfg(google_cloud_unstable_tracing)]
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
 async fn test_http_tracing_api_error() -> anyhow::Result<()> {
+    use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use httptest::{Expectation, matchers::*, responders::status_code};
+    use std::collections::HashMap;
 
     let (guard, echo_server, client) = setup_echo_client().await;
+    let server_port = echo_server.addr().port();
 
     // 404 Not Found
     echo_server.expect(
@@ -287,28 +350,72 @@ async fn test_http_tracing_api_error() -> anyhow::Result<()> {
     let result = client.echo().set_content("test").send().await;
     assert!(result.is_err(), "Request should fail with API error");
 
-    use google_cloud_test_utils::test_layer::TestLayer;
     let spans = TestLayer::capture(&guard);
 
-    let t3_span = assert_t3_span(&spans, "google-cloud-showcase-v1beta1::client::Echo::echo");
-    let attrs = &t3_span.attributes;
+    let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
+    let t3_span = spans.iter().find(|s| {
+        s.name == "client_request"
+            && s.attributes
+                .get("otel.name")
+                .and_then(|v| v.as_string())
+                .as_deref()
+                == Some(expected_otel_name)
+    });
 
-    assert_eq!(
-        attrs.get("otel.kind").and_then(|v| v.as_string()).as_deref(),
-        Some("Internal")
-    );
-    assert_eq!(
-        attrs.get("otel.status_code").and_then(|v| v.as_string()).as_deref(),
-        Some("ERROR")
-    );
-    assert_eq!(
-        attrs.get("http.response.status_code").and_then(|v| v.as_i64()),
-        Some(404)
-    );
     assert!(
-        attrs.contains_key("error.type"),
-        "Should contain error.type attribute"
+        t3_span.is_some(),
+        "Should have a T3 Client Request Span with otel.name '{}'. Found spans: {:?}",
+        expected_otel_name,
+        spans
+            .iter()
+            .map(|s| format!(
+                "name={}, otel.name={:?}",
+                s.name,
+                s.attributes.get("otel.name")
+            ))
+            .collect::<Vec<_>>()
     );
+    let t3_span = t3_span.unwrap();
+
+    let expected_attributes: HashMap<String, AttributeValue> = [
+        ("otel.name", expected_otel_name.into()),
+        ("otel.kind", "Internal".into()),
+        ("rpc.system", "http".into()),
+        ("rpc.service", "showcase".into()),
+        ("rpc.method", "echo".into()),
+        ("gcp.client.service", "showcase".into()),
+        ("gcp.client.version", "1.0.0".into()),
+        ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
+        (
+            "gcp.client.artifact",
+            "google-cloud-showcase-v1beta1".into(),
+        ),
+        ("gcp.client.language", "rust".into()),
+        ("otel.status_code", "ERROR".into()),
+        ("gax.client.span", true.into()),
+        ("http.response.status_code", 404_i64.into()),
+        ("http.request.method", "POST".into()),
+        ("error.type", "UNKNOWN".into()),
+        (
+            "otel.status_description",
+            "the service reports an error with code UNKNOWN described as: Not Found".into(),
+        ),
+        ("server.address", "::1".into()),
+        ("server.port", (server_port as i64).into()),
+        (
+            "url.full",
+            format!(
+                "http://[::1]:{}/v1beta1/echo:echo?%24alt=json%3Benum-encoding%3Dint",
+                server_port
+            )
+            .into(),
+        ),
+    ]
+    .into_iter()
+    .map(|(k, v)| (k.to_string(), v))
+    .collect();
+
+    assert_eq!(t3_span.attributes, expected_attributes);
 
     Ok(())
 }

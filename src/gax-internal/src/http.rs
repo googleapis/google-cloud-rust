@@ -182,6 +182,8 @@ impl ReqwestClient {
         let request = builder.build().map_err(map_send_error)?;
         #[cfg(google_cloud_unstable_tracing)]
         let method = request.method().clone();
+        #[cfg(google_cloud_unstable_tracing)]
+        let url = request.url().clone();
 
         #[cfg(google_cloud_unstable_tracing)]
         let (reqwest_result, span) = if self._tracing_enabled {
@@ -213,6 +215,7 @@ impl ReqwestClient {
                 intermediate_result.as_ref(),
                 _attempt_count,
                 &method,
+                &url,
             );
         }
 
@@ -589,11 +592,12 @@ mod tests {
         } // T4 exit
 
         let response = resp_from_code_content(reqwest::StatusCode::OK, "{}").unwrap();
+        let url = "https://example.com".parse().unwrap();
 
         // Manually call the enrichment function, mimicking request_attempt
         {
             let _enter = t3_span.enter();
-            record_intermediate_client_request(Ok(&response), 1, &Method::GET);
+            record_intermediate_client_request(Ok(&response), 1, &Method::GET, &url);
         }
 
         let _ = super::to_http_response::<wkt::Empty>(response)
