@@ -325,7 +325,7 @@ thiserror             = { default-features = false, version = "2" }
 time                  = { default-features = false, version = "0.3.44" }
 tokio                 = { default-features = false, version = "1" }
 tokio-metrics         = { default-features = false, version = "0.4.5" }
-tonic                 = { default-features = false, version = "0.14.1", features = ["tls-native-roots", "tls-ring"] }
+tonic                 = { default-features = false, version = "0.14.1", features = ["tls-ring", "tls-webpki-roots"] }
 tonic-prost           = { default-features = false, version = "0.14.2" }
 tonic-prost-build     = { default-features = false, version = "0.14.1" }
 tower                 = { default-features = false, version = "0.5", features = ["util"] }
