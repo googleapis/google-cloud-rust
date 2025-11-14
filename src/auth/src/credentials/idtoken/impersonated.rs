@@ -92,7 +92,7 @@ use std::sync::Arc;
 pub struct Builder {
     source: BuilderSource,
     delegates: Option<Vec<String>>,
-    include_email: Option<bool>,
+    pub(crate) include_email: Option<bool>,
     target_audience: String,
     service_account_impersonation_url: Option<String>,
 }
