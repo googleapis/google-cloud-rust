@@ -228,6 +228,7 @@ members = [
   "src/generated/devtools/cloudbuild/v1",
   "src/generated/devtools/cloudbuild/v2",
   "src/generated/devtools/cloudprofiler/v2",
+  "src/generated/devtools/cloudtrace/v1",
   "src/generated/devtools/cloudtrace/v2",
   "src/generated/devtools/containeranalysis/v1",
   "src/generated/firestore/admin/v1",
