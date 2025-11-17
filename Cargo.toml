@@ -298,6 +298,7 @@ clap                  = { default-features = false, version = "4" }
 crc32c                = { default-features = false, version = "0.6.8" }
 futures               = { default-features = false, version = "0.3" }
 http                  = { default-features = false, version = "1", features = ["std"] }
+hex                   = { default-features = false, version = "0.4.3" }
 http-body             = { default-features = false, version = "1" }
 http-body-util        = { default-features = false, version = "0.1.3" }
 humantime             = { default-features = false, version = "2" }

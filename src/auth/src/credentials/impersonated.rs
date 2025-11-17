@@ -122,6 +122,7 @@ pub(crate) const IMPERSONATED_CREDENTIAL_TYPE: &str = "imp";
 pub(crate) const DEFAULT_LIFETIME: Duration = Duration::from_secs(3600);
 pub(crate) const MSG: &str = "failed to fetch token";
 
+#[derive(Clone)]
 pub(crate) enum BuilderSource {
     FromJson(Value),
     FromCredentials(Credentials),
