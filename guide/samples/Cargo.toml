@@ -31,6 +31,7 @@ name = "getting_started"
 anyhow.workspace                        = true
 crc32c.workspace                        = true
 futures.workspace                       = true
+reqwest.workspace                       = true
 google-cloud-aiplatform-v1              = { workspace = true, default-features = false, features = ["prediction-service"] }
 google-cloud-auth.workspace             = true
 google-cloud-gax                        = { workspace = true, features = ["unstable-stream"] }
@@ -68,3 +69,6 @@ test-case.workspace         = true
 run-integration-tests = []
 log-integration-tests = []
 run-large-downloads   = []
+
+[lints]
+workspace = true
