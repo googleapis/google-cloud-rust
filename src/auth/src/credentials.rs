@@ -22,6 +22,7 @@ use serde_json::Value;
 use std::future::Future;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
+use tokio::time::Instant;
 
 pub mod anonymous;
 pub mod api_key_credentials;
@@ -143,7 +144,7 @@ impl Credentials {
 ///
 /// This struct is returned by the `build_access_token_credentials()` method on
 /// the various credential builders. It can be used to obtain an access token
-/// directly via the `token()` method, or it can be converted into a `Credentials`
+/// directly via the `access_token()` method, or it can be converted into a `Credentials`
 /// object to be used with the Google Cloud client libraries.
 #[derive(Clone, Debug)]
 pub struct AccessTokenCredentials {
@@ -188,10 +189,24 @@ impl CredentialsProvider for AccessTokenCredentials {
 }
 
 /// Represents an OAuth 2.0 access token.
-#[derive(Clone, Debug)]
+#[derive(Clone)]
 pub struct AccessToken {
     /// The access token string.
     pub token: String,
+    /// The type of the access token.
+    pub(crate) token_type: String,
+    /// The time when the access token expires.
+    pub(crate) expires_at: Option<Instant>,
+}
+
+impl std::fmt::Debug for AccessToken {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("AccessToken")
+            .field("token", &"[censored]")
+            .field("token_type", &self.token_type)
+            .field("expiry", &self.expires_at)
+            .finish()
+    }
 }
 
 impl std::convert::From<CacheableResource<Token>> for Result<AccessToken> {
@@ -210,11 +225,17 @@ impl std::convert::From<Token> for AccessToken {
     fn from(token: Token) -> Self {
         Self {
             token: token.token,
+            token_type: token.token_type,
+            expires_at: token.expires_at,
         }
     }
 }
 
 /// A trait for credential types that can provide direct access to an access token.
+///
+/// This trait is primarily intended for interoperability with other libraries that
+/// require a raw access token, or for calling Google Cloud APIs that are not yet
+/// supported by the SDK.
 pub trait AccessTokenCredentialsProvider: CredentialsProvider + std::fmt::Debug {
     /// Asynchronously retrieves an access token.
     fn access_token(&self) -> impl Future<Output = Result<AccessToken>> + Send;
