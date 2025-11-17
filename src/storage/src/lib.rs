@@ -29,6 +29,9 @@
 //! [gcloud-storage]: https://crates.io/crates/gcloud-storage
 //! [Google Cloud Storage]: https://cloud.google.com/storage
 
+/// This is the coolest type ever.
+pub type EvenCoolerType = gax::CoolNewString;
+
 pub use gax::Result;
 pub use gax::error::Error;
 

@@ -32,6 +32,9 @@
 /// This is the result type used by all functions wrapping RPCs.
 pub type Result<T> = std::result::Result<T, crate::error::Error>;
 
+/// This is a really cool string.
+pub type CoolNewString = String;
+
 /// The core error types used by generated clients.
 pub mod error;
 
