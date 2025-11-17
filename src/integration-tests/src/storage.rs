@@ -106,7 +106,10 @@ pub async fn signed_urls(
     tracing::info!("success with insert={insert:?}");
 
     tracing::info!("testing signed_url()");
-    let signed_url = client.signed_url(signer, bucket_name, &insert.name).await?;
+    let signed_url = client
+        .signed_url(signer, bucket_name, &insert.name)
+        .send()
+        .await?;
 
     tracing::info!("signed_url={signed_url}");
     println!("signed_url={signed_url}");

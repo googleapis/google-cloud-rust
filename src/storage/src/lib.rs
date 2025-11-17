@@ -53,6 +53,8 @@ pub mod builder {
         //! Request builders for [Storage][crate::client::Storage].
         pub use crate::storage::client::ClientBuilder;
         pub use crate::storage::read_object::ReadObject;
+        #[cfg(google_cloud_unstable_signed_url)]
+        pub use crate::storage::sign_object::SignObject;
         pub use crate::storage::write_object::WriteObject;
     }
     pub mod storage_control {

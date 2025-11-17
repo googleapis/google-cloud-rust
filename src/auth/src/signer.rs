@@ -115,17 +115,11 @@ impl SigningProvider for CredentialsSigner {
             .await
             .map_err(SigningError::parsing)?;
 
-        println!("response: {res:?}");
-
         let signature = BASE64_STANDARD
             .decode(res.signed_blob)
             .map_err(SigningError::parsing)?;
 
-        println!("signature base64 decode: {:?}", signature);
-
         let signature = hex::encode(signature);
-
-        println!("signature hex encode: {:?}", signature);
 
         Ok(signature)
     }

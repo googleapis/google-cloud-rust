@@ -21,6 +21,8 @@ pub(crate) mod common_options;
 pub(crate) mod perform_upload;
 pub(crate) mod read_object;
 pub mod request_options;
+#[cfg(google_cloud_unstable_signed_url)]
+pub(crate) mod sign_object;
 pub mod streaming_source;
 pub mod stub;
 pub(crate) mod transport;
