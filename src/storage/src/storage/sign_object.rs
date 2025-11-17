@@ -144,3 +144,40 @@ impl SignObject {
         Ok(signed_url)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use auth::signer::{Signer, SigningProvider};
+
+    #[derive(Debug)]
+    struct MockSigner;
+
+    #[async_trait::async_trait]
+    impl SigningProvider for MockSigner {
+        async fn client_email(&self) -> auth::signer::Result<String> {
+            Ok("test@example.com".to_string())
+        }
+
+        async fn sign(&self, _content: &str) -> auth::signer::Result<String> {
+            Ok("test-signature".to_string())
+        }
+    }
+
+    #[tokio::test]
+    async fn test_signed_url_generation() {
+        let signer = Signer::from(MockSigner);
+        let url = SignObject::new(signer, "test-bucket".to_string(), "test-object".to_string())
+            .with_method("PUT")
+            .with_expiration(std::time::Duration::from_secs(3600))
+            .with_header("x-goog-meta-test", "value")
+            .send()
+            .await
+            .unwrap();
+
+        assert!(url.starts_with("https://test-bucket.storage.googleapis.com/test-object"));
+        assert!(url.contains("x-goog-signature=test-signature"));
+        assert!(url.contains("X-Goog-Algorithm=GOOG4-RSA-SHA256"));
+        assert!(url.contains("X-Goog-Credential=test%40example.com"));
+    }
+}
