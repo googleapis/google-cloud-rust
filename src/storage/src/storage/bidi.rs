@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod active_read;
 mod builder;
 mod connector;
 mod normalized_range;
