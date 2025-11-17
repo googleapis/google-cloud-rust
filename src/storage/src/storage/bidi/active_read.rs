@@ -64,7 +64,7 @@ impl ActiveRead {
 
     pub(super) async fn handle_error(&mut self, error: ReadError) {
         if let Err(e) = self.sender.send(Err(error)).await {
-            tracing::error!("cannot notify sender about read error: {e:?}");
+            tracing::error!("cannot notify reader (dropped?) about: {e:?}");
         }
     }
 
@@ -74,7 +74,7 @@ impl ActiveRead {
             .send(Err(ReadError::UnrecoverableBidiReadInterrupt(error)))
             .await
         {
-            tracing::error!("cannot notify sender about unrecoverable error: {e:?}");
+            tracing::error!("cannot notify reader (dropped?) about: {e:?}");
         }
     }
 
@@ -88,6 +88,8 @@ mod tests {
     use super::super::tests::{permanent_error, proto_range};
     use super::*;
     use crate::model_ext::ReadRange;
+    use std::sync::Mutex;
+    use tracing::Subscriber;
 
     #[tokio::test]
     async fn normal() -> anyhow::Result<()> {
@@ -105,8 +107,6 @@ mod tests {
 
         let recv = rx.recv().await;
         assert!(matches!(recv, Some(Ok(ref b)) if *b == content), "{recv:?}");
-
-        assert_eq!(range.as_proto(0), proto_range(25, 0), "{range:?}");
 
         rx.close();
         let response = proto_range(25, 25);
@@ -210,10 +210,28 @@ mod tests {
         range
             .handle_error(ReadError::MissingRangeInBidiResponse)
             .await;
+        let got = rx
+            .recv()
+            .await
+            .expect("the active reader propagates error messages")
+            .unwrap_err();
+        assert!(
+            matches!(got, ReadError::MissingRangeInBidiResponse),
+            "{got:?}"
+        );
+
+        // Sending errors on closed stream does not panic and gets logged.
+        let capture = CaptureEvents::new();
+        let _guard = tracing::subscriber::set_default(capture.clone());
         rx.close();
         range
             .handle_error(ReadError::MissingRangeInBidiResponse)
             .await;
+        let events = capture.events();
+        let got = events
+            .iter()
+            .find(|m| m.contains("cannot notify reader (dropped?) about: "));
+        assert!(got.is_some(), "{events:?}");
     }
 
     #[tokio::test]
@@ -223,7 +241,68 @@ mod tests {
         let mut range = ActiveRead::new(tx, requested);
         let error = Arc::new(permanent_error());
         range.interrupted(error.clone()).await;
+        let got = rx
+            .recv()
+            .await
+            .expect("the active reader propagates error messages")
+            .unwrap_err();
+        assert!(
+            matches!(got, ReadError::UnrecoverableBidiReadInterrupt(ref e) if e.status() == permanent_error().status()),
+            "{got:?}"
+        );
+
+        // Sending errors on closed stream does not panic and gets logged.
+        let capture = CaptureEvents::new();
+        let _guard = tracing::subscriber::set_default(capture.clone());
         rx.close();
         range.interrupted(error.clone()).await;
+        let events = capture.events();
+        let got = events
+            .iter()
+            .find(|m| m.contains("cannot notify reader (dropped?) about: "));
+        assert!(got.is_some(), "{events:?}");
+    }
+
+    #[derive(Clone, Debug)]
+    struct CaptureEvents {
+        captured: Arc<Mutex<Vec<String>>>,
+    }
+
+    impl CaptureEvents {
+        pub fn new() -> Self {
+            Self {
+                captured: Arc::new(Mutex::new(Vec::new())),
+            }
+        }
+        pub fn events(&self) -> Vec<String> {
+            self.captured.lock().expect("never poisoned").clone()
+        }
+    }
+
+    use tracing::span;
+
+    impl Subscriber for CaptureEvents {
+        fn enabled(&self, metadata: &tracing::Metadata<'_>) -> bool {
+            metadata.is_event()
+        }
+        fn event(&self, event: &tracing::Event<'_>) {
+            let mut guard = self.captured.lock().expect("never poisoned");
+            guard.push(format!("{event:?}"));
+        }
+        fn new_span(&self, _span: &span::Attributes<'_>) -> span::Id {
+            unimplemented!("not interested in spans")
+        }
+        fn record(&self, _span: &span::Id, _values: &span::Record<'_>) {
+            unimplemented!("not interested in spans")
+        }
+        fn record_follows_from(&self, _span: &span::Id, _follows: &span::Id) {
+            unimplemented!("not interested in spans")
+        }
+        fn enter(&self, _span: &span::Id) {
+            unimplemented!("not interested in spans")
+        }
+        fn exit(&self, _span: &span::Id) {
+            unimplemented!("not interested in spans")
+        }
     }
 }
