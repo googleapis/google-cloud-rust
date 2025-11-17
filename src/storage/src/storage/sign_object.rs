@@ -108,7 +108,7 @@ impl SignObject {
         });
         let canonical_query_string = canonical_query.finish();
 
-        let canonical_request = vec![
+        let canonical_request = [
             self.method,
             canonical_uri.clone(),
             canonical_query_string.clone(),
@@ -121,7 +121,7 @@ impl SignObject {
         let canonical_request_hash = Sha256::digest(canonical_request.as_bytes());
         let canonical_request_hash = hex::encode(canonical_request_hash);
 
-        let string_to_sign = vec![
+        let string_to_sign = [
             "GOOG4-RSA-SHA256".to_string(),
             request_timestamp,
             credential_scope,

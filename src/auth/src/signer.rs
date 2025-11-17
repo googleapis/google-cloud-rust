@@ -103,7 +103,7 @@ impl SigningProvider for CredentialsSigner {
             .json(&body)
             .send()
             .await
-            .map_err(|e| SigningError::transport(e))?;
+            .map_err(SigningError::transport)?;
 
         if !response.status().is_success() {
             let err_text = response.text().await.map_err(SigningError::transport)?;
