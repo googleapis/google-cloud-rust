@@ -34,6 +34,7 @@ default-members = [
   "src/storage",
   "src/wkt",
   "tools/check-copyright",
+  "tools/minimal-version-helper",
   # We need `cargo test` to run at least some documentation tests for generated
   # libraries. These libraries are implicitly required by the integration tests
   # and samples, so they are not too expensive to include in the default builds.
@@ -268,6 +269,7 @@ members = [
   "src/w1r3",
   "src/wkt",
   "tools/check-copyright",
+  "tools/minimal-version-helper",
 ]
 
 [workspace.package]
