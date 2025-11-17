@@ -14,14 +14,19 @@
 
 mod builder;
 mod connector;
+mod normalized_range;
 mod redirect;
+mod remaining_range;
+mod requested_range;
 mod resume_redirect;
 mod retry_redirect;
 
 #[cfg(test)]
 mod tests {
     use crate::Error;
-    use crate::google::storage::v2::{BidiReadHandle, BidiReadObjectRedirectedError};
+    use crate::google::storage::v2::{
+        BidiReadHandle, BidiReadObjectRedirectedError, ReadRange as ProtoRange,
+    };
     use crate::request_options::RequestOptions;
     use gax::error::rpc::{Code, Status};
     use prost::Message as _;
@@ -82,5 +87,13 @@ mod tests {
             .with_maximum_delay(Duration::from_micros(1))
             .build()
             .expect("a valid backoff policy")
+    }
+
+    pub(super) fn proto_range(offset: i64, length: i64) -> ProtoRange {
+        ProtoRange {
+            read_offset: offset,
+            read_length: length,
+            ..ProtoRange::default()
+        }
     }
 }
