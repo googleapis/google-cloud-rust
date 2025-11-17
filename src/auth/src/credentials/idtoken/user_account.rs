@@ -29,9 +29,10 @@
 //!
 //! ```
 //! # use google_cloud_auth::credentials::idtoken;
+//! # use serde_json::json;
 //! # use reqwest;
 //! # tokio_test::block_on(async {
-//! let authorized_user = serde_json::json!({
+//! let authorized_user = json!({
 //!     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com", // Replace with your actual Client ID
 //!     "client_secret": "YOUR_CLIENT_SECRET", // Replace with your actual Client Secret - LOAD SECURELY!
 //!     "refresh_token": "YOUR_REFRESH_TOKEN", // Replace with the user's refresh token - LOAD SECURELY!
@@ -51,7 +52,7 @@
 //! # });
 //! ```
 //!
-//! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+//! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 //! [user account]: https://cloud.google.com/docs/authentication#user-accounts
 //! [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
 
@@ -112,6 +113,23 @@ impl Builder {
     ///
     /// Any value provided here overrides a `token_uri` value from the input `authorized_user` JSON.
     /// Defaults to `https://oauth2.googleapis.com/token` if not specified here or in the `authorized_user` JSON.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::idtoken;
+    /// # use serde_json::json;
+    /// # let authorized_user = json!({
+    /// #     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
+    /// #     "client_secret": "YOUR_CLIENT_SECRET",
+    /// #     "refresh_token": "YOUR_REFRESH_TOKEN",
+    /// #     "type": "authorized_user",
+    /// # });
+    /// let credentials = idtoken::user_account::Builder::new(authorized_user)
+    ///     .with_token_uri("https://oauth2.example.com/token")
+    ///     .build();
+    /// // Now you can use credentials.id_token().await to fetch the token.
+    /// ```
     pub fn with_token_uri<S: Into<String>>(mut self, token_uri: S) -> Self {
         self.token_uri = Some(token_uri.into());
         self
