@@ -1620,28 +1620,6 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
-
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -1997,25 +1975,6 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/dataProducts/*/dataAssets/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2641,6 +2600,38 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                     try_match(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                         &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataProducts/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}:getIamPolicy",
+                    try_match(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
@@ -2988,6 +2979,23 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ],
                         "resource",
                         "projects/*/locations/*/changeRequests/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataProducts/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataProducts/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3448,28 +3456,6 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
-
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -3828,25 +3814,6 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                     );
                     paths.push(builder.build());
                 }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/dataProducts/*/dataAssets/*",
-                    );
-                    paths.push(builder.build());
-                }
                 gax::error::Error::binding(BindingError { paths })
             })??;
         let options = gax::options::internal::set_default_idempotency(
@@ -3889,6 +3856,8 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -3910,6 +3879,8 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -6794,28 +6765,6 @@ impl super::stub::CatalogService for CatalogService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
-
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -7171,25 +7120,6 @@ impl super::stub::CatalogService for CatalogService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/dataProducts/*/dataAssets/*",
                     );
                     paths.push(builder.build());
                 }
@@ -7815,6 +7745,38 @@ impl super::stub::CatalogService for CatalogService {
                     try_match(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                         &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataProducts/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}:getIamPolicy",
+                    try_match(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
@@ -8162,6 +8124,23 @@ impl super::stub::CatalogService for CatalogService {
                         ],
                         "resource",
                         "projects/*/locations/*/changeRequests/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataProducts/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataProducts/*",
                     );
                     paths.push(builder.build());
                 }
@@ -8622,28 +8601,6 @@ impl super::stub::CatalogService for CatalogService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
-
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -9002,25 +8959,6 @@ impl super::stub::CatalogService for CatalogService {
                     );
                     paths.push(builder.build());
                 }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/dataProducts/*/dataAssets/*",
-                    );
-                    paths.push(builder.build());
-                }
                 gax::error::Error::binding(BindingError { paths })
             })??;
         let options = gax::options::internal::set_default_idempotency(
@@ -9063,6 +9001,8 @@ impl super::stub::CatalogService for CatalogService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -9084,6 +9024,8 @@ impl super::stub::CatalogService for CatalogService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -10348,28 +10290,6 @@ impl super::stub::CmekService for CmekService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
-
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -10725,25 +10645,6 @@ impl super::stub::CmekService for CmekService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/dataProducts/*/dataAssets/*",
                     );
                     paths.push(builder.build());
                 }
@@ -11369,6 +11270,38 @@ impl super::stub::CmekService for CmekService {
                     try_match(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                         &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataProducts/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}:getIamPolicy",
+                    try_match(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
@@ -11716,6 +11649,23 @@ impl super::stub::CmekService for CmekService {
                         ],
                         "resource",
                         "projects/*/locations/*/changeRequests/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataProducts/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataProducts/*",
                     );
                     paths.push(builder.build());
                 }
@@ -12176,28 +12126,6 @@ impl super::stub::CmekService for CmekService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
-
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -12556,25 +12484,6 @@ impl super::stub::CmekService for CmekService {
                     );
                     paths.push(builder.build());
                 }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/dataProducts/*/dataAssets/*",
-                    );
-                    paths.push(builder.build());
-                }
                 gax::error::Error::binding(BindingError { paths })
             })??;
         let options = gax::options::internal::set_default_idempotency(
@@ -12617,6 +12526,8 @@ impl super::stub::CmekService for CmekService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -12638,6 +12549,8 @@ impl super::stub::CmekService for CmekService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -14098,6 +14011,8 @@ impl super::stub::ContentService for ContentService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -14119,6 +14034,8 @@ impl super::stub::ContentService for ContentService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -16058,28 +15975,6 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
-
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -16435,25 +16330,6 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/dataProducts/*/dataAssets/*",
                     );
                     paths.push(builder.build());
                 }
@@ -17079,6 +16955,38 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                     try_match(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                         &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataProducts/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}:getIamPolicy",
+                    try_match(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
@@ -17426,6 +17334,23 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ],
                         "resource",
                         "projects/*/locations/*/changeRequests/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataProducts/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataProducts/*",
                     );
                     paths.push(builder.build());
                 }
@@ -17886,28 +17811,6 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
-
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -18266,25 +18169,6 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                     );
                     paths.push(builder.build());
                 }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/dataProducts/*/dataAssets/*",
-                    );
-                    paths.push(builder.build());
-                }
                 gax::error::Error::binding(BindingError { paths })
             })??;
         let options = gax::options::internal::set_default_idempotency(
@@ -18327,6 +18211,8 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -18348,6 +18234,8 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -19916,28 +19804,6 @@ impl super::stub::DataScanService for DataScanService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
-
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -20293,25 +20159,6 @@ impl super::stub::DataScanService for DataScanService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/dataProducts/*/dataAssets/*",
                     );
                     paths.push(builder.build());
                 }
@@ -20937,6 +20784,38 @@ impl super::stub::DataScanService for DataScanService {
                     try_match(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                         &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataProducts/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}:getIamPolicy",
+                    try_match(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
@@ -21284,6 +21163,23 @@ impl super::stub::DataScanService for DataScanService {
                         ],
                         "resource",
                         "projects/*/locations/*/changeRequests/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataProducts/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataProducts/*",
                     );
                     paths.push(builder.build());
                 }
@@ -21744,28 +21640,6 @@ impl super::stub::DataScanService for DataScanService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
-
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -22124,25 +21998,6 @@ impl super::stub::DataScanService for DataScanService {
                     );
                     paths.push(builder.build());
                 }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/dataProducts/*/dataAssets/*",
-                    );
-                    paths.push(builder.build());
-                }
                 gax::error::Error::binding(BindingError { paths })
             })??;
         let options = gax::options::internal::set_default_idempotency(
@@ -22185,6 +22040,8 @@ impl super::stub::DataScanService for DataScanService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -22206,6 +22063,8 @@ impl super::stub::DataScanService for DataScanService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -23807,28 +23666,6 @@ impl super::stub::MetadataService for MetadataService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
-
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -24184,25 +24021,6 @@ impl super::stub::MetadataService for MetadataService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/dataProducts/*/dataAssets/*",
                     );
                     paths.push(builder.build());
                 }
@@ -24828,6 +24646,38 @@ impl super::stub::MetadataService for MetadataService {
                     try_match(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                         &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataProducts/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}:getIamPolicy",
+                    try_match(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
@@ -25175,6 +25025,23 @@ impl super::stub::MetadataService for MetadataService {
                         ],
                         "resource",
                         "projects/*/locations/*/changeRequests/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataProducts/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataProducts/*",
                     );
                     paths.push(builder.build());
                 }
@@ -25635,28 +25502,6 @@ impl super::stub::MetadataService for MetadataService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
-
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -26015,25 +25860,6 @@ impl super::stub::MetadataService for MetadataService {
                     );
                     paths.push(builder.build());
                 }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/dataProducts/*/dataAssets/*",
-                    );
-                    paths.push(builder.build());
-                }
                 gax::error::Error::binding(BindingError { paths })
             })??;
         let options = gax::options::internal::set_default_idempotency(
@@ -26076,6 +25902,8 @@ impl super::stub::MetadataService for MetadataService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -26097,6 +25925,8 @@ impl super::stub::MetadataService for MetadataService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -29336,28 +29166,6 @@ impl super::stub::DataplexService for DataplexService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
-
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -29713,25 +29521,6 @@ impl super::stub::DataplexService for DataplexService {
                         ],
                         "resource",
                         "projects/*/locations/*/dataProducts/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/dataProducts/*/dataAssets/*",
                     );
                     paths.push(builder.build());
                 }
@@ -30357,6 +30146,38 @@ impl super::stub::DataplexService for DataplexService {
                     try_match(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                         &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataProducts/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}:getIamPolicy",
+                    try_match(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
@@ -30704,6 +30525,23 @@ impl super::stub::DataplexService for DataplexService {
                         ],
                         "resource",
                         "projects/*/locations/*/changeRequests/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dataProducts/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/dataProducts/*",
                     );
                     paths.push(builder.build());
                 }
@@ -31164,28 +31002,6 @@ impl super::stub::DataplexService for DataplexService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
-
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -31544,25 +31360,6 @@ impl super::stub::DataplexService for DataplexService {
                     );
                     paths.push(builder.build());
                 }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataProducts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dataAssets/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/dataProducts/*/dataAssets/*",
-                    );
-                    paths.push(builder.build());
-                }
                 gax::error::Error::binding(BindingError { paths })
             })??;
         let options = gax::options::internal::set_default_idempotency(
@@ -31605,6 +31402,8 @@ impl super::stub::DataplexService for DataplexService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
@@ -31626,6 +31425,8 @@ impl super::stub::DataplexService for DataplexService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::GET)))
             })

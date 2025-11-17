@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-storage"
-version     = "1.2.0"
+version     = "1.4.0"
 description = "Google Cloud Client Libraries for Rust - Storage"
 # Inherit other attributes from the workspace.
 edition.workspace      = true
@@ -49,6 +49,7 @@ serde_json.workspace       = true
 serde_with.workspace       = true
 sha2.workspace             = true
 thiserror.workspace        = true
+tokio-stream.workspace     = true
 tokio                      = { workspace = true, features = ["io-util"] }
 tonic.workspace            = true
 tracing.workspace          = true
@@ -80,6 +81,7 @@ httptest.workspace       = true
 mockall.workspace        = true
 multer.workspace         = true
 paste.workspace          = true
+static_assertions        = { workspace = true }
 test-case.workspace      = true
 tempfile.workspace       = true
 tokio-test.workspace     = true

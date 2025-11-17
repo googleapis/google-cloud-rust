@@ -31,8 +31,13 @@
 //!
 //! # Available Clients
 //!
+//! * [Audit](client/struct.Audit.html)
+//! * [CmEnrollmentService](client/struct.CmEnrollmentService.html)
 //! * [Config](client/struct.Config.html)
 //! * [Deployment](client/struct.Deployment.html)
+//! * [Monitoring](client/struct.Monitoring.html)
+
+#![allow(deprecated)]
 
 /// The messages and enums that are part of this client library.
 #[allow(clippy::module_inception)]

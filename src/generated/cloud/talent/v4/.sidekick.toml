@@ -17,5 +17,5 @@ specification-source = 'google/cloud/talent/v4'
 service-config = 'google/cloud/talent/v4/jobs_v4.yaml'
 
 [codec]
-version        = '1.1.0'
+version        = '1.1.1'
 copyright-year = '2025'

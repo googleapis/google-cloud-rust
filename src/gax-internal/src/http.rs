@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[cfg(google_cloud_unstable_tracing)]
+use crate::observability::{
+    create_http_attempt_span, record_http_response_attributes, record_intermediate_client_request,
+};
 use auth::credentials::{CacheableResource, Credentials};
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
@@ -175,42 +179,47 @@ impl ReqwestClient {
             Ok(CacheableResource::NotModified) => unreachable!("headers are not cached"),
         };
 
-        let request = builder.build().map_err(Self::map_send_error)?;
+        let request = builder.build().map_err(map_send_error)?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let method = request.method().clone();
+        #[cfg(google_cloud_unstable_tracing)]
+        let url = request.url().clone();
 
         #[cfg(google_cloud_unstable_tracing)]
-        let response_result = if self._tracing_enabled {
-            let mut span_info = crate::observability::HttpSpanInfo::from_request(
-                &request,
-                options,
-                self.instrumentation,
-                _attempt_count,
-            );
-            let span = span_info.create_span();
+        let (reqwest_result, span) = if self._tracing_enabled {
+            let span =
+                create_http_attempt_span(&request, options, self.instrumentation, _attempt_count);
             // The instrument call ensures the span is entered/exited as the execute future is polled.
             let result = self.inner.execute(request).instrument(span.clone()).await;
-            // Re-enter the span's context to record response attributes after the future has completed.
-            let _enter = span.enter();
-            span_info.update_from_response(&result);
-            span_info.record_response_attributes(&span);
-            result
+            (result, Some(span))
         } else {
-            self.inner.execute(request).await
+            (self.inner.execute(request).await, None)
         };
         #[cfg(not(google_cloud_unstable_tracing))]
-        let response_result = self.inner.execute(request).await;
+        let reqwest_result = self.inner.execute(request).await;
 
-        let response = response_result.map_err(Self::map_send_error)?;
-        if !response.status().is_success() {
-            return self::to_http_error(response).await;
-        }
-        self::to_http_response(response).await
-    }
+        let intermediate_result = reqwest_result.map_err(map_send_error);
+        let intermediate_result = match intermediate_result {
+            Ok(response) if !response.status().is_success() => self::to_http_error(response).await,
+            other => other,
+        };
 
-    fn map_send_error(err: reqwest::Error) -> Error {
-        match err {
-            e if e.is_timeout() => Error::timeout(e),
-            e => Error::io(e),
+        // Record span before parsing result, after parsing error.
+        #[cfg(google_cloud_unstable_tracing)]
+        if self._tracing_enabled {
+            if let Some(s) = span {
+                record_http_response_attributes(&s, intermediate_result.as_ref());
+            }
+            // Record to the client request span after s exits.
+            record_intermediate_client_request(
+                intermediate_result.as_ref(),
+                _attempt_count,
+                &method,
+                &url,
+            );
         }
+
+        self::to_http_response(intermediate_result?).await
     }
 
     fn get_retry_policy(&self, options: &gax::options::RequestOptions) -> Arc<dyn RetryPolicy> {
@@ -258,6 +267,37 @@ impl ReqwestClient {
             .polling_backoff_policy()
             .clone()
             .unwrap_or_else(|| self.polling_backoff_policy.clone())
+    }
+}
+
+fn as_inner<E>(error: &reqwest::Error) -> Option<&E>
+where
+    E: std::error::Error + 'static,
+{
+    use std::error::Error as _;
+    let mut e = error.source()?;
+    // Prevent infinite loops due to cycles in the `source()` errors. This seems
+    // unlikely, and it would require effort to create, but it is easy to
+    // prevent.
+    for _ in 0..32 {
+        if let Some(value) = e.downcast_ref::<E>() {
+            return Some(value);
+        }
+        e = e.source()?;
+    }
+    None
+}
+
+pub fn map_send_error(err: reqwest::Error) -> Error {
+    if let Some(e) = as_inner::<hyper::Error>(&err) {
+        if e.is_user() {
+            return Error::ser(err);
+        }
+    }
+    match err {
+        e if e.is_connect() => Error::connect(e),
+        e if e.is_timeout() => Error::timeout(e),
+        e => Error::io(e),
     }
 }
 
@@ -327,8 +367,16 @@ mod tests {
     use test_case::test_case;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
     use super::*;
+    #[cfg(google_cloud_unstable_tracing)]
+    use crate::observability::create_client_request_span;
     use crate::options::ClientConfig;
     use crate::options::InstrumentationClientInfo;
+    #[cfg(google_cloud_unstable_tracing)]
+    use google_cloud_test_utils::test_layer::TestLayer;
+    #[cfg(google_cloud_unstable_tracing)]
+    use opentelemetry_semantic_conventions::trace as otel_trace;
+    #[cfg(google_cloud_unstable_tracing)]
+    use tracing::Instrument;
 
     #[tokio::test]
     async fn client_http_error_bytes() -> TestResult {
@@ -527,5 +575,72 @@ mod tests {
         assert_eq!(client.host, "localhost");
 
         Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[tokio::test]
+    async fn test_t3_span_enrichment() {
+        let guard = TestLayer::initialize();
+        let t3_span =
+            create_client_request_span("t3_span", "test_method", &TEST_INSTRUMENTATION_INFO);
+
+        // Simulate T4 span scope ending before calling to_http_response
+        {
+            let t4_span = tracing::info_span!("t4_span");
+            let _t4_enter = t4_span.enter();
+            // T4 work happens here
+        } // T4 exit
+
+        let response = resp_from_code_content(reqwest::StatusCode::OK, "{}").unwrap();
+        let url = "https://example.com".parse().unwrap();
+
+        // Manually call the enrichment function, mimicking request_attempt
+        {
+            let _enter = t3_span.enter();
+            record_intermediate_client_request(Ok(&response), 1, &Method::GET, &url);
+        }
+
+        let _ = super::to_http_response::<wkt::Empty>(response)
+            .instrument(t3_span.clone())
+            .await;
+
+        let captured = TestLayer::capture(&guard);
+        // We expect t3_span to be captured, and t4_span.
+        // t3_span should have the attributes.
+        let t3_captured = captured
+            .iter()
+            .find(|s| s.name == "client_request")
+            .expect("client_request span not found");
+
+        assert_eq!(
+            t3_captured
+                .attributes
+                .get(crate::observability::attributes::keys::OTEL_NAME),
+            Some(&"t3_span".into())
+        );
+
+        assert_eq!(
+            t3_captured
+                .attributes
+                .get(otel_trace::HTTP_RESPONSE_STATUS_CODE),
+            Some(&(200_i64).into())
+        );
+        // Resend count is set because we passed 1
+        assert_eq!(
+            t3_captured
+                .attributes
+                .get(otel_trace::HTTP_REQUEST_RESEND_COUNT),
+            Some(&(1_i64).into())
+        );
+
+        let t4_captured = captured
+            .iter()
+            .find(|s| s.name == "t4_span")
+            .expect("t4_span not found");
+        assert!(
+            !t4_captured
+                .attributes
+                .contains_key(otel_trace::HTTP_RESPONSE_STATUS_CODE)
+        );
     }
 }

@@ -787,6 +787,7 @@ impl std::fmt::Debug for super::Backup {
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
         debug_struct.field("backup_properties", &self.backup_properties);
         debug_struct.field("plan_info", &self.plan_info);
+        debug_struct.field("source_resource", &self.source_resource);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -873,6 +874,35 @@ impl std::fmt::Debug for super::FetchUsableBackupVaultsResponse {
         debug_struct.field("backup_vaults", &self.backup_vaults);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::FetchBackupsForResourceTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchBackupsForResourceTypeRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("resource_type", &self.resource_type);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("view", &self.view);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::FetchBackupsForResourceTypeResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchBackupsForResourceTypeResponse");
+        debug_struct.field("backups", &self.backups);
+        debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1099,6 +1129,19 @@ impl std::fmt::Debug for super::GcpResource {
     }
 }
 
+impl std::fmt::Debug for super::BackupGcpResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupGcpResource");
+        debug_struct.field("gcp_resourcename", &self.gcp_resourcename);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::BackupApplianceBackupProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BackupApplianceBackupProperties");
@@ -1139,7 +1182,9 @@ impl std::fmt::Debug for super::CloudSqlInstanceBackupProperties {
         );
         debug_struct.field("final_backup", &self.final_backup);
         debug_struct.field("source_instance", &self.source_instance);
+        debug_struct.field("instance_create_time", &self.instance_create_time);
         debug_struct.field("instance_tier", &self.instance_tier);
+        debug_struct.field("instance_delete_time", &self.instance_delete_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1704,6 +1749,7 @@ impl std::fmt::Debug for super::DataSourceReference {
             "data_source_gcp_resource_info",
             &self.data_source_gcp_resource_info,
         );
+        debug_struct.field("total_stored_bytes", &self.total_stored_bytes);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1744,6 +1790,34 @@ impl std::fmt::Debug for super::GetDataSourceReferenceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetDataSourceReferenceRequest");
         debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListDataSourceReferencesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDataSourceReferencesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListDataSourceReferencesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDataSourceReferencesResponse");
+        debug_struct.field("data_source_references", &self.data_source_references);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

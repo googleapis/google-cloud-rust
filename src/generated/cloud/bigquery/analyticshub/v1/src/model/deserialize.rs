@@ -2040,6 +2040,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Listing {
             __publisher,
             __request_access,
             __restricted_export_config,
+            __stored_procedure_config,
             __discovery_type,
             __resource_type,
             __commercial_info,
@@ -2088,6 +2089,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Listing {
                             "restricted_export_config" => {
                                 Ok(__FieldTag::__restricted_export_config)
                             }
+                            "storedProcedureConfig" => Ok(__FieldTag::__stored_procedure_config),
+                            "stored_procedure_config" => Ok(__FieldTag::__stored_procedure_config),
                             "discoveryType" => Ok(__FieldTag::__discovery_type),
                             "discovery_type" => Ok(__FieldTag::__discovery_type),
                             "resourceType" => Ok(__FieldTag::__resource_type),
@@ -2302,6 +2305,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Listing {
                                 .next_value::<std::option::Option<
                                     crate::model::listing::RestrictedExportConfig,
                                 >>()?;
+                        }
+                        __FieldTag::__stored_procedure_config => {
+                            if !fields.insert(__FieldTag::__stored_procedure_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for stored_procedure_config",
+                                ));
+                            }
+                            result.stored_procedure_config = map.next_value::<std::option::Option<crate::model::StoredProcedureConfig>>()?
+                                ;
                         }
                         __FieldTag::__discovery_type => {
                             if !fields.insert(__FieldTag::__discovery_type) {
@@ -3174,6 +3186,107 @@ impl<'de> serde::de::Deserialize<'de>
                             }
                             result.commercial_state = map.next_value::<std::option::Option<crate::model::listing::commercial_info::google_cloud_marketplace_info::CommercialState>>()?
                                 ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::StoredProcedureConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __enabled,
+            __allowed_stored_procedure_types,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for StoredProcedureConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "enabled" => Ok(__FieldTag::__enabled),
+                            "allowedStoredProcedureTypes" => {
+                                Ok(__FieldTag::__allowed_stored_procedure_types)
+                            }
+                            "allowed_stored_procedure_types" => {
+                                Ok(__FieldTag::__allowed_stored_procedure_types)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::StoredProcedureConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct StoredProcedureConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__enabled => {
+                            if !fields.insert(__FieldTag::__enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enabled",
+                                ));
+                            }
+                            result.enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__allowed_stored_procedure_types => {
+                            if !fields.insert(__FieldTag::__allowed_stored_procedure_types) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for allowed_stored_procedure_types",
+                                ));
+                            }
+                            result.allowed_stored_procedure_types = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        crate::model::stored_procedure_config::StoredProcedureType,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6618,6 +6731,7 @@ impl<'de> serde::de::Deserialize<'de> for super::PubSubSubscription {
             __detached,
             __enable_exactly_once_delivery,
             __message_transforms,
+            __tags,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6674,6 +6788,7 @@ impl<'de> serde::de::Deserialize<'de> for super::PubSubSubscription {
                             }
                             "messageTransforms" => Ok(__FieldTag::__message_transforms),
                             "message_transforms" => Ok(__FieldTag::__message_transforms),
+                            "tags" => Ok(__FieldTag::__tags),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6869,6 +6984,21 @@ impl<'de> serde::de::Deserialize<'de> for super::PubSubSubscription {
                             result.message_transforms =
                                 map.next_value::<std::option::Option<
                                     std::vec::Vec<crate::model::MessageTransform>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__tags => {
+                            if !fields.insert(__FieldTag::__tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tags",
+                                ));
+                            }
+                            result.tags = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
                                 >>()?
                                 .unwrap_or_default();
                         }

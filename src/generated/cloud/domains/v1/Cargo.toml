@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-domains-v1"
-version                = "1.1.0"
+version                = "1.2.1"
 description            = "Google Cloud Client Libraries for Rust - Cloud Domains API"
 edition.workspace      = true
 authors.workspace      = true

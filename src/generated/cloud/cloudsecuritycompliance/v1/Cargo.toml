@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-cloudsecuritycompliance-v1"
-version                = "2.0.0"
+version                = "2.1.1"
 description            = "Google Cloud Client Libraries for Rust - Cloud Security Compliance API"
 edition.workspace      = true
 authors.workspace      = true
@@ -31,6 +31,7 @@ async-trait.workspace = true
 bytes.workspace      = true
 gax.workspace        = true
 gaxi                 = { workspace = true, features = ["_internal-http-client"] }
+gtype.workspace      = true
 lazy_static.workspace = true
 location.workspace   = true
 longrunning.workspace = true

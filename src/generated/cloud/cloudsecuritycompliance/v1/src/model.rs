@@ -21,6 +21,7 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate gtype;
 extern crate lazy_static;
 extern crate location;
 extern crate longrunning;
@@ -37,24 +38,2021 @@ mod debug;
 mod deserialize;
 mod serialize;
 
-/// A Framework is a collection of CloudControls to address security and
-/// compliance requirements. Frameworks can be used for prevention, detection,
-/// and auditing. They can be either built-in, industry-standard frameworks
-/// provided by GCP/AZURE/AWS (e.g., NIST, FedRAMP) or custom frameworks created
-/// by users.
+/// The request message for [GenerateFrameworkAuditScopeReport][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GenerateFrameworkAuditScopeReportRequest {
+    /// Required. The organization, folder or project for the audit report.
+    ///
+    /// Supported formats are the following:
+    ///
+    /// * `projects/{project_id}/locations/{location}`
+    /// * `folders/{folder_id}/locations/{location}`
+    /// * `organizations/{organization_id}/locations/{location}`
+    pub scope: std::string::String,
+
+    /// Required. The format that the scope report bytes is returned in.
+    pub report_format: crate::model::generate_framework_audit_scope_report_request::Format,
+
+    /// Required. The compliance framework that the scope report is generated for.
+    pub compliance_framework: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GenerateFrameworkAuditScopeReportRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [scope][crate::model::GenerateFrameworkAuditScopeReportRequest::scope].
+    pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.scope = v.into();
+        self
+    }
+
+    /// Sets the value of [report_format][crate::model::GenerateFrameworkAuditScopeReportRequest::report_format].
+    pub fn set_report_format<
+        T: std::convert::Into<crate::model::generate_framework_audit_scope_report_request::Format>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.report_format = v.into();
+        self
+    }
+
+    /// Sets the value of [compliance_framework][crate::model::GenerateFrameworkAuditScopeReportRequest::compliance_framework].
+    pub fn set_compliance_framework<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compliance_framework = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GenerateFrameworkAuditScopeReportRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.GenerateFrameworkAuditScopeReportRequest"
+    }
+}
+
+/// Defines additional types related to [GenerateFrameworkAuditScopeReportRequest].
+pub mod generate_framework_audit_scope_report_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The set of options for the audit scope report format.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Format {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// The report format is the Open Document Format (ODF).
+        Odf,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Format::value] or
+        /// [Format::name].
+        UnknownValue(format::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod format {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Format {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Odf => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("FORMAT_UNSPECIFIED"),
+                Self::Odf => std::option::Option::Some("ODF"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Format {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Format {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Format {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Odf,
+                _ => Self::UnknownValue(format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Format {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FORMAT_UNSPECIFIED" => Self::Unspecified,
+                "ODF" => Self::Odf,
+                _ => Self::UnknownValue(format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Format {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Odf => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Format {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Format>::new(
+                ".google.cloud.cloudsecuritycompliance.v1.GenerateFrameworkAuditScopeReportRequest.Format"))
+        }
+    }
+}
+
+/// The response message for [GenerateFrameworkAuditScopeReport][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GenerateFrameworkAuditScopeReportResponse {
+    /// Identifier. The name of the audit report, in the format that was
+    /// given in the request.
+    pub name: std::string::String,
+
+    /// Required. The compliance framework that the audit scope report is generated
+    /// for.
+    pub compliance_framework: std::string::String,
+
+    /// The set of options that the audit scope report is exported in.
+    pub audit_report: std::option::Option<
+        crate::model::generate_framework_audit_scope_report_response::AuditReport,
+    >,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GenerateFrameworkAuditScopeReportResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GenerateFrameworkAuditScopeReportResponse::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [compliance_framework][crate::model::GenerateFrameworkAuditScopeReportResponse::compliance_framework].
+    pub fn set_compliance_framework<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compliance_framework = v.into();
+        self
+    }
+
+    /// Sets the value of [audit_report][crate::model::GenerateFrameworkAuditScopeReportResponse::audit_report].
+    ///
+    /// Note that all the setters affecting `audit_report` are mutually
+    /// exclusive.
+    pub fn set_audit_report<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::generate_framework_audit_scope_report_response::AuditReport,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.audit_report = v.into();
+        self
+    }
+
+    /// The value of [audit_report][crate::model::GenerateFrameworkAuditScopeReportResponse::audit_report]
+    /// if it holds a `ScopeReportContents`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn scope_report_contents(&self) -> std::option::Option<&::bytes::Bytes> {
+        #[allow(unreachable_patterns)]
+        self.audit_report.as_ref().and_then(|v| match v {
+            crate::model::generate_framework_audit_scope_report_response::AuditReport::ScopeReportContents(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [audit_report][crate::model::GenerateFrameworkAuditScopeReportResponse::audit_report]
+    /// to hold a `ScopeReportContents`.
+    ///
+    /// Note that all the setters affecting `audit_report` are
+    /// mutually exclusive.
+    pub fn set_scope_report_contents<T: std::convert::Into<::bytes::Bytes>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.audit_report = std::option::Option::Some(
+            crate::model::generate_framework_audit_scope_report_response::AuditReport::ScopeReportContents(
+                v.into()
+            )
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for GenerateFrameworkAuditScopeReportResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.GenerateFrameworkAuditScopeReportResponse"
+    }
+}
+
+/// Defines additional types related to [GenerateFrameworkAuditScopeReportResponse].
+pub mod generate_framework_audit_scope_report_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The set of options that the audit scope report is exported in.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AuditReport {
+        /// The audit scope report content in byte format.
+        ScopeReportContents(::bytes::Bytes),
+    }
+}
+
+/// Additional information for an audit operation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ReportSummary {
+    /// Output only. The total number of checks.
+    pub total_count: i32,
+
+    /// Output only. The number of compliant checks.
+    pub compliant_count: i32,
+
+    /// Output only. The number of checks with violations.
+    pub violation_count: i32,
+
+    /// Output only. The number of checks with "manual review needed" status.
+    pub manual_review_needed_count: i32,
+
+    /// Output only. The number of checks that can't be performed due to errors.
+    pub error_count: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ReportSummary {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [total_count][crate::model::ReportSummary::total_count].
+    pub fn set_total_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.total_count = v.into();
+        self
+    }
+
+    /// Sets the value of [compliant_count][crate::model::ReportSummary::compliant_count].
+    pub fn set_compliant_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.compliant_count = v.into();
+        self
+    }
+
+    /// Sets the value of [violation_count][crate::model::ReportSummary::violation_count].
+    pub fn set_violation_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.violation_count = v.into();
+        self
+    }
+
+    /// Sets the value of [manual_review_needed_count][crate::model::ReportSummary::manual_review_needed_count].
+    pub fn set_manual_review_needed_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.manual_review_needed_count = v.into();
+        self
+    }
+
+    /// Sets the value of [error_count][crate::model::ReportSummary::error_count].
+    pub fn set_error_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.error_count = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ReportSummary {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.ReportSummary"
+    }
+}
+
+/// The request message for [CreateFrameworkAudit][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateFrameworkAuditRequest {
+    /// Required. The parent resource where this framework audit is created.
+    ///
+    /// Supported formats are the following:
+    ///
+    /// * `organizations/{organization_id}/locations/{location}`
+    /// * `folders/{folder_id}/locations/{location}`
+    /// * `projects/{project_id}/locations/{location}`
+    pub parent: std::string::String,
+
+    /// Optional. The ID to use for the framework audit. The ID becomes the final
+    /// component of the framework audit's full resource name.
+    ///
+    /// The ID must be between 4-63 characters, and valid characters
+    /// are `\[a-z][0-9]-\`.
+    pub framework_audit_id: std::string::String,
+
+    /// Required. The framework audit to create.
+    pub framework_audit: std::option::Option<crate::model::FrameworkAudit>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateFrameworkAuditRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateFrameworkAuditRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [framework_audit_id][crate::model::CreateFrameworkAuditRequest::framework_audit_id].
+    pub fn set_framework_audit_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.framework_audit_id = v.into();
+        self
+    }
+
+    /// Sets the value of [framework_audit][crate::model::CreateFrameworkAuditRequest::framework_audit].
+    pub fn set_framework_audit<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FrameworkAudit>,
+    {
+        self.framework_audit = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [framework_audit][crate::model::CreateFrameworkAuditRequest::framework_audit].
+    pub fn set_or_clear_framework_audit<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FrameworkAudit>,
+    {
+        self.framework_audit = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateFrameworkAuditRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.CreateFrameworkAuditRequest"
+    }
+}
+
+/// A destination for the framework audit.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FrameworkAuditDestination {
+    /// The type of destination.
+    pub destination_type:
+        std::option::Option<crate::model::framework_audit_destination::DestinationType>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FrameworkAuditDestination {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [destination_type][crate::model::FrameworkAuditDestination::destination_type].
+    ///
+    /// Note that all the setters affecting `destination_type` are mutually
+    /// exclusive.
+    pub fn set_destination_type<
+        T: std::convert::Into<
+                std::option::Option<crate::model::framework_audit_destination::DestinationType>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_type = v.into();
+        self
+    }
+
+    /// The value of [destination_type][crate::model::FrameworkAuditDestination::destination_type]
+    /// if it holds a `Bucket`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bucket(&self) -> std::option::Option<&std::boxed::Box<crate::model::BucketDestination>> {
+        #[allow(unreachable_patterns)]
+        self.destination_type.as_ref().and_then(|v| match v {
+            crate::model::framework_audit_destination::DestinationType::Bucket(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [destination_type][crate::model::FrameworkAuditDestination::destination_type]
+    /// to hold a `Bucket`.
+    ///
+    /// Note that all the setters affecting `destination_type` are
+    /// mutually exclusive.
+    pub fn set_bucket<T: std::convert::Into<std::boxed::Box<crate::model::BucketDestination>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_type = std::option::Option::Some(
+            crate::model::framework_audit_destination::DestinationType::Bucket(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for FrameworkAuditDestination {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.FrameworkAuditDestination"
+    }
+}
+
+/// Defines additional types related to [FrameworkAuditDestination].
+pub mod framework_audit_destination {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The type of destination.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DestinationType {
+        /// The Cloud Storage bucket destination.
+        Bucket(std::boxed::Box<crate::model::BucketDestination>),
+    }
+}
+
+/// A Cloud Storage bucket destination.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BucketDestination {
+    /// Required. The URI of the Cloud Storage bucket.
+    pub bucket_uri: std::string::String,
+
+    /// Optional. The format of the framework audit.
+    pub framework_audit_format: crate::model::bucket_destination::Format,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BucketDestination {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [bucket_uri][crate::model::BucketDestination::bucket_uri].
+    pub fn set_bucket_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.bucket_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [framework_audit_format][crate::model::BucketDestination::framework_audit_format].
+    pub fn set_framework_audit_format<
+        T: std::convert::Into<crate::model::bucket_destination::Format>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.framework_audit_format = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BucketDestination {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.BucketDestination"
+    }
+}
+
+/// Defines additional types related to [BucketDestination].
+pub mod bucket_destination {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The set of options for the framework audit format.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Format {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// The format for the framework audit report is Open Document.
+        Odf,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Format::value] or
+        /// [Format::name].
+        UnknownValue(format::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod format {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Format {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Odf => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("FORMAT_UNSPECIFIED"),
+                Self::Odf => std::option::Option::Some("ODF"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Format {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Format {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Format {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Odf,
+                _ => Self::UnknownValue(format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Format {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FORMAT_UNSPECIFIED" => Self::Unspecified,
+                "ODF" => Self::Odf,
+                _ => Self::UnknownValue(format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Format {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Odf => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Format {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Format>::new(
+                ".google.cloud.cloudsecuritycompliance.v1.BucketDestination.Format",
+            ))
+        }
+    }
+}
+
+/// A framework audit.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FrameworkAudit {
+    /// Output only. Identifier. The name of the framework audit.
+    pub name: std::string::String,
+
+    /// Output only. The ID of the framework audit.
+    pub framework_audit_id: std::string::String,
+
+    /// Output only. The compliance framework used for the audit.
+    pub compliance_framework: std::string::String,
+
+    /// Output only. The scope of the audit.
+    pub scope: std::string::String,
+
+    /// Required. The destination for the audit reports.
+    pub framework_audit_destination: std::option::Option<crate::model::FrameworkAuditDestination>,
+
+    /// Output only. The time that the audit started.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time that the audit finished.
+    pub finish_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The overall compliance state of the audit.
+    pub compliance_state: crate::model::ComplianceState,
+
+    /// Output only. The summary of the report.
+    pub report_summary: std::option::Option<crate::model::ReportSummary>,
+
+    /// Optional. The details for the cloud control groups within this audit.
+    pub cloud_control_group_audit_details:
+        std::vec::Vec<crate::model::CloudControlGroupAuditDetails>,
+
+    /// Optional. The details for the cloud controls within this audit.
+    pub cloud_control_audit_details: std::vec::Vec<crate::model::CloudControlAuditDetails>,
+
+    /// Output only. The ID of the long-running operation.
+    pub operation_id: std::string::String,
+
+    /// Output only. The framework audit state of the audit.
+    pub state: crate::model::framework_audit::State,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FrameworkAudit {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::FrameworkAudit::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [framework_audit_id][crate::model::FrameworkAudit::framework_audit_id].
+    pub fn set_framework_audit_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.framework_audit_id = v.into();
+        self
+    }
+
+    /// Sets the value of [compliance_framework][crate::model::FrameworkAudit::compliance_framework].
+    pub fn set_compliance_framework<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compliance_framework = v.into();
+        self
+    }
+
+    /// Sets the value of [scope][crate::model::FrameworkAudit::scope].
+    pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.scope = v.into();
+        self
+    }
+
+    /// Sets the value of [framework_audit_destination][crate::model::FrameworkAudit::framework_audit_destination].
+    pub fn set_framework_audit_destination<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FrameworkAuditDestination>,
+    {
+        self.framework_audit_destination = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [framework_audit_destination][crate::model::FrameworkAudit::framework_audit_destination].
+    pub fn set_or_clear_framework_audit_destination<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FrameworkAuditDestination>,
+    {
+        self.framework_audit_destination = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::FrameworkAudit::start_time].
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::FrameworkAudit::start_time].
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [finish_time][crate::model::FrameworkAudit::finish_time].
+    pub fn set_finish_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.finish_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [finish_time][crate::model::FrameworkAudit::finish_time].
+    pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.finish_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [compliance_state][crate::model::FrameworkAudit::compliance_state].
+    pub fn set_compliance_state<T: std::convert::Into<crate::model::ComplianceState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compliance_state = v.into();
+        self
+    }
+
+    /// Sets the value of [report_summary][crate::model::FrameworkAudit::report_summary].
+    pub fn set_report_summary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ReportSummary>,
+    {
+        self.report_summary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [report_summary][crate::model::FrameworkAudit::report_summary].
+    pub fn set_or_clear_report_summary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ReportSummary>,
+    {
+        self.report_summary = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cloud_control_group_audit_details][crate::model::FrameworkAudit::cloud_control_group_audit_details].
+    pub fn set_cloud_control_group_audit_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CloudControlGroupAuditDetails>,
+    {
+        use std::iter::Iterator;
+        self.cloud_control_group_audit_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [cloud_control_audit_details][crate::model::FrameworkAudit::cloud_control_audit_details].
+    pub fn set_cloud_control_audit_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CloudControlAuditDetails>,
+    {
+        use std::iter::Iterator;
+        self.cloud_control_audit_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [operation_id][crate::model::FrameworkAudit::operation_id].
+    pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.operation_id = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::FrameworkAudit::state].
+    pub fn set_state<T: std::convert::Into<crate::model::framework_audit::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FrameworkAudit {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.FrameworkAudit"
+    }
+}
+
+/// Defines additional types related to [FrameworkAudit].
+pub mod framework_audit {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The state of the framework audit.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// The audit is scheduled.
+        Scheduled,
+        /// The audit is running.
+        Running,
+        /// The audit results are being uploaded.
+        Uploading,
+        /// The audit failed.
+        Failed,
+        /// The audit completed successfully.
+        Succeeded,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Scheduled => std::option::Option::Some(1),
+                Self::Running => std::option::Option::Some(2),
+                Self::Uploading => std::option::Option::Some(3),
+                Self::Failed => std::option::Option::Some(4),
+                Self::Succeeded => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Scheduled => std::option::Option::Some("SCHEDULED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Uploading => std::option::Option::Some("UPLOADING"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Scheduled,
+                2 => Self::Running,
+                3 => Self::Uploading,
+                4 => Self::Failed,
+                5 => Self::Succeeded,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "SCHEDULED" => Self::Scheduled,
+                "RUNNING" => Self::Running,
+                "UPLOADING" => Self::Uploading,
+                "FAILED" => Self::Failed,
+                "SUCCEEDED" => Self::Succeeded,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Scheduled => serializer.serialize_i32(1),
+                Self::Running => serializer.serialize_i32(2),
+                Self::Uploading => serializer.serialize_i32(3),
+                Self::Failed => serializer.serialize_i32(4),
+                Self::Succeeded => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.cloudsecuritycompliance.v1.FrameworkAudit.State",
+            ))
+        }
+    }
+}
+
+/// The request message for [ListFrameworkAudits][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListFrameworkAuditsRequest {
+    /// Required. The parent resource where the framework audits are listed.
+    ///
+    /// Supported formats are the following:
+    ///
+    /// * `organizations/{organization_id}/locations/{location}`
+    /// * `folders/{folder_id}/locations/{location}`
+    /// * `projects/{project_id}/locations/{location}`
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of framework audits to return. The service
+    /// might return fewer audits than this value. If unspecified, a maximum of 10
+    /// framework audits are returned. The maximum value is 50; values above 50 are
+    /// limited to 50.
+    pub page_size: i32,
+
+    /// Optional. The `next_page_token` value that's returned from a previous list
+    /// request, if any.
+    pub page_token: std::string::String,
+
+    /// Optional. The filters to apply to the framework audits.
+    /// Supported filters are `compliance_framework`, `compliance_state`,
+    /// `create_time,` and `framework_audit_name`. If the filter is invalid, an
+    /// invalid argument error is returned.
+    /// For syntax details, see [AIP-160][<https://google.aip.dev/160>].
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFrameworkAuditsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListFrameworkAuditsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListFrameworkAuditsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListFrameworkAuditsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListFrameworkAuditsRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListFrameworkAuditsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.ListFrameworkAuditsRequest"
+    }
+}
+
+/// The response message for [ListFrameworkAudits][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListFrameworkAuditsResponse {
+    /// The framework audits.
+    pub framework_audits: std::vec::Vec<crate::model::FrameworkAudit>,
+
+    /// A token, which you can send as the `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFrameworkAuditsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [framework_audits][crate::model::ListFrameworkAuditsResponse::framework_audits].
+    pub fn set_framework_audits<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FrameworkAudit>,
+    {
+        use std::iter::Iterator;
+        self.framework_audits = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFrameworkAuditsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListFrameworkAuditsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.ListFrameworkAuditsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListFrameworkAuditsResponse {
+    type PageItem = crate::model::FrameworkAudit;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.framework_audits
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The request message for [GetFrameworkAudit][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetFrameworkAuditRequest {
+    /// Required. The name of the framework audit to retrieve.
+    ///
+    /// Supported formats are the following:
+    ///
+    /// * `organizations/{organization_id}/locations/{location}/frameworkAudits/{frameworkAuditName}`
+    /// * `folders/{folder_id}/locations/{location}/frameworkAudits/{frameworkAuditName}`
+    /// * `projects/{project_id}/locations/{location}/frameworkAudits/{frameworkAuditName}`
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetFrameworkAuditRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetFrameworkAuditRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetFrameworkAuditRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.GetFrameworkAuditRequest"
+    }
+}
+
+/// The details for a cloud control group.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CloudControlGroupAuditDetails {
+    /// Output only. The ID of the cloud control group.
+    pub cloud_control_group_id: std::string::String,
+
+    /// Output only. The display name of the cloud control group.
+    pub display_name: std::string::String,
+
+    /// Output only. The description of the cloud control group.
+    pub description: std::string::String,
+
+    /// Output only. The responsibility type.
+    pub responsibility_type: std::string::String,
+
+    /// Output only. The description of Google's responsibility.
+    pub google_responsibility_description: std::string::String,
+
+    /// Output only. The implementation of Google's responsibility.
+    pub google_responsibility_implementation: std::string::String,
+
+    /// Output only. The description of your responsibility.
+    pub customer_responsibility_description: std::string::String,
+
+    /// Output only. The implementation of your responsibility.
+    pub customer_responsibility_implementation: std::string::String,
+
+    /// Output only. The compliance state of the control group.
+    pub compliance_state: crate::model::ComplianceState,
+
+    /// Output only. The ID of the regulatory control.
+    pub control_id: std::string::String,
+
+    /// Output only. The control family.
+    pub control_family: std::option::Option<crate::model::ControlFamily>,
+
+    /// Output only. The details for the cloud controls within this group.
+    pub cloud_control_details: std::vec::Vec<crate::model::CloudControlAuditDetails>,
+
+    /// Output only. The summary of the report.
+    pub report_summary: std::option::Option<crate::model::ReportSummary>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CloudControlGroupAuditDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cloud_control_group_id][crate::model::CloudControlGroupAuditDetails::cloud_control_group_id].
+    pub fn set_cloud_control_group_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cloud_control_group_id = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::CloudControlGroupAuditDetails::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::CloudControlGroupAuditDetails::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [responsibility_type][crate::model::CloudControlGroupAuditDetails::responsibility_type].
+    pub fn set_responsibility_type<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.responsibility_type = v.into();
+        self
+    }
+
+    /// Sets the value of [google_responsibility_description][crate::model::CloudControlGroupAuditDetails::google_responsibility_description].
+    pub fn set_google_responsibility_description<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.google_responsibility_description = v.into();
+        self
+    }
+
+    /// Sets the value of [google_responsibility_implementation][crate::model::CloudControlGroupAuditDetails::google_responsibility_implementation].
+    pub fn set_google_responsibility_implementation<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.google_responsibility_implementation = v.into();
+        self
+    }
+
+    /// Sets the value of [customer_responsibility_description][crate::model::CloudControlGroupAuditDetails::customer_responsibility_description].
+    pub fn set_customer_responsibility_description<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.customer_responsibility_description = v.into();
+        self
+    }
+
+    /// Sets the value of [customer_responsibility_implementation][crate::model::CloudControlGroupAuditDetails::customer_responsibility_implementation].
+    pub fn set_customer_responsibility_implementation<
+        T: std::convert::Into<std::string::String>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.customer_responsibility_implementation = v.into();
+        self
+    }
+
+    /// Sets the value of [compliance_state][crate::model::CloudControlGroupAuditDetails::compliance_state].
+    pub fn set_compliance_state<T: std::convert::Into<crate::model::ComplianceState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compliance_state = v.into();
+        self
+    }
+
+    /// Sets the value of [control_id][crate::model::CloudControlGroupAuditDetails::control_id].
+    pub fn set_control_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.control_id = v.into();
+        self
+    }
+
+    /// Sets the value of [control_family][crate::model::CloudControlGroupAuditDetails::control_family].
+    pub fn set_control_family<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ControlFamily>,
+    {
+        self.control_family = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [control_family][crate::model::CloudControlGroupAuditDetails::control_family].
+    pub fn set_or_clear_control_family<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ControlFamily>,
+    {
+        self.control_family = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cloud_control_details][crate::model::CloudControlGroupAuditDetails::cloud_control_details].
+    pub fn set_cloud_control_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CloudControlAuditDetails>,
+    {
+        use std::iter::Iterator;
+        self.cloud_control_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [report_summary][crate::model::CloudControlGroupAuditDetails::report_summary].
+    pub fn set_report_summary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ReportSummary>,
+    {
+        self.report_summary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [report_summary][crate::model::CloudControlGroupAuditDetails::report_summary].
+    pub fn set_or_clear_report_summary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ReportSummary>,
+    {
+        self.report_summary = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CloudControlGroupAuditDetails {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.CloudControlGroupAuditDetails"
+    }
+}
+
+/// The details for a finding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FindingDetails {
+    /// Output only. The name of the finding.
+    pub name: std::string::String,
+
+    /// Output only. The compliance state of the finding.
+    pub compliance_state: crate::model::ComplianceState,
+
+    /// Output only. The observation details for the finding.
+    pub observation: std::option::Option<crate::model::ObservationDetails>,
+
+    /// Output only. The evidence details for the finding.
+    pub evidence: std::option::Option<crate::model::EvidenceDetails>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FindingDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::FindingDetails::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [compliance_state][crate::model::FindingDetails::compliance_state].
+    pub fn set_compliance_state<T: std::convert::Into<crate::model::ComplianceState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compliance_state = v.into();
+        self
+    }
+
+    /// Sets the value of [observation][crate::model::FindingDetails::observation].
+    pub fn set_observation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ObservationDetails>,
+    {
+        self.observation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [observation][crate::model::FindingDetails::observation].
+    pub fn set_or_clear_observation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ObservationDetails>,
+    {
+        self.observation = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [evidence][crate::model::FindingDetails::evidence].
+    pub fn set_evidence<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EvidenceDetails>,
+    {
+        self.evidence = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [evidence][crate::model::FindingDetails::evidence].
+    pub fn set_or_clear_evidence<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EvidenceDetails>,
+    {
+        self.evidence = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for FindingDetails {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.FindingDetails"
+    }
+}
+
+/// The observation details for a finding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ObservationDetails {
+    /// Output only. The current value.
+    pub current_value: std::string::String,
+
+    /// Optional. The expected value.
+    pub expected_value: std::string::String,
+
+    /// Output only. Any guidance for the observation.
+    pub guidance: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ObservationDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [current_value][crate::model::ObservationDetails::current_value].
+    pub fn set_current_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.current_value = v.into();
+        self
+    }
+
+    /// Sets the value of [expected_value][crate::model::ObservationDetails::expected_value].
+    pub fn set_expected_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.expected_value = v.into();
+        self
+    }
+
+    /// Sets the value of [guidance][crate::model::ObservationDetails::guidance].
+    pub fn set_guidance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.guidance = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ObservationDetails {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.ObservationDetails"
+    }
+}
+
+/// The evidence details for a finding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EvidenceDetails {
+    /// Output only. The resource identifier.
+    pub resource: std::string::String,
+
+    /// Output only. The service identifier.
+    pub service: std::string::String,
+
+    /// Output only. The path to the evidence.
+    pub evidence_path: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EvidenceDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [resource][crate::model::EvidenceDetails::resource].
+    pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.resource = v.into();
+        self
+    }
+
+    /// Sets the value of [service][crate::model::EvidenceDetails::service].
+    pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.service = v.into();
+        self
+    }
+
+    /// Sets the value of [evidence_path][crate::model::EvidenceDetails::evidence_path].
+    pub fn set_evidence_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.evidence_path = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for EvidenceDetails {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.EvidenceDetails"
+    }
+}
+
+/// The details for a cloud control audit.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CloudControlAuditDetails {
+    /// Output only. The name of the cloud control.
+    pub cloud_control: std::string::String,
+
+    /// Output only. The ID of the cloud control.
+    pub cloud_control_id: std::string::String,
+
+    /// Output only. The description of the cloud control.
+    pub cloud_control_description: std::string::String,
+
+    /// Output only. The overall status of the findings for the control.
+    pub compliance_state: crate::model::ComplianceState,
+
+    /// Output only. The summary of the report.
+    pub report_summary: std::option::Option<crate::model::ReportSummary>,
+
+    /// Output only. The findings for the control.
+    pub findings: std::vec::Vec<crate::model::FindingDetails>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CloudControlAuditDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cloud_control][crate::model::CloudControlAuditDetails::cloud_control].
+    pub fn set_cloud_control<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.cloud_control = v.into();
+        self
+    }
+
+    /// Sets the value of [cloud_control_id][crate::model::CloudControlAuditDetails::cloud_control_id].
+    pub fn set_cloud_control_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cloud_control_id = v.into();
+        self
+    }
+
+    /// Sets the value of [cloud_control_description][crate::model::CloudControlAuditDetails::cloud_control_description].
+    pub fn set_cloud_control_description<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cloud_control_description = v.into();
+        self
+    }
+
+    /// Sets the value of [compliance_state][crate::model::CloudControlAuditDetails::compliance_state].
+    pub fn set_compliance_state<T: std::convert::Into<crate::model::ComplianceState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compliance_state = v.into();
+        self
+    }
+
+    /// Sets the value of [report_summary][crate::model::CloudControlAuditDetails::report_summary].
+    pub fn set_report_summary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ReportSummary>,
+    {
+        self.report_summary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [report_summary][crate::model::CloudControlAuditDetails::report_summary].
+    pub fn set_or_clear_report_summary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ReportSummary>,
+    {
+        self.report_summary = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [findings][crate::model::CloudControlAuditDetails::findings].
+    pub fn set_findings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FindingDetails>,
+    {
+        use std::iter::Iterator;
+        self.findings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for CloudControlAuditDetails {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.CloudControlAuditDetails"
+    }
+}
+
+/// The request message for [UpdateCmEnrollment][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateCmEnrollmentRequest {
+    /// Required. The Compliance Manager enrollment to update.
+    /// The `name` field is used to identify the settings that you want to update.
+    pub cm_enrollment: std::option::Option<crate::model::CmEnrollment>,
+
+    /// Optional. The list of fields that you want to update.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateCmEnrollmentRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cm_enrollment][crate::model::UpdateCmEnrollmentRequest::cm_enrollment].
+    pub fn set_cm_enrollment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CmEnrollment>,
+    {
+        self.cm_enrollment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cm_enrollment][crate::model::UpdateCmEnrollmentRequest::cm_enrollment].
+    pub fn set_or_clear_cm_enrollment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CmEnrollment>,
+    {
+        self.cm_enrollment = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateCmEnrollmentRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCmEnrollmentRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateCmEnrollmentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.UpdateCmEnrollmentRequest"
+    }
+}
+
+/// The request message for [CalculateEffectiveCmEnrollment][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CalculateEffectiveCmEnrollmentRequest {
+    /// Required. The name of the Compliance Manager enrollment to calculate.
+    ///
+    /// Supported formats are the following:
+    ///
+    /// * `organizations/{organization_id}/locations/{location}/cmEnrollment`
+    /// * `folders/{folder_id}/locations/{location}/cmEnrollment`
+    /// * `projects/{project_id}/locations/{location}/cmEnrollment`
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CalculateEffectiveCmEnrollmentRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::CalculateEffectiveCmEnrollmentRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CalculateEffectiveCmEnrollmentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.CalculateEffectiveCmEnrollmentRequest"
+    }
+}
+
+/// The settings for Compliance Manager at a specific resource scope.=
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CmEnrollment {
+    /// Identifier. The name of the Compliance Manager enrollment.
+    ///
+    /// Supported formats are the following:
+    ///
+    /// * `organizations/{organization_id}/locations/{location}/cmEnrollment`
+    /// * `folders/{folder_id}/locations/{location}/cmEnrollment`
+    /// * `projects/{project_id}/locations/{location}/cmEnrollment`
+    pub name: std::string::String,
+
+    /// Optional. Whether the resource is enrolled in Compliance Manager.
+    /// This setting is inherited by all descendants.
+    pub enrolled: bool,
+
+    /// Optional. The audit configuration for Compliance Manager.
+    /// If set at a scope, this configuration overrides any inherited audit
+    /// configuration.
+    pub audit_config: std::option::Option<crate::model::AuditConfig>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CmEnrollment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::CmEnrollment::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [enrolled][crate::model::CmEnrollment::enrolled].
+    pub fn set_enrolled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enrolled = v.into();
+        self
+    }
+
+    /// Sets the value of [audit_config][crate::model::CmEnrollment::audit_config].
+    pub fn set_audit_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AuditConfig>,
+    {
+        self.audit_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [audit_config][crate::model::CmEnrollment::audit_config].
+    pub fn set_or_clear_audit_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AuditConfig>,
+    {
+        self.audit_config = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CmEnrollment {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.CmEnrollment"
+    }
+}
+
+/// The response message for [CalculateEffectiveCmEnrollment][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CalculateEffectiveCmEnrollmentResponse {
+    /// The effective Compliance Manager enrollment for the resource.
+    pub cm_enrollment: std::option::Option<crate::model::CmEnrollment>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CalculateEffectiveCmEnrollmentResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cm_enrollment][crate::model::CalculateEffectiveCmEnrollmentResponse::cm_enrollment].
+    pub fn set_cm_enrollment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CmEnrollment>,
+    {
+        self.cm_enrollment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cm_enrollment][crate::model::CalculateEffectiveCmEnrollmentResponse::cm_enrollment].
+    pub fn set_or_clear_cm_enrollment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CmEnrollment>,
+    {
+        self.cm_enrollment = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CalculateEffectiveCmEnrollmentResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.CalculateEffectiveCmEnrollmentResponse"
+    }
+}
+
+/// The audit configuration for Compliance Manager.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AuditConfig {
+    /// Required. The list of destinations that can be selected for uploading audit
+    /// reports to.
+    pub destinations: std::vec::Vec<crate::model::audit_config::CmEligibleDestination>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AuditConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [destinations][crate::model::AuditConfig::destinations].
+    pub fn set_destinations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::audit_config::CmEligibleDestination>,
+    {
+        use std::iter::Iterator;
+        self.destinations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for AuditConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.AuditConfig"
+    }
+}
+
+/// Defines additional types related to [AuditConfig].
+pub mod audit_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The destination details where audit reports are
+    /// uploaded.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct CmEligibleDestination {
+        /// Set of options for the report destination location.
+        pub cm_eligible_destinations: std::option::Option<
+            crate::model::audit_config::cm_eligible_destination::CmEligibleDestinations,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CmEligibleDestination {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [cm_eligible_destinations][crate::model::audit_config::CmEligibleDestination::cm_eligible_destinations].
+        ///
+        /// Note that all the setters affecting `cm_eligible_destinations` are mutually
+        /// exclusive.
+        pub fn set_cm_eligible_destinations<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::audit_config::cm_eligible_destination::CmEligibleDestinations,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.cm_eligible_destinations = v.into();
+            self
+        }
+
+        /// The value of [cm_eligible_destinations][crate::model::audit_config::CmEligibleDestination::cm_eligible_destinations]
+        /// if it holds a `GcsBucket`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn gcs_bucket(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.cm_eligible_destinations.as_ref().and_then(|v| match v {
+                crate::model::audit_config::cm_eligible_destination::CmEligibleDestinations::GcsBucket(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [cm_eligible_destinations][crate::model::audit_config::CmEligibleDestination::cm_eligible_destinations]
+        /// to hold a `GcsBucket`.
+        ///
+        /// Note that all the setters affecting `cm_eligible_destinations` are
+        /// mutually exclusive.
+        pub fn set_gcs_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.cm_eligible_destinations = std::option::Option::Some(
+                crate::model::audit_config::cm_eligible_destination::CmEligibleDestinations::GcsBucket(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for CmEligibleDestination {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.AuditConfig.CmEligibleDestination"
+        }
+    }
+
+    /// Defines additional types related to [CmEligibleDestination].
+    pub mod cm_eligible_destination {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Set of options for the report destination location.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum CmEligibleDestinations {
+            /// The Cloud Storage bucket where audit reports and evidences can be
+            /// uploaded. The format is `gs://{bucket_name}`.
+            GcsBucket(std::string::String),
+        }
+    }
+}
+
+/// A framework is a collection of cloud controls and regulatory controls
+/// that represent security best practices or industry-defined standards such as
+/// FedRAMP or NIST.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Framework {
-    /// Required. Identifier. The name of the framework.
-    /// Format:
-    /// organizations/{organization}/locations/{location}/frameworks/{framework_id}
+    /// Required. Identifier. The name of the framework, in the format
+    /// `organizations/{organization}/locations/{location}/frameworks/{framework_id}`.
+    /// The only supported location is `global`.
     pub name: std::string::String,
 
-    /// Output only. Major revision of the framework incremented in ascending
-    /// order.
+    /// Output only. The major version of the framework, which is incremented in
+    /// ascending order.
     pub major_revision_id: i64,
 
-    /// Optional. Display name of the framework. The maximum length is 200
+    /// Optional. The friendly name of the framework. The maximum length is 200
     /// characters.
     pub display_name: std::string::String,
 
@@ -62,20 +2060,20 @@ pub struct Framework {
     /// characters.
     pub description: std::string::String,
 
-    /// Output only. The type of the framework. The default is TYPE_CUSTOM.
+    /// Output only. The type of framework.
     pub r#type: crate::model::framework::FrameworkType,
 
-    /// Optional. The details of the cloud controls directly added without any
+    /// Optional. The cloud control details that are directly added without any
     /// grouping in the framework.
     pub cloud_control_details: std::vec::Vec<crate::model::CloudControlDetails>,
 
     /// Optional. The category of the framework.
     pub category: std::vec::Vec<crate::model::FrameworkCategory>,
 
-    /// Output only. cloud providers supported
+    /// Output only. The cloud providers that are supported by the framework.
     pub supported_cloud_providers: std::vec::Vec<crate::model::CloudProvider>,
 
-    /// Output only. target resource types supported by the Framework.
+    /// Output only. The target resource types that are supported by the framework.
     pub supported_target_resource_types: std::vec::Vec<crate::model::TargetResourceType>,
 
     /// Output only. The supported enforcement modes of the framework.
@@ -189,7 +2187,7 @@ pub mod framework {
     #[allow(unused_imports)]
     use super::*;
 
-    /// The type of the framework.
+    /// The type of framework.
     ///
     /// # Working with unknown values
     ///
@@ -209,11 +2207,9 @@ pub mod framework {
     pub enum FrameworkType {
         /// Default value. This value is unused.
         Unspecified,
-        /// The framework is a built-in framework if it is created and managed by
-        /// GCP.
+        /// A framework that's provided and managed by Google.
         BuiltIn,
-        /// The framework is a custom framework if it is created and managed by the
-        /// user.
+        /// A framework that's created and managed by you.
         Custom,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -324,21 +2320,22 @@ pub mod framework {
     }
 }
 
-/// CloudControlDetails contains the details of a CloudControl.
+/// The details of a cloud control.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControlDetails {
-    /// Required. The name of the CloudControl in the format:
-    /// “organizations/{organization}/locations/{location}/
-    /// cloudControls/{cloud-control}”
+    /// Required. The name of the cloud control, in the format
+    /// `organizations/{organization}/locations/{location}/cloudControls/{cloud-control}`.
+    /// The only supported location is `global`.
     pub name: std::string::String,
 
-    /// Required. Major revision of cloudcontrol
+    /// Required. The major version of the cloud control.
     pub major_revision_id: i64,
 
-    /// Optional. Parameters is a key-value pair that is required by the
-    /// CloudControl. The specification of these parameters will be present in
-    /// cloudcontrol.Eg: { "name": "location","value": "us-west-1"}.
+    /// Optional. Parameters are key-value pairs that let you provide your custom
+    /// location requirements, environment requirements, or other settings that are
+    /// relevant to the cloud control. An example parameter is
+    /// `{"name": "location","value": "us-west-1"}`.
     pub parameters: std::vec::Vec<crate::model::Parameter>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -379,16 +2376,18 @@ impl wkt::message::Message for CloudControlDetails {
     }
 }
 
-/// FrameworkReference contains the reference of a framework.
+/// The reference of a framework, in the format
+/// `organizations/{organization}/locations/{location}/frameworks/{framework}`.
+/// The only supported location is `global`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FrameworkReference {
-    /// Required. In the format:
-    /// organizations/{org}/locations/{location}/frameworks/{framework}
+    /// Required. The major version of the framework. If not specified, the version
+    /// corresponds to the latest version of the framework.
     pub framework: std::string::String,
 
-    /// Optional. Major revision id of the framework. If not specified, corresponds
-    /// to the latest revision of the framework.
+    /// Optional. The major version of the framework. If not specified, the version
+    /// corresponds to the latest version of the framework.
     pub major_revision_id: std::option::Option<i64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -430,14 +2429,16 @@ impl wkt::message::Message for FrameworkReference {
     }
 }
 
-/// Parameters is a key-value pair.
+/// Parameters are key-value pairs that let you provide your custom location
+/// requirements, environment requirements, or other settings that are
+/// relevant to the cloud control.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Parameter {
-    /// Required. The name of the parameter.
+    /// Required. The name or key of the parameter.
     pub name: std::string::String,
 
-    /// Required. The value of the parameter
+    /// Required. The value of the parameter.
     pub parameter_value: std::option::Option<std::boxed::Box<crate::model::ParamValue>>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -479,69 +2480,66 @@ impl wkt::message::Message for Parameter {
     }
 }
 
-/// A CloudControl is the fundamental unit encapsulating the rules
-/// to meet a specific security or compliance intent. It can contain
-/// various rule types (like Organization Policies, CEL expressions, etc.)
-/// enabling different enforcement modes (Preventive, Detective, Audit).
-/// CloudControls are often parameterized for reusability and can be either
-/// BUILT_IN (provided by Google) or CUSTOM (defined by the user).
+/// A cloud control is a set of rules and associated metadata that you can
+/// use to define your organization's security or compliance intent.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControl {
-    /// Required. Identifier. The resource name of the cloud control.
-    /// Format:
-    /// organizations/{organization}/locations/{location}/cloudControls/{cloud_control_id}
+    /// Required. Identifier. The name of the cloud control, in the format
+    /// `organizations/{organization}/locations/{location}/cloudControls/{cloud_control_id}`.
+    /// The only supported location is `global`.
     pub name: std::string::String,
 
-    /// Output only. Major revision of the cloud control incremented in ascending
-    /// order.
+    /// Output only. The major version of the cloud control, which is incremented
+    /// in ascending order.
     pub major_revision_id: i64,
 
     /// Optional. A description of the cloud control. The maximum length is 2000
     /// characters.
     pub description: std::string::String,
 
-    /// Optional. The display name of the cloud control. The maximum length is 200
+    /// Optional. The friendly name of the cloud control. The maximum length is 200
     /// characters.
     pub display_name: std::string::String,
 
-    /// Output only. The supported enforcement mode of the cloud control. Default
-    /// is DETECTIVE.
+    /// Output only. The supported enforcement modes for the cloud control.
     pub supported_enforcement_modes: std::vec::Vec<crate::model::EnforcementMode>,
 
-    /// Optional. The parameter spec of the cloud control.
+    /// Optional. The parameter specifications for the cloud control.
     pub parameter_spec: std::vec::Vec<crate::model::ParameterSpec>,
 
-    /// Optional. The Policy to be enforced to prevent/detect resource
-    /// non-compliance.
+    /// Optional. The rules that you can enforce to meet your security or
+    /// compliance intent.
     pub rules: std::vec::Vec<crate::model::Rule>,
 
-    /// Optional. The severity of findings generated by the cloud control.
+    /// Optional. The severity of the findings that are generated by the cloud
+    /// control.
     pub severity: crate::model::Severity,
 
-    /// Optional. The finding_category of the cloud control. The maximum length is
-    /// 255 characters.
+    /// Optional. The finding category for the cloud control findings. The maximum
+    /// length is 255 characters.
     pub finding_category: std::string::String,
 
-    /// Optional. cloud providers supported
+    /// Optional. The supported cloud providers.
     pub supported_cloud_providers: std::vec::Vec<crate::model::CloudProvider>,
 
-    /// Output only. The Frameworks that include this CloudControl
+    /// Output only. The frameworks that include this cloud control.
     pub related_frameworks: std::vec::Vec<std::string::String>,
 
-    /// Optional. The remediation steps for the findings generated by the cloud
-    /// control. The maximum length is 400 characters.
+    /// Optional. The remediation steps for the cloud control findings. The
+    /// maximum length is 400 characters.
     pub remediation_steps: std::string::String,
 
-    /// Optional. The categories of the cloud control.
+    /// Optional. The categories for the cloud control.
     pub categories: std::vec::Vec<crate::model::CloudControlCategory>,
 
-    /// Output only. The last updated time of the cloud control.
-    /// The create_time is used because a new CC is created whenever we update an
-    /// existing CC.
+    /// Output only. The time that the cloud control was last updated.
+    /// `create_time` is used because a new cloud control is created
+    /// whenever an existing cloud control is updated.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// Optional. target resource types supported by the CloudControl.
+    /// Optional. The target resource types that are supported by the cloud
+    /// control.
     pub supported_target_resource_types: std::vec::Vec<crate::model::TargetResourceType>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -702,14 +2700,152 @@ impl wkt::message::Message for CloudControl {
     }
 }
 
-/// A parameter spec of the cloud control.
+/// Defines additional types related to [CloudControl].
+pub mod cloud_control {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The type of cloud control.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// A cloud control that's created and managed by you.
+        Custom,
+        /// A cloud control that's provided and managed by Google.
+        BuiltIn,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Type {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Custom => std::option::Option::Some(1),
+                Self::BuiltIn => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::Custom => std::option::Option::Some("CUSTOM"),
+                Self::BuiltIn => std::option::Option::Some("BUILT_IN"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Custom,
+                2 => Self::BuiltIn,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "CUSTOM" => Self::Custom,
+                "BUILT_IN" => Self::BuiltIn,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Custom => serializer.serialize_i32(1),
+                Self::BuiltIn => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.cloudsecuritycompliance.v1.CloudControl.Type",
+            ))
+        }
+    }
+}
+
+/// The parameter specification for the cloud control.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ParameterSpec {
     /// Required. The name of the parameter.
     pub name: std::string::String,
 
-    /// Optional. The display name of the parameter. The maximum length is 200
+    /// Optional. The friendly name of the parameter. The maximum length is 200
     /// characters.
     pub display_name: std::string::String,
 
@@ -717,22 +2853,22 @@ pub struct ParameterSpec {
     /// characters.
     pub description: std::string::String,
 
-    /// Required. if the parameter is required
+    /// Required. Whether the parameter is required.
     pub is_required: bool,
 
-    /// Required. Parameter value type.
+    /// Required. The parameter value type.
     pub value_type: crate::model::parameter_spec::ValueType,
 
     /// Optional. The default value of the parameter.
     pub default_value: std::option::Option<crate::model::ParamValue>,
 
-    /// Optional. List of parameter substitutions.
+    /// Optional. The list of parameter substitutions.
     pub substitution_rules: std::vec::Vec<crate::model::ParameterSubstitutionRule>,
 
-    /// Optional. ParameterSpec for oneof attributes.
+    /// Optional. The parameter specification for `oneOf` attributes.
     pub sub_parameters: std::vec::Vec<crate::model::ParameterSpec>,
 
-    /// Optional. The allowed set of values for the parameter.
+    /// Optional. The permitted set of values for the parameter.
     pub validation: std::option::Option<crate::model::Validation>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -846,7 +2982,7 @@ pub mod parameter_spec {
     #[allow(unused_imports)]
     use super::*;
 
-    /// The type of the parameter value.
+    /// The type of parameter value.
     ///
     /// # Working with unknown values
     ///
@@ -866,15 +3002,15 @@ pub mod parameter_spec {
     pub enum ValueType {
         /// Default value. This value is unused.
         Unspecified,
-        /// String value.
+        /// A string value.
         String,
-        /// Boolean value.
+        /// A boolean value.
         Boolean,
-        /// String list value.
+        /// A string list value.
         Stringlist,
-        /// Numeric value.
+        /// A numeric value.
         Number,
-        /// OneOf value.
+        /// A oneOf value.
         Oneof,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -1000,7 +3136,7 @@ pub mod parameter_spec {
     }
 }
 
-/// Validation of the parameter.
+/// The validation of the parameter.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Validation {
@@ -1130,20 +3266,20 @@ pub mod validation {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Constraint {
-        /// Allowed set of values for the parameter.
+        /// The permitted set of values for the parameter.
         AllowedValues(std::boxed::Box<crate::model::AllowedValues>),
-        /// Allowed range for numeric parameters.
+        /// The permitted range for numeric parameters.
         IntRange(std::boxed::Box<crate::model::IntRange>),
-        /// Regular expression for string parameters.
+        /// The regular expression for string parameters.
         RegexpPattern(std::boxed::Box<crate::model::RegexpPattern>),
     }
 }
 
-/// Allowed set of values for the parameter.
+/// The allowed set of values for the parameter.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AllowedValues {
-    /// Required. List of allowed values for the parameter.
+    /// Required. The list of allowed values for the parameter.
     pub values: std::vec::Vec<crate::model::ParamValue>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1172,11 +3308,11 @@ impl wkt::message::Message for AllowedValues {
     }
 }
 
-/// Regular Expression Validator for parameter values.
+/// The regular expression (regex) validator for parameter values.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RegexpPattern {
-    /// Required. Regex Pattern to match the value(s) of parameter.
+    /// Required. The regex pattern to match the values of the parameter with.
     pub pattern: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1200,14 +3336,16 @@ impl wkt::message::Message for RegexpPattern {
     }
 }
 
-/// Number range for number parameters.
+/// The number range for number parameters.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IntRange {
-    /// Required. Minimum allowed value for the numeric parameter (inclusive).
+    /// Required. The minimum permitted value for the numeric parameter
+    /// (inclusive).
     pub min: i64,
 
-    /// Required. Maximum allowed value for the numeric parameter (inclusive).
+    /// Required. The maximum permitted value for the numeric parameter
+    /// (inclusive).
     pub max: i64,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1237,7 +3375,7 @@ impl wkt::message::Message for IntRange {
     }
 }
 
-/// A list of strings.
+/// A list of strings for the parameter value.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StringList {
@@ -1270,11 +3408,11 @@ impl wkt::message::Message for StringList {
     }
 }
 
-/// Possible parameter value types.
+/// The possible parameter value types.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ParamValue {
-    /// The kind of value.
+    /// The list of possible parameter value types.
     pub kind: std::option::Option<crate::model::param_value::Kind>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1428,24 +3566,24 @@ pub mod param_value {
     #[allow(unused_imports)]
     use super::*;
 
-    /// The kind of value.
+    /// The list of possible parameter value types.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Kind {
-        /// Represents a string value.
+        /// A string value.
         StringValue(std::string::String),
-        /// Represents a boolean value.
+        /// A boolean value.
         BoolValue(bool),
-        /// Represents a repeated string.
+        /// A repeated string.
         StringListValue(std::boxed::Box<crate::model::StringList>),
-        /// Represents a double value.
+        /// A double value.
         NumberValue(f64),
-        /// Represents sub-parameter values.
+        /// Sub-parameter values.
         OneofValue(std::boxed::Box<crate::model::Parameter>),
     }
 }
 
-/// Parameter substitution rules.
+/// The parameter substitution rules.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ParameterSubstitutionRule {
@@ -1557,19 +3695,19 @@ pub mod parameter_substitution_rule {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum SubstitutionType {
-        /// Placeholder substitution rule.
+        /// The placeholder substitution rule.
         PlaceholderSubstitutionRule(std::boxed::Box<crate::model::PlaceholderSubstitutionRule>),
-        /// Attribute substitution rule.
+        /// The attribute substitution rule.
         AttributeSubstitutionRule(std::boxed::Box<crate::model::AttributeSubstitutionRule>),
     }
 }
 
-/// Attribute at the given path is substituted entirely.
+/// The attribute at the given path that's substituted entirely.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttributeSubstitutionRule {
-    /// Fully qualified proto attribute path (in dot notation).
-    /// Example: rules[0].cel_expression.resource_types_values
+    /// The fully qualified proto attribute path, in dot notation.
+    /// For example: `rules[0].cel_expression.resource_types_values`
     pub attribute: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1593,11 +3731,11 @@ impl wkt::message::Message for AttributeSubstitutionRule {
     }
 }
 
-/// Placeholder is substituted in the rendered string.
+/// The placeholder that's substituted in the rendered string.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PlaceholderSubstitutionRule {
-    /// Fully qualified proto attribute path (e.g., dot notation)
+    /// The fully qualified proto attribute path, in dot notation.
     pub attribute: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1621,17 +3759,17 @@ impl wkt::message::Message for PlaceholderSubstitutionRule {
     }
 }
 
-/// A rule of the cloud control.
+/// A rule in the cloud control.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Rule {
-    /// Optional. Description of the Rule. The maximum length is 2000 characters.
+    /// Optional. The rule description. The maximum length is 2000 characters.
     pub description: std::string::String,
 
-    /// Required. The functionality enabled by the Rule.
+    /// Required. The functionality that's enabled by the rule.
     pub rule_action_types: std::vec::Vec<crate::model::RuleActionType>,
 
-    /// The implementation of the rule.
+    /// The rule implementation.
     pub implementation: std::option::Option<crate::model::rule::Implementation>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1714,22 +3852,22 @@ pub mod rule {
     #[allow(unused_imports)]
     use super::*;
 
-    /// The implementation of the rule.
+    /// The rule implementation.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Implementation {
-        /// Logic expression in CEL language.
+        /// The rule's logic expression in Common Expression Language (CEL).
         CelExpression(std::boxed::Box<crate::model::CELExpression>),
     }
 }
 
-/// A [CEL
-/// expression](https://cloud.google.com/certificate-authority-service/docs/using-cel).
+/// A Common Expression Language (CEL) expression that's used to create a rule.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CELExpression {
-    /// Required. Logic expression in CEL language.
-    /// The max length of the condition is 1000 characters.
+    /// Required. The logical expression in CEL. The maximum length of the
+    /// condition is 1000 characters. For more information, see [CEL
+    /// expression](https://cloud.google.com/security-command-center/docs/compliance-manager-write-cel-expressions).
     pub expression: std::string::String,
 
     /// The criteria of the CEL expression.
@@ -1812,13 +3950,13 @@ pub mod cel_expression {
     #[non_exhaustive]
     pub enum Criteria {
         /// The resource instance types on which this expression is defined.
-        /// Format will be of the form : `<canonical service name>/<type>`
-        /// Example: `compute.googleapis.com/Instance`.
+        /// The format is `<SERVICE_NAME>/<type>`.
+        /// For example: `compute.googleapis.com/Instance`
         ResourceTypesValues(std::boxed::Box<crate::model::StringList>),
     }
 }
 
-/// Represents the metadata of the long-running operation.
+/// The metadata for the long-running operation.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
@@ -1828,25 +3966,25 @@ pub struct OperationMetadata {
     /// Output only. The time the operation finished running.
     pub end_time: std::option::Option<wkt::Timestamp>,
 
-    /// Output only. Server-defined resource path for the target of the operation.
+    /// Output only. The server-defined resource path for the target of the
+    /// operation.
     pub target: std::string::String,
 
-    /// Output only. Name of the verb executed by the operation.
+    /// Output only. The name of the verb that was executed by the operation.
     pub verb: std::string::String,
 
-    /// Output only. Human-readable status of the operation, if any.
+    /// Output only. The human-readable status of the operation, if any.
     pub status_message: std::string::String,
 
-    /// Output only. Identifies whether the user has requested cancellation
-    /// of the operation. Operations that have been cancelled successfully
-    /// have [Operation.error][] value with a
-    /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
-    /// `Code.CANCELLED`.
+    /// Output only. Identifies whether the user has requested that the operation
+    /// be cancelled. If an operation was cancelled successfully, then the field
+    /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
+    /// contains the value [google.rpc.Code.CANCELLED][google.rpc.Code.CANCELLED].
     ///
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     pub requested_cancellation: bool,
 
-    /// Output only. API version used to start the operation.
+    /// Output only. The API version that was used to start the operation.
     pub api_version: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1930,13 +4068,50 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
-/// Request message for listing Frameworks.
+/// The regulatory family of the control.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ControlFamily {
+    /// The identifier for the regulatory control family.
+    pub family_id: std::string::String,
+
+    /// The friendly name for the regulatory control family.
+    pub display_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ControlFamily {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [family_id][crate::model::ControlFamily::family_id].
+    pub fn set_family_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.family_id = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::ControlFamily::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ControlFamily {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.ControlFamily"
+    }
+}
+
+/// Request message for [ListFrameworks][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFrameworksRequest {
     /// Required. The parent resource name, in the format
     /// `organizations/{organization}/locations/{location}`.
-    /// Only global location is supported.
+    /// The only supported location is `global`.
     pub parent: std::string::String,
 
     /// Optional. The maximum number of frameworks to return. The default value is
@@ -1983,12 +4158,12 @@ impl wkt::message::Message for ListFrameworksRequest {
     }
 }
 
-/// Response message for listing Frameworks.
-/// Contains a paginated list of Framework resources.
+/// The response message for [ListFrameworks][].
+/// Returns a paginated list of Framework resources.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFrameworksResponse {
-    /// The list of Framework resources.
+    /// The list of framework resources.
     pub frameworks: std::vec::Vec<crate::model::Framework>,
 
     /// A pagination token. To retrieve the next page of results, call the method
@@ -2041,17 +4216,17 @@ impl gax::paginator::internal::PageableResponse for ListFrameworksResponse {
     }
 }
 
-/// Request message for getting a Framework.
+/// The request message for [GetFramework][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFrameworkRequest {
-    /// Required. The name of the framework to retrieve.
-    /// Format:
-    /// organizations/{organization}/locations/{location}/frameworks/{framework_id}
+    /// Required. The name of the framework to retrieve, in the format
+    /// `organizations/{organization}/locations/{location}/frameworks/{framework_id}`
+    /// The only supported location is `global`.
     pub name: std::string::String,
 
-    /// Optional. The Framework major version to retrieve. If not specified, the
-    /// most recently updated revision_id is retrieved.
+    /// Optional. The framework major version to retrieve. If not specified, the
+    /// most recently updated `revision_id` is retrieved.
     pub major_revision_id: i64,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2081,20 +4256,20 @@ impl wkt::message::Message for GetFrameworkRequest {
     }
 }
 
-/// Request message for creating a Framework
+/// The request message for [CreateFramework][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFrameworkRequest {
     /// Required. The parent resource name, in the format
     /// `organizations/{organization}/locations/{location}`.
+    /// The only supported location is `global`.
     pub parent: std::string::String,
 
-    /// Required. ID of the framework.
-    /// This is not the full name of the framework.
-    /// This is the last part of the full name of the framework.
+    /// Required. The identifier (ID) of the framework. The ID is not the full name
+    /// of the framework; it's the last part of the full name of the framework.
     pub framework_id: std::string::String,
 
-    /// Required. The resource being created
+    /// Required. The resource being created.
     pub framework: std::option::Option<crate::model::Framework>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2142,19 +4317,18 @@ impl wkt::message::Message for CreateFrameworkRequest {
     }
 }
 
-/// Request message for updating a Framework.
+/// The request message for [UpdateFramework][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFrameworkRequest {
-    /// Optional. Field mask is used to specify the fields to be overwritten in the
-    /// Framework resource by the update.
-    /// The fields specified in the update_mask are relative to the resource, not
-    /// the full request. A field will be overwritten if it is in the mask. If the
-    /// user does not provide a mask then all fields present in the request will be
-    /// overwritten.
+    /// Optional. A field mask is used to specify the fields to be overwritten in
+    /// the framework resource by the update. The fields specified in the
+    /// `update_mask` are relative to the resource, not the full request. A field
+    /// is overwritten if it is in the mask. If you don't provide a mask then all
+    /// fields present in the request will be overwritten.
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
-    /// Required. The resource being updated
+    /// Required. The resource that is being updated.
     pub framework: std::option::Option<crate::model::Framework>,
 
     /// Optional. The major version ID of the framework to update.
@@ -2217,12 +4391,13 @@ impl wkt::message::Message for UpdateFrameworkRequest {
     }
 }
 
-/// Request message for deleting a Framework.
+/// Request message for [DeleteFramework][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFrameworkRequest {
-    /// Required. Name of the resource, in the format
+    /// Required. The name of the resource, in the format
     /// `organizations/{organization}/locations/{location}/frameworks/{framework}`.
+    /// The only supported location is `global`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2246,27 +4421,31 @@ impl wkt::message::Message for DeleteFrameworkRequest {
     }
 }
 
-/// Request message for listing CloudControls.
+/// Request message for [ListCloudControls][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCloudControlsRequest {
     /// Required. The parent resource name, in the format
     /// `organizations/{organization}/locations/{location}`.
+    /// The only supported location is `global`.
     pub parent: std::string::String,
 
-    /// Optional. The maximum number of CloudControls to return. The default value
+    /// Optional. The maximum number of cloud controls to return. The default value
     /// is `500`.
     ///
     /// If you exceed the maximum value of `1000`, then the service uses the
     /// maximum value.
     pub page_size: i32,
 
-    /// Optional. A pagination token returned from a previous request to list
-    /// CloudControls. Provide this token to retrieve the next page of results.
+    /// Optional. A pagination token that's returned from a previous request to
+    /// list cloud controls. Provide this token to retrieve the next page of
+    /// results.
     ///
-    /// When paginating, parent provided to
-    /// ListCloudControls request must match the call that provided the page
-    /// token.
+    /// When paginating, the parent that you provide to the
+    /// [ListCloudControls][google.cloud.cloudsecuritycompliance.v1.Config.ListCloudControls]
+    /// request must match the call that provided the page token.
+    ///
+    /// [google.cloud.cloudsecuritycompliance.v1.Config.ListCloudControls]: crate::client::Config::list_cloud_controls
     pub page_token: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2302,7 +4481,7 @@ impl wkt::message::Message for ListCloudControlsRequest {
     }
 }
 
-/// Response message for ListCloudControls.
+/// The response message for [ListCloudControls][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCloudControlsResponse {
@@ -2359,13 +4538,18 @@ impl gax::paginator::internal::PageableResponse for ListCloudControlsResponse {
     }
 }
 
-/// Request message for getting a CloudControl.
+/// The request message for [GetCloudControl][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCloudControlRequest {
-    /// Required. The name of the cloudcontrol to retrieve in the format:
-    /// organizations/{organization}/locations/{location}/cloudControls/{cloud_control}
+    /// Required. The name of the cloud control to retrieve, in the format
+    /// `organizations/{organization}/locations/{location}/cloudControls/{cloud_control}`.
+    /// The only supported location is `global`.
     pub name: std::string::String,
+
+    /// Optional. The major version of the cloud control to retrieve. If not
+    /// specified, the most recently updated `revision_id` is retrieved.
+    pub major_revision_id: i64,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2380,6 +4564,12 @@ impl GetCloudControlRequest {
         self.name = v.into();
         self
     }
+
+    /// Sets the value of [major_revision_id][crate::model::GetCloudControlRequest::major_revision_id].
+    pub fn set_major_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.major_revision_id = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for GetCloudControlRequest {
@@ -2388,20 +4578,21 @@ impl wkt::message::Message for GetCloudControlRequest {
     }
 }
 
-/// Request message for creating a CloudControl
+/// The request message for [CreateCloudControl][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCloudControlRequest {
     /// Required. The parent resource name, in the format
     /// `organizations/{organization}/locations/{location}`.
+    /// The only supported location is `global`.
     pub parent: std::string::String,
 
-    /// Required. ID of the CloudControl.
-    /// This is the last segment of the CloudControl resource name.
-    /// Format: `^[a-zA-Z][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]$`.
+    /// Required. The identifier for the cloud control, which is the last segment
+    /// of the cloud control name. The format is
+    /// `^[a-zA-Z][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]$`.
     pub cloud_control_id: std::string::String,
 
-    /// Required. The resource being created
+    /// Required. The cloud control that's being created.
     pub cloud_control: std::option::Option<crate::model::CloudControl>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2452,25 +4643,27 @@ impl wkt::message::Message for CreateCloudControlRequest {
     }
 }
 
-/// Request message for UpdateCloudControl.
+/// The request message for [UpdateCloudControl][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCloudControlRequest {
-    /// Optional. Field mask is used to specify the fields to be overwritten in the
-    /// CloudControl resource by the update.
-    /// The fields specified in the update_mask are relative to the resource, not
-    /// the full request. A field will be overwritten if it is in the mask. If the
-    /// user does not provide a mask then all fields present in the request will be
-    /// overwritten. The fields that can be updated are:
+    /// Optional. Use a field mask to specify the fields to be overwritten in the
+    /// cloud control during the update.
+    /// The fields that you specify in the `update_mask` are relative to the
+    /// cloud control, not the full request. A field is overwritten if it is in
+    /// the mask. If you don't provide a mask, all fields in the request
+    /// are updated.
     ///
-    /// 1. Display_name
-    /// 1. Description
-    /// 1. Parameters
-    /// 1. Rules
-    /// 1. ParameterSpec.
+    /// You can update the following fields:
+    ///
+    /// - Display name
+    /// - Description
+    /// - Parameters
+    /// - Rules
+    /// - Parameter specification
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
-    /// Required. The resource being updated
+    /// Required. The cloud control that you're updating.
     pub cloud_control: std::option::Option<crate::model::CloudControl>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2524,12 +4717,13 @@ impl wkt::message::Message for UpdateCloudControlRequest {
     }
 }
 
-/// Request message for deleting a CloudControl.
+/// The request message for [DeleteCloudControl][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCloudControlRequest {
-    /// Required. Name of the resource, in the format
+    /// Required. The name of the cloud control to delete, in the format
     /// `organizations/{organization}/locations/{location}/CloudControls/{CloudControl}`.
+    /// The only supported location is `global`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2553,38 +4747,40 @@ impl wkt::message::Message for DeleteCloudControlRequest {
     }
 }
 
-/// FrameworkDeployment represents deployment of a Framework on a target
-/// resource. Supported target resources are organizations/{organization},
-/// folders/{folder}, and projects/{project}.
+/// Framework deployments represent the assignment of a framework to a target
+/// resource. Supported target resources are organizations, folders, and
+/// projects.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FrameworkDeployment {
-    /// Identifier. FrameworkDeployment name in the following format:
-    /// organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment_id}
+    /// Identifier. The name of the framework deployment, in the format
+    /// `organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment_id}`.
+    /// The only supported location is `global`.
     pub name: std::string::String,
 
-    /// Required. The details of the target resource on which the Framework is to
-    /// be deployed. It can either be an existing target resource or a new target
-    /// resource to be created.
+    /// Required. The details of the target resource that you want to deploy the
+    /// framework to. You can specify an existing resource, or create a new one.
     pub target_resource_config: std::option::Option<crate::model::TargetResourceConfig>,
 
-    /// Output only. The resource on which the Framework is deployed based on the
-    /// provided TargetResourceConfig in the following format:
-    /// organizations/{organization}, folders/{folder} or projects/{project}
+    /// Output only. The target resource to deploy the framework to, in one  the
+    /// following formats:
+    ///
+    /// - `organizations/{organizationID}`
+    /// - `folders/{folderID}`
+    /// - `projects/{projectID}`
     pub computed_target_resource: std::string::String,
 
-    /// Required. Reference to the framework to be deployed.
+    /// Required. A reference to the framework that you're deploying.
     pub framework: std::option::Option<crate::model::FrameworkReference>,
 
-    /// Optional. User provided description of the Framework deployment
+    /// Optional. A user-provided description of the framework deployment.
     pub description: std::string::String,
 
-    /// Required. Deployment mode and parameters for each of the Cloud Controls in
-    /// the framework. Every Cloud Control in the framework must have a
-    /// CloudControlMetadata.
+    /// Required. The deployment mode and parameters for each of the cloud controls
+    /// in the framework. Every cloud control in the framework includes metadata.
     pub cloud_control_metadata: std::vec::Vec<crate::model::CloudControlMetadata>,
 
-    /// Output only. State of the Framework Deployment
+    /// Output only. The state for the framework deployment.
     pub deployment_state: crate::model::DeploymentState,
 
     /// Output only. The time at which the resource was created.
@@ -2594,29 +4790,34 @@ pub struct FrameworkDeployment {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. To prevent concurrent updates from overwriting each other, always
-    /// provide the `etag` when you update a FrameworkDeployment. You can also
-    /// provide the `etag` when you delete a FrameworkDeployment, to help
+    /// provide the `etag` when you update a framework deployment. You can also
+    /// provide the `etag` when you delete a framework deployment, to help
     /// ensure that you're deleting the intended version of the
-    /// FrameworkDeployment.
+    /// framework deployment.
     pub etag: std::string::String,
 
     /// Output only. The display name of the target resource.
     pub target_resource_display_name: std::string::String,
 
-    /// Output only. The references to the cloud control deployments. It has all
-    /// the CloudControlDeployments which are either directly added in the
-    /// framework or through a CloudControlGroup. Example: If a framework
-    /// deployment deploys two cloud controls, cc-deployment-1 and cc-deployment-2,
-    /// then the cloud_control_deployment_references will be:
+    /// Output only. The references to the cloud control deployments. The reference
+    /// includes all the cloud control deployments that are in the framework or in
+    /// a cloud control group.
+    ///
+    /// For example, if a framework deployment deploys two
+    /// cloud controls, `cc-deployment-1` and `cc-deployment-2`, then the
+    /// references are:
+    ///
+    /// ```norust
     /// {
-    /// cloud_control_deployment_reference: {
-    /// cloud_control_deployment:
-    /// "organizations/{organization}/locations/{location}/cloudControlDeployments/cc-deployment-1"
-    /// },
-    /// cloud_control_deployment_reference: {
-    /// cloud_control_deployment:
-    /// "organizations/{organization}/locations/{location}/cloudControlDeployments/cc-deployment-2"
-    /// }
+    ///  cloud_control_deployment_reference: {
+    ///    cloud_control_deployment:
+    ///    "organizations/{organization}/locations/{location}/cloudControlDeployments/cc-deployment-1"
+    ///  },
+    ///  cloud_control_deployment_reference: {
+    ///   cloud_control_deployment:
+    ///   "organizations/{organization}/locations/{location}/cloudControlDeployments/cc-deployment-2"
+    ///  }
+    /// ```
     pub cloud_control_deployment_references:
         std::vec::Vec<crate::model::CloudControlDeploymentReference>,
 
@@ -2774,54 +4975,58 @@ impl wkt::message::Message for FrameworkDeployment {
     }
 }
 
-/// CloudControlDeployment represents deployment of a CloudControl on a target
-/// resource. Supported target resources are organizations/{organization},
-/// folders/{folder}, and projects/{project}.
+/// A cloud control deployment represents the deployment of a particular cloud
+/// control on a target resource. Supported target resources are
+/// `organizations/{organizationID}`, `folders/{folderID}`, and
+/// `projects/{projectID}`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControlDeployment {
-    /// Identifier. CloudControlDeployment name in the following format:
-    /// organizations/{organization}/locations/{location}/cloudControlDeployments/{cloud_control_deployment_id}
+    /// Identifier. The name for the cloud control deployment, in the format
+    /// `organizations/{organization}/locations/{location}/cloudControlDeployments/{cloud_control_deployment_id}`.
+    /// The only supported location is `global`.
     pub name: std::string::String,
 
-    /// Required. The details of the target resource on which the CloudControl is
-    /// to be deployed. It can either be an existing target resource or a new
-    /// target resource to be created.
+    /// Required. The details of the target resource that the cloud control is
+    /// deployed You can use an existing target resource or create a new target.
     pub target_resource_config: std::option::Option<crate::model::TargetResourceConfig>,
 
-    /// Output only. The resource on which the CloudControl is deployed based on
-    /// the provided TargetResourceConfig in the following format:
-    /// organizations/{organization}, folders/{folder} or projects/{project}.
+    /// Output only. The resource that the cloud control is deployed on, in one of
+    /// the following formats:
+    ///
+    /// - `organizations/{organizationID}`
+    /// - `folders/{folderID}`
+    /// - `projects/{projectID}`
     pub target_resource: std::string::String,
 
-    /// Required. Deployment mode and parameters for the Cloud Control.
+    /// Required. The deployment mode and parameters for the cloud control.
     pub cloud_control_metadata: std::option::Option<crate::model::CloudControlMetadata>,
 
-    /// Optional. User provided description of the CloudControl deployment
+    /// Optional. A friendly description for the cloud control deployment.
     pub description: std::string::String,
 
-    /// Output only. State of the CloudControl deployment
+    /// Output only. The state of the cloud control deployment.
     pub deployment_state: crate::model::DeploymentState,
 
-    /// Output only. The time at which the resource was created.
+    /// Output only. The time when the resource was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// Output only. The time at which the resource last updated.
+    /// Output only. The time when the resource was last updated.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    /// Optional. To prevent concurrent updates from overwriting each other, always
-    /// provide the `etag` when you update a CloudControlDeployment. You can also
-    /// provide the `etag` when you delete a CloudControlDeployment, to help
+    /// Optional. To prevent concurrent updates from overwriting each other,
+    /// provide the `etag` when you update a cloud control deployment. You can also
+    /// provide the `etag` when you delete a cloud control deployment to help
     /// ensure that you're deleting the intended version of the
-    /// CloudControlDeployment.
+    /// deployment.
     pub etag: std::string::String,
 
-    /// Output only. The CloudControl after substitution of given parameters.
+    /// Output only. The cloud control after the given parameters are substituted.
     pub parameter_substituted_cloud_control: std::option::Option<crate::model::CloudControl>,
 
-    /// Output only. The references to the Framework deployments that this Cloud
-    /// Control deployment is part of. A Cloud Control deployment can be part of
-    /// multiple Framework deployments.
+    /// Output only. The references to the framework deployments that this cloud
+    /// control deployment is part of. A cloud control deployment can be part of
+    /// multiple framework deployments.
     pub framework_deployment_references: std::vec::Vec<crate::model::FrameworkDeploymentReference>,
 
     /// Output only. The display name of the target resource.
@@ -2988,12 +5193,12 @@ impl wkt::message::Message for CloudControlDeployment {
     }
 }
 
-/// TargetResourceConfig contains either the name of the target_resource or
-/// contains the config to create a new target_resource.
+/// The name of the target resource or the configuration that's required to
+/// create a new target resource.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TargetResourceConfig {
-    /// Resource config for the target_resource
+    /// The resource configuration for the target resource.
     pub resource_config: std::option::Option<crate::model::target_resource_config::ResourceConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3094,25 +5299,27 @@ pub mod target_resource_config {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Resource config for the target_resource
+    /// The resource configuration for the target resource.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ResourceConfig {
-        /// Optional. CRM node in format organizations/{organization},
-        /// folders/{folder}, or projects/{project}
+        /// Optional. The resource hierarchy node, in one of the following formats:
+        ///
+        /// - `organizations/{organizationID}`
+        /// - `folders/{folderID}`
+        /// - `projects/{projectID}`
         ExistingTargetResource(std::string::String),
-        /// Optional. Config to create a new resource and use that as the
-        /// target_resource for deployment.
+        /// Optional. The details that are required to create a resource and use
+        /// that resource as the target resource for deployment.
         TargetResourceCreationConfig(std::boxed::Box<crate::model::TargetResourceCreationConfig>),
     }
 }
 
-/// TargetResourceCreationConfig contains the config to create a new resource to
-/// be used as the target_resource of a deployment.
+/// The configuration that's required to create a target resource.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TargetResourceCreationConfig {
-    /// Resource creation config for the target_resource
+    /// The configuration that's required to create the target resource.
     pub resource_creation_config:
         std::option::Option<crate::model::target_resource_creation_config::ResourceCreationConfig>,
 
@@ -3218,29 +5425,27 @@ pub mod target_resource_creation_config {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Resource creation config for the target_resource
+    /// The configuration that's required to create the target resource.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ResourceCreationConfig {
-        /// Optional. Config to create a new folder to be used as the target_resource
-        /// of a deployment.
+        /// Optional. The configuration that's required to create a folder.
         FolderCreationConfig(std::boxed::Box<crate::model::FolderCreationConfig>),
-        /// Optional. Config to create a new project to be used as the
-        /// target_resource of a deployment.
+        /// Optional. The configuration that's required to create a project.
         ProjectCreationConfig(std::boxed::Box<crate::model::ProjectCreationConfig>),
     }
 }
 
-/// FolderCreationConfig contains the config to create a new folder to be used
-/// as the target_resource of a deployment.
+/// The configuration that's required to create a folder to be used
+/// as the target resource for a deployment.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FolderCreationConfig {
-    /// Required. The parent of the folder to be created. It can be an
-    /// organizations/{org} or folders/{folder}
+    /// Required. The parent of the folder, in the format
+    /// `organizations/{organizationID}` or `folders/{folderID}`.
     pub parent: std::string::String,
 
-    /// Required. Display name of the folder to be created
+    /// Required. The display name of the folder.
     pub folder_display_name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3273,18 +5478,19 @@ impl wkt::message::Message for FolderCreationConfig {
     }
 }
 
-/// ProjectCreationConfig contains the config to create a new project to be used
-/// as the target_resource of a deployment.
+/// The configuration that's required to create a project to be used
+/// as the target resource of a deployment.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProjectCreationConfig {
-    /// Required. organizations/{org} or folders/{folder}
+    /// Required. The parent of the project, in the format
+    /// `organizations/{organizationID}` or `folders/{folderID}`.
     pub parent: std::string::String,
 
-    /// Required. Display name of the project to be created.
+    /// Required. The display name of the project.
     pub project_display_name: std::string::String,
 
-    /// Required. Billing account id to be used for the project.
+    /// Required. The billing account ID for the project.
     pub billing_account_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3326,15 +5532,15 @@ impl wkt::message::Message for ProjectCreationConfig {
     }
 }
 
-/// CloudControlMetadata contains the enforcement mode and parameters of a Cloud
-/// Control Deployment.
+/// The enforcement mode and parameters of a cloud
+/// control deployment.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControlMetadata {
-    /// Required. Cloud control name and parameters.
+    /// Required. The cloud control name and parameters.
     pub cloud_control_details: std::option::Option<crate::model::CloudControlDetails>,
 
-    /// Required. Enforcement mode of the cloud control
+    /// Required. The enforcement mode of the cloud control.
     pub enforcement_mode: crate::model::EnforcementMode,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3379,21 +5585,21 @@ impl wkt::message::Message for CloudControlMetadata {
     }
 }
 
-/// Request message for CreateFrameworkDeployment API.
+/// The request message for [CreateFrameworkDeployment][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFrameworkDeploymentRequest {
-    /// Required. The parent resource of the FrameworkDeployment in the format:
-    /// organizations/{organization}/locations/{location}
-    /// Only global location is supported.
+    /// Required. The parent resource of the framework deployment in the format
+    /// `organizations/{organization}/locations/{location}`.
+    /// Only the global location is supported.
     pub parent: std::string::String,
 
-    /// Optional. User provided identifier. It should be unique in scope of a
-    /// parent. This is optional and if not provided, a random UUID will be
+    /// Optional. An identifier for the framework deployment that's unique in scope
+    /// of the parent. If you don't specify a value, then a random UUID is
     /// generated.
     pub framework_deployment_id: std::string::String,
 
-    /// Required. The FrameworkDeployment to be created.
+    /// Required. The framework deployment that you're creating.
     pub framework_deployment: std::option::Option<crate::model::FrameworkDeployment>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3444,20 +5650,21 @@ impl wkt::message::Message for CreateFrameworkDeploymentRequest {
     }
 }
 
-/// Request message for DeleteFrameworkDeployment.
+/// The request message for [DeleteFrameworkDeployment][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFrameworkDeploymentRequest {
-    /// Required. name of the FrameworkDeployment to be deleted in the following
-    /// format:
-    /// organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment_id}
+    /// Required. The name of the framework deployment that you want to delete,
+    /// in the format
+    /// `organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment_id}`.
+    /// The only supported location is `global`.
     pub name: std::string::String,
 
     /// Optional. An opaque identifier for the current version of the resource.
     ///
     /// If you provide this value, then it must match the existing value. If the
     /// values don't match, then the request fails with an
-    /// [ABORTED][google.rpc.Code.ABORTED] error.
+    /// [`ABORTED`][google.rpc.Code.ABORTED] error.
     ///
     /// If you omit this value, then the resource is deleted regardless of its
     /// current `etag` value.
@@ -3490,12 +5697,13 @@ impl wkt::message::Message for DeleteFrameworkDeploymentRequest {
     }
 }
 
-/// Request message for GetFrameworkDeployment.
+/// The request message for [GetFrameworkDeployment][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFrameworkDeploymentRequest {
-    /// Required. FrameworkDeployment name in the following format:
-    /// organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment_id}
+    /// Required. The name of the framework deployment, in the format
+    /// `organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment_id}`.
+    /// The only supported location is `global`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3519,27 +5727,35 @@ impl wkt::message::Message for GetFrameworkDeploymentRequest {
     }
 }
 
-/// Request message for ListFrameworkDeployments.
+/// The request message for [ListFrameworkDeployments][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFrameworkDeploymentsRequest {
-    /// Required. parent resource of the FrameworkDeployment in the format:
-    /// organizations/{organization}/locations/{location}
-    /// Only global location is supported.
+    /// Required. The parent resource of the framework deployment, in the format
+    /// `organizations/{organization}/locations/{location}`.
+    /// The only supported location is `global`.
     pub parent: std::string::String,
 
-    /// Optional. Requested page size. Server may return fewer items than
-    /// requested. If unspecified, server will pick an appropriate default.
+    /// Optional. The requested page size. The server might return fewer items than
+    /// requested.
+    /// If unspecified, the server picks an appropriate default.
     pub page_size: i32,
 
-    /// Optional. A token identifying a page of results the server should return.
+    /// Optional. A token that identifies a page of results the server should
+    /// return.
     pub page_token: std::string::String,
 
-    /// Optional. Filter to be applied on the resource, defined by EBNF grammar
-    /// <https://google.aip.dev/assets/misc/ebnf-filtering.txt>.
+    /// Optional. The filter to be applied on the resource, as defined by
+    /// [AIP-160: Filtering](https://google.aip.dev/160).
     pub filter: std::string::String,
 
-    /// Optional. Sort results. Supported are "name", "name desc" or "" (unsorted).
+    /// Optional. The sort order for the results. The following values are
+    /// supported:
+    ///
+    /// * `name`
+    /// * `name desc`
+    ///
+    /// If you do not specify a value, then the results are not sorted.
     pub order_by: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3587,14 +5803,15 @@ impl wkt::message::Message for ListFrameworkDeploymentsRequest {
     }
 }
 
-/// Response message for ListFrameworkDeployments.
+/// The response message for [ListFrameworkDeployments][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFrameworkDeploymentsResponse {
-    /// The list of FrameworkDeployments.
+    /// The list of framework deployments.
     pub framework_deployments: std::vec::Vec<crate::model::FrameworkDeployment>,
 
-    /// A token identifying a page of results the server should return.
+    /// A token that identifies the next page of results that the server
+    /// should return.
     pub next_page_token: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3643,12 +5860,13 @@ impl gax::paginator::internal::PageableResponse for ListFrameworkDeploymentsResp
     }
 }
 
-/// Request message for GetCloudControlDeployment.
+/// The request message for [GetCloudControlDeployment][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCloudControlDeploymentRequest {
-    /// Required. CloudControlDeployment name in the following format:
-    /// organizations/{organization}/locations/{location}/cloudControlDeployments/{cloud_control_deployment_id}
+    /// Required. The name for the cloud control deployment, in the format
+    /// `organizations/{organization}/locations/{location}/cloudControlDeployments/{cloud_control_deployment_id}`.
+    /// The only supported location is `global`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3672,27 +5890,35 @@ impl wkt::message::Message for GetCloudControlDeploymentRequest {
     }
 }
 
-/// Request message for ListCloudControlDeployments.
+/// The request message for [ListCloudControlDeployments][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCloudControlDeploymentsRequest {
-    /// Required. parent resource of the CloudControlDeployment in the format:
-    /// organizations/{organization}/locations/{location}
-    /// Only global location is supported.
+    /// Required. The parent resource for the cloud control deployment, in the
+    /// format `organizations/{organization}/locations/{location}`. The only
+    /// supported location is `global`.
     pub parent: std::string::String,
 
-    /// Optional. Requested page size. Server may return fewer items than
-    /// requested. If unspecified, server will pick an appropriate default.
+    /// Optional. The requested page size. The server might return fewer items than
+    /// you requested.
+    /// If unspecified, the server picks an appropriate default.
     pub page_size: i32,
 
-    /// Optional. A token identifying a page of results the server should return.
+    /// Optional. A token that identifies the page of results that the server
+    /// should return.
     pub page_token: std::string::String,
 
-    /// Optional. Filter to be applied on the resource, defined by EBNF grammar
-    /// <https://google.aip.dev/assets/misc/ebnf-filtering.txt>.
+    /// Optional. The filter to apply on the resource, as defined by
+    /// [AIP-160: Filtering](https://google.aip.dev/160).
     pub filter: std::string::String,
 
-    /// Optional. Sort results. Supported are "name", "name desc" or "" (unsorted).
+    /// Optional. The sort order for the results. The following values are
+    /// supported:
+    ///
+    /// * `name`
+    /// * `name desc`
+    ///
+    /// If you do not specify a value, then the results are not sorted.
     pub order_by: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3740,14 +5966,15 @@ impl wkt::message::Message for ListCloudControlDeploymentsRequest {
     }
 }
 
-/// Response message for ListCloudControlDeployments.
+/// The response message for [ListCloudControlDeployments][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCloudControlDeploymentsResponse {
-    /// The list of CloudControlDeployments.
+    /// The list of cloud control deployments.
     pub cloud_control_deployments: std::vec::Vec<crate::model::CloudControlDeployment>,
 
-    /// A token identifying a page of results the server should return.
+    /// A token that identifies the next page of results that the server
+    /// should return.
     pub next_page_token: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3796,12 +6023,13 @@ impl gax::paginator::internal::PageableResponse for ListCloudControlDeploymentsR
     }
 }
 
-/// The reference to a CloudControlDeployment.
+/// The reference to a cloud control deployment.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControlDeploymentReference {
-    /// Output only. The name of the CloudControlDeployment. The format is:
-    /// organizations/{org}/locations/{location}/cloudControlDeployments/{cloud_control_deployment_id}
+    /// Output only. The name of the CloudControlDeployment. The format is
+    /// `organizations/{org}/locations/{location}/cloudControlDeployments/{cloud_control_deployment_id}`.
+    /// The only supported location is `global`.
     pub cloud_control_deployment: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3828,23 +6056,30 @@ impl wkt::message::Message for CloudControlDeploymentReference {
     }
 }
 
-/// The reference to a FrameworkDeployment.
+/// The reference to a framework deployment.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FrameworkDeploymentReference {
-    /// Output only. The name of the FrameworkDeployment. The format is:
-    /// organizations/{org}/locations/{location}/frameworkDeployments/{framework_deployment_id}
+    /// Output only. The name of the framework deployment, in the format
+    /// `organizations/{org}/locations/{location}/frameworkDeployments/{framework_deployment_id}`.
+    /// The only supported location is `global`.
     pub framework_deployment: std::string::String,
 
-    /// Optional. The reference to the Framework that this deployment is for.
-    /// Example: {
-    /// framework:
-    /// "organizations/{org}/locations/{location}/frameworks/{framework}",
-    /// major_revision_id: 1
+    /// Optional. The reference to the framework that this deployment is for.
+    /// For example:
+    ///
+    /// ```norust
+    /// {
+    ///   framework:
+    ///   "organizations/{org}/locations/{location}/frameworks/{framework}",
+    ///   major_revision_id: 1
     /// }
+    /// ```
+    ///
+    /// The only supported location is `global`.
     pub framework_reference: std::option::Option<crate::model::FrameworkReference>,
 
-    /// Optional. The display name of the Framework that this FrameworkDeployment
+    /// Optional. The display name of the framework that this framework deployment
     /// is for.
     pub framework_display_name: std::string::String,
 
@@ -3899,7 +6134,2032 @@ impl wkt::message::Message for FrameworkDeploymentReference {
     }
 }
 
-/// The enforcement mode of the cloud control.
+/// The request message for
+/// [ListFrameworkComplianceSummariesRequest][google.cloud.cloudsecuritycompliance.v1.ListFrameworkComplianceSummariesRequest].
+///
+/// [google.cloud.cloudsecuritycompliance.v1.ListFrameworkComplianceSummariesRequest]: crate::model::ListFrameworkComplianceSummariesRequest
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListFrameworkComplianceSummariesRequest {
+    /// Required. The parent scope for the framework compliance summary.
+    pub parent: std::string::String,
+
+    /// Optional. The requested page size. The server might return fewer items than
+    /// requested. If unspecified, the server picks an appropriate default.
+    pub page_size: i32,
+
+    /// Optional. A token that identifies the page of results that the server
+    /// should return.
+    pub page_token: std::string::String,
+
+    /// Optional. The filtering results.
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFrameworkComplianceSummariesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListFrameworkComplianceSummariesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListFrameworkComplianceSummariesRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListFrameworkComplianceSummariesRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListFrameworkComplianceSummariesRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListFrameworkComplianceSummariesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.ListFrameworkComplianceSummariesRequest"
+    }
+}
+
+/// The response message for
+/// [ListFrameworkComplianceSummariesResponse][google.cloud.cloudsecuritycompliance.v1.ListFrameworkComplianceSummariesResponse].
+///
+/// [google.cloud.cloudsecuritycompliance.v1.ListFrameworkComplianceSummariesResponse]: crate::model::ListFrameworkComplianceSummariesResponse
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListFrameworkComplianceSummariesResponse {
+    /// The list of framework compliance summaries.
+    pub framework_compliance_summaries: std::vec::Vec<crate::model::FrameworkComplianceSummary>,
+
+    /// Output only. The token to retrieve the next page of results.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFrameworkComplianceSummariesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [framework_compliance_summaries][crate::model::ListFrameworkComplianceSummariesResponse::framework_compliance_summaries].
+    pub fn set_framework_compliance_summaries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FrameworkComplianceSummary>,
+    {
+        use std::iter::Iterator;
+        self.framework_compliance_summaries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFrameworkComplianceSummariesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListFrameworkComplianceSummariesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.ListFrameworkComplianceSummariesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListFrameworkComplianceSummariesResponse {
+    type PageItem = crate::model::FrameworkComplianceSummary;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.framework_compliance_summaries
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The response message for [GetFrameworkComplianceReport][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FrameworkComplianceReport {
+    /// The name of the framework.
+    pub framework: std::string::String,
+
+    /// The description of the framework.
+    pub framework_description: std::string::String,
+
+    /// Output only. The last updated time of the report.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// The control assessment details of the framework.
+    pub control_assessment_details: std::option::Option<crate::model::ControlAssessmentDetails>,
+
+    /// The type of framework.
+    pub framework_type: crate::model::framework::FrameworkType,
+
+    /// The list of cloud providers supported by the framework.
+    pub supported_cloud_providers: std::vec::Vec<crate::model::CloudProvider>,
+
+    /// The list of framework categories supported.
+    pub framework_categories: std::vec::Vec<crate::model::FrameworkCategory>,
+
+    /// Optional. The display name for the framework.
+    pub framework_display_name: std::string::String,
+
+    /// Identifier. The name of the framework compliance report.
+    pub name: std::string::String,
+
+    /// The latest major revision ID of the framework.
+    pub major_revision_id: i64,
+
+    /// The latest minor revision ID of the latest major revision of the framework.
+    pub minor_revision_id: i64,
+
+    /// The target resource details of the framework.
+    pub target_resource_details: std::vec::Vec<crate::model::TargetResourceDetails>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FrameworkComplianceReport {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [framework][crate::model::FrameworkComplianceReport::framework].
+    pub fn set_framework<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.framework = v.into();
+        self
+    }
+
+    /// Sets the value of [framework_description][crate::model::FrameworkComplianceReport::framework_description].
+    pub fn set_framework_description<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.framework_description = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::FrameworkComplianceReport::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::FrameworkComplianceReport::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [control_assessment_details][crate::model::FrameworkComplianceReport::control_assessment_details].
+    pub fn set_control_assessment_details<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ControlAssessmentDetails>,
+    {
+        self.control_assessment_details = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [control_assessment_details][crate::model::FrameworkComplianceReport::control_assessment_details].
+    pub fn set_or_clear_control_assessment_details<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ControlAssessmentDetails>,
+    {
+        self.control_assessment_details = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [framework_type][crate::model::FrameworkComplianceReport::framework_type].
+    pub fn set_framework_type<T: std::convert::Into<crate::model::framework::FrameworkType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.framework_type = v.into();
+        self
+    }
+
+    /// Sets the value of [supported_cloud_providers][crate::model::FrameworkComplianceReport::supported_cloud_providers].
+    pub fn set_supported_cloud_providers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CloudProvider>,
+    {
+        use std::iter::Iterator;
+        self.supported_cloud_providers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [framework_categories][crate::model::FrameworkComplianceReport::framework_categories].
+    pub fn set_framework_categories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FrameworkCategory>,
+    {
+        use std::iter::Iterator;
+        self.framework_categories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [framework_display_name][crate::model::FrameworkComplianceReport::framework_display_name].
+    pub fn set_framework_display_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.framework_display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [name][crate::model::FrameworkComplianceReport::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [major_revision_id][crate::model::FrameworkComplianceReport::major_revision_id].
+    pub fn set_major_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.major_revision_id = v.into();
+        self
+    }
+
+    /// Sets the value of [minor_revision_id][crate::model::FrameworkComplianceReport::minor_revision_id].
+    pub fn set_minor_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.minor_revision_id = v.into();
+        self
+    }
+
+    /// Sets the value of [target_resource_details][crate::model::FrameworkComplianceReport::target_resource_details].
+    pub fn set_target_resource_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TargetResourceDetails>,
+    {
+        use std::iter::Iterator;
+        self.target_resource_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for FrameworkComplianceReport {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.FrameworkComplianceReport"
+    }
+}
+
+/// The request message for [FetchFrameworkComplianceReport][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FetchFrameworkComplianceReportRequest {
+    /// Required. The name of the framework compliance report to retrieve.
+    pub name: std::string::String,
+
+    /// Optional. The end time of the report.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FetchFrameworkComplianceReportRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::FetchFrameworkComplianceReportRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::FetchFrameworkComplianceReportRequest::end_time].
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::FetchFrameworkComplianceReportRequest::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for FetchFrameworkComplianceReportRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.FetchFrameworkComplianceReportRequest"
+    }
+}
+
+/// The request message for [ListFindingSummaries][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListFindingSummariesRequest {
+    /// Required. The parent scope for the framework overview page.
+    pub parent: std::string::String,
+
+    /// Optional. The requested page size. The server might return fewer items than
+    /// requested. If unspecified, the server picks an appropriate default.
+    pub page_size: i32,
+
+    /// Optional. A token that identifies the page of results that the server
+    /// should return.
+    pub page_token: std::string::String,
+
+    /// Optional. The filtering results.
+    pub filter: std::string::String,
+
+    /// Optional. The end time of the finding summary.
+    #[deprecated]
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFindingSummariesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListFindingSummariesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListFindingSummariesRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListFindingSummariesRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListFindingSummariesRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::ListFindingSummariesRequest::end_time].
+    #[deprecated]
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::ListFindingSummariesRequest::end_time].
+    #[deprecated]
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ListFindingSummariesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.ListFindingSummariesRequest"
+    }
+}
+
+/// The response message for [ListFindingSummaries][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListFindingSummariesResponse {
+    /// List of finding summary by category.
+    pub finding_summaries: std::vec::Vec<crate::model::FindingSummary>,
+
+    /// Output only. The token to retrieve the next page of results.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFindingSummariesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [finding_summaries][crate::model::ListFindingSummariesResponse::finding_summaries].
+    pub fn set_finding_summaries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FindingSummary>,
+    {
+        use std::iter::Iterator;
+        self.finding_summaries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFindingSummariesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListFindingSummariesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.ListFindingSummariesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListFindingSummariesResponse {
+    type PageItem = crate::model::FindingSummary;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.finding_summaries
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The request message for [ListControlComplianceSummaries][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListControlComplianceSummariesRequest {
+    /// Required. The parent scope for the framework overview page.
+    pub parent: std::string::String,
+
+    /// Optional. The end time of the control compliance summary.
+    #[deprecated]
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. The requested page size. The server might return fewer items than
+    /// requested. If unspecified, the server picks an appropriate default.
+    pub page_size: i32,
+
+    /// Optional. A token that identifies the page of results that the server
+    /// should return.
+    pub page_token: std::string::String,
+
+    /// Optional. The filtering results.
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListControlComplianceSummariesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListControlComplianceSummariesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::ListControlComplianceSummariesRequest::end_time].
+    #[deprecated]
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::ListControlComplianceSummariesRequest::end_time].
+    #[deprecated]
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListControlComplianceSummariesRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListControlComplianceSummariesRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListControlComplianceSummariesRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListControlComplianceSummariesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.ListControlComplianceSummariesRequest"
+    }
+}
+
+/// The response message for [ListControlComplianceSummaries][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListControlComplianceSummariesResponse {
+    /// The list of control compliance details.
+    pub control_compliance_summaries: std::vec::Vec<crate::model::ControlComplianceSummary>,
+
+    /// Output only. The token to retrieve the next page of results.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListControlComplianceSummariesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [control_compliance_summaries][crate::model::ListControlComplianceSummariesResponse::control_compliance_summaries].
+    pub fn set_control_compliance_summaries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ControlComplianceSummary>,
+    {
+        use std::iter::Iterator;
+        self.control_compliance_summaries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListControlComplianceSummariesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListControlComplianceSummariesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.ListControlComplianceSummariesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListControlComplianceSummariesResponse {
+    type PageItem = crate::model::ControlComplianceSummary;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.control_compliance_summaries
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The request message for [AggregateFrameworkComplianceReport][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AggregateFrameworkComplianceReportRequest {
+    /// Required. The name of the aggregated compliance report over time to
+    /// retrieve.
+    ///
+    /// The supported format is:
+    /// `organizations/{organization_id}/locations/{location}/frameworkComplianceReports/{framework_compliance_report}`
+    pub name: std::string::String,
+
+    /// Optional. The start and end time range for the aggregated compliance
+    /// report.
+    pub interval: std::option::Option<gtype::model::Interval>,
+
+    /// Optional. The filtering results.
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AggregateFrameworkComplianceReportRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AggregateFrameworkComplianceReportRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [interval][crate::model::AggregateFrameworkComplianceReportRequest::interval].
+    pub fn set_interval<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::Interval>,
+    {
+        self.interval = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [interval][crate::model::AggregateFrameworkComplianceReportRequest::interval].
+    pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::Interval>,
+    {
+        self.interval = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::AggregateFrameworkComplianceReportRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AggregateFrameworkComplianceReportRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.AggregateFrameworkComplianceReportRequest"
+    }
+}
+
+/// The response message for [AggregateFrameworkComplianceReport][].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AggregateFrameworkComplianceReportResponse {
+    /// The list of aggregated compliance reports.
+    pub aggregated_compliance_reports: std::vec::Vec<crate::model::AggregatedComplianceReport>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AggregateFrameworkComplianceReportResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [aggregated_compliance_reports][crate::model::AggregateFrameworkComplianceReportResponse::aggregated_compliance_reports].
+    pub fn set_aggregated_compliance_reports<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AggregatedComplianceReport>,
+    {
+        use std::iter::Iterator;
+        self.aggregated_compliance_reports = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for AggregateFrameworkComplianceReportResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.AggregateFrameworkComplianceReportResponse"
+    }
+}
+
+/// The details for a control assessment.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ControlAssessmentDetails {
+    /// The number of controls that are passing or not assessed.
+    pub passing_controls: i32,
+
+    /// The number of controls that are failing.
+    pub failing_controls: i32,
+
+    /// The number of controls that were assessed and are passing.
+    pub assessed_passing_controls: i32,
+
+    /// The number of controls that aren't assessed because they require manual
+    /// review.
+    pub not_assessed_controls: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ControlAssessmentDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [passing_controls][crate::model::ControlAssessmentDetails::passing_controls].
+    pub fn set_passing_controls<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.passing_controls = v.into();
+        self
+    }
+
+    /// Sets the value of [failing_controls][crate::model::ControlAssessmentDetails::failing_controls].
+    pub fn set_failing_controls<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.failing_controls = v.into();
+        self
+    }
+
+    /// Sets the value of [assessed_passing_controls][crate::model::ControlAssessmentDetails::assessed_passing_controls].
+    pub fn set_assessed_passing_controls<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.assessed_passing_controls = v.into();
+        self
+    }
+
+    /// Sets the value of [not_assessed_controls][crate::model::ControlAssessmentDetails::not_assessed_controls].
+    pub fn set_not_assessed_controls<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.not_assessed_controls = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ControlAssessmentDetails {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.ControlAssessmentDetails"
+    }
+}
+
+/// The details for a framework compliance summary.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FrameworkComplianceSummary {
+    /// The name of the framework.
+    pub framework: std::string::String,
+
+    /// The control assessment details of the framework.
+    pub control_assessment_details: std::option::Option<crate::model::ControlAssessmentDetails>,
+
+    /// The type of framework.
+    pub framework_type: crate::model::framework::FrameworkType,
+
+    /// The list of cloud providers supported by the framework.
+    pub supported_cloud_providers: std::vec::Vec<crate::model::CloudProvider>,
+
+    /// The list of framework categories supported by the framework.
+    pub framework_categories: std::vec::Vec<crate::model::FrameworkCategory>,
+
+    /// Optional. The display name for the framework.
+    pub framework_display_name: std::string::String,
+
+    /// Identifier. The name of the framework compliance summary.
+    pub name: std::string::String,
+
+    /// The major revision ID of the framework.
+    pub major_revision_id: i64,
+
+    /// The minor revision ID of the framework.
+    pub minor_revision_id: i64,
+
+    /// The target resource details for the framework.
+    pub target_resource_details: std::vec::Vec<crate::model::TargetResourceDetails>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FrameworkComplianceSummary {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [framework][crate::model::FrameworkComplianceSummary::framework].
+    pub fn set_framework<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.framework = v.into();
+        self
+    }
+
+    /// Sets the value of [control_assessment_details][crate::model::FrameworkComplianceSummary::control_assessment_details].
+    pub fn set_control_assessment_details<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ControlAssessmentDetails>,
+    {
+        self.control_assessment_details = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [control_assessment_details][crate::model::FrameworkComplianceSummary::control_assessment_details].
+    pub fn set_or_clear_control_assessment_details<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ControlAssessmentDetails>,
+    {
+        self.control_assessment_details = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [framework_type][crate::model::FrameworkComplianceSummary::framework_type].
+    pub fn set_framework_type<T: std::convert::Into<crate::model::framework::FrameworkType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.framework_type = v.into();
+        self
+    }
+
+    /// Sets the value of [supported_cloud_providers][crate::model::FrameworkComplianceSummary::supported_cloud_providers].
+    pub fn set_supported_cloud_providers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CloudProvider>,
+    {
+        use std::iter::Iterator;
+        self.supported_cloud_providers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [framework_categories][crate::model::FrameworkComplianceSummary::framework_categories].
+    pub fn set_framework_categories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FrameworkCategory>,
+    {
+        use std::iter::Iterator;
+        self.framework_categories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [framework_display_name][crate::model::FrameworkComplianceSummary::framework_display_name].
+    pub fn set_framework_display_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.framework_display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [name][crate::model::FrameworkComplianceSummary::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [major_revision_id][crate::model::FrameworkComplianceSummary::major_revision_id].
+    pub fn set_major_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.major_revision_id = v.into();
+        self
+    }
+
+    /// Sets the value of [minor_revision_id][crate::model::FrameworkComplianceSummary::minor_revision_id].
+    pub fn set_minor_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.minor_revision_id = v.into();
+        self
+    }
+
+    /// Sets the value of [target_resource_details][crate::model::FrameworkComplianceSummary::target_resource_details].
+    pub fn set_target_resource_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TargetResourceDetails>,
+    {
+        use std::iter::Iterator;
+        self.target_resource_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for FrameworkComplianceSummary {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.FrameworkComplianceSummary"
+    }
+}
+
+/// The details for a finding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FindingSummary {
+    /// The category of the finding.
+    pub finding_category: std::string::String,
+
+    /// The class of the finding.
+    pub finding_class: crate::model::FindingClass,
+
+    /// The severity of the finding.
+    pub severity: crate::model::Severity,
+
+    /// The count of the finding.
+    pub finding_count: i64,
+
+    /// Output only. The last updated time of the finding.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. The list of compliance frameworks that the finding belongs to.
+    pub related_frameworks: std::vec::Vec<std::string::String>,
+
+    /// Identifier. The name of the finding summary.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FindingSummary {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [finding_category][crate::model::FindingSummary::finding_category].
+    pub fn set_finding_category<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.finding_category = v.into();
+        self
+    }
+
+    /// Sets the value of [finding_class][crate::model::FindingSummary::finding_class].
+    pub fn set_finding_class<T: std::convert::Into<crate::model::FindingClass>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.finding_class = v.into();
+        self
+    }
+
+    /// Sets the value of [severity][crate::model::FindingSummary::severity].
+    pub fn set_severity<T: std::convert::Into<crate::model::Severity>>(mut self, v: T) -> Self {
+        self.severity = v.into();
+        self
+    }
+
+    /// Sets the value of [finding_count][crate::model::FindingSummary::finding_count].
+    pub fn set_finding_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.finding_count = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::FindingSummary::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::FindingSummary::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [related_frameworks][crate::model::FindingSummary::related_frameworks].
+    pub fn set_related_frameworks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.related_frameworks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [name][crate::model::FindingSummary::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FindingSummary {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.FindingSummary"
+    }
+}
+
+/// The details for control compliance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ControlComplianceSummary {
+    /// The name of the control.
+    pub control: std::string::String,
+
+    /// The display name of the control.
+    pub display_name: std::string::String,
+
+    /// The description of the control.
+    pub description: std::string::String,
+
+    /// Output only. The overall evaluation status of the control.
+    pub overall_evaluation_state: crate::model::EvaluationState,
+
+    /// The total number of findings for the control.
+    pub total_findings_count: i32,
+
+    /// The list of compliance frameworks that the control belongs to.
+    pub compliance_frameworks: std::vec::Vec<std::string::String>,
+
+    /// The list of similar controls.
+    pub similar_controls: std::vec::Vec<crate::model::SimilarControls>,
+
+    /// The list of cloud control reports.
+    pub cloud_control_reports: std::vec::Vec<crate::model::CloudControlReport>,
+
+    /// The responsibility type for the control.
+    pub control_responsibility_type: crate::model::RegulatoryControlResponsibilityType,
+
+    /// Whether the control is a fake control. Fake controls are created
+    /// and mapped to cloud controls that don't belong to a control group.
+    pub is_fake_control: bool,
+
+    /// Identifier. The name of the control compliance summary.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ControlComplianceSummary {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [control][crate::model::ControlComplianceSummary::control].
+    pub fn set_control<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.control = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::ControlComplianceSummary::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::ControlComplianceSummary::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [overall_evaluation_state][crate::model::ControlComplianceSummary::overall_evaluation_state].
+    pub fn set_overall_evaluation_state<T: std::convert::Into<crate::model::EvaluationState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.overall_evaluation_state = v.into();
+        self
+    }
+
+    /// Sets the value of [total_findings_count][crate::model::ControlComplianceSummary::total_findings_count].
+    pub fn set_total_findings_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.total_findings_count = v.into();
+        self
+    }
+
+    /// Sets the value of [compliance_frameworks][crate::model::ControlComplianceSummary::compliance_frameworks].
+    pub fn set_compliance_frameworks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.compliance_frameworks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [similar_controls][crate::model::ControlComplianceSummary::similar_controls].
+    pub fn set_similar_controls<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SimilarControls>,
+    {
+        use std::iter::Iterator;
+        self.similar_controls = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [cloud_control_reports][crate::model::ControlComplianceSummary::cloud_control_reports].
+    pub fn set_cloud_control_reports<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CloudControlReport>,
+    {
+        use std::iter::Iterator;
+        self.cloud_control_reports = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [control_responsibility_type][crate::model::ControlComplianceSummary::control_responsibility_type].
+    pub fn set_control_responsibility_type<
+        T: std::convert::Into<crate::model::RegulatoryControlResponsibilityType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.control_responsibility_type = v.into();
+        self
+    }
+
+    /// Sets the value of [is_fake_control][crate::model::ControlComplianceSummary::is_fake_control].
+    pub fn set_is_fake_control<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.is_fake_control = v.into();
+        self
+    }
+
+    /// Sets the value of [name][crate::model::ControlComplianceSummary::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ControlComplianceSummary {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.ControlComplianceSummary"
+    }
+}
+
+/// The cloud control report.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CloudControlReport {
+    /// The name of the cloud control.
+    pub cloud_control: std::string::String,
+
+    /// The display name of the cloud control.
+    pub display_name: std::string::String,
+
+    /// The description of the cloud control.
+    pub description: std::string::String,
+
+    /// The list of categories for the cloud control.
+    pub categories: std::vec::Vec<std::string::String>,
+
+    /// The list of similar controls.
+    pub similar_controls: std::vec::Vec<crate::model::SimilarControls>,
+
+    /// The type of the cloud control.
+    pub cloud_control_type: crate::model::cloud_control::Type,
+
+    /// The category of the finding.
+    pub finding_category: std::string::String,
+
+    /// The list of rules that correspond to the cloud control.
+    pub rules: std::vec::Vec<crate::model::Rule>,
+
+    /// The severity of the finding.
+    pub finding_severity: crate::model::Severity,
+
+    /// The enforcement mode of the cloud control.
+    pub enforcement_mode: crate::model::EnforcementMode,
+
+    /// The name of the cloud control deployment.
+    pub cloud_control_deployment: std::string::String,
+
+    /// The major revision ID of the cloud control.
+    pub major_revision_id: i64,
+
+    /// The minor revision ID of the cloud control.
+    pub minor_revision_id: i64,
+
+    /// The major revision IDs of the frameworks that the cloud control belongs to.
+    pub framework_major_revision_ids: std::vec::Vec<i64>,
+
+    /// The assessment details of the cloud control.
+    pub assessment_details:
+        std::option::Option<crate::model::cloud_control_report::AssessmentDetails>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CloudControlReport {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cloud_control][crate::model::CloudControlReport::cloud_control].
+    pub fn set_cloud_control<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.cloud_control = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::CloudControlReport::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::CloudControlReport::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [categories][crate::model::CloudControlReport::categories].
+    pub fn set_categories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.categories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [similar_controls][crate::model::CloudControlReport::similar_controls].
+    pub fn set_similar_controls<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SimilarControls>,
+    {
+        use std::iter::Iterator;
+        self.similar_controls = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [cloud_control_type][crate::model::CloudControlReport::cloud_control_type].
+    pub fn set_cloud_control_type<T: std::convert::Into<crate::model::cloud_control::Type>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cloud_control_type = v.into();
+        self
+    }
+
+    /// Sets the value of [finding_category][crate::model::CloudControlReport::finding_category].
+    pub fn set_finding_category<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.finding_category = v.into();
+        self
+    }
+
+    /// Sets the value of [rules][crate::model::CloudControlReport::rules].
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Rule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [finding_severity][crate::model::CloudControlReport::finding_severity].
+    pub fn set_finding_severity<T: std::convert::Into<crate::model::Severity>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.finding_severity = v.into();
+        self
+    }
+
+    /// Sets the value of [enforcement_mode][crate::model::CloudControlReport::enforcement_mode].
+    pub fn set_enforcement_mode<T: std::convert::Into<crate::model::EnforcementMode>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.enforcement_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [cloud_control_deployment][crate::model::CloudControlReport::cloud_control_deployment].
+    pub fn set_cloud_control_deployment<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cloud_control_deployment = v.into();
+        self
+    }
+
+    /// Sets the value of [major_revision_id][crate::model::CloudControlReport::major_revision_id].
+    pub fn set_major_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.major_revision_id = v.into();
+        self
+    }
+
+    /// Sets the value of [minor_revision_id][crate::model::CloudControlReport::minor_revision_id].
+    pub fn set_minor_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.minor_revision_id = v.into();
+        self
+    }
+
+    /// Sets the value of [framework_major_revision_ids][crate::model::CloudControlReport::framework_major_revision_ids].
+    pub fn set_framework_major_revision_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i64>,
+    {
+        use std::iter::Iterator;
+        self.framework_major_revision_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [assessment_details][crate::model::CloudControlReport::assessment_details].
+    ///
+    /// Note that all the setters affecting `assessment_details` are mutually
+    /// exclusive.
+    pub fn set_assessment_details<
+        T: std::convert::Into<
+                std::option::Option<crate::model::cloud_control_report::AssessmentDetails>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.assessment_details = v.into();
+        self
+    }
+
+    /// The value of [assessment_details][crate::model::CloudControlReport::assessment_details]
+    /// if it holds a `ManualCloudControlAssessmentDetails`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn manual_cloud_control_assessment_details(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ManualCloudControlAssessmentDetails>>
+    {
+        #[allow(unreachable_patterns)]
+        self.assessment_details.as_ref().and_then(|v| match v {
+            crate::model::cloud_control_report::AssessmentDetails::ManualCloudControlAssessmentDetails(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [assessment_details][crate::model::CloudControlReport::assessment_details]
+    /// to hold a `ManualCloudControlAssessmentDetails`.
+    ///
+    /// Note that all the setters affecting `assessment_details` are
+    /// mutually exclusive.
+    pub fn set_manual_cloud_control_assessment_details<
+        T: std::convert::Into<std::boxed::Box<crate::model::ManualCloudControlAssessmentDetails>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.assessment_details = std::option::Option::Some(
+            crate::model::cloud_control_report::AssessmentDetails::ManualCloudControlAssessmentDetails(
+                v.into()
+            )
+        );
+        self
+    }
+
+    /// The value of [assessment_details][crate::model::CloudControlReport::assessment_details]
+    /// if it holds a `CloudControlAssessmentDetails`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_control_assessment_details(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudControlAssessmentDetails>> {
+        #[allow(unreachable_patterns)]
+        self.assessment_details.as_ref().and_then(|v| match v {
+            crate::model::cloud_control_report::AssessmentDetails::CloudControlAssessmentDetails(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [assessment_details][crate::model::CloudControlReport::assessment_details]
+    /// to hold a `CloudControlAssessmentDetails`.
+    ///
+    /// Note that all the setters affecting `assessment_details` are
+    /// mutually exclusive.
+    pub fn set_cloud_control_assessment_details<
+        T: std::convert::Into<std::boxed::Box<crate::model::CloudControlAssessmentDetails>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.assessment_details = std::option::Option::Some(
+            crate::model::cloud_control_report::AssessmentDetails::CloudControlAssessmentDetails(
+                v.into(),
+            ),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for CloudControlReport {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.CloudControlReport"
+    }
+}
+
+/// Defines additional types related to [CloudControlReport].
+pub mod cloud_control_report {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The assessment details of the cloud control.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AssessmentDetails {
+        /// The details of a manual cloud control assessment.
+        ManualCloudControlAssessmentDetails(
+            std::boxed::Box<crate::model::ManualCloudControlAssessmentDetails>,
+        ),
+        /// The details of a cloud control assessment.
+        CloudControlAssessmentDetails(std::boxed::Box<crate::model::CloudControlAssessmentDetails>),
+    }
+}
+
+/// The details for a manual cloud control assessment.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ManualCloudControlAssessmentDetails {
+    /// The guide for assessing a cloud control manually.
+    pub manual_cloud_control_guide: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ManualCloudControlAssessmentDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [manual_cloud_control_guide][crate::model::ManualCloudControlAssessmentDetails::manual_cloud_control_guide].
+    pub fn set_manual_cloud_control_guide<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.manual_cloud_control_guide = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ManualCloudControlAssessmentDetails {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.ManualCloudControlAssessmentDetails"
+    }
+}
+
+/// The cloud control assessment details for non-manual cloud controls.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CloudControlAssessmentDetails {
+    /// The number of findings for the cloud control.
+    pub findings_count: i32,
+
+    /// Output only. The evaluation status of the cloud control.
+    pub evaluation_state: crate::model::EvaluationState,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CloudControlAssessmentDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [findings_count][crate::model::CloudControlAssessmentDetails::findings_count].
+    pub fn set_findings_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.findings_count = v.into();
+        self
+    }
+
+    /// Sets the value of [evaluation_state][crate::model::CloudControlAssessmentDetails::evaluation_state].
+    pub fn set_evaluation_state<T: std::convert::Into<crate::model::EvaluationState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.evaluation_state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CloudControlAssessmentDetails {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.CloudControlAssessmentDetails"
+    }
+}
+
+/// The similar controls.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SimilarControls {
+    /// The name of the framework.
+    pub framework: std::string::String,
+
+    /// The ID of the control.
+    pub control_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SimilarControls {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [framework][crate::model::SimilarControls::framework].
+    pub fn set_framework<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.framework = v.into();
+        self
+    }
+
+    /// Sets the value of [control_id][crate::model::SimilarControls::control_id].
+    pub fn set_control_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.control_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SimilarControls {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.SimilarControls"
+    }
+}
+
+/// The aggregated compliance report.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AggregatedComplianceReport {
+    /// The control assessment details of the framework.
+    pub control_assessment_details: std::option::Option<crate::model::ControlAssessmentDetails>,
+
+    /// The report time of the aggregated compliance report.
+    pub report_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AggregatedComplianceReport {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [control_assessment_details][crate::model::AggregatedComplianceReport::control_assessment_details].
+    pub fn set_control_assessment_details<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ControlAssessmentDetails>,
+    {
+        self.control_assessment_details = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [control_assessment_details][crate::model::AggregatedComplianceReport::control_assessment_details].
+    pub fn set_or_clear_control_assessment_details<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ControlAssessmentDetails>,
+    {
+        self.control_assessment_details = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [report_time][crate::model::AggregatedComplianceReport::report_time].
+    pub fn set_report_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.report_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [report_time][crate::model::AggregatedComplianceReport::report_time].
+    pub fn set_or_clear_report_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.report_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for AggregatedComplianceReport {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.AggregatedComplianceReport"
+    }
+}
+
+/// The details for a target resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TargetResourceDetails {
+    /// The framework deployment name for the target resource.
+    ///
+    /// For example,
+    /// `organizations/{organization_id}/locations/{location}/frameworkDeployments/{framework_deployment_id}`
+    pub framework_deployment: std::string::String,
+
+    /// The display name of the target resource. For example, `google.com`,
+    /// `staging-project`, or `development-folder`.
+    pub target_resource_display_name: std::string::String,
+
+    /// The target resource. For example, `organizations/1234567890`,
+    /// `projects/1234567890`, or `folders/1234567890`.
+    pub target_resource: std::string::String,
+
+    /// The create time of the target resource.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// The update time of the target resource.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// The major revision ID of the framework for the target resource.
+    pub major_revision_id: i64,
+
+    /// The minor revision ID of the framework for the target resource.
+    pub minor_revision_id: i64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TargetResourceDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [framework_deployment][crate::model::TargetResourceDetails::framework_deployment].
+    pub fn set_framework_deployment<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.framework_deployment = v.into();
+        self
+    }
+
+    /// Sets the value of [target_resource_display_name][crate::model::TargetResourceDetails::target_resource_display_name].
+    pub fn set_target_resource_display_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target_resource_display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [target_resource][crate::model::TargetResourceDetails::target_resource].
+    pub fn set_target_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target_resource = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::TargetResourceDetails::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::TargetResourceDetails::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::TargetResourceDetails::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::TargetResourceDetails::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [major_revision_id][crate::model::TargetResourceDetails::major_revision_id].
+    pub fn set_major_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.major_revision_id = v.into();
+        self
+    }
+
+    /// Sets the value of [minor_revision_id][crate::model::TargetResourceDetails::minor_revision_id].
+    pub fn set_minor_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.minor_revision_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for TargetResourceDetails {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.TargetResourceDetails"
+    }
+}
+
+/// The state of compliance after evaluation is complete.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum ComplianceState {
+    /// Default value. This value is unused.
+    Unspecified,
+    /// The resource is compliant.
+    Compliant,
+    /// The resource has a violation.
+    Violation,
+    /// The resource requires manual review from you.
+    ManualReviewNeeded,
+    /// An error occurred while computing the resource status.
+    Error,
+    /// The resource can't be audited.
+    AuditNotSupported,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [ComplianceState::value] or
+    /// [ComplianceState::name].
+    UnknownValue(compliance_state::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod compliance_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl ComplianceState {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Compliant => std::option::Option::Some(1),
+            Self::Violation => std::option::Option::Some(2),
+            Self::ManualReviewNeeded => std::option::Option::Some(3),
+            Self::Error => std::option::Option::Some(4),
+            Self::AuditNotSupported => std::option::Option::Some(5),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("COMPLIANCE_STATE_UNSPECIFIED"),
+            Self::Compliant => std::option::Option::Some("COMPLIANT"),
+            Self::Violation => std::option::Option::Some("VIOLATION"),
+            Self::ManualReviewNeeded => std::option::Option::Some("MANUAL_REVIEW_NEEDED"),
+            Self::Error => std::option::Option::Some("ERROR"),
+            Self::AuditNotSupported => std::option::Option::Some("AUDIT_NOT_SUPPORTED"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for ComplianceState {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for ComplianceState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for ComplianceState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Compliant,
+            2 => Self::Violation,
+            3 => Self::ManualReviewNeeded,
+            4 => Self::Error,
+            5 => Self::AuditNotSupported,
+            _ => Self::UnknownValue(compliance_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for ComplianceState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "COMPLIANCE_STATE_UNSPECIFIED" => Self::Unspecified,
+            "COMPLIANT" => Self::Compliant,
+            "VIOLATION" => Self::Violation,
+            "MANUAL_REVIEW_NEEDED" => Self::ManualReviewNeeded,
+            "ERROR" => Self::Error,
+            "AUDIT_NOT_SUPPORTED" => Self::AuditNotSupported,
+            _ => Self::UnknownValue(compliance_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for ComplianceState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Compliant => serializer.serialize_i32(1),
+            Self::Violation => serializer.serialize_i32(2),
+            Self::ManualReviewNeeded => serializer.serialize_i32(3),
+            Self::Error => serializer.serialize_i32(4),
+            Self::AuditNotSupported => serializer.serialize_i32(5),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ComplianceState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ComplianceState>::new(
+            ".google.cloud.cloudsecuritycompliance.v1.ComplianceState",
+        ))
+    }
+}
+
+/// The responsibility type for the regulatory control.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum RegulatoryControlResponsibilityType {
+    /// Default value. This value is unused.
+    Unspecified,
+    /// Google's responsibility.
+    Google,
+    /// Your responsibility.
+    Customer,
+    /// Shared responsibility.
+    Shared,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [RegulatoryControlResponsibilityType::value] or
+    /// [RegulatoryControlResponsibilityType::name].
+    UnknownValue(regulatory_control_responsibility_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod regulatory_control_responsibility_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl RegulatoryControlResponsibilityType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Google => std::option::Option::Some(1),
+            Self::Customer => std::option::Option::Some(2),
+            Self::Shared => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => {
+                std::option::Option::Some("REGULATORY_CONTROL_RESPONSIBILITY_TYPE_UNSPECIFIED")
+            }
+            Self::Google => std::option::Option::Some("GOOGLE"),
+            Self::Customer => std::option::Option::Some("CUSTOMER"),
+            Self::Shared => std::option::Option::Some("SHARED"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for RegulatoryControlResponsibilityType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for RegulatoryControlResponsibilityType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for RegulatoryControlResponsibilityType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Google,
+            2 => Self::Customer,
+            3 => Self::Shared,
+            _ => Self::UnknownValue(regulatory_control_responsibility_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for RegulatoryControlResponsibilityType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "REGULATORY_CONTROL_RESPONSIBILITY_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "GOOGLE" => Self::Google,
+            "CUSTOMER" => Self::Customer,
+            "SHARED" => Self::Shared,
+            _ => Self::UnknownValue(regulatory_control_responsibility_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for RegulatoryControlResponsibilityType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Google => serializer.serialize_i32(1),
+            Self::Customer => serializer.serialize_i32(2),
+            Self::Shared => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for RegulatoryControlResponsibilityType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<
+            RegulatoryControlResponsibilityType,
+        >::new(
+            ".google.cloud.cloudsecuritycompliance.v1.RegulatoryControlResponsibilityType",
+        ))
+    }
+}
+
+/// The enforcement mode for the cloud control.
 ///
 /// # Working with unknown values
 ///
@@ -3919,11 +8179,11 @@ impl wkt::message::Message for FrameworkDeploymentReference {
 pub enum EnforcementMode {
     /// Default value. This value is unused.
     Unspecified,
-    /// The cloud control is enforced to prevent resource non-compliance.
+    /// The cloud control is enforced to prevent non-compliance.
     Preventive,
-    /// The cloud control is enforced to detect resource non-compliance.
+    /// The cloud control is enforced to detect non-compliance.
     Detective,
-    /// The cloud control is enforced to audit resource non-compliance.
+    /// The cloud control is enforced to audit for non-compliance.
     Audit,
     /// If set, the enum was initialized with an unknown value.
     ///
@@ -4038,7 +8298,7 @@ impl<'de> serde::de::Deserialize<'de> for EnforcementMode {
     }
 }
 
-/// The category of the framework.
+/// The category for the framework.
 ///
 /// # Working with unknown values
 ///
@@ -4058,15 +8318,15 @@ impl<'de> serde::de::Deserialize<'de> for EnforcementMode {
 pub enum FrameworkCategory {
     /// Default value. This value is unused.
     Unspecified,
-    /// Standard framework
+    /// An industry-defined framework.
     IndustryDefinedStandard,
-    /// Assured Workloads framework
+    /// An Assured Workloads framework.
     AssuredWorkloads,
-    /// Data Security framework
+    /// A data security posture framework.
     DataSecurity,
-    /// Google Best Practices framework
+    /// A Google's best practices framework.
     GoogleBestPractices,
-    /// User created framework.
+    /// A user-created framework.
     CustomFramework,
     /// If set, the enum was initialized with an unknown value.
     ///
@@ -4191,7 +8451,7 @@ impl<'de> serde::de::Deserialize<'de> for FrameworkCategory {
     }
 }
 
-/// The category of the cloud control.
+/// The category for the cloud control.
 ///
 /// # Working with unknown values
 ///
@@ -4211,35 +8471,35 @@ impl<'de> serde::de::Deserialize<'de> for FrameworkCategory {
 pub enum CloudControlCategory {
     /// Default value. This value is unused.
     Unspecified,
-    /// Infrastructure
+    /// The infrastructure security category.
     CcCategoryInfrastructure,
-    /// Artificial Intelligence
+    /// The artificial intelligence category.
     CcCategoryArtificialIntelligence,
-    /// Physical Security
+    /// The physical security category.
     CcCategoryPhysicalSecurity,
-    /// Data Security
+    /// The data security category.
     CcCategoryDataSecurity,
-    /// Network Security
+    /// The network security category.
     CcCategoryNetworkSecurity,
-    /// Incident Management
+    /// The incident management category.
     CcCategoryIncidentManagement,
-    /// Identity & Access Management
+    /// The identity and access management category.
     CcCategoryIdentityAndAccessManagement,
-    /// Encryption
+    /// The encryption category.
     CcCategoryEncryption,
-    /// Logs Management & Infrastructure
+    /// The logs management and infrastructure category.
     CcCategoryLogsManagementAndInfrastructure,
-    /// HR, Admin & Processes
+    /// The HR, admin, and processes category.
     CcCategoryHrAdminAndProcesses,
-    /// Third Party & Sub-Processor Management
+    /// The third-party and sub-processor management category.
     CcCategoryThirdPartyAndSubProcessorManagement,
-    /// Legal & Disclosures
+    /// The legal and disclosures category.
     CcCategoryLegalAndDisclosures,
-    /// Vulnerability Management
+    /// The vulnerability management category.
     CcCategoryVulnerabilityManagement,
-    /// Privacy
+    /// The privacy category.
     CcCategoryPrivacy,
-    /// BCDR (Business Continuity and Disaster Recovery)
+    /// The business continuity and disaster recovery (BCDR) category.
     CcCategoryBcdr,
     /// If set, the enum was initialized with an unknown value.
     ///
@@ -4442,7 +8702,7 @@ impl<'de> serde::de::Deserialize<'de> for CloudControlCategory {
     }
 }
 
-/// The cloud platform.
+/// The cloud provider that's associated with the cloud control.
 ///
 /// # Working with unknown values
 ///
@@ -4599,10 +8859,8 @@ impl<'de> serde::de::Deserialize<'de> for CloudProvider {
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum Severity {
-    /// This value is used for findings when a source doesn't write a severity
-    /// value.
+    /// Default value. This value is unused.
     Unspecified,
-    /// Vulnerability:
     /// A critical vulnerability is easily discoverable by an external actor,
     /// exploitable, and results in the direct ability to execute arbitrary code,
     /// exfiltrate data, and otherwise gain additional access and privileges to
@@ -4610,26 +8868,22 @@ pub enum Severity {
     /// unprotected user data and public SSH access with weak or no
     /// passwords.
     ///
-    /// Threat:
-    /// Indicates a threat that is able to access, modify, or delete data or
+    /// A critical threat is a threat that can access, modify, or delete data or
     /// execute unauthorized code within existing resources.
     Critical,
-    /// Vulnerability:
-    /// A high risk vulnerability can be easily discovered and exploited in
-    /// combination with other vulnerabilities in order to gain direct access and
+    /// A high-risk vulnerability can be easily discovered and exploited in
+    /// combination with other vulnerabilities to gain direct access and
     /// the ability to execute arbitrary code, exfiltrate data, and otherwise
     /// gain additional access and privileges to cloud resources and workloads.
     /// An example is a database with weak or no passwords that is only
     /// accessible internally. This database could easily be compromised by an
     /// actor that had access to the internal network.
     ///
-    /// Threat:
-    /// Indicates a threat that is able to create new computational resources in
-    /// an environment but not able to access data or execute code in existing
-    /// resources.
+    /// A high-risk threat is a threat that can create new computational
+    /// resources in an environment but can't access data or execute code in
+    /// existing resources.
     High,
-    /// Vulnerability:
-    /// A medium risk vulnerability could be used by an actor to gain access to
+    /// A medium-risk vulnerability can be used by an actor to gain access to
     /// resources or privileges that enable them to eventually (through multiple
     /// steps or a complex exploit) gain access and the ability to execute
     /// arbitrary code or exfiltrate data. An example is a service account with
@@ -4637,19 +8891,16 @@ pub enum Severity {
     /// the service account, they could potentially use that access to manipulate
     /// a project the service account was not intended to.
     ///
-    /// Threat:
-    /// Indicates a threat that is able to cause operational impact but may not
+    /// A medium-risk threat can cause operational impact but might not
     /// access data or execute unauthorized code.
     Medium,
-    /// Vulnerability:
-    /// A low risk vulnerability hampers a security organization's ability to
+    /// A low-risk vulnerability hampers a security organization's ability to
     /// detect vulnerabilities or active threats in their deployment, or prevents
     /// the root cause investigation of security issues. An example is monitoring
     /// and logs being disabled for resource configurations and access.
     ///
-    /// Threat:
-    /// Indicates a threat that has obtained minimal access to an environment but
-    /// is not able to access data, execute code, or create resources.
+    /// A low-risk threat is a threat that has obtained minimal access to an
+    /// environment but can't access data, execute code, or create resources.
     Low,
     /// If set, the enum was initialized with an unknown value.
     ///
@@ -4789,11 +9040,11 @@ impl<'de> serde::de::Deserialize<'de> for Severity {
 pub enum RuleActionType {
     /// Default value. This value is unused.
     Unspecified,
-    /// Preventative action type.
+    /// The rule is intended to prevent non-compliance.
     Preventive,
-    /// Detective action type.
+    /// The rule is intended to detect non-compliance.
     Detective,
-    /// Audit action type.
+    /// The rule is intended to audit non-compliance.
     Audit,
     /// If set, the enum was initialized with an unknown value.
     ///
@@ -4908,8 +9159,7 @@ impl<'de> serde::de::Deserialize<'de> for RuleActionType {
     }
 }
 
-/// TargetResourceType represents the type of resource that a control or
-/// framework can be applied to.
+/// The type of resource that a control or framework can be applied to.
 ///
 /// # Working with unknown values
 ///
@@ -4929,13 +9179,13 @@ impl<'de> serde::de::Deserialize<'de> for RuleActionType {
 pub enum TargetResourceType {
     /// Default value. This value is unused.
     Unspecified,
-    /// Target resource is an Organization.
+    /// The target resource is a Google Cloud organization.
     TargetResourceCrmTypeOrg,
-    /// Target resource is a Folder.
+    /// The target resource is a folder.
     TargetResourceCrmTypeFolder,
-    /// Target resource is a Project.
+    /// The target resource is a project.
     TargetResourceCrmTypeProject,
-    /// Target resource is an Application.
+    /// The target resource is an application in App Hub.
     Application,
     /// If set, the enum was initialized with an unknown value.
     ///
@@ -5061,7 +9311,7 @@ impl<'de> serde::de::Deserialize<'de> for TargetResourceType {
     }
 }
 
-/// DeploymentState represents the state of the Deployment resource.
+/// The state of the deployment resource.
 ///
 /// # Working with unknown values
 ///
@@ -5079,26 +9329,26 @@ impl<'de> serde::de::Deserialize<'de> for TargetResourceType {
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum DeploymentState {
-    /// Unspecified. Invalid state.
+    /// Default value. This value is unused.
     Unspecified,
     /// Validating the deployment.
     Validating,
-    /// Deployment is in CREATING state.
+    /// Deployment is being created.
     Creating,
-    /// Deployment is in DELETING state.
+    /// Deployment is being deleted.
     Deleting,
-    /// Deployment has failed. All the changes made by the deployment have been
-    /// successfully rolled back. A deployment in the FAILED state can be retried
-    /// or deleted.
+    /// Deployment has failed. All the changes made by the deployment were
+    /// successfully rolled back. You can retry or delete a deployment that's
+    /// in this state.
     Failed,
     /// Deployment is successful and ready to use.
     Ready,
-    /// Deployment is partially deployed. All the Cloud Controls were not deployed
-    /// successfully. Retrying the operation will resume from the first failed
+    /// Deployment is partially deployed. All the cloud controls weren't deployed
+    /// successfully. Retrying the operation resumes from the first failed
     /// step.
     PartiallyDeployed,
-    /// Deployment is partially deleted. All the Cloud Control Deployments were not
-    /// deleted successfully. Retrying the operation will resume from the first
+    /// Deployment is partially deleted. All the cloud control deployments weren't
+    /// deleted successfully. Retrying the operation resumes from the first
     /// failed step.
     PartiallyDeleted,
     /// If set, the enum was initialized with an unknown value.
@@ -5234,6 +9484,333 @@ impl<'de> serde::de::Deserialize<'de> for DeploymentState {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DeploymentState>::new(
             ".google.cloud.cloudsecuritycompliance.v1.DeploymentState",
+        ))
+    }
+}
+
+/// The evaluation state of the control.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum EvaluationState {
+    /// Default value. This value is unused.
+    Unspecified,
+    /// The control is passing.
+    Passed,
+    /// The control is failing.
+    Failed,
+    /// The control is not assessed.
+    NotAssessed,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [EvaluationState::value] or
+    /// [EvaluationState::name].
+    UnknownValue(evaluation_state::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod evaluation_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl EvaluationState {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Passed => std::option::Option::Some(1),
+            Self::Failed => std::option::Option::Some(2),
+            Self::NotAssessed => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("EVALUATION_STATE_UNSPECIFIED"),
+            Self::Passed => std::option::Option::Some("EVALUATION_STATE_PASSED"),
+            Self::Failed => std::option::Option::Some("EVALUATION_STATE_FAILED"),
+            Self::NotAssessed => std::option::Option::Some("EVALUATION_STATE_NOT_ASSESSED"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for EvaluationState {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for EvaluationState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for EvaluationState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Passed,
+            2 => Self::Failed,
+            3 => Self::NotAssessed,
+            _ => Self::UnknownValue(evaluation_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for EvaluationState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "EVALUATION_STATE_UNSPECIFIED" => Self::Unspecified,
+            "EVALUATION_STATE_PASSED" => Self::Passed,
+            "EVALUATION_STATE_FAILED" => Self::Failed,
+            "EVALUATION_STATE_NOT_ASSESSED" => Self::NotAssessed,
+            _ => Self::UnknownValue(evaluation_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for EvaluationState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Passed => serializer.serialize_i32(1),
+            Self::Failed => serializer.serialize_i32(2),
+            Self::NotAssessed => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for EvaluationState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<EvaluationState>::new(
+            ".google.cloud.cloudsecuritycompliance.v1.EvaluationState",
+        ))
+    }
+}
+
+/// A finding is a record of assessment data like security, risk, health, or
+/// privacy.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum FindingClass {
+    /// Default value. This value is unused.
+    Unspecified,
+    /// The activity is unwanted or malicious.
+    Threat,
+    /// A potential weakness in software that increases risk to
+    /// confidentiality, integrity, and availability.
+    Vulnerability,
+    /// A potential weakness in a cloud resource or asset configuration that
+    /// increases risk.
+    Misconfiguration,
+    /// A security observation that is for informational purposes.
+    Observation,
+    /// An error that prevents Security Command Center from functioning properly.
+    SccError,
+    /// A potential security risk that's due to a change in the security
+    /// posture.
+    PostureViolation,
+    /// A combination of security issues that represent a more severe
+    /// security problem when taken together.
+    ToxicCombination,
+    /// A potential security risk to data assets that contain sensitive
+    /// data.
+    SensitiveDataRisk,
+    /// A resource or resource group where high risk attack paths
+    /// converge, based on attack path simulations (APS).
+    Chokepoint,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [FindingClass::value] or
+    /// [FindingClass::name].
+    UnknownValue(finding_class::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod finding_class {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl FindingClass {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Threat => std::option::Option::Some(1),
+            Self::Vulnerability => std::option::Option::Some(2),
+            Self::Misconfiguration => std::option::Option::Some(3),
+            Self::Observation => std::option::Option::Some(4),
+            Self::SccError => std::option::Option::Some(5),
+            Self::PostureViolation => std::option::Option::Some(6),
+            Self::ToxicCombination => std::option::Option::Some(7),
+            Self::SensitiveDataRisk => std::option::Option::Some(8),
+            Self::Chokepoint => std::option::Option::Some(9),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("FINDING_CLASS_UNSPECIFIED"),
+            Self::Threat => std::option::Option::Some("THREAT"),
+            Self::Vulnerability => std::option::Option::Some("VULNERABILITY"),
+            Self::Misconfiguration => std::option::Option::Some("MISCONFIGURATION"),
+            Self::Observation => std::option::Option::Some("OBSERVATION"),
+            Self::SccError => std::option::Option::Some("SCC_ERROR"),
+            Self::PostureViolation => std::option::Option::Some("POSTURE_VIOLATION"),
+            Self::ToxicCombination => std::option::Option::Some("TOXIC_COMBINATION"),
+            Self::SensitiveDataRisk => std::option::Option::Some("SENSITIVE_DATA_RISK"),
+            Self::Chokepoint => std::option::Option::Some("CHOKEPOINT"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for FindingClass {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for FindingClass {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for FindingClass {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Threat,
+            2 => Self::Vulnerability,
+            3 => Self::Misconfiguration,
+            4 => Self::Observation,
+            5 => Self::SccError,
+            6 => Self::PostureViolation,
+            7 => Self::ToxicCombination,
+            8 => Self::SensitiveDataRisk,
+            9 => Self::Chokepoint,
+            _ => Self::UnknownValue(finding_class::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for FindingClass {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "FINDING_CLASS_UNSPECIFIED" => Self::Unspecified,
+            "THREAT" => Self::Threat,
+            "VULNERABILITY" => Self::Vulnerability,
+            "MISCONFIGURATION" => Self::Misconfiguration,
+            "OBSERVATION" => Self::Observation,
+            "SCC_ERROR" => Self::SccError,
+            "POSTURE_VIOLATION" => Self::PostureViolation,
+            "TOXIC_COMBINATION" => Self::ToxicCombination,
+            "SENSITIVE_DATA_RISK" => Self::SensitiveDataRisk,
+            "CHOKEPOINT" => Self::Chokepoint,
+            _ => Self::UnknownValue(finding_class::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for FindingClass {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Threat => serializer.serialize_i32(1),
+            Self::Vulnerability => serializer.serialize_i32(2),
+            Self::Misconfiguration => serializer.serialize_i32(3),
+            Self::Observation => serializer.serialize_i32(4),
+            Self::SccError => serializer.serialize_i32(5),
+            Self::PostureViolation => serializer.serialize_i32(6),
+            Self::ToxicCombination => serializer.serialize_i32(7),
+            Self::SensitiveDataRisk => serializer.serialize_i32(8),
+            Self::Chokepoint => serializer.serialize_i32(9),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for FindingClass {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<FindingClass>::new(
+            ".google.cloud.cloudsecuritycompliance.v1.FindingClass",
         ))
     }
 }

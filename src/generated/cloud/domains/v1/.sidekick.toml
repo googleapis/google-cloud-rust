@@ -17,5 +17,5 @@ specification-source = 'google/cloud/domains/v1'
 service-config = 'google/cloud/domains/v1/domains_v1.yaml'
 
 [codec]
-version        = '1.1.0'
+version        = '1.2.1'
 copyright-year = '2025'

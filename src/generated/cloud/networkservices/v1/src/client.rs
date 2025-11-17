@@ -237,6 +237,61 @@ impl DepService {
         super::builder::dep_service::DeleteLbRouteExtension::new(self.inner.clone())
     }
 
+    /// Lists `LbEdgeExtension` resources in a given project and location.
+    pub fn list_lb_edge_extensions(&self) -> super::builder::dep_service::ListLbEdgeExtensions {
+        super::builder::dep_service::ListLbEdgeExtensions::new(self.inner.clone())
+    }
+
+    /// Gets details of the specified `LbEdgeExtension` resource.
+    pub fn get_lb_edge_extension(&self) -> super::builder::dep_service::GetLbEdgeExtension {
+        super::builder::dep_service::GetLbEdgeExtension::new(self.inner.clone())
+    }
+
+    /// Creates a new `LbEdgeExtension` resource in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_lb_edge_extension(&self) -> super::builder::dep_service::CreateLbEdgeExtension {
+        super::builder::dep_service::CreateLbEdgeExtension::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of the specified `LbEdgeExtension` resource.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_lb_edge_extension(&self) -> super::builder::dep_service::UpdateLbEdgeExtension {
+        super::builder::dep_service::UpdateLbEdgeExtension::new(self.inner.clone())
+    }
+
+    /// Deletes the specified `LbEdgeExtension` resource.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_lb_edge_extension(&self) -> super::builder::dep_service::DeleteLbEdgeExtension {
+        super::builder::dep_service::DeleteLbEdgeExtension::new(self.inner.clone())
+    }
+
     /// Lists `AuthzExtension` resources in a given project and location.
     pub fn list_authz_extensions(&self) -> super::builder::dep_service::ListAuthzExtensions {
         super::builder::dep_service::ListAuthzExtensions::new(self.inner.clone())

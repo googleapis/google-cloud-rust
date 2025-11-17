@@ -1,0 +1,78 @@
+// Copyright 2025 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+use super::redirect::is_redirect;
+use crate::read_resume_policy::{ReadResumePolicy, ResumeQuery};
+use gax::error::Error;
+use gax::retry_result::RetryResult;
+use std::sync::Arc;
+
+/// Decorate the resume policy to continue on redirect errors.
+///
+/// The bidi streaming read API uses errors to redirect requests. We want to
+/// ignore these errors in the retry loop while respecting any limits set by the
+/// application.
+///
+/// The client library uses this policy to decorate any policy set by the
+/// application. If the policy is exhausted, or the error is transient, then
+/// the decorator has no effect. If the error is "permanent", but happens to be
+/// a redirect, then it is treated as retryable.
+#[derive(Clone, Debug)]
+pub struct ResumeRedirect<T> {
+    inner: T,
+}
+
+impl<T> ResumeRedirect<T> {
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+impl ReadResumePolicy for ResumeRedirect<Arc<dyn ReadResumePolicy + 'static>> {
+    fn on_error(&self, status: &ResumeQuery, error: Error) -> RetryResult {
+        match self.inner.on_error(status, error) {
+            RetryResult::Permanent(e) if is_redirect(&e) => RetryResult::Continue(e),
+            // Exhausted(), Continue() and other permanent errors pass thru.
+            result => result,
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::super::tests::{permanent_error, redirect_status};
+    use super::*;
+    use crate::read_resume_policy::Recommended;
+    use gaxi::grpc::from_status::to_gax_error;
+
+    #[test]
+    fn resume_redirect() {
+        use crate::read_resume_policy::ReadResumePolicyExt;
+        let inner: Arc<dyn ReadResumePolicy + 'static> =
+            Arc::new(Recommended.with_attempt_limit(3));
+        let p = ResumeRedirect::new(inner);
+        let result = p.on_error(&ResumeQuery::new(1), to_gax_error(redirect_status("r1")));
+        assert!(matches!(&result, RetryResult::Continue(_)), "{result:?}");
+        let result = p.on_error(&ResumeQuery::new(5), to_gax_error(redirect_status("r1")));
+        assert!(matches!(&result, RetryResult::Continue(_)), "{result:?}");
+
+        let result = p.on_error(&ResumeQuery::new(1), permanent_error());
+        assert!(matches!(&result, RetryResult::Permanent(_)), "{result:?}");
+
+        let result = p.on_error(&ResumeQuery::new(1), Error::io("test-only"));
+        assert!(matches!(&result, RetryResult::Continue(_)), "{result:?}");
+        let result = p.on_error(&ResumeQuery::new(5), Error::io("test-only"));
+        assert!(matches!(&result, RetryResult::Exhausted(_)), "{result:?}");
+    }
+}

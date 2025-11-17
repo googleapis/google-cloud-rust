@@ -4113,6 +4113,9 @@ impl serde::ser::Serialize for super::DataProfileSpec {
         if self.exclude_fields.is_some() {
             state.serialize_entry("excludeFields", &self.exclude_fields)?;
         }
+        if !wkt::internal::is_default(&self.catalog_publishing_enabled) {
+            state.serialize_entry("catalogPublishingEnabled", &self.catalog_publishing_enabled)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -4218,6 +4221,9 @@ impl serde::ser::Serialize for super::DataProfileResult {
         }
         if self.post_scan_actions_result.is_some() {
             state.serialize_entry("postScanActionsResult", &self.post_scan_actions_result)?;
+        }
+        if self.catalog_publishing_status.is_some() {
+            state.serialize_entry("catalogPublishingStatus", &self.catalog_publishing_status)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-translation-v3"
-version                = "1.1.0"
+version                = "1.2.1"
 description            = "Google Cloud Client Libraries for Rust - Cloud Translation API"
 edition.workspace      = true
 authors.workspace      = true

@@ -159,6 +159,8 @@ impl std::fmt::Debug for super::ProbingDetails {
             "destination_egress_location",
             &self.destination_egress_location,
         );
+        debug_struct.field("edge_responses", &self.edge_responses);
+        debug_struct.field("probed_all_devices", &self.probed_all_devices);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -170,6 +172,25 @@ impl std::fmt::Debug for super::probing_details::EdgeLocation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EdgeLocation");
         debug_struct.field("metropolitan_area", &self.metropolitan_area);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::probing_details::SingleEdgeResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SingleEdgeResponse");
+        debug_struct.field("result", &self.result);
+        debug_struct.field("sent_probe_count", &self.sent_probe_count);
+        debug_struct.field("successful_probe_count", &self.successful_probe_count);
+        debug_struct.field("probing_latency", &self.probing_latency);
+        debug_struct.field(
+            "destination_egress_location",
+            &self.destination_egress_location,
+        );
+        debug_struct.field("destination_router", &self.destination_router);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -323,6 +344,8 @@ impl std::fmt::Debug for super::InstanceInfo {
             "psc_network_attachment_uri",
             &self.psc_network_attachment_uri,
         );
+        debug_struct.field("running", &self.running);
+        debug_struct.field("status", &self.status);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -359,6 +382,8 @@ impl std::fmt::Debug for super::FirewallInfo {
         debug_struct.field("policy", &self.policy);
         debug_struct.field("policy_uri", &self.policy_uri);
         debug_struct.field("firewall_rule_type", &self.firewall_rule_type);
+        debug_struct.field("policy_priority", &self.policy_priority);
+        debug_struct.field("target_type", &self.target_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -484,6 +509,19 @@ impl std::fmt::Debug for super::LoadBalancerBackend {
     }
 }
 
+impl std::fmt::Debug for super::HybridSubnetInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HybridSubnetInfo");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::VpnGatewayInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VpnGatewayInfo");
@@ -519,6 +557,26 @@ impl std::fmt::Debug for super::VpnTunnelInfo {
     }
 }
 
+impl std::fmt::Debug for super::InterconnectAttachmentInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InterconnectAttachmentInfo");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("interconnect_uri", &self.interconnect_uri);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("cloud_router_uri", &self.cloud_router_uri);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field(
+            "l2_attachment_matched_ip_address",
+            &self.l2_attachment_matched_ip_address,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::EndpointInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EndpointInfo");
@@ -545,6 +603,7 @@ impl std::fmt::Debug for super::DeliverInfo {
         debug_struct.field("ip_address", &self.ip_address);
         debug_struct.field("storage_bucket", &self.storage_bucket);
         debug_struct.field("psc_google_api_target", &self.psc_google_api_target);
+        debug_struct.field("google_service_type", &self.google_service_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -590,6 +649,11 @@ impl std::fmt::Debug for super::DropInfo {
         debug_struct.field("source_ip", &self.source_ip);
         debug_struct.field("destination_ip", &self.destination_ip);
         debug_struct.field("region", &self.region);
+        debug_struct.field("source_geolocation_code", &self.source_geolocation_code);
+        debug_struct.field(
+            "destination_geolocation_code",
+            &self.destination_geolocation_code,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -917,6 +981,64 @@ impl std::fmt::Debug for super::DeleteVpcFlowLogsConfigRequest {
     }
 }
 
+impl std::fmt::Debug for super::QueryOrgVpcFlowLogsConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryOrgVpcFlowLogsConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::QueryOrgVpcFlowLogsConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryOrgVpcFlowLogsConfigsResponse");
+        debug_struct.field("vpc_flow_logs_configs", &self.vpc_flow_logs_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ShowEffectiveFlowLogsConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ShowEffectiveFlowLogsConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ShowEffectiveFlowLogsConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ShowEffectiveFlowLogsConfigsResponse");
+        debug_struct.field(
+            "effective_flow_logs_configs",
+            &self.effective_flow_logs_configs,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::VpcFlowLogsConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VpcFlowLogsConfig");
@@ -928,10 +1050,31 @@ impl std::fmt::Debug for super::VpcFlowLogsConfig {
         debug_struct.field("metadata", &self.metadata);
         debug_struct.field("metadata_fields", &self.metadata_fields);
         debug_struct.field("filter_expr", &self.filter_expr);
+        debug_struct.field("cross_project_metadata", &self.cross_project_metadata);
         debug_struct.field("target_resource_state", &self.target_resource_state);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("target_resource", &self.target_resource);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::EffectiveVpcFlowLogsConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EffectiveVpcFlowLogsConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("aggregation_interval", &self.aggregation_interval);
+        debug_struct.field("flow_sampling", &self.flow_sampling);
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("metadata_fields", &self.metadata_fields);
+        debug_struct.field("filter_expr", &self.filter_expr);
+        debug_struct.field("cross_project_metadata", &self.cross_project_metadata);
+        debug_struct.field("scope", &self.scope);
         debug_struct.field("target_resource", &self.target_resource);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

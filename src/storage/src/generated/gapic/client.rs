@@ -67,46 +67,138 @@ impl StorageControl {
     }
 
     /// Permanently deletes an empty bucket.
+    /// The request fails if there are any live or
+    /// noncurrent objects in the bucket, but the request succeeds if the
+    /// bucket only contains soft-deleted objects or incomplete uploads, such
+    /// as ongoing XML API multipart uploads. Does not permanently delete
+    /// soft-deleted objects.
+    ///
+    /// When this API is used to delete a bucket containing an object that has a
+    /// soft delete policy
+    /// enabled, the object becomes soft deleted, and the
+    /// `softDeleteTime` and `hardDeleteTime` properties are set on the
+    /// object.
+    ///
+    /// Objects and multipart uploads that were in the bucket at the time of
+    /// deletion are also retained for the specified retention duration. When
+    /// a soft-deleted bucket reaches the end of its retention duration, it
+    /// is permanently deleted. The `hardDeleteTime` of the bucket always
+    /// equals
+    /// or exceeds the expiration time of the last soft-deleted object in the
+    /// bucket.
+    ///
+    /// **IAM Permissions**:
+    ///
+    /// Requires `storage.buckets.delete` IAM permission on the bucket.
     pub fn delete_bucket(&self) -> super::builder::storage_control::DeleteBucket {
         super::builder::storage_control::DeleteBucket::new(self.inner.clone())
     }
 
     /// Returns metadata for the specified bucket.
+    ///
+    /// **IAM Permissions**:
+    ///
+    /// Requires `storage.buckets.get`
+    /// IAM permission on
+    /// the bucket. Additionally, to return specific bucket metadata, the
+    /// authenticated user must have the following permissions:
+    ///
+    /// - To return the IAM policies: `storage.buckets.getIamPolicy`
+    /// - To return the bucket IP filtering rules: `storage.buckets.getIpFilter`
     pub fn get_bucket(&self) -> super::builder::storage_control::GetBucket {
         super::builder::storage_control::GetBucket::new(self.inner.clone())
     }
 
     /// Creates a new bucket.
+    ///
+    /// **IAM Permissions**:
+    ///
+    /// Requires `storage.buckets.create` IAM permission on the bucket.
+    /// Additionally, to enable specific bucket features, the authenticated user
+    /// must have the following permissions:
+    ///
+    /// - To enable object retention using the `enableObjectRetention` query
+    ///   parameter: `storage.buckets.enableObjectRetention`
+    /// - To set the bucket IP filtering rules: `storage.buckets.setIpFilter`
     pub fn create_bucket(&self) -> super::builder::storage_control::CreateBucket {
         super::builder::storage_control::CreateBucket::new(self.inner.clone())
     }
 
-    /// Retrieves a list of buckets for a given project.
+    /// Retrieves a list of buckets for a given project, ordered
+    /// lexicographically by name.
+    ///
+    /// **IAM Permissions**:
+    ///
+    /// Requires `storage.buckets.list` IAM permission on the bucket.
+    /// Additionally, to enable specific bucket features, the authenticated
+    /// user must have the following permissions:
+    ///
+    /// - To list the IAM policies: `storage.buckets.getIamPolicy`
+    /// - To list the bucket IP filtering rules: `storage.buckets.getIpFilter`
     pub fn list_buckets(&self) -> super::builder::storage_control::ListBuckets {
         super::builder::storage_control::ListBuckets::new(self.inner.clone())
     }
 
-    /// Locks retention policy on a bucket.
+    /// Permanently locks the retention
+    /// policy that is
+    /// currently applied to the specified bucket.
+    ///
+    /// Caution: Locking a bucket is an
+    /// irreversible action. Once you lock a bucket:
+    ///
+    /// - You cannot remove the retention policy from the bucket.
+    /// - You cannot decrease the retention period for the policy.
+    ///
+    /// Once locked, you must delete the entire bucket in order to remove the
+    /// bucket's retention policy. However, before you can delete the bucket, you
+    /// must delete all the objects in the bucket, which is only
+    /// possible if all the objects have reached the retention period set by the
+    /// retention policy.
+    ///
+    /// **IAM Permissions**:
+    ///
+    /// Requires `storage.buckets.update` IAM permission on the bucket.
     pub fn lock_bucket_retention_policy(
         &self,
     ) -> super::builder::storage_control::LockBucketRetentionPolicy {
         super::builder::storage_control::LockBucketRetentionPolicy::new(self.inner.clone())
     }
 
-    /// Updates a bucket. Equivalent to JSON API's storage.buckets.patch method.
+    /// Updates a bucket. Changes to the bucket are readable immediately after
+    /// writing, but configuration changes might take time to propagate. This
+    /// method supports `patch` semantics.
+    ///
+    /// **IAM Permissions**:
+    ///
+    /// Requires `storage.buckets.update` IAM permission on the bucket.
+    /// Additionally, to enable specific bucket features, the authenticated user
+    /// must have the following permissions:
+    ///
+    /// - To set bucket IP filtering rules: `storage.buckets.setIpFilter`
+    /// - To update public access prevention policies or access control lists
+    ///   (ACLs): `storage.buckets.setIamPolicy`
     pub fn update_bucket(&self) -> super::builder::storage_control::UpdateBucket {
         super::builder::storage_control::UpdateBucket::new(self.inner.clone())
     }
 
     /// Concatenates a list of existing objects into a new object in the same
-    /// bucket.
+    /// bucket. The existing source objects are unaffected by this operation.
+    ///
+    /// **IAM Permissions**:
+    ///
+    /// Requires the `storage.objects.create` and `storage.objects.get` IAM
+    /// permissions to use this method. If the new composite object
+    /// overwrites an existing object, the authenticated user must also have
+    /// the `storage.objects.delete` permission. If the request body includes
+    /// the retention property, the authenticated user must also have the
+    /// `storage.objects.setRetention` IAM permission.
     pub fn compose_object(&self) -> super::builder::storage_control::ComposeObject {
         super::builder::storage_control::ComposeObject::new(self.inner.clone())
     }
 
     /// Deletes an object and its metadata. Deletions are permanent if versioning
     /// is not enabled for the bucket, or if the generation parameter is used, or
-    /// if [soft delete](https://cloud.google.com/storage/docs/soft-delete) is not
+    /// if soft delete is not
     /// enabled for the bucket.
     /// When this API is used to delete an object from a bucket that has soft
     /// delete policy enabled, the object becomes soft deleted, and the
@@ -121,16 +213,50 @@ impl StorageControl {
     ///
     /// **IAM Permissions**:
     ///
-    /// Requires `storage.objects.delete`
-    /// [IAM permission](https://cloud.google.com/iam/docs/overview#permissions) on
-    /// the bucket.
+    /// Requires `storage.objects.delete` IAM permission on the bucket.
     ///
     /// [google.storage.v2.Storage.RestoreObject]: crate::client::StorageControl::restore_object
     pub fn delete_object(&self) -> super::builder::storage_control::DeleteObject {
         super::builder::storage_control::DeleteObject::new(self.inner.clone())
     }
 
-    /// Restores a soft-deleted object.
+    /// Restores a
+    /// soft-deleted object.
+    /// When a soft-deleted object is restored, a new copy of that object is
+    /// created in the same bucket and inherits the same metadata as the
+    /// soft-deleted object. The inherited metadata is the metadata that existed
+    /// when the original object became soft deleted, with the following
+    /// exceptions:
+    ///
+    /// - The `createTime` of the new object is set to the time at which the
+    ///   soft-deleted object was restored.
+    /// - The `softDeleteTime` and `hardDeleteTime` values are cleared.
+    /// - A new generation is assigned and the metageneration is reset to 1.
+    /// - If the soft-deleted object was in a bucket that had Autoclass enabled,
+    ///   the new object is
+    ///   restored to Standard storage.
+    /// - The restored object inherits the bucket's default object ACL, unless
+    ///   `copySourceAcl` is `true`.
+    ///
+    /// If a live object using the same name already exists in the bucket and
+    /// becomes overwritten, the live object becomes a noncurrent object if Object
+    /// Versioning is enabled on the bucket. If Object Versioning is not enabled,
+    /// the live object becomes soft deleted.
+    ///
+    /// **IAM Permissions**:
+    ///
+    /// Requires the following IAM permissions to use this method:
+    ///
+    /// - `storage.objects.restore`
+    /// - `storage.objects.create`
+    /// - `storage.objects.delete` (only required if overwriting an existing
+    ///   object)
+    /// - `storage.objects.getIamPolicy` (only required if `projection` is `full`
+    ///   and the relevant bucket
+    ///   has uniform bucket-level access disabled)
+    /// - `storage.objects.setIamPolicy` (only required if `copySourceAcl` is
+    ///   `true` and the relevant
+    ///   bucket has uniform bucket-level access disabled)
     pub fn restore_object(&self) -> super::builder::storage_control::RestoreObject {
         super::builder::storage_control::RestoreObject::new(self.inner.clone())
     }
@@ -139,16 +265,19 @@ impl StorageControl {
     ///
     /// **IAM Permissions**:
     ///
-    /// Requires `storage.objects.get`
-    /// [IAM permission](https://cloud.google.com/iam/docs/overview#permissions) on
-    /// the bucket. To return object ACLs, the authenticated user must also have
+    /// Requires `storage.objects.get` IAM permission on the bucket.
+    /// To return object ACLs, the authenticated user must also have
     /// the `storage.objects.getIamPolicy` permission.
     pub fn get_object(&self) -> super::builder::storage_control::GetObject {
         super::builder::storage_control::GetObject::new(self.inner.clone())
     }
 
     /// Updates an object's metadata.
-    /// Equivalent to JSON API's storage.objects.patch.
+    /// Equivalent to JSON API's `storage.objects.patch` method.
+    ///
+    /// **IAM Permissions**:
+    ///
+    /// Requires `storage.objects.update` IAM permission on the bucket.
     pub fn update_object(&self) -> super::builder::storage_control::UpdateObject {
         super::builder::storage_control::UpdateObject::new(self.inner.clone())
     }
@@ -158,8 +287,8 @@ impl StorageControl {
     /// **IAM Permissions**:
     ///
     /// The authenticated user requires `storage.objects.list`
-    /// [IAM permission](https://cloud.google.com/iam/docs/overview#permissions)
-    /// to use this method. To return object ACLs, the authenticated user must also
+    /// IAM permission to use this method. To return object ACLs, the
+    /// authenticated user must also
     /// have the `storage.objects.getIamPolicy` permission.
     pub fn list_objects(&self) -> super::builder::storage_control::ListObjects {
         super::builder::storage_control::ListObjects::new(self.inner.clone())
@@ -172,6 +301,19 @@ impl StorageControl {
     }
 
     /// Moves the source object to the destination object in the same bucket.
+    /// This operation moves a source object to a destination object in the
+    /// same bucket by renaming the object. The move itself is an atomic
+    /// transaction, ensuring all steps either complete successfully or no
+    /// changes are made.
+    ///
+    /// **IAM Permissions**:
+    ///
+    /// Requires the following IAM permissions to use this method:
+    ///
+    /// - `storage.objects.move`
+    /// - `storage.objects.create`
+    /// - `storage.objects.delete` (only required if overwriting an existing
+    ///   object)
     pub fn move_object(&self) -> super::builder::storage_control::MoveObject {
         super::builder::storage_control::MoveObject::new(self.inner.clone())
     }

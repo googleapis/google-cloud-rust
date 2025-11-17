@@ -676,12 +676,12 @@ pub mod endpoint {
         /// A [Cloud Run](https://cloud.google.com/run)
         /// [revision](https://cloud.google.com/run/docs/reference/rest/v1/namespaces.revisions/get)
         /// URI. The format is:
-        /// `projects/{project}/locations/{location}/revisions/{revision}`
+        /// projects/{project}/locations/{location}/revisions/{revision}
         pub uri: std::string::String,
 
         /// Output only. The URI of the Cloud Run service that the revision belongs
         /// to. The format is:
-        /// `projects/{project}/locations/{location}/services/{service}`
+        /// projects/{project}/locations/{location}/services/{service}
         pub service_uri: std::string::String,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1359,14 +1359,20 @@ pub struct ProbingDetails {
     /// from the source to the destination endpoint.
     pub probing_latency: std::option::Option<crate::model::LatencyDistribution>,
 
-    /// The EdgeLocation from which a packet destined for/originating from the
-    /// internet will egress/ingress the Google network.
+    /// The EdgeLocation from which a packet, destined to the internet, will egress
+    /// the Google network.
     /// This will only be populated for a connectivity test which has an internet
-    /// destination/source address.
+    /// destination address.
     /// The absence of this field *must not* be used as an indication that the
-    /// destination/source is part of the Google network.
+    /// destination is part of the Google network.
     pub destination_egress_location:
         std::option::Option<crate::model::probing_details::EdgeLocation>,
+
+    /// Probing results for all edge devices.
+    pub edge_responses: std::vec::Vec<crate::model::probing_details::SingleEdgeResponse>,
+
+    /// Whether all relevant edge devices were probed.
+    pub probed_all_devices: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1497,6 +1503,23 @@ impl ProbingDetails {
         self.destination_egress_location = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [edge_responses][crate::model::ProbingDetails::edge_responses].
+    pub fn set_edge_responses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::probing_details::SingleEdgeResponse>,
+    {
+        use std::iter::Iterator;
+        self.edge_responses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [probed_all_devices][crate::model::ProbingDetails::probed_all_devices].
+    pub fn set_probed_all_devices<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.probed_all_devices = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ProbingDetails {
@@ -1539,6 +1562,120 @@ pub mod probing_details {
     impl wkt::message::Message for EdgeLocation {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.networkmanagement.v1.ProbingDetails.EdgeLocation"
+        }
+    }
+
+    /// Probing results for a single edge device.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SingleEdgeResponse {
+        /// The overall result of active probing for this egress device.
+        pub result: crate::model::probing_details::ProbingResult,
+
+        /// Number of probes sent.
+        pub sent_probe_count: i32,
+
+        /// Number of probes that reached the destination.
+        pub successful_probe_count: i32,
+
+        /// Latency as measured by active probing in one direction: from the source
+        /// to the destination endpoint.
+        pub probing_latency: std::option::Option<crate::model::LatencyDistribution>,
+
+        /// The EdgeLocation from which a packet, destined to the internet, will
+        /// egress the Google network.
+        /// This will only be populated for a connectivity test which has an internet
+        /// destination address.
+        /// The absence of this field *must not* be used as an indication that the
+        /// destination is part of the Google network.
+        pub destination_egress_location:
+            std::option::Option<crate::model::probing_details::EdgeLocation>,
+
+        /// Router name in the format '{router}.{metroshard}'. For example:
+        /// pf01.aaa01, pr02.aaa01.
+        pub destination_router: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SingleEdgeResponse {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [result][crate::model::probing_details::SingleEdgeResponse::result].
+        pub fn set_result<T: std::convert::Into<crate::model::probing_details::ProbingResult>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.result = v.into();
+            self
+        }
+
+        /// Sets the value of [sent_probe_count][crate::model::probing_details::SingleEdgeResponse::sent_probe_count].
+        pub fn set_sent_probe_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.sent_probe_count = v.into();
+            self
+        }
+
+        /// Sets the value of [successful_probe_count][crate::model::probing_details::SingleEdgeResponse::successful_probe_count].
+        pub fn set_successful_probe_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.successful_probe_count = v.into();
+            self
+        }
+
+        /// Sets the value of [probing_latency][crate::model::probing_details::SingleEdgeResponse::probing_latency].
+        pub fn set_probing_latency<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LatencyDistribution>,
+        {
+            self.probing_latency = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [probing_latency][crate::model::probing_details::SingleEdgeResponse::probing_latency].
+        pub fn set_or_clear_probing_latency<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LatencyDistribution>,
+        {
+            self.probing_latency = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [destination_egress_location][crate::model::probing_details::SingleEdgeResponse::destination_egress_location].
+        pub fn set_destination_egress_location<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::probing_details::EdgeLocation>,
+        {
+            self.destination_egress_location = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [destination_egress_location][crate::model::probing_details::SingleEdgeResponse::destination_egress_location].
+        pub fn set_or_clear_destination_egress_location<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::probing_details::EdgeLocation>,
+        {
+            self.destination_egress_location = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [destination_router][crate::model::probing_details::SingleEdgeResponse::destination_router].
+        pub fn set_destination_router<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.destination_router = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SingleEdgeResponse {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkmanagement.v1.ProbingDetails.SingleEdgeResponse"
         }
     }
 
@@ -2619,6 +2756,35 @@ impl Step {
     }
 
     /// The value of [step_info][crate::model::Step::step_info]
+    /// if it holds a `HybridSubnet`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn hybrid_subnet(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::HybridSubnetInfo>> {
+        #[allow(unreachable_patterns)]
+        self.step_info.as_ref().and_then(|v| match v {
+            crate::model::step::StepInfo::HybridSubnet(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [step_info][crate::model::Step::step_info]
+    /// to hold a `HybridSubnet`.
+    ///
+    /// Note that all the setters affecting `step_info` are
+    /// mutually exclusive.
+    pub fn set_hybrid_subnet<
+        T: std::convert::Into<std::boxed::Box<crate::model::HybridSubnetInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.step_info =
+            std::option::Option::Some(crate::model::step::StepInfo::HybridSubnet(v.into()));
+        self
+    }
+
+    /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `VpnGateway`, `None` if the field is not set or
     /// holds a different branch.
     pub fn vpn_gateway(
@@ -2667,6 +2833,36 @@ impl Step {
     ) -> Self {
         self.step_info =
             std::option::Option::Some(crate::model::step::StepInfo::VpnTunnel(v.into()));
+        self
+    }
+
+    /// The value of [step_info][crate::model::Step::step_info]
+    /// if it holds a `InterconnectAttachment`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn interconnect_attachment(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::InterconnectAttachmentInfo>> {
+        #[allow(unreachable_patterns)]
+        self.step_info.as_ref().and_then(|v| match v {
+            crate::model::step::StepInfo::InterconnectAttachment(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [step_info][crate::model::Step::step_info]
+    /// to hold a `InterconnectAttachment`.
+    ///
+    /// Note that all the setters affecting `step_info` are
+    /// mutually exclusive.
+    pub fn set_interconnect_attachment<
+        T: std::convert::Into<std::boxed::Box<crate::model::InterconnectAttachmentInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.step_info = std::option::Option::Some(
+            crate::model::step::StepInfo::InterconnectAttachment(v.into()),
+        );
         self
     }
 
@@ -3351,19 +3547,20 @@ pub mod step {
         /// Forwarding state: arriving at a Compute Engine instance.
         ArriveAtInstance,
         /// Forwarding state: arriving at a Compute Engine internal load balancer.
-        /// Deprecated in favor of the `ANALYZE_LOAD_BALANCER_BACKEND` state, not
-        /// used in new tests.
         #[deprecated]
         ArriveAtInternalLoadBalancer,
         /// Forwarding state: arriving at a Compute Engine external load balancer.
-        /// Deprecated in favor of the `ANALYZE_LOAD_BALANCER_BACKEND` state, not
-        /// used in new tests.
         #[deprecated]
         ArriveAtExternalLoadBalancer,
+        /// Forwarding state: arriving at a hybrid subnet. Appropriate routing
+        /// configuration will be determined here.
+        ArriveAtHybridSubnet,
         /// Forwarding state: arriving at a Cloud VPN gateway.
         ArriveAtVpnGateway,
         /// Forwarding state: arriving at a Cloud VPN tunnel.
         ArriveAtVpnTunnel,
+        /// Forwarding state: arriving at an interconnect attachment.
+        ArriveAtInterconnectAttachment,
         /// Forwarding state: arriving at a VPC connector.
         ArriveAtVpcConnector,
         /// Forwarding state: for packets originating from a serverless endpoint
@@ -3372,7 +3569,8 @@ pub mod step {
         /// Forwarding state: for packets originating from a serverless endpoint
         /// forwarded through public (external) connectivity.
         ServerlessExternalConnection,
-        /// Transition state: packet header translated.
+        /// Transition state: packet header translated. The `nat` field is populated
+        /// with the translation information.
         Nat,
         /// Transition state: original connection is terminated and a new proxied
         /// connection is initiated.
@@ -3435,8 +3633,10 @@ pub mod step {
                 Self::ArriveAtInstance => std::option::Option::Some(9),
                 Self::ArriveAtInternalLoadBalancer => std::option::Option::Some(10),
                 Self::ArriveAtExternalLoadBalancer => std::option::Option::Some(11),
+                Self::ArriveAtHybridSubnet => std::option::Option::Some(38),
                 Self::ArriveAtVpnGateway => std::option::Option::Some(12),
                 Self::ArriveAtVpnTunnel => std::option::Option::Some(13),
+                Self::ArriveAtInterconnectAttachment => std::option::Option::Some(37),
                 Self::ArriveAtVpcConnector => std::option::Option::Some(24),
                 Self::DirectVpcEgressConnection => std::option::Option::Some(35),
                 Self::ServerlessExternalConnection => std::option::Option::Some(36),
@@ -3513,8 +3713,12 @@ pub mod step {
                 Self::ArriveAtExternalLoadBalancer => {
                     std::option::Option::Some("ARRIVE_AT_EXTERNAL_LOAD_BALANCER")
                 }
+                Self::ArriveAtHybridSubnet => std::option::Option::Some("ARRIVE_AT_HYBRID_SUBNET"),
                 Self::ArriveAtVpnGateway => std::option::Option::Some("ARRIVE_AT_VPN_GATEWAY"),
                 Self::ArriveAtVpnTunnel => std::option::Option::Some("ARRIVE_AT_VPN_TUNNEL"),
+                Self::ArriveAtInterconnectAttachment => {
+                    std::option::Option::Some("ARRIVE_AT_INTERCONNECT_ATTACHMENT")
+                }
                 Self::ArriveAtVpcConnector => std::option::Option::Some("ARRIVE_AT_VPC_CONNECTOR"),
                 Self::DirectVpcEgressConnection => {
                     std::option::Option::Some("DIRECT_VPC_EGRESS_CONNECTION")
@@ -3588,6 +3792,8 @@ pub mod step {
                 33 => Self::StartFromRedisCluster,
                 35 => Self::DirectVpcEgressConnection,
                 36 => Self::ServerlessExternalConnection,
+                37 => Self::ArriveAtInterconnectAttachment,
+                38 => Self::ArriveAtHybridSubnet,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -3623,8 +3829,10 @@ pub mod step {
                 "ARRIVE_AT_INSTANCE" => Self::ArriveAtInstance,
                 "ARRIVE_AT_INTERNAL_LOAD_BALANCER" => Self::ArriveAtInternalLoadBalancer,
                 "ARRIVE_AT_EXTERNAL_LOAD_BALANCER" => Self::ArriveAtExternalLoadBalancer,
+                "ARRIVE_AT_HYBRID_SUBNET" => Self::ArriveAtHybridSubnet,
                 "ARRIVE_AT_VPN_GATEWAY" => Self::ArriveAtVpnGateway,
                 "ARRIVE_AT_VPN_TUNNEL" => Self::ArriveAtVpnTunnel,
+                "ARRIVE_AT_INTERCONNECT_ATTACHMENT" => Self::ArriveAtInterconnectAttachment,
                 "ARRIVE_AT_VPC_CONNECTOR" => Self::ArriveAtVpcConnector,
                 "DIRECT_VPC_EGRESS_CONNECTION" => Self::DirectVpcEgressConnection,
                 "SERVERLESS_EXTERNAL_CONNECTION" => Self::ServerlessExternalConnection,
@@ -3672,8 +3880,10 @@ pub mod step {
                 Self::ArriveAtInstance => serializer.serialize_i32(9),
                 Self::ArriveAtInternalLoadBalancer => serializer.serialize_i32(10),
                 Self::ArriveAtExternalLoadBalancer => serializer.serialize_i32(11),
+                Self::ArriveAtHybridSubnet => serializer.serialize_i32(38),
                 Self::ArriveAtVpnGateway => serializer.serialize_i32(12),
                 Self::ArriveAtVpnTunnel => serializer.serialize_i32(13),
+                Self::ArriveAtInterconnectAttachment => serializer.serialize_i32(37),
                 Self::ArriveAtVpcConnector => serializer.serialize_i32(24),
                 Self::DirectVpcEgressConnection => serializer.serialize_i32(35),
                 Self::ServerlessExternalConnection => serializer.serialize_i32(36),
@@ -3723,10 +3933,14 @@ pub mod step {
         GoogleService(std::boxed::Box<crate::model::GoogleServiceInfo>),
         /// Display information of a Compute Engine forwarding rule.
         ForwardingRule(std::boxed::Box<crate::model::ForwardingRuleInfo>),
+        /// Display information of a hybrid subnet.
+        HybridSubnet(std::boxed::Box<crate::model::HybridSubnetInfo>),
         /// Display information of a Compute Engine VPN gateway.
         VpnGateway(std::boxed::Box<crate::model::VpnGatewayInfo>),
         /// Display information of a Compute Engine VPN tunnel.
         VpnTunnel(std::boxed::Box<crate::model::VpnTunnelInfo>),
+        /// Display information of an interconnect attachment.
+        InterconnectAttachment(std::boxed::Box<crate::model::InterconnectAttachmentInfo>),
         /// Display information of a VPC connector.
         VpcConnector(std::boxed::Box<crate::model::VpcConnectorInfo>),
         /// Display information of a serverless direct VPC egress connection.
@@ -3809,6 +4023,14 @@ pub struct InstanceInfo {
     /// URI of the PSC network attachment the NIC is attached to (if relevant).
     pub psc_network_attachment_uri: std::string::String,
 
+    /// Indicates whether the Compute Engine instance is running.
+    /// Deprecated: use the `status` field instead.
+    #[deprecated]
+    pub running: bool,
+
+    /// The status of the instance.
+    pub status: crate::model::instance_info::Status,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3879,6 +4101,22 @@ impl InstanceInfo {
         self.psc_network_attachment_uri = v.into();
         self
     }
+
+    /// Sets the value of [running][crate::model::InstanceInfo::running].
+    #[deprecated]
+    pub fn set_running<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.running = v.into();
+        self
+    }
+
+    /// Sets the value of [status][crate::model::InstanceInfo::status].
+    pub fn set_status<T: std::convert::Into<crate::model::instance_info::Status>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.status = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for InstanceInfo {
@@ -3887,8 +4125,146 @@ impl wkt::message::Message for InstanceInfo {
     }
 }
 
+/// Defines additional types related to [InstanceInfo].
+pub mod instance_info {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The status of the instance. We treat all states other than "RUNNING" as
+    /// not running.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Status {
+        /// Default unspecified value.
+        Unspecified,
+        /// The instance is running.
+        Running,
+        /// The instance has any status other than "RUNNING".
+        NotRunning,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Status::value] or
+        /// [Status::name].
+        UnknownValue(status::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod status {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Status {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Running => std::option::Option::Some(1),
+                Self::NotRunning => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATUS_UNSPECIFIED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::NotRunning => std::option::Option::Some("NOT_RUNNING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Status {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Running,
+                2 => Self::NotRunning,
+                _ => Self::UnknownValue(status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Status {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATUS_UNSPECIFIED" => Self::Unspecified,
+                "RUNNING" => Self::Running,
+                "NOT_RUNNING" => Self::NotRunning,
+                _ => Self::UnknownValue(status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Status {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Running => serializer.serialize_i32(1),
+                Self::NotRunning => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Status {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Status>::new(
+                ".google.cloud.networkmanagement.v1.InstanceInfo.Status",
+            ))
+        }
+    }
+}
+
 /// For display only. Metadata associated with a Compute Engine network.
-/// Next ID: 7
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkInfo {
@@ -4004,6 +4380,14 @@ pub struct FirewallInfo {
     /// The firewall rule's type.
     pub firewall_rule_type: crate::model::firewall_info::FirewallRuleType,
 
+    /// The priority of the firewall policy that this rule is associated with.
+    /// This field is not applicable to VPC firewall rules and implied VPC firewall
+    /// rules.
+    pub policy_priority: i32,
+
+    /// Target type of the firewall rule.
+    pub target_type: crate::model::firewall_info::TargetType,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4090,6 +4474,21 @@ impl FirewallInfo {
         v: T,
     ) -> Self {
         self.firewall_rule_type = v.into();
+        self
+    }
+
+    /// Sets the value of [policy_priority][crate::model::FirewallInfo::policy_priority].
+    pub fn set_policy_priority<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.policy_priority = v.into();
+        self
+    }
+
+    /// Sets the value of [target_type][crate::model::FirewallInfo::target_type].
+    pub fn set_target_type<T: std::convert::Into<crate::model::firewall_info::TargetType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target_type = v.into();
         self
     }
 }
@@ -4316,6 +4715,139 @@ pub mod firewall_info {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<FirewallRuleType>::new(
                 ".google.cloud.networkmanagement.v1.FirewallInfo.FirewallRuleType",
+            ))
+        }
+    }
+
+    /// Target type of the firewall rule.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TargetType {
+        /// Target type is not specified. In this case we treat the rule as applying
+        /// to INSTANCES target type.
+        Unspecified,
+        /// Firewall rule applies to instances.
+        Instances,
+        /// Firewall rule applies to internal managed load balancers.
+        InternalManagedLb,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TargetType::value] or
+        /// [TargetType::name].
+        UnknownValue(target_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod target_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl TargetType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Instances => std::option::Option::Some(1),
+                Self::InternalManagedLb => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TARGET_TYPE_UNSPECIFIED"),
+                Self::Instances => std::option::Option::Some("INSTANCES"),
+                Self::InternalManagedLb => std::option::Option::Some("INTERNAL_MANAGED_LB"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for TargetType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for TargetType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for TargetType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Instances,
+                2 => Self::InternalManagedLb,
+                _ => Self::UnknownValue(target_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for TargetType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TARGET_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "INSTANCES" => Self::Instances,
+                "INTERNAL_MANAGED_LB" => Self::InternalManagedLb,
+                _ => Self::UnknownValue(target_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for TargetType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Instances => serializer.serialize_i32(1),
+                Self::InternalManagedLb => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TargetType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TargetType>::new(
+                ".google.cloud.networkmanagement.v1.FirewallInfo.TargetType",
             ))
         }
     }
@@ -4908,6 +5440,8 @@ pub mod route_info {
         /// Next hop is an NCC hub. This scenario only happens when the user doesn't
         /// have permissions to the project where the next hop resource is located.
         NextHopNccHub,
+        /// Next hop is Secure Web Proxy Gateway.
+        SecureWebProxyGateway,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [NextHopType::value] or
@@ -4943,6 +5477,7 @@ pub mod route_info {
                 Self::NextHopIlb => std::option::Option::Some(10),
                 Self::NextHopRouterAppliance => std::option::Option::Some(11),
                 Self::NextHopNccHub => std::option::Option::Some(12),
+                Self::SecureWebProxyGateway => std::option::Option::Some(13),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -4970,6 +5505,9 @@ pub mod route_info {
                     std::option::Option::Some("NEXT_HOP_ROUTER_APPLIANCE")
                 }
                 Self::NextHopNccHub => std::option::Option::Some("NEXT_HOP_NCC_HUB"),
+                Self::SecureWebProxyGateway => {
+                    std::option::Option::Some("SECURE_WEB_PROXY_GATEWAY")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -5004,6 +5542,7 @@ pub mod route_info {
                 10 => Self::NextHopIlb,
                 11 => Self::NextHopRouterAppliance,
                 12 => Self::NextHopNccHub,
+                13 => Self::SecureWebProxyGateway,
                 _ => Self::UnknownValue(next_hop_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -5028,6 +5567,7 @@ pub mod route_info {
                 "NEXT_HOP_ILB" => Self::NextHopIlb,
                 "NEXT_HOP_ROUTER_APPLIANCE" => Self::NextHopRouterAppliance,
                 "NEXT_HOP_NCC_HUB" => Self::NextHopNccHub,
+                "SECURE_WEB_PROXY_GATEWAY" => Self::SecureWebProxyGateway,
                 _ => Self::UnknownValue(next_hop_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -5054,6 +5594,7 @@ pub mod route_info {
                 Self::NextHopIlb => serializer.serialize_i32(10),
                 Self::NextHopRouterAppliance => serializer.serialize_i32(11),
                 Self::NextHopNccHub => serializer.serialize_i32(12),
+                Self::SecureWebProxyGateway => serializer.serialize_i32(13),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -6177,6 +6718,52 @@ pub mod load_balancer_backend {
     }
 }
 
+/// For display only. Metadata associated with a hybrid subnet.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct HybridSubnetInfo {
+    /// Name of a hybrid subnet.
+    pub display_name: std::string::String,
+
+    /// URI of a hybrid subnet.
+    pub uri: std::string::String,
+
+    /// Name of a Google Cloud region where the hybrid subnet is configured.
+    pub region: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl HybridSubnetInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [display_name][crate::model::HybridSubnetInfo::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [uri][crate::model::HybridSubnetInfo::uri].
+    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uri = v.into();
+        self
+    }
+
+    /// Sets the value of [region][crate::model::HybridSubnetInfo::region].
+    pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.region = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for HybridSubnetInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkmanagement.v1.HybridSubnetInfo"
+    }
+}
+
 /// For display only. Metadata associated with a Compute Engine VPN gateway.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -6507,6 +7094,254 @@ pub mod vpn_tunnel_info {
     }
 }
 
+/// For display only. Metadata associated with an Interconnect attachment.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InterconnectAttachmentInfo {
+    /// Name of an Interconnect attachment.
+    pub display_name: std::string::String,
+
+    /// URI of an Interconnect attachment.
+    pub uri: std::string::String,
+
+    /// URI of the Interconnect where the Interconnect attachment is
+    /// configured.
+    pub interconnect_uri: std::string::String,
+
+    /// Name of a Google Cloud region where the Interconnect attachment is
+    /// configured.
+    pub region: std::string::String,
+
+    /// URI of the Cloud Router to be used for dynamic routing.
+    pub cloud_router_uri: std::string::String,
+
+    /// The type of interconnect attachment this is.
+    pub r#type: crate::model::interconnect_attachment_info::Type,
+
+    /// Appliance IP address that was matched for L2_DEDICATED attachments.
+    pub l2_attachment_matched_ip_address: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InterconnectAttachmentInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [display_name][crate::model::InterconnectAttachmentInfo::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [uri][crate::model::InterconnectAttachmentInfo::uri].
+    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uri = v.into();
+        self
+    }
+
+    /// Sets the value of [interconnect_uri][crate::model::InterconnectAttachmentInfo::interconnect_uri].
+    pub fn set_interconnect_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.interconnect_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [region][crate::model::InterconnectAttachmentInfo::region].
+    pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.region = v.into();
+        self
+    }
+
+    /// Sets the value of [cloud_router_uri][crate::model::InterconnectAttachmentInfo::cloud_router_uri].
+    pub fn set_cloud_router_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cloud_router_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::InterconnectAttachmentInfo::type].
+    pub fn set_type<T: std::convert::Into<crate::model::interconnect_attachment_info::Type>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [l2_attachment_matched_ip_address][crate::model::InterconnectAttachmentInfo::l2_attachment_matched_ip_address].
+    pub fn set_l2_attachment_matched_ip_address<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.l2_attachment_matched_ip_address = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for InterconnectAttachmentInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkmanagement.v1.InterconnectAttachmentInfo"
+    }
+}
+
+/// Defines additional types related to [InterconnectAttachmentInfo].
+pub mod interconnect_attachment_info {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// What type of interconnect attachment this is.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Unspecified type.
+        Unspecified,
+        /// Attachment to a dedicated interconnect.
+        Dedicated,
+        /// Attachment to a partner interconnect, created by the customer.
+        Partner,
+        /// Attachment to a partner interconnect, created by the partner.
+        PartnerProvider,
+        /// Attachment to a L2 interconnect, created by the customer.
+        L2Dedicated,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Type {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Dedicated => std::option::Option::Some(1),
+                Self::Partner => std::option::Option::Some(2),
+                Self::PartnerProvider => std::option::Option::Some(3),
+                Self::L2Dedicated => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::Dedicated => std::option::Option::Some("DEDICATED"),
+                Self::Partner => std::option::Option::Some("PARTNER"),
+                Self::PartnerProvider => std::option::Option::Some("PARTNER_PROVIDER"),
+                Self::L2Dedicated => std::option::Option::Some("L2_DEDICATED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Dedicated,
+                2 => Self::Partner,
+                3 => Self::PartnerProvider,
+                4 => Self::L2Dedicated,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "DEDICATED" => Self::Dedicated,
+                "PARTNER" => Self::Partner,
+                "PARTNER_PROVIDER" => Self::PartnerProvider,
+                "L2_DEDICATED" => Self::L2Dedicated,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Dedicated => serializer.serialize_i32(1),
+                Self::Partner => serializer.serialize_i32(2),
+                Self::PartnerProvider => serializer.serialize_i32(3),
+                Self::L2Dedicated => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.networkmanagement.v1.InterconnectAttachmentInfo.Type",
+            ))
+        }
+    }
+}
+
 /// For display only. The specification of the endpoints for the test.
 /// EndpointInfo is derived from source and destination Endpoint and validated
 /// by the backend data plane model.
@@ -6629,6 +7464,10 @@ pub struct DeliverInfo {
     /// PSC Google API target the packet is delivered to (if applicable).
     pub psc_google_api_target: std::string::String,
 
+    /// Recognized type of a Google Service the packet is delivered to (if
+    /// applicable).
+    pub google_service_type: crate::model::deliver_info::GoogleServiceType,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6670,6 +7509,17 @@ impl DeliverInfo {
         v: T,
     ) -> Self {
         self.psc_google_api_target = v.into();
+        self
+    }
+
+    /// Sets the value of [google_service_type][crate::model::DeliverInfo::google_service_type].
+    pub fn set_google_service_type<
+        T: std::convert::Into<crate::model::deliver_info::GoogleServiceType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.google_service_type = v.into();
         self
     }
 }
@@ -6924,6 +7774,172 @@ pub mod deliver_info {
             ))
         }
     }
+
+    /// Recognized type of a Google Service.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum GoogleServiceType {
+        /// Unspecified Google Service.
+        Unspecified,
+        /// Identity aware proxy.
+        /// <https://cloud.google.com/iap/docs/using-tcp-forwarding>
+        Iap,
+        /// One of two services sharing IP ranges:
+        ///
+        /// * Load Balancer proxy
+        /// * Centralized Health Check prober
+        ///   <https://cloud.google.com/load-balancing/docs/firewall-rules>
+        GfeProxyOrHealthCheckProber,
+        /// Connectivity from Cloud DNS to forwarding targets or alternate name
+        /// servers that use private routing.
+        /// <https://cloud.google.com/dns/docs/zones/forwarding-zones#firewall-rules>
+        /// <https://cloud.google.com/dns/docs/policies#firewall-rules>
+        CloudDns,
+        /// private.googleapis.com and restricted.googleapis.com
+        PrivateGoogleAccess,
+        /// Google API via Private Service Connect.
+        /// <https://cloud.google.com/vpc/docs/configure-private-service-connect-apis>
+        /// Google API via Serverless VPC Access.
+        /// <https://cloud.google.com/vpc/docs/serverless-vpc-access>
+        ServerlessVpcAccess,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [GoogleServiceType::value] or
+        /// [GoogleServiceType::name].
+        UnknownValue(google_service_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod google_service_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl GoogleServiceType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Iap => std::option::Option::Some(1),
+                Self::GfeProxyOrHealthCheckProber => std::option::Option::Some(2),
+                Self::CloudDns => std::option::Option::Some(3),
+                Self::PrivateGoogleAccess => std::option::Option::Some(4),
+                Self::ServerlessVpcAccess => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("GOOGLE_SERVICE_TYPE_UNSPECIFIED"),
+                Self::Iap => std::option::Option::Some("IAP"),
+                Self::GfeProxyOrHealthCheckProber => {
+                    std::option::Option::Some("GFE_PROXY_OR_HEALTH_CHECK_PROBER")
+                }
+                Self::CloudDns => std::option::Option::Some("CLOUD_DNS"),
+                Self::PrivateGoogleAccess => std::option::Option::Some("PRIVATE_GOOGLE_ACCESS"),
+                Self::ServerlessVpcAccess => std::option::Option::Some("SERVERLESS_VPC_ACCESS"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for GoogleServiceType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for GoogleServiceType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for GoogleServiceType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Iap,
+                2 => Self::GfeProxyOrHealthCheckProber,
+                3 => Self::CloudDns,
+                4 => Self::PrivateGoogleAccess,
+                5 => Self::ServerlessVpcAccess,
+                _ => Self::UnknownValue(google_service_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for GoogleServiceType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "GOOGLE_SERVICE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "IAP" => Self::Iap,
+                "GFE_PROXY_OR_HEALTH_CHECK_PROBER" => Self::GfeProxyOrHealthCheckProber,
+                "CLOUD_DNS" => Self::CloudDns,
+                "PRIVATE_GOOGLE_ACCESS" => Self::PrivateGoogleAccess,
+                "SERVERLESS_VPC_ACCESS" => Self::ServerlessVpcAccess,
+                _ => Self::UnknownValue(google_service_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for GoogleServiceType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Iap => serializer.serialize_i32(1),
+                Self::GfeProxyOrHealthCheckProber => serializer.serialize_i32(2),
+                Self::CloudDns => serializer.serialize_i32(3),
+                Self::PrivateGoogleAccess => serializer.serialize_i32(4),
+                Self::ServerlessVpcAccess => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for GoogleServiceType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<GoogleServiceType>::new(
+                ".google.cloud.networkmanagement.v1.DeliverInfo.GoogleServiceType",
+            ))
+        }
+    }
 }
 
 /// Details of the final state "forward" and associated resource.
@@ -7020,6 +8036,8 @@ pub mod forward_info {
         NccHub,
         /// Forwarded to a router appliance.
         RouterAppliance,
+        /// Forwarded to a Secure Web Proxy Gateway.
+        SecureWebProxyGateway,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Target::value] or
@@ -7052,6 +8070,7 @@ pub mod forward_info {
                 Self::AnotherProject => std::option::Option::Some(7),
                 Self::NccHub => std::option::Option::Some(8),
                 Self::RouterAppliance => std::option::Option::Some(9),
+                Self::SecureWebProxyGateway => std::option::Option::Some(10),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -7074,6 +8093,9 @@ pub mod forward_info {
                 Self::AnotherProject => std::option::Option::Some("ANOTHER_PROJECT"),
                 Self::NccHub => std::option::Option::Some("NCC_HUB"),
                 Self::RouterAppliance => std::option::Option::Some("ROUTER_APPLIANCE"),
+                Self::SecureWebProxyGateway => {
+                    std::option::Option::Some("SECURE_WEB_PROXY_GATEWAY")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -7105,6 +8127,7 @@ pub mod forward_info {
                 7 => Self::AnotherProject,
                 8 => Self::NccHub,
                 9 => Self::RouterAppliance,
+                10 => Self::SecureWebProxyGateway,
                 _ => Self::UnknownValue(target::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -7126,6 +8149,7 @@ pub mod forward_info {
                 "ANOTHER_PROJECT" => Self::AnotherProject,
                 "NCC_HUB" => Self::NccHub,
                 "ROUTER_APPLIANCE" => Self::RouterAppliance,
+                "SECURE_WEB_PROXY_GATEWAY" => Self::SecureWebProxyGateway,
                 _ => Self::UnknownValue(target::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -7149,6 +8173,7 @@ pub mod forward_info {
                 Self::AnotherProject => serializer.serialize_i32(7),
                 Self::NccHub => serializer.serialize_i32(8),
                 Self::RouterAppliance => serializer.serialize_i32(9),
+                Self::SecureWebProxyGateway => serializer.serialize_i32(10),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -7344,9 +8369,12 @@ pub mod abort_info {
         FirewallConfigNotFound,
         /// Aborted because expected route configuration was missing.
         RouteConfigNotFound,
-        /// Aborted because a PSC endpoint selection for the Google-managed service
+        /// Aborted because PSC endpoint selection for the Google-managed service
         /// is ambiguous (several PSC endpoints satisfy test input).
         GoogleManagedServiceAmbiguousPscEndpoint,
+        /// Aborted because endpoint selection for the Google-managed service is
+        /// ambiguous (several endpoints satisfy test input).
+        GoogleManagedServiceAmbiguousEndpoint,
         /// Aborted because tests with a PSC-based Cloud SQL instance as a source are
         /// not supported.
         SourcePscCloudSqlUnsupported,
@@ -7369,6 +8397,9 @@ pub mod abort_info {
         /// Aborted because the source endpoint is a Cloud Run revision with direct
         /// VPC access enabled, but there are no reserved serverless IP ranges.
         NoServerlessIpRanges,
+        /// Aborted because the used protocol is not supported for the used IP
+        /// version.
+        IpVersionProtocolMismatch,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Cause::value] or
@@ -7420,6 +8451,7 @@ pub mod abort_info {
                 Self::FirewallConfigNotFound => std::option::Option::Some(26),
                 Self::RouteConfigNotFound => std::option::Option::Some(27),
                 Self::GoogleManagedServiceAmbiguousPscEndpoint => std::option::Option::Some(19),
+                Self::GoogleManagedServiceAmbiguousEndpoint => std::option::Option::Some(39),
                 Self::SourcePscCloudSqlUnsupported => std::option::Option::Some(20),
                 Self::SourceRedisClusterUnsupported => std::option::Option::Some(34),
                 Self::SourceRedisInstanceUnsupported => std::option::Option::Some(35),
@@ -7428,6 +8460,7 @@ pub mod abort_info {
                 Self::UnknownIssueInGoogleManagedProject => std::option::Option::Some(30),
                 Self::UnsupportedGoogleManagedProjectConfig => std::option::Option::Some(31),
                 Self::NoServerlessIpRanges => std::option::Option::Some(37),
+                Self::IpVersionProtocolMismatch => std::option::Option::Some(40),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -7497,6 +8530,9 @@ pub mod abort_info {
                 Self::GoogleManagedServiceAmbiguousPscEndpoint => {
                     std::option::Option::Some("GOOGLE_MANAGED_SERVICE_AMBIGUOUS_PSC_ENDPOINT")
                 }
+                Self::GoogleManagedServiceAmbiguousEndpoint => {
+                    std::option::Option::Some("GOOGLE_MANAGED_SERVICE_AMBIGUOUS_ENDPOINT")
+                }
                 Self::SourcePscCloudSqlUnsupported => {
                     std::option::Option::Some("SOURCE_PSC_CLOUD_SQL_UNSUPPORTED")
                 }
@@ -7517,6 +8553,9 @@ pub mod abort_info {
                     std::option::Option::Some("UNSUPPORTED_GOOGLE_MANAGED_PROJECT_CONFIG")
                 }
                 Self::NoServerlessIpRanges => std::option::Option::Some("NO_SERVERLESS_IP_RANGES"),
+                Self::IpVersionProtocolMismatch => {
+                    std::option::Option::Some("IP_VERSION_PROTOCOL_MISMATCH")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -7575,6 +8614,8 @@ pub mod abort_info {
                 35 => Self::SourceRedisInstanceUnsupported,
                 36 => Self::PermissionDeniedNoCloudRouterConfigs,
                 37 => Self::NoServerlessIpRanges,
+                39 => Self::GoogleManagedServiceAmbiguousEndpoint,
+                40 => Self::IpVersionProtocolMismatch,
                 _ => Self::UnknownValue(cause::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -7623,6 +8664,9 @@ pub mod abort_info {
                 "GOOGLE_MANAGED_SERVICE_AMBIGUOUS_PSC_ENDPOINT" => {
                     Self::GoogleManagedServiceAmbiguousPscEndpoint
                 }
+                "GOOGLE_MANAGED_SERVICE_AMBIGUOUS_ENDPOINT" => {
+                    Self::GoogleManagedServiceAmbiguousEndpoint
+                }
                 "SOURCE_PSC_CLOUD_SQL_UNSUPPORTED" => Self::SourcePscCloudSqlUnsupported,
                 "SOURCE_REDIS_CLUSTER_UNSUPPORTED" => Self::SourceRedisClusterUnsupported,
                 "SOURCE_REDIS_INSTANCE_UNSUPPORTED" => Self::SourceRedisInstanceUnsupported,
@@ -7635,6 +8679,7 @@ pub mod abort_info {
                     Self::UnsupportedGoogleManagedProjectConfig
                 }
                 "NO_SERVERLESS_IP_RANGES" => Self::NoServerlessIpRanges,
+                "IP_VERSION_PROTOCOL_MISMATCH" => Self::IpVersionProtocolMismatch,
                 _ => Self::UnknownValue(cause::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -7677,6 +8722,7 @@ pub mod abort_info {
                 Self::FirewallConfigNotFound => serializer.serialize_i32(26),
                 Self::RouteConfigNotFound => serializer.serialize_i32(27),
                 Self::GoogleManagedServiceAmbiguousPscEndpoint => serializer.serialize_i32(19),
+                Self::GoogleManagedServiceAmbiguousEndpoint => serializer.serialize_i32(39),
                 Self::SourcePscCloudSqlUnsupported => serializer.serialize_i32(20),
                 Self::SourceRedisClusterUnsupported => serializer.serialize_i32(34),
                 Self::SourceRedisInstanceUnsupported => serializer.serialize_i32(35),
@@ -7685,6 +8731,7 @@ pub mod abort_info {
                 Self::UnknownIssueInGoogleManagedProject => serializer.serialize_i32(30),
                 Self::UnsupportedGoogleManagedProjectConfig => serializer.serialize_i32(31),
                 Self::NoServerlessIpRanges => serializer.serialize_i32(37),
+                Self::IpVersionProtocolMismatch => serializer.serialize_i32(40),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -7720,6 +8767,12 @@ pub struct DropInfo {
 
     /// Region of the dropped packet (if relevant).
     pub region: std::string::String,
+
+    /// Geolocation (region code) of the source IP address (if relevant).
+    pub source_geolocation_code: std::string::String,
+
+    /// Geolocation (region code) of the destination IP address (if relevant).
+    pub destination_geolocation_code: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7759,6 +8812,24 @@ impl DropInfo {
     /// Sets the value of [region][crate::model::DropInfo::region].
     pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.region = v.into();
+        self
+    }
+
+    /// Sets the value of [source_geolocation_code][crate::model::DropInfo::source_geolocation_code].
+    pub fn set_source_geolocation_code<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_geolocation_code = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_geolocation_code][crate::model::DropInfo::destination_geolocation_code].
+    pub fn set_destination_geolocation_code<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_geolocation_code = v.into();
         self
     }
 }
@@ -7828,24 +8899,28 @@ pub mod drop_info {
         /// Route's next hop forwarding rule type is invalid (it's not a forwarding
         /// rule of the internal passthrough load balancer).
         RouteNextHopForwardingRuleTypeInvalid,
-        /// Packet is sent from the Internet to the private IPv6 address.
+        /// Packet is sent from the Internet or Google service to the private IPv6
+        /// address.
         NoRouteFromInternetToPrivateIpv6Address,
+        /// Packet is sent from the external IPv6 source address of an instance to
+        /// the private IPv6 address of an instance.
+        NoRouteFromExternalIpv6SourceToPrivateIpv6Address,
         /// The packet does not match a policy-based VPN tunnel local selector.
         VpnTunnelLocalSelectorMismatch,
         /// The packet does not match a policy-based VPN tunnel remote selector.
         VpnTunnelRemoteSelectorMismatch,
         /// Packet with internal destination address sent to the internet gateway.
         PrivateTrafficToInternet,
-        /// Instance with only an internal IP address tries to access Google API and
-        /// services, but private Google access is not enabled in the subnet.
+        /// Endpoint with only an internal IP address tries to access Google API and
+        /// services, but Private Google Access is not enabled in the subnet or is
+        /// not applicable.
         PrivateGoogleAccessDisallowed,
         /// Source endpoint tries to access Google API and services through the VPN
         /// tunnel to another network, but Private Google Access needs to be enabled
         /// in the source endpoint network.
         PrivateGoogleAccessViaVpnTunnelUnsupported,
-        /// Instance with only an internal IP address tries to access external hosts,
-        /// but Cloud NAT is not enabled in the subnet, unless special configurations
-        /// on a VM allow this connection.
+        /// Endpoint with only an internal IP address tries to access external hosts,
+        /// but there is no matching Cloud NAT gateway in the subnet.
         NoExternalAddress,
         /// Destination internal address cannot be resolved to a known target. If
         /// this is a shared VPC scenario, verify if the service project ID is
@@ -8053,6 +9128,37 @@ pub mod drop_info {
         /// Packet with destination IP address within the reserved NAT64 range is
         /// dropped due to matching a route of an unsupported type.
         UnsupportedRouteMatchedForNat64Destination,
+        /// Packet could be dropped because hybrid endpoint like a VPN gateway or
+        /// Interconnect is not allowed to send traffic to the Internet.
+        TrafficFromHybridEndpointToInternetDisallowed,
+        /// Packet with destination IP address within the reserved NAT64 range is
+        /// dropped due to no matching NAT gateway in the subnet.
+        NoMatchingNat64Gateway,
+        /// Packet is dropped due to being sent to a backend of a passthrough load
+        /// balancer that doesn't use the same IP version as the frontend.
+        LoadBalancerBackendIpVersionMismatch,
+        /// Packet from the unknown NCC network is dropped due to no known route
+        /// from the source network to the destination IP address.
+        NoKnownRouteFromNccNetworkToDestination,
+        /// Packet is dropped by Cloud NAT due to using an unsupported protocol.
+        CloudNatProtocolUnsupported,
+        /// Packet is dropped due to using an unsupported protocol (any other than
+        /// UDP) for L2 Interconnect.
+        L2InterconnectUnsupportedProtocol,
+        /// Packet is dropped due to using an unsupported port (any other than
+        /// 6081) for L2 Interconnect.
+        L2InterconnectUnsupportedPort,
+        /// Packet is dropped due to destination IP not matching the appliance
+        /// mapping IPs configured on the L2 Interconnect attachment.
+        L2InterconnectDestinationIpMismatch,
+        /// Packet could be dropped because it matches a route associated with an NCC
+        /// spoke in the hybrid subnet context, but such a configuration is not
+        /// supported.
+        NccRouteWithinHybridSubnetUnsupported,
+        /// Packet is dropped because the region of the hybrid subnet is different
+        /// from the region of the next hop of the route matched within this hybrid
+        /// subnet.
+        HybridSubnetRegionMismatch,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Cause::value] or
@@ -8090,6 +9196,9 @@ pub mod drop_info {
                 Self::RouteNextHopVpnTunnelNotEstablished => std::option::Option::Some(52),
                 Self::RouteNextHopForwardingRuleTypeInvalid => std::option::Option::Some(53),
                 Self::NoRouteFromInternetToPrivateIpv6Address => std::option::Option::Some(44),
+                Self::NoRouteFromExternalIpv6SourceToPrivateIpv6Address => {
+                    std::option::Option::Some(98)
+                }
                 Self::VpnTunnelLocalSelectorMismatch => std::option::Option::Some(45),
                 Self::VpnTunnelRemoteSelectorMismatch => std::option::Option::Some(46),
                 Self::PrivateTrafficToInternet => std::option::Option::Some(7),
@@ -8171,6 +9280,18 @@ pub mod drop_info {
                     std::option::Option::Some(87)
                 }
                 Self::UnsupportedRouteMatchedForNat64Destination => std::option::Option::Some(88),
+                Self::TrafficFromHybridEndpointToInternetDisallowed => {
+                    std::option::Option::Some(89)
+                }
+                Self::NoMatchingNat64Gateway => std::option::Option::Some(90),
+                Self::LoadBalancerBackendIpVersionMismatch => std::option::Option::Some(96),
+                Self::NoKnownRouteFromNccNetworkToDestination => std::option::Option::Some(97),
+                Self::CloudNatProtocolUnsupported => std::option::Option::Some(99),
+                Self::L2InterconnectUnsupportedProtocol => std::option::Option::Some(100),
+                Self::L2InterconnectUnsupportedPort => std::option::Option::Some(101),
+                Self::L2InterconnectDestinationIpMismatch => std::option::Option::Some(102),
+                Self::NccRouteWithinHybridSubnetUnsupported => std::option::Option::Some(104),
+                Self::HybridSubnetRegionMismatch => std::option::Option::Some(105),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -8213,6 +9334,11 @@ pub mod drop_info {
                 }
                 Self::NoRouteFromInternetToPrivateIpv6Address => {
                     std::option::Option::Some("NO_ROUTE_FROM_INTERNET_TO_PRIVATE_IPV6_ADDRESS")
+                }
+                Self::NoRouteFromExternalIpv6SourceToPrivateIpv6Address => {
+                    std::option::Option::Some(
+                        "NO_ROUTE_FROM_EXTERNAL_IPV6_SOURCE_TO_PRIVATE_IPV6_ADDRESS",
+                    )
                 }
                 Self::VpnTunnelLocalSelectorMismatch => {
                     std::option::Option::Some("VPN_TUNNEL_LOCAL_SELECTOR_MISMATCH")
@@ -8419,6 +9545,36 @@ pub mod drop_info {
                 Self::UnsupportedRouteMatchedForNat64Destination => {
                     std::option::Option::Some("UNSUPPORTED_ROUTE_MATCHED_FOR_NAT64_DESTINATION")
                 }
+                Self::TrafficFromHybridEndpointToInternetDisallowed => {
+                    std::option::Option::Some("TRAFFIC_FROM_HYBRID_ENDPOINT_TO_INTERNET_DISALLOWED")
+                }
+                Self::NoMatchingNat64Gateway => {
+                    std::option::Option::Some("NO_MATCHING_NAT64_GATEWAY")
+                }
+                Self::LoadBalancerBackendIpVersionMismatch => {
+                    std::option::Option::Some("LOAD_BALANCER_BACKEND_IP_VERSION_MISMATCH")
+                }
+                Self::NoKnownRouteFromNccNetworkToDestination => {
+                    std::option::Option::Some("NO_KNOWN_ROUTE_FROM_NCC_NETWORK_TO_DESTINATION")
+                }
+                Self::CloudNatProtocolUnsupported => {
+                    std::option::Option::Some("CLOUD_NAT_PROTOCOL_UNSUPPORTED")
+                }
+                Self::L2InterconnectUnsupportedProtocol => {
+                    std::option::Option::Some("L2_INTERCONNECT_UNSUPPORTED_PROTOCOL")
+                }
+                Self::L2InterconnectUnsupportedPort => {
+                    std::option::Option::Some("L2_INTERCONNECT_UNSUPPORTED_PORT")
+                }
+                Self::L2InterconnectDestinationIpMismatch => {
+                    std::option::Option::Some("L2_INTERCONNECT_DESTINATION_IP_MISMATCH")
+                }
+                Self::NccRouteWithinHybridSubnetUnsupported => {
+                    std::option::Option::Some("NCC_ROUTE_WITHIN_HYBRID_SUBNET_UNSUPPORTED")
+                }
+                Self::HybridSubnetRegionMismatch => {
+                    std::option::Option::Some("HYBRID_SUBNET_REGION_MISMATCH")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -8528,6 +9684,17 @@ pub mod drop_info {
                 86 => Self::PscPortMappingPortMismatch,
                 87 => Self::PscPortMappingWithoutPscConnectionUnsupported,
                 88 => Self::UnsupportedRouteMatchedForNat64Destination,
+                89 => Self::TrafficFromHybridEndpointToInternetDisallowed,
+                90 => Self::NoMatchingNat64Gateway,
+                96 => Self::LoadBalancerBackendIpVersionMismatch,
+                97 => Self::NoKnownRouteFromNccNetworkToDestination,
+                98 => Self::NoRouteFromExternalIpv6SourceToPrivateIpv6Address,
+                99 => Self::CloudNatProtocolUnsupported,
+                100 => Self::L2InterconnectUnsupportedProtocol,
+                101 => Self::L2InterconnectUnsupportedPort,
+                102 => Self::L2InterconnectDestinationIpMismatch,
+                104 => Self::NccRouteWithinHybridSubnetUnsupported,
+                105 => Self::HybridSubnetRegionMismatch,
                 _ => Self::UnknownValue(cause::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -8561,6 +9728,9 @@ pub mod drop_info {
                 }
                 "NO_ROUTE_FROM_INTERNET_TO_PRIVATE_IPV6_ADDRESS" => {
                     Self::NoRouteFromInternetToPrivateIpv6Address
+                }
+                "NO_ROUTE_FROM_EXTERNAL_IPV6_SOURCE_TO_PRIVATE_IPV6_ADDRESS" => {
+                    Self::NoRouteFromExternalIpv6SourceToPrivateIpv6Address
                 }
                 "VPN_TUNNEL_LOCAL_SELECTOR_MISMATCH" => Self::VpnTunnelLocalSelectorMismatch,
                 "VPN_TUNNEL_REMOTE_SELECTOR_MISMATCH" => Self::VpnTunnelRemoteSelectorMismatch,
@@ -8675,6 +9845,26 @@ pub mod drop_info {
                 "UNSUPPORTED_ROUTE_MATCHED_FOR_NAT64_DESTINATION" => {
                     Self::UnsupportedRouteMatchedForNat64Destination
                 }
+                "TRAFFIC_FROM_HYBRID_ENDPOINT_TO_INTERNET_DISALLOWED" => {
+                    Self::TrafficFromHybridEndpointToInternetDisallowed
+                }
+                "NO_MATCHING_NAT64_GATEWAY" => Self::NoMatchingNat64Gateway,
+                "LOAD_BALANCER_BACKEND_IP_VERSION_MISMATCH" => {
+                    Self::LoadBalancerBackendIpVersionMismatch
+                }
+                "NO_KNOWN_ROUTE_FROM_NCC_NETWORK_TO_DESTINATION" => {
+                    Self::NoKnownRouteFromNccNetworkToDestination
+                }
+                "CLOUD_NAT_PROTOCOL_UNSUPPORTED" => Self::CloudNatProtocolUnsupported,
+                "L2_INTERCONNECT_UNSUPPORTED_PROTOCOL" => Self::L2InterconnectUnsupportedProtocol,
+                "L2_INTERCONNECT_UNSUPPORTED_PORT" => Self::L2InterconnectUnsupportedPort,
+                "L2_INTERCONNECT_DESTINATION_IP_MISMATCH" => {
+                    Self::L2InterconnectDestinationIpMismatch
+                }
+                "NCC_ROUTE_WITHIN_HYBRID_SUBNET_UNSUPPORTED" => {
+                    Self::NccRouteWithinHybridSubnetUnsupported
+                }
+                "HYBRID_SUBNET_REGION_MISMATCH" => Self::HybridSubnetRegionMismatch,
                 _ => Self::UnknownValue(cause::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -8703,6 +9893,9 @@ pub mod drop_info {
                 Self::RouteNextHopVpnTunnelNotEstablished => serializer.serialize_i32(52),
                 Self::RouteNextHopForwardingRuleTypeInvalid => serializer.serialize_i32(53),
                 Self::NoRouteFromInternetToPrivateIpv6Address => serializer.serialize_i32(44),
+                Self::NoRouteFromExternalIpv6SourceToPrivateIpv6Address => {
+                    serializer.serialize_i32(98)
+                }
                 Self::VpnTunnelLocalSelectorMismatch => serializer.serialize_i32(45),
                 Self::VpnTunnelRemoteSelectorMismatch => serializer.serialize_i32(46),
                 Self::PrivateTrafficToInternet => serializer.serialize_i32(7),
@@ -8782,6 +9975,16 @@ pub mod drop_info {
                 Self::PscPortMappingPortMismatch => serializer.serialize_i32(86),
                 Self::PscPortMappingWithoutPscConnectionUnsupported => serializer.serialize_i32(87),
                 Self::UnsupportedRouteMatchedForNat64Destination => serializer.serialize_i32(88),
+                Self::TrafficFromHybridEndpointToInternetDisallowed => serializer.serialize_i32(89),
+                Self::NoMatchingNat64Gateway => serializer.serialize_i32(90),
+                Self::LoadBalancerBackendIpVersionMismatch => serializer.serialize_i32(96),
+                Self::NoKnownRouteFromNccNetworkToDestination => serializer.serialize_i32(97),
+                Self::CloudNatProtocolUnsupported => serializer.serialize_i32(99),
+                Self::L2InterconnectUnsupportedProtocol => serializer.serialize_i32(100),
+                Self::L2InterconnectUnsupportedPort => serializer.serialize_i32(101),
+                Self::L2InterconnectDestinationIpMismatch => serializer.serialize_i32(102),
+                Self::NccRouteWithinHybridSubnetUnsupported => serializer.serialize_i32(104),
+                Self::HybridSubnetRegionMismatch => serializer.serialize_i32(105),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -9595,6 +10798,8 @@ pub mod nat_info {
         CloudNat,
         /// Private service connect NAT.
         PrivateServiceConnect,
+        /// GKE Pod IP address masquerading.
+        GkePodIpMasquerading,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Type::value] or
@@ -9622,6 +10827,7 @@ pub mod nat_info {
                 Self::ExternalToInternal => std::option::Option::Some(2),
                 Self::CloudNat => std::option::Option::Some(3),
                 Self::PrivateServiceConnect => std::option::Option::Some(4),
+                Self::GkePodIpMasquerading => std::option::Option::Some(5),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -9637,6 +10843,7 @@ pub mod nat_info {
                 Self::ExternalToInternal => std::option::Option::Some("EXTERNAL_TO_INTERNAL"),
                 Self::CloudNat => std::option::Option::Some("CLOUD_NAT"),
                 Self::PrivateServiceConnect => std::option::Option::Some("PRIVATE_SERVICE_CONNECT"),
+                Self::GkePodIpMasquerading => std::option::Option::Some("GKE_POD_IP_MASQUERADING"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -9663,6 +10870,7 @@ pub mod nat_info {
                 2 => Self::ExternalToInternal,
                 3 => Self::CloudNat,
                 4 => Self::PrivateServiceConnect,
+                5 => Self::GkePodIpMasquerading,
                 _ => Self::UnknownValue(r#type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -9679,6 +10887,7 @@ pub mod nat_info {
                 "EXTERNAL_TO_INTERNAL" => Self::ExternalToInternal,
                 "CLOUD_NAT" => Self::CloudNat,
                 "PRIVATE_SERVICE_CONNECT" => Self::PrivateServiceConnect,
+                "GKE_POD_IP_MASQUERADING" => Self::GkePodIpMasquerading,
                 _ => Self::UnknownValue(r#type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -9697,6 +10906,7 @@ pub mod nat_info {
                 Self::ExternalToInternal => serializer.serialize_i32(2),
                 Self::CloudNat => serializer.serialize_i32(3),
                 Self::PrivateServiceConnect => serializer.serialize_i32(4),
+                Self::GkePodIpMasquerading => serializer.serialize_i32(5),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -10214,8 +11424,14 @@ impl wkt::message::Message for ServerlessNegInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVpcFlowLogsConfigsRequest {
-    /// Required. The parent resource of the VpcFlowLogsConfig:
-    /// `projects/{project_id}/locations/global`
+    /// Required. The parent resource of the VpcFlowLogsConfig,
+    /// in one of the following formats:
+    ///
+    /// - For project-level resourcs: `projects/{project_id}/locations/global`
+    ///
+    /// - For organization-level resources:
+    ///   `organizations/{organization_id}/locations/global`
+    ///
     pub parent: std::string::String,
 
     /// Optional. Number of `VpcFlowLogsConfigs` to return.
@@ -10352,8 +11568,15 @@ impl gax::paginator::internal::PageableResponse for ListVpcFlowLogsConfigsRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVpcFlowLogsConfigRequest {
-    /// Required. `VpcFlowLogsConfig` resource name using the form:
-    /// `projects/{project_id}/locations/global/vpcFlowLogsConfigs/{vpc_flow_logs_config}`
+    /// Required. The resource name of the VpcFlowLogsConfig,
+    /// in one of the following formats:
+    ///
+    /// - For project-level resources:
+    ///   `projects/{project_id}/locations/global/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}`
+    ///
+    /// - For organization-level resources:
+    ///   `organizations/{organization_id}/locations/global/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}`
+    ///
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10381,8 +11604,14 @@ impl wkt::message::Message for GetVpcFlowLogsConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVpcFlowLogsConfigRequest {
-    /// Required. The parent resource of the VPC Flow Logs configuration to create:
-    /// `projects/{project_id}/locations/global`
+    /// Required. The parent resource of the VpcFlowLogsConfig to create,
+    /// in one of the following formats:
+    ///
+    /// - For project-level resources: `projects/{project_id}/locations/global`
+    ///
+    /// - For organization-level resources:
+    ///   `organizations/{organization_id}/locations/global`
+    ///
     pub parent: std::string::String,
 
     /// Required. ID of the `VpcFlowLogsConfig`.
@@ -10445,6 +11674,12 @@ impl wkt::message::Message for CreateVpcFlowLogsConfigRequest {
 pub struct UpdateVpcFlowLogsConfigRequest {
     /// Required. Mask of fields to update. At least one path must be supplied in
     /// this field.
+    /// For example, to change the state of the configuration to ENABLED, specify
+    /// `update_mask` = `"state"`, and the `vpc_flow_logs_config` would be:
+    /// `vpc_flow_logs_config = {
+    /// name =
+    /// "projects/my-project/locations/global/vpcFlowLogsConfigs/my-config"
+    /// state = "ENABLED" }`
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
     /// Required. Only fields specified in update_mask are updated.
@@ -10505,8 +11740,15 @@ impl wkt::message::Message for UpdateVpcFlowLogsConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteVpcFlowLogsConfigRequest {
-    /// Required. `VpcFlowLogsConfig` resource name using the form:
-    /// `projects/{project_id}/locations/global/vpcFlowLogsConfigs/{vpc_flow_logs_config}`
+    /// Required. The resource name of the VpcFlowLogsConfig,
+    /// in one of the following formats:
+    ///
+    /// - For a project-level resource:
+    ///   `projects/{project_id}/locations/global/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}`
+    ///
+    /// - For an organization-level resource:
+    ///   `organizations/{organization_id}/locations/global/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}`
+    ///
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10530,12 +11772,290 @@ impl wkt::message::Message for DeleteVpcFlowLogsConfigRequest {
     }
 }
 
+/// Request for the `QueryOrgVpcFlowLogsConfigs` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct QueryOrgVpcFlowLogsConfigsRequest {
+    /// Required. The parent resource of the VpcFlowLogsConfig, specified in
+    /// the following format: `projects/{project_id}/locations/global`
+    pub parent: std::string::String,
+
+    /// Optional. Number of `VpcFlowLogsConfigs` to return.
+    pub page_size: i32,
+
+    /// Optional. Page token from an earlier query, as returned in
+    /// `next_page_token`.
+    pub page_token: std::string::String,
+
+    /// Optional. Lists the `VpcFlowLogsConfigs` that match the filter expression.
+    /// A filter expression must use the supported [CEL logic operators]
+    /// (<https://cloud.google.com/vpc/docs/about-flow-logs-records#supported_cel_logic_operators>).
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl QueryOrgVpcFlowLogsConfigsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::QueryOrgVpcFlowLogsConfigsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::QueryOrgVpcFlowLogsConfigsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::QueryOrgVpcFlowLogsConfigsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::QueryOrgVpcFlowLogsConfigsRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for QueryOrgVpcFlowLogsConfigsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkmanagement.v1.QueryOrgVpcFlowLogsConfigsRequest"
+    }
+}
+
+/// Response for the `QueryVpcFlowLogsConfigs` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct QueryOrgVpcFlowLogsConfigsResponse {
+    /// List of VPC Flow Log configurations.
+    pub vpc_flow_logs_configs: std::vec::Vec<crate::model::VpcFlowLogsConfig>,
+
+    /// Page token to fetch the next set of configurations.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached (when querying all locations with `-`).
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl QueryOrgVpcFlowLogsConfigsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [vpc_flow_logs_configs][crate::model::QueryOrgVpcFlowLogsConfigsResponse::vpc_flow_logs_configs].
+    pub fn set_vpc_flow_logs_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::VpcFlowLogsConfig>,
+    {
+        use std::iter::Iterator;
+        self.vpc_flow_logs_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::QueryOrgVpcFlowLogsConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::QueryOrgVpcFlowLogsConfigsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for QueryOrgVpcFlowLogsConfigsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkmanagement.v1.QueryOrgVpcFlowLogsConfigsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for QueryOrgVpcFlowLogsConfigsResponse {
+    type PageItem = crate::model::VpcFlowLogsConfig;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.vpc_flow_logs_configs
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request for the `ShowEffectiveFlowLogsConfigs` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ShowEffectiveFlowLogsConfigsRequest {
+    /// Required. The parent resource of the VpcFlowLogsConfig, specified in
+    /// the following format: `projects/{project_id}/locations/global`
+    pub parent: std::string::String,
+
+    /// Required. The resource to get the effective VPC Flow Logs configuration
+    /// for. The resource must belong to the same project as the parent. The
+    /// resource must be a network, subnetwork, interconnect attachment, VPN
+    /// tunnel, or a project.
+    pub resource: std::string::String,
+
+    /// Optional. Number of `EffectiveVpcFlowLogsConfigs` to return. Default is 30.
+    pub page_size: i32,
+
+    /// Optional. Page token from an earlier query, as returned in
+    /// `next_page_token`.
+    pub page_token: std::string::String,
+
+    /// Optional. Lists the `EffectiveVpcFlowLogsConfigs` that match the filter
+    /// expression. A filter expression must use the supported [CEL logic
+    /// operators]
+    /// (<https://cloud.google.com/vpc/docs/about-flow-logs-records#supported_cel_logic_operators>).
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ShowEffectiveFlowLogsConfigsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ShowEffectiveFlowLogsConfigsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [resource][crate::model::ShowEffectiveFlowLogsConfigsRequest::resource].
+    pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.resource = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ShowEffectiveFlowLogsConfigsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ShowEffectiveFlowLogsConfigsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ShowEffectiveFlowLogsConfigsRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ShowEffectiveFlowLogsConfigsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkmanagement.v1.ShowEffectiveFlowLogsConfigsRequest"
+    }
+}
+
+/// Response for the `ShowEffectiveFlowLogsConfigs` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ShowEffectiveFlowLogsConfigsResponse {
+    /// List of Effective Vpc Flow Logs configurations.
+    pub effective_flow_logs_configs: std::vec::Vec<crate::model::EffectiveVpcFlowLogsConfig>,
+
+    /// Page token to fetch the next set of configurations.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached (when querying all locations with `-`).
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ShowEffectiveFlowLogsConfigsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [effective_flow_logs_configs][crate::model::ShowEffectiveFlowLogsConfigsResponse::effective_flow_logs_configs].
+    pub fn set_effective_flow_logs_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EffectiveVpcFlowLogsConfig>,
+    {
+        use std::iter::Iterator;
+        self.effective_flow_logs_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ShowEffectiveFlowLogsConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ShowEffectiveFlowLogsConfigsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ShowEffectiveFlowLogsConfigsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkmanagement.v1.ShowEffectiveFlowLogsConfigsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ShowEffectiveFlowLogsConfigsResponse {
+    type PageItem = crate::model::EffectiveVpcFlowLogsConfig;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.effective_flow_logs_configs
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
 /// A configuration to generate VPC Flow Logs.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VpcFlowLogsConfig {
-    /// Identifier. Unique name of the configuration using the form:
-    /// `projects/{project_id}/locations/global/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}`
+    /// Identifier. Unique name of the configuration. The name can have one of the
+    /// following forms:
+    ///
+    /// - For project-level configurations:
+    ///   `projects/{project_id}/locations/global/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}`
+    ///
+    /// - For organization-level configurations:
+    ///   `organizations/{organization_id}/locations/global/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}`
+    ///
     pub name: std::string::String,
 
     /// Optional. The user-supplied description of the VPC Flow Logs configuration.
@@ -10543,7 +12063,8 @@ pub struct VpcFlowLogsConfig {
     pub description: std::option::Option<std::string::String>,
 
     /// Optional. The state of the VPC Flow Log configuration. Default value is
-    /// ENABLED. When creating a new configuration, it must be enabled.
+    /// ENABLED. When creating a new configuration, it must be enabled. Setting
+    /// state=DISABLED will pause the log generation for this config.
     pub state: std::option::Option<crate::model::vpc_flow_logs_config::State>,
 
     /// Optional. The aggregation interval for the logs. Default value is
@@ -10570,8 +12091,14 @@ pub struct VpcFlowLogsConfig {
     /// logged.
     pub filter_expr: std::option::Option<std::string::String>,
 
-    /// Output only. A diagnostic bit - describes the state of the configured
-    /// target resource for diagnostic purposes.
+    /// Optional. Determines whether to include cross project annotations in the
+    /// logs. This field is available only for organization configurations. If not
+    /// specified in org configs will be set to CROSS_PROJECT_METADATA_ENABLED.
+    pub cross_project_metadata:
+        std::option::Option<crate::model::vpc_flow_logs_config::CrossProjectMetadata>,
+
+    /// Output only. Describes the state of the configured target resource for
+    /// diagnostic purposes.
     pub target_resource_state:
         std::option::Option<crate::model::vpc_flow_logs_config::TargetResourceState>,
 
@@ -10587,6 +12114,7 @@ pub struct VpcFlowLogsConfig {
     /// Reference to the resource of the config scope. That is, the scope from
     /// which traffic is logged. The target resource must belong to the same
     /// project as the configuration.
+    /// This field is not supported for organization level configurations.
     pub target_resource: std::option::Option<crate::model::vpc_flow_logs_config::TargetResource>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10722,6 +12250,24 @@ impl VpcFlowLogsConfig {
         self
     }
 
+    /// Sets the value of [cross_project_metadata][crate::model::VpcFlowLogsConfig::cross_project_metadata].
+    pub fn set_cross_project_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::vpc_flow_logs_config::CrossProjectMetadata>,
+    {
+        self.cross_project_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cross_project_metadata][crate::model::VpcFlowLogsConfig::cross_project_metadata].
+    pub fn set_or_clear_cross_project_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::vpc_flow_logs_config::CrossProjectMetadata>,
+    {
+        self.cross_project_metadata = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [target_resource_state][crate::model::VpcFlowLogsConfig::target_resource_state].
     pub fn set_target_resource_state<T>(mut self, v: T) -> Self
     where
@@ -10803,6 +12349,56 @@ impl VpcFlowLogsConfig {
     }
 
     /// The value of [target_resource][crate::model::VpcFlowLogsConfig::target_resource]
+    /// if it holds a `Network`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn network(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.target_resource.as_ref().and_then(|v| match v {
+            crate::model::vpc_flow_logs_config::TargetResource::Network(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [target_resource][crate::model::VpcFlowLogsConfig::target_resource]
+    /// to hold a `Network`.
+    ///
+    /// Note that all the setters affecting `target_resource` are
+    /// mutually exclusive.
+    pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target_resource = std::option::Option::Some(
+            crate::model::vpc_flow_logs_config::TargetResource::Network(v.into()),
+        );
+        self
+    }
+
+    /// The value of [target_resource][crate::model::VpcFlowLogsConfig::target_resource]
+    /// if it holds a `Subnet`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn subnet(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.target_resource.as_ref().and_then(|v| match v {
+            crate::model::vpc_flow_logs_config::TargetResource::Subnet(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [target_resource][crate::model::VpcFlowLogsConfig::target_resource]
+    /// to hold a `Subnet`.
+    ///
+    /// Note that all the setters affecting `target_resource` are
+    /// mutually exclusive.
+    pub fn set_subnet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target_resource = std::option::Option::Some(
+            crate::model::vpc_flow_logs_config::TargetResource::Subnet(v.into()),
+        );
+        self
+    }
+
+    /// The value of [target_resource][crate::model::VpcFlowLogsConfig::target_resource]
     /// if it holds a `InterconnectAttachment`, `None` if the field is not set or
     /// holds a different branch.
     pub fn interconnect_attachment(&self) -> std::option::Option<&std::string::String> {
@@ -10868,7 +12464,6 @@ pub mod vpc_flow_logs_config {
     use super::*;
 
     /// Determines whether this configuration will be generating logs.
-    /// Setting state=DISABLED will pause the log generation for this config.
     ///
     /// # Working with unknown values
     ///
@@ -11299,8 +12894,145 @@ pub mod vpc_flow_logs_config {
         }
     }
 
-    /// Optional states of the target resource that are used as part of the
-    /// diagnostic bit.
+    /// Determines whether to include cross project annotations in the logs.
+    /// Project configurations will always have CROSS_PROJECT_METADATA_DISABLED.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CrossProjectMetadata {
+        /// If not specified, the default is CROSS_PROJECT_METADATA_ENABLED.
+        Unspecified,
+        /// When CROSS_PROJECT_METADATA_ENABLED, metadata from other projects will be
+        /// included in the logs.
+        Enabled,
+        /// When CROSS_PROJECT_METADATA_DISABLED, metadata from other projects will
+        /// not be included in the logs.
+        Disabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CrossProjectMetadata::value] or
+        /// [CrossProjectMetadata::name].
+        UnknownValue(cross_project_metadata::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod cross_project_metadata {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl CrossProjectMetadata {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enabled => std::option::Option::Some(1),
+                Self::Disabled => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("CROSS_PROJECT_METADATA_UNSPECIFIED")
+                }
+                Self::Enabled => std::option::Option::Some("CROSS_PROJECT_METADATA_ENABLED"),
+                Self::Disabled => std::option::Option::Some("CROSS_PROJECT_METADATA_DISABLED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for CrossProjectMetadata {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CrossProjectMetadata {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CrossProjectMetadata {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enabled,
+                2 => Self::Disabled,
+                _ => Self::UnknownValue(cross_project_metadata::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CrossProjectMetadata {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CROSS_PROJECT_METADATA_UNSPECIFIED" => Self::Unspecified,
+                "CROSS_PROJECT_METADATA_ENABLED" => Self::Enabled,
+                "CROSS_PROJECT_METADATA_DISABLED" => Self::Disabled,
+                _ => Self::UnknownValue(cross_project_metadata::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CrossProjectMetadata {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enabled => serializer.serialize_i32(1),
+                Self::Disabled => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CrossProjectMetadata {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CrossProjectMetadata>::new(
+                ".google.cloud.networkmanagement.v1.VpcFlowLogsConfig.CrossProjectMetadata",
+            ))
+        }
+    }
+
+    /// Output only. Indicates whether the target resource exists, for diagnostic
+    /// purposes.
     ///
     /// # Working with unknown values
     ///
@@ -11437,9 +13169,549 @@ pub mod vpc_flow_logs_config {
     /// Reference to the resource of the config scope. That is, the scope from
     /// which traffic is logged. The target resource must belong to the same
     /// project as the configuration.
+    /// This field is not supported for organization level configurations.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum TargetResource {
+        /// Traffic will be logged from VMs, VPN tunnels and Interconnect Attachments
+        /// within the network.
+        /// Format: projects/{project_id}/global/networks/{name}
+        Network(std::string::String),
+        /// Traffic will be logged from VMs within the subnetwork.
+        /// Format: projects/{project_id}/regions/{region}/subnetworks/{name}
+        Subnet(std::string::String),
+        /// Traffic will be logged from the Interconnect Attachment.
+        /// Format:
+        /// projects/{project_id}/regions/{region}/interconnectAttachments/{name}
+        InterconnectAttachment(std::string::String),
+        /// Traffic will be logged from the VPN Tunnel.
+        /// Format: projects/{project_id}/regions/{region}/vpnTunnels/{name}
+        VpnTunnel(std::string::String),
+    }
+}
+
+/// A configuration to generate a response for GetEffectiveVpcFlowLogsConfig
+/// request.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EffectiveVpcFlowLogsConfig {
+    /// Unique name of the configuration. The name can have one of the following
+    /// forms:
+    ///
+    /// - For project-level configurations:
+    ///   `projects/{project_id}/locations/global/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}`
+    ///
+    /// - For organization-level configurations:
+    ///   `organizations/{organization_id}/locations/global/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}`
+    ///
+    /// - For a Compute config, the name will be the path of the subnet:
+    ///   `projects/{project_id}/regions/{region}/subnetworks/{subnet_id}`
+    ///
+    pub name: std::string::String,
+
+    /// The state of the VPC Flow Log configuration. Default value is ENABLED.
+    /// When creating a new configuration, it must be enabled.
+    /// Setting state=DISABLED will pause the log generation for this config.
+    pub state: std::option::Option<crate::model::vpc_flow_logs_config::State>,
+
+    /// The aggregation interval for the logs. Default value is INTERVAL_5_SEC.
+    pub aggregation_interval:
+        std::option::Option<crate::model::vpc_flow_logs_config::AggregationInterval>,
+
+    /// The value of the field must be in (0, 1]. The sampling rate of VPC Flow
+    /// Logs where 1.0 means all collected logs are reported.
+    /// Setting the sampling rate to 0.0 is not allowed. If you want to disable VPC
+    /// Flow Logs, use the state field instead.
+    /// Default value is 1.0.
+    pub flow_sampling: std::option::Option<f32>,
+
+    /// Configures whether all, none or a subset of metadata fields should be
+    /// added to the reported VPC flow logs.
+    /// Default value is INCLUDE_ALL_METADATA.
+    pub metadata: std::option::Option<crate::model::vpc_flow_logs_config::Metadata>,
+
+    /// Custom metadata fields to include in the reported VPC flow logs.
+    /// Can only be specified if "metadata" was set to CUSTOM_METADATA.
+    pub metadata_fields: std::vec::Vec<std::string::String>,
+
+    /// Export filter used to define which VPC Flow Logs should be logged.
+    pub filter_expr: std::option::Option<std::string::String>,
+
+    /// Determines whether to include cross project annotations in the logs.
+    /// This field is available only for organization configurations. If not
+    /// specified in org configs will be set to CROSS_PROJECT_METADATA_ENABLED.
+    pub cross_project_metadata:
+        std::option::Option<crate::model::vpc_flow_logs_config::CrossProjectMetadata>,
+
+    /// Specifies the scope of the config (e.g., SUBNET, NETWORK, ORGANIZATION..).
+    pub scope: std::option::Option<crate::model::effective_vpc_flow_logs_config::Scope>,
+
+    /// Reference to the resource of the config scope. That is, the scope from
+    /// which traffic is logged. The target resource must belong to the same
+    /// project as the configuration.
+    /// This field is not supported for organization level configurations.
+    pub target_resource:
+        std::option::Option<crate::model::effective_vpc_flow_logs_config::TargetResource>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EffectiveVpcFlowLogsConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::EffectiveVpcFlowLogsConfig::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::EffectiveVpcFlowLogsConfig::state].
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::vpc_flow_logs_config::State>,
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state][crate::model::EffectiveVpcFlowLogsConfig::state].
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::vpc_flow_logs_config::State>,
+    {
+        self.state = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [aggregation_interval][crate::model::EffectiveVpcFlowLogsConfig::aggregation_interval].
+    pub fn set_aggregation_interval<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::vpc_flow_logs_config::AggregationInterval>,
+    {
+        self.aggregation_interval = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [aggregation_interval][crate::model::EffectiveVpcFlowLogsConfig::aggregation_interval].
+    pub fn set_or_clear_aggregation_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::vpc_flow_logs_config::AggregationInterval>,
+    {
+        self.aggregation_interval = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [flow_sampling][crate::model::EffectiveVpcFlowLogsConfig::flow_sampling].
+    pub fn set_flow_sampling<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<f32>,
+    {
+        self.flow_sampling = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [flow_sampling][crate::model::EffectiveVpcFlowLogsConfig::flow_sampling].
+    pub fn set_or_clear_flow_sampling<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<f32>,
+    {
+        self.flow_sampling = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::EffectiveVpcFlowLogsConfig::metadata].
+    pub fn set_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::vpc_flow_logs_config::Metadata>,
+    {
+        self.metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metadata][crate::model::EffectiveVpcFlowLogsConfig::metadata].
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::vpc_flow_logs_config::Metadata>,
+    {
+        self.metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [metadata_fields][crate::model::EffectiveVpcFlowLogsConfig::metadata_fields].
+    pub fn set_metadata_fields<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.metadata_fields = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [filter_expr][crate::model::EffectiveVpcFlowLogsConfig::filter_expr].
+    pub fn set_filter_expr<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.filter_expr = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [filter_expr][crate::model::EffectiveVpcFlowLogsConfig::filter_expr].
+    pub fn set_or_clear_filter_expr<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.filter_expr = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cross_project_metadata][crate::model::EffectiveVpcFlowLogsConfig::cross_project_metadata].
+    pub fn set_cross_project_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::vpc_flow_logs_config::CrossProjectMetadata>,
+    {
+        self.cross_project_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cross_project_metadata][crate::model::EffectiveVpcFlowLogsConfig::cross_project_metadata].
+    pub fn set_or_clear_cross_project_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::vpc_flow_logs_config::CrossProjectMetadata>,
+    {
+        self.cross_project_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [scope][crate::model::EffectiveVpcFlowLogsConfig::scope].
+    pub fn set_scope<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::effective_vpc_flow_logs_config::Scope>,
+    {
+        self.scope = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [scope][crate::model::EffectiveVpcFlowLogsConfig::scope].
+    pub fn set_or_clear_scope<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::effective_vpc_flow_logs_config::Scope>,
+    {
+        self.scope = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [target_resource][crate::model::EffectiveVpcFlowLogsConfig::target_resource].
+    ///
+    /// Note that all the setters affecting `target_resource` are mutually
+    /// exclusive.
+    pub fn set_target_resource<
+        T: std::convert::Into<
+                std::option::Option<crate::model::effective_vpc_flow_logs_config::TargetResource>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target_resource = v.into();
+        self
+    }
+
+    /// The value of [target_resource][crate::model::EffectiveVpcFlowLogsConfig::target_resource]
+    /// if it holds a `Network`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn network(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.target_resource.as_ref().and_then(|v| match v {
+            crate::model::effective_vpc_flow_logs_config::TargetResource::Network(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [target_resource][crate::model::EffectiveVpcFlowLogsConfig::target_resource]
+    /// to hold a `Network`.
+    ///
+    /// Note that all the setters affecting `target_resource` are
+    /// mutually exclusive.
+    pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target_resource = std::option::Option::Some(
+            crate::model::effective_vpc_flow_logs_config::TargetResource::Network(v.into()),
+        );
+        self
+    }
+
+    /// The value of [target_resource][crate::model::EffectiveVpcFlowLogsConfig::target_resource]
+    /// if it holds a `Subnet`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn subnet(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.target_resource.as_ref().and_then(|v| match v {
+            crate::model::effective_vpc_flow_logs_config::TargetResource::Subnet(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [target_resource][crate::model::EffectiveVpcFlowLogsConfig::target_resource]
+    /// to hold a `Subnet`.
+    ///
+    /// Note that all the setters affecting `target_resource` are
+    /// mutually exclusive.
+    pub fn set_subnet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target_resource = std::option::Option::Some(
+            crate::model::effective_vpc_flow_logs_config::TargetResource::Subnet(v.into()),
+        );
+        self
+    }
+
+    /// The value of [target_resource][crate::model::EffectiveVpcFlowLogsConfig::target_resource]
+    /// if it holds a `InterconnectAttachment`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn interconnect_attachment(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.target_resource.as_ref().and_then(|v| match v {
+            crate::model::effective_vpc_flow_logs_config::TargetResource::InterconnectAttachment(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [target_resource][crate::model::EffectiveVpcFlowLogsConfig::target_resource]
+    /// to hold a `InterconnectAttachment`.
+    ///
+    /// Note that all the setters affecting `target_resource` are
+    /// mutually exclusive.
+    pub fn set_interconnect_attachment<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target_resource = std::option::Option::Some(
+            crate::model::effective_vpc_flow_logs_config::TargetResource::InterconnectAttachment(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [target_resource][crate::model::EffectiveVpcFlowLogsConfig::target_resource]
+    /// if it holds a `VpnTunnel`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn vpn_tunnel(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.target_resource.as_ref().and_then(|v| match v {
+            crate::model::effective_vpc_flow_logs_config::TargetResource::VpnTunnel(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [target_resource][crate::model::EffectiveVpcFlowLogsConfig::target_resource]
+    /// to hold a `VpnTunnel`.
+    ///
+    /// Note that all the setters affecting `target_resource` are
+    /// mutually exclusive.
+    pub fn set_vpn_tunnel<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target_resource = std::option::Option::Some(
+            crate::model::effective_vpc_flow_logs_config::TargetResource::VpnTunnel(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for EffectiveVpcFlowLogsConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkmanagement.v1.EffectiveVpcFlowLogsConfig"
+    }
+}
+
+/// Defines additional types related to [EffectiveVpcFlowLogsConfig].
+pub mod effective_vpc_flow_logs_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The scope for this flow log configuration.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Scope {
+        /// Scope is unspecified.
+        Unspecified,
+        /// Target resource is a subnet (Network Management API).
+        Subnet,
+        /// Target resource is a subnet, and the config originates from the Compute
+        /// API.
+        ComputeApiSubnet,
+        /// Target resource is a network.
+        Network,
+        /// Target resource is a VPN tunnel.
+        VpnTunnel,
+        /// Target resource is an interconnect attachment.
+        InterconnectAttachment,
+        /// Configuration applies to an entire organization.
+        Organization,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Scope::value] or
+        /// [Scope::name].
+        UnknownValue(scope::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod scope {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Scope {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Subnet => std::option::Option::Some(1),
+                Self::ComputeApiSubnet => std::option::Option::Some(2),
+                Self::Network => std::option::Option::Some(3),
+                Self::VpnTunnel => std::option::Option::Some(4),
+                Self::InterconnectAttachment => std::option::Option::Some(5),
+                Self::Organization => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SCOPE_UNSPECIFIED"),
+                Self::Subnet => std::option::Option::Some("SUBNET"),
+                Self::ComputeApiSubnet => std::option::Option::Some("COMPUTE_API_SUBNET"),
+                Self::Network => std::option::Option::Some("NETWORK"),
+                Self::VpnTunnel => std::option::Option::Some("VPN_TUNNEL"),
+                Self::InterconnectAttachment => {
+                    std::option::Option::Some("INTERCONNECT_ATTACHMENT")
+                }
+                Self::Organization => std::option::Option::Some("ORGANIZATION"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Scope {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Scope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Scope {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Subnet,
+                2 => Self::ComputeApiSubnet,
+                3 => Self::Network,
+                4 => Self::VpnTunnel,
+                5 => Self::InterconnectAttachment,
+                6 => Self::Organization,
+                _ => Self::UnknownValue(scope::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Scope {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SCOPE_UNSPECIFIED" => Self::Unspecified,
+                "SUBNET" => Self::Subnet,
+                "COMPUTE_API_SUBNET" => Self::ComputeApiSubnet,
+                "NETWORK" => Self::Network,
+                "VPN_TUNNEL" => Self::VpnTunnel,
+                "INTERCONNECT_ATTACHMENT" => Self::InterconnectAttachment,
+                "ORGANIZATION" => Self::Organization,
+                _ => Self::UnknownValue(scope::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Scope {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Subnet => serializer.serialize_i32(1),
+                Self::ComputeApiSubnet => serializer.serialize_i32(2),
+                Self::Network => serializer.serialize_i32(3),
+                Self::VpnTunnel => serializer.serialize_i32(4),
+                Self::InterconnectAttachment => serializer.serialize_i32(5),
+                Self::Organization => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Scope {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Scope>::new(
+                ".google.cloud.networkmanagement.v1.EffectiveVpcFlowLogsConfig.Scope",
+            ))
+        }
+    }
+
+    /// Reference to the resource of the config scope. That is, the scope from
+    /// which traffic is logged. The target resource must belong to the same
+    /// project as the configuration.
+    /// This field is not supported for organization level configurations.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TargetResource {
+        /// Traffic will be logged from VMs, VPN tunnels and Interconnect Attachments
+        /// within the network.
+        /// Format: projects/{project_id}/global/networks/{name}
+        Network(std::string::String),
+        /// Traffic will be logged from VMs within the subnetwork.
+        /// Format: projects/{project_id}/regions/{region}/subnetworks/{name}
+        Subnet(std::string::String),
         /// Traffic will be logged from the Interconnect Attachment.
         /// Format:
         /// projects/{project_id}/regions/{region}/interconnectAttachments/{name}

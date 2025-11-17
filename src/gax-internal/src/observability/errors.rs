@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gax::error::rpc::Code;
 use http::StatusCode;
 
 use super::attributes::error_type_values::*;
@@ -23,59 +22,46 @@ pub enum ErrorType {
         code: StatusCode,
         reason: Option<String>,
     },
+    RpcError {
+        code: gax::error::rpc::Code,
+        reason: Option<String>,
+    },
     ClientTimeout,
     ClientConnectionError,
     ClientRequestError,
-    ClientRequestBodyError,
     ClientResponseDecodeError,
-    ClientRedirectError,
-    Internal,
-}
-
-// Trait to abstract reqwest::Error for testing
-pub trait ReqwestErrorDetails {
-    fn is_timeout(&self) -> bool;
-    fn is_connect(&self) -> bool;
-    fn is_request(&self) -> bool;
-    fn is_body(&self) -> bool;
-    fn is_decode(&self) -> bool;
-    fn is_redirect(&self) -> bool;
-}
-
-impl ReqwestErrorDetails for reqwest::Error {
-    fn is_timeout(&self) -> bool {
-        self.is_timeout()
-    }
-    fn is_connect(&self) -> bool {
-        self.is_connect()
-    }
-    fn is_request(&self) -> bool {
-        self.is_request()
-    }
-    fn is_body(&self) -> bool {
-        self.is_body()
-    }
-    fn is_decode(&self) -> bool {
-        self.is_decode()
-    }
-    fn is_redirect(&self) -> bool {
-        self.is_redirect()
-    }
+    ClientAuthenticationError,
+    ClientRetryExhausted,
+    Unknown,
 }
 
 impl ErrorType {
-    pub(crate) fn from_reqwest_error<E>(err: &E) -> Self
-    where
-        E: ReqwestErrorDetails,
-    {
+    pub(crate) fn from_gax_error(err: &gax::error::Error) -> Self {
         match err {
             e if e.is_timeout() => ErrorType::ClientTimeout,
-            e if e.is_connect() => ErrorType::ClientConnectionError,
-            e if e.is_request() => ErrorType::ClientRequestError,
-            e if e.is_body() => ErrorType::ClientRequestBodyError,
-            e if e.is_decode() => ErrorType::ClientResponseDecodeError,
-            e if e.is_redirect() => ErrorType::ClientRedirectError,
-            _ => ErrorType::Internal,
+            e if e.is_exhausted() => ErrorType::ClientRetryExhausted,
+            e if e.is_binding() => ErrorType::ClientRequestError,
+            e if e.is_serialization() => ErrorType::ClientRequestError,
+            e if e.is_deserialization() => ErrorType::ClientResponseDecodeError,
+            e if e.is_authentication() => ErrorType::ClientAuthenticationError,
+            e if e.is_io() || e.is_connect() => ErrorType::ClientConnectionError,
+            e if e.status().is_some() => {
+                let status = e.status().unwrap();
+                let reason = status.details.iter().find_map(|d| match d {
+                    gax::error::rpc::StatusDetails::ErrorInfo(info) => Some(info.reason.clone()),
+                    _ => None,
+                });
+                ErrorType::RpcError {
+                    code: status.code,
+                    reason,
+                }
+            }
+            e if e.is_transport() => e
+                .http_status_code()
+                .and_then(|s| http::StatusCode::from_u16(s).ok())
+                .map(|code| ErrorType::HttpError { code, reason: None })
+                .unwrap_or(ErrorType::Unknown),
+            _ => ErrorType::Unknown,
         }
     }
 
@@ -85,147 +71,91 @@ impl ErrorType {
                 reason: Some(r), ..
             } => r.clone(),
             ErrorType::HttpError { code, .. } => code.as_str().to_string(),
+            ErrorType::RpcError {
+                reason: Some(r), ..
+            } => r.clone(),
+            ErrorType::RpcError { code, .. } => code.name().to_string(),
             ErrorType::ClientTimeout => CLIENT_TIMEOUT.to_string(),
             ErrorType::ClientConnectionError => CLIENT_CONNECTION_ERROR.to_string(),
             ErrorType::ClientRequestError => CLIENT_REQUEST_ERROR.to_string(),
-            ErrorType::ClientRequestBodyError => CLIENT_REQUEST_BODY_ERROR.to_string(),
             ErrorType::ClientResponseDecodeError => CLIENT_RESPONSE_DECODE_ERROR.to_string(),
-            ErrorType::ClientRedirectError => CLIENT_REDIRECT_ERROR.to_string(),
-            ErrorType::Internal => INTERNAL.to_string(),
+            ErrorType::ClientAuthenticationError => CLIENT_AUTHENTICATION_ERROR.to_string(),
+            ErrorType::ClientRetryExhausted => CLIENT_RETRY_EXHAUSTED.to_string(),
+            ErrorType::Unknown => UNKNOWN.to_string(),
         }
-    }
-
-    pub(crate) fn grpc_code(&self) -> Code {
-        match self {
-            ErrorType::HttpError { code, .. } => match code.as_u16() {
-                200 => Code::Ok,
-                400 => Code::InvalidArgument,
-                401 => Code::Unauthenticated,
-                403 => Code::PermissionDenied,
-                404 => Code::NotFound,
-                409 => Code::Aborted,
-                429 => Code::ResourceExhausted,
-                499 => Code::Cancelled,
-                501 => Code::Unimplemented,
-                503 => Code::Unavailable,
-                504 => Code::DeadlineExceeded,
-                _ if code.is_success() => Code::Ok,
-                _ if code.is_client_error() => Code::FailedPrecondition,
-                _ if code.is_server_error() => Code::Internal,
-                _ => Code::Unknown,
-            },
-            ErrorType::ClientTimeout => Code::DeadlineExceeded,
-            ErrorType::ClientConnectionError => Code::Unavailable,
-            ErrorType::ClientRequestError => Code::InvalidArgument,
-            ErrorType::ClientRequestBodyError => Code::InvalidArgument,
-            ErrorType::ClientResponseDecodeError => Code::Internal,
-            ErrorType::ClientRedirectError => Code::Aborted,
-            ErrorType::Internal => Code::Internal,
-        }
-    }
-
-    pub(crate) fn grpc_status(&self) -> String {
-        self.grpc_code().name().to_string()
     }
 }
 
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use http::StatusCode;
+    use gax::error::Error;
+    use http::{HeaderMap, StatusCode};
     use test_case::test_case;
 
-    #[derive(Default)]
-    pub struct MockReqwestError {
-        pub is_timeout: bool,
-        pub is_connect: bool,
-        pub is_request: bool,
-        pub is_body: bool,
-        pub is_decode: bool,
-        pub is_redirect: bool,
-    }
-
-    impl ReqwestErrorDetails for MockReqwestError {
-        fn is_timeout(&self) -> bool {
-            self.is_timeout
-        }
-        fn is_connect(&self) -> bool {
-            self.is_connect
-        }
-        fn is_request(&self) -> bool {
-            self.is_request
-        }
-        fn is_body(&self) -> bool {
-            self.is_body
-        }
-        fn is_decode(&self) -> bool {
-            self.is_decode
-        }
-        fn is_redirect(&self) -> bool {
-            self.is_redirect
-        }
-    }
-
-    #[test_case(ErrorType::HttpError { code: StatusCode::OK, reason: None }, "200", Code::Ok; "OK")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::BAD_REQUEST, reason: None }, "400", Code::InvalidArgument; "Bad Request")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::UNAUTHORIZED, reason: None }, "401", Code::Unauthenticated; "Unauthorized")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::FORBIDDEN, reason: None }, "403", Code::PermissionDenied; "Forbidden")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::NOT_FOUND, reason: None }, "404", Code::NotFound; "Not Found")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::CONFLICT, reason: None }, "409", Code::Aborted; "Conflict")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::TOO_MANY_REQUESTS, reason: None }, "429", Code::ResourceExhausted; "Too Many Requests")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::INTERNAL_SERVER_ERROR, reason: None }, "500", Code::Internal; "Internal Server Error")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::NOT_IMPLEMENTED, reason: None }, "501", Code::Unimplemented; "Not Implemented")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::SERVICE_UNAVAILABLE, reason: None }, "503", Code::Unavailable; "Service Unavailable")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::GATEWAY_TIMEOUT, reason: None }, "504", Code::DeadlineExceeded; "Gateway Timeout")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::IM_A_TEAPOT, reason: None }, "418", Code::FailedPrecondition; "I'm a teapot")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::CREATED, reason: None }, "201", Code::Ok; "Created")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::METHOD_NOT_ALLOWED, reason: None }, "405", Code::FailedPrecondition; "Method Not Allowed")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::BAD_GATEWAY, reason: None }, "502", Code::Internal; "Bad Gateway")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::from_u16(499).unwrap(), reason: None }, "499", Code::Cancelled; "Client Closed Request")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::BAD_REQUEST, reason: Some("REASON".to_string()) }, "REASON", Code::InvalidArgument; "Bad Request with Reason")]
-    #[test_case(ErrorType::ClientTimeout, CLIENT_TIMEOUT, Code::DeadlineExceeded; "Client Timeout")]
-    #[test_case(ErrorType::ClientConnectionError, CLIENT_CONNECTION_ERROR, Code::Unavailable; "Client Connection Error")]
-    #[test_case(ErrorType::ClientRequestError, CLIENT_REQUEST_ERROR, Code::InvalidArgument; "Client Request Error")]
-    #[test_case(ErrorType::ClientRequestBodyError, CLIENT_REQUEST_BODY_ERROR, Code::InvalidArgument; "Client Request Body Error")]
-    #[test_case(ErrorType::ClientResponseDecodeError, CLIENT_RESPONSE_DECODE_ERROR, Code::Internal; "Client Response Decode Error")]
-    #[test_case(ErrorType::ClientRedirectError, CLIENT_REDIRECT_ERROR, Code::Aborted; "Client Redirect Error")]
-    #[test_case(ErrorType::Internal, INTERNAL, Code::Internal; "Internal")]
-    fn test_error_type_conversions(
-        error_type: ErrorType,
-        expected_as_str: &str,
-        expected_grpc_code: Code,
-    ) {
+    #[test_case(ErrorType::HttpError { code: StatusCode::OK, reason: None }, "200"; "OK")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::BAD_REQUEST, reason: None }, "400"; "Bad Request")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::UNAUTHORIZED, reason: None }, "401"; "Unauthorized")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::FORBIDDEN, reason: None }, "403"; "Forbidden")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::NOT_FOUND, reason: None }, "404"; "Not Found")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::CONFLICT, reason: None }, "409"; "Conflict")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::TOO_MANY_REQUESTS, reason: None }, "429"; "Too Many Requests")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::INTERNAL_SERVER_ERROR, reason: None }, "500"; "Internal Server Error")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::NOT_IMPLEMENTED, reason: None }, "501"; "Not Implemented")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::SERVICE_UNAVAILABLE, reason: None }, "503"; "Service Unavailable")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::GATEWAY_TIMEOUT, reason: None }, "504"; "Gateway Timeout")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::IM_A_TEAPOT, reason: None }, "418"; "I'm a teapot")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::CREATED, reason: None }, "201"; "Created")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::METHOD_NOT_ALLOWED, reason: None }, "405"; "Method Not Allowed")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::BAD_GATEWAY, reason: None }, "502"; "Bad Gateway")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::from_u16(499).unwrap(), reason: None }, "499"; "Client Closed Request")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::BAD_REQUEST, reason: Some("REASON".to_string()) }, "REASON"; "Bad Request with Reason")]
+    #[test_case(ErrorType::RpcError { code: gax::error::rpc::Code::NotFound, reason: None }, "NOT_FOUND"; "RPC Not Found")]
+    #[test_case(ErrorType::RpcError { code: gax::error::rpc::Code::Unavailable, reason: None }, "UNAVAILABLE"; "RPC Unavailable")]
+    #[test_case(ErrorType::RpcError { code: gax::error::rpc::Code::InvalidArgument, reason: Some("API_KEY_INVALID".to_string()) }, "API_KEY_INVALID"; "RPC Invalid Argument with Reason")]
+    #[test_case(ErrorType::ClientTimeout, CLIENT_TIMEOUT; "Client Timeout")]
+    #[test_case(ErrorType::ClientConnectionError, CLIENT_CONNECTION_ERROR; "Client Connection Error")]
+    #[test_case(ErrorType::ClientRequestError, CLIENT_REQUEST_ERROR; "Client Request Error")]
+    #[test_case(ErrorType::ClientResponseDecodeError, CLIENT_RESPONSE_DECODE_ERROR; "Client Response Decode Error")]
+    #[test_case(ErrorType::ClientAuthenticationError, CLIENT_AUTHENTICATION_ERROR; "Client Authentication Error")]
+    #[test_case(ErrorType::ClientRetryExhausted, CLIENT_RETRY_EXHAUSTED; "Client Retry Exhausted")]
+    #[test_case(ErrorType::Unknown, UNKNOWN; "Unknown")]
+    fn test_error_type_conversions(error_type: ErrorType, expected_as_str: &str) {
         assert_eq!(
             error_type.as_str(),
             expected_as_str,
             "expected as_str for {:?}",
             error_type
         );
-        assert_eq!(
-            error_type.grpc_code(),
-            expected_grpc_code,
-            "grpc_code for {:?}",
-            error_type
-        );
-        assert_eq!(
-            error_type.grpc_status(),
-            expected_grpc_code.name().to_string(),
-            "grpc_status for {:?}",
-            error_type
-        );
     }
 
-    #[test_case(MockReqwestError { is_timeout: true, ..Default::default() }, ErrorType::ClientTimeout; "Timeout")]
-    #[test_case(MockReqwestError { is_connect: true, ..Default::default() }, ErrorType::ClientConnectionError; "Connect")]
-    #[test_case(MockReqwestError { is_request: true, ..Default::default() }, ErrorType::ClientRequestError; "Request")]
-    #[test_case(MockReqwestError { is_body: true, ..Default::default() }, ErrorType::ClientRequestBodyError; "Body")]
-    #[test_case(MockReqwestError { is_decode: true, ..Default::default() }, ErrorType::ClientResponseDecodeError; "Decode")]
-    #[test_case(MockReqwestError { is_redirect: true, ..Default::default() }, ErrorType::ClientRedirectError; "Redirect")]
-    #[test_case(MockReqwestError { ..Default::default() }, ErrorType::Internal; "Internal")]
-    fn test_from_reqwest_error(mock_err: MockReqwestError, expected_error_type: ErrorType) {
-        assert_eq!(
-            ErrorType::from_reqwest_error(&mock_err),
-            expected_error_type
-        );
+    #[test_case(Error::timeout("test"), CLIENT_TIMEOUT; "Timeout")]
+    #[test_case(Error::exhausted("test"), CLIENT_RETRY_EXHAUSTED; "Exhausted")]
+    #[test_case(Error::binding("test"), CLIENT_REQUEST_ERROR; "Binding")]
+    #[test_case(Error::ser("test"), CLIENT_REQUEST_ERROR; "Serialization")]
+    #[test_case(Error::deser("test"), CLIENT_RESPONSE_DECODE_ERROR; "Deserialization")]
+    #[test_case(Error::authentication(gax::error::CredentialsError::from_msg(false, "test")), CLIENT_AUTHENTICATION_ERROR; "Authentication")]
+    #[test_case(Error::io("test"), CLIENT_CONNECTION_ERROR; "IO")]
+    #[test_case(Error::http(404, HeaderMap::new(), bytes::Bytes::new()), "404"; "HTTP 404")]
+    #[test_case(Error::http(503, HeaderMap::new(), bytes::Bytes::new()), "503"; "HTTP 503")]
+    #[test_case(Error::http(1000, HeaderMap::new(), bytes::Bytes::new()), UNKNOWN; "Invalid HTTP Status")]
+    #[test_case(Error::service(gax::error::rpc::Status::default().set_code(5).set_message("not found")), "NOT_FOUND"; "Service Error")]
+    #[test_case(Error::service(gax::error::rpc::Status::default()), UNKNOWN; "Service Error Default")]
+    fn test_from_gax_error(err: Error, expected: &str) {
+        assert_eq!(ErrorType::from_gax_error(&err).as_str(), expected);
+    }
+
+    #[test]
+    fn test_from_gax_error_with_error_info() {
+        let error_info = rpc::model::ErrorInfo::default()
+            .set_reason("API_KEY_INVALID")
+            .set_domain("googleapis.com");
+        let status = gax::error::rpc::Status::default()
+            .set_code(gax::error::rpc::Code::InvalidArgument)
+            .set_message("Invalid API Key")
+            .set_details(vec![gax::error::rpc::StatusDetails::ErrorInfo(error_info)]);
+        let err = Error::service(status);
+
+        assert_eq!(ErrorType::from_gax_error(&err).as_str(), "API_KEY_INVALID");
     }
 }

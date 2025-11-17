@@ -67,6 +67,19 @@ cargo build
 cargo test
 ```
 
+## Exhaustive builds and tests
+
+Our repository is too large to build all the packages. The previous commands
+only build
+[the default set of packages](https://github.com/googleapis/google-cloud-rust/blob/main/Cargo.toml).
+
+If you make a large change, for example, use a new version of the generator,
+consider testing all the packages:
+
+```
+cargo test --workspace
+```
+
 ## Running lints and unit tests
 
 ```bash

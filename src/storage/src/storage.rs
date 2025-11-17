@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[cfg(google_cloud_unstable_storage_bidi)]
+#[allow(dead_code)]
+pub(crate) mod bidi;
 pub(crate) mod checksum;
 pub(crate) mod client;
 pub(crate) mod common_options;
@@ -27,3 +30,21 @@ pub(crate) mod write_object;
 use crate::model::Object;
 use crate::streaming_source::Payload;
 use crate::{Error, Result};
+
+/// The default host used by the service.
+const DEFAULT_HOST: &str = "https://storage.googleapis.com";
+
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref X_GOOG_API_CLIENT_HEADER: String = {
+            let ac = gaxi::api_header::XGoogApiClient{
+                name:          NAME,
+                version:       VERSION,
+                library_type:  gaxi::api_header::GCCL,
+            };
+            ac.grpc_header_value()
+        };
+    }
+}

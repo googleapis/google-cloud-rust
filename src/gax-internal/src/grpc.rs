@@ -14,7 +14,7 @@
 
 //! Implements the common features of all gRPC-based client.
 
-mod from_status;
+pub mod from_status;
 pub mod status;
 
 use auth::credentials::{CacheableResource, Credentials};
@@ -32,7 +32,17 @@ use http::HeaderMap;
 use std::sync::Arc;
 use std::time::Duration;
 
-pub type InnerClient = tonic::client::Grpc<tonic::transport::Channel>;
+#[cfg(not(google_cloud_unstable_tracing))]
+pub type GrpcService = tonic::transport::Channel;
+
+#[cfg(google_cloud_unstable_tracing)]
+pub type GrpcService = tower::util::Either<
+    crate::observability::grpc_tracing::TracingTowerService<tonic::transport::Channel>,
+    tonic::transport::Channel,
+>;
+
+/// The inner gRPC client type.
+pub type InnerClient = tonic::client::Grpc<GrpcService>;
 
 #[derive(Clone, Debug)]
 pub struct Client {
@@ -43,8 +53,6 @@ pub struct Client {
     retry_throttler: SharedRetryThrottler,
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
-    #[cfg(google_cloud_unstable_tracing)]
-    instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
 }
 
 impl Client {
@@ -53,8 +61,44 @@ impl Client {
         config: crate::options::ClientConfig,
         default_endpoint: &str,
     ) -> gax::client_builder::Result<Self> {
+        Self::build(
+            config,
+            default_endpoint,
+            #[cfg(google_cloud_unstable_tracing)]
+            None,
+        )
+        .await
+    }
+
+    /// Create a new client with instrumentation info.
+    #[cfg(google_cloud_unstable_tracing)]
+    pub async fn new_with_instrumentation(
+        config: crate::options::ClientConfig,
+        default_endpoint: &str,
+        instrumentation: &'static crate::options::InstrumentationClientInfo,
+    ) -> gax::client_builder::Result<Self> {
+        Self::build(config, default_endpoint, Some(instrumentation)).await
+    }
+
+    async fn build(
+        config: crate::options::ClientConfig,
+        default_endpoint: &str,
+        #[cfg(google_cloud_unstable_tracing)] instrumentation: Option<
+            &'static crate::options::InstrumentationClientInfo,
+        >,
+    ) -> gax::client_builder::Result<Self> {
         let credentials = Self::make_credentials(&config).await?;
-        let inner = Self::make_inner(config.endpoint, default_endpoint).await?;
+        let tracing_enabled = crate::options::tracing_enabled(&config);
+
+        let inner = Self::make_inner(
+            config.endpoint,
+            default_endpoint,
+            tracing_enabled,
+            #[cfg(google_cloud_unstable_tracing)]
+            instrumentation,
+        )
+        .await?;
+
         Ok(Self {
             inner,
             credentials,
@@ -76,19 +120,7 @@ impl Client {
             polling_backoff_policy: config
                 .polling_backoff_policy
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
-            #[cfg(google_cloud_unstable_tracing)]
-            instrumentation: None,
         })
-    }
-
-    /// Sets the instrumentation client info.
-    #[cfg(google_cloud_unstable_tracing)]
-    pub fn with_instrumentation(
-        mut self,
-        instrumentation: &'static crate::options::InstrumentationClientInfo,
-    ) -> Self {
-        self.instrumentation = Some(instrumentation);
-        self
     }
 
     /// Sends a request.
@@ -102,12 +134,71 @@ impl Client {
         request_params: &str,
     ) -> Result<tonic::Response<Response>>
     where
-        Request: prost::Message + 'static + Clone,
+        Request: prost::Message + Clone + 'static,
         Response: prost::Message + Default + 'static,
     {
         let headers = Self::make_headers(api_client_header, request_params, &options).await?;
         self.retry_loop::<Request, Response>(extensions, path, request, options, headers)
             .await
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    /// Opens a bidirectional stream.
+    pub async fn bidi_stream<Request, Response>(
+        &self,
+        extensions: tonic::Extensions,
+        path: http::uri::PathAndQuery,
+        request: impl tokio_stream::Stream<Item = Request> + Send + 'static,
+        options: gax::options::RequestOptions,
+        api_client_header: &'static str,
+        request_params: &str,
+    ) -> Result<tonic::Response<tonic::codec::Streaming<Response>>>
+    where
+        Request: prost::Message + 'static,
+        Response: prost::Message + Default + 'static,
+    {
+        self.bidi_stream_with_status(
+            extensions,
+            path,
+            request,
+            options,
+            api_client_header,
+            request_params,
+        )
+        .await?
+        .map_err(to_gax_error)
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    /// Opens a bidirectional stream.
+    ///
+    /// Some services (notably Storage) need to examine the `tonic::Status` to
+    /// extract data from the error details. Typically this data is encoded
+    /// using protobuf messages unavailable in this library.
+    pub async fn bidi_stream_with_status<Request, Response>(
+        &self,
+        extensions: tonic::Extensions,
+        path: http::uri::PathAndQuery,
+        request: impl tokio_stream::Stream<Item = Request> + Send + 'static,
+        options: gax::options::RequestOptions,
+        api_client_header: &'static str,
+        request_params: &str,
+    ) -> Result<tonic::Result<tonic::Response<tonic::codec::Streaming<Response>>>>
+    where
+        Request: prost::Message + 'static,
+        Response: prost::Message + Default + 'static,
+    {
+        use tonic::IntoStreamingRequest;
+        let headers = Self::make_headers(api_client_header, request_params, &options).await?;
+        let headers = self.add_auth_headers(headers).await?;
+        let metadata = tonic::metadata::MetadataMap::from_headers(headers);
+        let request = tonic::Request::from_parts(metadata, extensions, request);
+        let codec = tonic_prost::ProstCodec::<Request, Response>::default();
+        let mut inner = self.inner.clone();
+        inner.ready().await.map_err(Error::io)?;
+        Ok(inner
+            .streaming(request.into_streaming_request(), path, codec)
+            .await)
     }
 
     /// Runs the retry loop.
@@ -128,7 +219,10 @@ impl Client {
         let retry_policy = self.get_retry_policy(&options);
         let backoff_policy = self.get_backoff_policy(&options);
         let this = self.clone();
+        let mut prior_attempt_count: i64 = 0;
         let inner = async move |remaining_time: Option<Duration>| {
+            let current_attempt = prior_attempt_count;
+            prior_attempt_count += 1;
             this.clone()
                 .request_attempt::<Request, Response>(
                     extensions.clone(),
@@ -137,6 +231,7 @@ impl Client {
                     &options,
                     remaining_time,
                     headers.clone(),
+                    current_attempt,
                 )
                 .await
         };
@@ -153,6 +248,7 @@ impl Client {
     }
 
     /// Makes a single request attempt.
+    #[allow(clippy::too_many_arguments)]
     async fn request_attempt<Request, Response>(
         &self,
         extensions: tonic::Extensions,
@@ -161,29 +257,26 @@ impl Client {
         options: &gax::options::RequestOptions,
         remaining_time: Option<std::time::Duration>,
         headers: HeaderMap,
+        prior_attempt_count: i64,
     ) -> Result<tonic::Response<Response>>
     where
         Request: prost::Message + 'static,
         Response: prost::Message + std::default::Default + 'static,
     {
-        let mut headers = headers;
-        let cached_auth_headers = self
-            .credentials
-            .headers(http::Extensions::new())
-            .await
-            .map_err(Error::authentication)?;
-
-        let auth_headers = match cached_auth_headers {
-            CacheableResource::New { data, .. } => Ok(data),
-            CacheableResource::NotModified => {
-                unreachable!("headers are not cached");
-            }
-        };
-
-        let auth_headers = auth_headers?;
-        headers.extend(auth_headers);
+        let headers = self.add_auth_headers(headers).await?;
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
         let mut request = tonic::Request::from_parts(metadata, extensions, request);
+
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use crate::observability::grpc_tracing::AttemptCount;
+            request
+                .extensions_mut()
+                .insert(AttemptCount(prior_attempt_count));
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        let _ = prior_attempt_count;
+
         if let Some(timeout) = gax::retry_loop_internal::effective_timeout(options, remaining_time)
         {
             request.set_timeout(timeout);
@@ -200,6 +293,10 @@ impl Client {
     async fn make_inner(
         endpoint: Option<String>,
         default_endpoint: &str,
+        tracing_enabled: bool,
+        #[cfg(google_cloud_unstable_tracing)] instrumentation: Option<
+            &'static crate::options::InstrumentationClientInfo,
+        >,
     ) -> gax::client_builder::Result<InnerClient> {
         use tonic::transport::{ClientTlsConfig, Endpoint};
 
@@ -213,7 +310,32 @@ impl Client {
                 .tls_config(ClientTlsConfig::new().with_enabled_roots())
                 .map_err(BuilderError::transport)?
                 .origin(origin);
-        Ok(InnerClient::new(endpoint.connect_lazy()))
+        let channel = endpoint.connect_lazy();
+
+        #[cfg(not(google_cloud_unstable_tracing))]
+        {
+            let _ = tracing_enabled;
+            Ok(InnerClient::new(channel))
+        }
+
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use crate::observability::grpc_tracing::TracingTowerLayer;
+            use tower::ServiceBuilder;
+            use tower::util::Either;
+
+            if tracing_enabled {
+                let default_uri = default_endpoint
+                    .parse::<tonic::transport::Uri>()
+                    .map_err(BuilderError::transport)?;
+                let default_host = default_uri.host().unwrap_or("").to_string();
+                let layer = TracingTowerLayer::new(endpoint.uri(), default_host, instrumentation);
+                let service = ServiceBuilder::new().layer(layer).service(channel);
+                Ok(InnerClient::new(Either::Left(service)))
+            } else {
+                Ok(InnerClient::new(Either::Right(channel)))
+            }
+        }
     }
 
     async fn make_credentials(
@@ -225,6 +347,21 @@ impl Client {
         auth::credentials::Builder::default()
             .build()
             .map_err(BuilderError::cred)
+    }
+
+    async fn add_auth_headers(&self, mut headers: http::HeaderMap) -> Result<http::HeaderMap> {
+        let h = self
+            .credentials
+            .headers(http::Extensions::new())
+            .await
+            .map_err(Error::authentication)?;
+
+        let CacheableResource::New { data, .. } = h else {
+            unreachable!("headers are not cached");
+        };
+
+        headers.extend(data);
+        Ok(headers)
     }
 
     async fn make_headers(
@@ -326,18 +463,18 @@ mod tests {
     use crate::options::InstrumentationClientInfo;
 
     #[tokio::test]
-    async fn test_with_instrumentation() {
+    async fn test_new_with_instrumentation() {
         let config = crate::options::ClientConfig::default();
-        let client = Client::new(config, "http://example.com").await.unwrap();
-        assert!(client.instrumentation.is_none());
         static TEST_INFO: InstrumentationClientInfo = InstrumentationClientInfo {
             service_name: "test-service",
             client_version: "1.0.0",
             client_artifact: "test-artifact",
             default_host: "example.com",
         };
-        let client = client.with_instrumentation(&TEST_INFO);
-        assert!(client.instrumentation.is_some());
-        assert_eq!(client.instrumentation.unwrap().service_name, "test-service");
+        let _client = Client::new_with_instrumentation(config, "http://example.com", &TEST_INFO)
+            .await
+            .unwrap();
+        // We can't easily assert the internal state without exposing more internals,
+        // but this verifies the method exists and runs.
     }
 }

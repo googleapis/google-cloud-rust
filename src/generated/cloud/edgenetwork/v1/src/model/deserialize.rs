@@ -536,6 +536,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Interconnect {
             __uuid,
             __device_cloud_resource_name,
             __physical_ports,
+            __remote_peering_network_type,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -574,6 +575,12 @@ impl<'de> serde::de::Deserialize<'de> for super::Interconnect {
                             }
                             "physicalPorts" => Ok(__FieldTag::__physical_ports),
                             "physical_ports" => Ok(__FieldTag::__physical_ports),
+                            "remotePeeringNetworkType" => {
+                                Ok(__FieldTag::__remote_peering_network_type)
+                            }
+                            "remote_peering_network_type" => {
+                                Ok(__FieldTag::__remote_peering_network_type)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -692,6 +699,14 @@ impl<'de> serde::de::Deserialize<'de> for super::Interconnect {
                             }
                             result.physical_ports = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
+                        __FieldTag::__remote_peering_network_type => {
+                            if !fields.insert(__FieldTag::__remote_peering_network_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for remote_peering_network_type",
+                                ));
+                            }
+                            result.remote_peering_network_type = map.next_value::<std::option::Option<crate::model::RemotePeeringNetworkType>>()?.unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -725,6 +740,7 @@ impl<'de> serde::de::Deserialize<'de> for super::InterconnectAttachment {
             __vlan_id,
             __mtu,
             __state,
+            __peering_type,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -758,6 +774,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InterconnectAttachment {
                             "vlan_id" => Ok(__FieldTag::__vlan_id),
                             "mtu" => Ok(__FieldTag::__mtu),
                             "state" => Ok(__FieldTag::__state),
+                            "peeringType" => Ok(__FieldTag::__peering_type),
+                            "peering_type" => Ok(__FieldTag::__peering_type),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -903,6 +921,14 @@ impl<'de> serde::de::Deserialize<'de> for super::InterconnectAttachment {
                             result.state = map
                                 .next_value::<std::option::Option<crate::model::ResourceState>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__peering_type => {
+                            if !fields.insert(__FieldTag::__peering_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for peering_type",
+                                ));
+                            }
+                            result.peering_type = map.next_value::<std::option::Option<crate::model::RemotePeeringNetworkType>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

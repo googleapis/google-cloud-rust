@@ -15,11 +15,10 @@
 pub mod read_object;
 pub mod write_object;
 
-use crate::{Error, Result};
+use crate::Result;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::options::RequestOptionsBuilder;
 use gax::paginator::ItemPaginator as _;
-use gax::retry_policy::RetryPolicyExt;
 use lro::Poller;
 use std::time::Duration;
 use storage::client::StorageControl;
@@ -27,7 +26,7 @@ use storage::model::Bucket;
 use storage::model::bucket::iam_config::UniformBucketLevelAccess;
 use storage::model::bucket::{HierarchicalNamespace, IamConfig};
 use storage::read_object::ReadObjectResponse;
-use storage_samples::cleanup_bucket;
+pub use storage_samples::{cleanup_stale_buckets, create_test_bucket, create_test_hns_bucket};
 
 pub async fn objects(
     builder: storage::builder::storage::ClientBuilder,
@@ -211,82 +210,6 @@ pub async fn object_names(
     Ok(())
 }
 
-pub async fn create_test_bucket() -> Result<(StorageControl, Bucket)> {
-    let project_id = crate::project_id()?;
-    let client = client_for_create_bucket().await?;
-    cleanup_stale_buckets(&client, &project_id).await?;
-
-    let bucket_id = crate::random_bucket_id();
-
-    tracing::info!("create_test_bucket()");
-    let create = client
-        .create_bucket()
-        .set_parent("projects/_")
-        .set_bucket_id(bucket_id)
-        .set_bucket(
-            Bucket::new()
-                .set_project(format!("projects/{project_id}"))
-                .set_location("us-central1")
-                .set_labels([("integration-test", "true")]),
-        )
-        .with_backoff_policy(test_backoff())
-        .with_idempotency(true)
-        .send()
-        .await?;
-    tracing::info!("SUCCESS on create_bucket: {create:?}");
-    Ok((client, create))
-}
-
-pub async fn create_test_hns_bucket() -> Result<(StorageControl, Bucket)> {
-    let project_id = crate::project_id()?;
-    let client = client_for_create_bucket().await?;
-    cleanup_stale_buckets(&client, &project_id).await?;
-
-    let bucket_id = crate::random_bucket_id();
-
-    tracing::info!("create_test_hns_bucket()");
-    let create = client
-        .create_bucket()
-        .set_parent("projects/_")
-        .set_bucket_id(bucket_id)
-        .set_bucket(
-            Bucket::new()
-                .set_project(format!("projects/{project_id}"))
-                .set_location("us-central1")
-                .set_labels([("integration-test", "true")])
-                .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
-                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
-                    UniformBucketLevelAccess::new().set_enabled(true),
-                )),
-        )
-        .with_backoff_policy(test_backoff())
-        .with_idempotency(true)
-        .send()
-        .await?;
-    tracing::info!("SUCCESS on create_bucket: {create:?}");
-    Ok((client, create))
-}
-
-async fn client_for_create_bucket() -> Result<StorageControl> {
-    let client = StorageControl::builder()
-        .with_tracing()
-        .with_backoff_policy(
-            gax::exponential_backoff::ExponentialBackoffBuilder::new()
-                .with_initial_delay(Duration::from_secs(2))
-                .with_maximum_delay(Duration::from_secs(8))
-                .build()
-                .unwrap(),
-        )
-        .with_retry_policy(
-            gax::retry_policy::AlwaysRetry
-                .with_attempt_limit(16)
-                .with_time_limit(Duration::from_secs(32)),
-        )
-        .build()
-        .await?;
-    Ok(client)
-}
-
 pub async fn buckets(builder: storage::builder::storage_control::ClientBuilder) -> Result<()> {
     let project_id = crate::project_id()?;
     let client = builder.build().await?;
@@ -443,48 +366,6 @@ async fn folders(client: &StorageControl, bucket_name: &str) -> Result<()> {
         .send()
         .await?;
     println!("SUCCESS on delete_folder");
-
-    Ok(())
-}
-
-async fn cleanup_stale_buckets(client: &StorageControl, project_id: &str) -> Result<()> {
-    use std::time::{Duration, SystemTime, UNIX_EPOCH};
-    let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
-    let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
-    let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
-
-    let mut buckets = client
-        .list_buckets()
-        .set_parent(format!("projects/{project_id}"))
-        .by_item();
-    let mut pending = Vec::new();
-    let mut names = Vec::new();
-    while let Some(bucket) = buckets.next().await {
-        let bucket = bucket?;
-        if bucket
-            .labels
-            .get("integration-test")
-            .is_some_and(|v| v == "true")
-            && bucket.create_time.is_some_and(|v| v < stale_deadline)
-        {
-            let client = client.clone();
-            let name = bucket.name.clone();
-            pending.push(tokio::spawn(
-                async move { cleanup_bucket(client, name).await },
-            ));
-            names.push(bucket.name);
-        }
-    }
-
-    println!("cleaning up {} buckets", pending.len());
-    let r: std::result::Result<Vec<_>, _> = futures::future::join_all(pending)
-        .await
-        .into_iter()
-        .collect();
-    r.map_err(Error::from)?
-        .into_iter()
-        .zip(names)
-        .for_each(|(r, name)| println!("deleting bucket {name}: {r:?}"));
 
     Ok(())
 }

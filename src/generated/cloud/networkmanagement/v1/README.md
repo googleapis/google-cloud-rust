@@ -18,6 +18,7 @@ The main types to work with this crate are the clients:
 
 - [ReachabilityService]
 - [VpcFlowLogsService]
+- [OrganizationVpcFlowLogsService]
 
 ## More Information
 
@@ -25,3 +26,4 @@ The main types to work with this crate are the clients:
 
 [ReachabilityService]: https://docs.rs/google-cloud-networkmanagement-v1/latest/google_cloud_networkmanagement_v1/client/struct.ReachabilityService.html
 [VpcFlowLogsService]: https://docs.rs/google-cloud-networkmanagement-v1/latest/google_cloud_networkmanagement_v1/client/struct.VpcFlowLogsService.html
+[OrganizationVpcFlowLogsService]: https://docs.rs/google-cloud-networkmanagement-v1/latest/google_cloud_networkmanagement_v1/client/struct.OrganizationVpcFlowLogsService.html

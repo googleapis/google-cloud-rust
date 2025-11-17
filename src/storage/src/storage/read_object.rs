@@ -23,6 +23,7 @@ use crate::read_object::ReadObjectResponse;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::checksum::details::Md5;
 use crate::storage::request_options::RequestOptions;
+use gaxi::http::map_send_error;
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
 ///
@@ -60,7 +61,7 @@ use crate::storage::request_options::RequestOptions;
 ///     Ok(())
 /// }
 /// ```
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct ReadObject<S = crate::storage::transport::Storage>
 where
     S: crate::storage::stub::Storage + 'static,
@@ -68,6 +69,19 @@ where
     stub: std::sync::Arc<S>,
     request: crate::model::ReadObjectRequest,
     options: RequestOptions,
+}
+
+impl<S> Clone for ReadObject<S>
+where
+    S: crate::storage::stub::Storage + 'static,
+{
+    fn clone(&self) -> Self {
+        Self {
+            stub: self.stub.clone(),
+            request: self.request.clone(),
+            options: self.options.clone(),
+        }
+    }
 }
 
 impl<S> ReadObject<S>
@@ -420,7 +434,7 @@ impl Reader {
 
     async fn read_attempt(&self) -> Result<reqwest::Response> {
         let builder = self.http_request_builder().await?;
-        let response = builder.send().await.map_err(Error::io)?;
+        let response = builder.send().await.map_err(map_send_error)?;
         if !response.status().is_success() {
             return gaxi::http::to_http_error(response).await;
         }
@@ -600,6 +614,23 @@ mod tests {
             options: builder.options,
         };
         reader.http_request_builder().await
+    }
+
+    #[tokio::test]
+    async fn test_clone() {
+        let inner = test_inner_client(test_builder());
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let options = {
+            let mut o = RequestOptions::new();
+            o.set_resumable_upload_threshold(12345_usize);
+            o
+        };
+        let builder = ReadObject::new(stub, "projects/_/buckets/bucket", "object", options);
+
+        let clone = builder.clone();
+        assert!(Arc::ptr_eq(&clone.stub, &builder.stub));
+        assert_eq!(clone.request, builder.request);
+        assert_eq!(clone.options.resumable_upload_threshold(), 12345_usize);
     }
 
     // Verify `read_object()` meets normal Send, Sync, requirements.

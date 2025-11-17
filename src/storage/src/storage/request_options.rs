@@ -117,4 +117,50 @@ impl RequestOptions {
             automatic_decompression: false,
         }
     }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[allow(dead_code)]
+    pub(crate) fn gax(&self) -> gax::options::RequestOptions {
+        let mut options = gax::options::RequestOptions::default();
+        options.set_backoff_policy(self.backoff_policy.clone());
+        options.set_retry_policy(self.retry_policy.clone());
+        options.set_retry_throttler(self.retry_throttler.clone());
+        if let Some(ref i) = self.idempotency {
+            options.set_idempotency(*i);
+        }
+        options
+    }
+}
+
+#[cfg(all(test, google_cloud_unstable_storage_bidi))]
+mod tests {
+    use super::*;
+    use crate::storage::client::tests::{MockBackoffPolicy, MockRetryPolicy, MockRetryThrottler};
+
+    #[test]
+    fn gax_policies() {
+        let mut options = RequestOptions::new();
+        options.retry_policy = Arc::new(MockRetryPolicy::new());
+        options.retry_throttler = Arc::new(Mutex::new(MockRetryThrottler::new()));
+        options.backoff_policy = Arc::new(MockBackoffPolicy::new());
+
+        let got = options.gax();
+        assert!(got.backoff_policy().is_some(), "{got:?}");
+        assert!(got.retry_policy().is_some(), "{got:?}");
+        assert!(got.retry_throttler().is_some(), "{got:?}");
+        assert!(got.idempotent().is_none(), "{got:?}");
+
+        let fmt = format!("{got:?}");
+        assert!(fmt.contains("MockBackoffPolicy"), "{fmt}");
+        assert!(fmt.contains("MockRetryPolicy"), "{fmt}");
+        assert!(fmt.contains("MockRetryThrottler"), "{fmt}");
+    }
+
+    #[test]
+    fn gax_idempotency() {
+        let mut options = RequestOptions::new();
+        options.idempotency = Some(true);
+        let got = options.gax();
+        assert_eq!(got.idempotent(), Some(true));
+    }
 }

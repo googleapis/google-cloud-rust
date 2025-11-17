@@ -14,3 +14,6 @@
 
 #[allow(dead_code)]
 pub mod sts_exchange;
+
+#[cfg(google_cloud_unstable_id_token)]
+pub mod jwk_client;

@@ -15,6 +15,7 @@
 #[cfg(all(test, feature = "_internal-grpc-client"))]
 mod tests {
     use gax::options::*;
+    use gax::retry_policy::NeverRetry;
     use google_cloud_gax_internal::grpc;
     use grpc_server::{builder, google, start_echo_server};
 
@@ -90,7 +91,7 @@ mod tests {
         let client = client.expect("clients should use lazy connections");
         let response = send_request(client, "connection error", "").await;
         let err = response.unwrap_err();
-        assert!(err.is_transport(), "{err:?}");
+        assert!(err.is_connect(), "{err:?}");
         Ok(())
     }
 
@@ -114,7 +115,7 @@ mod tests {
         let client = client.expect("clients should use lazy connections");
         let response = send_request(client, "connection error", "").await;
         let err = response.unwrap_err();
-        assert!(err.is_transport(), "{err:?}");
+        assert!(err.is_connect(), "{err:?}");
         Ok(())
     }
 
@@ -153,12 +154,17 @@ mod tests {
             message: msg.into(),
             ..google::test::v1::EchoRequest::default()
         };
+        let request_options = {
+            let mut o = RequestOptions::default();
+            o.set_retry_policy(NeverRetry);
+            o
+        };
         client
             .execute(
                 extensions,
                 http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
                 request,
-                RequestOptions::default(),
+                request_options,
                 "test-only-api-client/1.0",
                 request_params,
             )
