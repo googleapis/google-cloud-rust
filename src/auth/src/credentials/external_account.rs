@@ -1286,7 +1286,7 @@ impl<T> AccessTokenCredentialsProvider for ExternalAccountCredentials<T>
 where
     T: CachedTokenProvider,
 {
-    async fn token(&self) -> Result<AccessToken> {
+    async fn access_token(&self) -> Result<AccessToken> {
         let token = self.token_provider.token(Extensions::new()).await?;
         token.into()
     }

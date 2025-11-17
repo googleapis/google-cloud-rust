@@ -22,7 +22,6 @@ use serde_json::Value;
 use std::future::Future;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
-use tokio::time::Instant;
 
 pub mod anonymous;
 pub mod api_key_credentials;
@@ -171,8 +170,8 @@ where
 }
 
 impl AccessTokenCredentials {
-    pub async fn token(&self) -> Result<AccessToken> {
-        self.inner.token().await
+    pub async fn access_token(&self) -> Result<AccessToken> {
+        self.inner.access_token().await
     }
 }
 
@@ -193,10 +192,6 @@ impl CredentialsProvider for AccessTokenCredentials {
 pub struct AccessToken {
     /// The access token string.
     pub token: String,
-    /// The type of the token.
-    pub token_type: String,
-    /// The time at which the token expires.
-    pub expires_at: Option<Instant>,
 }
 
 impl std::convert::From<CacheableResource<Token>> for Result<AccessToken> {
@@ -215,8 +210,6 @@ impl std::convert::From<Token> for AccessToken {
     fn from(token: Token) -> Self {
         Self {
             token: token.token,
-            token_type: token.token_type,
-            expires_at: token.expires_at,
         }
     }
 }
@@ -224,7 +217,7 @@ impl std::convert::From<Token> for AccessToken {
 /// A trait for credential types that can provide direct access to an access token.
 pub trait AccessTokenCredentialsProvider: CredentialsProvider + std::fmt::Debug {
     /// Asynchronously retrieves an access token.
-    fn token(&self) -> impl Future<Output = Result<AccessToken>> + Send;
+    fn access_token(&self) -> impl Future<Output = Result<AccessToken>> + Send;
 }
 
 /// Represents a [Credentials] used to obtain auth request headers.
@@ -352,7 +345,7 @@ pub(crate) mod dynamic {
     pub trait AccessTokenCredentialsProvider:
         CredentialsProvider + Send + Sync + std::fmt::Debug
     {
-        async fn token(&self) -> Result<super::AccessToken>;
+        async fn access_token(&self) -> Result<super::AccessToken>;
     }
 
     #[async_trait::async_trait]
@@ -360,8 +353,8 @@ pub(crate) mod dynamic {
     where
         T: super::AccessTokenCredentialsProvider + Send + Sync,
     {
-        async fn token(&self) -> Result<super::AccessToken> {
-            T::token(self).await
+        async fn access_token(&self) -> Result<super::AccessToken> {
+            T::access_token(self).await
         }
     }
 }
@@ -525,8 +518,8 @@ impl Builder {
     /// // This will search for Application Default Credentials and build AccessTokenCredentials.
     /// let credentials: AccessTokenCredentials = Builder::default()
     ///     .build_access_token_credentials()?;
-    /// // let token = credentials.token().await?;
-    /// // println!("Token: {}", token.token);
+    /// let access_token = credentials.access_token().await?;
+    /// println!("Token: {}", access_token.token);
     /// # Ok::<(), anyhow::Error>(())
     /// # });
     /// ```

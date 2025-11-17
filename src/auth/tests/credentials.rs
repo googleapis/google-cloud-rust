@@ -551,8 +551,8 @@ mod tests {
         assert!(fmt.contains("MDSCredentials"));
         assert!(fmt.contains(test_quota_project));
 
-        let token = mdcs.token().await?;
-        assert_eq!(token.token, "test-access-token");
+        let access_token = mdcs.access_token().await?;
+        assert_eq!(access_token.token, "test-access-token");
         Ok(())
     }
 

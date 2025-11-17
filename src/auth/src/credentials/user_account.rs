@@ -335,8 +335,8 @@ impl Builder {
     /// });
     /// let credentials: AccessTokenCredentials = Builder::new(authorized_user)
     ///     .build_access_token_credentials()?;
-    /// // let token = credentials.token().await?;
-    /// // println!("Token: {}", token.token);
+    /// let access_token = credentials.access_token().await?;
+    /// println!("Token: {}", access_token.token);
     /// # Ok::<(), anyhow::Error>(())
     /// # });
     /// ```
@@ -512,7 +512,7 @@ impl<T> AccessTokenCredentialsProvider for UserCredentials<T>
 where
     T: CachedTokenProvider,
 {
-    async fn token(&self) -> Result<AccessToken> {
+    async fn access_token(&self) -> Result<AccessToken> {
         let token = self.token_provider.token(Extensions::new()).await?;
         token.into()
     }
