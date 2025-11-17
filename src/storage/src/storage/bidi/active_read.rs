@@ -101,12 +101,12 @@ mod tests {
             ..ChecksummedData::default()
         };
         range.handle_data(Some(data), response, false).await?;
-        assert_eq!(range.state.as_proto(0), proto_range(25, 0));
+        assert_eq!(range.as_proto(0), proto_range(25, 0));
 
         let recv = rx.recv().await;
         assert!(matches!(recv, Some(Ok(ref b)) if *b == content), "{recv:?}");
 
-        assert_eq!(range.state.as_proto(0), proto_range(25, 0), "{range:?}");
+        assert_eq!(range.as_proto(0), proto_range(25, 0), "{range:?}");
 
         rx.close();
         let response = proto_range(25, 25);
@@ -116,7 +116,7 @@ mod tests {
             crc32c: Some(crc32c::crc32c(content.as_bytes())),
         };
         range.handle_data(Some(data), response, false).await?;
-        assert_eq!(range.state.as_proto(0), proto_range(50, 0));
+        assert_eq!(range.as_proto(0), proto_range(50, 0));
 
         Ok(())
     }
