@@ -37,8 +37,8 @@ where
 }
 
 impl Signer {
-    pub async fn requestor(&self) -> Result<String> {
-        self.inner.requestor().await
+    pub async fn client_email(&self) -> Result<String> {
+        self.inner.client_email().await
     }
 
     pub async fn sign(self, content: &str) -> Result<String> {
@@ -67,7 +67,7 @@ struct SignBlobResponse {
 
 #[async_trait::async_trait]
 impl SigningProvider for CredentialsSigner {
-    async fn requestor(&self) -> Result<String> {
+    async fn client_email(&self) -> Result<String> {
         Ok(self.client_email.clone())
     }
 
@@ -129,7 +129,7 @@ impl SigningProvider for CredentialsSigner {
 pub trait SigningProvider: Send + Sync + std::fmt::Debug {
     // represents the authorizer of the signed URL generation.
     // It is typically the Google service account client email address from the Google Developers Console in the form of "xxx@developer.gserviceaccount.com". Required.
-    async fn requestor(&self) -> Result<String>;
+    async fn client_email(&self) -> Result<String>;
     // creates a signed URL using the v4 schema.
     async fn sign(&self, content: &str) -> Result<String>;
 }
@@ -140,7 +140,7 @@ pub(crate) mod dynamic {
     /// A dyn-compatible, crate-private version of `SigningProvider`.
     #[async_trait::async_trait]
     pub trait SigningProvider: Send + Sync + std::fmt::Debug {
-        async fn requestor(&self) -> Result<String>;
+        async fn client_email(&self) -> Result<String>;
         async fn sign(&self, content: &str) -> Result<String>;
     }
 
@@ -150,8 +150,8 @@ pub(crate) mod dynamic {
     where
         T: super::SigningProvider + Send + Sync,
     {
-        async fn requestor(&self) -> Result<String> {
-            T::requestor(self).await
+        async fn client_email(&self) -> Result<String> {
+            T::client_email(self).await
         }
 
         async fn sign(&self, content: &str) -> Result<String> {

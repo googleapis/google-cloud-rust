@@ -328,7 +328,7 @@ struct MDSCredentialsSigner {
 #[cfg(google_cloud_unstable_signed_url)]
 #[async_trait::async_trait]
 impl crate::signer::SigningProvider for MDSCredentialsSigner {
-    async fn requestor(&self) -> crate::signer::Result<String> {
+    async fn client_email(&self) -> crate::signer::Result<String> {
         let client = Client::new();
 
         let request = client
@@ -352,7 +352,7 @@ impl crate::signer::SigningProvider for MDSCredentialsSigner {
 
     async fn sign(&self, content: &str) -> crate::signer::Result<String> {
         // TODO: not efficient at all, recreating CredentialSigner and refetching email
-        let client_email = self.requestor().await?;
+        let client_email = self.client_email().await?;
 
         let signer = crate::signer::CredentialsSigner {
             client_email,

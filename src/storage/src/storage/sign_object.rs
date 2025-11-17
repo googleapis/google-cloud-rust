@@ -77,8 +77,8 @@ impl SignObject {
         let request_timestamp = now.format("%Y%m%dT%H%M%SZ").to_string();
         let datestamp = now.format("%Y%m%d");
         let credential_scope = format!("{datestamp}/auto/storage/goog4_request");
-        let requestor = self.signer.requestor().await.map_err(Error::io)?; // TODO map to proper error
-        let credential = format!("{requestor}/{credential_scope}");
+        let client_email = self.signer.client_email().await.map_err(Error::io)?; // TODO map to proper error
+        let credential = format!("{client_email}/{credential_scope}");
 
         let bucket_name = self.bucket.trim_start_matches("projects/_/buckets/");
         let host = format!("{}.storage.googleapis.com", bucket_name);
