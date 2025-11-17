@@ -29,16 +29,17 @@
 //! # Example: Creating Service Account sourced credentials with target audience and sending ID Tokens.
 //! ```
 //! # use google_cloud_auth::credentials::idtoken;
+//! # use serde_json::json;
 //! # use reqwest;
 //! # tokio_test::block_on(async {
-//! let service_account_key = serde_json::json!({
+//! let service_account_key = json!({
 //!     "client_email": "test-client-email",
 //!     "private_key_id": "test-private-key-id",
 //!     "private_key": "<YOUR_PKCS8_PEM_KEY_HERE>",
 //!     "project_id": "test-project-id",
 //!     "universe_domain": "test-universe-domain",
 //! });
-//! let audience = "https://example.com";
+//! let audience = "https://my-service.a.run.app";
 //! let credentials: Credentials = idtoken::service_account::Builder::new(audience, service_account_key)
 //!     .build()?;
 //! let id_token = credentials.id_token().await?;
@@ -55,7 +56,7 @@
 //! ```
 //!
 //! [Best practices for using service accounts]: https://cloud.google.com/iam/docs/best-practices-service-accounts#choose-when-to-use
-//! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+//! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 //! [create a service account key]: https://cloud.google.com/iam/docs/keys-create-delete#creating
 //! [Service Accounts]: https://cloud.google.com/iam/docs/service-account-overview
 //! [service account key]: https://cloud.google.com/iam/docs/keys-create-delete#creating
