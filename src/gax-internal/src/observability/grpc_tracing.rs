@@ -152,7 +152,7 @@ fn record_response_status<ResBody>(span: &tracing::Span, response: &http::Respon
     if response
         .headers()
         .get("grpc-status")
-        .map_or(true, |v| v == "0")
+        .is_none_or(|v| v == "0")
     {
         span.record(otel_attr::RPC_GRPC_STATUS_CODE, 0_i64);
         return;
