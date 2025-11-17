@@ -112,7 +112,13 @@ pub async fn signed_urls(
         .await?;
 
     tracing::info!("signed_url={signed_url}");
-    println!("signed_url={signed_url}");
+
+    // Download the contents of the object using the signed URL.
+    let client = reqwest::Client::new();
+    let res = client.get(signed_url).send().await?;
+    let out = res.text().await?;
+    assert_eq!(out, CONTENTS);
+    tracing::info!("signed url works and can read contents={out:?}");
 
     Ok(())
 }
