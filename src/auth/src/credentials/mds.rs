@@ -302,8 +302,8 @@ impl Builder {
         })
     }
 
-    #[cfg(google_cloud_unstable_signer)]
-    pub fn signer(self) -> BuildResult<crate::signer::Signer> {
+    #[cfg(google_cloud_unstable_signed_url)]
+    pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
         // TODO: have MDS specific impl that fetches email as needed
         let (endpoint, _) = self.resolve_endpoint();
 
@@ -319,13 +319,13 @@ impl Builder {
 // Implements Signer for MDS that extends the existing CredentialsSigner by fetching
 // email via MDS email endpoint.
 #[derive(Clone, Debug)]
-#[cfg(google_cloud_unstable_signer)]
+#[cfg(google_cloud_unstable_signed_url)]
 struct MDSCredentialsSigner {
     endpoint: String,
     inner: Credentials,
 }
 
-#[cfg(google_cloud_unstable_signer)]
+#[cfg(google_cloud_unstable_signed_url)]
 #[async_trait::async_trait]
 impl crate::signer::SigningProvider for MDSCredentialsSigner {
     async fn requestor(&self) -> crate::signer::Result<String> {

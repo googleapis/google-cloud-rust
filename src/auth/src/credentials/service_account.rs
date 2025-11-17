@@ -295,8 +295,8 @@ impl Builder {
         })
     }
 
-    #[cfg(google_cloud_unstable_signer)]
-    pub fn signer(self) -> BuildResult<crate::signer::Signer> {
+    #[cfg(google_cloud_unstable_signed_url)]
+    pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
         let service_account_key =
             serde_json::from_value::<ServiceAccountKey>(self.service_account_key.clone())
                 .map_err(BuilderError::parsing)?;

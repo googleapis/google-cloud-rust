@@ -200,17 +200,18 @@ mod driver {
         result
     }
 
-    #[cfg(all(test, google_cloud_unstable_signer))]
+    #[cfg(all(test, google_cloud_unstable_signed_url))]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_signed_urls() -> integration_tests::Result<()> {
         let _guard = integration_tests::enable_tracing();
-        let (control, bucket) = integration_tests::storage::create_test_bucket().await?;        
-        
+        let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
+
         let builder = Storage::builder();
-        let result = integration_tests::storage::signed_urls(builder, &bucket.name, "default-endpoint")
-            .await
-            .map_err(integration_tests::report_error);
-                
+        let result =
+            integration_tests::storage::signed_urls(builder, &bucket.name, "default-endpoint")
+                .await
+                .map_err(integration_tests::report_error);
+
         if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
             tracing::error!("error cleaning up test bucket {}: {e:?}", bucket.name);
         };

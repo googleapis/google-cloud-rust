@@ -342,8 +342,8 @@ impl Builder {
         })
     }
 
-    #[cfg(google_cloud_unstable_signer)]
-    pub fn signer(self) -> BuildResult<crate::signer::Signer> {
+    #[cfg(google_cloud_unstable_signed_url)]
+    pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
         let authorized_user =
             serde_json::from_value::<AuthorizedUser>(self.authorized_user.clone())
                 .map_err(BuilderError::parsing)?;

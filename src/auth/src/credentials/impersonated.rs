@@ -431,7 +431,7 @@ impl Builder {
         })
     }
 
-    #[cfg(google_cloud_unstable_signer)]
+    #[cfg(google_cloud_unstable_signed_url)]
     pub fn signer(self) -> BuildResult<crate::signer::Signer> {
         let source = self.source.clone();
         let components = match source {

@@ -225,26 +225,31 @@ where
     {
         ReadObject::new(self.stub.clone(), bucket, object, self.options.clone())
     }
-    
-    #[cfg(google_cloud_unstable_signer)]
-    pub async fn signed_url<B, O>(&self, signer: auth::signer::Signer, bucket: B, object: O) -> std::result::Result<String, crate::error::ReadError>
+
+    #[cfg(google_cloud_unstable_signed_url)]
+    pub async fn signed_url<B, O>(
+        &self,
+        signer: auth::signer::Signer,
+        bucket: B,
+        object: O,
+    ) -> std::result::Result<String, crate::error::ReadError>
     where
         B: Into<String>,
         O: Into<String>,
-    {   
-        use std::collections::BTreeMap;
+    {
         use chrono::Utc;
         use hex;
         use sha2::{Digest, Sha256};
+        use std::collections::BTreeMap;
         use url::form_urlencoded;
 
         // TODO: have builder for those parameters
-        let expiration = 7*24*60*60; // default is 7 days 
-        let http_method="GET"; // default access http method
+        let expiration = 7 * 24 * 60 * 60; // default is 7 days 
+        let http_method = "GET"; // default access http method
         // important to use BTreeMap to keep ordered by keys
-        let mut headers: BTreeMap<&'static str, String> = BTreeMap::new(); 
-        let mut query_parameters: BTreeMap<&'static str, String> = BTreeMap::new(); 
-        
+        let mut headers: BTreeMap<&'static str, String> = BTreeMap::new();
+        let mut query_parameters: BTreeMap<&'static str, String> = BTreeMap::new();
+
         let canonical_uri = format!("/{}", object.into()); // TODO: escape object name        
 
         let now = Utc::now();
@@ -257,20 +262,16 @@ where
         let bucket = bucket.into();
         let bucket_name = bucket.trim_start_matches("projects/_/buckets/");
         let host = format!("{}.storage.googleapis.com", bucket_name);
-        headers.insert("host",  host.clone());
+        headers.insert("host", host.clone());
         let canonical_headers = "".to_string();
         let canonical_headers = headers
             .iter()
-            .fold(canonical_headers, |acc, (k, v)| {
-                format!("{acc}{k}:{v}\n")
-            });
+            .fold(canonical_headers, |acc, (k, v)| format!("{acc}{k}:{v}\n"));
 
         let signed_headers = "".to_string();
         let signed_headers = headers
             .iter()
-            .fold(signed_headers, |acc, (k, _)| {
-                format!("{acc}{k};")
-            });
+            .fold(signed_headers, |acc, (k, _)| format!("{acc}{k};"));
         let signed_headers = signed_headers.trim_end_matches(';').to_string();
 
         query_parameters.insert("X-Goog-Algorithm", "GOOG4-RSA-SHA256".to_string());
@@ -280,13 +281,11 @@ where
         query_parameters.insert("X-Goog-SignedHeaders", signed_headers.clone());
 
         let mut canonical_query = form_urlencoded::Serializer::new("".to_string());
-        query_parameters
-            .iter()
-            .for_each(|(k, v)| {
-                canonical_query.append_pair(k, v);
-            });
+        query_parameters.iter().for_each(|(k, v)| {
+            canonical_query.append_pair(k, v);
+        });
         let canonical_query_string = canonical_query.finish();
-        
+
         let canonical_request = vec![
             http_method.to_string(),
             canonical_uri.clone(),
@@ -294,11 +293,12 @@ where
             canonical_headers,
             signed_headers,
             "UNSIGNED-PAYLOAD".to_string(),
-        ].join("\n");
+        ]
+        .join("\n");
 
         println!("canonical_request: {canonical_request:?}");
 
-        let canonical_request_hash =  Sha256::digest(canonical_request.as_bytes());
+        let canonical_request_hash = Sha256::digest(canonical_request.as_bytes());
         let canonical_request_hash = hex::encode(canonical_request_hash);
 
         let string_to_sign = vec![
@@ -306,12 +306,14 @@ where
             request_timestamp,
             credential_scope,
             canonical_request_hash,
-        ].join("\n");
-            
+        ]
+        .join("\n");
+
         let signature = signer.sign(string_to_sign.as_str()).await.unwrap(); // TODO map_err
 
         let scheme_and_host = format!("https://{}", host);
-        let signed_url = format!("{}{}?{}&x-goog-signature={}",
+        let signed_url = format!(
+            "{}{}?{}&x-goog-signature={}",
             scheme_and_host, canonical_uri, canonical_query_string, signature
         );
 

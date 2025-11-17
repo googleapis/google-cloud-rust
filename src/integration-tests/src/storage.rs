@@ -83,15 +83,15 @@ pub async fn objects(
     Ok(())
 }
 
-#[cfg(google_cloud_unstable_signer)]
+#[cfg(google_cloud_unstable_signed_url)]
 pub async fn signed_urls(
     builder: storage::builder::storage::ClientBuilder,
     bucket_name: &str,
-    prefix: &str
+    prefix: &str,
 ) -> anyhow::Result<()> {
     //let creds = auth::credentials::mds::Builder::default().build()?;
     let client = builder.build().await?;
-    
+
     // let signer = auth::credentials::mds::Builder::default().signer()?;
     let signer = auth::credentials::Builder::default().signer()?;
 
