@@ -181,3 +181,27 @@ resource "google_project_service" "sqladmin" {
 
   disable_dependent_services = true
 }
+
+resource "google_project_service" "telemetry" {
+  project = var.project
+  service = "telemetry.googleapis.com"
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+
+  disable_dependent_services = true
+}
+
+resource "google_project_service" "cloudtrace" {
+  project = var.project
+  service = "cloudtrace.googleapis.com"
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+
+  disable_dependent_services = true
+}
