@@ -89,6 +89,20 @@ where
 }
 
 /// A builder for [`IDTokenCredentials`] instances backed by user account credentials.
+///
+/// # Example
+/// ```
+/// # use google_cloud_auth::credentials::idtoken;
+/// # tokio_test::block_on(async {
+/// let authorized_user = json!({
+///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
+///     "client_secret": "YOUR_CLIENT_SECRET",
+///     "refresh_token": "YOUR_REFRESH_TOKEN",
+///     "type": "authorized_user",
+/// });
+/// let credentials = idtoken::user_account::Builder::new(authorized_user).build();
+/// })
+/// ```
 pub struct Builder {
     authorized_user: Value,
     token_uri: Option<String>,
@@ -119,12 +133,7 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::idtoken;
     /// # use serde_json::json;
-    /// # let authorized_user = json!({
-    /// #     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
-    /// #     "client_secret": "YOUR_CLIENT_SECRET",
-    /// #     "refresh_token": "YOUR_REFRESH_TOKEN",
-    /// #     "type": "authorized_user",
-    /// # });
+    /// let authorized_user = json!({ /* add details here */ });
     /// let credentials = idtoken::user_account::Builder::new(authorized_user)
     ///     .with_token_uri("https://oauth2.example.com/token")
     ///     .build();
