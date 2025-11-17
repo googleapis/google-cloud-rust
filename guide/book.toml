@@ -21,3 +21,8 @@ src          = "src"
 
 [rust]
 edition = "2021"
+
+[output.html.redirect]
+"/endpoint.html" = "https://docs.cloud.google.com/rust/override-default-endpoint"
+"/credentials.html" = "https://docs.cloud.google.com/rust/override-default-authentication"
+"/logging.html" = "https://docs.cloud.google.com/rust/enable-logging"
