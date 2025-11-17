@@ -22,6 +22,8 @@ mod remaining_range;
 mod requested_range;
 mod resume_redirect;
 mod retry_redirect;
+mod stub;
+mod transport;
 mod worker;
 
 use crate::google::storage::v2::{BidiReadObjectRequest, BidiReadObjectResponse};
