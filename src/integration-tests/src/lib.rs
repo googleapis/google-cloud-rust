@@ -27,7 +27,6 @@ pub mod observability;
 pub mod pubsub;
 pub mod secret_manager;
 pub mod showcase;
-pub mod sql;
 pub mod storage;
 pub mod workflows;
 pub mod workflows_executions;

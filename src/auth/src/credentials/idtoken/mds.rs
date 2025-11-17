@@ -106,12 +106,32 @@ where
     }
 }
 
+/// Specifies what assertions are included in ID Tokens fetched from the Metadata Service.
+#[derive(Debug, Clone)]
+pub enum Format {
+    /// Omit project and instance details from the payload. It's the default value.
+    Standard,
+    /// Include project and instance details in the payload.
+    Full,
+    /// Use this variant to handle new values that are not yet known to this library.
+    UnknownValue(String),
+}
+
+impl Format {
+    fn as_str(&self) -> &str {
+        match self {
+            Format::Standard => "standard",
+            Format::Full => "full",
+            Format::UnknownValue(value) => value.as_str(),
+        }
+    }
+}
+
 /// Creates [`IDTokenCredentials`] instances that fetch ID tokens from the
 /// metadata service.
-#[derive(Debug, Default)]
 pub struct Builder {
     endpoint: Option<String>,
-    format: Option<String>,
+    pub(crate) format: Option<Format>,
     licenses: Option<String>,
     target_audience: String,
 }
@@ -147,8 +167,8 @@ impl Builder {
     /// from the payload. The default value is `standard`.
     ///
     /// [format]: https://cloud.google.com/compute/docs/instances/verifying-instance-identity#token_format
-    pub fn with_format<S: Into<String>>(mut self, format: S) -> Self {
-        self.format = Some(format.into());
+    pub fn with_format(mut self, format: Format) -> Self {
+        self.format = Some(format);
         self
     }
 
@@ -205,7 +225,7 @@ impl Builder {
 #[derive(Debug, Clone, Default)]
 struct MDSTokenProvider {
     endpoint: String,
-    format: Option<String>,
+    format: Option<Format>,
     licenses: Option<String>,
     target_audience: String,
 }
@@ -222,8 +242,9 @@ impl TokenProvider for MDSTokenProvider {
                 HeaderValue::from_static(METADATA_FLAVOR_VALUE),
             )
             .query(&[("audience", audience)]);
+
         let request = self.format.iter().fold(request, |builder, format| {
-            builder.query(&[("format", format)])
+            builder.query(&[("format", format.as_str())])
         });
         let request = self.licenses.iter().fold(request, |builder, licenses| {
             builder.query(&[("licenses", licenses)])
@@ -259,21 +280,25 @@ mod tests {
     use reqwest::StatusCode;
     use scoped_env::ScopedEnv;
     use serial_test::{parallel, serial};
+    use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
 
     #[tokio::test]
+    #[test_case(Format::Standard)]
+    #[test_case(Format::Full)]
+    #[test_case(Format::UnknownValue("minimal".to_string()))]
     #[parallel]
-    async fn test_idtoken_builder_build() -> TestResult {
+    async fn test_idtoken_builder_build(format: Format) -> TestResult {
         let server = Server::run();
         let audience = "test-audience";
-        let format = "format";
         let token_string = generate_test_id_token(audience);
+        let format_str = format.as_str().to_string();
         server.expect(
             Expectation::matching(all_of![
                 request::path(format!("{MDS_DEFAULT_URI}/identity")),
                 request::query(url_decoded(contains(("audience", audience)))),
-                request::query(url_decoded(contains(("format", format)))),
+                request::query(url_decoded(contains(("format", format_str)))),
                 request::query(url_decoded(contains(("licenses", "TRUE"))))
             ])
             .respond_with(status_code(200).body(token_string.clone())),

@@ -17,7 +17,7 @@ specification-source = 'google/cloud/asset/v1'
 service-config = 'google/cloud/asset/v1/cloudasset_v1.yaml'
 
 [codec]
-version        = '1.1.0'
+version        = '1.1.1'
 copyright-year = '2025'
 'package:accesscontextmanager_v1' = 'package=google-cloud-identity-accesscontextmanager-v1,source=google.identity.accesscontextmanager.v1'
 'package:orgpolicy_v1' = 'package=google-cloud-orgpolicy-v1,source=google.cloud.orgpolicy.v1'

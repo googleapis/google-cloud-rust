@@ -534,7 +534,7 @@ pub mod unstable {
     use super::*;
     use auth::credentials::idtoken::{
         Builder as IDTokenCredentialBuilder, impersonated::Builder as ImpersonatedIDTokenBuilder,
-        mds::Builder as IDTokenMDSBuilder,
+        mds::Builder as IDTokenMDSBuilder, mds::Format,
         service_account::Builder as ServiceAccountIDTokenBuilder,
         verifier::Builder as VerifierBuilder,
     };
@@ -557,7 +557,7 @@ pub mod unstable {
 
         // Only works when running on an env that has MDS.
         let id_token_creds = IDTokenMDSBuilder::new(audience)
-            .with_format("full")
+            .with_format(Format::Full)
             .build()
             .expect("failed to create id token credentials");
 
@@ -566,7 +566,7 @@ pub mod unstable {
             .await
             .expect("failed to get id token");
 
-        let verifier = VerifierBuilder::new(audience)
+        let verifier = VerifierBuilder::new([audience])
             .with_email(expected_email)
             .build();
 
@@ -575,20 +575,34 @@ pub mod unstable {
         Ok(())
     }
 
-    pub async fn id_token_adc() -> anyhow::Result<()> {
+    pub async fn id_token_adc(with_impersonation: bool) -> anyhow::Result<()> {
         let (project, adc_json) = get_project_and_service_account().await?;
+        let mut source_sa_json: serde_json::Value = serde_json::from_slice(&adc_json)?;
+
+        let mut expected_email = format!("test-sa-creds@{project}.iam.gserviceaccount.com");
+        let target_audience = "https://example.com";
+
+        if with_impersonation {
+            let target_principal_email =
+                format!("impersonation-target@{project}.iam.gserviceaccount.com");
+            source_sa_json = serde_json::json!({
+                "type": "impersonated_service_account",
+                "service_account_impersonation_url": format!("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{target_principal_email}:generateAccessToken"),
+                "source_credentials": source_sa_json,
+            });
+            expected_email = target_principal_email;
+        }
 
         // Write the ADC to a temporary file
         let file = tempfile::NamedTempFile::new().unwrap();
         let path = file.into_temp_path();
-        std::fs::write(&path, adc_json).expect("Unable to write to temporary file.");
-
-        let expected_email = format!("test-sa-creds@{project}.iam.gserviceaccount.com");
-        let target_audience = "https://example.com";
+        std::fs::write(&path, source_sa_json.to_string())
+            .expect("Unable to write to temporary file.");
 
         // Create credentials for the principal under test.
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
         let id_token_creds = IDTokenCredentialBuilder::new(target_audience)
+            .with_include_email()
             .build()
             .expect("failed to create id token credentials");
 
@@ -597,7 +611,7 @@ pub mod unstable {
             .await
             .expect("failed to get id token");
 
-        let verifier = VerifierBuilder::new(target_audience)
+        let verifier = VerifierBuilder::new([target_audience])
             .with_email(expected_email)
             .build();
 
@@ -623,7 +637,7 @@ pub mod unstable {
             .await
             .expect("failed to get id token");
 
-        let verifier = VerifierBuilder::new(target_audience)
+        let verifier = VerifierBuilder::new([target_audience])
             .with_email(expected_email)
             .build();
 
@@ -646,7 +660,7 @@ pub mod unstable {
             &target_principal_email,
             source_sa_creds,
         )
-        .with_include_email(true)
+        .with_include_email()
         .build()
         .expect("failed to setup id token credentials");
 
@@ -655,7 +669,7 @@ pub mod unstable {
             .await
             .expect("failed to generate id token");
 
-        let verifier = VerifierBuilder::new(target_audience)
+        let verifier = VerifierBuilder::new([target_audience])
             .with_email(target_principal_email)
             .build();
 

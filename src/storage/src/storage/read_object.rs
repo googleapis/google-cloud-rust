@@ -61,7 +61,7 @@ use gaxi::http::map_send_error;
 ///     Ok(())
 /// }
 /// ```
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct ReadObject<S = crate::storage::transport::Storage>
 where
     S: crate::storage::stub::Storage + 'static,
@@ -69,6 +69,19 @@ where
     stub: std::sync::Arc<S>,
     request: crate::model::ReadObjectRequest,
     options: RequestOptions,
+}
+
+impl<S> Clone for ReadObject<S>
+where
+    S: crate::storage::stub::Storage + 'static,
+{
+    fn clone(&self) -> Self {
+        Self {
+            stub: self.stub.clone(),
+            request: self.request.clone(),
+            options: self.options.clone(),
+        }
+    }
 }
 
 impl<S> ReadObject<S>
@@ -601,6 +614,23 @@ mod tests {
             options: builder.options,
         };
         reader.http_request_builder().await
+    }
+
+    #[tokio::test]
+    async fn test_clone() {
+        let inner = test_inner_client(test_builder());
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let options = {
+            let mut o = RequestOptions::new();
+            o.set_resumable_upload_threshold(12345_usize);
+            o
+        };
+        let builder = ReadObject::new(stub, "projects/_/buckets/bucket", "object", options);
+
+        let clone = builder.clone();
+        assert!(Arc::ptr_eq(&clone.stub, &builder.stub));
+        assert_eq!(clone.request, builder.request);
+        assert_eq!(clone.options.resumable_upload_threshold(), 12345_usize);
     }
 
     // Verify `read_object()` meets normal Send, Sync, requirements.

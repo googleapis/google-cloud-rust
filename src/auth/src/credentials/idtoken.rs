@@ -60,7 +60,7 @@
 //! # use google_cloud_auth::credentials::idtoken;
 //! # use std::time::Duration;
 //! let audience = "https://my-service.a.run.app";
-//! let verifier = idtoken::verifier::Builder::new(audience).build();
+//! let verifier = idtoken::verifier::Builder::new([audience]).build();
 //!
 //! async fn verify_id_token(token: &str) -> anyhow::Result<()> {
 //!     let claims = verifier.verify(token).await?;
@@ -180,6 +180,7 @@ pub(crate) mod dynamic {
 /// [AIP-4110]: https://google.aip.dev/auth/4110
 pub struct Builder {
     target_audience: String,
+    include_email: bool,
 }
 
 impl Builder {
@@ -193,7 +194,18 @@ impl Builder {
     pub fn new<S: Into<String>>(target_audience: S) -> Self {
         Self {
             target_audience: target_audience.into(),
+            include_email: false,
         }
+    }
+
+    /// Sets whether the ID token should include the `email` claim of the user in the token.
+    ///
+    /// For some credentials sources like Metadata Server and Impersonated Credentials, the default is
+    /// to not include the `email` claim. For other sources, they always include it.
+    /// This option is only relevant for credentials sources that do not include the `email` claim by default.
+    pub fn with_include_email(mut self) -> Self {
+        self.include_email = true;
+        self
     }
 
     /// Returns a [IDTokenCredentials] instance with the configured settings.
@@ -214,18 +226,44 @@ impl Builder {
             AdcContents::FallbackToMds => None,
         };
 
-        build_id_token_credentials(self.target_audience, json_data)
+        build_id_token_credentials(self.target_audience, self.include_email, json_data)
     }
+}
+enum IDTokenBuilder {
+    Mds(mds::Builder),
+    ServiceAccount(service_account::Builder),
+    Impersonated(impersonated::Builder),
 }
 
 fn build_id_token_credentials(
     audience: String,
+    include_email: bool,
     json: Option<Value>,
 ) -> BuildResult<IDTokenCredentials> {
+    let builder = build_id_token_credentials_internal(audience, include_email, json)?;
+    match builder {
+        IDTokenBuilder::Mds(builder) => builder.build(),
+        IDTokenBuilder::ServiceAccount(builder) => builder.build(),
+        IDTokenBuilder::Impersonated(builder) => builder.build(),
+    }
+}
+
+fn build_id_token_credentials_internal(
+    audience: String,
+    include_email: bool,
+    json: Option<Value>,
+) -> BuildResult<IDTokenBuilder> {
     match json {
         None => {
             // TODO(#3587): pass context that is being built from ADC flow.
-            mds::Builder::new(audience).with_format("full").build()
+            let format = if include_email {
+                mds::Format::Full
+            } else {
+                mds::Format::Standard
+            };
+            Ok(IDTokenBuilder::Mds(
+                mds::Builder::new(audience).with_format(format),
+            ))
         }
         Some(json) => {
             let cred_type = extract_credential_type(&json)?;
@@ -233,9 +271,17 @@ fn build_id_token_credentials(
                 "authorized_user" => Err(BuilderError::not_supported(format!(
                     "{cred_type}, use idtoken::user_account::Builder directly."
                 ))),
-                "service_account" => service_account::Builder::new(audience, json).build(),
+                "service_account" => Ok(IDTokenBuilder::ServiceAccount(
+                    service_account::Builder::new(audience, json),
+                )),
                 "impersonated_service_account" => {
-                    impersonated::Builder::new(audience, json).build()
+                    let builder = impersonated::Builder::new(audience, json);
+                    let builder = if include_email {
+                        builder.with_include_email()
+                    } else {
+                        builder
+                    };
+                    Ok(IDTokenBuilder::Impersonated(builder))
                 }
                 "external_account" => {
                     // never gonna be supported for id tokens
@@ -287,7 +333,9 @@ fn instant_from_epoch_seconds(secs: u64, now: SystemTime) -> Option<Instant> {
 pub(crate) mod tests {
     use super::*;
     use jsonwebtoken::{Algorithm, EncodingKey, Header};
+    use mds::Format;
     use rsa::pkcs1::EncodeRsaPrivateKey;
+    use serde_json::json;
     use serial_test::parallel;
     use std::collections::HashMap;
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
@@ -378,7 +426,7 @@ pub(crate) mod tests {
             "refresh_token": "test_refresh_token",
         });
 
-        let result = build_id_token_credentials(audience, Some(json));
+        let result = build_id_token_credentials(audience, false, Some(json));
         assert!(result.is_err());
         let err = result.unwrap_err();
         assert!(err.is_not_supported());
@@ -406,7 +454,7 @@ pub(crate) mod tests {
             }
         });
 
-        let result = build_id_token_credentials(audience, Some(json));
+        let result = build_id_token_credentials(audience, false, Some(json));
         assert!(result.is_err());
         let err = result.unwrap_err();
         assert!(err.is_not_supported());
@@ -422,11 +470,72 @@ pub(crate) mod tests {
             "type": "unknown_credential_type",
         });
 
-        let result = build_id_token_credentials(audience, Some(json));
+        let result = build_id_token_credentials(audience, false, Some(json));
         assert!(result.is_err());
         let err = result.unwrap_err();
         assert!(err.is_unknown_type());
         assert!(err.to_string().contains("unknown_credential_type"));
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_build_id_token_include_email_mds() -> TestResult {
+        let audience = "test_audience".to_string();
+
+        // Test with include_email = true and no source credentials (MDS Fallback)
+        let creds = build_id_token_credentials_internal(audience.clone(), true, None)?;
+        assert!(matches!(creds, IDTokenBuilder::Mds(_)));
+        if let IDTokenBuilder::Mds(builder) = creds {
+            assert!(matches!(builder.format, Some(Format::Full)));
+        }
+
+        // Test with include_email = false and no source credentials (MDS Fallback)
+        let creds = build_id_token_credentials_internal(audience.clone(), false, None)?;
+        assert!(matches!(creds, IDTokenBuilder::Mds(_)));
+        if let IDTokenBuilder::Mds(builder) = creds {
+            assert!(matches!(builder.format, Some(Format::Standard)));
+        }
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_build_id_token_include_email_impersonated() -> TestResult {
+        let audience = "test_audience".to_string();
+        let json = json!({
+            "type": "impersonated_service_account",
+            "source_credentials": {
+                "type": "service_account",
+                "project_id": "test-project",
+                "private_key_id": "test-key-id",
+                "private_key": "-----BEGIN PRIVATE KEY-----\n-----END PRIVATE KEY-----",
+                "client_email": "source@test-project.iam.gserviceaccount.com",
+                "client_id": "test-client-id",
+                "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+                "token_uri": "https://oauth2.googleapis.com/token",
+                "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+                "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/source%40test-project.iam.gserviceaccount.com"
+            },
+            "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/target@test-project.iam.gserviceaccount.com:generateIdToken"
+        });
+
+        // Test with include_email = true and impersonated source credentials
+        let creds =
+            build_id_token_credentials_internal(audience.clone(), true, Some(json.clone()))?;
+        assert!(matches!(creds, IDTokenBuilder::Impersonated(_)));
+        if let IDTokenBuilder::Impersonated(builder) = creds {
+            assert_eq!(builder.include_email, Some(true));
+        }
+
+        // Test with include_email = false and impersonated source credentials
+        let creds = build_id_token_credentials_internal(audience.clone(), false, Some(json))?;
+        assert!(matches!(creds, IDTokenBuilder::Impersonated(_)));
+        if let IDTokenBuilder::Impersonated(builder) = creds {
+            assert_eq!(builder.include_email, None);
+        }
+
         Ok(())
     }
 }

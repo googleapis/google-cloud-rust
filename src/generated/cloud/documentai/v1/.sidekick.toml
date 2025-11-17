@@ -17,5 +17,5 @@ specification-source = 'google/cloud/documentai/v1'
 service-config = 'google/cloud/documentai/v1/documentai_v1.yaml'
 
 [codec]
-version        = '1.3.0'
+version        = '1.3.1'
 copyright-year = '2025'

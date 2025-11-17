@@ -44,10 +44,12 @@ lro.workspace                     = true
 opentelemetry.workspace           = true
 opentelemetry_sdk.workspace       = true
 opentelemetry-otlp.workspace      = true
+opentelemetry-proto.workspace     = true
 rand                              = { workspace = true, features = ["thread_rng"] }
 serde_json.workspace              = true
 tokio                             = { workspace = true, features = ["process", "test-util"] }
-tonic.workspace                   = true
+tokio-stream                      = { workspace = true, features = ["net"] }
+tonic                             = { workspace = true, features = ["codegen", "router", "server", "transport"] }
 tracing.workspace                 = true
 tracing-opentelemetry.workspace   = true
 tracing-subscriber                = { workspace = true, features = ["env-filter", "fmt", "std"] }
@@ -96,10 +98,6 @@ path    = "../../src/generated/cloud/secretmanager/v1"
 package = "secretmanager-openapi-v1"
 path    = "../../src/generated/openapi-validation"
 
-[dependencies.sql]
-package = "google-cloud-sql-v1"
-path    = "../../src/generated/cloud/sql/v1"
-
 [dependencies.storage]
 package  = "google-cloud-storage"
 path     = "../../src/storage"
@@ -131,6 +129,8 @@ serde_with.workspace        = true
 static_assertions.workspace = true
 test-case.workspace         = true
 tokio.workspace             = true
+tonic                       = { workspace = true, features = ["server", "transport"] }
+tower                       = { version = "0.5", features = ["util"] }
 
 [lints]
 workspace = true
