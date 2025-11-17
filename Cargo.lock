@@ -7547,6 +7547,7 @@ dependencies = [
  "integration-tests",
  "mockall",
  "rand 0.9.2",
+ "reqwest",
  "serde_json",
  "storage-samples",
  "tempfile",
