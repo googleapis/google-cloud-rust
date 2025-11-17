@@ -486,7 +486,7 @@ macro_rules! config_signer {
             .into_iter()
             .fold(builder, |b, s| $apply_scopes_closure(b, s));
 
-        builder.signer()
+        builder.build_signer()
     }};
 }
 

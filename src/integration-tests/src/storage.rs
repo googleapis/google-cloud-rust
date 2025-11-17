@@ -92,8 +92,8 @@ pub async fn signed_urls(
     //let creds = auth::credentials::mds::Builder::default().build()?;
     let client = builder.build().await?;
 
-    // let signer = auth::credentials::mds::Builder::default().signer()?;
-    let signer = auth::credentials::Builder::default().signer()?;
+    // let signer = auth::credentials::mds::Builder::default().build_signer()?;
+    let signer = auth::credentials::Builder::default().build_signer()?;
 
     const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
     let insert = client
