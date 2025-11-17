@@ -43,7 +43,6 @@ locals {
       config = "integration.yaml"
       flags = join(" ", [
         "--cfg google_cloud_unstable_tracing",
-        "--cfg google_cloud_unstable_id_token",
         "--cfg google_cloud_unstable_signed_url",
         "--cfg google_cloud_unstable_storage_bidi"
       ])
@@ -58,7 +57,6 @@ locals {
       config = "integration.yaml"
       flags = join(" ", [
         "--cfg google_cloud_unstable_tracing",
-        "--cfg google_cloud_unstable_id_token",
         "--cfg google_cloud_unstable_signed_url",
         "--cfg google_cloud_unstable_storage_bidi"
       ])

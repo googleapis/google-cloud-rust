@@ -373,7 +373,6 @@ impl std::fmt::Debug for UserTokenProvider {
 }
 
 impl UserTokenProvider {
-    #[cfg(google_cloud_unstable_id_token)]
     pub(crate) fn new_id_token_provider(
         authorized_user: AuthorizedUser,
         token_uri: Option<String>,
