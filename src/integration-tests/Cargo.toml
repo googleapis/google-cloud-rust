@@ -130,7 +130,7 @@ static_assertions.workspace = true
 test-case.workspace         = true
 tokio.workspace             = true
 tonic                       = { workspace = true, features = ["server", "transport"] }
-tower                       = { version = "0.4", features = ["util"] }
+tower                       = { version = "0.5", features = ["util"] }
 
 [lints]
 workspace = true
