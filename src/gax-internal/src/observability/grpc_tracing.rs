@@ -99,13 +99,7 @@ where
 {
     type Response = S::Response;
     type Error = S::Error;
-    // We use `Box<dyn Future...>` (type erasure) here to simplify the type signature.
-    // Without this, we would need to explicitly name the complex type returned by
-    // `.instrument()` (and any implementation changes in `call`), which can be verbose and brittle.
-    //
-    // The allocation cost is negligible as `call` is invoked once per RPC (or stream initialization),
-    // not per message in a streaming call.
-    type Future = Pin<Box<dyn Future<Output = Result<Self::Response, Self::Error>> + Send>>;
+    type Future = ResponseFuture<S::Future>;
 
     fn poll_ready(&mut self, cx: &mut Context<'_>) -> Poll<Result<(), Self::Error>> {
         self.inner.poll_ready(cx)
@@ -115,10 +109,10 @@ where
         let attempt_count = req.extensions().get::<AttemptCount>().map(|a| a.0);
         let span = create_grpc_span(req.uri(), &self.layer.inner, attempt_count);
         let future = self.inner.call(req);
-        Box::pin(ResponseFuture {
+        ResponseFuture {
             inner: future,
             span,
-        })
+        }
     }
 }
 
@@ -140,6 +134,8 @@ where
     fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         let this = self.project();
         let _guard = this.span.enter();
+
+        // Note: `futures_util::ready!` will immediately return `Poll::Pending` if the future is not ready.
         let result = futures_util::ready!(this.inner.poll(cx));
 
         match &result {
@@ -151,24 +147,29 @@ where
 }
 
 fn record_response_status<ResBody>(span: &tracing::Span, response: &http::Response<ResBody>) {
-    match tonic::Status::from_header_map(response.headers()) {
-        Some(status) => {
-            let code = status.code();
-            span.record(otel_attr::RPC_GRPC_STATUS_CODE, i32::from(code) as i64);
-            if code != tonic::Code::Ok {
-                span.record(OTEL_STATUS_CODE, otel_status_codes::ERROR);
-                let gax_error = crate::grpc::from_status::to_gax_error(status);
-                span.record(
-                    otel_trace::ERROR_TYPE,
-                    ErrorType::from_gax_error(&gax_error).as_str(),
-                );
-            }
-        }
-        None => {
-            // If grpc-status is missing but we got a response, assume OK (0)
-            // This happens for successful unary calls where status is in trailers,
-            // but for now we only check headers.
-            span.record(otel_attr::RPC_GRPC_STATUS_CODE, 0_i64);
+    // Check for "OK" status (missing or "0") directly to avoid
+    // the potential overhead of `tonic::Status::from_header_map` (parsing, decoding) in the success path.
+    if response
+        .headers()
+        .get("grpc-status")
+        .map_or(true, |v| v == "0")
+    {
+        span.record(otel_attr::RPC_GRPC_STATUS_CODE, 0_i64);
+        return;
+    }
+
+    // This is also (eventually) called in Tonic before returning a result in the API, but it's important to
+    // include any error information inside the span (with API-level detail).
+    if let Some(status) = tonic::Status::from_header_map(response.headers()) {
+        let code = status.code();
+        span.record(otel_attr::RPC_GRPC_STATUS_CODE, i32::from(code) as i64);
+        if code != tonic::Code::Ok {
+            span.record(OTEL_STATUS_CODE, otel_status_codes::ERROR);
+            let gax_error = crate::grpc::from_status::to_gax_error(status);
+            span.record(
+                otel_trace::ERROR_TYPE,
+                ErrorType::from_gax_error(&gax_error).as_str(),
+            );
         }
     }
 }
