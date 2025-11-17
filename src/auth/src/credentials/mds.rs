@@ -350,7 +350,7 @@ impl crate::signer::SigningProvider for MDSCredentialsSigner {
         Ok(client_email)
     }
 
-    async fn sign(&self, content: &str) -> crate::signer::Result<String> {
+    async fn sign(&self, content: &[u8]) -> crate::signer::Result<String> {
         // TODO: not efficient at all, recreating CredentialSigner and refetching email
         let client_email = self.client_email().await?;
 

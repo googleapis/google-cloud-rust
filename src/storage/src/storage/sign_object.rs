@@ -159,7 +159,7 @@ mod tests {
             Ok("test@example.com".to_string())
         }
 
-        async fn sign(&self, _content: &str) -> auth::signer::Result<String> {
+        async fn sign(&self, _content: &[u8]) -> auth::signer::Result<String> {
             Ok("test-signature".to_string())
         }
     }
