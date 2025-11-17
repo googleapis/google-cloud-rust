@@ -16,6 +16,9 @@
 specification-source = 'google/devtools/cloudtrace/v1'
 service-config = 'google/devtools/cloudtrace/v1/cloudtrace_v1.yaml'
 
+[source]
+title-override = 'Cloud Trace API'
+
 [codec]
 version        = '1.0.0'
 copyright-year = '2025'
