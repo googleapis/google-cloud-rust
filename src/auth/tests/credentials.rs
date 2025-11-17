@@ -14,7 +14,6 @@
 
 #[cfg(test)]
 mod tests {
-    use super::tests::*;
     use google_cloud_auth::credentials::EntityTag;
     use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
     use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
