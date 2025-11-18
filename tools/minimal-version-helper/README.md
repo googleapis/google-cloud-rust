@@ -74,3 +74,8 @@ steps:
    ```bash
    cargo run -p minimal-version-helper -- revert
    ```
+
+## Why not use Go?
+
+Normally all tools are written in Go, but this needs to access the `crates.io`
+API, and the Cargo metadata. There are good Rust crates to build such a tool.
