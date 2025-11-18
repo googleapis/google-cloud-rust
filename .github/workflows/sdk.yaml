@@ -464,7 +464,7 @@ jobs:
           set -e
           rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
           rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-          cargo install mdbook@0.4.52
+          cargo install mdbook --version ^0.5 --locked
       - name: Display Cargo version
         run: cargo version
       - name: Display rustc version
