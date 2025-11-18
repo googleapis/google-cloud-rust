@@ -29,7 +29,7 @@ struct Cli {
 enum Commands {
     /// Prepares the CI environment by removing path dependencies, checking versions,
     /// and generating a minimal patch file for unpublished crates.
-    Prep {
+    Prepare {
         /// Backup changed files so they can be restored by running `revert` after testing.
         #[arg(long)]
         local: bool,
@@ -41,7 +41,7 @@ enum Commands {
 fn main() -> Result<()> {
     let cli = Cli::parse();
     match cli.command {
-        Commands::Prep { local } => prep(local),
+        Commands::Prepare { local } => prep(local),
         Commands::Revert => revert(),
     }
 }
@@ -82,9 +82,9 @@ fn prep(is_local: bool) -> Result<()> {
     let mut path_deps = HashMap::new();
     if let Some(deps) = root_manifest
         .get_mut("workspace")
-        .and_then(|i| i.as_table_mut())
-        .and_then(|w| w.get_mut("dependencies"))
-        .and_then(|i| i.as_table_like_mut())
+        .and_then(|w| w.as_table_like_mut())
+        .and_then(|wt| wt.get_mut("dependencies"))
+        .and_then(|d| d.as_table_like_mut())
     {
         for (key, value) in deps.iter_mut() {
             if let Some(dep_table) = value.as_table_like_mut() {
@@ -99,45 +99,42 @@ fn prep(is_local: bool) -> Result<()> {
                         Package {
                             version: dep_table
                                 .get("version")
-                                .and_then(|v| v.as_str())
+                                .unwrap()
+                                .as_str()
                                 .unwrap()
                                 .to_string(),
-                            path: dep_table
-                                .get("path")
-                                .and_then(|v| v.as_str())
-                                .unwrap()
-                                .to_string(),
+                            path: dep_table.get("path").unwrap().as_str().unwrap().to_string(),
                         },
                     );
-                    // Remove from the toml.
+                    // Remove path from the Cargo.toml.
                     dep_table.remove("path");
                 }
             }
         }
     }
 
-    // 4. Overwrite Cargo.toml with the cleaned version
+    // 4. Overwrite Cargo.toml with the cleaned version.
     fs::write(&root_manifest_path, root_manifest.to_string())?;
     println!("Removed path dependencies from Cargo.toml");
 
-    // 5. Generate Minimal Patch File for unpublished crates
+    // 5. Generate a Patch File for unpublished crates
     println!("Querying crates.io for unpublished crates...");
     let client = crates_io_api::SyncClient::new(
         "google-cloud-rust-ci (https://github.com/googleapis/google-cloud-rust)",
         std::time::Duration::from_millis(1000),
     )?;
+
     let mut patch_content = String::new();
     let mut patched = Vec::new();
     for (name, Package { version, path }) in &path_deps {
-        let local_version = VersionReq::parse(version)?;
-        match client.get_crate(&name) {
+        let required = VersionReq::parse(version)?;
+        match client.get_crate(name) {
             Ok(crate_info) => {
                 if !crate_info.versions.iter().any(|v| {
-                    Version::parse(&v.num)
-                        .map_or(false, |remote_v| local_version.matches(&remote_v))
+                    Version::parse(&v.num).is_ok_and(|remote_v| required.matches(&remote_v))
                 }) {
                     println!("Found unpublished crate: {} v{}", name, version);
-                    patched.push(name.clone());
+                    patched.push(name);
                     patch_content.push_str(&format!("{} = {{ path = \"{}\" }}\n", name, path));
                 }
             }
@@ -148,58 +145,73 @@ fn prep(is_local: bool) -> Result<()> {
             }
         }
     }
-
     if !patch_content.is_empty() {
         let config_path = metadata.workspace_root.join(".cargo/config.toml");
         fs::create_dir_all(config_path.parent().unwrap())?;
         let final_content = format!("[patch.crates-io]\n{}", patch_content);
         fs::write(&config_path, final_content)?;
+        if is_local {
+            let sentinel_path = config_path.with_extension("toml.generated");
+            fs::write(&sentinel_path, "")?;
+        }
         println!("Generated .cargo/config.toml with patches for unpublished crates.");
-        // Create sentinel file
-        let sentinel_path = config_path.with_extension("toml.generated");
-        fs::write(&sentinel_path, "")?;
     } else {
         println!("No unpublished crates found to patch.");
     }
 
-    // 6. Perform Version Consistency Check using the initial metadata
+    // 6. Perform Version Consistency Check for patched crates.
     println!("Checking for version consistency for patched crates...");
     let workspace_packages = metadata.workspace_packages();
     for package_name in patched {
-        let root_metadata = path_deps.get(&package_name).unwrap();
+        let root_metadata = path_deps.get(package_name).unwrap();
         let root_version = &root_metadata.version;
 
         let package_metadata = workspace_packages
             .iter()
-            .find(|p| p.name == package_name)
+            .find(|p| p.name == *package_name)
             .unwrap();
         let package_version = &package_metadata.version;
 
-        let is_match = if package_version.patch == 0 {
-            // If patch is 0, root version can be x.y or x.y.0
-            let major_minor = format!("{}.{}", package_version.major, package_version.minor);
+        // Determine if the version in the root Cargo.toml matches
+        // the updated version. If we are patching the crate, we want
+        // newly published crates to depend on this version. We want to
+        // make sure it is the minimum version (without requiring more
+        // specificity than necessary).
+        //
+        // Examples:
+        //
+        // Patch version requirement, must match exactly
+        // - Cargo.toml = 1.4.1, package = 1.4.1 => true
+        // - Cargo.toml = 1.4.1, package = 1.4.2 => false
+        // Minor version requirement, patch is zero.
+        // - Cargo.toml = 1.4, package = 1.4.0 => true
+        // - Cargo.toml = 1.4, package = 1.4.1 => false
+        // Major version requirement, minor and patch are zero.
+        // - Cargo.toml = 2, package = 2.0.0 => true
+        // - Cargo.toml = 2, package = 2.0.1 => false
+        let mut valid_root_versions = Vec::new();
+
+        // Always allow the full version string (e.g., "1.2.3")
+        valid_root_versions.push(package_version.to_string());
+        if package_version.patch == 0 {
+            // If patch is 0, allow "x.y" (e.g., "1.2" for "1.2.0")
+            valid_root_versions.push(format!(
+                "{}.{}",
+                package_version.major, package_version.minor
+            ));
 
             if package_version.minor == 0 {
-                // If minor is 0, root version can also be x.
-                let major = format!("{}", package_version.major);
-                root_version == &major
-                    || root_version == &major_minor
-                    || root_version == &package_version.to_string()
-            } else {
-                root_version == &major_minor || root_version == &package_version.to_string()
+                // If minor is also 0, allow "x" (e.g., "1" for "1.0.0")
+                valid_root_versions.push(format!("{}", package_version.major));
             }
-        } else {
-            // If patch is not 0, root version must be x.y.z
-            root_version == &package_version.to_string()
-        };
-
-        if !is_match {
+        }
+        if !valid_root_versions.contains(root_version) {
             bail!(
-                    "Version mismatch for {}: workspace version is '{}', but crate version is '{}'. This is not a match as per project conventions.",
-                    package_name,
-                    package_version,
-                    package_version
-                );
+                "Version mismatch for {}: workspace version is '{}', but crate version is '{}'.",
+                package_name,
+                root_version,
+                package_version
+            );
         }
     }
     println!("Version consistency check passed.");

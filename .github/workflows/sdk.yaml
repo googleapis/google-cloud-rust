@@ -244,8 +244,6 @@ jobs:
     strategy:
       matrix:
         rust-version: ['rust:current']
-    env:
-      RUSTFLAGS: *unstable_cfgs
     steps:
       - uses: actions/checkout@v5
       - uses: actions/cache@v4
@@ -269,17 +267,22 @@ jobs:
           cargo minimal-versions check --package google-cloud-storage
           cargo minimal-versions test --package google-cloud-gax-internal
           cargo minimal-versions check --package google-cloud-gax-internal
-      - name: Run prep
+      - name: Prepare workspace to run minimal version tool.
         run: |
           set -e
-          cargo build --release --bin minimal-version-helper
-          cargo run --release --bin minimal-version-helper prep
+          cargo run --release --bin minimal-version-helper prepare
       - run: |
           set -e
+          cargo minimal-versions test --package integration-tests
+          cargo minimal-versions test --package user-guide-samples
+          cargo minimal-versions test --package storage-samples
+          cargo minimal-versions test --package pubsub-samples
           cargo minimal-versions test --package google-cloud-storage
           cargo minimal-versions check --package google-cloud-storage
-          cargo minimal-versions test --package google-cloud-gax-internal
           cargo minimal-versions check --package google-cloud-gax-internal
+          cargo minimal-versions check --package google-cloud-auth
+          cargo minimal-versions check --package google-cloud-gax
+          cargo minimal-versions check --package google-cloud-wkt
 
   semver-checks:
     runs-on: ubuntu-24.04
