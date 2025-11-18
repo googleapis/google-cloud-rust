@@ -34,6 +34,7 @@ default-members = [
   "src/storage",
   "src/wkt",
   "tools/check-copyright",
+  "tools/minimal-version-helper",
   # We need `cargo test` to run at least some documentation tests for generated
   # libraries. These libraries are implicitly required by the integration tests
   # and samples, so they are not too expensive to include in the default builds.
@@ -268,6 +269,7 @@ members = [
   "src/w1r3",
   "src/wkt",
   "tools/check-copyright",
+  "tools/minimal-version-helper",
 ]
 
 [workspace.package]
@@ -294,7 +296,9 @@ async-trait           = { default-features = false, version = "0.1.85" }
 base64                = { default-features = false, version = "0.22", features = ["std"] }
 bon                   = { default-features = false, version = "3.8" }
 bytes                 = { default-features = false, version = "1.10", features = ["serde"] }
+cargo_metadata        = { default-features = false, version = "0.18" }
 chrono                = { default-features = false, version = "0.4.42" }
+crates_io_api         = { default-features = false, version = "0.9.0" }
 clap                  = { default-features = false, version = "4" }
 crc32c                = { default-features = false, version = "0.6.8" }
 futures               = { default-features = false, version = "0.3" }
@@ -319,6 +323,7 @@ rand                  = { default-features = false, version = "0.9.2" }
 reqwest               = { default-features = false, version = "0.12.24", features = ["json"] }
 rustls                = { default-features = false, version = "0.23" }
 rustls-pemfile        = { default-features = false, version = "2" }
+semver                = { default-features = false, version = "1.0.21" }
 serde                 = { default-features = false, version = "1.0.228", features = ["serde_derive"] }
 serde_json            = { default-features = false, version = "1.0.132", features = ["std"] }
 serde_with            = { default-features = false, version = "3", features = ["base64", "macros", "std"] }
@@ -327,6 +332,7 @@ thiserror             = { default-features = false, version = "2" }
 time                  = { default-features = false, version = "0.3.44" }
 tokio                 = { default-features = false, version = "1" }
 tokio-metrics         = { default-features = false, version = "0.4.5" }
+toml_edit             = { default-features = false, version = "0.21" }
 tonic                 = { default-features = false, version = "0.14.1", features = ["tls-native-roots", "tls-ring"] }
 tonic-prost           = { default-features = false, version = "0.14.2" }
 tonic-prost-build     = { default-features = false, version = "0.14.1" }
