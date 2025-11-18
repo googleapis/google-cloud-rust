@@ -13,10 +13,10 @@
 # limitations under the License.
 
 [book]
-title        = "Google Cloud Client Libraries for Rust"
-authors      = ["Carlos O'Ryan"]
-language     = "en"
-src          = "src"
+title    = "Google Cloud Client Libraries for Rust"
+authors  = ["Carlos O'Ryan"]
+language = "en"
+src      = "src"
 
 [rust]
 edition = "2021"
