@@ -16,6 +16,7 @@ mod active_read;
 mod builder;
 mod connector;
 mod normalized_range;
+mod range_reader;
 mod redirect;
 mod remaining_range;
 mod requested_range;
