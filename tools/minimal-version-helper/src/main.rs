@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use anyhow::{bail, Result};
+use anyhow::{Result, bail};
 use clap::Parser;
 use semver::{Version, VersionReq};
 use std::{collections::HashMap, fs};
@@ -99,11 +99,16 @@ fn prep(is_local: bool) -> Result<()> {
                         Package {
                             version: dep_table
                                 .get("version")
-                                .unwrap()
+                                .expect("version key exists")
                                 .as_str()
-                                .unwrap()
+                                .expect("version value is a &str")
                                 .to_string(),
-                            path: dep_table.get("path").unwrap().as_str().unwrap().to_string(),
+                            path: dep_table
+                                .get("path")
+                                .expect("path key exists")
+                                .as_str()
+                                .expect("path value is a &str")
+                                .to_string(),
                         },
                     );
                     // Remove path from the Cargo.toml.
@@ -135,11 +140,13 @@ fn prep(is_local: bool) -> Result<()> {
                 }) {
                     println!("Found unpublished crate: {} v{}", name, version);
                     patched.push(name);
-                    patch_content.push_str(&format!("{} = {{ path = \"{}\" }}\n", name, path));
+                    patch_content.push_str(&format!(r#"{} = {{ path = "{}" }}\n"#, name, path));
                 }
             }
-            Err(_) => {
-                // If crate doesn't exist at all, it's unpublished
+            Err(e) => {
+                // If crate doesn't exist at all, it's unpublished.
+                // There are other errors besides NotFound we could get here, we should handle them.
+                eprintln!("Error downloading crate: {}", e);
                 println!("Found new crate: {} v{}", name, version);
                 patch_content.push_str(&format!("{} = {{ path = \"{}\" }}\n", name, path));
             }

@@ -15,13 +15,17 @@
 [package]
 name    = "minimal-version-helper"
 version = "0.0.0"
-edition = "2021"
 publish = false
+# Inherit other attributes from the workspace.
+edition.workspace    = true
+authors.workspace    = true
+license.workspace    = true
+repository.workspace = true
 
 [dependencies]
-anyhow         = "1.0.75"
-cargo_metadata = "0.18.0"
-clap           = { version = "4.4.8", features = ["derive"] }
-crates_io_api  = "0.9.0"
-semver         = "1.0.21"
-toml_edit      = "0.21.0"
+anyhow.workspace         = true
+cargo_metadata.workspace = true
+clap                     = { workspace = true, features = ["derive"] }
+crates_io_api            = { workspace = true, features = ["default"] }
+semver.workspace         = true
+toml_edit                = { workspace = true, features = ["display", "parse"] }
