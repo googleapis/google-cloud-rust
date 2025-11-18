@@ -16,7 +16,6 @@
 title        = "Google Cloud Client Libraries for Rust"
 authors      = ["Carlos O'Ryan"]
 language     = "en"
-multilingual = false
 src          = "src"
 
 [rust]
