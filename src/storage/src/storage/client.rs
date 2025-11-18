@@ -225,20 +225,6 @@ where
     {
         ReadObject::new(self.stub.clone(), bucket, object, self.options.clone())
     }
-
-    #[cfg(google_cloud_unstable_signed_url)]
-    pub fn signed_url<B, O>(
-        &self,
-        signer: auth::signer::Signer,
-        bucket: B,
-        object: O,
-    ) -> crate::builder::storage::SignObject
-    where
-        B: Into<String>,
-        O: Into<String>,
-    {
-        crate::builder::storage::SignObject::new(signer, bucket.into(), object.into())
-    }
 }
 
 impl Storage {

@@ -21,26 +21,32 @@ use std::collections::BTreeMap;
 use url::form_urlencoded;
 
 /// A builder for creating signed URLs.
-pub struct SignObject {
-    signer: Signer,
+pub struct SignedUrlBuilder {
     bucket: String,
     object: String,
     method: String,
     expiration: std::time::Duration,
     headers: BTreeMap<&'static str, String>,
     query_parameters: BTreeMap<&'static str, String>,
+    endpoint: String,
+    client_email: Option<String>,
 }
 
-impl SignObject {
-    pub(crate) fn new(signer: Signer, bucket: String, object: String) -> Self {
+impl SignedUrlBuilder {
+    pub fn new<B, O>(bucket: B, object: O) -> Self
+    where
+        B: Into<String>,
+        O: Into<String>,
+    {
         Self {
-            signer,
-            bucket,
-            object,
+            bucket: bucket.into(),
+            object: object.into(),
             method: "GET".to_string(),
             expiration: std::time::Duration::from_secs(7 * 24 * 60 * 60), // 7 days
             headers: BTreeMap::new(),
             query_parameters: BTreeMap::new(),
+            endpoint: "https://storage.googleapis.com".to_string(),
+            client_email: None,
         }
     }
 
@@ -69,19 +75,40 @@ impl SignObject {
         self
     }
 
-    /// Generates the signed URL.
-    pub async fn send(self) -> Result<String> {
+    /// Sets the endpoint for the signed URL. Default is "https://storage.googleapis.com".
+    pub fn with_endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
+        self.endpoint = endpoint.into();
+        self
+    }
+
+    /// Sets the client email for the signed URL.
+    /// If not set, the email will be fetched from the signer.
+    pub fn with_client_email<S: Into<String>>(mut self, client_email: S) -> Self {
+        self.client_email = Some(client_email.into());
+        self
+    }
+
+    /// Generates the signed URL using the provided signer.
+    pub async fn sign_with(self, signer: &Signer) -> Result<String> {
         let canonical_uri = format!("/{}", self.object); // TODO: escape object name
 
         let now = Utc::now();
         let request_timestamp = now.format("%Y%m%dT%H%M%SZ").to_string();
         let datestamp = now.format("%Y%m%d");
         let credential_scope = format!("{datestamp}/auto/storage/goog4_request");
-        let client_email = self.signer.client_email().await.map_err(Error::io)?; // TODO map to proper error
+        let client_email = if let Some(email) = self.client_email {
+            email
+        } else {
+            signer.client_email().await.map_err(Error::io)? // TODO map to proper error
+        };
         let credential = format!("{client_email}/{credential_scope}");
 
+        let endpoint_url = url::Url::parse(&self.endpoint).map_err(Error::io)?; // TODO map to proper error
+        let endpoint_host = endpoint_url
+            .host_str()
+            .ok_or(Error::io("Invalid endpoint URL"))?; // TODO map to proper error
         let bucket_name = self.bucket.trim_start_matches("projects/_/buckets/");
-        let host = format!("{}.storage.googleapis.com", bucket_name);
+        let host = format!("{}.{}", bucket_name, endpoint_host);
 
         let mut headers = self.headers;
         headers.insert("host", host.clone());
@@ -129,13 +156,13 @@ impl SignObject {
         ]
         .join("\n");
 
-        let signature = self
-            .signer
+        let signature = signer
             .sign(string_to_sign.as_str())
             .await
             .map_err(Error::io)?; // TODO map to proper error
 
-        let scheme_and_host = format!("https://{}", host);
+        let scheme_and_host = format!("{}://{}", endpoint_url.scheme(), host);
+
         let signed_url = format!(
             "{}{}?{}&x-goog-signature={}",
             scheme_and_host, canonical_uri, canonical_query_string, signature
@@ -167,11 +194,11 @@ mod tests {
     #[tokio::test]
     async fn test_signed_url_generation() {
         let signer = Signer::from(MockSigner);
-        let url = SignObject::new(signer, "test-bucket".to_string(), "test-object".to_string())
+        let url = SignedUrlBuilder::new("test-bucket", "test-object")
             .with_method("PUT")
             .with_expiration(std::time::Duration::from_secs(3600))
             .with_header("x-goog-meta-test", "value")
-            .send()
+            .sign_with(&signer)
             .await
             .unwrap();
 
