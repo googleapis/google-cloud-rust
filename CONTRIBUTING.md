@@ -40,7 +40,7 @@ to the following guidelines when choosing a commit type:
 
 - **`fix(...)`**: Use this for bug fixes in released code only.
 
-- **`docs(...)`**: For changes to documentation only.
+- **`docs(...)`**: For changes to public documentation only.
 
 - **`impl(...)`**: Use this for new features or functionality that are purely
   implementation details and not directly visible to the end-user.
@@ -50,6 +50,9 @@ to the following guidelines when choosing a commit type:
 
 - **`cleanup(...)`**: For routine code maintenance, such as removing unused code
   or fixing linter warnings.
+
+- **`test(...)`**: For improvements to tests, deflaking tests, and fixes to the
+  tests themselves.
 
 - **`ci(...)`**: For changes to our CI configuration and scripts.
 
