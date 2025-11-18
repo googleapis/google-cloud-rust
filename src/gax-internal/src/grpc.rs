@@ -38,7 +38,7 @@ pub type GrpcService = tonic::transport::Channel;
 #[cfg(google_cloud_unstable_tracing)]
 pub type GrpcService = tower::util::Either<
     crate::observability::grpc_tracing::TracingTowerService<tonic::transport::Channel>,
-    tonic::transport::Channel,
+    crate::observability::grpc_tracing::NoTracingTowerService<tonic::transport::Channel>,
 >;
 
 /// The inner gRPC client type.
@@ -320,6 +320,7 @@ impl Client {
 
         #[cfg(google_cloud_unstable_tracing)]
         {
+            use crate::observability::grpc_tracing::NoTracingTowerLayer;
             use crate::observability::grpc_tracing::TracingTowerLayer;
             use tower::ServiceBuilder;
             use tower::util::Either;
@@ -333,7 +334,9 @@ impl Client {
                 let service = ServiceBuilder::new().layer(layer).service(channel);
                 Ok(InnerClient::new(Either::Left(service)))
             } else {
-                Ok(InnerClient::new(Either::Right(channel)))
+                let layer = NoTracingTowerLayer;
+                let service = ServiceBuilder::new().layer(layer).service(channel);
+                Ok(InnerClient::new(Either::Right(service)))
             }
         }
     }
