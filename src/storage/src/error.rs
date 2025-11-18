@@ -300,6 +300,20 @@ pub enum WriteError {
     },
 }
 
+/// Represents an error that can occur when signing a URL.
+#[cfg(google_cloud_unstable_signed_url)]
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
+pub enum SigningError {
+    /// The signing operation failed.
+    #[error("signing failed: {0}")]
+    Signing(#[source] auth::signer::SigningError),
+
+    /// The endpoint URL is invalid.
+    #[error("invalid endpoint: {0}")]
+    InvalidEndpoint(#[source] Box<dyn std::error::Error + Send + Sync + 'static>),
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

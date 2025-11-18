@@ -197,6 +197,12 @@ impl SigningError {
         matches!(self.0, SigningErrorKind::Parsing(_))
     }
 
+    /// Mocked error.
+    #[doc(hidden)]
+    pub fn is_mock(&self) -> bool {
+        matches!(self.0, SigningErrorKind::Mock(_))
+    }
+
     /// A problem parsing a credentials specification.
     pub(crate) fn parsing<T>(source: T) -> SigningError
     where
@@ -212,6 +218,19 @@ impl SigningError {
     {
         SigningError(SigningErrorKind::Transport(source.into()))
     }
+
+    /// Creates a new fake `SigningError`.
+    ///
+    /// This function is only intended for use in the client libraries
+    /// implementation. Application may use this in mocks, though we do not
+    /// recommend that you write tests for specific error cases.
+    ///
+    /// # Parameters
+    /// * `message` - The underlying error that caused the signing failure.
+    #[doc(hidden)]
+    pub fn mock<T: Into<BoxError>>(message: T) -> Self {
+        SigningError(SigningErrorKind::Mock(message.into()))
+    }
 }
 
 #[derive(thiserror::Error, Debug)]
@@ -220,4 +239,6 @@ enum SigningErrorKind {
     Transport(#[source] BoxError),
     #[error("failed to parse credentials: {0}")]
     Parsing(#[source] BoxError),
+    #[error("mocked error when signing blob: {0}")]
+    Mock(#[source] BoxError),
 }

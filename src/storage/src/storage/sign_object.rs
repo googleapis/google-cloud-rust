@@ -12,13 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::{Error, Result};
+use crate::error::SigningError;
 use auth::signer::Signer;
 use chrono::Utc;
 use hex;
+use percent_encoding::{AsciiSet, CONTROLS, utf8_percent_encode};
 use sha2::{Digest, Sha256};
 use std::collections::BTreeMap;
 use url::form_urlencoded;
+
+/// https://cloud.google.com/storage/docs/request-endpoints#encoding
+const PATH_ENCODE_SET: &AsciiSet = &CONTROLS
+    .add(b' ')
+    .add(b'"')
+    .add(b'#')
+    .add(b'<')
+    .add(b'>')
+    .add(b'?')
+    .add(b'`')
+    .add(b'{')
+    .add(b'}');
 
 /// A builder for creating signed URLs.
 pub struct SignedUrlBuilder {
@@ -89,8 +102,9 @@ impl SignedUrlBuilder {
     }
 
     /// Generates the signed URL using the provided signer.
-    pub async fn sign_with(self, signer: &Signer) -> Result<String> {
-        let canonical_uri = format!("/{}", self.object); // TODO: escape object name
+    pub async fn sign_with(self, signer: &Signer) -> std::result::Result<String, SigningError> {
+        let encoded_object = utf8_percent_encode(&self.object, PATH_ENCODE_SET).to_string();
+        let canonical_uri = format!("/{}", encoded_object);
 
         let now = Utc::now();
         let request_timestamp = now.format("%Y%m%dT%H%M%SZ").to_string();
@@ -99,14 +113,15 @@ impl SignedUrlBuilder {
         let client_email = if let Some(email) = self.client_email {
             email
         } else {
-            signer.client_email().await.map_err(Error::io)? // TODO map to proper error
+            signer.client_email().await.map_err(SigningError::Signing)?
         };
         let credential = format!("{client_email}/{credential_scope}");
 
-        let endpoint_url = url::Url::parse(&self.endpoint).map_err(Error::io)?; // TODO map to proper error
+        let endpoint_url =
+            url::Url::parse(&self.endpoint).map_err(|e| SigningError::InvalidEndpoint(e.into()))?;
         let endpoint_host = endpoint_url
             .host_str()
-            .ok_or(Error::io("Invalid endpoint URL"))?; // TODO map to proper error
+            .ok_or_else(|| SigningError::InvalidEndpoint("invalid endpoint host".into()))?;
         let bucket_name = self.bucket.trim_start_matches("projects/_/buckets/");
         let host = format!("{}.{}", bucket_name, endpoint_host);
 
@@ -159,7 +174,7 @@ impl SignedUrlBuilder {
         let signature = signer
             .sign(string_to_sign.as_str())
             .await
-            .map_err(Error::io)?; // TODO map to proper error
+            .map_err(SigningError::Signing)?;
 
         let scheme_and_host = format!("{}://{}", endpoint_url.scheme(), host);
 
@@ -177,6 +192,8 @@ mod tests {
     use super::*;
     use auth::signer::{Signer, SigningProvider};
 
+    type TestResult = anyhow::Result<()>;
+
     #[derive(Debug)]
     struct MockSigner;
 
@@ -192,7 +209,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_signed_url_generation() {
+    async fn test_signed_url_generation() -> TestResult {
         let signer = Signer::from(MockSigner);
         let url = SignedUrlBuilder::new("test-bucket", "test-object")
             .with_method("PUT")
@@ -206,5 +223,69 @@ mod tests {
         assert!(url.contains("x-goog-signature=test-signature"));
         assert!(url.contains("X-Goog-Algorithm=GOOG4-RSA-SHA256"));
         assert!(url.contains("X-Goog-Credential=test%40example.com"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_signed_url_generation_escaping() -> TestResult {
+        let signer: Signer = Signer::from(MockSigner);
+        let url = SignedUrlBuilder::new("test-bucket", "folder/test object.txt")
+            .with_method("PUT")
+            .with_header("content-type", "text/plain")
+            .sign_with(&signer)
+            .await
+            .unwrap();
+
+        assert!(
+            url.starts_with("https://test-bucket.storage.googleapis.com/folder/test%20object.txt?")
+        );
+        assert!(url.contains("x-goog-signature="));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_signed_url_error_signing() -> TestResult {
+        #[derive(Debug)]
+        struct FailSigner;
+        #[async_trait::async_trait]
+        impl SigningProvider for FailSigner {
+            async fn client_email(&self) -> auth::signer::Result<String> {
+                Ok("test@example.com".to_string())
+            }
+            async fn sign(&self, _content: &[u8]) -> auth::signer::Result<String> {
+                Err(auth::signer::SigningError::mock("test".to_string()))
+            }
+        }
+        let signer = Signer::from(FailSigner);
+        let err = SignedUrlBuilder::new("b", "o")
+            .sign_with(&signer)
+            .await
+            .unwrap_err();
+
+        match err {
+            SigningError::Signing(e) => assert!(e.is_mock()),
+            _ => panic!("unexpected error type: {:?}", err),
+        }
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_signed_url_error_endpoint() -> TestResult {
+        let signer: Signer = Signer::from(MockSigner);
+        let err = SignedUrlBuilder::new("b", "o")
+            .with_endpoint("invalid-url")
+            .sign_with(&signer)
+            .await
+            .unwrap_err();
+
+        match err {
+            SigningError::InvalidEndpoint(_) => {}
+            _ => panic!("unexpected error type: {:?}", err),
+        }
+
+        Ok(())
     }
 }
