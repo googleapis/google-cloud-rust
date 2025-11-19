@@ -13,13 +13,13 @@
 # limitations under the License.
 
 [general]
-specification-source = 'google/devtools/cloudtrace/v2'
-service-config = 'google/devtools/cloudtrace/v2/cloudtrace_v2.yaml'
+specification-source = 'google/devtools/cloudtrace/v1'
+service-config = 'google/devtools/cloudtrace/v1/cloudtrace_v1.yaml'
 
 [source]
 title-override = 'Cloud Trace API'
 
 [codec]
-version        = '1.1.0'
+version        = '1.0.0'
 copyright-year = '2025'
-package-name-override = 'google-cloud-trace-v2'
+package-name-override = 'google-cloud-trace-v1'

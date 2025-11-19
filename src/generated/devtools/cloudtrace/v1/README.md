@@ -23,6 +23,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-trace-v2/latest/google-cloud-trace-v2)
+- Read the [crate's documentation](https://docs.rs/google-cloud-trace-v1/latest/google-cloud-trace-v1)
 
-[TraceService]: https://docs.rs/google-cloud-trace-v2/latest/google_cloud_trace_v2/client/struct.TraceService.html
+[TraceService]: https://docs.rs/google-cloud-trace-v1/latest/google_cloud_trace_v1/client/struct.TraceService.html

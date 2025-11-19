@@ -12,14 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-[general]
-specification-source = 'google/devtools/cloudtrace/v2'
-service-config = 'google/devtools/cloudtrace/v2/cloudtrace_v2.yaml'
+[package]
+name    = "minimal-version-helper"
+version = "0.0.0"
+publish = false
+# Inherit other attributes from the workspace.
+edition.workspace    = true
+authors.workspace    = true
+license.workspace    = true
+repository.workspace = true
 
-[source]
-title-override = 'Cloud Trace API'
-
-[codec]
-version        = '1.1.0'
-copyright-year = '2025'
-package-name-override = 'google-cloud-trace-v2'
+[dependencies]
+anyhow.workspace         = true
+cargo_metadata.workspace = true
+clap                     = { workspace = true, features = ["derive"] }
+crates_io_api            = { workspace = true, features = ["default"] }
+semver.workspace         = true
+toml_edit                = { workspace = true, features = ["display", "parse"] }

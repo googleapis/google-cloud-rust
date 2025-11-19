@@ -14,6 +14,7 @@
 
 use super::redirect::handle_redirect;
 use super::retry_redirect::RetryRedirect;
+use super::{Client, TonicStreaming};
 use crate::google::storage::v2::{
     BidiReadObjectRequest, BidiReadObjectResponse, BidiReadObjectSpec, ReadRange as ProtoRange,
 };
@@ -24,7 +25,7 @@ use crate::storage::info::X_GOOG_API_CLIENT_HEADER;
 use crate::{Error, Result};
 use gaxi::grpc::Client as GrpcClient;
 use std::sync::{Arc, Mutex};
-use tokio::sync::mpsc::{Receiver, Sender};
+use tokio::sync::mpsc::Sender;
 
 #[derive(Debug)]
 pub struct Connection<S = tonic::Streaming<BidiReadObjectResponse>> {
@@ -218,56 +219,9 @@ where
     }
 }
 
-/// Dependency injection for [gaxi::grpc::Client].
-pub trait Client: std::fmt::Debug + Send + 'static {
-    type Stream: Sized;
-    fn start(
-        &self,
-        extensions: tonic::Extensions,
-        path: http::uri::PathAndQuery,
-        rx: Receiver<BidiReadObjectRequest>,
-        options: &RequestOptions,
-        api_client_header: &'static str,
-        request_params: &str,
-    ) -> impl Future<Output = Result<tonic::Result<tonic::Response<Self::Stream>>>> + Send;
-}
-
-impl Client for GrpcClient {
-    type Stream = tonic::codec::Streaming<BidiReadObjectResponse>;
-    async fn start(
-        &self,
-        extensions: tonic::Extensions,
-        path: http::uri::PathAndQuery,
-        rx: Receiver<BidiReadObjectRequest>,
-        options: &RequestOptions,
-        api_client_header: &'static str,
-        request_params: &str,
-    ) -> Result<tonic::Result<tonic::Response<Self::Stream>>> {
-        let request = tokio_stream::wrappers::ReceiverStream::new(rx);
-        self.bidi_stream_with_status(
-            extensions,
-            path,
-            request,
-            options.gax(),
-            api_client_header,
-            request_params,
-        )
-        .await
-    }
-}
-
-pub trait TonicStreaming: std::fmt::Debug + Send + 'static {
-    async fn next_message(&mut self) -> tonic::Result<Option<BidiReadObjectResponse>>;
-}
-
-impl TonicStreaming for tonic::codec::Streaming<BidiReadObjectResponse> {
-    async fn next_message(&mut self) -> tonic::Result<Option<BidiReadObjectResponse>> {
-        self.message().await
-    }
-}
-
 #[cfg(test)]
 mod tests {
+    use super::super::mocks::{MockTestClient, SharedMockClient};
     use super::super::tests::{permanent_error, redirect_handle, redirect_status, test_options};
     use super::*;
     use crate::google::storage::v2::{BidiReadHandle, Object, ObjectRangeData};
@@ -810,60 +764,4 @@ mod tests {
     fn test_credentials() -> auth::credentials::Credentials {
         auth::credentials::anonymous::Builder::new().build()
     }
-
-    // mockall mocks are not `Clone` and we need a thing that can be cloned.
-    // The solution is to wrap the mock in a think that implements the right
-    // trait.
-    #[derive(Clone, Debug)]
-    struct SharedMockClient(Arc<MockTestClient>);
-
-    impl SharedMockClient {
-        fn new(mock: MockTestClient) -> Self {
-            Self(Arc::new(mock))
-        }
-    }
-
-    impl super::Client for SharedMockClient {
-        type Stream = MockStream;
-
-        async fn start(
-            &self,
-            extensions: tonic::Extensions,
-            path: http::uri::PathAndQuery,
-            rx: Receiver<BidiReadObjectRequest>,
-            options: &RequestOptions,
-            api_client_header: &'static str,
-            request_params: &str,
-        ) -> crate::Result<tonic::Result<tonic::Response<Self::Stream>>> {
-            self.0.start(
-                extensions,
-                path,
-                rx,
-                options,
-                api_client_header,
-                request_params,
-            )
-        }
-    }
-
-    impl super::TonicStreaming for Receiver<tonic::Result<BidiReadObjectResponse>> {
-        async fn next_message(&mut self) -> tonic::Result<Option<BidiReadObjectResponse>> {
-            self.recv().await.transpose()
-        }
-    }
-
-    #[mockall::automock]
-    trait TestClient: std::fmt::Debug {
-        fn start(
-            &self,
-            extensions: tonic::Extensions,
-            path: http::uri::PathAndQuery,
-            rx: Receiver<BidiReadObjectRequest>,
-            options: &RequestOptions,
-            api_client_header: &'static str,
-            request_params: &str,
-        ) -> crate::Result<tonic::Result<tonic::Response<MockStream>>>;
-    }
-
-    type MockStream = Receiver<tonic::Result<BidiReadObjectResponse>>;
 }

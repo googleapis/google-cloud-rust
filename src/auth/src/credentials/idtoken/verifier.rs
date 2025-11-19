@@ -38,7 +38,10 @@
 
 use crate::credentials::internal::jwk_client::JwkClient;
 use jsonwebtoken::Validation;
-pub use serde_json::{Map, Value};
+/// Represents the claims in an ID token.
+pub use serde_json::Map;
+/// Represents a claim value in an ID token.
+pub use serde_json::Value;
 use std::time::Duration;
 
 /// Builder is used construct a [Verifier] of id tokens.
@@ -124,7 +127,7 @@ impl Builder {
         self
     }
 
-    /// Verifies the ID token and returns the claims.
+    /// Returns a [Verifier] instance with the configured settings.
     pub fn build(self) -> Verifier {
         Verifier {
             jwk_client: JwkClient::new(),
@@ -143,7 +146,6 @@ impl Builder {
 /// ```
 /// # use google_cloud_auth::credentials::idtoken::verifier::Builder;
 /// # use std::time::Duration;
-///
 /// async fn verify_id_token(token: &str) {
 ///     let verifier = Builder::new(["https://my-service.a.run.app"]).build();
 ///

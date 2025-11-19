@@ -21,7 +21,7 @@
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
-/// # use google_cloud_trace_v2::client::TraceService;
+/// # use google_cloud_trace_v1::client::TraceService;
 /// let client = TraceService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Trace API.
 /// # gax::client_builder::Result::<()>::Ok(()) });
@@ -29,13 +29,11 @@
 ///
 /// # Service Description
 ///
-/// Service for collecting and viewing traces and spans within a trace.
-///
-/// A trace is a collection of spans corresponding to a single
-/// operation or a set of operations in an application.
-///
-/// A span is an individual timed event which forms a node of the trace tree.
-/// A single trace can contain spans from multiple services.
+/// This file describes an API for collecting and viewing traces and spans
+/// within a trace.  A Trace is a collection of spans corresponding to a single
+/// operation or set of operations for an application. A span is an individual
+/// timed event which forms a node of the trace tree. Spans for a single trace
+/// may span multiple services.
 ///
 /// # Configuration
 ///
@@ -73,7 +71,7 @@ impl TraceService {
     ///
     /// ```
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_trace_v2::client::TraceService;
+    /// # use google_cloud_trace_v1::client::TraceService;
     /// let client = TraceService::builder().build().await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
@@ -124,14 +122,22 @@ impl TraceService {
             .map(super::tracing::TraceService::new)
     }
 
-    /// Batch writes new spans to new or existing traces. You cannot update
-    /// existing spans.
-    pub fn batch_write_spans(&self) -> super::builder::trace_service::BatchWriteSpans {
-        super::builder::trace_service::BatchWriteSpans::new(self.inner.clone())
+    /// Returns of a list of traces that match the specified filter conditions.
+    pub fn list_traces(&self) -> super::builder::trace_service::ListTraces {
+        super::builder::trace_service::ListTraces::new(self.inner.clone())
     }
 
-    /// Creates a new span.
-    pub fn create_span(&self) -> super::builder::trace_service::CreateSpan {
-        super::builder::trace_service::CreateSpan::new(self.inner.clone())
+    /// Gets a single trace by its ID.
+    pub fn get_trace(&self) -> super::builder::trace_service::GetTrace {
+        super::builder::trace_service::GetTrace::new(self.inner.clone())
+    }
+
+    /// Sends new traces to Stackdriver Trace or updates existing traces. If the ID
+    /// of a trace that you send matches that of an existing trace, any fields
+    /// in the existing trace and its spans are overwritten by the provided values,
+    /// and any new fields provided are merged with the existing trace data. If the
+    /// ID does not match, a new trace is created.
+    pub fn patch_traces(&self) -> super::builder::trace_service::PatchTraces {
+        super::builder::trace_service::PatchTraces::new(self.inner.clone())
     }
 }

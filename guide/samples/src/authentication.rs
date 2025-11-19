@@ -15,3 +15,7 @@
 pub mod adc;
 pub mod api_key;
 pub mod impersonation;
+#[cfg(google_cloud_unstable_id_token)]
+pub mod request_id_token;
+#[cfg(google_cloud_unstable_id_token)]
+pub mod verify_id_token;

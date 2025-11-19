@@ -1,7 +1,7 @@
 {
     "api_id": "cloudtrace.googleapis.com",
     "api_shortname": "cloudtrace",
-    "client_documentation": "https://docs.rs/google-cloud-trace-v2/latest",
+    "client_documentation": "https://docs.rs/google-cloud-trace-v1/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
