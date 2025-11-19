@@ -1161,6 +1161,45 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn access_credential_provider_with_token_uri() -> TestResult {
+        let server = Server::run();
+        let response = Oauth2RefreshResponse {
+            access_token: "test-access-token".to_string(),
+            id_token: None,
+            expires_in: None,
+            refresh_token: None,
+            scope: None,
+            token_type: "test-token-type".to_string(),
+        };
+        server.expect(
+            Expectation::matching(all_of![
+                request::path("/token"),
+                request::body(json_decoded(|req: &Oauth2RefreshRequest| {
+                    check_request(req, None)
+                }))
+            ])
+            .respond_with(json_encoded(response)),
+        );
+
+        let authorized_user = serde_json::json!({
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
+            "token_uri": "test-endpoint"
+        });
+
+        let uc = Builder::new(authorized_user)
+            .with_token_uri(server.url("/token").to_string())
+            .build_access_token_credentials()?;
+        let access_token = uc.access_token().await?;
+        assert_eq!(access_token.token, "test-access-token");
+        assert_eq!(access_token.token_type, "test-token-type");
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn credential_provider_with_scopes() -> TestResult {
         let server = Server::run();
         let response = Oauth2RefreshResponse {

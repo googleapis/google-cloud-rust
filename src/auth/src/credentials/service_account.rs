@@ -901,4 +901,25 @@ mod tests {
         assert_eq!(claims["sub"], service_account_key["client_email"]);
         Ok(())
     }
+
+    #[tokio::test]
+    async fn get_service_account_access_token() -> TestResult {
+        let mut service_account_key = get_mock_service_key();
+        service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
+        let creds = Builder::new(service_account_key.clone()).build_access_token_credentials()?;
+
+        let access_token = creds.access_token().await?;
+        let token = access_token.token;
+
+        let re = regex::Regex::new(SSJ_REGEX).unwrap();
+        let captures = re.captures(&token).ok_or_else(|| {
+            format!(r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {token}"#)
+        })?;
+        let token_header = b64_decode_to_json(captures["header"].to_string());
+        assert_eq!(token_header["alg"], "RS256");
+        assert_eq!(token_header["typ"], "JWT");
+        assert_eq!(token_header["kid"], service_account_key["private_key_id"]);
+
+        Ok(())
+    }
 }

@@ -1518,6 +1518,51 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn access_token_credentials_success() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "test-user-account-token",
+                    "expires_in": 3600,
+                    "token_type": "Bearer",
+                })),
+            ),
+        );
+        let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
+            .format(&time::format_description::well_known::Rfc3339)
+            .unwrap();
+        server.expect(
+            Expectation::matching(request::method_path(
+                "POST",
+                "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+            ))
+            .respond_with(json_encoded(json!({
+                "accessToken": "test-impersonated-token",
+                "expireTime": expire_time
+            }))),
+        );
+
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": server.url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken").to_string(),
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token",
+                "token_uri": server.url("/token").to_string()
+            }
+        });
+        let creds = Builder::new(impersonated_credential).build_access_token_credentials()?;
+
+        let access_token = creds.access_token().await?;
+        assert_eq!(access_token.token, "test-impersonated-token");
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn test_with_target_principal() {
         let source_credentials = crate::credentials::user_account::Builder::new(json!({
             "type": "authorized_user",

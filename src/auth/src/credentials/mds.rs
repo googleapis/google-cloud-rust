@@ -587,6 +587,30 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn access_token_success() -> TestResult {
+        let server = Server::run();
+        let response = MDSTokenResponse {
+            access_token: "test-access-token".to_string(),
+            expires_in: Some(3600),
+            token_type: "Bearer".to_string(),
+        };
+        server.expect(
+            Expectation::matching(all_of![request::path(format!("{MDS_DEFAULT_URI}/token")),])
+                .respond_with(json_encoded(response)),
+        );
+
+        let creds = Builder::default()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .build_access_token_credentials()
+            .unwrap();
+
+        let access_token = creds.access_token().await.unwrap();
+        assert_eq!(access_token.token, "test-access-token");
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn headers_failure() {
         let mut mock = MockTokenProvider::new();
         mock.expect_token()

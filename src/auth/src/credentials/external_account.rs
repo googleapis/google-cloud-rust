@@ -1623,6 +1623,66 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn test_external_account_access_token_credentials_success() {
+        let server = Server::run();
+
+        let contents = json!({
+            "type": "external_account",
+            "audience": "audience",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": server.url("/token").to_string(),
+            "credential_source": {
+                "url": server.url("/subject_token").to_string(),
+                "format": {
+                  "type": "json",
+                  "subject_token_field_name": "access_token"
+                }
+            }
+        });
+
+        server.expect(
+            Expectation::matching(request::method_path("GET", "/subject_token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "subject_token",
+                })),
+            ),
+        );
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/token"),
+                request::body(url_decoded(contains((
+                    "grant_type",
+                    TOKEN_EXCHANGE_GRANT_TYPE
+                )))),
+                request::body(url_decoded(contains(("subject_token", "subject_token")))),
+                request::body(url_decoded(contains((
+                    "requested_token_type",
+                    ACCESS_TOKEN_TYPE
+                )))),
+                request::body(url_decoded(contains((
+                    "subject_token_type",
+                    JWT_TOKEN_TYPE
+                )))),
+                request::body(url_decoded(contains(("audience", "audience")))),
+                request::body(url_decoded(contains(("scope", DEFAULT_SCOPE)))),
+            ])
+            .respond_with(json_encoded(json!({
+                "access_token": "sts-only-token",
+                "issued_token_type": "urn:ietf:params:oauth:token-type:access_token",
+                "token_type": "Bearer",
+                "expires_in": 3600,
+            }))),
+        );
+
+        let creds = Builder::new(contents)
+            .build_access_token_credentials()
+            .unwrap();
+        let access_token = creds.access_token().await.unwrap();
+        assert_eq!(access_token.token, "sts-only-token");
+    }
+
+    #[tokio::test]
     async fn test_impersonation_flow_sts_call_fails() {
         let subject_token_server = Server::run();
         let sts_server = Server::run();
