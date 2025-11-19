@@ -997,6 +997,54 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-aiplatform-v1-schema-predict-instance"
+version = "1.0.0"
+dependencies = [
+ "bytes",
+ "google-cloud-wkt",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+]
+
+[[package]]
+name = "google-cloud-aiplatform-v1-schema-predict-params"
+version = "1.0.0"
+dependencies = [
+ "bytes",
+ "google-cloud-wkt",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+]
+
+[[package]]
+name = "google-cloud-aiplatform-v1-schema-predict-prediction"
+version = "1.0.0"
+dependencies = [
+ "bytes",
+ "google-cloud-wkt",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+]
+
+[[package]]
+name = "google-cloud-aiplatform-v1-schema-trainingjob-definition"
+version = "1.0.0"
+dependencies = [
+ "bytes",
+ "google-cloud-wkt",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+]
+
+[[package]]
 name = "google-cloud-alloydb-connectors-v1"
 version = "1.1.0"
 dependencies = [
