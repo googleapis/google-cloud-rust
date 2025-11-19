@@ -204,7 +204,7 @@ impl std::fmt::Debug for AccessToken {
         f.debug_struct("AccessToken")
             .field("token", &"[censored]")
             .field("token_type", &self.token_type)
-            .field("expiry", &self.expires_at)
+            .field("expires_at", &self.expires_at)
             .finish()
     }
 }
@@ -1143,5 +1143,25 @@ pub(crate) mod tests {
         assert_eq!(claims["scope"], scopes.join(" "));
 
         Ok(())
+    }
+
+    #[test]
+    fn debug_access_token() {
+        let expires_at = Instant::now() + Duration::from_secs(3600);
+        let token = Token {
+            token: "token-test-only".into(),
+            token_type: "Bearer".into(),
+            expires_at: Some(expires_at),
+            metadata: None,
+        };
+        let access_token: AccessToken = token.into();
+        let got = format!("{access_token:?}");
+        assert!(!got.contains("token-test-only"), "{got}");
+        assert!(got.contains("token: \"[censored]\""), "{got}");
+        assert!(got.contains("token_type: \"Bearer\""), "{got}");
+        assert!(
+            got.contains(&format!("expires_at: Some({expires_at:?}")),
+            "{got}"
+        );
     }
 }
