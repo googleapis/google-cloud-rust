@@ -14,21 +14,25 @@
 
 #[cfg(all(test, feature = "run-integration-tests", google_cloud_unstable_tracing))]
 mod telemetry {
-    use httptest::{Expectation, Server, matchers::*, responders::status_code};
+    use gax::exponential_backoff::ExponentialBackoffBuilder;
     use google_cloud_trace_v1::client::TraceService;
+    use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use integration_tests::observability::otlp::CloudTelemetryTracerProviderBuilder;
     use opentelemetry::trace::TraceContextExt;
     use std::time::Duration;
     use tracing_opentelemetry::OpenTelemetrySpanExt;
     use tracing_subscriber::layer::SubscriberExt;
     use tracing_subscriber::util::SubscriberInitExt;
-    use gax::exponential_backoff::ExponentialBackoffBuilder;
 
     #[derive(Debug, Clone)]
     struct RetryNotFound;
 
     impl gax::retry_policy::RetryPolicy for RetryNotFound {
-        fn on_error(&self, _state: &gax::retry_state::RetryState, error: gax::error::Error) -> gax::retry_result::RetryResult {
+        fn on_error(
+            &self,
+            _state: &gax::retry_state::RetryState,
+            error: gax::error::Error,
+        ) -> gax::retry_result::RetryResult {
             if let Some(status) = error.status() {
                 if status.code == gax::error::rpc::Code::NotFound {
                     return gax::retry_result::RetryResult::Continue(error);
