@@ -304,62 +304,12 @@ impl Builder {
 
     #[cfg(google_cloud_unstable_signed_url)]
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
-        // TODO: have MDS specific impl that fetches email as needed
         let (endpoint, _) = self.resolve_endpoint();
-
+        let credentials = self.build()?;
+        let signing_provider = crate::signer::mds::MDSCredentialsSigner::new(endpoint, credentials);
         Ok(crate::signer::Signer {
-            inner: Arc::new(MDSCredentialsSigner {
-                endpoint,
-                inner: self.build()?,
-            }),
+            inner: Arc::new(signing_provider),
         })
-    }
-}
-
-// Implements Signer for MDS that extends the existing CredentialsSigner by fetching
-// email via MDS email endpoint.
-#[derive(Clone, Debug)]
-#[cfg(google_cloud_unstable_signed_url)]
-struct MDSCredentialsSigner {
-    endpoint: String,
-    inner: Credentials,
-}
-
-#[cfg(google_cloud_unstable_signed_url)]
-#[async_trait::async_trait]
-impl crate::signer::SigningProvider for MDSCredentialsSigner {
-    async fn client_email(&self) -> crate::signer::Result<String> {
-        let client = Client::new();
-
-        let request = client
-            .get(format!("{}{}/email", self.endpoint, MDS_DEFAULT_URI))
-            .header(
-                METADATA_FLAVOR,
-                HeaderValue::from_static(METADATA_FLAVOR_VALUE),
-            );
-
-        let response = request
-            .send()
-            .await
-            .map_err(crate::signer::SigningError::transport)?;
-        let client_email = response
-            .text()
-            .await
-            .map_err(crate::signer::SigningError::transport)?;
-
-        Ok(client_email)
-    }
-
-    async fn sign(&self, content: &[u8]) -> crate::signer::Result<String> {
-        // TODO: not efficient at all, recreating CredentialSigner and refetching email
-        let client_email = self.client_email().await?;
-
-        let signer = crate::signer::CredentialsSigner {
-            client_email,
-            inner: self.inner.clone(),
-        };
-
-        signer.sign(content).await
     }
 }
 

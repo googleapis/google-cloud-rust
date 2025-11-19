@@ -434,31 +434,37 @@ impl Builder {
     #[cfg(google_cloud_unstable_signed_url)]
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
         let source = self.source.clone();
-        let components = match source {
-            BuilderSource::FromJson(json) => build_components_from_json(json)?,
+        match source {
+            BuilderSource::FromJson(json) => {
+                let signer = build_signer_from_json(json.clone())?;
+                if let Some(signer) = signer {
+                    return Ok(signer);
+                }
+                let components = build_components_from_json(json)?;
+                let client_email =
+                    extract_client_email(&components.service_account_impersonation_url)?;
+                Ok(crate::signer::Signer {
+                    inner: Arc::new(crate::signer::CredentialsSigner {
+                        client_email,
+                        inner: self.build()?,
+                    }),
+                })
+            }
             BuilderSource::FromCredentials(source_credentials) => {
-                build_components_from_credentials(
+                let components = build_components_from_credentials(
                     source_credentials,
                     self.service_account_impersonation_url.clone(),
-                )?
+                )?;
+                let client_email =
+                    extract_client_email(&components.service_account_impersonation_url)?;
+                Ok(crate::signer::Signer {
+                    inner: Arc::new(crate::signer::CredentialsSigner {
+                        client_email,
+                        inner: self.build()?,
+                    }),
+                })
             }
-        };
-
-        // TODO: better use regex to extract email ?
-        let parts: Vec<&str> = components
-            .service_account_impersonation_url
-            .split("serviceAccounts/")
-            .collect();
-        let client_email = parts[1]
-            .trim_end_matches(":generateAccessToken")
-            .to_string();
-
-        Ok(crate::signer::Signer {
-            inner: Arc::new(crate::signer::CredentialsSigner {
-                client_email,
-                inner: self.build()?,
-            }),
-        })
+        }
     }
 
     fn build_components(
@@ -533,6 +539,41 @@ pub(crate) fn build_components_from_json(
         quota_project_id: config.quota_project_id,
         scopes: config.scopes,
     })
+}
+
+#[cfg(google_cloud_unstable_signed_url)]
+fn build_signer_from_json(json: Value) -> BuildResult<Option<crate::signer::Signer>> {
+    use crate::credentials::service_account::ServiceAccountKey;
+    use crate::signer::service_account::ServiceAccountSigner;
+
+    let config =
+        serde_json::from_value::<ImpersonatedConfig>(json).map_err(BuilderError::parsing)?;
+
+    let client_email = extract_client_email(&config.service_account_impersonation_url)?;
+    let source_credential_type = extract_credential_type(&config.source_credentials)?;
+    if source_credential_type == "service_account" {
+        let service_account_key =
+            serde_json::from_value::<ServiceAccountKey>(config.source_credentials)
+                .map_err(BuilderError::parsing)?;
+        let signer = ServiceAccountSigner::from_impersonated_service_account(
+            service_account_key,
+            client_email,
+        );
+        return Ok(Some(signer.into()));
+    }
+    Ok(None)
+}
+
+#[cfg(google_cloud_unstable_signed_url)]
+fn extract_client_email(service_account_impersonation_url: &str) -> BuildResult<String> {
+    // TODO: better use regex to extract email ?
+    let parts: Vec<&str> = service_account_impersonation_url
+        .split("serviceAccounts/")
+        .collect();
+    let client_email = parts[1]
+        .trim_end_matches(":generateAccessToken")
+        .to_string();
+    Ok(client_email)
 }
 
 pub(crate) fn build_components_from_credentials(

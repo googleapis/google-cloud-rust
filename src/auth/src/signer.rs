@@ -17,6 +17,9 @@ use http::Extensions;
 use reqwest::Client;
 use std::sync::Arc;
 
+pub(crate) mod mds;
+pub(crate) mod service_account;
+
 pub type Result<T> = std::result::Result<T, SigningError>;
 
 /// An implementation of [crate::signer::SigningProvider] that wraps a dynamic provider.
