@@ -30,8 +30,7 @@ mod driver {
         let audience = "https://my-service.a.run.app";
         let id_token =
             user_guide_samples::authentication::request_id_token::sample(audience).await?;
-        user_guide_samples::authentication::verify_id_token::sample(id_token.as_str(), audience)
-            .await?;
+        user_guide_samples::authentication::verify_id_token::sample(&id_token, audience).await?;
         Ok(())
     }
 
