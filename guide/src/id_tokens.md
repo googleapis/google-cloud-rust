@@ -65,26 +65,26 @@ a Cloud Run service, the audience should be the URL of that service.
    match the audience of the service that receives the token.
 
 ```rust,ignore
-{{#include ../../samples/src/authentication/request_id_token.rs:request_id_token_parameters}}
+{{#include ../samples/src/authentication/request_id_token.rs:request_id_token_parameters}}
 ```
 
 2. Add some `use` declarations to simplify the rest of the example:
 
 ```rust,ignore
-{{#include ../../samples/src/authentication/request_id_token.rs:request_id_token_use}}
+{{#include ../samples/src/authentication/request_id_token.rs:request_id_token_use}}
 ```
 
 3. Use the ID Token [Builder][id token builder] to create the credentials:
 
 ```rust,ignore
-{{#include ../../samples/src/authentication/request_id_token.rs:request_id_token_credentials}}
+{{#include ../samples/src/authentication/request_id_token.rs:request_id_token_credentials}}
 ```
 
 4. Then, fetch the ID token. Note that the client libraries automatically cache
    the token and refresh it as needed.
 
 ```rust,ignore
-{{#include ../../samples/src/authentication/request_id_token.rs:request_id_token_call}}
+{{#include ../samples/src/authentication/request_id_token.rs:request_id_token_call}}
 ```
 
 Your application can now use this token to authenticate with other services. A
@@ -92,7 +92,7 @@ common use-case is to send the token in the `Authorization:` header. For
 example, if you are using the [reqwest] crate you may write this code:
 
 ```rust,ignore
-{{#include ../../samples/src/authentication/request_id_token.rs:request_id_token_send}}
+{{#include ../samples/src/authentication/request_id_token.rs:request_id_token_send}}
 ```
 
 ## Verify ID Tokens
@@ -104,26 +104,26 @@ the request.
    parameters. The audience must match the audience of the service.
 
 ```rust,ignore
-{{#include ../../samples/src/authentication/verify_id_token.rs:verify_id_token_parameters}}
+{{#include ../samples/src/authentication/verify_id_token.rs:verify_id_token_parameters}}
 ```
 
 2. Add some `use` declarations to simplify the rest of the example:
 
 ```rust,ignore
-{{#include ../../samples/src/authentication/verify_id_token.rs:verify_id_token_use}}
+{{#include ../samples/src/authentication/verify_id_token.rs:verify_id_token_use}}
 ```
 
 3. Use the ID Token [Verifier Builder] to create the verifier:
 
 ```rust,ignore
-{{#include ../../samples/src/authentication/verify_id_token.rs:verify_id_token_verifier}}
+{{#include ../samples/src/authentication/verify_id_token.rs:verify_id_token_verifier}}
 ```
 
 4. Then, verify the token. If verification is successful, it returns the claims
    from the token payload.
 
 ```rust,ignore
-{{#include ../../samples/src/authentication/verify_id_token.rs:verify_id_token_verify_call}}
+{{#include ../samples/src/authentication/verify_id_token.rs:verify_id_token_verify_call}}
 ```
 
 If the token is invalid (e.g., expired, incorrect signature, wrong audience),
