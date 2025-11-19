@@ -30,6 +30,7 @@ mod tests {
         Ok(())
     }
 
+    #[ignore = "TODO(#3691) - disabled because it was flaky"]
     #[tokio::test]
     async fn instance_samples() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;

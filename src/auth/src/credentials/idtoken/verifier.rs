@@ -39,7 +39,9 @@
 use crate::credentials::internal::jwk_client::JwkClient;
 use jsonwebtoken::Validation;
 /// Represents the claims in an ID token.
-pub use serde_json::{Map, Value};
+pub use serde_json::Map;
+/// Represents a claim value in an ID token.
+pub use serde_json::Value;
 use std::time::Duration;
 
 /// Builder is used construct a [Verifier] of id tokens.
@@ -236,12 +238,7 @@ impl Error {
 
     /// A problem validating JWT token accordingly to set criteria.
     pub fn is_invalid(&self) -> bool {
-        matches!(self.0, ErrorKind::Invalid(_))
-    }
-
-    /// A problem validating JWT token on a specific field.
-    pub fn is_invalid_field(&self) -> bool {
-        matches!(self.0, ErrorKind::InvalidField(_, _))
+        matches!(self.0, ErrorKind::Invalid(_)) || matches!(self.0, ErrorKind::InvalidField(_, _))
     }
 
     /// A problem fetching certificates to validate the JWT token.
@@ -250,7 +247,7 @@ impl Error {
     }
 
     /// A problem to decode the JWT token.
-    pub(crate) fn decode<T>(source: T) -> Error
+    fn decode<T>(source: T) -> Error
     where
         T: Into<BoxError>,
     {
@@ -258,7 +255,7 @@ impl Error {
     }
 
     /// A problem fetching certificates to validate the JWT token.
-    pub(crate) fn load_cert<T>(source: T) -> Error
+    fn load_cert<T>(source: T) -> Error
     where
         T: Into<BoxError>,
     {
@@ -266,7 +263,7 @@ impl Error {
     }
 
     /// Validation error of the JWT Token.
-    pub(crate) fn invalid<T>(source: T) -> Error
+    fn invalid<T>(source: T) -> Error
     where
         T: Into<BoxError>,
     {
@@ -274,7 +271,7 @@ impl Error {
     }
 
     /// Validation error of the JWT Token on a specific field.
-    pub(crate) fn invalid_field<S: Into<String>, T>(field: S, source: T) -> Error
+    fn invalid_field<S: Into<String>, T>(field: S, source: T) -> Error
     where
         T: Into<BoxError>,
     {
@@ -374,7 +371,7 @@ pub(crate) mod tests {
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
-        assert!(result.unwrap_err().is_invalid_field());
+        assert!(result.unwrap_err().is_invalid());
 
         Ok(())
     }
@@ -424,7 +421,7 @@ pub(crate) mod tests {
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
-        assert!(result.unwrap_err().is_invalid_field());
+        assert!(result.unwrap_err().is_invalid());
 
         Ok(())
     }
@@ -483,7 +480,7 @@ pub(crate) mod tests {
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
-        assert!(result.unwrap_err().is_invalid_field());
+        assert!(result.unwrap_err().is_invalid());
         Ok(())
     }
 
@@ -538,7 +535,7 @@ pub(crate) mod tests {
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
-        assert!(result.unwrap_err().is_invalid_field());
+        assert!(result.unwrap_err().is_invalid());
         Ok(())
     }
 
@@ -600,7 +597,7 @@ pub(crate) mod tests {
 
         let result = verifier.verify(&token).await;
         assert!(result.is_err());
-        assert!(result.unwrap_err().is_invalid_field());
+        assert!(result.unwrap_err().is_invalid());
 
         Ok(())
     }

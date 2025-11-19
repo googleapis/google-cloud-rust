@@ -89,6 +89,25 @@ use serde_json::Value;
 use std::sync::Arc;
 
 /// A builder for constructing Impersonated Service Account [IDTokenCredentials] instance.
+///
+/// # Example
+/// ```
+/// # use google_cloud_auth::credentials::idtoken;
+/// # tokio_test::block_on(async {
+/// let impersonated_credential = serde_json::json!({
+///     "type": "impersonated_service_account",
+///     "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+///     "source_credentials": {
+///         "type": "authorized_user",
+///         "client_id": "test-client-id",
+///         "client_secret": "test-client-secret",
+///         "refresh_token": "test-refresh-token"
+///     }
+/// });
+///
+/// let audience = "https://my-service.a.run.app";
+/// let credentials = idtoken::impersonated::Builder::new(impersonated_credential).build();
+/// # });
 pub struct Builder {
     source: BuilderSource,
     delegates: Option<Vec<String>>,
@@ -167,16 +186,8 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::idtoken;
     /// # use serde_json::json;
-    /// # let impersonated_credential = json!({
-    /// #     "type": "impersonated_service_account",
-    /// #     "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
-    /// #     "source_credentials": {
-    /// #         "type": "authorized_user",
-    /// #         "client_id": "test-client-id",
-    /// #         "client_secret": "test-client-secret",
-    /// #         "refresh_token": "test-refresh-token"
-    /// #     }
-    /// # });
+    /// let impersonated_credential = json!({ /* add details here */ });
+    ///
     /// let audience = "https://my-service.a.run.app";
     /// let credentials = idtoken::impersonated::Builder::new(audience, impersonated_credential)
     ///     .with_include_email()
@@ -195,16 +206,8 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::idtoken;
     /// # use serde_json::json;
-    /// # let impersonated_credential = json!({
-    /// #     "type": "impersonated_service_account",
-    /// #     "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
-    /// #     "source_credentials": {
-    /// #         "type": "authorized_user",
-    /// #         "client_id": "test-client-id",
-    /// #         "client_secret": "test-client-secret",
-    /// #         "refresh_token": "test-refresh-token"
-    /// #     }
-    /// # });
+    /// let impersonated_credential = json!({ /* add details here */ });
+    ///
     /// let audience = "https://my-service.a.run.app";
     /// let credentials = idtoken::impersonated::Builder::new(audience, impersonated_credential)
     ///     .with_delegates(vec!["delegate1-sa@example.com", "delegate2-sa@example.com"])

@@ -12,16 +12,86 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod active_read;
 mod builder;
 mod connector;
+mod normalized_range;
+mod range_reader;
 mod redirect;
+mod remaining_range;
+mod requested_range;
 mod resume_redirect;
 mod retry_redirect;
+
+use crate::google::storage::v2::{BidiReadObjectRequest, BidiReadObjectResponse};
+use crate::request_options::RequestOptions;
+use tokio::sync::mpsc::Receiver;
+
+/// A trait to mock `tonic::Streaming<T>` in the unit tests.
+///
+/// This is not a public trait, we only need this for our own testing.
+pub trait TonicStreaming: std::fmt::Debug + Send + 'static {
+    fn next_message(
+        &mut self,
+    ) -> impl Future<Output = tonic::Result<Option<BidiReadObjectResponse>>> + Send;
+}
+
+/// Implement [TonicStreaming] for the one `tonic::Streaming<T>` we use.
+impl TonicStreaming for tonic::Streaming<BidiReadObjectResponse> {
+    async fn next_message(&mut self) -> tonic::Result<Option<BidiReadObjectResponse>> {
+        self.message().await
+    }
+}
+
+/// A trait to mock `gaxi::grpc::Client` in the unit tests.
+///
+/// This is not a public trait, we only need this for our own testing.
+pub trait Client: std::fmt::Debug + Send + 'static {
+    type Stream: Sized;
+    fn start(
+        &self,
+        extensions: tonic::Extensions,
+        path: http::uri::PathAndQuery,
+        rx: Receiver<BidiReadObjectRequest>,
+        options: &RequestOptions,
+        api_client_header: &'static str,
+        request_params: &str,
+    ) -> impl Future<Output = crate::Result<tonic::Result<tonic::Response<Self::Stream>>>> + Send;
+}
+
+impl Client for gaxi::grpc::Client {
+    type Stream = tonic::codec::Streaming<BidiReadObjectResponse>;
+    async fn start(
+        &self,
+        extensions: tonic::Extensions,
+        path: http::uri::PathAndQuery,
+        rx: Receiver<BidiReadObjectRequest>,
+        options: &RequestOptions,
+        api_client_header: &'static str,
+        request_params: &str,
+    ) -> crate::Result<tonic::Result<tonic::Response<Self::Stream>>> {
+        let request = tokio_stream::wrappers::ReceiverStream::new(rx);
+        self.bidi_stream_with_status(
+            extensions,
+            path,
+            request,
+            options.gax(),
+            api_client_header,
+            request_params,
+        )
+        .await
+    }
+}
+
+#[cfg(test)]
+mod mocks;
 
 #[cfg(test)]
 mod tests {
     use crate::Error;
-    use crate::google::storage::v2::{BidiReadHandle, BidiReadObjectRedirectedError};
+    use crate::google::storage::v2::{
+        BidiReadHandle, BidiReadObjectRedirectedError, ReadRange as ProtoRange,
+    };
     use crate::request_options::RequestOptions;
     use gax::error::rpc::{Code, Status};
     use prost::Message as _;
@@ -82,5 +152,13 @@ mod tests {
             .with_maximum_delay(Duration::from_micros(1))
             .build()
             .expect("a valid backoff policy")
+    }
+
+    pub(super) fn proto_range(offset: i64, length: i64) -> ProtoRange {
+        ProtoRange {
+            read_offset: offset,
+            read_length: length,
+            ..ProtoRange::default()
+        }
     }
 }

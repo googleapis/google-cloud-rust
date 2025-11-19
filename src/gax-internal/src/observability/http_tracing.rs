@@ -132,6 +132,7 @@ pub(crate) fn record_intermediate_client_request(
     result: Result<&reqwest::Response, &gax::error::Error>,
     prior_attempt_count: u32,
     method: &http::Method,
+    request_url: &reqwest::Url,
 ) {
     let span = Span::current();
     if span.is_disabled() {
@@ -149,20 +150,29 @@ pub(crate) fn record_intermediate_client_request(
 
     span.record(otel_trace::HTTP_REQUEST_METHOD, method.as_str());
 
+    let final_url = match result {
+        Ok(response) => response.url(),
+        Err(_) => request_url,
+    };
+
+    span.record(
+        otel_trace::SERVER_ADDRESS,
+        final_url
+            .host_str()
+            .map(|h| h.trim_start_matches('[').trim_end_matches(']'))
+            .unwrap_or(""),
+    );
+    span.record(
+        otel_trace::SERVER_PORT,
+        final_url
+            .port_or_known_default()
+            .map(|p| p as i64)
+            .unwrap_or(0),
+    );
+    span.record(otel_trace::URL_FULL, final_url.as_str());
+
     match result {
         Ok(response) => {
-            let url = response.url();
-            span.record(
-                otel_trace::SERVER_ADDRESS,
-                url.host_str()
-                    .map(|h| h.trim_start_matches('[').trim_end_matches(']'))
-                    .unwrap_or(""),
-            );
-            span.record(
-                otel_trace::SERVER_PORT,
-                url.port_or_known_default().map(|p| p as i64).unwrap_or(0),
-            );
-            span.record(otel_trace::URL_FULL, url.as_str());
             span.record(
                 otel_trace::HTTP_RESPONSE_STATUS_CODE,
                 response.status().as_u16() as i64,
@@ -172,8 +182,6 @@ pub(crate) fn record_intermediate_client_request(
             if let Some(status) = err.http_status_code() {
                 span.record(otel_trace::HTTP_RESPONSE_STATUS_CODE, status as i64);
             }
-            // For errors, we might not have the final URL if the request failed before sending.
-            // We rely on the initial URL set on the T3 span.
         }
     }
 
@@ -540,12 +548,13 @@ mod tests {
         let span = create_client_request_span("test_span", "test_method", &TEST_INFO);
         let _enter = span.enter();
 
+        let url = "https://example.com/test".parse::<reqwest::Url>().unwrap();
         let response = http::Response::builder()
             .status(StatusCode::OK)
             .body("")
             .unwrap();
         let reqwest_response: reqwest::Response = response.into();
-        record_intermediate_client_request(Ok(&reqwest_response), 1, &Method::GET);
+        record_intermediate_client_request(Ok(&reqwest_response), 1, &Method::GET, &url);
 
         let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
@@ -576,12 +585,13 @@ mod tests {
         );
         let _enter = span.enter();
 
+        let url = "https://example.com/test".parse::<reqwest::Url>().unwrap();
         let response = http::Response::builder()
             .status(StatusCode::OK)
             .body("")
             .unwrap();
         let reqwest_response: reqwest::Response = response.into();
-        record_intermediate_client_request(Ok(&reqwest_response), 1, &Method::GET);
+        record_intermediate_client_request(Ok(&reqwest_response), 1, &Method::GET, &url);
 
         let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
@@ -598,9 +608,10 @@ mod tests {
         let span = create_client_request_span("test_span", "test_method", &TEST_INFO);
         let _enter = span.enter();
 
+        let url = "https://example.com/test".parse::<reqwest::Url>().unwrap();
         // Simulate a 404 error
         let error = gax::error::Error::http(404, http::HeaderMap::new(), bytes::Bytes::new());
-        record_intermediate_client_request(Err(&error), 1, &Method::POST);
+        record_intermediate_client_request(Err(&error), 1, &Method::POST, &url);
 
         let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
@@ -617,6 +628,15 @@ mod tests {
         assert_eq!(
             attributes.get(otel_trace::HTTP_REQUEST_METHOD),
             Some(&"POST".into())
+        );
+        // Verify URL attributes from fallback
+        assert_eq!(
+            attributes.get(otel_trace::URL_FULL),
+            Some(&"https://example.com/test".into())
+        );
+        assert_eq!(
+            attributes.get(otel_trace::SERVER_ADDRESS),
+            Some(&"example.com".into())
         );
     }
 }

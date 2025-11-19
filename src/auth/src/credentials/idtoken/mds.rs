@@ -186,7 +186,7 @@ impl Builder {
     /// # use google_cloud_auth::credentials::idtoken;
     /// let audience = "https://my-service.a.run.app";
     /// let credentials = idtoken::mds::Builder::new(audience)
-    ///     .with_format("full")
+    ///     .with_format(idtoken::mds::Format::Full)
     ///     .build();
     /// // Now you can use credentials.id_token().await to fetch the token.
     /// ```
@@ -208,7 +208,7 @@ impl Builder {
     /// # use google_cloud_auth::credentials::idtoken;
     /// let audience = "https://my-service.a.run.app";
     /// let credentials = idtoken::mds::Builder::new(audience)
-    ///     .with_format("full") // licenses only works with format = "full"
+    ///     .with_format(idtoken::mds::Format::Full) // licenses only works with format = Full
     ///     .with_licenses(true)
     ///     .build();
     /// // Now you can use credentials.id_token().await to fetch the token.

@@ -168,7 +168,7 @@ pub async fn machine_types() -> Result<()> {
             count += 1;
             continue;
         }
-        tracing::warn!(
+        tracing::info!(
             "zone {zone} has {} machine types",
             scoped_list.machine_types.len()
         );

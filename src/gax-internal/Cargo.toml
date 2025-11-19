@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-gax-internal"
-version     = "0.7.4"
+version     = "0.7.5"
 description = "Google Cloud Client Libraries for Rust - Implementation Details"
 build       = "build.rs"
 # Inherit other attributes from the workspace.
@@ -55,9 +55,11 @@ _internal-grpc-client = [
   "_internal-common",
   "dep:auth",
   "dep:bytes",
+  "dep:futures-util",
   "dep:gax",
   "dep:http",
   "dep:opentelemetry-semantic-conventions",
+  "dep:pin-project",
   "dep:prost",
   "dep:prost-types",
   "dep:rpc",
@@ -74,11 +76,13 @@ _internal-common = ["dep:auth", "dep:gax", "dep:percent-encoding", "dep:thiserro
 
 [dependencies]
 bytes                              = { workspace = true, optional = true, features = ["serde"] }
+futures-util                       = { workspace = true, optional = true }
 http                               = { workspace = true, optional = true }
 http-body-util                     = { workspace = true, optional = true }
 hyper                              = { workspace = true, optional = true }
 opentelemetry-semantic-conventions = { workspace = true, optional = true }
 percent-encoding                   = { workspace = true, optional = true }
+pin-project                        = { workspace = true, optional = true }
 prost                              = { workspace = true, optional = true }
 prost-types                        = { workspace = true, optional = true }
 reqwest                            = { workspace = true, optional = true }

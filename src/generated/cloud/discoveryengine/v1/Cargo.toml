@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-discoveryengine-v1"
-version                = "2.2.0"
+version                = "2.2.1"
 description            = "Google Cloud Client Libraries for Rust - Discovery Engine API"
 edition.workspace      = true
 authors.workspace      = true

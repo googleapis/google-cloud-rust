@@ -34,6 +34,7 @@ default-members = [
   "src/storage",
   "src/wkt",
   "tools/check-copyright",
+  "tools/minimal-version-helper",
   # We need `cargo test` to run at least some documentation tests for generated
   # libraries. These libraries are implicitly required by the integration tests
   # and samples, so they are not too expensive to include in the default builds.
@@ -228,6 +229,7 @@ members = [
   "src/generated/devtools/cloudbuild/v1",
   "src/generated/devtools/cloudbuild/v2",
   "src/generated/devtools/cloudprofiler/v2",
+  "src/generated/devtools/cloudtrace/v1",
   "src/generated/devtools/cloudtrace/v2",
   "src/generated/devtools/containeranalysis/v1",
   "src/generated/firestore/admin/v1",
@@ -267,6 +269,7 @@ members = [
   "src/w1r3",
   "src/wkt",
   "tools/check-copyright",
+  "tools/minimal-version-helper",
 ]
 
 [workspace.package]
@@ -293,10 +296,13 @@ async-trait           = { default-features = false, version = "0.1.85" }
 base64                = { default-features = false, version = "0.22", features = ["std"] }
 bon                   = { default-features = false, version = "3.8" }
 bytes                 = { default-features = false, version = "1.10", features = ["serde"] }
+cargo_metadata        = { default-features = false, version = "0.18" }
 chrono                = { default-features = false, version = "0.4.42" }
+crates_io_api         = { default-features = false, version = "0.9.0" }
 clap                  = { default-features = false, version = "4" }
 crc32c                = { default-features = false, version = "0.6.8" }
 futures               = { default-features = false, version = "0.3" }
+futures-util          = { default-features = false, version = "0.3" }
 http                  = { default-features = false, version = "1", features = ["std"] }
 http-body             = { default-features = false, version = "1" }
 http-body-util        = { default-features = false, version = "0.1.3" }
@@ -317,6 +323,7 @@ rand                  = { default-features = false, version = "0.9.2" }
 reqwest               = { default-features = false, version = "0.12.24", features = ["json"] }
 rustls                = { default-features = false, version = "0.23" }
 rustls-pemfile        = { default-features = false, version = "2" }
+semver                = { default-features = false, version = "1.0.21" }
 serde                 = { default-features = false, version = "1.0.228", features = ["serde_derive"] }
 serde_json            = { default-features = false, version = "1.0.132", features = ["std"] }
 serde_with            = { default-features = false, version = "3", features = ["base64", "macros", "std"] }
@@ -325,6 +332,7 @@ thiserror             = { default-features = false, version = "2" }
 time                  = { default-features = false, version = "0.3.44" }
 tokio                 = { default-features = false, version = "1" }
 tokio-metrics         = { default-features = false, version = "0.4.5" }
+toml_edit             = { default-features = false, version = "0.21" }
 tonic                 = { default-features = false, version = "0.14.1", features = ["tls-native-roots", "tls-ring"] }
 tonic-prost           = { default-features = false, version = "0.14.2" }
 tonic-prost-build     = { default-features = false, version = "0.14.1" }
@@ -377,7 +385,7 @@ auth                          = { version = "1.1", path = "src/auth", package = 
 google-cloud-auth             = { version = "1.1", path = "src/auth" }
 gax                           = { version = "1.3", path = "src/gax", package = "google-cloud-gax" }
 google-cloud-gax              = { version = "1.3", path = "src/gax" }
-gaxi                          = { version = "0.7.4", path = "src/gax-internal", package = "google-cloud-gax-internal" }
+gaxi                          = { version = "0.7.5", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 iam_v1                        = { version = "1", path = "src/generated/iam/v1", package = "google-cloud-iam-v1" }
 google-cloud-iam-v1           = { version = "1", path = "src/generated/iam/v1" }
 location                      = { version = "1", path = "src/generated/cloud/location", package = "google-cloud-location" }
@@ -431,6 +439,7 @@ storage-samples         = { path = "src/storage/examples" }
 [workspace.lints.rust]
 unexpected_cfgs = { level = "deny", check-cfg = [
   'cfg(google_cloud_unstable_id_token)',
+  'cfg(google_cloud_unstable_signed_url)',
   'cfg(google_cloud_unstable_storage_bidi)',
   'cfg(google_cloud_unstable_tracing)',
 ] }
