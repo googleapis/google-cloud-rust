@@ -279,7 +279,9 @@ jobs:
           cargo minimal-versions check --package google-cloud-auth
           cargo minimal-versions check --package google-cloud-gax
           cargo minimal-versions check --package google-cloud-wkt
-
+      - run: |
+          set -e
+          cargo workspaces plan | xargs -I PKG cargo minimal-versions check -p PKG --all-features
   semver-checks:
     runs-on: ubuntu-24.04
     strategy:
