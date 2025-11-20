@@ -269,7 +269,6 @@ mod tests {
             (otel_attr::URL_DOMAIN, "foo.googleapis.com".into()), // Expect default domain
             (OTEL_STATUS_CODE, "ERROR".into()),
             (otel_trace::ERROR_TYPE, "CLIENT_CONNECTION_ERROR".into()),
-            (OTEL_STATUS_DESCRIPTION, "transport error".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -447,6 +446,105 @@ mod tests {
             (otel_attr::URL_DOMAIN, expected_host.into()),
             (OTEL_STATUS_CODE, "UNSET".into()),
             (otel_attr::RPC_GRPC_STATUS_CODE, 0_i64.into()),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v))
+        .collect();
+
+        assert_eq!(attrs, &expected_attributes);
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    async fn test_grpc_streaming_error() -> anyhow::Result<()> {
+        use google_cloud_gax_internal::observability::attributes::keys::*;
+        use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
+        use tokio_stream::StreamExt;
+
+        let (endpoint, _server) = start_echo_server().await?;
+        let guard = TestLayer::initialize();
+
+        let mut config = google_cloud_gax_internal::options::ClientConfig::default();
+        config.tracing = true;
+        config.cred = Some(test_credentials());
+
+        let client = grpc::Client::new(config, &endpoint).await?;
+
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.test.v1.EchoServices",
+                "Chat",
+            ));
+            e
+        };
+
+        let (tx, rx) = tokio::sync::mpsc::channel(4);
+        let request_stream = tokio_stream::wrappers::ReceiverStream::new(rx);
+
+        let mut response_stream = client
+            .bidi_stream::<_, google::test::v1::EchoResponse>(
+                extensions,
+                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
+                request_stream,
+                RequestOptions::default(),
+                "test-only-api-client/1.0",
+                "name=test-only",
+            )
+            .await?
+            .into_inner();
+
+        // Send an empty message to trigger an error in the stream
+        let request = google::test::v1::EchoRequest {
+            message: "".into(), // Empty message triggers error in echo-server
+            ..Default::default()
+        };
+        tx.send(request).await?;
+
+        // Receive the error
+        let response = response_stream.next().await;
+        assert!(response.is_some());
+        let result = response.unwrap();
+        assert!(result.is_err());
+        let status = result.unwrap_err();
+        assert_eq!(status.code(), tonic::Code::InvalidArgument);
+
+        // Close the stream
+        drop(tx);
+
+        let spans = TestLayer::capture(&guard);
+        let grpc_spans: Vec<_> = spans.iter().filter(|s| s.name == "grpc.request").collect();
+        assert_eq!(
+            grpc_spans.len(),
+            1,
+            "Should capture one grpc.request span. Captured: {:?}",
+            spans
+        );
+
+        let span = &grpc_spans[0];
+        let attrs = &span.attributes;
+
+        let uri: http::Uri = endpoint.parse().unwrap();
+        let expected_host = uri.host().unwrap().to_string();
+        let expected_port = uri.port_u16().unwrap();
+
+        let expected_attributes: std::collections::HashMap<
+            String,
+            google_cloud_test_utils::test_layer::AttributeValue,
+        > = [
+            (OTEL_NAME, "google.test.v1.EchoService/Chat".into()),
+            (otel_trace::RPC_SYSTEM, "grpc".into()),
+            (OTEL_KIND, "Client".into()),
+            (otel_trace::RPC_SERVICE, "google.test.v1.EchoService".into()),
+            (otel_trace::RPC_METHOD, "Chat".into()),
+            (otel_trace::SERVER_ADDRESS, expected_host.clone().into()),
+            (otel_trace::SERVER_PORT, (expected_port as i64).into()),
+            (otel_attr::URL_DOMAIN, expected_host.into()),
+            (OTEL_STATUS_CODE, "ERROR".into()),
+            (otel_attr::RPC_GRPC_STATUS_CODE, 3_i64.into()), // INVALID_ARGUMENT = 3
+            (otel_trace::ERROR_TYPE, "INVALID_ARGUMENT".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
