@@ -61,9 +61,16 @@ where
             tokio::select! {
                 m = rx.next_message() => {
                     match self.handle_response(m).await {
+                        // Successful end of stream, return without error.
                         None => return Ok(()),
+                        // An unrecoverable in the stream or its data, return
+                        // the error.
                         Some(Err(e)) => return Err(e),
+                        // New message on the stream handled successfully,
+                        // continue.
                         Some(Ok(None)) => {},
+                        // The stream reconnected successfully, update the local
+                        // variables and continue.
                         Some(Ok(Some(connection))) => {
                             (rx, tx) = (connection.rx, connection.tx);
                         }
@@ -102,17 +109,19 @@ where
     }
 
     async fn handle_ranges(&self, data: Vec<ObjectRangeData>) -> crate::Result<()> {
-        let ranges = self.ranges.clone();
-        let pending = data
-            .into_iter()
-            .map(|r| Self::handle_range_data(ranges.clone(), r))
-            .collect::<Vec<_>>();
-        let _ = futures::future::join_all(pending)
-            .await
-            .into_iter()
-            .collect::<ReadResult<Vec<_>>>()
-            .map_err(crate::Error::io)?; // TODO: think about the error type
-        Ok(())
+        let mut result = Ok(());
+        // TODO(#3848) - maybe parallelize this loop, as long as each range_id group is serialized.
+        for response in data {
+            if let Err(e) = Self::handle_range_data(self.ranges.clone(), response).await {
+                // Capture the first error. An error here is rare, it indicates
+                // service sent an invalid response. Trying to capture all the
+                // failures is too much complexity for something that may never
+                // happen.
+                result = result.and(Err(e));
+            }
+        }
+        // TODO(#3626) - reconsider the error kind.
+        result.map_err(crate::Error::io)
     }
 
     async fn reconnect(
@@ -145,12 +154,13 @@ where
     }
 
     async fn close_readers(&mut self, error: Arc<crate::Error>) {
+        use futures::StreamExt;
         let mut guard = self.ranges.lock().await;
-        let closing: Vec<_> = guard
-            .iter_mut()
-            .map(|(_, pending)| pending.interrupted(error.clone()))
-            .collect();
-        let _ = futures::future::join_all(closing).await;
+        let closing = futures::stream::FuturesUnordered::new();
+        for (_, active) in guard.iter_mut() {
+            closing.push(active.interrupted(error.clone()));
+        }
+        let _ = closing.count().await;
     }
 
     async fn insert_range(&mut self, tx: Sender<BidiReadObjectRequest>, reader: ActiveRead) {
@@ -163,7 +173,9 @@ where
             read_ranges: vec![request],
             ..BidiReadObjectRequest::default()
         };
-        // Any errors here are recovered by the main background loop.
+        // If this fails the main loop will reconnect the stream and include the
+        // newly inserted range in the initial request to resume all the ranged
+        // reads.
         if let Err(e) = tx.send(request).await {
             tracing::error!("error sending read range request: {e:?}");
         }
@@ -176,24 +188,22 @@ where
         let range = response
             .read_range
             .ok_or(ReadError::MissingRangeInBidiResponse)?;
-        if response.range_end {
+        let (tx, data) = if response.range_end {
             let mut pending = ranges
                 .lock()
                 .await
                 .remove(&range.read_id)
                 .ok_or(ReadError::UnknownBidiRangeId(range.read_id))?;
-            pending
-                .handle_data(response.checksummed_data, range, true)
-                .await
+            pending.handle_data(response.checksummed_data, range, true)?
         } else {
             let mut guard = ranges.lock().await;
             let pending = guard
                 .get_mut(&range.read_id)
                 .ok_or(ReadError::UnknownBidiRangeId(range.read_id))?;
-            pending
-                .handle_data(response.checksummed_data, range, false)
-                .await
-        }
+            pending.handle_data(response.checksummed_data, range, false)?
+        };
+        let _ = tx.send(Ok(data)).await;
+        Ok(())
     }
 }
 

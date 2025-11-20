@@ -38,15 +38,16 @@ impl ActiveRead {
         }
     }
 
-    pub(super) async fn handle_data(
+    pub(super) fn handle_data(
         &mut self,
         data: Option<ChecksummedData>,
         received_range: ProtoRange,
         end: bool,
-    ) -> ReadResult<()> {
+    ) -> ReadResult<(Sender<Result<bytes::Bytes, ReadError>>, bytes::Bytes)> {
         self.state.update(received_range)?;
         let Some(data) = data else {
-            return self.state.handle_empty(end);
+            self.state.handle_empty(end)?;
+            return Ok((self.sender.clone(), bytes::Bytes::default()));
         };
         if let Some(want) = data.crc32c {
             let got = crc32c::crc32c(&data.content);
@@ -57,9 +58,7 @@ impl ActiveRead {
                 }));
             }
         };
-        // Ignore errors, the application can drop a pending range at any time.
-        let _ = self.sender.send(Ok(data.content)).await;
-        Ok(())
+        Ok((self.sender.clone(), data.content))
     }
 
     pub(super) async fn handle_error(&mut self, error: ReadError) {
@@ -102,8 +101,10 @@ mod tests {
             content: bytes::Bytes::from_owner(content.clone()),
             ..ChecksummedData::default()
         };
-        range.handle_data(Some(data), response, false).await?;
+        let (tx, data) = range.handle_data(Some(data), response, false)?;
         assert_eq!(range.as_proto(0), proto_range(25, 0));
+        assert_eq!(data, content);
+        tx.send(Ok(data)).await?;
 
         let recv = rx.recv().await;
         assert!(matches!(recv, Some(Ok(ref b)) if *b == content), "{recv:?}");
@@ -115,7 +116,7 @@ mod tests {
             content: bytes::Bytes::from_owner(content.clone()),
             crc32c: Some(crc32c::crc32c(content.as_bytes())),
         };
-        range.handle_data(Some(data), response, false).await?;
+        let _ = range.handle_data(Some(data), response, false)?;
         assert_eq!(range.as_proto(0), proto_range(50, 0));
 
         Ok(())
@@ -129,7 +130,7 @@ mod tests {
         let requested = ReadRange::segment(0, 100).0;
         let mut range = ActiveRead::new(tx, requested);
         let response = proto_range(0, 0);
-        let result = range.handle_data(None, response, true).await;
+        let result = range.handle_data(None, response, true);
         assert!(
             matches!(result, Err(ReadError::ShortRead(ref l)) if *l == 100),
             "result={result:?} {range:?}"
@@ -147,7 +148,8 @@ mod tests {
             read_length: 0,
             read_id: 0,
         };
-        range.handle_data(None, proto_range, false).await?;
+        let (_tx, data) = range.handle_data(None, proto_range, false)?;
+        assert_eq!(data, bytes::Bytes::default());
         Ok(())
     }
 
@@ -168,7 +170,6 @@ mod tests {
         };
         let err = range
             .handle_data(Some(data), proto_range, false)
-            .await
             .unwrap_err();
         assert!(
             matches!(err, ReadError::ChecksumMismatch(ChecksumMismatch::Crc32c {ref got, ..}) if *got == actual),
@@ -193,7 +194,6 @@ mod tests {
         };
         let err = range
             .handle_data(Some(data), proto_range, false)
-            .await
             .unwrap_err();
         assert!(
             matches!(err, ReadError::OutOfOrderBidiResponse{ ref got, ref expected } if *got == 25 && *expected == 0),
