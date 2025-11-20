@@ -188,7 +188,7 @@ where
         let range = response
             .read_range
             .ok_or(ReadError::MissingRangeInBidiResponse)?;
-        let (tx, data) = if response.range_end {
+        let handler = if response.range_end {
             let mut pending = ranges
                 .lock()
                 .await
@@ -202,7 +202,7 @@ where
                 .ok_or(ReadError::UnknownBidiRangeId(range.read_id))?;
             pending.handle_data(response.checksummed_data, range, false)?
         };
-        let _ = tx.send(Ok(data)).await;
+        handler.send().await;
         Ok(())
     }
 }
