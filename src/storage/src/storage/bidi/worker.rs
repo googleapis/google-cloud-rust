@@ -341,7 +341,7 @@ mod tests {
         assert!(matches!(got, Some(Ok(ref b)) if *b == content), "{got:?}");
         // The stream is not closed, so it does not have a `None` waiting.
         // We are willing to tolerate false positives here, it is fine if this
-        // succeeeds when it shouldn't due to race conditions.
+        // succeeds when it shouldn't due to race conditions.
         assert!(reader.is_empty());
 
         drop(tx);
