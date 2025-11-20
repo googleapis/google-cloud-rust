@@ -314,29 +314,15 @@ mod tests {
 
     #[tokio::test]
     async fn run_partial_read() -> anyhow::Result<()> {
-        let (request_tx, mut request_rx) = tokio::sync::mpsc::channel(1);
-        let (response_tx, response_rx) = mock_stream();
-        let (tx, rx) = tokio::sync::mpsc::channel(1);
-        let connection = Connection::new(request_tx, response_rx);
+        let SuccessfulReadSetup {
+            join,
+            response_tx,
+            request,
+            mut reader,
+            tx,
+        } = set_up_successful_read().await;
 
-        let mut mock = MockTestClient::new();
-        mock.expect_start().never();
-        let connector = mock_connector(mock);
-        let worker = Worker::new(connector);
-        let join = tokio::spawn(async move { worker.run(connection, rx).await });
-
-        let mut reader = mock_reader(&tx, ReadRange::segment(100, 200)).await;
-        let request = request_rx
-            .recv()
-            .await
-            .expect("request queue is not closed");
-        assert!(request.read_object_spec.is_none(), "{request:?}");
-        assert_eq!(request.read_ranges.len(), 1, "{request:?}");
-        let request = request.read_ranges.first().unwrap();
-        assert_eq!(request.read_offset, 100);
-        assert_eq!(request.read_length, 200);
-
-        // Simulate a response for an unexpected read id.
+        // Simulate a response for a partial read.
         let content = bytes::Bytes::from_owner(String::from_iter((0..100).map(|_| 'x')));
         let response = BidiReadObjectResponse {
             object_data_ranges: vec![ObjectRangeData {
@@ -361,29 +347,15 @@ mod tests {
 
     #[tokio::test]
     async fn run_full_read() -> anyhow::Result<()> {
-        let (request_tx, mut request_rx) = tokio::sync::mpsc::channel(1);
-        let (response_tx, response_rx) = mock_stream();
-        let (tx, rx) = tokio::sync::mpsc::channel(1);
-        let connection = Connection::new(request_tx, response_rx);
+        let SuccessfulReadSetup {
+            join,
+            response_tx,
+            request,
+            mut reader,
+            tx,
+        } = set_up_successful_read().await;
 
-        let mut mock = MockTestClient::new();
-        mock.expect_start().never();
-        let connector = mock_connector(mock);
-        let worker = Worker::new(connector);
-        let join = tokio::spawn(async move { worker.run(connection, rx).await });
-
-        let mut reader = mock_reader(&tx, ReadRange::segment(100, 100)).await;
-        let request = request_rx
-            .recv()
-            .await
-            .expect("request queue is not closed");
-        assert!(request.read_object_spec.is_none(), "{request:?}");
-        assert_eq!(request.read_ranges.len(), 1, "{request:?}");
-        let request = request.read_ranges.first().unwrap();
-        assert_eq!(request.read_offset, 100);
-        assert_eq!(request.read_length, 100);
-
-        // Simulate a response for an unexpected read id.
+        // Simulate a response for a full read.
         let content = bytes::Bytes::from_owner(String::from_iter((0..100).map(|_| 'x')));
         let response = BidiReadObjectResponse {
             object_data_ranges: vec![ObjectRangeData {
@@ -406,6 +378,51 @@ mod tests {
         drop(tx);
         join.await??;
         Ok(())
+    }
+
+    struct SuccessfulReadSetup {
+        // A handle to the background task, useful to check for errors.
+        join: tokio::task::JoinHandle<Result<(), Arc<crate::Error>>>,
+        // The sender to create more active reads. Needed to keep the background task running.
+        tx: Sender<ActiveRead>,
+        // The mock reader to receive data.
+        reader: Receiver<ReadResult<bytes::Bytes>>,
+        // The sender to simulate the bidi streaming read RPC responses.
+        response_tx: Sender<tonic::Result<BidiReadObjectResponse>>,
+        // The request sent by the background task.
+        request: ProtoRange,
+    }
+
+    async fn set_up_successful_read() -> SuccessfulReadSetup {
+        let (request_tx, mut request_rx) = tokio::sync::mpsc::channel(1);
+        let (response_tx, response_rx) = mock_stream();
+        let (tx, rx) = tokio::sync::mpsc::channel(1);
+        let connection = Connection::new(request_tx, response_rx);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start().never();
+        let connector = mock_connector(mock);
+        let worker = Worker::new(connector);
+        let join = tokio::spawn(async move { worker.run(connection, rx).await });
+
+        let reader = mock_reader(&tx, ReadRange::segment(100, 100)).await;
+        let request = request_rx
+            .recv()
+            .await
+            .expect("request queue is not closed");
+        assert!(request.read_object_spec.is_none(), "{request:?}");
+        assert_eq!(request.read_ranges.len(), 1, "{request:?}");
+        let request = request.read_ranges.first().unwrap();
+        assert_eq!(request.read_offset, 100);
+        assert_eq!(request.read_length, 100);
+
+        SuccessfulReadSetup {
+            join,
+            tx,
+            reader,
+            response_tx,
+            request: *request,
+        }
     }
 
     #[tokio::test]
