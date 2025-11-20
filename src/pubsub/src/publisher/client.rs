@@ -12,61 +12,61 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::publisher::publisher::PublisherBuilder;
+use crate::publisher::publisher::BatchedPublisherBuilder;
 
 /// Creates [`Publisher`](super::publisher::Publisher) instances.
 ///
-/// This is the main entry point for the publisher API. A single `PublisherFactory`
-/// can be used to create multiple `Publisher` clients for different topics.
+/// This is the main entry point for the publisher API. A single `Publisher`
+/// can be used to create multiple `BatchedPublisher` for different topics.
 /// It manages the underlying gRPC connection and authentication.
 ///
 /// # Example
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
-/// # use google_cloud_pubsub::client::PublisherFactory;
+/// # use google_cloud_pubsub::client::Publisher;
 /// # use google_cloud_pubsub::model::PubsubMessage;
 ///
-/// // Create a factory.
-/// let factory = PublisherFactory::builder().build().await?;
+/// // Create a client.
+/// let publisher = Publisher::builder().build().await?;
 ///
-/// // Create a publisher for a specific topic.
-/// let publisher = factory.publisher("projects/my-project/topics/my-topic").build();
+/// // Create a batched publisher for a specific topic.
+/// let batched_publisher = publisher.batched_publisher("projects/my-project/topics/my-topic").build();
 ///
 /// // Publish a message.
-/// let handle = publisher.publish(PubsubMessage::new().set_data("hello world"));
+/// let handle = batched_publisher.publish(PubsubMessage::new().set_data("hello world"));
 /// let message_id = handle.await?;
 /// println!("Message sent with ID: {}", message_id);
 /// # Ok(())
 /// # }
 /// ```
 #[derive(Clone, Debug)]
-pub struct PublisherFactory {
+pub struct Publisher {
     pub(crate) inner: crate::generated::gapic_dataplane::client::Publisher,
 }
 
-/// A builder for [PublisherFactory].
+/// A builder for [Publisher].
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
-/// # use builder::publisher::PublisherFactoryBuilder;
-/// # use client::PublisherFactory;
-/// let builder: PublisherFactoryBuilder = PublisherFactory::builder();
-/// let factory = builder
+/// # use builder::publisher::PublisherBuilder;
+/// # use client::Publisher;
+/// let builder: PublisherBuilder = Publisher::builder();
+/// let publisher = builder
 ///     .with_endpoint("https://pubsub.googleapis.com")
 ///     .build().await?;
 /// # Ok(()) }
 /// ```
-pub type PublisherFactoryBuilder =
+pub type PublisherBuilder =
     gax::client_builder::ClientBuilder<client_builder::Factory, gaxi::options::Credentials>;
 
 pub(crate) mod client_builder {
-    use super::PublisherFactory;
+    use super::Publisher;
 
     pub struct Factory;
     impl gax::client_builder::internal::ClientFactory for Factory {
-        type Client = PublisherFactory;
+        type Client = Publisher;
         type Credentials = gaxi::options::Credentials;
         #[allow(unused_mut)]
         async fn build(
@@ -79,16 +79,16 @@ pub(crate) mod client_builder {
     }
 }
 
-impl PublisherFactory {
-    /// Returns a builder for [PublisherFactory].
+impl Publisher {
+    /// Returns a builder for [Publisher].
     ///
     /// ```no_run
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_pubsub::client::PublisherFactory;
-    /// let factory = PublisherFactory::builder().build().await?;
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// let publisher = Publisher::builder().build().await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
-    pub fn builder() -> PublisherFactoryBuilder {
+    pub fn builder() -> PublisherBuilder {
         gax::client_builder::internal::new_builder(client_builder::Factory)
     }
 
@@ -100,38 +100,45 @@ impl PublisherFactory {
         std::result::Result::Ok(Self { inner })
     }
 
+    // // TODO(NOW)
+    // /// Adds one or more messages to the topic. Returns `NOT_FOUND` if the topic
+    // /// does not exist.
+    // pub fn publish(&self) -> super::builder::publisher::Publish {
+    //     super::builder::publisher::Publish::new(self.inner.clone())
+    // }
+
     /// Creates a new `Publisher` for a given topic.
     ///
     /// ```
     /// # async fn sample() -> anyhow::Result<()> {
     /// # use google_cloud_pubsub::*;
-    /// # use builder::publisher::PublisherFactoryBuilder;
-    /// # use client::PublisherFactory;
+    /// # use builder::publisher::PublisherBuilder;
+    /// # use client::Publisher;
     /// # use model::PubsubMessage;
-    /// let factory = PublisherFactory::builder().build().await?;
-    /// let publisher = factory.publisher("projects/my-project/topics/my-topic").build();
-    /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World")).await?;
+    /// let publisher = Publisher::builder().build().await?;
+    /// let batched_publisher = publisher.batched_publisher("projects/my-project/topics/my-topic").build();
+    /// let message_id = batched_publisher.publish(PubsubMessage::new().set_data("Hello, World")).await?;
     /// # Ok(()) }
     /// ```
-    pub fn publisher<T>(&self, topic: T) -> PublisherBuilder
+    pub fn batched_publisher<T>(&self, topic: T) -> BatchedPublisherBuilder
     where
         T: Into<String>,
     {
-        PublisherBuilder::new(self.inner.clone(), topic.into())
+        BatchedPublisherBuilder::new(self.inner.clone(), topic.into())
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::PublisherFactory;
+    use super::Publisher;
 
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
-        let client = PublisherFactory::builder()
+        let client = Publisher::builder()
             .with_credentials(auth::credentials::anonymous::Builder::new().build())
             .build()
             .await?;
-        let _ = client.publisher("projects/my-project/topics/my-topic".to_string());
+        let _ = client.batched_publisher("projects/my-project/topics/my-topic".to_string());
         Ok(())
     }
 }

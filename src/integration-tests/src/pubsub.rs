@@ -15,7 +15,7 @@
 use crate::{Error, Result};
 
 use futures::future::join_all;
-use pubsub::client::PublisherFactory;
+use pubsub::client::Publisher;
 use pubsub::model::PubsubMessage;
 pub use pubsub_samples::{cleanup_test_topic, create_test_topic};
 
@@ -23,8 +23,8 @@ pub async fn basic_publisher() -> Result<()> {
     let (topic_admin, topic) = create_test_topic().await?;
 
     tracing::info!("testing publish()");
-    let client = PublisherFactory::builder().build().await?;
-    let publisher = client.publisher(topic.name.clone()).build();
+    let client = Publisher::builder().build().await?;
+    let publisher = client.batched_publisher(topic.name.clone()).build();
     let messages: [PubsubMessage; 2] = [
         PubsubMessage::new().set_data("Hello"),
         PubsubMessage::new().set_data("World"),

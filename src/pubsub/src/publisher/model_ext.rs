@@ -28,9 +28,9 @@ use tokio::sync::oneshot;
 /// # Example
 ///
 /// ```
-/// # use google_cloud_pubsub::client::Publisher;
+/// # use google_cloud_pubsub::client::BatchedPublisher;
 /// # use google_cloud_pubsub::model::PubsubMessage;
-/// # async fn sample(publisher: Publisher) -> anyhow::Result<()> {
+/// # async fn sample(publisher: BatchedPublisher) -> anyhow::Result<()> {
 /// // publish() returns a handle immediately.
 /// let handle = publisher.publish(PubsubMessage::new().set_data("hello world"));
 ///

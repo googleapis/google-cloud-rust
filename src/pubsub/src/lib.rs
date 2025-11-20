@@ -29,7 +29,7 @@
 //! * [SchemaService][client::SchemaService]
 //!
 //! For publishing messages:
-//! * [PublisherFactory][client::PublisherFactory] and [Publisher][client::Publisher]
+//! * [Publisher][client::Publisher] and [BatchedPublisher][client::BatchedPublisher]
 //!
 //! Receiving messages is not yet supported by this crate.
 //!
@@ -54,8 +54,8 @@ pub mod builder {
     pub mod publisher {
         #[doc(hidden)]
         pub use crate::generated::gapic_dataplane::builder::publisher::*;
-        pub use crate::publisher::client::PublisherFactoryBuilder;
-        pub use crate::publisher::publisher::PublisherBuilder;
+        pub use crate::publisher::client::PublisherBuilder;
+        pub use crate::publisher::publisher::BatchedPublisherBuilder;
     }
     /// Request and client builders for the [SchemaService][crate::client::SchemaService] client.
     pub use crate::generated::gapic::builder::schema_service;
@@ -86,21 +86,21 @@ pub mod model_ext {
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
-/// use google_cloud_pubsub::client::PublisherFactory;
+/// use google_cloud_pubsub::client::Publisher;
 /// use google_cloud_pubsub::model::PubsubMessage;
 ///
-/// // Create a factory for creating publishers.
-/// let factory = PublisherFactory::builder().build().await?;
+/// // Create a publisher client.
+/// let publisher = Publisher::builder().build().await?;
 ///
-/// // Create a publisher that handles batching for a specific topic.
-/// let publisher = factory.publisher("projects/my-project/topics/my-topic").build();
+/// // Create a batched publisher that handles batching for a specific topic.
+/// let batched_publisher = publisher.batched_publisher("projects/my-project/topics/my-topic").build();
 ///
 /// // Publish several messages.
 /// // The client will automatically batch them in the background.
 /// let mut handles = Vec::new();
 /// for i in 0..10 {
 ///     let msg = PubsubMessage::new().set_data(format!("message {}", i));
-///     handles.push(publisher.publish(msg));
+///     handles.push(batched_publisher.publish(msg));
 /// }
 ///
 /// // The handles are futures that resolve to the server-assigned message IDs.
@@ -115,8 +115,8 @@ pub mod model_ext {
 /// ```
 pub mod client {
     pub use crate::generated::gapic::client::*;
-    pub use crate::publisher::client::PublisherFactory;
-    pub use crate::publisher::publisher::Publisher;
+    pub use crate::publisher::client::Publisher;
+    pub use crate::publisher::publisher::BatchedPublisher;
 }
 
 /// Traits to mock the clients in this library.
