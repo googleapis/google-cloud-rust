@@ -269,7 +269,6 @@ mod tests {
             (otel_attr::URL_DOMAIN, "foo.googleapis.com".into()), // Expect default domain
             (OTEL_STATUS_CODE, "ERROR".into()),
             (otel_trace::ERROR_TYPE, "CLIENT_CONNECTION_ERROR".into()),
-            (OTEL_STATUS_DESCRIPTION, "transport error".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -349,10 +348,6 @@ mod tests {
             (OTEL_STATUS_CODE, "ERROR".into()),
             (otel_attr::RPC_GRPC_STATUS_CODE, 12_i64.into()), // UNIMPLEMENTED = 12
             (otel_trace::ERROR_TYPE, "UNIMPLEMENTED".into()),
-            (
-                OTEL_STATUS_DESCRIPTION,
-                "the service reports an error with code UNIMPLEMENTED described as: ".into(),
-            ),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -550,7 +545,6 @@ mod tests {
             (OTEL_STATUS_CODE, "ERROR".into()),
             (otel_attr::RPC_GRPC_STATUS_CODE, 3_i64.into()), // INVALID_ARGUMENT = 3
             (otel_trace::ERROR_TYPE, "INVALID_ARGUMENT".into()),
-            (OTEL_STATUS_DESCRIPTION, "the service reports an error with code INVALID_ARGUMENT described as: empty message".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))

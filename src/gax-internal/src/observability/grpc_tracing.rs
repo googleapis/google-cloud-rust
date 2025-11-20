@@ -32,7 +32,7 @@ pub struct AttemptCount(pub i64);
 ///
 /// * `Either::Left`: The body is wrapped in `InstrumentedBody` (tracing enabled).
 /// * `Either::Right`: The body is the raw `B` (tracing disabled).
-pub type TracedOrRawBody<B> = http_body_util::Either<InstrumentedBody<B>, B>;
+pub type OptionallyTracedBody<B> = http_body_util::Either<InstrumentedBody<B>, B>;
 
 /// A wrapper around the response body that keeps the span active while streaming.
 #[pin_project::pin_project]
@@ -151,9 +151,9 @@ where
     S::Error: std::fmt::Display,
     ResBody: http_body::Body<Data = bytes::Bytes, Error = tonic::Status> + Send + 'static,
 {
-    // We return `TracedOrRawBody` which is `Either<InstrumentedBody<ResBody>, ResBody>`.
+    // We return `OptionallyTracedBody` which is `Either<InstrumentedBody<ResBody>, ResBody>`.
     // In this case (TracingTowerService), we always return `Either::Left(InstrumentedBody)`.
-    type Response = http::Response<TracedOrRawBody<ResBody>>;
+    type Response = http::Response<OptionallyTracedBody<ResBody>>;
     type Error = S::Error;
     type Future = ResponseFuture<S::Future>;
 
@@ -172,7 +172,7 @@ where
     }
 }
 
-/// A wrapper service that wraps the response body in `Either::Right` to match the `TracedOrRawBody` type.
+/// A service that wraps the response body in `Either::Right` to match the `OptionallyTracedBody` type.
 /// Used to unify the response type with `TracingTowerService` when tracing is disabled.
 #[derive(Clone, Debug, Default)]
 pub struct NoTracingTowerLayer;
@@ -202,11 +202,11 @@ where
     S::Future: Send + 'static,
     ResBody: http_body::Body<Data = bytes::Bytes, Error = tonic::Status> + Send + 'static,
 {
-    // We return `TracedOrRawBody` which is `Either<InstrumentedBody<ResBody>, ResBody>`.
+    // We return `OptionallyTracedBody` which is `Either<InstrumentedBody<ResBody>, ResBody>`.
     // In this case (NoTracingTowerService), we always return `Either::Right(ResBody)`.
     // This matches the return type of `TracingTowerService`, allowing them to be used interchangeably
     // in `tower::util::Either` without boxing.
-    type Response = http::Response<TracedOrRawBody<ResBody>>;
+    type Response = http::Response<OptionallyTracedBody<ResBody>>;
     type Error = S::Error;
     type Future = NoTracingFuture<S::Future, ResBody>;
 
@@ -234,7 +234,7 @@ where
     F: Future<Output = Result<http::Response<B>, E>>,
     B: http_body::Body<Data = bytes::Bytes, Error = tonic::Status> + Send + 'static,
 {
-    type Output = Result<http::Response<TracedOrRawBody<B>>, E>;
+    type Output = Result<http::Response<OptionallyTracedBody<B>>, E>;
 
     fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         use http_body_util::Either;
@@ -258,7 +258,7 @@ where
     Error: std::fmt::Display,
     ResBody: http_body::Body<Data = bytes::Bytes, Error = tonic::Status> + Send + 'static,
 {
-    type Output = Result<http::Response<TracedOrRawBody<ResBody>>, Error>;
+    type Output = Result<http::Response<OptionallyTracedBody<ResBody>>, Error>;
 
     fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         use http_body_util::Either;
@@ -308,7 +308,6 @@ fn record_status_from_headers(span: &tracing::Span, headers: &http::HeaderMap) {
                 otel_trace::ERROR_TYPE,
                 ErrorType::from_gax_error(&gax_error).as_str(),
             );
-            span.record(OTEL_STATUS_DESCRIPTION, gax_error.to_string());
         }
     }
 }
@@ -320,7 +319,6 @@ fn record_error_status<Error: std::fmt::Display>(span: &tracing::Span, error: &E
         otel_trace::ERROR_TYPE,
         ErrorType::from_gax_error(&gax_error).as_str(),
     );
-    span.record(OTEL_STATUS_DESCRIPTION, error.to_string());
 }
 
 fn create_grpc_span(
@@ -359,7 +357,6 @@ fn create_grpc_span(
         { otel_attr::RPC_GRPC_STATUS_CODE } = tracing::field::Empty,
         { GRPC_STATUS } = tracing::field::Empty,
         { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
-        { OTEL_STATUS_DESCRIPTION } = tracing::field::Empty,
         { otel_trace::ERROR_TYPE } = tracing::field::Empty,
         // Client library metadata
         { GCP_CLIENT_SERVICE } = service,
@@ -572,7 +569,6 @@ mod tests {
             { otel_attr::RPC_GRPC_STATUS_CODE } = tracing::field::Empty,
             { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
             { otel_trace::ERROR_TYPE } = tracing::field::Empty,
-            { OTEL_STATUS_DESCRIPTION } = tracing::field::Empty,
         );
         let _enter = span.enter();
 
@@ -594,14 +590,6 @@ mod tests {
 
         let error_type = span_data.attributes.get(otel_trace::ERROR_TYPE);
         assert_eq!(error_type, Some(&AttributeValue::from("INVALID_ARGUMENT")));
-
-        let description = span_data.attributes.get(OTEL_STATUS_DESCRIPTION);
-        assert_eq!(
-            description,
-            Some(&AttributeValue::from(
-                "the service reports an error with code INVALID_ARGUMENT described as: invalid argument"
-            ))
-        );
     }
 
     #[test]
@@ -611,7 +599,6 @@ mod tests {
             "test_span",
             { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
             { otel_trace::ERROR_TYPE } = tracing::field::Empty,
-            { OTEL_STATUS_DESCRIPTION } = tracing::field::Empty,
         );
         let _enter = span.enter();
 
@@ -630,14 +617,6 @@ mod tests {
         assert_eq!(
             error_type,
             Some(&AttributeValue::from("CLIENT_CONNECTION_ERROR"))
-        );
-
-        let description = span_data.attributes.get(OTEL_STATUS_DESCRIPTION);
-        assert_eq!(
-            description,
-            Some(&AttributeValue::from(
-                "status: 'Internal error', self: \"internal error\""
-            ))
         );
     }
 }
