@@ -29,7 +29,7 @@ steps:
       #!/usr/bin/env bash
       set -e
       mkdir -p .bin
-      curl -fsSL https://github.com/mozilla/sccache/releases/download/v0.9.1/sccache-v0.9.1-x86_64-unknown-linux-musl.tar.gz |
+      curl -fsSL --retry 5 --retry-delay 15 https://github.com/mozilla/sccache/releases/download/v0.9.1/sccache-v0.9.1-x86_64-unknown-linux-musl.tar.gz |
         tar -C /workspace/.bin -zxf - --strip-components=1
       chmod 755 /workspace/.bin/sccache
   - name: 'rust:1.85-bookworm'

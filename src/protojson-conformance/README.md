@@ -33,7 +33,7 @@ cd protobuf
 Install bazelisk:
 
 ```shell
-curl -fsSL https://github.com/bazelbuild/bazelisk/releases/download/v1.26.0/bazelisk-darwin-arm64 -o bazelisk
+curl -fsSL --retry 5 --retry-all-errors --retry-delay 15 https://github.com/bazelbuild/bazelisk/releases/download/v1.26.0/bazelisk-darwin-arm64 -o bazelisk
 chmod 755 bazelisk
 ./bazelisk version
 ```
