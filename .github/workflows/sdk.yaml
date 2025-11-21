@@ -460,7 +460,6 @@ jobs:
           set -e
           rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
           rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-          cargo install mdbook --version ^0.5 --locked
       - name: Display Cargo version
         run: cargo version
       - name: Display rustc version
@@ -475,6 +474,19 @@ jobs:
         if: matrix.rust-version == 'rust:nightly'
         env:
           RUSTDOCFLAGS: '-D warnings'
+
+  guide:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        rust-version: ['rust:current']
+    steps:
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: |
+          set -e
+          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          cargo install mdbook --version ^0.5 --locked
       - run: mdbook build guide
       - run: mdbook test guide
       - name: Upload user guide
