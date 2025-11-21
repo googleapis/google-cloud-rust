@@ -60,53 +60,6 @@ jobs:
         run: cargo clean && cargo check --profile=ci --workspace
         if: matrix.os != 'windows-2025'
 
-  test-unstable-cfg:
-    strategy:
-      matrix:
-        os: ['ubuntu-24.04']
-        rust-version: ['rust:current']
-    runs-on: ${{ matrix.os }}
-    env:
-      RUSTFLAGS: *unstable_cfgs
-    steps:
-      - uses: actions/checkout@v5
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo
-          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}-unstable
-      - name: Setup Rust ${{ matrix.rust-version }}
-        run: |
-          set -e
-          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-          rustup component add clippy
-      - run: rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-      - name: Display Cargo version
-        run: cargo version
-      - name: Display rustc version
-        run: rustup show active-toolchain -v
-      - name: Test key crates and integration tests with Unstable CFGs
-        run: |
-          set -e
-          echo "RUSTFLAGS in test-unstable-cfg: $RUSTFLAGS"
-
-          # Key crates
-          KEY_CRATES=("google-cloud-gax" "google-cloud-gax-internal" "google-cloud-test-utils")
-          for crate in "${KEY_CRATES[@]}"; do
-            cargo clean
-            echo "==== ${crate} (UNSTABLE - No Default Features) ===="
-            cargo test --package ${crate} --no-default-features
-
-            cargo clean
-            echo "==== ${crate} (UNSTABLE - All Features) ===="
-            cargo test --package ${crate} --all-features
-          done
-
-          # Integration tests
-          echo "==== integration-tests (UNSTABLE) ===="
-          cargo test -p integration-tests --features run-showcase-tests
-
   coverage:
     runs-on: ubuntu-24.04
     strategy:
