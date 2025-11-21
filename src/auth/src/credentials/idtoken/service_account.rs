@@ -40,7 +40,7 @@
 //!     "universe_domain": "test-universe-domain",
 //! });
 //! let audience = "https://my-service.a.run.app";
-//! let credentials: Credentials = idtoken::service_account::Builder::new(audience, service_account_key)
+//! let credentials = idtoken::service_account::Builder::new(audience, service_account_key)
 //!     .build()?;
 //! let id_token = credentials.id_token().await?;
 //!

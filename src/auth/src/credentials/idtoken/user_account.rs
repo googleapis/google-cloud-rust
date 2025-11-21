@@ -43,7 +43,7 @@
 //!
 //! // Make request with ID Token as Bearer Token.
 //! let client = reqwest::Client::new();
-//! let target_url = format!("{audience}/api/method");
+//! let target_url = format!("https://my-service.a.run.app/api/method");
 //! client.get(target_url)
 //!     .bearer_auth(id_token)
 //!     .send()
@@ -93,6 +93,7 @@ where
 /// # Example
 /// ```
 /// # use google_cloud_auth::credentials::idtoken;
+/// # use serde_json::json;
 /// # tokio_test::block_on(async {
 /// let authorized_user = json!({
 ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",

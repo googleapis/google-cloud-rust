@@ -20,17 +20,17 @@
 //!
 //! ## Example: Verifying an ID token
 //!
-//! ```no_run
+//! ```
 //! # use google_cloud_auth::credentials::idtoken;
+//! # use google_cloud_auth::credentials::idtoken::verifier::Verifier;
 //! # use std::time::Duration;
 //! let audience = "https://my-service.a.run.app";
 //! let verifier = idtoken::verifier::Builder::new([audience]).build();
 //!
-//! async fn verify_my_token(token: &str) -> anyhow::Result<()> {
+//! async fn verify_my_token(verifier: &Verifier, token: &str) -> anyhow::Result<()> {
 //!     let claims = verifier.verify(token).await?;
-//!     let email = claims["email"].as_str()?;
 //!
-//!     println!("Hello: {:?}", email);
+//!     println!("Hello: {:?}", claims["email"]);
 //! #   Ok(())
 //! }
 //! ```
@@ -116,7 +116,7 @@ impl Builder {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_auth::credentials::idtoken::Builder;
+    /// # use google_cloud_auth::credentials::idtoken::verifier::Builder;
     /// # use std::time::Duration;
     /// let verifier = Builder::new(["https://my-service.a.run.app"])
     ///     .with_clock_skew(Duration::from_secs(60))

@@ -106,7 +106,7 @@ use std::sync::Arc;
 /// });
 ///
 /// let audience = "https://my-service.a.run.app";
-/// let credentials = idtoken::impersonated::Builder::new(impersonated_credential).build();
+/// let credentials = idtoken::impersonated::Builder::new(audience, impersonated_credential).build();
 /// # });
 pub struct Builder {
     source: BuilderSource,

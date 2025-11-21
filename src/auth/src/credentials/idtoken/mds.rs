@@ -161,11 +161,13 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::idtoken;
+    /// # tokio_test::block_on(async {
     /// let audience = "https://my-service.a.run.app";
     /// let credentials = idtoken::mds::Builder::new(audience)
     ///     .with_endpoint("http://169.254.169.254")
     ///     .build();
     /// // Now you can use credentials.id_token().await to fetch the token.
+    /// # });
     /// ```
     pub fn with_endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
         self.endpoint = Some(endpoint.into());
@@ -184,11 +186,13 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::idtoken;
+    /// # tokio_test::block_on(async {
     /// let audience = "https://my-service.a.run.app";
     /// let credentials = idtoken::mds::Builder::new(audience)
     ///     .with_format(idtoken::mds::Format::Full)
     ///     .build();
     /// // Now you can use credentials.id_token().await to fetch the token.
+    /// # });
     /// ```
     pub fn with_format(mut self, format: Format) -> Self {
         self.format = Some(format);
@@ -206,12 +210,14 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::idtoken;
+    /// # tokio_test::block_on(async {
     /// let audience = "https://my-service.a.run.app";
     /// let credentials = idtoken::mds::Builder::new(audience)
     ///     .with_format(idtoken::mds::Format::Full) // licenses only works with format = Full
     ///     .with_licenses(true)
     ///     .build();
     /// // Now you can use credentials.id_token().await to fetch the token.
+    /// # });
     /// ```
     pub fn with_licenses(mut self, licenses: bool) -> Self {
         self.licenses = if licenses {

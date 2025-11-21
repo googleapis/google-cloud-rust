@@ -56,19 +56,21 @@
 //! receive the information being sent by the Bearer token and use the [Verifier] to
 //! check if is valid.
 //!
-//! ```no_run
+//! ```
 //! # use google_cloud_auth::credentials::idtoken;
+//! # use google_cloud_auth::credentials::idtoken::verifier::Verifier;
 //! # use std::time::Duration;
+//! # tokio_test::block_on(async {
 //! let audience = "https://my-service.a.run.app";
 //! let verifier = idtoken::verifier::Builder::new([audience]).build();
 //!
-//! async fn verify_id_token(token: &str) -> anyhow::Result<()> {
+//! async fn verify_id_token(verifier: &Verifier, token: &str) -> anyhow::Result<()> {
 //!     let claims = verifier.verify(token).await?;
-//!     let email = claims["email"].as_str()?;
 //!
-//!     println!("Hello: {:?}", email);
+//!     println!("Hello: {:?}", claims["email"]);
 //! #   Ok(())
 //! }
+//! # });
 //! ```
 //! [Verifier]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/idtoken/struct.Verifier.html
 //! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
