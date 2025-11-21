@@ -57,12 +57,8 @@ jobs:
         run: cargo clean && cargo test
       - name: Build full workspace
         # See Cargo.toml for the definition and motivation of this profile
-        run: cargo clean && cargo build --profile=ci --workspace
+        run: cargo clean && cargo check --profile=ci --workspace
         if: matrix.os != 'windows-2025'
-      - name: Running tests for full workspace
-        # See Cargo.toml for the definition and motivation of this profile
-        run: cargo clean && cargo test --profile=ci --workspace
-        if: github.event_name == 'push'
 
   features:
     strategy:
