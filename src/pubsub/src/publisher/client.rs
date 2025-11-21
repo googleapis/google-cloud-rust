@@ -14,7 +14,7 @@
 
 use crate::publisher::publisher::BatchedPublisherBuilder;
 
-/// Creates [`Publisher`](super::publisher::Publisher) instances.
+/// Creates [`Publisher`](super::client::Publisher) instances.
 ///
 /// This is the main entry point for the publisher API. A single `Publisher`
 /// can be used to create multiple `BatchedPublisher` for different topics.

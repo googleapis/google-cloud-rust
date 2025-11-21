@@ -23,7 +23,7 @@ use tokio::sync::oneshot;
 /// result of the publish call: either a server-assigned message ID `String`
 /// or an `Error` if the publish failed.
 ///
-/// A `PublishHandle` is returned from every call to [`Publisher::publish`][crate::client::Publisher::publish]
+/// A `PublishHandle` is returned from every call to [`BatchedPublisher::publish`][crate::client::BatchedPublisher::publish]
 ///
 /// # Example
 ///

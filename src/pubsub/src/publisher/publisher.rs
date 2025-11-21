@@ -192,7 +192,7 @@ impl BatchedPublisherBuilder {
         self
     }
 
-    /// Creates a new [`Publisher`] from the builder's configuration.
+    /// Creates a new [`BatchedPublisher`] from the builder's configuration.
     // This method starts a background task to manage the batching
     // and sending of messages. The returned `Publisher` is a
     // lightweight handle for sending messages to that background task
