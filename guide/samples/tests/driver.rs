@@ -23,8 +23,7 @@ mod driver {
         user_guide_samples::authentication::adc::sample().await?;
         Ok(())
     }
-
-    #[cfg(all(test, google_cloud_unstable_id_token))]
+    
     #[tokio::test(flavor = "multi_thread")]
     async fn id_token() -> anyhow::Result<()> {
         use google_cloud_auth::credentials::idtoken::Builder;
