@@ -36,6 +36,10 @@ locals {
 
   # Add to these lists of you want to have more triggers.
   pr_builds = {
+    # compute-full = {
+    #   config = "complex-32.yaml"
+    #   script = "compute-full.sh"
+    # }
     docs = {
       config = "complex.yaml"
       script = "docs.sh"
@@ -44,6 +48,10 @@ locals {
       config = "complex.yaml"
       script = "docs-sh.sh"
     }
+    # features = {
+    #   config = "complex.yaml"
+    #   script = "features.sh"
+    # }
     integration = {
       config = "integration.yaml"
     }
@@ -56,10 +64,6 @@ locals {
         "--cfg google_cloud_unstable_storage_bidi"
       ])
     }
-    # features = {
-    #   config = "complex.yaml"
-    #   script = "features.sh"
-    # }
     # semver-checks = {
     #   config = "complex.yaml"
     #   script = "semver-checks.sh"
@@ -69,13 +73,13 @@ locals {
     ##   config = "complex.yaml"
     ##   script = "workspace.sh"
     ## }
+  }
+
+  pm_builds = {
     # compute-full = {
     #   config = "complex-32.yaml"
     #   script = "compute-full.sh"
     # }
-  }
-
-  pm_builds = {
     docs = {
       config = "complex.yaml"
       script = "docs.sh"
@@ -84,6 +88,10 @@ locals {
       config = "complex.yaml"
       script = "docs-sh.sh"
     }
+    # features = {
+    #   config = "complex.yaml"
+    #   script = "features.sh"
+    # }
     integration = {
       config = "integration.yaml"
     }
@@ -96,10 +104,6 @@ locals {
         "--cfg google_cloud_unstable_storage_bidi"
       ])
     }
-    # features = {
-    #   config = "complex.yaml"
-    #   script = "features.sh"
-    # }
     # semver-checks = {
     #   config = "complex.yaml"
     #   script = "semver-checks.sh"
@@ -107,10 +111,6 @@ locals {
     # workspace = {
     #   config = "complex.yaml"
     #   script = "workspace.sh"
-    # }
-    # compute-full = {
-    #   config = "complex-32.yaml"
-    #   script = "compute-full.sh"
     # }
     referenceupload = {
       config = "referenceupload.yaml"
