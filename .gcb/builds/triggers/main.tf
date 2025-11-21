@@ -36,6 +36,14 @@ locals {
 
   # Add to these lists of you want to have more triggers.
   pr_builds = {
+    docs = {
+      config = "complex.yaml"
+      script = "docs.sh"
+    }
+    docs-sh = {
+      config = "complex.yaml"
+      script = "docs-sh.sh"
+    }
     integration = {
       config = "integration.yaml"
     }
@@ -51,14 +59,6 @@ locals {
     # features = {
     #   config = "complex.yaml"
     #   script = "features.sh"
-    # }
-    # docs = {
-    #   config = "complex.yaml"
-    #   script = "docs.sh"
-    # }
-    # docs-sh = {
-    #   config = "complex.yaml"
-    #   script = "docs-sh.sh"
     # }
     # semver-checks = {
     #   config = "complex.yaml"
@@ -76,6 +76,14 @@ locals {
   }
 
   pm_builds = {
+    docs = {
+      config = "complex.yaml"
+      script = "docs.sh"
+    }
+    docs-sh = {
+      config = "complex.yaml"
+      script = "docs-sh.sh"
+    }
     integration = {
       config = "integration.yaml"
     }
@@ -91,14 +99,6 @@ locals {
     # features = {
     #   config = "complex.yaml"
     #   script = "features.sh"
-    # }
-    # docs = {
-    #   config = "complex.yaml"
-    #   script = "docs.sh"
-    # }
-    # docs-sh = {
-    #   config = "complex.yaml"
-    #   script = "docs-sh.sh"
     # }
     # semver-checks = {
     #   config = "complex.yaml"
