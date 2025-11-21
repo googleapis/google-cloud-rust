@@ -168,6 +168,7 @@ where
         ResponseFuture {
             inner: future,
             span,
+            completed: false,
         }
     }
 }
@@ -245,11 +246,25 @@ where
 }
 
 /// A future that wraps the inner service's future and records the status code on completion.
-#[pin_project::pin_project]
+#[pin_project::pin_project(PinnedDrop)]
 pub struct ResponseFuture<F> {
     #[pin]
     inner: F,
     span: tracing::Span,
+    completed: bool,
+}
+
+#[pin_project::pinned_drop]
+impl<F> PinnedDrop for ResponseFuture<F> {
+    fn drop(self: Pin<&mut Self>) {
+        if !self.completed {
+            self.span.record(OTEL_STATUS_CODE, otel_status_codes::ERROR);
+            self.span.record(
+                otel_trace::ERROR_TYPE,
+                attributes::error_type_values::CLIENT_CANCELLED,
+            );
+        }
+    }
 }
 
 impl<F, ResBody, Error> Future for ResponseFuture<F>
@@ -269,6 +284,9 @@ where
         // Crucially, this causes `_guard` to be dropped, which exits the span.
         // This ensures we don't hold the span open while waiting for I/O.
         let result = futures_util::ready!(this.inner.poll(cx));
+
+        // If we get here, the future is ready.
+        *this.completed = true;
 
         match result {
             Ok(response) => {

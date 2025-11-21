@@ -554,4 +554,90 @@ mod tests {
 
         Ok(())
     }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn test_grpc_cancellation() -> anyhow::Result<()> {
+        use google_cloud_gax_internal::observability::attributes;
+        use google_cloud_gax_internal::observability::attributes::keys::*;
+        use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
+        use std::time::Duration;
+
+        let guard = TestLayer::initialize();
+
+        let mut config = google_cloud_gax_internal::options::ClientConfig::default();
+        config.tracing = true;
+        config.cred = Some(test_credentials());
+
+        // Use a a real but non-existent address to ensure the request hangs and stays Pending,
+        // allowing us to drop it and trigger cancellation.
+        let blackhole_endpoint = "http://192.0.2.1:1234";
+        let client = grpc::Client::new(config, blackhole_endpoint).await?;
+
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.test.v1.EchoServices",
+                "Echo",
+            ));
+            e
+        };
+        let request = google::test::v1::EchoRequest {
+            message: "test message".into(),
+            ..Default::default()
+        };
+
+        let future = client.execute::<_, google::test::v1::EchoResponse>(
+            extensions,
+            http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
+            request,
+            RequestOptions::default(),
+            "test-client",
+            "",
+        );
+
+        // Poll the future once to ensure the span is created and entered, then drop it
+        // We use `tokio::time::timeout` with a very short duration to force a drop
+        let _ = tokio::time::timeout(Duration::from_micros(1), future).await;
+
+        // Wait a bit for the span to be processed (though drop should happen immediately)
+        tokio::time::sleep(Duration::from_millis(10)).await;
+
+        let spans = TestLayer::capture(&guard);
+        let grpc_spans: Vec<_> = spans.iter().filter(|s| s.name == "grpc.request").collect();
+        assert_eq!(
+            grpc_spans.len(),
+            1,
+            "Should capture one grpc.request span. Captured: {:?}",
+            spans
+        );
+
+        let span = &grpc_spans[0];
+        let attrs = &span.attributes;
+
+        let expected_attributes: std::collections::HashMap<
+            String,
+            google_cloud_test_utils::test_layer::AttributeValue,
+        > = [
+            (OTEL_NAME, "google.test.v1.EchoService/Echo".into()),
+            (otel_trace::RPC_SYSTEM, "grpc".into()),
+            (OTEL_KIND, "Client".into()),
+            (otel_trace::RPC_SERVICE, "google.test.v1.EchoService".into()),
+            (otel_trace::RPC_METHOD, "Echo".into()),
+            (otel_trace::SERVER_ADDRESS, "192.0.2.1".into()),
+            (otel_trace::SERVER_PORT, 1234_i64.into()),
+            (otel_attr::URL_DOMAIN, "192.0.2.1".into()),
+            (OTEL_STATUS_CODE, "ERROR".into()),
+            (
+                otel_trace::ERROR_TYPE,
+                attributes::error_type_values::CLIENT_CANCELLED.into(),
+            ),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v))
+        .collect();
+
+        assert_eq!(attrs, &expected_attributes);
+
+        Ok(())
+    }
 }
