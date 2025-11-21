@@ -443,38 +443,6 @@ jobs:
                --failure_list ${GITHUB_WORKSPACE}/main/src/protojson-conformance/expected_failures.txt \
                ${GITHUB_WORKSPACE}/main/target/debug/protojson-conformance
 
-  docs:
-    runs-on: ubuntu-24.04
-    strategy:
-      matrix:
-        rust-version: ['rust:current', 'rust:nightly']
-    steps:
-      - uses: actions/checkout@v5
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo
-          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
-      - name: Setup Rust ${{ matrix.rust-version }}
-        run: |
-          set -e
-          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-      - name: Display Cargo version
-        run: cargo version
-      - name: Display rustc version
-        run: rustup show active-toolchain -v
-      - run: cargo doc --workspace
-        if: matrix.rust-version == 'rust:current'
-        env:
-          RUSTDOCFLAGS: '-D warnings'
-      - run: cargo doc
-        # The nightly builds are slow for some reason, so we run a smaller set
-        # of documents for them. We expect these will catch most problems.
-        if: matrix.rust-version == 'rust:nightly'
-        env:
-          RUSTDOCFLAGS: '-D warnings'
-
   guide:
     runs-on: ubuntu-24.04
     strategy:
@@ -513,7 +481,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    needs: docs
+    needs: guide
     steps:
       - name: Deploy to GitHub Pages
         id: deployment

@@ -21,7 +21,7 @@ cargo install --locked cargo-workspaces
 cargo version
 rustup show active-toolchain -v
 
-args=($(cargo workspaces plan 2>/dev/null | head -20))
+packages=($(cargo workspaces plan 2>/dev/null | head -20))
 if [[ "${TRIGGER_NAME:-}" == "gcb-pm-*" ]]; then
     packages=($(cargo workspaces plan 2>/dev/null | grep -v gcp-sdk))
 fi
