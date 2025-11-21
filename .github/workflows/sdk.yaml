@@ -22,7 +22,7 @@ on:
   release:
     types: [published]
 env:
-  GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.91", "rust:nightly": "nightly" }'
+  GHA_RUST_VERSIONS: '{ "rust:current": "1.91" }'
   GHA_GO_VERSIONS: '{ "go:current": "1.25.4" }'
   # Define the unstable flags once
   UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_id_token --cfg google_cloud_unstable_signed_url --cfg google_cloud_unstable_storage_bidi'
@@ -31,14 +31,9 @@ jobs:
   build:
     strategy:
       matrix:
-        os: ['macos-14', 'ubuntu-24.04', 'windows-2025']
+        os: ['macos-14', 'windows-2025']
         rust-version: ['rust:current']
-        include:
-          - os: 'ubuntu-24.04'
-            rust-version: 'rust:msrv'
     runs-on: ${{ matrix.os }}
-    env:
-      RUSTFLAGS: *unstable_cfgs
     steps:
       - uses: actions/checkout@v5
       - uses: actions/cache@v4
@@ -53,12 +48,10 @@ jobs:
         run: cargo version
       - name: Display rustc version
         run: rustup show active-toolchain -v
-      - name: Running tests for key crates
-        run: cargo clean && cargo test
-      - name: Build full workspace
-        # See Cargo.toml for the definition and motivation of this profile
-        run: cargo clean && cargo check --profile=ci --workspace
-        if: matrix.os != 'windows-2025'
+      - name: Testing crates with OS variations
+        # Only `auth` has code that depends on the OS.
+        # The rest of the code is tested in Google Cloud build
+        run: cargo test --profile=ci --package google-cloud-auth
 
   coverage:
     runs-on: ubuntu-24.04
