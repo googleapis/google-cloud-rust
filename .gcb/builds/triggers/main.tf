@@ -44,7 +44,7 @@ locals {
       config = "complex.yaml"
       script = "docs"
     }
-    docs-sh = {
+    docs-rs = {
       config = "complex.yaml"
       script = "docs-rs"
     }
@@ -84,7 +84,7 @@ locals {
       config = "complex.yaml"
       script = "docs"
     }
-    docs-sh = {
+    docs-rs = {
       config = "complex.yaml"
       script = "docs-rs"
     }
