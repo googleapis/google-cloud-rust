@@ -101,7 +101,7 @@ impl CloudTelemetryTracerProviderBuilder {
                 .build()
                 .map_err(|e| TraceError::Other(e.into()))?,
         };
-        let interceptor = CloudTelemetryAuthInterceptor::new(credentials);
+        let interceptor = CloudTelemetryAuthInterceptor::new(credentials).await;
 
         let resource = opentelemetry_sdk::Resource::builder_empty()
             .with_attributes(vec![

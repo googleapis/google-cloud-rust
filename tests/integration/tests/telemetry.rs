@@ -38,7 +38,6 @@ mod telemetry {
         // This requires GOOGLE_CLOUD_PROJECT to be set.
         let project_id = integration_tests::project_id()?;
         let service_name = "e2e-telemetry-test";
-        println!("Project ID: {}", project_id);
 
         // Configure OTLP provider (sends to telemetry.googleapis.com)
         // This uses ADC automatically from the environment.
@@ -53,10 +52,6 @@ mod telemetry {
             ))
             .set_default();
 
-        // Wait for credentials to be refreshed in the background task
-        println!("Waiting for credentials to initialize...");
-        tokio::time::sleep(std::time::Duration::from_secs(5)).await;
-
         // 3. Generate Trace
         let span_name = "e2e-showcase-test";
 
@@ -64,17 +59,16 @@ mod telemetry {
         let root_span = tracing::info_span!("e2e_root", "otel.name" = span_name);
         let trace_id = {
             let _enter = root_span.enter();
-            let otel_ctx = root_span.context();
-            let otel_span_ref = otel_ctx.span();
-            let span_context = otel_span_ref.span_context();
-            let trace_id = span_context.trace_id().to_string();
+            let trace_id = root_span
+                .context()
+                .span()
+                .span_context()
+                .trace_id()
+                .to_string();
 
             // Initialize showcase client pointing to local mock server
-            // We use anonymous credentials for the *client* because it's talking to httptest
-            let endpoint = format!("http://{}", echo_server.addr());
-
             let client = showcase::client::Echo::builder()
-                .with_endpoint(endpoint)
+                .with_endpoint(format!("http://{}", echo_server.addr()))
                 .with_credentials(auth::credentials::anonymous::Builder::new().build())
                 .with_tracing()
                 .build()
@@ -89,30 +83,24 @@ mod telemetry {
         // explicitly drop the span to end it
         drop(root_span);
 
-        println!("Generated Trace ID: {}", trace_id);
-        println!("Span Name: {}", span_name);
         println!(
-            "View in Console: https://console.cloud.google.com/traces/explorer;traceId={}?project={}",
+            "View generated trace in Console: https://console.cloud.google.com/traces/explorer;traceId={}?project={}",
             trace_id, project_id
         );
 
-        // 4. Flush
-        // Force flush
-        for _ in 0..5 {
-            let _ = provider.force_flush();
-            tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-        }
-        println!("Spans flushed.");
+        // 4. Force flush to ensure spans are sent.
+        let _ = provider.force_flush();
 
         // 5. Verify (Poll Cloud Trace API)
         let client = TraceService::builder().build().await?;
 
-        println!("Polling for trace...");
+        // Because we are limited by quota, start with a backoff.
+        // Traces can take several minutes to propagate after they have been written.
+        // Implement a generous retry loop to account for this.
         let backoff_delays = [10, 60, 120, 120, 120];
         let mut trace = None;
 
         for delay in backoff_delays {
-            println!("Waiting {}s before polling...", delay);
             tokio::time::sleep(std::time::Duration::from_secs(delay)).await;
 
             match client
@@ -144,9 +132,6 @@ mod telemetry {
         }
 
         let trace = trace.ok_or_else(|| anyhow::anyhow!("Timed out waiting for trace"))?;
-
-        println!("Trace found!");
-        println!("Response: {:?}", trace);
 
         // 6. Assertions
         // Check for root span
