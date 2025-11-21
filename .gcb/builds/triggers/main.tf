@@ -34,6 +34,13 @@ locals {
   # connection and just record it here.
   gcb_secret_name = "projects/${var.project}/secrets/github-github-oauthtoken-319d75/versions/latest"
 
+  unstable_flags = join(" ", [
+    "--cfg google_cloud_unstable_tracing",
+    "--cfg google_cloud_unstable_id_token",
+    "--cfg google_cloud_unstable_signed_url",
+    "--cfg google_cloud_unstable_storage_bidi"
+  ])
+
   # Add to these lists of you want to have more triggers.
   pr_builds = {
     compute-full = {
@@ -57,12 +64,16 @@ locals {
     }
     integration-unstable = {
       config = "integration.yaml"
-      flags = join(" ", [
-        "--cfg google_cloud_unstable_tracing",
-        "--cfg google_cloud_unstable_id_token",
-        "--cfg google_cloud_unstable_signed_url",
-        "--cfg google_cloud_unstable_storage_bidi"
-      ])
+      flags  = local.unstable_flags
+    }
+    lint = {
+      config = "complex.yaml"
+      script = "lint"
+    }
+    lint-unstable = {
+      config = "complex.yaml"
+      flags  = local.unstable_flags
+      script = "lint-unstable"
     }
     minimal-versions = {
       config = "complex.yaml"
@@ -101,12 +112,16 @@ locals {
     }
     integration-unstable = {
       config = "integration.yaml"
-      flags = join(" ", [
-        "--cfg google_cloud_unstable_tracing",
-        "--cfg google_cloud_unstable_id_token",
-        "--cfg google_cloud_unstable_signed_url",
-        "--cfg google_cloud_unstable_storage_bidi"
-      ])
+      flags  = local.unstable_flags
+    }
+    lint = {
+      config = "complex.yaml"
+      script = "lint"
+    }
+    lint-unstable = {
+      config = "complex.yaml"
+      flags  = local.unstable_flags
+      script = "lint-unstable"
     }
     minimal-versions = {
       config = "complex.yaml"

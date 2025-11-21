@@ -323,60 +323,6 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-  lint:
-    runs-on: ubuntu-24.04
-    strategy:
-      matrix:
-        rust-version: ['rust:current']
-    steps:
-      - uses: actions/checkout@v5
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo
-          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
-      - name: Setup Rust ${{ matrix.rust-version }}
-        run: |
-          set -e
-          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-          rustup component add clippy rustfmt
-      - name: Display Cargo version
-        run: cargo version
-      - name: Display rustc version
-        run: rustup show active-toolchain -v
-      - run: cargo clippy --workspace --all-targets --profile=test -- --deny warnings
-      - run: cargo fmt
-      - run: git diff --exit-code
-
-  lint-unstable:
-    runs-on: ubuntu-24.04
-    env:
-      RUSTFLAGS: *unstable_cfgs
-    strategy:
-      matrix:
-        rust-version: ['rust:current']
-    steps:
-      - uses: actions/checkout@v5
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo
-          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
-      - name: Setup Rust ${{ matrix.rust-version }}
-        run: |
-          set -e
-          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-          rustup component add clippy rustfmt
-      - name: Display Cargo version
-        run: cargo version
-      - name: Display rustc version
-        run: rustup show active-toolchain -v
-      - run: cargo clippy --workspace --all-targets --profile=test -- --deny warnings
-      - run: cargo fmt
-      - run: git diff --exit-code
-
   regenerate:
     # Verifies the generated code has not been tampered with. Or maybe that the
     # code requires no tampering.
