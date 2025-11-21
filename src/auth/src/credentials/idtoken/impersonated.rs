@@ -138,19 +138,19 @@ impl Builder {
     /// Target principal is the email of the service account to impersonate.
     ///
     /// # Example
-    /// ```
+    /// ```no_run
     /// # use google_cloud_auth::credentials::idtoken;
     /// # use google_cloud_auth::credentials::user_account;
     /// # use serde_json::json;
     /// #
-    /// # tokio_test::block_on(async {
+    /// # fn example() -> Result<(), anyhow::Error> {
     /// let source_credentials = user_account::Builder::new(json!({ /* add details here */ })).build()?;
     ///
     /// let audience = "https://my-service.a.run.app";
     /// let credentials = idtoken::impersonated::Builder::from_source_credentials(audience, "test-principal", source_credentials)
     ///     .build();
     /// # Ok::<(), anyhow::Error>(())
-    /// # });
+    /// # }
     /// // Now you can use credentials.id_token().await to fetch the token.
     /// ```    
     pub fn from_source_credentials<SA: Into<String>, SP: Into<String>>(
