@@ -36,7 +36,7 @@ const PATH_ENCODE_SET: &AsciiSet = &CONTROLS
 pub struct SignedUrlBuilder {
     bucket: String,
     object: String,
-    method: String,
+    method: http::Method,
     expiration: std::time::Duration,
     headers: BTreeMap<&'static str, String>,
     query_parameters: BTreeMap<&'static str, String>,
@@ -53,7 +53,7 @@ impl SignedUrlBuilder {
         Self {
             bucket: bucket.into(),
             object: object.into(),
-            method: "GET".to_string(),
+            method: http::Method::GET,
             expiration: std::time::Duration::from_secs(7 * 24 * 60 * 60), // 7 days
             headers: BTreeMap::new(),
             query_parameters: BTreeMap::new(),
@@ -63,8 +63,8 @@ impl SignedUrlBuilder {
     }
 
     /// Sets the HTTP method for the signed URL. Default is "GET".
-    pub fn with_method<S: Into<String>>(mut self, method: S) -> Self {
-        self.method = method.into();
+    pub fn with_method(mut self, method: http::Method) -> Self {
+        self.method = method;
         self
     }
 
@@ -150,7 +150,7 @@ impl SignedUrlBuilder {
         let canonical_query_string = canonical_query.finish();
 
         let canonical_request = [
-            self.method,
+            self.method.to_string(),
             canonical_uri.clone(),
             canonical_query_string.clone(),
             canonical_headers,
