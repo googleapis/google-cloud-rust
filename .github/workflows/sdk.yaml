@@ -481,6 +481,12 @@ jobs:
       matrix:
         rust-version: ['rust:current']
     steps:
+      - uses: actions/checkout@v5
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
       - name: Setup Rust ${{ matrix.rust-version }}
         run: |
           set -e
