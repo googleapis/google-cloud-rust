@@ -53,7 +53,7 @@
 //! ## Example: Verifying an ID token
 //!
 //! Within the receiving private service, you can parse the authorization header to
-//! receive the information being sent by the Bearer token and use the 
+//! receive the information being sent by the Bearer token and use the
 //! [Verifier][verifier::Verifier] to check if the token is valid.
 //!
 //! ```
