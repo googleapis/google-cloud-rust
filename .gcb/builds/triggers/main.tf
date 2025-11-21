@@ -36,10 +36,10 @@ locals {
 
   # Add to these lists of you want to have more triggers.
   pr_builds = {
-    # compute-full = {
-    #   config = "complex-32.yaml"
-    #   script = "compute-full"
-    # }
+    compute-full = {
+      config = "complex.yaml"
+      script = "compute-full"
+    }
     docs = {
       config = "complex.yaml"
       script = "docs"
@@ -48,10 +48,10 @@ locals {
       config = "complex.yaml"
       script = "docs-rs"
     }
-    # features = {
-    #   config = "complex.yaml"
-    #   script = "features.sh"
-    # }
+    features = {
+      config = "complex.yaml"
+      script = "features"
+    }
     integration = {
       config = "integration.yaml"
     }
@@ -64,57 +64,65 @@ locals {
         "--cfg google_cloud_unstable_storage_bidi"
       ])
     }
-    # semver-checks = {
-    #   config = "complex.yaml"
-    #   script = "semver-checks"
-    # }
-    ## The full workspace build is too slow for a PR build.
-    ## workspace = {
-    ##   config = "complex.yaml"
-    ##   script = "workspace"
-    ## }
-  }
-
-  pm_builds = {
-    # compute-full = {
-    #   config = "complex-32.yaml"
-    #   script = "compute-full"
-    # }
-    docs = {
+    minimal-versions = {
       config = "complex.yaml"
-      script = "docs"
+      script = "minimal-versions"
     }
-    docs-rs = {
+    semver-checks = {
       config = "complex.yaml"
-      script = "docs-rs"
+      script = "semver-checks"
     }
-    # features = {
-    #   config = "complex.yaml"
-    #   script = "features"
-    # }
-    integration = {
-      config = "integration.yaml"
-    }
-    integration-unstable = {
-      config = "integration.yaml"
-      flags = join(" ", [
-        "--cfg google_cloud_unstable_tracing",
-        "--cfg google_cloud_unstable_id_token",
-        "--cfg google_cloud_unstable_signed_url",
-        "--cfg google_cloud_unstable_storage_bidi"
-      ])
-    }
-    referenceupload = {
-      config = "referenceupload.yaml"
-    }
-    # semver-checks = {
-    #   config = "complex.yaml"
-    #   script = "semver-checks"
-    # }
+    # The full workspace build is too slow for a PR build.
     # workspace = {
     #   config = "complex.yaml"
     #   script = "workspace"
     # }
+  }
+
+  pm_builds = {
+    compute-full = {
+      config = "complex.yaml"
+      script = "compute-full"
+    }
+    docs = {
+      config = "complex.yaml"
+      script = "docs"
+    }
+    docs-rs = {
+      config = "complex.yaml"
+      script = "docs-rs"
+    }
+    features = {
+      config = "complex.yaml"
+      script = "features"
+    }
+    integration = {
+      config = "integration.yaml"
+    }
+    integration-unstable = {
+      config = "integration.yaml"
+      flags = join(" ", [
+        "--cfg google_cloud_unstable_tracing",
+        "--cfg google_cloud_unstable_id_token",
+        "--cfg google_cloud_unstable_signed_url",
+        "--cfg google_cloud_unstable_storage_bidi"
+      ])
+    }
+    minimal-versions = {
+      config = "complex.yaml"
+      script = "minimal-versions"
+    }
+    referenceupload = {
+      config = "referenceupload.yaml"
+    }
+    semver-checks = {
+      config = "complex.yaml"
+      script = "semver-checks"
+    }
+    workspace = {
+      config = "complex.yaml"
+      script = "workspace"
+    }
   }
 }
 
