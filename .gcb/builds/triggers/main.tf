@@ -36,10 +36,10 @@ locals {
 
   # Add to these lists of you want to have more triggers.
   pr_builds = {
-    # compute-full = {
-    #   config = "complex-32.yaml"
-    #   script = "compute-full"
-    # }
+    compute-full = {
+      config = "complex.yaml"
+      script = "compute-full"
+    }
     docs = {
       config = "complex.yaml"
       script = "docs"
@@ -48,10 +48,10 @@ locals {
       config = "complex.yaml"
       script = "docs-rs"
     }
-    # features = {
-    #   config = "complex.yaml"
-    #   script = "features.sh"
-    # }
+    features = {
+      config = "complex.yaml"
+      script = "features.sh"
+    }
     integration = {
       config = "integration.yaml"
     }
@@ -64,22 +64,22 @@ locals {
         "--cfg google_cloud_unstable_storage_bidi"
       ])
     }
-    # semver-checks = {
+    semver-checks = {
+      config = "complex.yaml"
+      script = "semver-checks"
+    }
+    # The full workspace build is too slow for a PR build.
+    # workspace = {
     #   config = "complex.yaml"
-    #   script = "semver-checks"
+    #   script = "workspace"
     # }
-    ## The full workspace build is too slow for a PR build.
-    ## workspace = {
-    ##   config = "complex.yaml"
-    ##   script = "workspace"
-    ## }
   }
 
   pm_builds = {
-    # compute-full = {
-    #   config = "complex-32.yaml"
-    #   script = "compute-full"
-    # }
+    compute-full = {
+      config = "complex.yaml"
+      script = "compute-full"
+    }
     docs = {
       config = "complex.yaml"
       script = "docs"
@@ -88,10 +88,10 @@ locals {
       config = "complex.yaml"
       script = "docs-rs"
     }
-    # features = {
-    #   config = "complex.yaml"
-    #   script = "features"
-    # }
+    features = {
+      config = "complex.yaml"
+      script = "features"
+    }
     integration = {
       config = "integration.yaml"
     }
@@ -107,14 +107,14 @@ locals {
     referenceupload = {
       config = "referenceupload.yaml"
     }
-    # semver-checks = {
-    #   config = "complex.yaml"
-    #   script = "semver-checks"
-    # }
-    # workspace = {
-    #   config = "complex.yaml"
-    #   script = "workspace"
-    # }
+    semver-checks = {
+      config = "complex.yaml"
+      script = "semver-checks"
+    }
+    workspace = {
+      config = "complex.yaml"
+      script = "workspace"
+    }
   }
 }
 
