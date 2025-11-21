@@ -570,6 +570,46 @@ where
         self.inner.list_backups(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
+    async fn fetch_backups_for_resource_type(
+        &self,
+        req: crate::model::FetchBackupsForResourceTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::FetchBackupsForResourceTypeResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "BackupDR",
+            "::fetch_backups_for_resource_type"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "fetch_backups_for_resource_type",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .fetch_backups_for_resource_type(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
+    #[tracing::instrument(ret)]
+    async fn fetch_backups_for_resource_type(
+        &self,
+        req: crate::model::FetchBackupsForResourceTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::FetchBackupsForResourceTypeResponse>> {
+        self.inner
+            .fetch_backups_for_resource_type(req, options)
+            .await
+    }
+    #[cfg(google_cloud_unstable_tracing)]
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
@@ -599,17 +639,6 @@ where
     }
 
     #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn fetch_backups_for_resource_type(
-        &self,
-        req: crate::model::FetchBackupsForResourceTypeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FetchBackupsForResourceTypeResponse>> {
-        self.inner
-            .fetch_backups_for_resource_type(req, options)
-            .await
-    }
-
     #[tracing::instrument(ret)]
     async fn get_backup(
         &self,
@@ -1315,6 +1344,44 @@ where
         self.inner.get_data_source_reference(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
+    async fn list_data_source_references(
+        &self,
+        req: crate::model::ListDataSourceReferencesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListDataSourceReferencesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "BackupDR",
+            "::list_data_source_references"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_data_source_references",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .list_data_source_references(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
+    #[tracing::instrument(ret)]
+    async fn list_data_source_references(
+        &self,
+        req: crate::model::ListDataSourceReferencesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListDataSourceReferencesResponse>> {
+        self.inner.list_data_source_references(req, options).await
+    }
+    #[cfg(google_cloud_unstable_tracing)]
     async fn fetch_data_source_references_for_resource_type(
         &self,
         req: crate::model::FetchDataSourceReferencesForResourceTypeRequest,
@@ -1346,15 +1413,6 @@ where
     }
 
     #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn list_data_source_references(
-        &self,
-        req: crate::model::ListDataSourceReferencesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListDataSourceReferencesResponse>> {
-        self.inner.list_data_source_references(req, options).await
-    }
-
     #[tracing::instrument(ret)]
     async fn fetch_data_source_references_for_resource_type(
         &self,
