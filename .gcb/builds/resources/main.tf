@@ -84,11 +84,11 @@ resource "google_kms_crypto_key_iam_member" "storage-examples" {
 }
 
 resource "google_cloudbuild_worker_pool" "pool" {
-  name = "rust-sdk-pool"
+  name     = "rust-sdk-pool"
   location = "us-central1"
   worker_config {
-    disk_size_gb = 256
-    machine_type = "e2-standard-8"
+    disk_size_gb   = 256
+    machine_type   = "e2-standard-8"
     no_external_ip = false
   }
 }
