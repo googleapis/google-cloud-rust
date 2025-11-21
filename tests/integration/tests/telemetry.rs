@@ -14,33 +14,13 @@
 
 #[cfg(all(test, feature = "run-integration-tests", google_cloud_unstable_tracing))]
 mod telemetry {
-    use gax::exponential_backoff::ExponentialBackoffBuilder;
     use google_cloud_trace_v1::client::TraceService;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use integration_tests::observability::otlp::CloudTelemetryTracerProviderBuilder;
     use opentelemetry::trace::TraceContextExt;
-    use std::time::Duration;
     use tracing_opentelemetry::OpenTelemetrySpanExt;
     use tracing_subscriber::layer::SubscriberExt;
     use tracing_subscriber::util::SubscriberInitExt;
-
-    #[derive(Debug, Clone)]
-    struct RetryNotFound;
-
-    impl gax::retry_policy::RetryPolicy for RetryNotFound {
-        fn on_error(
-            &self,
-            _state: &gax::retry_state::RetryState,
-            error: gax::error::Error,
-        ) -> gax::retry_result::RetryResult {
-            if let Some(status) = error.status() {
-                if status.code == gax::error::rpc::Code::NotFound {
-                    return gax::retry_result::RetryResult::Continue(error);
-                }
-            }
-            gax::retry_result::RetryResult::Permanent(error)
-        }
-    }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn test_telemetry_e2e() -> integration_tests::Result<()> {
@@ -125,31 +105,40 @@ mod telemetry {
         println!("Spans flushed.");
 
         // 5. Verify (Poll Cloud Trace API)
-        // Configure retry policy for NOT_FOUND errors
-        let retry_policy = RetryNotFound;
-        // Configure backoff policy (initial 10s, max 120s, scaling 6.0)
-        // This roughly matches the previous manual loop: 10, 60, 120...
-        let backoff = ExponentialBackoffBuilder::new()
-            .with_initial_delay(Duration::from_secs(10))
-            .with_maximum_delay(Duration::from_secs(120))
-            .with_scaling(6.0)
-            .build()
-            .map_err(|e| anyhow::anyhow!("Failed to build backoff: {}", e))?;
-
-        // Use the Builder to create the client with retry and backoff policies
-        let client: TraceService = TraceService::builder()
-            .with_retry_policy(retry_policy)
-            .with_backoff_policy(backoff)
-            .build()
-            .await?;
+        let client = TraceService::builder().build().await?;
 
         println!("Polling for trace...");
-        let trace = client
-            .get_trace()
-            .set_project_id(&project_id)
-            .set_trace_id(&trace_id)
-            .send()
-            .await?;
+        let backoff_delays = [10, 60, 120, 120, 120];
+        let mut trace = None;
+
+        for delay in backoff_delays {
+            println!("Waiting {}s before polling...", delay);
+            tokio::time::sleep(std::time::Duration::from_secs(delay)).await;
+
+            match client
+                .get_trace()
+                .set_project_id(&project_id)
+                .set_trace_id(&trace_id)
+                .send()
+                .await
+            {
+                Ok(t) => {
+                    trace = Some(t);
+                    break;
+                }
+                Err(e) => {
+                    if let Some(status) = e.status() {
+                        if status.code == gax::error::rpc::Code::NotFound {
+                            println!("Trace not found yet, retrying...");
+                            continue;
+                        }
+                    }
+                    return Err(e.into());
+                }
+            }
+        }
+
+        let trace = trace.ok_or_else(|| anyhow::anyhow!("Timed out waiting for trace"))?;
 
         println!("Trace found!");
         println!("Response: {:?}", trace);
