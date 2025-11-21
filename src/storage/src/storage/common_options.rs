@@ -27,6 +27,8 @@ pub struct CommonOptions {
     pub read_resume_policy: Arc<dyn ReadResumePolicy>,
     pub resumable_upload_threshold: usize,
     pub resumable_upload_buffer_size: usize,
+    #[cfg(google_cloud_unstable_tracing)]
+    pub tracing: bool,
 }
 
 impl CommonOptions {
@@ -36,6 +38,8 @@ impl CommonOptions {
             read_resume_policy,
             resumable_upload_threshold: RESUMABLE_UPLOAD_THRESHOLD,
             resumable_upload_buffer_size: RESUMABLE_UPLOAD_TARGET_CHUNK,
+            #[cfg(google_cloud_unstable_tracing)]
+            tracing: false,
         }
     }
 }

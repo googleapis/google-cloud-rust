@@ -340,6 +340,14 @@ impl ClientBuilder {
         Storage::new(self)
     }
 
+    /// Enables tracing for the client.
+    #[cfg(google_cloud_unstable_tracing)]
+    pub fn with_tracing(mut self) -> Self {
+        self.config.tracing = true;
+        self.common_options.tracing = true;
+        self
+    }
+
     /// Sets the endpoint.
     ///
     /// # Example
@@ -698,5 +706,13 @@ pub(crate) mod tests {
         impl crate::read_resume_policy::ReadResumePolicy for ReadResumePolicy {
             fn on_error(&self, query: &crate::read_resume_policy::ResumeQuery, error: gax::error::Error) -> crate::read_resume_policy::ResumeResult;
         }
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[test]
+    fn test_builder_with_tracing() {
+        let builder = test_builder().with_tracing();
+        let inner = test_inner_client(builder);
+        assert!(inner.options.common_options.tracing);
     }
 }
