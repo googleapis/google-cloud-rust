@@ -15,10 +15,6 @@
 
 set -ev
 
-printenv
-echo pwd=$PWD
-ls -l $PWD
-
 cargo version
 rustup show active-toolchain -v
 
