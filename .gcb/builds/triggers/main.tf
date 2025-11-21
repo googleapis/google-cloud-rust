@@ -50,7 +50,7 @@ locals {
     }
     features = {
       config = "complex.yaml"
-      script = "features.sh"
+      script = "features"
     }
     integration = {
       config = "integration.yaml"
