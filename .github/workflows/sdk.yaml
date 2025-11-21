@@ -481,7 +481,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    needs: docs
+    needs: guide
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
