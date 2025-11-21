@@ -40,7 +40,9 @@ done
 
 # Integration tests
 echo "==== Install go compiler ===="
-apt update && apt install -y golang-go
+curl -fsSL --retry 5 --retry-delay 15 https://go.dev/dl/go1.25.4.linux-amd64.tar.gz | tar -C /usr/local -xzf -
+export PATH=${PATH}:/usr/local/go/bin
+
 echo "==== integration-tests (UNSTABLE) ===="
 cargo test -p integration-tests --features run-showcase-tests
 
