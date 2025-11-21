@@ -556,12 +556,9 @@ fn build_signer(
         Some(json) => {
             let cred_type = extract_credential_type(&json)?;
             match cred_type {
-                "authorized_user" => config_signer!(
-                    user_account::Builder::new(json),
-                    quota_project_id,
-                    scopes,
-                    |b: user_account::Builder, s: Vec<String>| b.with_scopes(s)
-                ),
+                "authorized_user" => Err(BuilderError::not_supported(
+                    "authorized_user signer is not supported",
+                )),
                 "service_account" => config_signer!(
                     service_account::Builder::new(json),
                     quota_project_id,
@@ -577,7 +574,9 @@ fn build_signer(
                         |b: impersonated::Builder, s: Vec<String>| b.with_scopes(s)
                     )
                 }
-                "external_account" => panic!("external account signer not supported yet"),
+                "external_account" => Err(BuilderError::not_supported(
+                    "external_account signer is not supported",
+                )),
                 _ => Err(BuilderError::unknown_type(cred_type)),
             }
         }
