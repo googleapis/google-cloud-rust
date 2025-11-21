@@ -38,15 +38,15 @@ locals {
   pr_builds = {
     # compute-full = {
     #   config = "complex-32.yaml"
-    #   script = "compute-full.sh"
+    #   script = "compute-full"
     # }
     docs = {
       config = "complex.yaml"
-      script = "docs.sh"
+      script = "docs"
     }
     docs-sh = {
       config = "complex.yaml"
-      script = "docs-sh.sh"
+      script = "docs-rs"
     }
     # features = {
     #   config = "complex.yaml"
@@ -66,31 +66,31 @@ locals {
     }
     # semver-checks = {
     #   config = "complex.yaml"
-    #   script = "semver-checks.sh"
+    #   script = "semver-checks"
     # }
     ## The full workspace build is too slow for a PR build.
     ## workspace = {
     ##   config = "complex.yaml"
-    ##   script = "workspace.sh"
+    ##   script = "workspace"
     ## }
   }
 
   pm_builds = {
     # compute-full = {
     #   config = "complex-32.yaml"
-    #   script = "compute-full.sh"
+    #   script = "compute-full"
     # }
     docs = {
       config = "complex.yaml"
-      script = "docs.sh"
+      script = "docs"
     }
     docs-sh = {
       config = "complex.yaml"
-      script = "docs-sh.sh"
+      script = "docs-rs"
     }
     # features = {
     #   config = "complex.yaml"
-    #   script = "features.sh"
+    #   script = "features"
     # }
     integration = {
       config = "integration.yaml"
@@ -104,17 +104,17 @@ locals {
         "--cfg google_cloud_unstable_storage_bidi"
       ])
     }
-    # semver-checks = {
-    #   config = "complex.yaml"
-    #   script = "semver-checks.sh"
-    # }
-    # workspace = {
-    #   config = "complex.yaml"
-    #   script = "workspace.sh"
-    # }
     referenceupload = {
       config = "referenceupload.yaml"
     }
+    # semver-checks = {
+    #   config = "complex.yaml"
+    #   script = "semver-checks"
+    # }
+    # workspace = {
+    #   config = "complex.yaml"
+    #   script = "workspace"
+    # }
   }
 }
 
