@@ -83,6 +83,11 @@ locals {
       config = "complex.yaml"
       script = "semver-checks"
     }
+    test-unstable-cfg = {
+      config = "complex.yaml"
+      flags  = local.unstable_flags
+      script = "test-unstable-cfg"
+    }
     # The full workspace build is too slow for a PR build.
     # workspace = {
     #   config = "complex.yaml"
@@ -133,6 +138,11 @@ locals {
     semver-checks = {
       config = "complex.yaml"
       script = "semver-checks"
+    }
+    test-unstable-cfg = {
+      config = "complex.yaml"
+      flags  = local.unstable_flags
+      script = "test-unstable-cfg"
     }
     workspace = {
       config = "complex.yaml"
