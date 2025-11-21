@@ -105,7 +105,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -181,7 +181,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -258,7 +258,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -336,7 +336,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -411,7 +411,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -487,7 +487,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -562,28 +562,15 @@ impl super::stub::OracleDatabase for OracleDatabase {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.cloud_vm_cluster
-                        .as_ref()
-                        .and_then(|s| Some(&s.exadata_infrastructure))
-                })
-                .or_else(|| req.cloud_vm_cluster.as_ref().and_then(|s| Some(&s.network)))
-                .or_else(|| {
-                    req.cloud_vm_cluster
-                        .as_ref()
-                        .and_then(|s| Some(&s.odb_network))
-                })
-                .or_else(|| {
-                    req.cloud_vm_cluster
-                        .as_ref()
-                        .and_then(|s| Some(&s.odb_subnet))
-                })
-                .or_else(|| {
-                    req.cloud_vm_cluster
-                        .as_ref()
-                        .and_then(|s| Some(&s.backup_odb_subnet))
-                });
+                .or(Some(&req.parent))
+                .or(req
+                    .cloud_vm_cluster
+                    .as_ref()
+                    .map(|s| &s.exadata_infrastructure))
+                .or(req.cloud_vm_cluster.as_ref().map(|s| &s.network))
+                .or(req.cloud_vm_cluster.as_ref().map(|s| &s.odb_network))
+                .or(req.cloud_vm_cluster.as_ref().map(|s| &s.odb_subnet))
+                .or(req.cloud_vm_cluster.as_ref().map(|s| &s.backup_odb_subnet));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -661,7 +648,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -735,7 +722,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -813,7 +800,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -931,7 +918,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1006,7 +993,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1085,7 +1072,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1160,7 +1147,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1236,7 +1223,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1312,7 +1299,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1388,22 +1375,10 @@ impl super::stub::OracleDatabase for OracleDatabase {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.autonomous_database
-                        .as_ref()
-                        .and_then(|s| Some(&s.network))
-                })
-                .or_else(|| {
-                    req.autonomous_database
-                        .as_ref()
-                        .and_then(|s| Some(&s.odb_network))
-                })
-                .or_else(|| {
-                    req.autonomous_database
-                        .as_ref()
-                        .and_then(|s| Some(&s.odb_subnet))
-                });
+                .or(Some(&req.parent))
+                .or(req.autonomous_database.as_ref().map(|s| &s.network))
+                .or(req.autonomous_database.as_ref().map(|s| &s.odb_network))
+                .or(req.autonomous_database.as_ref().map(|s| &s.odb_subnet));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1499,21 +1474,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| {
-                    req.autonomous_database
-                        .as_ref()
-                        .and_then(|s| Some(&s.network))
-                })
-                .or_else(|| {
-                    req.autonomous_database
-                        .as_ref()
-                        .and_then(|s| Some(&s.odb_network))
-                })
-                .or_else(|| {
-                    req.autonomous_database
-                        .as_ref()
-                        .and_then(|s| Some(&s.odb_subnet))
-                });
+                .or(req.autonomous_database.as_ref().map(|s| &s.network))
+                .or(req.autonomous_database.as_ref().map(|s| &s.odb_network))
+                .or(req.autonomous_database.as_ref().map(|s| &s.odb_subnet));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1590,7 +1553,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1666,7 +1629,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1743,7 +1706,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1817,7 +1780,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1893,7 +1856,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1968,7 +1931,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2044,7 +2007,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2120,7 +2083,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2196,7 +2159,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2273,8 +2236,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.name))
-                .or_else(|| Some(&req.peer_autonomous_database));
+                .or(Some(&req.name))
+                .or(Some(&req.peer_autonomous_database));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2351,8 +2314,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.name))
-                .or_else(|| Some(&req.peer_autonomous_database));
+                .or(Some(&req.name))
+                .or(Some(&req.peer_autonomous_database));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2428,7 +2391,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2504,7 +2467,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2579,8 +2542,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.odb_network.as_ref().and_then(|s| Some(&s.network)));
+                .or(Some(&req.parent))
+                .or(req.odb_network.as_ref().map(|s| &s.network));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2657,7 +2620,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2737,7 +2700,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2817,7 +2780,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2895,7 +2858,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2976,7 +2939,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3052,7 +3015,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3128,7 +3091,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3203,22 +3166,10 @@ impl super::stub::OracleDatabase for OracleDatabase {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.exadb_vm_cluster
-                        .as_ref()
-                        .and_then(|s| Some(&s.odb_network))
-                })
-                .or_else(|| {
-                    req.exadb_vm_cluster
-                        .as_ref()
-                        .and_then(|s| Some(&s.odb_subnet))
-                })
-                .or_else(|| {
-                    req.exadb_vm_cluster
-                        .as_ref()
-                        .and_then(|s| Some(&s.backup_odb_subnet))
-                });
+                .or(Some(&req.parent))
+                .or(req.exadb_vm_cluster.as_ref().map(|s| &s.odb_network))
+                .or(req.exadb_vm_cluster.as_ref().map(|s| &s.odb_subnet))
+                .or(req.exadb_vm_cluster.as_ref().map(|s| &s.backup_odb_subnet));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3295,7 +3246,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3391,21 +3342,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| {
-                    req.exadb_vm_cluster
-                        .as_ref()
-                        .and_then(|s| Some(&s.odb_network))
-                })
-                .or_else(|| {
-                    req.exadb_vm_cluster
-                        .as_ref()
-                        .and_then(|s| Some(&s.odb_subnet))
-                })
-                .or_else(|| {
-                    req.exadb_vm_cluster
-                        .as_ref()
-                        .and_then(|s| Some(&s.backup_odb_subnet))
-                });
+                .or(req.exadb_vm_cluster.as_ref().map(|s| &s.odb_network))
+                .or(req.exadb_vm_cluster.as_ref().map(|s| &s.odb_subnet))
+                .or(req.exadb_vm_cluster.as_ref().map(|s| &s.backup_odb_subnet));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3481,7 +3420,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3557,7 +3496,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3633,7 +3572,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3710,7 +3649,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3787,7 +3726,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3862,7 +3801,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3937,7 +3876,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4013,7 +3952,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4088,7 +4027,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4164,7 +4103,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4240,7 +4179,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4316,7 +4255,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4391,9 +4330,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.db_system.as_ref().and_then(|s| Some(&s.odb_network)))
-                .or_else(|| req.db_system.as_ref().and_then(|s| Some(&s.odb_subnet)));
+                .or(Some(&req.parent))
+                .or(req.db_system.as_ref().map(|s| &s.odb_network))
+                .or(req.db_system.as_ref().map(|s| &s.odb_subnet));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4470,7 +4409,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4545,7 +4484,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4620,7 +4559,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//oracledatabase.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)

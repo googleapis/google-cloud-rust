@@ -103,7 +103,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -179,7 +179,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -273,11 +273,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| {
-                req.instance
-                    .as_ref()
-                    .and_then(|s| Some(&s.network_template))
-            });
+            let resource_name =
+                Option::<&String>::None.or(req.instance.as_ref().map(|s| &s.network_template));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -353,7 +350,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -429,7 +426,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -505,7 +502,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -581,7 +578,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -657,7 +654,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -733,7 +730,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -810,8 +807,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.instance))
-                .or_else(|| Some(&req.lun));
+                .or(Some(&req.instance))
+                .or(Some(&req.lun));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -885,7 +882,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -958,7 +955,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1034,7 +1031,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1114,7 +1111,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1190,7 +1187,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1350,7 +1347,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1426,7 +1423,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1502,7 +1499,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.volume));
+            let resource_name = Option::<&String>::None.or(Some(&req.volume));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1577,7 +1574,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1649,7 +1646,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.location));
+            let resource_name = Option::<&String>::None.or(Some(&req.location));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1725,7 +1722,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1886,12 +1883,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.volume_snapshot
-                        .as_ref()
-                        .and_then(|s| Some(&s.storage_volume))
-                });
+                .or(Some(&req.parent))
+                .or(req.volume_snapshot.as_ref().map(|s| &s.storage_volume));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1971,7 +1964,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.volume_snapshot));
+            let resource_name = Option::<&String>::None.or(Some(&req.volume_snapshot));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2051,7 +2044,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2136,7 +2129,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2214,7 +2207,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2294,7 +2287,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2372,7 +2365,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2452,7 +2445,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2528,7 +2521,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2603,7 +2596,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2697,8 +2690,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
-                .or_else(|| req.nfs_share.as_ref().and_then(|s| Some(&s.volume)));
+            let resource_name =
+                Option::<&String>::None.or(req.nfs_share.as_ref().map(|s| &s.volume));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2771,8 +2764,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.nfs_share.as_ref().and_then(|s| Some(&s.volume)));
+                .or(Some(&req.parent))
+                .or(req.nfs_share.as_ref().map(|s| &s.volume));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2848,7 +2841,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2924,7 +2917,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2998,7 +2991,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3070,7 +3063,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3146,7 +3139,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3219,7 +3212,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3380,7 +3373,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3454,7 +3447,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//baremetalsolution.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)

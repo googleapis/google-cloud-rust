@@ -104,7 +104,7 @@ impl super::stub::Lustre for Lustre {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//lustre.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -180,7 +180,7 @@ impl super::stub::Lustre for Lustre {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//lustre.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -255,8 +255,8 @@ impl super::stub::Lustre for Lustre {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.instance.as_ref().and_then(|s| Some(&s.network)));
+                .or(Some(&req.parent))
+                .or(req.instance.as_ref().map(|s| &s.network));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//lustre.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -351,8 +351,8 @@ impl super::stub::Lustre for Lustre {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
-                .or_else(|| req.instance.as_ref().and_then(|s| Some(&s.network)));
+            let resource_name =
+                Option::<&String>::None.or(req.instance.as_ref().map(|s| &s.network));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//lustre.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -429,7 +429,7 @@ impl super::stub::Lustre for Lustre {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//lustre.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -506,8 +506,8 @@ impl super::stub::Lustre for Lustre {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.name))
-                .or_else(|| Some(&req.service_account));
+                .or(Some(&req.name))
+                .or(Some(&req.service_account));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//lustre.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -584,8 +584,8 @@ impl super::stub::Lustre for Lustre {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.name))
-                .or_else(|| Some(&req.service_account));
+                .or(Some(&req.name))
+                .or(Some(&req.service_account));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//lustre.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)

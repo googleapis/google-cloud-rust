@@ -101,8 +101,8 @@ impl super::stub::TopicAdmin for TopicAdmin {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.kms_key_name))
-                .or_else(|| req.schema_settings.as_ref().and_then(|s| Some(&s.schema)));
+                .or(Some(&req.kms_key_name))
+                .or(req.schema_settings.as_ref().map(|s| &s.schema));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -180,8 +180,8 @@ impl super::stub::TopicAdmin for TopicAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
-                .or_else(|| req.topic.as_ref().and_then(|s| Some(&s.kms_key_name)));
+            let resource_name =
+                Option::<&String>::None.or(req.topic.as_ref().map(|s| &s.kms_key_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -253,7 +253,7 @@ impl super::stub::TopicAdmin for TopicAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.topic));
+            let resource_name = Option::<&String>::None.or(Some(&req.topic));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -317,7 +317,7 @@ impl super::stub::TopicAdmin for TopicAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.project));
+            let resource_name = Option::<&String>::None.or(Some(&req.project));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -391,7 +391,7 @@ impl super::stub::TopicAdmin for TopicAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.topic));
+            let resource_name = Option::<&String>::None.or(Some(&req.topic));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -465,7 +465,7 @@ impl super::stub::TopicAdmin for TopicAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.topic));
+            let resource_name = Option::<&String>::None.or(Some(&req.topic));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -537,7 +537,7 @@ impl super::stub::TopicAdmin for TopicAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.topic));
+            let resource_name = Option::<&String>::None.or(Some(&req.topic));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -614,7 +614,7 @@ impl super::stub::TopicAdmin for TopicAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.subscription));
+            let resource_name = Option::<&String>::None.or(Some(&req.subscription));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -718,17 +718,15 @@ impl super::stub::SubscriptionAdmin for SubscriptionAdmin {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.topic))
-                .or_else(|| {
-                    req.dead_letter_policy
-                        .as_ref()
-                        .and_then(|s| Some(&s.dead_letter_topic))
-                })
-                .or_else(|| {
-                    req.analytics_hub_subscription_info
-                        .as_ref()
-                        .and_then(|s| Some(&s.listing))
-                });
+                .or(Some(&req.topic))
+                .or(req
+                    .dead_letter_policy
+                    .as_ref()
+                    .map(|s| &s.dead_letter_topic))
+                .or(req
+                    .analytics_hub_subscription_info
+                    .as_ref()
+                    .map(|s| &s.listing));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -800,7 +798,7 @@ impl super::stub::SubscriptionAdmin for SubscriptionAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.subscription));
+            let resource_name = Option::<&String>::None.or(Some(&req.subscription));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -878,8 +876,8 @@ impl super::stub::SubscriptionAdmin for SubscriptionAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
-                .or_else(|| req.subscription.as_ref().and_then(|s| Some(&s.topic)));
+            let resource_name =
+                Option::<&String>::None.or(req.subscription.as_ref().map(|s| &s.topic));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -943,7 +941,7 @@ impl super::stub::SubscriptionAdmin for SubscriptionAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.project));
+            let resource_name = Option::<&String>::None.or(Some(&req.project));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1015,7 +1013,7 @@ impl super::stub::SubscriptionAdmin for SubscriptionAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.subscription));
+            let resource_name = Option::<&String>::None.or(Some(&req.subscription));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1092,7 +1090,7 @@ impl super::stub::SubscriptionAdmin for SubscriptionAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.subscription));
+            let resource_name = Option::<&String>::None.or(Some(&req.subscription));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1169,7 +1167,7 @@ impl super::stub::SubscriptionAdmin for SubscriptionAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.snapshot));
+            let resource_name = Option::<&String>::None.or(Some(&req.snapshot));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1233,7 +1231,7 @@ impl super::stub::SubscriptionAdmin for SubscriptionAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.project));
+            let resource_name = Option::<&String>::None.or(Some(&req.project));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1306,8 +1304,8 @@ impl super::stub::SubscriptionAdmin for SubscriptionAdmin {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.name))
-                .or_else(|| Some(&req.subscription));
+                .or(Some(&req.name))
+                .or(Some(&req.subscription));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1385,8 +1383,7 @@ impl super::stub::SubscriptionAdmin for SubscriptionAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
-                .or_else(|| req.snapshot.as_ref().and_then(|s| Some(&s.topic)));
+            let resource_name = Option::<&String>::None.or(req.snapshot.as_ref().map(|s| &s.topic));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1458,7 +1455,7 @@ impl super::stub::SubscriptionAdmin for SubscriptionAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.snapshot));
+            let resource_name = Option::<&String>::None.or(Some(&req.snapshot));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1536,8 +1533,8 @@ impl super::stub::SubscriptionAdmin for SubscriptionAdmin {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.subscription))
-                .or_else(|| req.snapshot());
+                .or(Some(&req.subscription))
+                .or(req.snapshot());
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1631,7 +1628,7 @@ impl super::stub::SchemaService for SchemaService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1704,7 +1701,7 @@ impl super::stub::SchemaService for SchemaService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1769,7 +1766,7 @@ impl super::stub::SchemaService for SchemaService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1844,7 +1841,7 @@ impl super::stub::SchemaService for SchemaService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1916,7 +1913,7 @@ impl super::stub::SchemaService for SchemaService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1988,7 +1985,7 @@ impl super::stub::SchemaService for SchemaService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2061,7 +2058,7 @@ impl super::stub::SchemaService for SchemaService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2133,7 +2130,7 @@ impl super::stub::SchemaService for SchemaService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2200,7 +2197,7 @@ impl super::stub::SchemaService for SchemaService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2262,9 +2259,7 @@ impl super::stub::SchemaService for SchemaService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.name());
+            let resource_name = Option::<&String>::None.or(Some(&req.parent)).or(req.name());
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2438,7 +2433,7 @@ impl super::stub::SchemaService for SchemaService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2660,7 +2655,7 @@ impl super::stub::SchemaService for SchemaService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2834,7 +2829,7 @@ impl super::stub::SchemaService for SchemaService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//pubsub.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)

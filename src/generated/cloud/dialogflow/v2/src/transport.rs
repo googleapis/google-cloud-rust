@@ -149,7 +149,7 @@ impl super::stub::Agents for Agents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -281,8 +281,7 @@ impl super::stub::Agents for Agents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
-                .or_else(|| req.agent.as_ref().and_then(|s| Some(&s.parent)));
+            let resource_name = Option::<&String>::None.or(req.agent.as_ref().map(|s| &s.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -378,7 +377,7 @@ impl super::stub::Agents for Agents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -483,7 +482,7 @@ impl super::stub::Agents for Agents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -579,7 +578,7 @@ impl super::stub::Agents for Agents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -675,7 +674,7 @@ impl super::stub::Agents for Agents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -771,7 +770,7 @@ impl super::stub::Agents for Agents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -867,7 +866,7 @@ impl super::stub::Agents for Agents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -965,7 +964,7 @@ impl super::stub::Agents for Agents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1534,7 +1533,7 @@ impl super::stub::AnswerRecords for AnswerRecords {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2329,7 +2328,7 @@ impl super::stub::Contexts for Contexts {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2543,7 +2542,7 @@ impl super::stub::Contexts for Contexts {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2741,7 +2740,7 @@ impl super::stub::Contexts for Contexts {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3231,7 +3230,7 @@ impl super::stub::Contexts for Contexts {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3434,7 +3433,7 @@ impl super::stub::Contexts for Contexts {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3991,12 +3990,8 @@ impl super::stub::Conversations for Conversations {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.conversation
-                        .as_ref()
-                        .and_then(|s| Some(&s.conversation_profile))
-                });
+                .or(Some(&req.parent))
+                .or(req.conversation.as_ref().map(|s| &s.conversation_profile));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4098,7 +4093,7 @@ impl super::stub::Conversations for Conversations {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4208,7 +4203,7 @@ impl super::stub::Conversations for Conversations {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4318,7 +4313,7 @@ impl super::stub::Conversations for Conversations {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4394,7 +4389,7 @@ impl super::stub::Conversations for Conversations {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.conversation));
+            let resource_name = Option::<&String>::None.or(Some(&req.conversation));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4510,7 +4505,7 @@ impl super::stub::Conversations for Conversations {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4621,8 +4616,8 @@ impl super::stub::Conversations for Conversations {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.conversation))
-                .or_else(|| Some(&req.latest_message));
+                .or(Some(&req.conversation))
+                .or(Some(&req.latest_message));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4733,17 +4728,12 @@ impl super::stub::Conversations for Conversations {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.latest_message))
-                .or_else(|| {
-                    req.stateless_conversation
-                        .as_ref()
-                        .and_then(|s| Some(&s.parent))
-                })
-                .or_else(|| {
-                    req.conversation_profile
-                        .as_ref()
-                        .and_then(|s| Some(&s.security_settings))
-                });
+                .or(Some(&req.latest_message))
+                .or(req.stateless_conversation.as_ref().map(|s| &s.parent))
+                .or(req
+                    .conversation_profile
+                    .as_ref()
+                    .map(|s| &s.security_settings));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4815,7 +4805,7 @@ impl super::stub::Conversations for Conversations {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4984,9 +4974,9 @@ impl super::stub::Conversations for Conversations {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.conversation))
-                .or_else(|| Some(&req.conversation_profile))
-                .or_else(|| Some(&req.latest_message));
+                .or(Some(&req.conversation))
+                .or(Some(&req.conversation_profile))
+                .or(Some(&req.latest_message));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -5097,8 +5087,8 @@ impl super::stub::Conversations for Conversations {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.conversation))
-                .or_else(|| Some(&req.latest_message));
+                .or(Some(&req.conversation))
+                .or(Some(&req.latest_message));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -5723,7 +5713,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -5823,7 +5813,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -5899,7 +5889,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -6009,7 +5999,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -7341,7 +7331,7 @@ impl super::stub::ConversationModels for ConversationModels {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -7908,7 +7898,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -8018,7 +8008,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -8114,13 +8104,10 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.conversation_profile
-                        .as_ref()
-                        .and_then(|s| Some(&s.security_settings))
-                });
+            let resource_name = Option::<&String>::None.or(Some(&req.parent)).or(req
+                .conversation_profile
+                .as_ref()
+                .map(|s| &s.security_settings));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -8266,11 +8253,10 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| {
-                req.conversation_profile
-                    .as_ref()
-                    .and_then(|s| Some(&s.security_settings))
-            });
+            let resource_name = Option::<&String>::None.or(req
+                .conversation_profile
+                .as_ref()
+                .map(|s| &s.security_settings));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -8380,7 +8366,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -9221,7 +9207,7 @@ impl super::stub::Documents for Documents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -9377,7 +9363,7 @@ impl super::stub::Documents for Documents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -9521,7 +9507,7 @@ impl super::stub::Documents for Documents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -9631,7 +9617,7 @@ impl super::stub::Documents for Documents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -9787,7 +9773,7 @@ impl super::stub::Documents for Documents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -10143,7 +10129,7 @@ impl super::stub::Documents for Documents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -10261,7 +10247,7 @@ impl super::stub::Documents for Documents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -10802,7 +10788,7 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -11451,7 +11437,7 @@ impl super::stub::EntityTypes for EntityTypes {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -11563,7 +11549,7 @@ impl super::stub::EntityTypes for EntityTypes {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -11671,7 +11657,7 @@ impl super::stub::EntityTypes for EntityTypes {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -11919,7 +11905,7 @@ impl super::stub::EntityTypes for EntityTypes {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -12030,7 +12016,7 @@ impl super::stub::EntityTypes for EntityTypes {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -12136,7 +12122,7 @@ impl super::stub::EntityTypes for EntityTypes {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -12246,7 +12232,7 @@ impl super::stub::EntityTypes for EntityTypes {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -12356,7 +12342,7 @@ impl super::stub::EntityTypes for EntityTypes {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -12466,7 +12452,7 @@ impl super::stub::EntityTypes for EntityTypes {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -13043,7 +13029,7 @@ impl super::stub::Environments for Environments {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -13153,7 +13139,7 @@ impl super::stub::Environments for Environments {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -13262,12 +13248,8 @@ impl super::stub::Environments for Environments {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.environment
-                        .as_ref()
-                        .and_then(|s| Some(&s.agent_version))
-                });
+                .or(Some(&req.parent))
+                .or(req.environment.as_ref().map(|s| &s.agent_version));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -13421,11 +13403,8 @@ impl super::stub::Environments for Environments {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| {
-                req.environment
-                    .as_ref()
-                    .and_then(|s| Some(&s.agent_version))
-            });
+            let resource_name =
+                Option::<&String>::None.or(req.environment.as_ref().map(|s| &s.agent_version));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -13535,7 +13514,7 @@ impl super::stub::Environments for Environments {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -13654,7 +13633,7 @@ impl super::stub::Environments for Environments {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -14213,7 +14192,7 @@ impl super::stub::Fulfillments for Fulfillments {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -14896,7 +14875,7 @@ impl super::stub::Generators for Generators {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -14972,7 +14951,7 @@ impl super::stub::Generators for Generators {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -15072,7 +15051,7 @@ impl super::stub::Generators for Generators {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -15148,7 +15127,7 @@ impl super::stub::Generators for Generators {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -15884,7 +15863,7 @@ impl super::stub::Intents for Intents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -15998,7 +15977,7 @@ impl super::stub::Intents for Intents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -16108,7 +16087,7 @@ impl super::stub::Intents for Intents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -16358,7 +16337,7 @@ impl super::stub::Intents for Intents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -16469,7 +16448,7 @@ impl super::stub::Intents for Intents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -16575,7 +16554,7 @@ impl super::stub::Intents for Intents {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -17179,7 +17158,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -17323,7 +17302,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -17451,7 +17430,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -17598,7 +17577,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -18354,7 +18333,7 @@ impl super::stub::Participants for Participants {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -18472,7 +18451,7 @@ impl super::stub::Participants for Participants {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -18586,7 +18565,7 @@ impl super::stub::Participants for Participants {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -18848,7 +18827,7 @@ impl super::stub::Participants for Participants {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.participant));
+            let resource_name = Option::<&String>::None.or(Some(&req.participant));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -18967,8 +18946,8 @@ impl super::stub::Participants for Participants {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| Some(&req.latest_message));
+                .or(Some(&req.parent))
+                .or(Some(&req.latest_message));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -19087,8 +19066,8 @@ impl super::stub::Participants for Participants {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| Some(&req.latest_message));
+                .or(Some(&req.parent))
+                .or(Some(&req.latest_message));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -19207,8 +19186,8 @@ impl super::stub::Participants for Participants {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| Some(&req.latest_message));
+                .or(Some(&req.parent))
+                .or(Some(&req.latest_message));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -19327,8 +19306,8 @@ impl super::stub::Participants for Participants {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| Some(&req.latest_message));
+                .or(Some(&req.parent))
+                .or(Some(&req.latest_message));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -19979,7 +19958,7 @@ impl super::stub::Sessions for Sessions {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.session));
+            let resource_name = Option::<&String>::None.or(Some(&req.session));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -20638,7 +20617,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -20764,7 +20743,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -20962,7 +20941,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -21216,7 +21195,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -21784,7 +21763,7 @@ impl super::stub::Versions for Versions {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -21894,7 +21873,7 @@ impl super::stub::Versions for Versions {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -22000,7 +21979,7 @@ impl super::stub::Versions for Versions {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -22246,7 +22225,7 @@ impl super::stub::Versions for Versions {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dialogflow.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)

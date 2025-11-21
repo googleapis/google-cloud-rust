@@ -999,11 +999,10 @@ impl super::stub::JobService for JobService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| {
-                req.query_request
-                    .as_ref()
-                    .and_then(|s| s.reservation.as_ref())
-            });
+            let resource_name = Option::<&String>::None.or(req
+                .query_request
+                .as_ref()
+                .and_then(|s| s.reservation.as_ref()));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//bigquery.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)

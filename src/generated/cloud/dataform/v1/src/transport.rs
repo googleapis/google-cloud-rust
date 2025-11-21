@@ -104,7 +104,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -180,7 +180,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -254,13 +254,12 @@ impl super::stub::Dataform for Dataform {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.repository
-                        .as_ref()
-                        .and_then(|s| Some(&s.npmrc_environment_variables_secret_version))
-                })
-                .or_else(|| req.repository.as_ref().and_then(|s| Some(&s.kms_key_name)));
+                .or(Some(&req.parent))
+                .or(req
+                    .repository
+                    .as_ref()
+                    .map(|s| &s.npmrc_environment_variables_secret_version))
+                .or(req.repository.as_ref().map(|s| &s.kms_key_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -355,12 +354,11 @@ impl super::stub::Dataform for Dataform {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| {
-                    req.repository
-                        .as_ref()
-                        .and_then(|s| Some(&s.npmrc_environment_variables_secret_version))
-                })
-                .or_else(|| req.repository.as_ref().and_then(|s| Some(&s.kms_key_name)));
+                .or(req
+                    .repository
+                    .as_ref()
+                    .map(|s| &s.npmrc_environment_variables_secret_version))
+                .or(req.repository.as_ref().map(|s| &s.kms_key_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -437,7 +435,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -518,7 +516,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -596,7 +594,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -677,7 +675,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -755,7 +753,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -832,7 +830,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -908,7 +906,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -988,7 +986,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1068,7 +1066,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1145,7 +1143,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1225,7 +1223,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1310,7 +1308,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.workspace));
+            let resource_name = Option::<&String>::None.or(Some(&req.workspace));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1390,7 +1388,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1470,7 +1468,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1550,7 +1548,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1631,7 +1629,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1711,7 +1709,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1791,7 +1789,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1872,7 +1870,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.workspace));
+            let resource_name = Option::<&String>::None.or(Some(&req.workspace));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1955,7 +1953,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.workspace));
+            let resource_name = Option::<&String>::None.or(Some(&req.workspace));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2038,7 +2036,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.workspace));
+            let resource_name = Option::<&String>::None.or(Some(&req.workspace));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2118,7 +2116,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.workspace));
+            let resource_name = Option::<&String>::None.or(Some(&req.workspace));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2198,7 +2196,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.workspace));
+            let resource_name = Option::<&String>::None.or(Some(&req.workspace));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2278,7 +2276,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.workspace));
+            let resource_name = Option::<&String>::None.or(Some(&req.workspace));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2360,7 +2358,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.workspace));
+            let resource_name = Option::<&String>::None.or(Some(&req.workspace));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2440,7 +2438,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.workspace));
+            let resource_name = Option::<&String>::None.or(Some(&req.workspace));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2520,7 +2518,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.workspace));
+            let resource_name = Option::<&String>::None.or(Some(&req.workspace));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2600,7 +2598,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.workspace));
+            let resource_name = Option::<&String>::None.or(Some(&req.workspace));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2678,7 +2676,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2758,7 +2756,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2835,13 +2833,10 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.release_config
-                        .as_ref()
-                        .and_then(|s| Some(&s.release_compilation_result))
-                });
+            let resource_name = Option::<&String>::None.or(Some(&req.parent)).or(req
+                .release_config
+                .as_ref()
+                .map(|s| &s.release_compilation_result));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2939,11 +2934,10 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| {
-                req.release_config
-                    .as_ref()
-                    .and_then(|s| Some(&s.release_compilation_result))
-            });
+            let resource_name = Option::<&String>::None.or(req
+                .release_config
+                .as_ref()
+                .map(|s| &s.release_compilation_result));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3023,7 +3017,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3108,7 +3102,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3188,7 +3182,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3265,13 +3259,12 @@ impl super::stub::Dataform for Dataform {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.compilation_result.as_ref().and_then(|s| s.workspace()))
-                .or_else(|| {
-                    req.compilation_result
-                        .as_ref()
-                        .and_then(|s| s.release_config())
-                });
+                .or(Some(&req.parent))
+                .or(req.compilation_result.as_ref().and_then(|s| s.workspace()))
+                .or(req
+                    .compilation_result
+                    .as_ref()
+                    .and_then(|s| s.release_config()));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3354,7 +3347,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3432,7 +3425,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3512,7 +3505,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3590,12 +3583,8 @@ impl super::stub::Dataform for Dataform {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.workflow_config
-                        .as_ref()
-                        .and_then(|s| Some(&s.release_config))
-                });
+                .or(Some(&req.parent))
+                .or(req.workflow_config.as_ref().map(|s| &s.release_config));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3693,11 +3682,8 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| {
-                req.workflow_config
-                    .as_ref()
-                    .and_then(|s| Some(&s.release_config))
-            });
+            let resource_name =
+                Option::<&String>::None.or(req.workflow_config.as_ref().map(|s| &s.release_config));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3777,7 +3763,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3862,7 +3848,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3942,7 +3928,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4019,22 +4005,19 @@ impl super::stub::Dataform for Dataform {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.workflow_invocation
-                        .as_ref()
-                        .and_then(|s| s.compilation_result())
-                })
-                .or_else(|| {
-                    req.workflow_invocation
-                        .as_ref()
-                        .and_then(|s| s.workflow_config())
-                })
-                .or_else(|| {
-                    req.workflow_invocation
-                        .as_ref()
-                        .and_then(|s| Some(&s.resolved_compilation_result))
-                });
+                .or(Some(&req.parent))
+                .or(req
+                    .workflow_invocation
+                    .as_ref()
+                    .and_then(|s| s.compilation_result()))
+                .or(req
+                    .workflow_invocation
+                    .as_ref()
+                    .and_then(|s| s.workflow_config()))
+                .or(req
+                    .workflow_invocation
+                    .as_ref()
+                    .map(|s| &s.resolved_compilation_result));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4114,7 +4097,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4199,7 +4182,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4281,7 +4264,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4355,7 +4338,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4447,11 +4430,8 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| {
-                req.config
-                    .as_ref()
-                    .and_then(|s| Some(&s.default_kms_key_name))
-            });
+            let resource_name =
+                Option::<&String>::None.or(req.config.as_ref().map(|s| &s.default_kms_key_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4686,7 +4666,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4828,7 +4808,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4946,7 +4926,7 @@ impl super::stub::Dataform for Dataform {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//dataform.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)

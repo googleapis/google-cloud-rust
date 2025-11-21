@@ -102,7 +102,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -178,7 +178,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -252,7 +252,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -414,7 +414,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -490,7 +490,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -566,7 +566,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -646,7 +646,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -726,7 +726,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -804,7 +804,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -974,7 +974,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1054,7 +1054,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1134,7 +1134,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1213,10 +1213,10 @@ impl super::stub::Aml for Aml {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.model.as_ref().and_then(|s| Some(&s.engine_version)))
-                .or_else(|| req.model.as_ref().and_then(|s| Some(&s.engine_config)))
-                .or_else(|| req.model.as_ref().and_then(|s| Some(&s.primary_dataset)));
+                .or(Some(&req.parent))
+                .or(req.model.as_ref().map(|s| &s.engine_version))
+                .or(req.model.as_ref().map(|s| &s.engine_config))
+                .or(req.model.as_ref().map(|s| &s.primary_dataset));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1316,9 +1316,9 @@ impl super::stub::Aml for Aml {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| req.model.as_ref().and_then(|s| Some(&s.engine_version)))
-                .or_else(|| req.model.as_ref().and_then(|s| Some(&s.engine_config)))
-                .or_else(|| req.model.as_ref().and_then(|s| Some(&s.primary_dataset)));
+                .or(req.model.as_ref().map(|s| &s.engine_version))
+                .or(req.model.as_ref().map(|s| &s.engine_config))
+                .or(req.model.as_ref().map(|s| &s.primary_dataset));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1398,7 +1398,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.model));
+            let resource_name = Option::<&String>::None.or(Some(&req.model));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1479,7 +1479,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1559,7 +1559,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1639,7 +1639,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1718,12 +1718,8 @@ impl super::stub::Aml for Aml {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.engine_config
-                        .as_ref()
-                        .and_then(|s| Some(&s.engine_version))
-                });
+                .or(Some(&req.parent))
+                .or(req.engine_config.as_ref().map(|s| &s.engine_version));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1822,11 +1818,8 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| {
-                req.engine_config
-                    .as_ref()
-                    .and_then(|s| Some(&s.engine_version))
-            });
+            let resource_name =
+                Option::<&String>::None.or(req.engine_config.as_ref().map(|s| &s.engine_version));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1906,7 +1899,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.engine_config));
+            let resource_name = Option::<&String>::None.or(Some(&req.engine_config));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1987,7 +1980,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2067,7 +2060,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2147,7 +2140,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2227,7 +2220,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2307,7 +2300,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2386,13 +2379,9 @@ impl super::stub::Aml for Aml {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.prediction_result
-                        .as_ref()
-                        .and_then(|s| Some(&s.dataset))
-                })
-                .or_else(|| req.prediction_result.as_ref().and_then(|s| Some(&s.model)));
+                .or(Some(&req.parent))
+                .or(req.prediction_result.as_ref().map(|s| &s.dataset))
+                .or(req.prediction_result.as_ref().map(|s| &s.model));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2492,12 +2481,8 @@ impl super::stub::Aml for Aml {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| {
-                    req.prediction_result
-                        .as_ref()
-                        .and_then(|s| Some(&s.dataset))
-                })
-                .or_else(|| req.prediction_result.as_ref().and_then(|s| Some(&s.model)));
+                .or(req.prediction_result.as_ref().map(|s| &s.dataset))
+                .or(req.prediction_result.as_ref().map(|s| &s.model));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2577,7 +2562,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.prediction_result));
+            let resource_name = Option::<&String>::None.or(Some(&req.prediction_result));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2658,7 +2643,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2738,7 +2723,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2818,7 +2803,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2897,9 +2882,9 @@ impl super::stub::Aml for Aml {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.backtest_result.as_ref().and_then(|s| Some(&s.dataset)))
-                .or_else(|| req.backtest_result.as_ref().and_then(|s| Some(&s.model)));
+                .or(Some(&req.parent))
+                .or(req.backtest_result.as_ref().map(|s| &s.dataset))
+                .or(req.backtest_result.as_ref().map(|s| &s.model));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2999,8 +2984,8 @@ impl super::stub::Aml for Aml {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| req.backtest_result.as_ref().and_then(|s| Some(&s.dataset)))
-                .or_else(|| req.backtest_result.as_ref().and_then(|s| Some(&s.model)));
+                .or(req.backtest_result.as_ref().map(|s| &s.dataset))
+                .or(req.backtest_result.as_ref().map(|s| &s.model));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3080,7 +3065,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.backtest_result));
+            let resource_name = Option::<&String>::None.or(Some(&req.backtest_result));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3161,7 +3146,7 @@ impl super::stub::Aml for Aml {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//financialservices.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)

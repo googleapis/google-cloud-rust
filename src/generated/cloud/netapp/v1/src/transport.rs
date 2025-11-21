@@ -104,7 +104,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -178,14 +178,10 @@ impl super::stub::NetApp for NetApp {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.storage_pool.as_ref().and_then(|s| Some(&s.network)))
-                .or_else(|| {
-                    req.storage_pool
-                        .as_ref()
-                        .and_then(|s| Some(&s.active_directory))
-                })
-                .or_else(|| req.storage_pool.as_ref().and_then(|s| Some(&s.kms_config)));
+                .or(Some(&req.parent))
+                .or(req.storage_pool.as_ref().map(|s| &s.network))
+                .or(req.storage_pool.as_ref().map(|s| &s.active_directory))
+                .or(req.storage_pool.as_ref().map(|s| &s.kms_config));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -261,7 +257,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -356,13 +352,9 @@ impl super::stub::NetApp for NetApp {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| req.storage_pool.as_ref().and_then(|s| Some(&s.network)))
-                .or_else(|| {
-                    req.storage_pool
-                        .as_ref()
-                        .and_then(|s| Some(&s.active_directory))
-                })
-                .or_else(|| req.storage_pool.as_ref().and_then(|s| Some(&s.kms_config)));
+                .or(req.storage_pool.as_ref().map(|s| &s.network))
+                .or(req.storage_pool.as_ref().map(|s| &s.active_directory))
+                .or(req.storage_pool.as_ref().map(|s| &s.kms_config));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -438,7 +430,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -514,7 +506,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -590,7 +582,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -666,7 +658,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -742,7 +734,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -816,11 +808,11 @@ impl super::stub::NetApp for NetApp {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.volume.as_ref().and_then(|s| Some(&s.storage_pool)))
-                .or_else(|| req.volume.as_ref().and_then(|s| Some(&s.network)))
-                .or_else(|| req.volume.as_ref().and_then(|s| Some(&s.active_directory)))
-                .or_else(|| req.volume.as_ref().and_then(|s| Some(&s.kms_config)));
+                .or(Some(&req.parent))
+                .or(req.volume.as_ref().map(|s| &s.storage_pool))
+                .or(req.volume.as_ref().map(|s| &s.network))
+                .or(req.volume.as_ref().map(|s| &s.active_directory))
+                .or(req.volume.as_ref().map(|s| &s.kms_config));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -915,10 +907,10 @@ impl super::stub::NetApp for NetApp {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| req.volume.as_ref().and_then(|s| Some(&s.storage_pool)))
-                .or_else(|| req.volume.as_ref().and_then(|s| Some(&s.network)))
-                .or_else(|| req.volume.as_ref().and_then(|s| Some(&s.active_directory)))
-                .or_else(|| req.volume.as_ref().and_then(|s| Some(&s.kms_config)));
+                .or(req.volume.as_ref().map(|s| &s.storage_pool))
+                .or(req.volume.as_ref().map(|s| &s.network))
+                .or(req.volume.as_ref().map(|s| &s.active_directory))
+                .or(req.volume.as_ref().map(|s| &s.kms_config));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -995,7 +987,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1071,7 +1063,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1151,7 +1143,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1231,7 +1223,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1308,7 +1300,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1388,7 +1380,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1552,7 +1544,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1628,7 +1620,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1701,7 +1693,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1861,7 +1853,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1937,7 +1929,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2010,7 +2002,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2086,7 +2078,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2246,7 +2238,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2322,7 +2314,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2398,7 +2390,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2478,7 +2470,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2558,7 +2550,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2636,17 +2628,9 @@ impl super::stub::NetApp for NetApp {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.replication
-                        .as_ref()
-                        .and_then(|s| Some(&s.destination_volume))
-                })
-                .or_else(|| {
-                    req.replication
-                        .as_ref()
-                        .and_then(|s| Some(&s.source_volume))
-                });
+                .or(Some(&req.parent))
+                .or(req.replication.as_ref().map(|s| &s.destination_volume))
+                .or(req.replication.as_ref().map(|s| &s.source_volume));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2726,7 +2710,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2825,16 +2809,8 @@ impl super::stub::NetApp for NetApp {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| {
-                    req.replication
-                        .as_ref()
-                        .and_then(|s| Some(&s.destination_volume))
-                })
-                .or_else(|| {
-                    req.replication
-                        .as_ref()
-                        .and_then(|s| Some(&s.source_volume))
-                });
+                .or(req.replication.as_ref().map(|s| &s.destination_volume))
+                .or(req.replication.as_ref().map(|s| &s.source_volume));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2914,7 +2890,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2994,7 +2970,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3074,7 +3050,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3154,7 +3130,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3234,7 +3210,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3308,27 +3284,14 @@ impl super::stub::NetApp for NetApp {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.backup_vault
-                        .as_ref()
-                        .and_then(|s| Some(&s.source_region))
-                })
-                .or_else(|| {
-                    req.backup_vault
-                        .as_ref()
-                        .and_then(|s| Some(&s.backup_region))
-                })
-                .or_else(|| {
-                    req.backup_vault
-                        .as_ref()
-                        .and_then(|s| Some(&s.source_backup_vault))
-                })
-                .or_else(|| {
-                    req.backup_vault
-                        .as_ref()
-                        .and_then(|s| Some(&s.destination_backup_vault))
-                });
+                .or(Some(&req.parent))
+                .or(req.backup_vault.as_ref().map(|s| &s.source_region))
+                .or(req.backup_vault.as_ref().map(|s| &s.backup_region))
+                .or(req.backup_vault.as_ref().map(|s| &s.source_backup_vault))
+                .or(req
+                    .backup_vault
+                    .as_ref()
+                    .map(|s| &s.destination_backup_vault));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3404,7 +3367,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3480,7 +3443,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3575,26 +3538,13 @@ impl super::stub::NetApp for NetApp {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| {
-                    req.backup_vault
-                        .as_ref()
-                        .and_then(|s| Some(&s.source_region))
-                })
-                .or_else(|| {
-                    req.backup_vault
-                        .as_ref()
-                        .and_then(|s| Some(&s.backup_region))
-                })
-                .or_else(|| {
-                    req.backup_vault
-                        .as_ref()
-                        .and_then(|s| Some(&s.source_backup_vault))
-                })
-                .or_else(|| {
-                    req.backup_vault
-                        .as_ref()
-                        .and_then(|s| Some(&s.destination_backup_vault))
-                });
+                .or(req.backup_vault.as_ref().map(|s| &s.source_region))
+                .or(req.backup_vault.as_ref().map(|s| &s.backup_region))
+                .or(req.backup_vault.as_ref().map(|s| &s.source_backup_vault))
+                .or(req
+                    .backup_vault
+                    .as_ref()
+                    .map(|s| &s.destination_backup_vault));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3670,7 +3620,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3748,11 +3698,11 @@ impl super::stub::NetApp for NetApp {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.backup.as_ref().and_then(|s| Some(&s.source_volume)))
-                .or_else(|| req.backup.as_ref().and_then(|s| s.source_snapshot.as_ref()))
-                .or_else(|| req.backup.as_ref().and_then(|s| Some(&s.volume_region)))
-                .or_else(|| req.backup.as_ref().and_then(|s| Some(&s.backup_region)));
+                .or(Some(&req.parent))
+                .or(req.backup.as_ref().map(|s| &s.source_volume))
+                .or(req.backup.as_ref().and_then(|s| s.source_snapshot.as_ref()))
+                .or(req.backup.as_ref().map(|s| &s.volume_region))
+                .or(req.backup.as_ref().map(|s| &s.backup_region));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3832,7 +3782,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3912,7 +3862,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3992,7 +3942,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4091,10 +4041,10 @@ impl super::stub::NetApp for NetApp {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| req.backup.as_ref().and_then(|s| Some(&s.source_volume)))
-                .or_else(|| req.backup.as_ref().and_then(|s| s.source_snapshot.as_ref()))
-                .or_else(|| req.backup.as_ref().and_then(|s| Some(&s.volume_region)))
-                .or_else(|| req.backup.as_ref().and_then(|s| Some(&s.backup_region)));
+                .or(req.backup.as_ref().map(|s| &s.source_volume))
+                .or(req.backup.as_ref().and_then(|s| s.source_snapshot.as_ref()))
+                .or(req.backup.as_ref().map(|s| &s.volume_region))
+                .or(req.backup.as_ref().map(|s| &s.backup_region));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4167,7 +4117,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4243,7 +4193,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4319,7 +4269,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4479,7 +4429,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4559,7 +4509,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4639,7 +4589,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4716,7 +4666,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4884,7 +4834,7 @@ impl super::stub::NetApp for NetApp {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//netapp.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)

@@ -102,7 +102,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -175,12 +175,8 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.encryption_config
-                        .as_ref()
-                        .and_then(|s| Some(&s.kms_key_name))
-                });
+                .or(Some(&req.parent))
+                .or(req.encryption_config.as_ref().map(|s| &s.kms_key_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -256,7 +252,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -416,7 +412,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.database));
+            let resource_name = Option::<&String>::None.or(Some(&req.database));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -492,7 +488,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.database));
+            let resource_name = Option::<&String>::None.or(Some(&req.database));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -573,7 +569,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.database));
+            let resource_name = Option::<&String>::None.or(Some(&req.database));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -729,7 +725,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -885,7 +881,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1083,7 +1079,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1169,13 +1165,9 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.backup.as_ref().and_then(|s| Some(&s.database)))
-                .or_else(|| {
-                    req.encryption_config
-                        .as_ref()
-                        .and_then(|s| Some(&s.kms_key_name))
-                });
+                .or(Some(&req.parent))
+                .or(req.backup.as_ref().map(|s| &s.database))
+                .or(req.encryption_config.as_ref().map(|s| &s.kms_key_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1248,13 +1240,9 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| Some(&req.source_backup))
-                .or_else(|| {
-                    req.encryption_config
-                        .as_ref()
-                        .and_then(|s| Some(&s.kms_key_name))
-                });
+                .or(Some(&req.parent))
+                .or(Some(&req.source_backup))
+                .or(req.encryption_config.as_ref().map(|s| &s.kms_key_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1330,7 +1318,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1424,8 +1412,8 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
-                .or_else(|| req.backup.as_ref().and_then(|s| Some(&s.database)));
+            let resource_name =
+                Option::<&String>::None.or(req.backup.as_ref().map(|s| &s.database));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1501,7 +1489,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1581,7 +1569,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1654,13 +1642,9 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.backup())
-                .or_else(|| {
-                    req.encryption_config
-                        .as_ref()
-                        .and_then(|s| Some(&s.kms_key_name))
-                });
+                .or(Some(&req.parent))
+                .or(req.backup())
+                .or(req.encryption_config.as_ref().map(|s| &s.kms_key_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1735,7 +1719,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1810,7 +1794,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1888,7 +1872,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1964,7 +1948,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.database));
+            let resource_name = Option::<&String>::None.or(Some(&req.database));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2041,7 +2025,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2121,7 +2105,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2289,7 +2273,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2372,7 +2356,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//spanner.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)

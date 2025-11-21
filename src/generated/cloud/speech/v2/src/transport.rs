@@ -103,13 +103,9 @@ impl super::stub::Speech for Speech {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.recognizer.as_ref().and_then(|s| Some(&s.kms_key_name)))
-                .or_else(|| {
-                    req.recognizer
-                        .as_ref()
-                        .and_then(|s| Some(&s.kms_key_version_name))
-                });
+                .or(Some(&req.parent))
+                .or(req.recognizer.as_ref().map(|s| &s.kms_key_name))
+                .or(req.recognizer.as_ref().map(|s| &s.kms_key_version_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -184,7 +180,7 @@ impl super::stub::Speech for Speech {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -260,7 +256,7 @@ impl super::stub::Speech for Speech {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -356,12 +352,8 @@ impl super::stub::Speech for Speech {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| req.recognizer.as_ref().and_then(|s| Some(&s.kms_key_name)))
-                .or_else(|| {
-                    req.recognizer
-                        .as_ref()
-                        .and_then(|s| Some(&s.kms_key_version_name))
-                });
+                .or(req.recognizer.as_ref().map(|s| &s.kms_key_name))
+                .or(req.recognizer.as_ref().map(|s| &s.kms_key_version_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -440,7 +432,7 @@ impl super::stub::Speech for Speech {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -516,7 +508,7 @@ impl super::stub::Speech for Speech {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -592,7 +584,7 @@ impl super::stub::Speech for Speech {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.recognizer));
+            let resource_name = Option::<&String>::None.or(Some(&req.recognizer));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -668,7 +660,7 @@ impl super::stub::Speech for Speech {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.recognizer));
+            let resource_name = Option::<&String>::None.or(Some(&req.recognizer));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -742,7 +734,7 @@ impl super::stub::Speech for Speech {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -834,8 +826,8 @@ impl super::stub::Speech for Speech {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
-                .or_else(|| req.config.as_ref().and_then(|s| Some(&s.kms_key_name)));
+            let resource_name =
+                Option::<&String>::None.or(req.config.as_ref().map(|s| &s.kms_key_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -910,17 +902,9 @@ impl super::stub::Speech for Speech {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.custom_class
-                        .as_ref()
-                        .and_then(|s| Some(&s.kms_key_name))
-                })
-                .or_else(|| {
-                    req.custom_class
-                        .as_ref()
-                        .and_then(|s| Some(&s.kms_key_version_name))
-                });
+                .or(Some(&req.parent))
+                .or(req.custom_class.as_ref().map(|s| &s.kms_key_name))
+                .or(req.custom_class.as_ref().map(|s| &s.kms_key_version_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -995,7 +979,7 @@ impl super::stub::Speech for Speech {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1071,7 +1055,7 @@ impl super::stub::Speech for Speech {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1167,16 +1151,8 @@ impl super::stub::Speech for Speech {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| {
-                    req.custom_class
-                        .as_ref()
-                        .and_then(|s| Some(&s.kms_key_name))
-                })
-                .or_else(|| {
-                    req.custom_class
-                        .as_ref()
-                        .and_then(|s| Some(&s.kms_key_version_name))
-                });
+                .or(req.custom_class.as_ref().map(|s| &s.kms_key_name))
+                .or(req.custom_class.as_ref().map(|s| &s.kms_key_version_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1255,7 +1231,7 @@ impl super::stub::Speech for Speech {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1331,7 +1307,7 @@ impl super::stub::Speech for Speech {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1406,13 +1382,9 @@ impl super::stub::Speech for Speech {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.phrase_set.as_ref().and_then(|s| Some(&s.kms_key_name)))
-                .or_else(|| {
-                    req.phrase_set
-                        .as_ref()
-                        .and_then(|s| Some(&s.kms_key_version_name))
-                });
+                .or(Some(&req.parent))
+                .or(req.phrase_set.as_ref().map(|s| &s.kms_key_name))
+                .or(req.phrase_set.as_ref().map(|s| &s.kms_key_version_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1487,7 +1459,7 @@ impl super::stub::Speech for Speech {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1563,7 +1535,7 @@ impl super::stub::Speech for Speech {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1659,12 +1631,8 @@ impl super::stub::Speech for Speech {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| req.phrase_set.as_ref().and_then(|s| Some(&s.kms_key_name)))
-                .or_else(|| {
-                    req.phrase_set
-                        .as_ref()
-                        .and_then(|s| Some(&s.kms_key_version_name))
-                });
+                .or(req.phrase_set.as_ref().map(|s| &s.kms_key_name))
+                .or(req.phrase_set.as_ref().map(|s| &s.kms_key_version_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1743,7 +1711,7 @@ impl super::stub::Speech for Speech {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1819,7 +1787,7 @@ impl super::stub::Speech for Speech {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//speech.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)

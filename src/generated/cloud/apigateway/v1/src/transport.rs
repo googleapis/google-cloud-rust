@@ -104,7 +104,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//apigateway.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -180,7 +180,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//apigateway.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -254,8 +254,8 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.gateway.as_ref().and_then(|s| Some(&s.api_config)));
+                .or(Some(&req.parent))
+                .or(req.gateway.as_ref().map(|s| &s.api_config));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//apigateway.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -349,8 +349,8 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
-                .or_else(|| req.gateway.as_ref().and_then(|s| Some(&s.api_config)));
+            let resource_name =
+                Option::<&String>::None.or(req.gateway.as_ref().map(|s| &s.api_config));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//apigateway.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -426,7 +426,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//apigateway.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -502,7 +502,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//apigateway.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -578,7 +578,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//apigateway.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -652,8 +652,8 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.api.as_ref().and_then(|s| Some(&s.managed_service)));
+                .or(Some(&req.parent))
+                .or(req.api.as_ref().map(|s| &s.managed_service));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//apigateway.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -747,8 +747,8 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
-                .or_else(|| req.api.as_ref().and_then(|s| Some(&s.managed_service)));
+            let resource_name =
+                Option::<&String>::None.or(req.api.as_ref().map(|s| &s.managed_service));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//apigateway.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -824,7 +824,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//apigateway.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -904,7 +904,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//apigateway.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -985,7 +985,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//apigateway.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1063,17 +1063,9 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.api_config
-                        .as_ref()
-                        .and_then(|s| Some(&s.gateway_service_account))
-                })
-                .or_else(|| {
-                    req.api_config
-                        .as_ref()
-                        .and_then(|s| Some(&s.service_config_id))
-                });
+                .or(Some(&req.parent))
+                .or(req.api_config.as_ref().map(|s| &s.gateway_service_account))
+                .or(req.api_config.as_ref().map(|s| &s.service_config_id));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//apigateway.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1172,16 +1164,8 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| {
-                    req.api_config
-                        .as_ref()
-                        .and_then(|s| Some(&s.gateway_service_account))
-                })
-                .or_else(|| {
-                    req.api_config
-                        .as_ref()
-                        .and_then(|s| Some(&s.service_config_id))
-                });
+                .or(req.api_config.as_ref().map(|s| &s.gateway_service_account))
+                .or(req.api_config.as_ref().map(|s| &s.service_config_id));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//apigateway.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1261,7 +1245,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//apigateway.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)

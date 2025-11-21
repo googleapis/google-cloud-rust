@@ -101,8 +101,8 @@ impl super::stub::DataPolicyService for DataPolicyService {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.data_policy.as_ref().and_then(|s| Some(&s.policy_tag)));
+                .or(Some(&req.parent))
+                .or(req.data_policy.as_ref().map(|s| &s.policy_tag));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//bigquerydatapolicy.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -178,7 +178,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.data_policy));
+            let resource_name = Option::<&String>::None.or(Some(&req.data_policy));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//bigquerydatapolicy.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -254,7 +254,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.data_policy));
+            let resource_name = Option::<&String>::None.or(Some(&req.data_policy));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//bigquerydatapolicy.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -349,8 +349,8 @@ impl super::stub::DataPolicyService for DataPolicyService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
-                .or_else(|| req.data_policy.as_ref().and_then(|s| Some(&s.policy_tag)));
+            let resource_name =
+                Option::<&String>::None.or(req.data_policy.as_ref().map(|s| &s.policy_tag));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//bigquerydatapolicy.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -426,7 +426,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//bigquerydatapolicy.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -507,7 +507,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//bigquerydatapolicy.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -582,7 +582,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//bigquerydatapolicy.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -658,7 +658,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//bigquerydatapolicy.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -734,7 +734,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//bigquerydatapolicy.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -810,7 +810,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//bigquerydatapolicy.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)

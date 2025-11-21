@@ -104,7 +104,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -180,7 +180,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -255,8 +255,8 @@ impl super::stub::Eventarc for Eventarc {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.trigger.as_ref().and_then(|s| Some(&s.service_account)));
+                .or(Some(&req.parent))
+                .or(req.trigger.as_ref().map(|s| &s.service_account));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -352,8 +352,8 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
-                .or_else(|| req.trigger.as_ref().and_then(|s| Some(&s.service_account)));
+            let resource_name =
+                Option::<&String>::None.or(req.trigger.as_ref().map(|s| &s.service_account));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -432,7 +432,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -508,7 +508,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -583,7 +583,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -658,8 +658,8 @@ impl super::stub::Eventarc for Eventarc {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.channel.as_ref().and_then(|s| Some(&s.crypto_key_name)));
+                .or(Some(&req.parent))
+                .or(req.channel.as_ref().map(|s| &s.crypto_key_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -754,8 +754,8 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
-                .or_else(|| req.channel.as_ref().and_then(|s| Some(&s.crypto_key_name)));
+            let resource_name =
+                Option::<&String>::None.or(req.channel.as_ref().map(|s| &s.crypto_key_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -832,7 +832,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -908,7 +908,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -984,7 +984,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1060,7 +1060,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1134,7 +1134,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1208,12 +1208,8 @@ impl super::stub::Eventarc for Eventarc {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.channel_connection
-                        .as_ref()
-                        .and_then(|s| Some(&s.channel))
-                });
+                .or(Some(&req.parent))
+                .or(req.channel_connection.as_ref().map(|s| &s.channel));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1289,7 +1285,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1363,7 +1359,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1455,11 +1451,10 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| {
-                req.google_channel_config
-                    .as_ref()
-                    .and_then(|s| Some(&s.crypto_key_name))
-            });
+            let resource_name = Option::<&String>::None.or(req
+                .google_channel_config
+                .as_ref()
+                .map(|s| &s.crypto_key_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1535,7 +1530,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1611,7 +1606,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1689,7 +1684,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1764,12 +1759,8 @@ impl super::stub::Eventarc for Eventarc {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.message_bus
-                        .as_ref()
-                        .and_then(|s| Some(&s.crypto_key_name))
-                });
+                .or(Some(&req.parent))
+                .or(req.message_bus.as_ref().map(|s| &s.crypto_key_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1865,11 +1856,8 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| {
-                req.message_bus
-                    .as_ref()
-                    .and_then(|s| Some(&s.crypto_key_name))
-            });
+            let resource_name =
+                Option::<&String>::None.or(req.message_bus.as_ref().map(|s| &s.crypto_key_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -1948,7 +1936,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2024,7 +2012,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2100,7 +2088,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2175,8 +2163,8 @@ impl super::stub::Eventarc for Eventarc {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.enrollment.as_ref().and_then(|s| Some(&s.message_bus)));
+                .or(Some(&req.parent))
+                .or(req.enrollment.as_ref().map(|s| &s.message_bus));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2272,8 +2260,8 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
-                .or_else(|| req.enrollment.as_ref().and_then(|s| Some(&s.message_bus)));
+            let resource_name =
+                Option::<&String>::None.or(req.enrollment.as_ref().map(|s| &s.message_bus));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2352,7 +2340,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2428,7 +2416,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2504,7 +2492,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2579,8 +2567,8 @@ impl super::stub::Eventarc for Eventarc {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| req.pipeline.as_ref().and_then(|s| Some(&s.crypto_key_name)));
+                .or(Some(&req.parent))
+                .or(req.pipeline.as_ref().map(|s| &s.crypto_key_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2676,8 +2664,8 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
-                .or_else(|| req.pipeline.as_ref().and_then(|s| Some(&s.crypto_key_name)));
+            let resource_name =
+                Option::<&String>::None.or(req.pipeline.as_ref().map(|s| &s.crypto_key_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2756,7 +2744,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2832,7 +2820,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2908,7 +2896,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -2983,17 +2971,9 @@ impl super::stub::Eventarc for Eventarc {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| Some(&req.parent))
-                .or_else(|| {
-                    req.google_api_source
-                        .as_ref()
-                        .and_then(|s| Some(&s.destination))
-                })
-                .or_else(|| {
-                    req.google_api_source
-                        .as_ref()
-                        .and_then(|s| Some(&s.crypto_key_name))
-                });
+                .or(Some(&req.parent))
+                .or(req.google_api_source.as_ref().map(|s| &s.destination))
+                .or(req.google_api_source.as_ref().map(|s| &s.crypto_key_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3090,16 +3070,8 @@ impl super::stub::Eventarc for Eventarc {
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
             let resource_name = Option::<&String>::None
-                .or_else(|| {
-                    req.google_api_source
-                        .as_ref()
-                        .and_then(|s| Some(&s.destination))
-                })
-                .or_else(|| {
-                    req.google_api_source
-                        .as_ref()
-                        .and_then(|s| Some(&s.crypto_key_name))
-                });
+                .or(req.google_api_source.as_ref().map(|s| &s.destination))
+                .or(req.google_api_source.as_ref().map(|s| &s.crypto_key_name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3178,7 +3150,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -3637,7 +3609,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4075,7 +4047,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
@@ -4417,7 +4389,7 @@ impl super::stub::Eventarc for Eventarc {
         let options = gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
             if let Some(rn) = resource_name {
                 let full_resource_name = format!("//eventarc.googleapis.com/{}", rn);
                 gax::options::internal::set_resource_name(options, full_resource_name)
