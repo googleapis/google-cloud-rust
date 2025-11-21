@@ -48,6 +48,31 @@ locals {
         "--cfg google_cloud_unstable_storage_bidi"
       ])
     }
+    # features = {
+    #   config = "complex.yaml"
+    #   script = "features.sh"
+    # }
+    # docs = {
+    #   config = "complex.yaml"
+    #   script = "docs.sh"
+    # }
+    # docs-sh = {
+    #   config = "complex.yaml"
+    #   script = "docs-sh.sh"
+    # }
+    # semver-checks = {
+    #   config = "complex.yaml"
+    #   script = "semver-checks.sh"
+    # }
+    ## The full workspace build is too slow for a PR build.
+    ## workspace = {
+    ##   config = "complex.yaml"
+    ##   script = "workspace.sh"
+    ## }
+    # compute-full = {
+    #   config = "complex-32.yaml"
+    #   script = "compute-full.sh"
+    # }
   }
 
   pm_builds = {
@@ -63,6 +88,30 @@ locals {
         "--cfg google_cloud_unstable_storage_bidi"
       ])
     }
+    # features = {
+    #   config = "complex.yaml"
+    #   script = "features.sh"
+    # }
+    # docs = {
+    #   config = "complex.yaml"
+    #   script = "docs.sh"
+    # }
+    # docs-sh = {
+    #   config = "complex.yaml"
+    #   script = "docs-sh.sh"
+    # }
+    # semver-checks = {
+    #   config = "complex.yaml"
+    #   script = "semver-checks.sh"
+    # }
+    # workspace = {
+    #   config = "complex.yaml"
+    #   script = "workspace.sh"
+    # }
+    # compute-full = {
+    #   config = "complex-32.yaml"
+    #   script = "compute-full.sh"
+    # }
     referenceupload = {
       config = "referenceupload.yaml"
     }
@@ -121,6 +170,7 @@ resource "google_cloudbuild_trigger" "pull-request" {
 
   substitutions = {
     _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
+    _SCRIPT             = lookup(each.value, "script", "")
   }
 }
 
@@ -144,6 +194,7 @@ resource "google_cloudbuild_trigger" "post-merge" {
 
   substitutions = {
     _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
+    _SCRIPT             = lookup(each.value, "script", "")
   }
 }
 

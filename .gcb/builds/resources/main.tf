@@ -83,6 +83,16 @@ resource "google_kms_crypto_key_iam_member" "storage-examples" {
   member        = "serviceAccount:${data.google_storage_project_service_account.gcs-account.email_address}"
 }
 
+resource "google_cloudbuild_worker_pool" "pool" {
+  name = "rust-sdk-pool"
+  location = "us-central1"
+  worker_config {
+    disk_size_gb = 256
+    machine_type = "e2-standard-32"
+    no_external_ip = false
+  }
+}
+
 output "build-cache" {
   value = resource.google_storage_bucket.build-cache.id
 }
