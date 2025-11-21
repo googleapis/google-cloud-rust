@@ -52,7 +52,7 @@ locals {
       config = "complex.yaml"
       script = "features"
     }
-    features = {
+    minimal-versions = {
       config = "complex.yaml"
       script = "minimal-versions"
     }
@@ -95,6 +95,10 @@ locals {
     features = {
       config = "complex.yaml"
       script = "features"
+    }
+    minimal-versions = {
+      config = "complex.yaml"
+      script = "minimal-versions"
     }
     integration = {
       config = "integration.yaml"
