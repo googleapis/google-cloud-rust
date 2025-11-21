@@ -128,8 +128,13 @@ mod telemetry {
                 }
                 Err(e) => {
                     if let Some(status) = e.status() {
-                        if status.code == gax::error::rpc::Code::NotFound {
-                            println!("Trace not found yet, retrying...");
+                        if status.code == gax::error::rpc::Code::NotFound
+                            || status.code == gax::error::rpc::Code::Internal
+                        {
+                            println!(
+                                "Trace not found yet (or internal error), retrying... Error: {:?}",
+                                e
+                            );
                             continue;
                         }
                     }
