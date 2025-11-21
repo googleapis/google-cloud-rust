@@ -83,6 +83,17 @@ locals {
       config = "complex.yaml"
       script = "semver-checks"
     }
+    test-current = {
+      config = "complex.yaml"
+      flags  = local.unstable_flags
+      script = "test"
+    }
+    test-msrv = {
+      config       = "complex.yaml"
+      flags        = local.unstable_flags
+      script       = "test"
+      rust_version = "1.85"
+    }
     test-unstable-cfg = {
       config = "complex.yaml"
       flags  = local.unstable_flags
@@ -138,6 +149,17 @@ locals {
     semver-checks = {
       config = "complex.yaml"
       script = "semver-checks"
+    }
+    test-current = {
+      config = "complex.yaml"
+      flags  = local.unstable_flags
+      script = "test"
+    }
+    test-msrv = {
+      config       = "complex.yaml"
+      flags        = local.unstable_flags
+      script       = "test"
+      rust_version = "1.85"
     }
     test-unstable-cfg = {
       config = "complex.yaml"
@@ -204,6 +226,7 @@ resource "google_cloudbuild_trigger" "pull-request" {
   substitutions = {
     _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
     _SCRIPT             = lookup(each.value, "script", "")
+    _RUST_VERSION       = lookup(each.value, "rust_version", "1.91")
   }
 }
 
@@ -228,6 +251,7 @@ resource "google_cloudbuild_trigger" "post-merge" {
   substitutions = {
     _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
     _SCRIPT             = lookup(each.value, "script", "")
+    _RUST_VERSION       = lookup(each.value, "rust_version", "1.91")
   }
 }
 

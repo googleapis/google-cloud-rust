@@ -40,9 +40,10 @@ steps:
       mkdir -p .bin
       curl -fsSL --retry 5 --retry-delay 15 ${_SCCACHE_DOWNLOAD_URL} | tar -C /workspace/.bin -zxf - --strip-components=1
       chmod 755 /workspace/.bin/sccache
-  - name: 'rust:1.91-bookworm'
+  - name: 'rust:${_RUST_VERSION}-bookworm'
     args: ['.gcb/scripts/${_SCRIPT}.sh']
 substitutions:
   _SCCACHE_DOWNLOAD_URL: 'https://github.com/mozilla/sccache/releases/download/v0.9.1/sccache-v0.9.1-x86_64-unknown-linux-musl.tar.gz'
   _POOL_REGION: us-central1
   _POOL_ID: rust-sdk-pool
+  _RUST_VERSION: 1.91
