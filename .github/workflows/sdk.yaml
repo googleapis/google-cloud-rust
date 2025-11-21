@@ -31,7 +31,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: ['macos-14', 'ubuntu-24.04', 'windows-2025']
+        os: ['macos-14', 'windows-2025']
         rust-version: ['rust:current']
     runs-on: ${{ matrix.os }}
     steps:
