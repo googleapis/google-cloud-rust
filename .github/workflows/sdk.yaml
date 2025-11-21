@@ -51,7 +51,7 @@ jobs:
       - name: Testing crates with OS variations
         # Only `auth` has code that depends on the OS.
         # The rest of the code is tested in Google Cloud build
-        run: cargo test --package google-cloud-auth
+        run: cargo test --profile=ci --package google-cloud-auth
 
   coverage:
     runs-on: ubuntu-24.04
