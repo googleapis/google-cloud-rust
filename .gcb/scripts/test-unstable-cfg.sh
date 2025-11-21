@@ -39,6 +39,8 @@ for crate in "${crates[@]}"; do
 done
 
 # Integration tests
+echo "==== Install go compiler ===="
+apt update && apt install -y golang-go
 echo "==== integration-tests (UNSTABLE) ===="
 cargo test -p integration-tests --features run-showcase-tests
 
