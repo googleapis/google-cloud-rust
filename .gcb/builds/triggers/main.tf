@@ -52,10 +52,6 @@ locals {
       config = "complex.yaml"
       script = "features"
     }
-    minimal-versions = {
-      config = "complex.yaml"
-      script = "minimal-versions"
-    }
     integration = {
       config = "integration.yaml"
     }
@@ -67,6 +63,10 @@ locals {
         "--cfg google_cloud_unstable_signed_url",
         "--cfg google_cloud_unstable_storage_bidi"
       ])
+    }
+    minimal-versions = {
+      config = "complex.yaml"
+      script = "minimal-versions"
     }
     semver-checks = {
       config = "complex.yaml"
@@ -96,10 +96,6 @@ locals {
       config = "complex.yaml"
       script = "features"
     }
-    minimal-versions = {
-      config = "complex.yaml"
-      script = "minimal-versions"
-    }
     integration = {
       config = "integration.yaml"
     }
@@ -112,7 +108,7 @@ locals {
         "--cfg google_cloud_unstable_storage_bidi"
       ])
     }
-    features = {
+    minimal-versions = {
       config = "complex.yaml"
       script = "minimal-versions"
     }
