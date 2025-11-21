@@ -37,6 +37,36 @@ impl<T> super::stub::TraceService for TraceService<T>
 where
     T: super::stub::TraceService + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn batch_write_spans(
+        &self,
+        req: crate::model::BatchWriteSpansRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TraceService",
+            "::batch_write_spans"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "batch_write_spans",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .batch_write_spans(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn batch_write_spans(
         &self,
@@ -45,7 +75,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.batch_write_spans(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_span(
+        &self,
+        req: crate::model::Span,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Span>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TraceService",
+            "::create_span"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_span",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_span(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_span(
         &self,

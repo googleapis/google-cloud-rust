@@ -61,6 +61,36 @@ impl<T> super::stub::Agents for Agents<T>
 where
     T: super::stub::Agents + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_agent(
+        &self,
+        req: crate::model::GetAgentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Agent>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Agents",
+            "::get_agent"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_agent",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .get_agent(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_agent(
         &self,
@@ -69,7 +99,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Agent>> {
         self.inner.get_agent(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn set_agent(
+        &self,
+        req: crate::model::SetAgentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Agent>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Agents",
+            "::set_agent"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "set_agent",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .set_agent(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn set_agent(
         &self,
@@ -78,7 +137,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Agent>> {
         self.inner.set_agent(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_agent(
+        &self,
+        req: crate::model::DeleteAgentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Agents",
+            "::delete_agent"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_agent",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_agent(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_agent(
         &self,
@@ -87,7 +175,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_agent(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn search_agents(
+        &self,
+        req: crate::model::SearchAgentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::SearchAgentsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Agents",
+            "::search_agents"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "search_agents",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .search_agents(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn search_agents(
         &self,
@@ -96,7 +213,36 @@ where
     ) -> Result<gax::response::Response<crate::model::SearchAgentsResponse>> {
         self.inner.search_agents(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn train_agent(
+        &self,
+        req: crate::model::TrainAgentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Agents",
+            "::train_agent"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "train_agent",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .train_agent(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn train_agent(
         &self,
@@ -105,7 +251,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.train_agent(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn export_agent(
+        &self,
+        req: crate::model::ExportAgentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Agents",
+            "::export_agent"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "export_agent",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .export_agent(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn export_agent(
         &self,
@@ -114,7 +289,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.export_agent(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn import_agent(
+        &self,
+        req: crate::model::ImportAgentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Agents",
+            "::import_agent"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "import_agent",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .import_agent(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn import_agent(
         &self,
@@ -123,7 +327,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.import_agent(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn restore_agent(
+        &self,
+        req: crate::model::RestoreAgentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Agents",
+            "::restore_agent"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "restore_agent",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .restore_agent(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn restore_agent(
         &self,
@@ -132,7 +365,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.restore_agent(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_validation_result(
+        &self,
+        req: crate::model::GetValidationResultRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ValidationResult>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Agents",
+            "::get_validation_result"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_validation_result",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_validation_result(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_validation_result(
         &self,
@@ -141,7 +403,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ValidationResult>> {
         self.inner.get_validation_result(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Agents",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -150,7 +441,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Agents",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -159,7 +479,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Agents",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -168,7 +517,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Agents",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -177,7 +555,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Agents",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
@@ -227,6 +634,36 @@ impl<T> super::stub::AnswerRecords for AnswerRecords<T>
 where
     T: super::stub::AnswerRecords + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_answer_records(
+        &self,
+        req: crate::model::ListAnswerRecordsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListAnswerRecordsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "AnswerRecords",
+            "::list_answer_records"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_answer_records",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .list_answer_records(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_answer_records(
         &self,
@@ -235,7 +672,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListAnswerRecordsResponse>> {
         self.inner.list_answer_records(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_answer_record(
+        &self,
+        req: crate::model::UpdateAnswerRecordRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AnswerRecord>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "AnswerRecords",
+            "::update_answer_record"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_answer_record",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_answer_record(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_answer_record(
         &self,
@@ -244,7 +710,36 @@ where
     ) -> Result<gax::response::Response<crate::model::AnswerRecord>> {
         self.inner.update_answer_record(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "AnswerRecords",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -253,7 +748,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "AnswerRecords",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -262,7 +786,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "AnswerRecords",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -271,7 +824,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "AnswerRecords",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -280,7 +862,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "AnswerRecords",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
@@ -316,6 +927,36 @@ impl<T> super::stub::Contexts for Contexts<T>
 where
     T: super::stub::Contexts + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_contexts(
+        &self,
+        req: crate::model::ListContextsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListContextsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Contexts",
+            "::list_contexts"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_contexts",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .list_contexts(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_contexts(
         &self,
@@ -324,7 +965,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListContextsResponse>> {
         self.inner.list_contexts(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_context(
+        &self,
+        req: crate::model::GetContextRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Context>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Contexts",
+            "::get_context"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_context",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_context(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_context(
         &self,
@@ -333,7 +1003,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Context>> {
         self.inner.get_context(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_context(
+        &self,
+        req: crate::model::CreateContextRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Context>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Contexts",
+            "::create_context"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_context",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_context(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_context(
         &self,
@@ -342,7 +1041,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Context>> {
         self.inner.create_context(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_context(
+        &self,
+        req: crate::model::UpdateContextRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Context>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Contexts",
+            "::update_context"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_context",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_context(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_context(
         &self,
@@ -351,7 +1079,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Context>> {
         self.inner.update_context(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_context(
+        &self,
+        req: crate::model::DeleteContextRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Contexts",
+            "::delete_context"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_context",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_context(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_context(
         &self,
@@ -360,7 +1117,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_context(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_all_contexts(
+        &self,
+        req: crate::model::DeleteAllContextsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Contexts",
+            "::delete_all_contexts"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_all_contexts",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_all_contexts(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_all_contexts(
         &self,
@@ -369,7 +1155,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_all_contexts(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Contexts",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -378,7 +1193,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Contexts",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -387,7 +1231,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Contexts",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -396,7 +1269,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Contexts",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -405,7 +1307,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Contexts",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
@@ -441,6 +1372,36 @@ impl<T> super::stub::Conversations for Conversations<T>
 where
     T: super::stub::Conversations + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_conversation(
+        &self,
+        req: crate::model::CreateConversationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Conversation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Conversations",
+            "::create_conversation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_conversation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .create_conversation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_conversation(
         &self,
@@ -449,7 +1410,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Conversation>> {
         self.inner.create_conversation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_conversations(
+        &self,
+        req: crate::model::ListConversationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListConversationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Conversations",
+            "::list_conversations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_conversations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_conversations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_conversations(
         &self,
@@ -458,7 +1448,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListConversationsResponse>> {
         self.inner.list_conversations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_conversation(
+        &self,
+        req: crate::model::GetConversationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Conversation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Conversations",
+            "::get_conversation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_conversation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_conversation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_conversation(
         &self,
@@ -467,7 +1486,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Conversation>> {
         self.inner.get_conversation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn complete_conversation(
+        &self,
+        req: crate::model::CompleteConversationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Conversation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Conversations",
+            "::complete_conversation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "complete_conversation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .complete_conversation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn complete_conversation(
         &self,
@@ -476,7 +1524,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Conversation>> {
         self.inner.complete_conversation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn ingest_context_references(
+        &self,
+        req: crate::model::IngestContextReferencesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IngestContextReferencesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Conversations",
+            "::ingest_context_references"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "ingest_context_references",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .ingest_context_references(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn ingest_context_references(
         &self,
@@ -485,7 +1562,36 @@ where
     ) -> Result<gax::response::Response<crate::model::IngestContextReferencesResponse>> {
         self.inner.ingest_context_references(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_messages(
+        &self,
+        req: crate::model::ListMessagesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListMessagesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Conversations",
+            "::list_messages"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_messages",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_messages(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_messages(
         &self,
@@ -494,7 +1600,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListMessagesResponse>> {
         self.inner.list_messages(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn suggest_conversation_summary(
+        &self,
+        req: crate::model::SuggestConversationSummaryRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::SuggestConversationSummaryResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Conversations",
+            "::suggest_conversation_summary"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "suggest_conversation_summary",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .suggest_conversation_summary(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn suggest_conversation_summary(
         &self,
@@ -503,7 +1638,36 @@ where
     ) -> Result<gax::response::Response<crate::model::SuggestConversationSummaryResponse>> {
         self.inner.suggest_conversation_summary(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn generate_stateless_summary(
+        &self,
+        req: crate::model::GenerateStatelessSummaryRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::GenerateStatelessSummaryResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Conversations",
+            "::generate_stateless_summary"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "generate_stateless_summary",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .generate_stateless_summary(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn generate_stateless_summary(
         &self,
@@ -512,7 +1676,36 @@ where
     ) -> Result<gax::response::Response<crate::model::GenerateStatelessSummaryResponse>> {
         self.inner.generate_stateless_summary(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn generate_stateless_suggestion(
+        &self,
+        req: crate::model::GenerateStatelessSuggestionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::GenerateStatelessSuggestionResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Conversations",
+            "::generate_stateless_suggestion"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "generate_stateless_suggestion",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .generate_stateless_suggestion(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn generate_stateless_suggestion(
         &self,
@@ -521,7 +1714,36 @@ where
     ) -> Result<gax::response::Response<crate::model::GenerateStatelessSuggestionResponse>> {
         self.inner.generate_stateless_suggestion(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn search_knowledge(
+        &self,
+        req: crate::model::SearchKnowledgeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::SearchKnowledgeResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Conversations",
+            "::search_knowledge"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "search_knowledge",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .search_knowledge(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn search_knowledge(
         &self,
@@ -530,7 +1752,36 @@ where
     ) -> Result<gax::response::Response<crate::model::SearchKnowledgeResponse>> {
         self.inner.search_knowledge(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn generate_suggestions(
+        &self,
+        req: crate::model::GenerateSuggestionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::GenerateSuggestionsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Conversations",
+            "::generate_suggestions"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "generate_suggestions",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .generate_suggestions(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn generate_suggestions(
         &self,
@@ -539,7 +1790,36 @@ where
     ) -> Result<gax::response::Response<crate::model::GenerateSuggestionsResponse>> {
         self.inner.generate_suggestions(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Conversations",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -548,7 +1828,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Conversations",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -557,7 +1866,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Conversations",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -566,7 +1904,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Conversations",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -575,7 +1942,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Conversations",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
@@ -611,6 +2007,36 @@ impl<T> super::stub::ConversationDatasets for ConversationDatasets<T>
 where
     T: super::stub::ConversationDatasets + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_conversation_dataset(
+        &self,
+        req: crate::model::CreateConversationDatasetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationDatasets",
+            "::create_conversation_dataset"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_conversation_dataset",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .create_conversation_dataset(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_conversation_dataset(
         &self,
@@ -619,7 +2045,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_conversation_dataset(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_conversation_dataset(
+        &self,
+        req: crate::model::GetConversationDatasetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ConversationDataset>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationDatasets",
+            "::get_conversation_dataset"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_conversation_dataset",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_conversation_dataset(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_conversation_dataset(
         &self,
@@ -628,7 +2083,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ConversationDataset>> {
         self.inner.get_conversation_dataset(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_conversation_datasets(
+        &self,
+        req: crate::model::ListConversationDatasetsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListConversationDatasetsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationDatasets",
+            "::list_conversation_datasets"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_conversation_datasets",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_conversation_datasets(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_conversation_datasets(
         &self,
@@ -637,7 +2121,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListConversationDatasetsResponse>> {
         self.inner.list_conversation_datasets(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_conversation_dataset(
+        &self,
+        req: crate::model::DeleteConversationDatasetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationDatasets",
+            "::delete_conversation_dataset"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_conversation_dataset",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_conversation_dataset(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_conversation_dataset(
         &self,
@@ -646,7 +2159,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_conversation_dataset(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn import_conversation_data(
+        &self,
+        req: crate::model::ImportConversationDataRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationDatasets",
+            "::import_conversation_data"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "import_conversation_data",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .import_conversation_data(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn import_conversation_data(
         &self,
@@ -655,7 +2197,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.import_conversation_data(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationDatasets",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -664,7 +2235,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationDatasets",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -673,7 +2273,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationDatasets",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -682,7 +2311,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationDatasets",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -691,7 +2349,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationDatasets",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
@@ -741,6 +2428,36 @@ impl<T> super::stub::ConversationModels for ConversationModels<T>
 where
     T: super::stub::ConversationModels + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_conversation_model(
+        &self,
+        req: crate::model::CreateConversationModelRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationModels",
+            "::create_conversation_model"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_conversation_model",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .create_conversation_model(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_conversation_model(
         &self,
@@ -749,7 +2466,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_conversation_model(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_conversation_model(
+        &self,
+        req: crate::model::GetConversationModelRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ConversationModel>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationModels",
+            "::get_conversation_model"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_conversation_model",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_conversation_model(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_conversation_model(
         &self,
@@ -758,7 +2504,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ConversationModel>> {
         self.inner.get_conversation_model(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_conversation_models(
+        &self,
+        req: crate::model::ListConversationModelsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListConversationModelsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationModels",
+            "::list_conversation_models"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_conversation_models",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_conversation_models(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_conversation_models(
         &self,
@@ -767,7 +2542,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListConversationModelsResponse>> {
         self.inner.list_conversation_models(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_conversation_model(
+        &self,
+        req: crate::model::DeleteConversationModelRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationModels",
+            "::delete_conversation_model"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_conversation_model",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_conversation_model(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_conversation_model(
         &self,
@@ -776,7 +2580,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_conversation_model(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn deploy_conversation_model(
+        &self,
+        req: crate::model::DeployConversationModelRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationModels",
+            "::deploy_conversation_model"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "deploy_conversation_model",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .deploy_conversation_model(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn deploy_conversation_model(
         &self,
@@ -785,7 +2618,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.deploy_conversation_model(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn undeploy_conversation_model(
+        &self,
+        req: crate::model::UndeployConversationModelRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationModels",
+            "::undeploy_conversation_model"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "undeploy_conversation_model",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .undeploy_conversation_model(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn undeploy_conversation_model(
         &self,
@@ -794,7 +2656,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.undeploy_conversation_model(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_conversation_model_evaluation(
+        &self,
+        req: crate::model::GetConversationModelEvaluationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ConversationModelEvaluation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationModels",
+            "::get_conversation_model_evaluation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_conversation_model_evaluation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_conversation_model_evaluation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_conversation_model_evaluation(
         &self,
@@ -805,7 +2696,37 @@ where
             .get_conversation_model_evaluation(req, options)
             .await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_conversation_model_evaluations(
+        &self,
+        req: crate::model::ListConversationModelEvaluationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListConversationModelEvaluationsResponse>>
+    {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationModels",
+            "::list_conversation_model_evaluations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_conversation_model_evaluations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_conversation_model_evaluations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_conversation_model_evaluations(
         &self,
@@ -817,7 +2738,36 @@ where
             .list_conversation_model_evaluations(req, options)
             .await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_conversation_model_evaluation(
+        &self,
+        req: crate::model::CreateConversationModelEvaluationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationModels",
+            "::create_conversation_model_evaluation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_conversation_model_evaluation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_conversation_model_evaluation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_conversation_model_evaluation(
         &self,
@@ -828,7 +2778,36 @@ where
             .create_conversation_model_evaluation(req, options)
             .await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationModels",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -837,7 +2816,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationModels",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -846,7 +2854,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationModels",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -855,7 +2892,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationModels",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -864,7 +2930,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationModels",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
@@ -914,6 +3009,36 @@ impl<T> super::stub::ConversationProfiles for ConversationProfiles<T>
 where
     T: super::stub::ConversationProfiles + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_conversation_profiles(
+        &self,
+        req: crate::model::ListConversationProfilesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListConversationProfilesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationProfiles",
+            "::list_conversation_profiles"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_conversation_profiles",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .list_conversation_profiles(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_conversation_profiles(
         &self,
@@ -922,7 +3047,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListConversationProfilesResponse>> {
         self.inner.list_conversation_profiles(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_conversation_profile(
+        &self,
+        req: crate::model::GetConversationProfileRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ConversationProfile>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationProfiles",
+            "::get_conversation_profile"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_conversation_profile",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_conversation_profile(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_conversation_profile(
         &self,
@@ -931,7 +3085,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ConversationProfile>> {
         self.inner.get_conversation_profile(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_conversation_profile(
+        &self,
+        req: crate::model::CreateConversationProfileRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ConversationProfile>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationProfiles",
+            "::create_conversation_profile"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_conversation_profile",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_conversation_profile(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_conversation_profile(
         &self,
@@ -940,7 +3123,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ConversationProfile>> {
         self.inner.create_conversation_profile(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_conversation_profile(
+        &self,
+        req: crate::model::UpdateConversationProfileRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ConversationProfile>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationProfiles",
+            "::update_conversation_profile"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_conversation_profile",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_conversation_profile(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_conversation_profile(
         &self,
@@ -949,7 +3161,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ConversationProfile>> {
         self.inner.update_conversation_profile(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_conversation_profile(
+        &self,
+        req: crate::model::DeleteConversationProfileRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationProfiles",
+            "::delete_conversation_profile"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_conversation_profile",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_conversation_profile(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_conversation_profile(
         &self,
@@ -958,7 +3199,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_conversation_profile(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn set_suggestion_feature_config(
+        &self,
+        req: crate::model::SetSuggestionFeatureConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationProfiles",
+            "::set_suggestion_feature_config"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "set_suggestion_feature_config",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .set_suggestion_feature_config(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn set_suggestion_feature_config(
         &self,
@@ -967,7 +3237,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.set_suggestion_feature_config(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn clear_suggestion_feature_config(
+        &self,
+        req: crate::model::ClearSuggestionFeatureConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationProfiles",
+            "::clear_suggestion_feature_config"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "clear_suggestion_feature_config",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .clear_suggestion_feature_config(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn clear_suggestion_feature_config(
         &self,
@@ -978,7 +3277,36 @@ where
             .clear_suggestion_feature_config(req, options)
             .await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationProfiles",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -987,7 +3315,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationProfiles",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -996,7 +3353,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationProfiles",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -1005,7 +3391,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationProfiles",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -1014,7 +3429,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ConversationProfiles",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
@@ -1064,6 +3508,36 @@ impl<T> super::stub::Documents for Documents<T>
 where
     T: super::stub::Documents + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_documents(
+        &self,
+        req: crate::model::ListDocumentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListDocumentsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Documents",
+            "::list_documents"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_documents",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .list_documents(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_documents(
         &self,
@@ -1072,7 +3546,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListDocumentsResponse>> {
         self.inner.list_documents(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_document(
+        &self,
+        req: crate::model::GetDocumentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Document>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Documents",
+            "::get_document"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_document",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_document(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_document(
         &self,
@@ -1081,7 +3584,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Document>> {
         self.inner.get_document(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_document(
+        &self,
+        req: crate::model::CreateDocumentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Documents",
+            "::create_document"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_document",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_document(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_document(
         &self,
@@ -1090,7 +3622,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_document(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn import_documents(
+        &self,
+        req: crate::model::ImportDocumentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Documents",
+            "::import_documents"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "import_documents",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .import_documents(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn import_documents(
         &self,
@@ -1099,7 +3660,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.import_documents(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_document(
+        &self,
+        req: crate::model::DeleteDocumentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Documents",
+            "::delete_document"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_document",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_document(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_document(
         &self,
@@ -1108,7 +3698,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_document(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_document(
+        &self,
+        req: crate::model::UpdateDocumentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Documents",
+            "::update_document"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_document",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_document(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_document(
         &self,
@@ -1117,7 +3736,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_document(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn reload_document(
+        &self,
+        req: crate::model::ReloadDocumentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Documents",
+            "::reload_document"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "reload_document",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .reload_document(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn reload_document(
         &self,
@@ -1126,7 +3774,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.reload_document(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn export_document(
+        &self,
+        req: crate::model::ExportDocumentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Documents",
+            "::export_document"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "export_document",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .export_document(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn export_document(
         &self,
@@ -1135,7 +3812,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.export_document(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Documents",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -1144,7 +3850,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Documents",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -1153,7 +3888,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Documents",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -1162,7 +3926,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Documents",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -1171,7 +3964,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Documents",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
@@ -1221,6 +4043,36 @@ impl<T> super::stub::EncryptionSpecService for EncryptionSpecService<T>
 where
     T: super::stub::EncryptionSpecService + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_encryption_spec(
+        &self,
+        req: crate::model::GetEncryptionSpecRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::EncryptionSpec>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EncryptionSpecService",
+            "::get_encryption_spec"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_encryption_spec",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .get_encryption_spec(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_encryption_spec(
         &self,
@@ -1229,7 +4081,36 @@ where
     ) -> Result<gax::response::Response<crate::model::EncryptionSpec>> {
         self.inner.get_encryption_spec(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn initialize_encryption_spec(
+        &self,
+        req: crate::model::InitializeEncryptionSpecRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EncryptionSpecService",
+            "::initialize_encryption_spec"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "initialize_encryption_spec",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .initialize_encryption_spec(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn initialize_encryption_spec(
         &self,
@@ -1238,7 +4119,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.initialize_encryption_spec(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EncryptionSpecService",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -1247,7 +4157,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EncryptionSpecService",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -1256,7 +4195,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EncryptionSpecService",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -1265,7 +4233,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EncryptionSpecService",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -1274,7 +4271,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EncryptionSpecService",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
@@ -1324,6 +4350,36 @@ impl<T> super::stub::EntityTypes for EntityTypes<T>
 where
     T: super::stub::EntityTypes + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_entity_types(
+        &self,
+        req: crate::model::ListEntityTypesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListEntityTypesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EntityTypes",
+            "::list_entity_types"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_entity_types",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .list_entity_types(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_entity_types(
         &self,
@@ -1332,7 +4388,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListEntityTypesResponse>> {
         self.inner.list_entity_types(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_entity_type(
+        &self,
+        req: crate::model::GetEntityTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::EntityType>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EntityTypes",
+            "::get_entity_type"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_entity_type",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_entity_type(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_entity_type(
         &self,
@@ -1341,7 +4426,36 @@ where
     ) -> Result<gax::response::Response<crate::model::EntityType>> {
         self.inner.get_entity_type(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_entity_type(
+        &self,
+        req: crate::model::CreateEntityTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::EntityType>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EntityTypes",
+            "::create_entity_type"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_entity_type",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_entity_type(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_entity_type(
         &self,
@@ -1350,7 +4464,36 @@ where
     ) -> Result<gax::response::Response<crate::model::EntityType>> {
         self.inner.create_entity_type(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_entity_type(
+        &self,
+        req: crate::model::UpdateEntityTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::EntityType>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EntityTypes",
+            "::update_entity_type"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_entity_type",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_entity_type(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_entity_type(
         &self,
@@ -1359,7 +4502,36 @@ where
     ) -> Result<gax::response::Response<crate::model::EntityType>> {
         self.inner.update_entity_type(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_entity_type(
+        &self,
+        req: crate::model::DeleteEntityTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EntityTypes",
+            "::delete_entity_type"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_entity_type",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_entity_type(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_entity_type(
         &self,
@@ -1368,7 +4540,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_entity_type(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn batch_update_entity_types(
+        &self,
+        req: crate::model::BatchUpdateEntityTypesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EntityTypes",
+            "::batch_update_entity_types"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "batch_update_entity_types",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .batch_update_entity_types(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn batch_update_entity_types(
         &self,
@@ -1377,7 +4578,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.batch_update_entity_types(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn batch_delete_entity_types(
+        &self,
+        req: crate::model::BatchDeleteEntityTypesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EntityTypes",
+            "::batch_delete_entity_types"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "batch_delete_entity_types",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .batch_delete_entity_types(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn batch_delete_entity_types(
         &self,
@@ -1386,7 +4616,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.batch_delete_entity_types(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn batch_create_entities(
+        &self,
+        req: crate::model::BatchCreateEntitiesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EntityTypes",
+            "::batch_create_entities"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "batch_create_entities",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .batch_create_entities(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn batch_create_entities(
         &self,
@@ -1395,7 +4654,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.batch_create_entities(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn batch_update_entities(
+        &self,
+        req: crate::model::BatchUpdateEntitiesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EntityTypes",
+            "::batch_update_entities"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "batch_update_entities",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .batch_update_entities(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn batch_update_entities(
         &self,
@@ -1404,7 +4692,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.batch_update_entities(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn batch_delete_entities(
+        &self,
+        req: crate::model::BatchDeleteEntitiesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EntityTypes",
+            "::batch_delete_entities"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "batch_delete_entities",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .batch_delete_entities(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn batch_delete_entities(
         &self,
@@ -1413,7 +4730,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.batch_delete_entities(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EntityTypes",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -1422,7 +4768,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EntityTypes",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -1431,7 +4806,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EntityTypes",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -1440,7 +4844,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EntityTypes",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -1449,7 +4882,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "EntityTypes",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
@@ -1499,6 +4961,36 @@ impl<T> super::stub::Environments for Environments<T>
 where
     T: super::stub::Environments + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_environments(
+        &self,
+        req: crate::model::ListEnvironmentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListEnvironmentsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Environments",
+            "::list_environments"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_environments",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .list_environments(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_environments(
         &self,
@@ -1507,7 +4999,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListEnvironmentsResponse>> {
         self.inner.list_environments(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_environment(
+        &self,
+        req: crate::model::GetEnvironmentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Environment>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Environments",
+            "::get_environment"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_environment",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_environment(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_environment(
         &self,
@@ -1516,7 +5037,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Environment>> {
         self.inner.get_environment(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_environment(
+        &self,
+        req: crate::model::CreateEnvironmentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Environment>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Environments",
+            "::create_environment"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_environment",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_environment(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_environment(
         &self,
@@ -1525,7 +5075,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Environment>> {
         self.inner.create_environment(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_environment(
+        &self,
+        req: crate::model::UpdateEnvironmentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Environment>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Environments",
+            "::update_environment"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_environment",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_environment(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_environment(
         &self,
@@ -1534,7 +5113,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Environment>> {
         self.inner.update_environment(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_environment(
+        &self,
+        req: crate::model::DeleteEnvironmentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Environments",
+            "::delete_environment"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_environment",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_environment(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_environment(
         &self,
@@ -1543,7 +5151,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_environment(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_environment_history(
+        &self,
+        req: crate::model::GetEnvironmentHistoryRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::EnvironmentHistory>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Environments",
+            "::get_environment_history"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_environment_history",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_environment_history(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_environment_history(
         &self,
@@ -1552,7 +5189,36 @@ where
     ) -> Result<gax::response::Response<crate::model::EnvironmentHistory>> {
         self.inner.get_environment_history(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Environments",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -1561,7 +5227,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Environments",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -1570,7 +5265,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Environments",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -1579,7 +5303,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Environments",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -1588,7 +5341,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Environments",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
@@ -1624,6 +5406,36 @@ impl<T> super::stub::Fulfillments for Fulfillments<T>
 where
     T: super::stub::Fulfillments + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_fulfillment(
+        &self,
+        req: crate::model::GetFulfillmentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Fulfillment>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Fulfillments",
+            "::get_fulfillment"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_fulfillment",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .get_fulfillment(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_fulfillment(
         &self,
@@ -1632,7 +5444,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Fulfillment>> {
         self.inner.get_fulfillment(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_fulfillment(
+        &self,
+        req: crate::model::UpdateFulfillmentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Fulfillment>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Fulfillments",
+            "::update_fulfillment"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_fulfillment",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_fulfillment(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_fulfillment(
         &self,
@@ -1641,7 +5482,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Fulfillment>> {
         self.inner.update_fulfillment(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Fulfillments",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -1650,7 +5520,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Fulfillments",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -1659,7 +5558,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Fulfillments",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -1668,7 +5596,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Fulfillments",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -1677,7 +5634,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Fulfillments",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
@@ -1713,6 +5699,36 @@ impl<T> super::stub::Generators for Generators<T>
 where
     T: super::stub::Generators + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_generator(
+        &self,
+        req: crate::model::CreateGeneratorRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Generator>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Generators",
+            "::create_generator"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_generator",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .create_generator(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_generator(
         &self,
@@ -1721,7 +5737,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Generator>> {
         self.inner.create_generator(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_generator(
+        &self,
+        req: crate::model::GetGeneratorRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Generator>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Generators",
+            "::get_generator"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_generator",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_generator(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_generator(
         &self,
@@ -1730,7 +5775,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Generator>> {
         self.inner.get_generator(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_generators(
+        &self,
+        req: crate::model::ListGeneratorsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListGeneratorsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Generators",
+            "::list_generators"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_generators",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_generators(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_generators(
         &self,
@@ -1739,7 +5813,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListGeneratorsResponse>> {
         self.inner.list_generators(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_generator(
+        &self,
+        req: crate::model::DeleteGeneratorRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Generators",
+            "::delete_generator"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_generator",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_generator(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_generator(
         &self,
@@ -1748,7 +5851,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_generator(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_generator(
+        &self,
+        req: crate::model::UpdateGeneratorRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Generator>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Generators",
+            "::update_generator"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_generator",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_generator(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_generator(
         &self,
@@ -1757,7 +5889,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Generator>> {
         self.inner.update_generator(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Generators",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -1766,7 +5927,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Generators",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -1775,7 +5965,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Generators",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -1784,7 +6003,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Generators",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -1793,7 +6041,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Generators",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
@@ -1829,6 +6106,36 @@ impl<T> super::stub::Intents for Intents<T>
 where
     T: super::stub::Intents + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_intents(
+        &self,
+        req: crate::model::ListIntentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListIntentsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Intents",
+            "::list_intents"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_intents",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .list_intents(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_intents(
         &self,
@@ -1837,7 +6144,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListIntentsResponse>> {
         self.inner.list_intents(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_intent(
+        &self,
+        req: crate::model::GetIntentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Intent>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Intents",
+            "::get_intent"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_intent",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_intent(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_intent(
         &self,
@@ -1846,7 +6182,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Intent>> {
         self.inner.get_intent(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_intent(
+        &self,
+        req: crate::model::CreateIntentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Intent>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Intents",
+            "::create_intent"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_intent",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_intent(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_intent(
         &self,
@@ -1855,7 +6220,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Intent>> {
         self.inner.create_intent(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_intent(
+        &self,
+        req: crate::model::UpdateIntentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Intent>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Intents",
+            "::update_intent"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_intent",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_intent(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_intent(
         &self,
@@ -1864,7 +6258,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Intent>> {
         self.inner.update_intent(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_intent(
+        &self,
+        req: crate::model::DeleteIntentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Intents",
+            "::delete_intent"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_intent",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_intent(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_intent(
         &self,
@@ -1873,7 +6296,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_intent(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn batch_update_intents(
+        &self,
+        req: crate::model::BatchUpdateIntentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Intents",
+            "::batch_update_intents"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "batch_update_intents",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .batch_update_intents(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn batch_update_intents(
         &self,
@@ -1882,7 +6334,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.batch_update_intents(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn batch_delete_intents(
+        &self,
+        req: crate::model::BatchDeleteIntentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Intents",
+            "::batch_delete_intents"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "batch_delete_intents",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .batch_delete_intents(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn batch_delete_intents(
         &self,
@@ -1891,7 +6372,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.batch_delete_intents(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Intents",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -1900,7 +6410,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Intents",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -1909,7 +6448,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Intents",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -1918,7 +6486,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Intents",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -1927,7 +6524,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Intents",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
@@ -1977,6 +6603,36 @@ impl<T> super::stub::KnowledgeBases for KnowledgeBases<T>
 where
     T: super::stub::KnowledgeBases + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_knowledge_bases(
+        &self,
+        req: crate::model::ListKnowledgeBasesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListKnowledgeBasesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "KnowledgeBases",
+            "::list_knowledge_bases"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_knowledge_bases",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .list_knowledge_bases(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_knowledge_bases(
         &self,
@@ -1985,7 +6641,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListKnowledgeBasesResponse>> {
         self.inner.list_knowledge_bases(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_knowledge_base(
+        &self,
+        req: crate::model::GetKnowledgeBaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::KnowledgeBase>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "KnowledgeBases",
+            "::get_knowledge_base"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_knowledge_base",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_knowledge_base(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_knowledge_base(
         &self,
@@ -1994,7 +6679,36 @@ where
     ) -> Result<gax::response::Response<crate::model::KnowledgeBase>> {
         self.inner.get_knowledge_base(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_knowledge_base(
+        &self,
+        req: crate::model::CreateKnowledgeBaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::KnowledgeBase>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "KnowledgeBases",
+            "::create_knowledge_base"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_knowledge_base",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_knowledge_base(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_knowledge_base(
         &self,
@@ -2003,7 +6717,36 @@ where
     ) -> Result<gax::response::Response<crate::model::KnowledgeBase>> {
         self.inner.create_knowledge_base(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_knowledge_base(
+        &self,
+        req: crate::model::DeleteKnowledgeBaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "KnowledgeBases",
+            "::delete_knowledge_base"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_knowledge_base",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_knowledge_base(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_knowledge_base(
         &self,
@@ -2012,7 +6755,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_knowledge_base(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_knowledge_base(
+        &self,
+        req: crate::model::UpdateKnowledgeBaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::KnowledgeBase>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "KnowledgeBases",
+            "::update_knowledge_base"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_knowledge_base",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_knowledge_base(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_knowledge_base(
         &self,
@@ -2021,7 +6793,36 @@ where
     ) -> Result<gax::response::Response<crate::model::KnowledgeBase>> {
         self.inner.update_knowledge_base(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "KnowledgeBases",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -2030,7 +6831,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "KnowledgeBases",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -2039,7 +6869,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "KnowledgeBases",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -2048,7 +6907,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "KnowledgeBases",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -2057,7 +6945,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "KnowledgeBases",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
@@ -2093,6 +7010,36 @@ impl<T> super::stub::Participants for Participants<T>
 where
     T: super::stub::Participants + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_participant(
+        &self,
+        req: crate::model::CreateParticipantRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Participant>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Participants",
+            "::create_participant"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_participant",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .create_participant(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_participant(
         &self,
@@ -2101,7 +7048,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Participant>> {
         self.inner.create_participant(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_participant(
+        &self,
+        req: crate::model::GetParticipantRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Participant>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Participants",
+            "::get_participant"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_participant",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_participant(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_participant(
         &self,
@@ -2110,7 +7086,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Participant>> {
         self.inner.get_participant(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_participants(
+        &self,
+        req: crate::model::ListParticipantsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListParticipantsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Participants",
+            "::list_participants"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_participants",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_participants(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_participants(
         &self,
@@ -2119,7 +7124,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListParticipantsResponse>> {
         self.inner.list_participants(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_participant(
+        &self,
+        req: crate::model::UpdateParticipantRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Participant>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Participants",
+            "::update_participant"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_participant",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_participant(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_participant(
         &self,
@@ -2128,7 +7162,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Participant>> {
         self.inner.update_participant(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn analyze_content(
+        &self,
+        req: crate::model::AnalyzeContentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AnalyzeContentResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Participants",
+            "::analyze_content"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "analyze_content",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .analyze_content(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn analyze_content(
         &self,
@@ -2137,7 +7200,36 @@ where
     ) -> Result<gax::response::Response<crate::model::AnalyzeContentResponse>> {
         self.inner.analyze_content(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn suggest_articles(
+        &self,
+        req: crate::model::SuggestArticlesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::SuggestArticlesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Participants",
+            "::suggest_articles"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "suggest_articles",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .suggest_articles(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn suggest_articles(
         &self,
@@ -2146,7 +7238,36 @@ where
     ) -> Result<gax::response::Response<crate::model::SuggestArticlesResponse>> {
         self.inner.suggest_articles(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn suggest_faq_answers(
+        &self,
+        req: crate::model::SuggestFaqAnswersRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::SuggestFaqAnswersResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Participants",
+            "::suggest_faq_answers"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "suggest_faq_answers",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .suggest_faq_answers(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn suggest_faq_answers(
         &self,
@@ -2155,7 +7276,36 @@ where
     ) -> Result<gax::response::Response<crate::model::SuggestFaqAnswersResponse>> {
         self.inner.suggest_faq_answers(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn suggest_smart_replies(
+        &self,
+        req: crate::model::SuggestSmartRepliesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::SuggestSmartRepliesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Participants",
+            "::suggest_smart_replies"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "suggest_smart_replies",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .suggest_smart_replies(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn suggest_smart_replies(
         &self,
@@ -2164,7 +7314,36 @@ where
     ) -> Result<gax::response::Response<crate::model::SuggestSmartRepliesResponse>> {
         self.inner.suggest_smart_replies(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn suggest_knowledge_assist(
+        &self,
+        req: crate::model::SuggestKnowledgeAssistRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::SuggestKnowledgeAssistResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Participants",
+            "::suggest_knowledge_assist"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "suggest_knowledge_assist",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .suggest_knowledge_assist(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn suggest_knowledge_assist(
         &self,
@@ -2173,7 +7352,36 @@ where
     ) -> Result<gax::response::Response<crate::model::SuggestKnowledgeAssistResponse>> {
         self.inner.suggest_knowledge_assist(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Participants",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -2182,7 +7390,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Participants",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -2191,7 +7428,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Participants",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -2200,7 +7466,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Participants",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -2209,7 +7504,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Participants",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
@@ -2245,6 +7569,36 @@ impl<T> super::stub::Sessions for Sessions<T>
 where
     T: super::stub::Sessions + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn detect_intent(
+        &self,
+        req: crate::model::DetectIntentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::DetectIntentResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Sessions",
+            "::detect_intent"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "detect_intent",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .detect_intent(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn detect_intent(
         &self,
@@ -2253,7 +7607,36 @@ where
     ) -> Result<gax::response::Response<crate::model::DetectIntentResponse>> {
         self.inner.detect_intent(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Sessions",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -2262,7 +7645,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Sessions",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -2271,7 +7683,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Sessions",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -2280,7 +7721,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Sessions",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -2289,7 +7759,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Sessions",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
@@ -2325,6 +7824,36 @@ impl<T> super::stub::SessionEntityTypes for SessionEntityTypes<T>
 where
     T: super::stub::SessionEntityTypes + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_session_entity_types(
+        &self,
+        req: crate::model::ListSessionEntityTypesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListSessionEntityTypesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "SessionEntityTypes",
+            "::list_session_entity_types"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_session_entity_types",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .list_session_entity_types(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_session_entity_types(
         &self,
@@ -2333,7 +7862,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListSessionEntityTypesResponse>> {
         self.inner.list_session_entity_types(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_session_entity_type(
+        &self,
+        req: crate::model::GetSessionEntityTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::SessionEntityType>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "SessionEntityTypes",
+            "::get_session_entity_type"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_session_entity_type",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_session_entity_type(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_session_entity_type(
         &self,
@@ -2342,7 +7900,36 @@ where
     ) -> Result<gax::response::Response<crate::model::SessionEntityType>> {
         self.inner.get_session_entity_type(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_session_entity_type(
+        &self,
+        req: crate::model::CreateSessionEntityTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::SessionEntityType>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "SessionEntityTypes",
+            "::create_session_entity_type"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_session_entity_type",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_session_entity_type(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_session_entity_type(
         &self,
@@ -2351,7 +7938,36 @@ where
     ) -> Result<gax::response::Response<crate::model::SessionEntityType>> {
         self.inner.create_session_entity_type(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_session_entity_type(
+        &self,
+        req: crate::model::UpdateSessionEntityTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::SessionEntityType>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "SessionEntityTypes",
+            "::update_session_entity_type"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_session_entity_type",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_session_entity_type(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_session_entity_type(
         &self,
@@ -2360,7 +7976,36 @@ where
     ) -> Result<gax::response::Response<crate::model::SessionEntityType>> {
         self.inner.update_session_entity_type(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_session_entity_type(
+        &self,
+        req: crate::model::DeleteSessionEntityTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "SessionEntityTypes",
+            "::delete_session_entity_type"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_session_entity_type",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_session_entity_type(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_session_entity_type(
         &self,
@@ -2369,7 +8014,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_session_entity_type(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "SessionEntityTypes",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -2378,7 +8052,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "SessionEntityTypes",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -2387,7 +8090,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "SessionEntityTypes",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -2396,7 +8128,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "SessionEntityTypes",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -2405,7 +8166,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "SessionEntityTypes",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
@@ -2441,6 +8231,36 @@ impl<T> super::stub::Versions for Versions<T>
 where
     T: super::stub::Versions + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_versions(
+        &self,
+        req: crate::model::ListVersionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListVersionsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Versions",
+            "::list_versions"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_versions",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .list_versions(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_versions(
         &self,
@@ -2449,7 +8269,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListVersionsResponse>> {
         self.inner.list_versions(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_version(
+        &self,
+        req: crate::model::GetVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Version>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Versions",
+            "::get_version"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_version",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_version(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_version(
         &self,
@@ -2458,7 +8307,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Version>> {
         self.inner.get_version(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_version(
+        &self,
+        req: crate::model::CreateVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Version>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Versions",
+            "::create_version"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_version",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_version(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_version(
         &self,
@@ -2467,7 +8345,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Version>> {
         self.inner.create_version(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_version(
+        &self,
+        req: crate::model::UpdateVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Version>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Versions",
+            "::update_version"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_version",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_version(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_version(
         &self,
@@ -2476,7 +8383,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Version>> {
         self.inner.update_version(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_version(
+        &self,
+        req: crate::model::DeleteVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Versions",
+            "::delete_version"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_version",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_version(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_version(
         &self,
@@ -2485,7 +8421,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_version(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Versions",
+            "::list_locations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_locations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
@@ -2494,7 +8459,36 @@ where
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Versions",
+            "::get_location"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_location",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -2503,7 +8497,36 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Versions",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -2512,7 +8535,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Versions",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -2521,7 +8573,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Versions",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,

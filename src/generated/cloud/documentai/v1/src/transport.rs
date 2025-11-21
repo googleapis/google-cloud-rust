@@ -34,7 +34,15 @@ impl std::fmt::Debug for DocumentProcessorService {
 
 impl DocumentProcessorService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -49,7 +57,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:process",
@@ -65,10 +73,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:process";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -87,10 +96,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:process";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -132,6 +142,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -153,7 +175,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:batchProcess",
@@ -169,10 +191,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:batchProcess";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -191,10 +214,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:batchProcess";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -236,6 +260,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -257,7 +293,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:fetchProcessorTypes",
@@ -271,10 +307,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}:fetchProcessorTypes";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -295,6 +332,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -316,7 +365,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/processorTypes",
@@ -330,12 +379,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/processorTypes";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -356,6 +406,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -377,7 +439,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -393,10 +455,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -419,6 +482,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -440,7 +515,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/processors",
@@ -454,12 +529,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/processors";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -480,6 +556,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -501,7 +589,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -517,10 +605,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -543,6 +632,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -564,7 +665,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/processorVersions:train",
@@ -580,10 +681,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/processorVersions:train";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -606,6 +708,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -627,7 +741,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -645,10 +759,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -673,6 +788,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -694,7 +821,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/processorVersions",
@@ -710,12 +837,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/processorVersions";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -738,6 +866,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -759,7 +899,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -777,10 +917,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -805,6 +946,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -826,7 +979,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:deploy",
@@ -844,10 +997,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:deploy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -872,6 +1026,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -893,7 +1059,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:undeploy",
@@ -911,10 +1077,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:undeploy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -939,6 +1106,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -960,7 +1139,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/processors",
@@ -974,10 +1153,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/processors";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -998,6 +1178,24 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.parent))
+                .or_else(|| {
+                    req.processor
+                        .as_ref()
+                        .and_then(|s| Some(&s.default_processor_version))
+                });
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1019,7 +1217,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -1035,10 +1233,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1061,6 +1260,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1082,7 +1293,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:enable",
@@ -1098,10 +1309,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:enable";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1124,6 +1336,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1145,7 +1369,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:disable",
@@ -1161,10 +1385,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:disable";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1187,6 +1412,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1208,7 +1445,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:setDefaultProcessorVersion",
@@ -1224,10 +1461,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{processor}:setDefaultProcessorVersion";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1250,6 +1488,20 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.processor))
+                .or_else(|| Some(&req.default_processor_version));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1271,7 +1523,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:reviewDocument",
@@ -1290,10 +1542,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{human_review_config}:reviewDocument";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1319,6 +1572,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.human_review_config));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1340,7 +1605,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:evaluateProcessorVersion",
@@ -1358,10 +1623,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{processor_version}:evaluateProcessorVersion";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1386,6 +1652,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.processor_version));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1407,7 +1685,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -1427,10 +1705,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1457,6 +1736,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1478,7 +1769,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/evaluations",
@@ -1496,12 +1787,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/evaluations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1526,6 +1818,18 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//documentai.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1547,7 +1851,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/locations",
@@ -1556,13 +1860,14 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1572,13 +1877,14 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/uiv1beta3/{name}/locations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1604,6 +1910,8 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1625,7 +1933,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -1639,10 +1947,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1657,10 +1966,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/uiv1beta3/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1696,6 +2006,8 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1717,7 +2029,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -1732,6 +2044,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -1740,7 +2053,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1756,6 +2069,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/uiv1beta3/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -1764,7 +2078,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1802,6 +2116,8 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1823,7 +2139,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -1837,10 +2153,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1857,10 +2174,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1877,10 +2195,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/uiv1beta3/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1935,6 +2254,8 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1956,7 +2277,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -1972,10 +2293,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1992,10 +2314,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                         ]
                     )?,
                 );
+                let path_template = "/uiv1beta3/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2035,6 +2358,8 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

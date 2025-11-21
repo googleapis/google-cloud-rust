@@ -34,7 +34,15 @@ impl std::fmt::Debug for CloudScheduler {
 
 impl CloudScheduler {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -49,7 +57,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/jobs",
@@ -63,12 +71,13 @@ impl super::stub::CloudScheduler for CloudScheduler {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/jobs";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -89,6 +98,18 @@ impl super::stub::CloudScheduler for CloudScheduler {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//cloudscheduler.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -110,7 +131,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -126,10 +147,11 @@ impl super::stub::CloudScheduler for CloudScheduler {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -152,6 +174,18 @@ impl super::stub::CloudScheduler for CloudScheduler {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//cloudscheduler.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -173,7 +207,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/jobs",
@@ -187,10 +221,11 @@ impl super::stub::CloudScheduler for CloudScheduler {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/jobs";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -211,6 +246,18 @@ impl super::stub::CloudScheduler for CloudScheduler {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//cloudscheduler.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -232,7 +279,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -251,6 +298,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{job.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -266,7 +314,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -292,6 +340,8 @@ impl super::stub::CloudScheduler for CloudScheduler {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -313,7 +363,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -329,10 +379,11 @@ impl super::stub::CloudScheduler for CloudScheduler {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -355,6 +406,18 @@ impl super::stub::CloudScheduler for CloudScheduler {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//cloudscheduler.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -381,7 +444,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:pause",
@@ -397,10 +460,11 @@ impl super::stub::CloudScheduler for CloudScheduler {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:pause";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -423,6 +487,18 @@ impl super::stub::CloudScheduler for CloudScheduler {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//cloudscheduler.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -444,7 +520,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:resume",
@@ -460,10 +536,11 @@ impl super::stub::CloudScheduler for CloudScheduler {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:resume";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -486,6 +563,18 @@ impl super::stub::CloudScheduler for CloudScheduler {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//cloudscheduler.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -507,7 +596,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:run",
@@ -523,10 +612,11 @@ impl super::stub::CloudScheduler for CloudScheduler {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:run";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -549,6 +639,18 @@ impl super::stub::CloudScheduler for CloudScheduler {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//cloudscheduler.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -570,7 +672,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/locations",
@@ -579,13 +681,14 @@ impl super::stub::CloudScheduler for CloudScheduler {
                         &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -601,6 +704,8 @@ impl super::stub::CloudScheduler for CloudScheduler {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -622,7 +727,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -636,10 +741,11 @@ impl super::stub::CloudScheduler for CloudScheduler {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -660,6 +766,8 @@ impl super::stub::CloudScheduler for CloudScheduler {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

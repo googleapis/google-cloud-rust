@@ -37,6 +37,36 @@ impl<T> super::stub::IAMPolicy for IAMPolicy<T>
 where
     T: super::stub::IAMPolicy + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IAMPolicy",
+            "::set_iam_policy"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "set_iam_policy",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .set_iam_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn set_iam_policy(
         &self,
@@ -45,7 +75,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IAMPolicy",
+            "::get_iam_policy"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_iam_policy",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_iam_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_iam_policy(
         &self,
@@ -54,7 +113,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::TestIamPermissionsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IAMPolicy",
+            "::test_iam_permissions"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "test_iam_permissions",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .test_iam_permissions(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn test_iam_permissions(
         &self,

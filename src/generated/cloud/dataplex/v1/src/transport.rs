@@ -34,7 +34,15 @@ impl std::fmt::Debug for BusinessGlossaryService {
 
 impl BusinessGlossaryService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -49,7 +57,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/glossaries",
@@ -63,12 +71,13 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/glossaries";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("glossaryId", &req.glossary_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -89,6 +98,18 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -110,7 +131,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -129,6 +150,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{glossary.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -145,7 +167,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -171,6 +193,8 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -192,7 +216,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -208,11 +232,12 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -235,6 +260,18 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -256,7 +293,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -272,10 +309,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -298,6 +336,18 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -319,7 +369,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/glossaries",
@@ -333,6 +383,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/glossaries";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -340,7 +391,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -361,6 +412,18 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -382,7 +445,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/categories",
@@ -398,11 +461,12 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/categories";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("categoryId", &req.category_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -425,6 +489,18 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -446,7 +522,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -467,6 +543,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{category.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -482,7 +559,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -510,6 +587,8 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -531,7 +610,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -549,10 +628,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -577,6 +657,18 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -603,7 +695,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -621,10 +713,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -649,6 +742,18 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -670,7 +775,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/categories",
@@ -686,6 +791,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/categories";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -693,7 +799,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -716,6 +822,18 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -737,7 +855,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/terms",
@@ -753,11 +871,12 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/terms";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("termId", &req.term_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -780,6 +899,20 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.parent))
+                .or_else(|| req.term.as_ref().and_then(|s| Some(&s.parent)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -801,7 +934,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -822,6 +955,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{term.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -837,7 +971,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -865,6 +999,19 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name =
+                Option::<&String>::None.or_else(|| req.term.as_ref().and_then(|s| Some(&s.parent)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -886,7 +1033,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -904,10 +1051,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -932,6 +1080,18 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -958,7 +1118,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -976,10 +1136,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1004,6 +1165,18 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1025,7 +1198,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/terms",
@@ -1041,6 +1214,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/terms";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1048,7 +1222,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1071,6 +1245,18 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1092,7 +1278,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/locations",
@@ -1101,13 +1287,14 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1123,6 +1310,8 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1144,7 +1333,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -1158,10 +1347,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1182,6 +1372,8 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1203,7 +1395,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:setIamPolicy",
@@ -1219,10 +1411,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1241,10 +1434,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1265,10 +1459,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1287,10 +1482,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1309,10 +1505,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1329,10 +1526,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1349,10 +1547,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1371,10 +1570,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1391,10 +1591,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1411,10 +1612,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1431,10 +1633,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1451,10 +1654,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1471,10 +1675,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1491,10 +1696,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1511,10 +1717,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1533,10 +1740,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1555,10 +1763,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1575,10 +1784,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1595,10 +1805,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1618,7 +1829,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1980,6 +2191,18 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2001,7 +2224,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:getIamPolicy",
@@ -2017,6 +2240,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2032,7 +2256,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2051,6 +2275,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2066,7 +2291,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2087,6 +2312,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2102,7 +2328,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2121,6 +2347,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2136,7 +2363,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2155,6 +2382,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2170,7 +2398,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2187,6 +2415,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2202,7 +2431,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2219,6 +2448,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2234,7 +2464,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2253,6 +2483,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2268,7 +2499,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2285,6 +2516,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2300,7 +2532,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2317,6 +2549,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2332,7 +2565,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2349,6 +2582,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2364,7 +2598,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2381,6 +2615,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2396,7 +2631,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2413,6 +2648,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2428,7 +2664,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2445,6 +2681,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2460,7 +2697,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2477,6 +2714,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2492,7 +2730,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2511,6 +2749,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2526,7 +2765,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2545,6 +2784,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2560,7 +2800,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2624,7 +2864,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2641,6 +2881,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2656,7 +2897,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3018,6 +3259,18 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3039,7 +3292,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:testIamPermissions",
@@ -3055,10 +3308,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3077,10 +3331,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3101,10 +3356,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3123,10 +3379,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3145,10 +3402,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3165,10 +3423,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3185,10 +3444,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3207,10 +3467,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3227,10 +3488,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3247,10 +3509,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3267,10 +3530,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3287,10 +3551,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3307,10 +3572,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3327,10 +3593,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3347,10 +3614,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3369,10 +3637,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3391,10 +3660,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3411,10 +3681,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3431,10 +3702,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3454,7 +3726,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3816,6 +4088,18 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3837,7 +4121,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/operations",
@@ -3851,6 +4135,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -3859,7 +4144,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3874,6 +4159,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -3882,7 +4168,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3918,6 +4204,8 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3939,7 +4227,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -3955,10 +4243,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3975,10 +4264,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4018,6 +4308,8 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4039,7 +4331,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -4055,10 +4347,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4075,10 +4368,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4118,6 +4412,8 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4144,7 +4440,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -4160,10 +4456,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4180,10 +4477,11 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4223,6 +4521,8 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4271,7 +4571,15 @@ impl std::fmt::Debug for CatalogService {
 
 impl CatalogService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -4286,7 +4594,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/entryTypes",
@@ -4300,12 +4608,13 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/entryTypes";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("entryTypeId", &req.entry_type_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4326,6 +4635,20 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.parent))
+                .or_else(|| req.entry_type.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4347,7 +4670,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -4366,6 +4689,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{entry_type.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -4382,7 +4706,7 @@ impl super::stub::CatalogService for CatalogService {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4408,6 +4732,19 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| req.entry_type.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4429,7 +4766,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -4445,11 +4782,12 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4472,6 +4810,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4493,7 +4843,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/entryTypes",
@@ -4507,6 +4857,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/entryTypes";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -4514,7 +4865,7 @@ impl super::stub::CatalogService for CatalogService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4535,6 +4886,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4556,7 +4919,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -4572,10 +4935,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4598,6 +4962,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4619,7 +4995,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/aspectTypes",
@@ -4633,12 +5009,13 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/aspectTypes";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("aspectTypeId", &req.aspect_type_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4659,6 +5036,20 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.parent))
+                .or_else(|| req.aspect_type.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4680,7 +5071,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -4699,6 +5090,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{aspect_type.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -4715,7 +5107,7 @@ impl super::stub::CatalogService for CatalogService {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4741,6 +5133,19 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| req.aspect_type.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4762,7 +5167,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -4778,11 +5183,12 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4805,6 +5211,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4826,7 +5244,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/aspectTypes",
@@ -4840,6 +5258,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/aspectTypes";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -4847,7 +5266,7 @@ impl super::stub::CatalogService for CatalogService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4868,6 +5287,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4889,7 +5320,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -4905,10 +5336,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4931,6 +5363,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4952,7 +5396,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/entryGroups",
@@ -4966,12 +5410,13 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/entryGroups";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("entryGroupId", &req.entry_group_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4992,6 +5437,20 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.parent))
+                .or_else(|| req.entry_group.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5013,7 +5472,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -5032,6 +5491,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{entry_group.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -5048,7 +5508,7 @@ impl super::stub::CatalogService for CatalogService {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5074,6 +5534,19 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| req.entry_group.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5095,7 +5568,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -5111,11 +5584,12 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5138,6 +5612,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5159,7 +5645,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/entryGroups",
@@ -5173,6 +5659,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/entryGroups";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -5180,7 +5667,7 @@ impl super::stub::CatalogService for CatalogService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5201,6 +5688,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5222,7 +5721,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -5238,10 +5737,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5264,6 +5764,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5285,7 +5797,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/entries",
@@ -5301,11 +5813,12 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/entries";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("entryId", &req.entry_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5328,6 +5841,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5349,7 +5874,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -5370,6 +5895,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{entry.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -5392,7 +5918,7 @@ impl super::stub::CatalogService for CatalogService {
                         .fold(builder, |builder, p| builder.query(&[("aspectKeys", p)]));
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5420,6 +5946,8 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5441,7 +5969,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -5459,10 +5987,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5487,6 +6016,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5508,7 +6049,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/entries",
@@ -5524,13 +6065,14 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/entries";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5553,6 +6095,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5574,7 +6128,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -5592,6 +6146,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
@@ -5604,7 +6159,7 @@ impl super::stub::CatalogService for CatalogService {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("paths", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5629,6 +6184,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5650,7 +6217,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:lookupEntry",
@@ -5664,6 +6231,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:lookupEntry";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
@@ -5677,7 +6245,7 @@ impl super::stub::CatalogService for CatalogService {
                     .fold(builder, |builder, p| builder.query(&[("paths", p)]));
                 let builder = builder.query(&[("entry", &req.entry)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5698,6 +6266,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.entry));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5719,7 +6299,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:searchEntries",
@@ -5733,6 +6313,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:searchEntries";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("query", &req.query)]);
@@ -5742,7 +6323,7 @@ impl super::stub::CatalogService for CatalogService {
                 let builder = builder.query(&[("scope", &req.scope)]);
                 let builder = builder.query(&[("semanticSearch", &req.semantic_search)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5763,6 +6344,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5784,7 +6377,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/metadataJobs",
@@ -5798,12 +6391,13 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/metadataJobs";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("metadataJobId", &req.metadata_job_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5824,6 +6418,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5845,7 +6451,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -5861,10 +6467,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5887,6 +6494,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5908,7 +6527,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/metadataJobs",
@@ -5922,6 +6541,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/metadataJobs";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -5929,7 +6549,7 @@ impl super::stub::CatalogService for CatalogService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5950,6 +6570,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5971,7 +6603,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -5987,10 +6619,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6013,6 +6646,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6039,7 +6684,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/entryLinks",
@@ -6055,11 +6700,12 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/entryLinks";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("entryLinkId", &req.entry_link_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6082,6 +6728,20 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.parent))
+                .or_else(|| req.entry_link.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6103,7 +6763,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -6121,10 +6781,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6149,6 +6810,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6170,7 +6843,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -6188,10 +6861,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6216,6 +6890,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6237,7 +6923,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/locations",
@@ -6246,13 +6932,14 @@ impl super::stub::CatalogService for CatalogService {
                         &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6268,6 +6955,8 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6289,7 +6978,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -6303,10 +6992,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6327,6 +7017,8 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6348,7 +7040,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:setIamPolicy",
@@ -6364,10 +7056,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6386,10 +7079,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6410,10 +7104,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6432,10 +7127,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6454,10 +7150,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6474,10 +7171,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6494,10 +7192,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6516,10 +7215,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6536,10 +7236,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6556,10 +7257,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6576,10 +7278,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6596,10 +7299,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6616,10 +7320,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6636,10 +7341,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6656,10 +7362,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6678,10 +7385,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6700,10 +7408,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6720,10 +7429,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6740,10 +7450,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6763,7 +7474,7 @@ impl super::stub::CatalogService for CatalogService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7125,6 +7836,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7146,7 +7869,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:getIamPolicy",
@@ -7162,6 +7885,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7177,7 +7901,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7196,6 +7920,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7211,7 +7936,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7232,6 +7957,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7247,7 +7973,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7266,6 +7992,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7281,7 +8008,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7300,6 +8027,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7315,7 +8043,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7332,6 +8060,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7347,7 +8076,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7364,6 +8093,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7379,7 +8109,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7398,6 +8128,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7413,7 +8144,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7430,6 +8161,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7445,7 +8177,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7462,6 +8194,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7477,7 +8210,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7494,6 +8227,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7509,7 +8243,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7526,6 +8260,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7541,7 +8276,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7558,6 +8293,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7573,7 +8309,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7590,6 +8326,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7605,7 +8342,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7622,6 +8359,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7637,7 +8375,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7656,6 +8394,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7671,7 +8410,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7690,6 +8429,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7705,7 +8445,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7769,7 +8509,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7786,6 +8526,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7801,7 +8542,7 @@ impl super::stub::CatalogService for CatalogService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8163,6 +8904,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8184,7 +8937,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:testIamPermissions",
@@ -8200,10 +8953,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8222,10 +8976,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8246,10 +9001,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8268,10 +9024,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8290,10 +9047,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8310,10 +9068,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8330,10 +9089,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8352,10 +9112,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8372,10 +9133,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8392,10 +9154,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8412,10 +9175,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8432,10 +9196,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8452,10 +9217,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8472,10 +9238,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8492,10 +9259,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8514,10 +9282,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8536,10 +9305,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8556,10 +9326,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8576,10 +9347,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8599,7 +9371,7 @@ impl super::stub::CatalogService for CatalogService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8961,6 +9733,18 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8982,7 +9766,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/operations",
@@ -8996,6 +9780,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -9004,7 +9789,7 @@ impl super::stub::CatalogService for CatalogService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9019,6 +9804,7 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -9027,7 +9813,7 @@ impl super::stub::CatalogService for CatalogService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9063,6 +9849,8 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9084,7 +9872,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -9100,10 +9888,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9120,10 +9909,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9163,6 +9953,8 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9184,7 +9976,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -9200,10 +9992,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9220,10 +10013,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9263,6 +10057,8 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9289,7 +10085,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -9305,10 +10101,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9325,10 +10122,11 @@ impl super::stub::CatalogService for CatalogService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9368,6 +10166,8 @@ impl super::stub::CatalogService for CatalogService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9416,7 +10216,15 @@ impl std::fmt::Debug for CmekService {
 
 impl CmekService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -9431,7 +10239,7 @@ impl super::stub::CmekService for CmekService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/encryptionConfigs",
@@ -9445,11 +10253,12 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/encryptionConfigs";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("encryptionConfigId", &req.encryption_config_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9470,6 +10279,20 @@ impl super::stub::CmekService for CmekService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.parent))
+                .or_else(|| req.encryption_config.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9491,7 +10314,7 @@ impl super::stub::CmekService for CmekService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -9510,6 +10333,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{encryption_config.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -9525,7 +10349,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9551,6 +10375,19 @@ impl super::stub::CmekService for CmekService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| req.encryption_config.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9572,7 +10409,7 @@ impl super::stub::CmekService for CmekService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -9588,11 +10425,12 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9615,6 +10453,18 @@ impl super::stub::CmekService for CmekService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9636,7 +10486,7 @@ impl super::stub::CmekService for CmekService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/encryptionConfigs",
@@ -9650,6 +10500,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/encryptionConfigs";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -9657,7 +10508,7 @@ impl super::stub::CmekService for CmekService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9678,6 +10529,18 @@ impl super::stub::CmekService for CmekService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9699,7 +10562,7 @@ impl super::stub::CmekService for CmekService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -9715,10 +10578,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9741,6 +10605,18 @@ impl super::stub::CmekService for CmekService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9762,7 +10638,7 @@ impl super::stub::CmekService for CmekService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/locations",
@@ -9771,13 +10647,14 @@ impl super::stub::CmekService for CmekService {
                         &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9793,6 +10670,8 @@ impl super::stub::CmekService for CmekService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9814,7 +10693,7 @@ impl super::stub::CmekService for CmekService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -9828,10 +10707,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9852,6 +10732,8 @@ impl super::stub::CmekService for CmekService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9873,7 +10755,7 @@ impl super::stub::CmekService for CmekService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:setIamPolicy",
@@ -9889,10 +10771,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9911,10 +10794,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9935,10 +10819,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9957,10 +10842,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9979,10 +10865,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9999,10 +10886,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10019,10 +10907,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10041,10 +10930,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10061,10 +10951,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10081,10 +10972,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10101,10 +10993,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10121,10 +11014,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10141,10 +11035,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10161,10 +11056,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10181,10 +11077,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10203,10 +11100,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10225,10 +11123,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10245,10 +11144,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10265,10 +11165,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10288,7 +11189,7 @@ impl super::stub::CmekService for CmekService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10650,6 +11551,18 @@ impl super::stub::CmekService for CmekService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10671,7 +11584,7 @@ impl super::stub::CmekService for CmekService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:getIamPolicy",
@@ -10687,6 +11600,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -10702,7 +11616,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10721,6 +11635,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -10736,7 +11651,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10757,6 +11672,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -10772,7 +11688,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10791,6 +11707,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -10806,7 +11723,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10825,6 +11742,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -10840,7 +11758,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10857,6 +11775,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -10872,7 +11791,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10889,6 +11808,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -10904,7 +11824,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10923,6 +11843,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -10938,7 +11859,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10955,6 +11876,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -10970,7 +11892,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10987,6 +11909,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -11002,7 +11925,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11019,6 +11942,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -11034,7 +11958,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11051,6 +11975,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -11066,7 +11991,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11083,6 +12008,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -11098,7 +12024,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11115,6 +12041,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -11130,7 +12057,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11147,6 +12074,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -11162,7 +12090,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11181,6 +12109,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -11196,7 +12125,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11215,6 +12144,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -11230,7 +12160,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11294,7 +12224,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11311,6 +12241,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -11326,7 +12257,7 @@ impl super::stub::CmekService for CmekService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11688,6 +12619,18 @@ impl super::stub::CmekService for CmekService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11709,7 +12652,7 @@ impl super::stub::CmekService for CmekService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:testIamPermissions",
@@ -11725,10 +12668,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11747,10 +12691,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11771,10 +12716,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11793,10 +12739,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11815,10 +12762,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11835,10 +12783,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11855,10 +12804,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11877,10 +12827,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11897,10 +12848,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11917,10 +12869,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11937,10 +12890,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11957,10 +12911,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11977,10 +12932,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11997,10 +12953,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -12017,10 +12974,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -12039,10 +12997,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -12061,10 +13020,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -12081,10 +13041,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -12101,10 +13062,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -12124,7 +13086,7 @@ impl super::stub::CmekService for CmekService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12486,6 +13448,18 @@ impl super::stub::CmekService for CmekService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12507,7 +13481,7 @@ impl super::stub::CmekService for CmekService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/operations",
@@ -12521,6 +13495,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -12529,7 +13504,7 @@ impl super::stub::CmekService for CmekService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -12544,6 +13519,7 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -12552,7 +13528,7 @@ impl super::stub::CmekService for CmekService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12588,6 +13564,8 @@ impl super::stub::CmekService for CmekService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12609,7 +13587,7 @@ impl super::stub::CmekService for CmekService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -12625,10 +13603,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -12645,10 +13624,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12688,6 +13668,8 @@ impl super::stub::CmekService for CmekService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12709,7 +13691,7 @@ impl super::stub::CmekService for CmekService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -12725,10 +13707,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -12745,10 +13728,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12788,6 +13772,8 @@ impl super::stub::CmekService for CmekService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12814,7 +13800,7 @@ impl super::stub::CmekService for CmekService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -12830,10 +13816,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -12850,10 +13837,11 @@ impl super::stub::CmekService for CmekService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12893,6 +13881,8 @@ impl super::stub::CmekService for CmekService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12941,7 +13931,15 @@ impl std::fmt::Debug for ContentService {
 
 impl ContentService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -12956,7 +13954,7 @@ impl super::stub::ContentService for ContentService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/contentitems",
@@ -12972,11 +13970,12 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/contentitems";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -12993,11 +13992,12 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/content";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13037,6 +14037,20 @@ impl super::stub::ContentService for ContentService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.parent))
+                .or_else(|| req.content.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13058,7 +14072,7 @@ impl super::stub::ContentService for ContentService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -13079,6 +14093,7 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{content.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -13095,7 +14110,7 @@ impl super::stub::ContentService for ContentService {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -13117,6 +14132,7 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{content.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -13133,7 +14149,7 @@ impl super::stub::ContentService for ContentService {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13183,6 +14199,19 @@ impl super::stub::ContentService for ContentService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| req.content.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13204,7 +14233,7 @@ impl super::stub::ContentService for ContentService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -13222,10 +14251,11 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -13244,10 +14274,11 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13291,6 +14322,18 @@ impl super::stub::ContentService for ContentService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13317,7 +14360,7 @@ impl super::stub::ContentService for ContentService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -13335,11 +14378,12 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -13358,11 +14402,12 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13406,6 +14451,18 @@ impl super::stub::ContentService for ContentService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13427,7 +14484,7 @@ impl super::stub::ContentService for ContentService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:getIamPolicy",
@@ -13445,6 +14502,7 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -13460,7 +14518,7 @@ impl super::stub::ContentService for ContentService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -13479,6 +14537,7 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -13494,7 +14553,7 @@ impl super::stub::ContentService for ContentService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13538,6 +14597,18 @@ impl super::stub::ContentService for ContentService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13559,7 +14630,7 @@ impl super::stub::ContentService for ContentService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:setIamPolicy",
@@ -13577,10 +14648,11 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -13599,10 +14671,11 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13646,6 +14719,18 @@ impl super::stub::ContentService for ContentService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13667,7 +14752,7 @@ impl super::stub::ContentService for ContentService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:testIamPermissions",
@@ -13685,10 +14770,11 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -13707,10 +14793,11 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13754,6 +14841,18 @@ impl super::stub::ContentService for ContentService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13775,7 +14874,7 @@ impl super::stub::ContentService for ContentService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/contentitems",
@@ -13791,13 +14890,14 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/contentitems";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -13814,13 +14914,14 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/content";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13860,6 +14961,18 @@ impl super::stub::ContentService for ContentService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13881,7 +14994,7 @@ impl super::stub::ContentService for ContentService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/locations",
@@ -13890,13 +15003,14 @@ impl super::stub::ContentService for ContentService {
                         &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13912,6 +15026,8 @@ impl super::stub::ContentService for ContentService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13933,7 +15049,7 @@ impl super::stub::ContentService for ContentService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -13947,10 +15063,11 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13971,6 +15088,8 @@ impl super::stub::ContentService for ContentService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13992,7 +15111,7 @@ impl super::stub::ContentService for ContentService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/operations",
@@ -14006,6 +15125,7 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -14014,7 +15134,7 @@ impl super::stub::ContentService for ContentService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -14029,6 +15149,7 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -14037,7 +15158,7 @@ impl super::stub::ContentService for ContentService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14073,6 +15194,8 @@ impl super::stub::ContentService for ContentService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14094,7 +15217,7 @@ impl super::stub::ContentService for ContentService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -14110,10 +15233,11 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -14130,10 +15254,11 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14173,6 +15298,8 @@ impl super::stub::ContentService for ContentService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14194,7 +15321,7 @@ impl super::stub::ContentService for ContentService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -14210,10 +15337,11 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -14230,10 +15358,11 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14273,6 +15402,8 @@ impl super::stub::ContentService for ContentService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14299,7 +15430,7 @@ impl super::stub::ContentService for ContentService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -14315,10 +15446,11 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -14335,10 +15467,11 @@ impl super::stub::ContentService for ContentService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14378,6 +15511,8 @@ impl super::stub::ContentService for ContentService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14412,7 +15547,15 @@ impl std::fmt::Debug for DataTaxonomyService {
 
 impl DataTaxonomyService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -14427,7 +15570,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/dataTaxonomies",
@@ -14441,12 +15584,13 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/dataTaxonomies";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("dataTaxonomyId", &req.data_taxonomy_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14467,6 +15611,20 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.parent))
+                .or_else(|| req.data_taxonomy.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14488,7 +15646,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -14507,6 +15665,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{data_taxonomy.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -14523,7 +15682,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14549,6 +15708,19 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| req.data_taxonomy.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14570,7 +15742,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -14586,11 +15758,12 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14613,6 +15786,18 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14634,7 +15819,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/dataTaxonomies",
@@ -14648,6 +15833,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/dataTaxonomies";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -14655,7 +15841,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14676,6 +15862,18 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14697,7 +15895,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -14713,10 +15911,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14739,6 +15938,18 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14760,7 +15971,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/dataAttributeBindings",
@@ -14774,13 +15985,14 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/dataAttributeBindings";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder =
                     builder.query(&[("dataAttributeBindingId", &req.data_attribute_binding_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14801,6 +16013,24 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.parent))
+                .or_else(|| {
+                    req.data_attribute_binding
+                        .as_ref()
+                        .and_then(|s| Some(&s.name))
+                });
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14822,7 +16052,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -14841,6 +16071,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{data_attribute_binding.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -14857,7 +16088,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14883,6 +16114,22 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| {
+                req.data_attribute_binding
+                    .as_ref()
+                    .and_then(|s| Some(&s.name))
+            });
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14904,7 +16151,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -14920,11 +16167,12 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14947,6 +16195,18 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14968,7 +16228,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/dataAttributeBindings",
@@ -14982,6 +16242,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/dataAttributeBindings";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -14989,7 +16250,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15010,6 +16271,18 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15031,7 +16304,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -15047,10 +16320,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15073,6 +16347,18 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15094,7 +16380,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/attributes",
@@ -15110,12 +16396,13 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/attributes";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("dataAttributeId", &req.data_attribute_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15138,6 +16425,21 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.parent))
+                .or_else(|| req.data_attribute.as_ref().and_then(|s| Some(&s.name)))
+                .or_else(|| req.data_attribute.as_ref().and_then(|s| Some(&s.parent_id)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15159,7 +16461,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -15180,6 +16482,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{data_attribute.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -15196,7 +16499,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15224,6 +16527,20 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| req.data_attribute.as_ref().and_then(|s| Some(&s.name)))
+                .or_else(|| req.data_attribute.as_ref().and_then(|s| Some(&s.parent_id)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15245,7 +16562,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -15263,11 +16580,12 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15292,6 +16610,18 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15313,7 +16643,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/attributes",
@@ -15329,6 +16659,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/attributes";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -15336,7 +16667,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15359,6 +16690,18 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15380,7 +16723,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -15398,10 +16741,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15426,6 +16770,18 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15447,7 +16803,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/locations",
@@ -15456,13 +16812,14 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15478,6 +16835,8 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15499,7 +16858,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -15513,10 +16872,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15537,6 +16897,8 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15558,7 +16920,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:setIamPolicy",
@@ -15574,10 +16936,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15596,10 +16959,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15620,10 +16984,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15642,10 +17007,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15664,10 +17030,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15684,10 +17051,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15704,10 +17072,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15726,10 +17095,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15746,10 +17116,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15766,10 +17137,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15786,10 +17158,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15806,10 +17179,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15826,10 +17200,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15846,10 +17221,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15866,10 +17242,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15888,10 +17265,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15910,10 +17288,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15930,10 +17309,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15950,10 +17330,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15973,7 +17354,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16335,6 +17716,18 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -16356,7 +17749,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:getIamPolicy",
@@ -16372,6 +17765,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -16387,7 +17781,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16406,6 +17800,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -16421,7 +17816,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16442,6 +17837,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -16457,7 +17853,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16476,6 +17872,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -16491,7 +17888,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16510,6 +17907,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -16525,7 +17923,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16542,6 +17940,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -16557,7 +17956,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16574,6 +17973,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -16589,7 +17989,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16608,6 +18008,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -16623,7 +18024,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16640,6 +18041,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -16655,7 +18057,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16672,6 +18074,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -16687,7 +18090,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16704,6 +18107,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -16719,7 +18123,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16736,6 +18140,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -16751,7 +18156,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16768,6 +18173,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -16783,7 +18189,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16800,6 +18206,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -16815,7 +18222,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16832,6 +18239,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -16847,7 +18255,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16866,6 +18274,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -16881,7 +18290,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16900,6 +18309,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -16915,7 +18325,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16979,7 +18389,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16996,6 +18406,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -17011,7 +18422,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17373,6 +18784,18 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17394,7 +18817,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:testIamPermissions",
@@ -17410,10 +18833,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17432,10 +18856,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17456,10 +18881,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17478,10 +18904,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17500,10 +18927,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17520,10 +18948,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17540,10 +18969,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17562,10 +18992,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17582,10 +19013,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17602,10 +19034,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17622,10 +19055,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17642,10 +19076,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17662,10 +19097,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17682,10 +19118,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17702,10 +19139,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17724,10 +19162,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17746,10 +19185,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17766,10 +19206,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17786,10 +19227,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17809,7 +19251,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18171,6 +19613,18 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18192,7 +19646,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/operations",
@@ -18206,6 +19660,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -18214,7 +19669,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -18229,6 +19684,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -18237,7 +19693,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18273,6 +19729,8 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18294,7 +19752,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -18310,10 +19768,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -18330,10 +19789,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18373,6 +19833,8 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18394,7 +19856,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -18410,10 +19872,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -18430,10 +19893,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18473,6 +19937,8 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18499,7 +19965,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -18515,10 +19981,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -18535,10 +20002,11 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18578,6 +20046,8 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18626,7 +20096,15 @@ impl std::fmt::Debug for DataScanService {
 
 impl DataScanService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -18641,7 +20119,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/dataScans",
@@ -18655,12 +20133,13 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/dataScans";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("dataScanId", &req.data_scan_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18681,6 +20160,18 @@ impl super::stub::DataScanService for DataScanService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18702,7 +20193,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -18721,6 +20212,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{data_scan.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -18737,7 +20229,7 @@ impl super::stub::DataScanService for DataScanService {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18763,6 +20255,8 @@ impl super::stub::DataScanService for DataScanService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18784,7 +20278,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -18800,11 +20294,12 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18827,6 +20322,18 @@ impl super::stub::DataScanService for DataScanService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18848,7 +20355,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -18864,11 +20371,12 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18891,6 +20399,18 @@ impl super::stub::DataScanService for DataScanService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18912,7 +20432,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/dataScans",
@@ -18926,6 +20446,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/dataScans";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -18933,7 +20454,7 @@ impl super::stub::DataScanService for DataScanService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18954,6 +20475,18 @@ impl super::stub::DataScanService for DataScanService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18975,7 +20508,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:run",
@@ -18991,10 +20524,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:run";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19017,6 +20551,18 @@ impl super::stub::DataScanService for DataScanService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19038,7 +20584,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -19056,11 +20602,12 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19085,6 +20632,18 @@ impl super::stub::DataScanService for DataScanService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19106,7 +20665,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/jobs",
@@ -19122,13 +20681,14 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/jobs";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19151,6 +20711,18 @@ impl super::stub::DataScanService for DataScanService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19172,7 +20744,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:generateDataQualityRules",
@@ -19188,10 +20760,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:generateDataQualityRules";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19210,10 +20783,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:generateDataQualityRules";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19255,6 +20829,8 @@ impl super::stub::DataScanService for DataScanService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19276,7 +20852,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/locations",
@@ -19285,13 +20861,14 @@ impl super::stub::DataScanService for DataScanService {
                         &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19307,6 +20884,8 @@ impl super::stub::DataScanService for DataScanService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19328,7 +20907,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -19342,10 +20921,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19366,6 +20946,8 @@ impl super::stub::DataScanService for DataScanService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19387,7 +20969,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:setIamPolicy",
@@ -19403,10 +20985,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19425,10 +21008,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19449,10 +21033,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19471,10 +21056,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19493,10 +21079,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19513,10 +21100,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19533,10 +21121,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19555,10 +21144,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19575,10 +21165,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19595,10 +21186,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19615,10 +21207,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19635,10 +21228,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19655,10 +21249,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19675,10 +21270,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19695,10 +21291,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19717,10 +21314,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19739,10 +21337,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19759,10 +21358,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19779,10 +21379,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19802,7 +21403,7 @@ impl super::stub::DataScanService for DataScanService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20164,6 +21765,18 @@ impl super::stub::DataScanService for DataScanService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20185,7 +21798,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:getIamPolicy",
@@ -20201,6 +21814,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -20216,7 +21830,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20235,6 +21849,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -20250,7 +21865,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20271,6 +21886,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -20286,7 +21902,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20305,6 +21921,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -20320,7 +21937,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20339,6 +21956,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -20354,7 +21972,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20371,6 +21989,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -20386,7 +22005,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20403,6 +22022,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -20418,7 +22038,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20437,6 +22057,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -20452,7 +22073,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20469,6 +22090,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -20484,7 +22106,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20501,6 +22123,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -20516,7 +22139,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20533,6 +22156,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -20548,7 +22172,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20565,6 +22189,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -20580,7 +22205,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20597,6 +22222,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -20612,7 +22238,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20629,6 +22255,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -20644,7 +22271,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20661,6 +22288,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -20676,7 +22304,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20695,6 +22323,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -20710,7 +22339,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20729,6 +22358,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -20744,7 +22374,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20808,7 +22438,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20825,6 +22455,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -20840,7 +22471,7 @@ impl super::stub::DataScanService for DataScanService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21202,6 +22833,18 @@ impl super::stub::DataScanService for DataScanService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -21223,7 +22866,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:testIamPermissions",
@@ -21239,10 +22882,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21261,10 +22905,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21285,10 +22930,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21307,10 +22953,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21329,10 +22976,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21349,10 +22997,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21369,10 +23018,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21391,10 +23041,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21411,10 +23062,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21431,10 +23083,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21451,10 +23104,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21471,10 +23125,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21491,10 +23146,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21511,10 +23167,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21531,10 +23188,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21553,10 +23211,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21575,10 +23234,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21595,10 +23255,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21615,10 +23276,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21638,7 +23300,7 @@ impl super::stub::DataScanService for DataScanService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22000,6 +23662,18 @@ impl super::stub::DataScanService for DataScanService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22021,7 +23695,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/operations",
@@ -22035,6 +23709,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -22043,7 +23718,7 @@ impl super::stub::DataScanService for DataScanService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -22058,6 +23733,7 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -22066,7 +23742,7 @@ impl super::stub::DataScanService for DataScanService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22102,6 +23778,8 @@ impl super::stub::DataScanService for DataScanService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22123,7 +23801,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -22139,10 +23817,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -22159,10 +23838,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22202,6 +23882,8 @@ impl super::stub::DataScanService for DataScanService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22223,7 +23905,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -22239,10 +23921,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -22259,10 +23942,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22302,6 +23986,8 @@ impl super::stub::DataScanService for DataScanService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22328,7 +24014,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -22344,10 +24030,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -22364,10 +24051,11 @@ impl super::stub::DataScanService for DataScanService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22407,6 +24095,8 @@ impl super::stub::DataScanService for DataScanService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22455,7 +24145,15 @@ impl std::fmt::Debug for MetadataService {
 
 impl MetadataService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -22470,7 +24168,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/entities",
@@ -22488,11 +24186,12 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/entities";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22517,6 +24216,20 @@ impl super::stub::MetadataService for MetadataService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.parent))
+                .or_else(|| req.entity.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22538,7 +24251,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -22561,11 +24274,12 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{entity.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PUT, path);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PUT)))
+                Some(builder.map(|b| (b, reqwest::Method::PUT, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22595,6 +24309,19 @@ impl super::stub::MetadataService for MetadataService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name =
+                Option::<&String>::None.or_else(|| req.entity.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22616,7 +24343,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -22636,11 +24363,12 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22667,6 +24395,18 @@ impl super::stub::MetadataService for MetadataService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22693,7 +24433,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -22713,11 +24453,12 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22744,6 +24485,18 @@ impl super::stub::MetadataService for MetadataService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22765,7 +24518,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/entities",
@@ -22783,6 +24536,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/entities";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
@@ -22790,7 +24544,7 @@ impl super::stub::MetadataService for MetadataService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22815,6 +24569,18 @@ impl super::stub::MetadataService for MetadataService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22836,7 +24602,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/partitions",
@@ -22856,11 +24622,12 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/partitions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22887,6 +24654,20 @@ impl super::stub::MetadataService for MetadataService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.parent))
+                .or_else(|| req.partition.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22908,7 +24689,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -22930,11 +24711,12 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22963,6 +24745,18 @@ impl super::stub::MetadataService for MetadataService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22989,7 +24783,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -23011,10 +24805,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -23043,6 +24838,18 @@ impl super::stub::MetadataService for MetadataService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -23064,7 +24871,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/partitions",
@@ -23084,13 +24891,14 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/partitions";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -23117,6 +24925,18 @@ impl super::stub::MetadataService for MetadataService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -23138,7 +24958,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/locations",
@@ -23147,13 +24967,14 @@ impl super::stub::MetadataService for MetadataService {
                         &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -23169,6 +24990,8 @@ impl super::stub::MetadataService for MetadataService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -23190,7 +25013,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -23204,10 +25027,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -23228,6 +25052,8 @@ impl super::stub::MetadataService for MetadataService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -23249,7 +25075,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:setIamPolicy",
@@ -23265,10 +25091,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23287,10 +25114,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23311,10 +25139,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23333,10 +25162,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23355,10 +25185,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23375,10 +25206,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23395,10 +25227,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23417,10 +25250,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23437,10 +25271,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23457,10 +25292,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23477,10 +25313,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23497,10 +25334,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23517,10 +25355,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23537,10 +25376,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23557,10 +25397,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23579,10 +25420,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23601,10 +25443,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23621,10 +25464,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23641,10 +25485,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23664,7 +25509,7 @@ impl super::stub::MetadataService for MetadataService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -24026,6 +25871,18 @@ impl super::stub::MetadataService for MetadataService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -24047,7 +25904,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:getIamPolicy",
@@ -24063,6 +25920,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -24078,7 +25936,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24097,6 +25955,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -24112,7 +25971,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24133,6 +25992,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -24148,7 +26008,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24167,6 +26027,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -24182,7 +26043,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24201,6 +26062,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -24216,7 +26078,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24233,6 +26095,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -24248,7 +26111,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24265,6 +26128,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -24280,7 +26144,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24299,6 +26163,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -24314,7 +26179,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24331,6 +26196,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -24346,7 +26212,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24363,6 +26229,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -24378,7 +26245,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24395,6 +26262,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -24410,7 +26278,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24427,6 +26295,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -24442,7 +26311,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24459,6 +26328,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -24474,7 +26344,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24491,6 +26361,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -24506,7 +26377,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24523,6 +26394,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -24538,7 +26410,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24557,6 +26429,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -24572,7 +26445,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24591,6 +26464,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -24606,7 +26480,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24670,7 +26544,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24687,6 +26561,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -24702,7 +26577,7 @@ impl super::stub::MetadataService for MetadataService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -25064,6 +26939,18 @@ impl super::stub::MetadataService for MetadataService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -25085,7 +26972,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:testIamPermissions",
@@ -25101,10 +26988,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25123,10 +27011,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25147,10 +27036,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25169,10 +27059,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25191,10 +27082,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25211,10 +27103,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25231,10 +27124,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25253,10 +27147,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25273,10 +27168,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25293,10 +27189,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25313,10 +27210,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25333,10 +27231,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25353,10 +27252,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25373,10 +27273,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25393,10 +27294,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25415,10 +27317,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25437,10 +27340,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25457,10 +27361,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25477,10 +27382,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25500,7 +27406,7 @@ impl super::stub::MetadataService for MetadataService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -25862,6 +27768,18 @@ impl super::stub::MetadataService for MetadataService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -25883,7 +27801,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/operations",
@@ -25897,6 +27815,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -25905,7 +27824,7 @@ impl super::stub::MetadataService for MetadataService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25920,6 +27839,7 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -25928,7 +27848,7 @@ impl super::stub::MetadataService for MetadataService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -25964,6 +27884,8 @@ impl super::stub::MetadataService for MetadataService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -25985,7 +27907,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -26001,10 +27923,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -26021,10 +27944,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26064,6 +27988,8 @@ impl super::stub::MetadataService for MetadataService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -26085,7 +28011,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -26101,10 +28027,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -26121,10 +28048,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26164,6 +28092,8 @@ impl super::stub::MetadataService for MetadataService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -26190,7 +28120,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -26206,10 +28136,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -26226,10 +28157,11 @@ impl super::stub::MetadataService for MetadataService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26269,6 +28201,8 @@ impl super::stub::MetadataService for MetadataService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -26303,7 +28237,15 @@ impl std::fmt::Debug for DataplexService {
 
 impl DataplexService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -26318,7 +28260,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/lakes",
@@ -26332,12 +28274,13 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/lakes";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("lakeId", &req.lake_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26358,6 +28301,20 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.parent))
+                .or_else(|| req.lake.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -26379,7 +28336,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -26398,6 +28355,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{lake.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -26414,7 +28372,7 @@ impl super::stub::DataplexService for DataplexService {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26440,6 +28398,19 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name =
+                Option::<&String>::None.or_else(|| req.lake.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -26461,7 +28432,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -26477,10 +28448,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26503,6 +28475,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -26524,7 +28508,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/lakes",
@@ -26538,6 +28522,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/lakes";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -26545,7 +28530,7 @@ impl super::stub::DataplexService for DataplexService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26566,6 +28551,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -26587,7 +28584,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -26603,10 +28600,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26629,6 +28627,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -26650,7 +28660,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/actions",
@@ -26666,12 +28676,13 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/actions";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26694,6 +28705,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -26715,7 +28738,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/zones",
@@ -26731,12 +28754,13 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/zones";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("zoneId", &req.zone_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26759,6 +28783,20 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.parent))
+                .or_else(|| req.zone.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -26780,7 +28818,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -26801,6 +28839,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{zone.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -26817,7 +28856,7 @@ impl super::stub::DataplexService for DataplexService {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26845,6 +28884,19 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name =
+                Option::<&String>::None.or_else(|| req.zone.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -26866,7 +28918,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -26884,10 +28936,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26912,6 +28965,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -26933,7 +28998,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/zones",
@@ -26949,6 +29014,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/zones";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -26956,7 +29022,7 @@ impl super::stub::DataplexService for DataplexService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26979,6 +29045,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27000,7 +29078,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -27018,10 +29096,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27046,6 +29125,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27067,7 +29158,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/actions",
@@ -27085,12 +29176,13 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/actions";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27115,6 +29207,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27136,7 +29240,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/assets",
@@ -27154,12 +29258,13 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/assets";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("assetId", &req.asset_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27184,6 +29289,20 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.parent))
+                .or_else(|| req.asset.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27205,7 +29324,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -27228,6 +29347,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{asset.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -27244,7 +29364,7 @@ impl super::stub::DataplexService for DataplexService {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27274,6 +29394,19 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name =
+                Option::<&String>::None.or_else(|| req.asset.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27295,7 +29428,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -27315,10 +29448,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27345,6 +29479,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27366,7 +29512,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/assets",
@@ -27384,6 +29530,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/assets";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -27391,7 +29538,7 @@ impl super::stub::DataplexService for DataplexService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27416,6 +29563,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27437,7 +29596,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -27457,10 +29616,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27487,6 +29647,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27508,7 +29680,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/actions",
@@ -27528,12 +29700,13 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/actions";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27560,6 +29733,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27581,7 +29766,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/tasks",
@@ -27597,12 +29782,13 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/tasks";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("taskId", &req.task_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27625,6 +29811,20 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.parent))
+                .or_else(|| req.task.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27646,7 +29846,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -27667,6 +29867,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{task.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -27683,7 +29884,7 @@ impl super::stub::DataplexService for DataplexService {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27711,6 +29912,19 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name =
+                Option::<&String>::None.or_else(|| req.task.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27732,7 +29946,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -27750,10 +29964,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27778,6 +29993,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27799,7 +30026,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/tasks",
@@ -27815,6 +30042,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/tasks";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -27822,7 +30050,7 @@ impl super::stub::DataplexService for DataplexService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27845,6 +30073,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27866,7 +30106,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -27884,10 +30124,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27912,6 +30153,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27933,7 +30186,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/jobs",
@@ -27951,12 +30204,13 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/jobs";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27981,6 +30235,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -28002,7 +30268,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:run",
@@ -28020,10 +30286,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:run";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -28048,6 +30315,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -28069,7 +30348,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -28089,10 +30368,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -28119,6 +30399,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -28140,7 +30432,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -28160,10 +30452,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -28190,6 +30483,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -28216,7 +30521,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/environments",
@@ -28232,12 +30537,13 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/environments";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("environmentId", &req.environment_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -28260,6 +30566,20 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| Some(&req.parent))
+                .or_else(|| req.environment.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -28281,7 +30601,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -28302,6 +30622,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{environment.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -28318,7 +30639,7 @@ impl super::stub::DataplexService for DataplexService {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -28346,6 +30667,19 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or_else(|| req.environment.as_ref().and_then(|s| Some(&s.name)));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -28367,7 +30701,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -28385,10 +30719,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -28413,6 +30748,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -28434,7 +30781,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/environments",
@@ -28450,6 +30797,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/environments";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -28457,7 +30805,7 @@ impl super::stub::DataplexService for DataplexService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -28480,6 +30828,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -28501,7 +30861,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -28519,10 +30879,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -28547,6 +30908,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -28568,7 +30941,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/sessions",
@@ -28586,13 +30959,14 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{parent}/sessions";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -28617,6 +30991,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -28638,7 +31024,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/locations",
@@ -28647,13 +31033,14 @@ impl super::stub::DataplexService for DataplexService {
                         &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -28669,6 +31056,8 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -28690,7 +31079,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -28704,10 +31093,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -28728,6 +31118,8 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -28749,7 +31141,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:setIamPolicy",
@@ -28765,10 +31157,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -28787,10 +31180,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -28811,10 +31205,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -28833,10 +31228,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -28855,10 +31251,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -28875,10 +31272,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -28895,10 +31293,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -28917,10 +31316,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -28937,10 +31337,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -28957,10 +31358,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -28977,10 +31379,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -28997,10 +31400,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29017,10 +31421,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29037,10 +31442,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29057,10 +31463,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29079,10 +31486,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29101,10 +31509,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29121,10 +31530,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29141,10 +31551,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29164,7 +31575,7 @@ impl super::stub::DataplexService for DataplexService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -29526,6 +31937,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -29547,7 +31970,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:getIamPolicy",
@@ -29563,6 +31986,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -29578,7 +32002,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29597,6 +32021,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -29612,7 +32037,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29633,6 +32058,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -29648,7 +32074,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29667,6 +32093,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -29682,7 +32109,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29701,6 +32128,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -29716,7 +32144,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29733,6 +32161,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -29748,7 +32177,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29765,6 +32194,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -29780,7 +32210,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29799,6 +32229,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -29814,7 +32245,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29831,6 +32262,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -29846,7 +32278,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29863,6 +32295,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -29878,7 +32311,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29895,6 +32328,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -29910,7 +32344,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29927,6 +32361,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -29942,7 +32377,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29959,6 +32394,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -29974,7 +32410,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29991,6 +32427,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -30006,7 +32443,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30023,6 +32460,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -30038,7 +32476,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30057,6 +32495,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -30072,7 +32511,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30091,6 +32530,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -30106,7 +32546,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30170,7 +32610,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30187,6 +32627,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -30202,7 +32643,7 @@ impl super::stub::DataplexService for DataplexService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -30564,6 +33005,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -30585,7 +33038,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:testIamPermissions",
@@ -30601,10 +33054,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30623,10 +33077,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30647,10 +33102,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30669,10 +33125,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30691,10 +33148,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30711,10 +33169,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30731,10 +33190,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30753,10 +33213,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30773,10 +33234,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30793,10 +33255,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30813,10 +33276,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30833,10 +33297,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30853,10 +33318,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30873,10 +33339,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30893,10 +33360,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30915,10 +33383,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30937,10 +33406,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30957,10 +33427,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30977,10 +33448,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -31000,7 +33472,7 @@ impl super::stub::DataplexService for DataplexService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -31362,6 +33834,18 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//dataplex.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -31383,7 +33867,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/operations",
@@ -31397,6 +33881,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -31405,7 +33890,7 @@ impl super::stub::DataplexService for DataplexService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -31420,6 +33905,7 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -31428,7 +33914,7 @@ impl super::stub::DataplexService for DataplexService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -31464,6 +33950,8 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -31485,7 +33973,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -31501,10 +33989,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -31521,10 +34010,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -31564,6 +34054,8 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -31585,7 +34077,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -31601,10 +34093,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -31621,10 +34114,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -31664,6 +34158,8 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -31690,7 +34186,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -31706,10 +34202,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -31726,10 +34223,11 @@ impl super::stub::DataplexService for DataplexService {
                         ]
                     )?,
                 );
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -31769,6 +34267,8 @@ impl super::stub::DataplexService for DataplexService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

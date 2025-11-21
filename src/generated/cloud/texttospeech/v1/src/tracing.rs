@@ -37,6 +37,36 @@ impl<T> super::stub::TextToSpeech for TextToSpeech<T>
 where
     T: super::stub::TextToSpeech + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_voices(
+        &self,
+        req: crate::model::ListVoicesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListVoicesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TextToSpeech",
+            "::list_voices"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_voices",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .list_voices(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_voices(
         &self,
@@ -45,7 +75,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListVoicesResponse>> {
         self.inner.list_voices(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn synthesize_speech(
+        &self,
+        req: crate::model::SynthesizeSpeechRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::SynthesizeSpeechResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TextToSpeech",
+            "::synthesize_speech"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "synthesize_speech",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .synthesize_speech(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn synthesize_speech(
         &self,
@@ -54,7 +113,36 @@ where
     ) -> Result<gax::response::Response<crate::model::SynthesizeSpeechResponse>> {
         self.inner.synthesize_speech(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TextToSpeech",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -63,7 +151,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TextToSpeech",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -96,6 +213,36 @@ impl<T> super::stub::TextToSpeechLongAudioSynthesize for TextToSpeechLongAudioSy
 where
     T: super::stub::TextToSpeechLongAudioSynthesize + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn synthesize_long_audio(
+        &self,
+        req: crate::model::SynthesizeLongAudioRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TextToSpeechLongAudioSynthesize",
+            "::synthesize_long_audio"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "synthesize_long_audio",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .synthesize_long_audio(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn synthesize_long_audio(
         &self,
@@ -104,7 +251,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.synthesize_long_audio(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TextToSpeechLongAudioSynthesize",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -113,7 +289,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TextToSpeechLongAudioSynthesize",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,

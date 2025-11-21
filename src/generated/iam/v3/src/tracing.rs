@@ -37,6 +37,36 @@ impl<T> super::stub::PolicyBindings for PolicyBindings<T>
 where
     T: super::stub::PolicyBindings + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_policy_binding(
+        &self,
+        req: crate::model::CreatePolicyBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "PolicyBindings",
+            "::create_policy_binding"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_policy_binding",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .create_policy_binding(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_policy_binding(
         &self,
@@ -45,7 +75,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_policy_binding(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_policy_binding(
+        &self,
+        req: crate::model::GetPolicyBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::PolicyBinding>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "PolicyBindings",
+            "::get_policy_binding"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_policy_binding",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_policy_binding(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_policy_binding(
         &self,
@@ -54,7 +113,36 @@ where
     ) -> Result<gax::response::Response<crate::model::PolicyBinding>> {
         self.inner.get_policy_binding(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_policy_binding(
+        &self,
+        req: crate::model::UpdatePolicyBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "PolicyBindings",
+            "::update_policy_binding"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_policy_binding",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_policy_binding(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_policy_binding(
         &self,
@@ -63,7 +151,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_policy_binding(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_policy_binding(
+        &self,
+        req: crate::model::DeletePolicyBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "PolicyBindings",
+            "::delete_policy_binding"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_policy_binding",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_policy_binding(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_policy_binding(
         &self,
@@ -72,7 +189,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_policy_binding(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_policy_bindings(
+        &self,
+        req: crate::model::ListPolicyBindingsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListPolicyBindingsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "PolicyBindings",
+            "::list_policy_bindings"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_policy_bindings",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_policy_bindings(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_policy_bindings(
         &self,
@@ -81,7 +227,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListPolicyBindingsResponse>> {
         self.inner.list_policy_bindings(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn search_target_policy_bindings(
+        &self,
+        req: crate::model::SearchTargetPolicyBindingsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::SearchTargetPolicyBindingsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "PolicyBindings",
+            "::search_target_policy_bindings"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "search_target_policy_bindings",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .search_target_policy_bindings(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn search_target_policy_bindings(
         &self,
@@ -90,7 +265,36 @@ where
     ) -> Result<gax::response::Response<crate::model::SearchTargetPolicyBindingsResponse>> {
         self.inner.search_target_policy_bindings(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "PolicyBindings",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -137,6 +341,36 @@ impl<T> super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundary
 where
     T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_principal_access_boundary_policy(
+        &self,
+        req: crate::model::CreatePrincipalAccessBoundaryPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "PrincipalAccessBoundaryPolicies",
+            "::create_principal_access_boundary_policy"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_principal_access_boundary_policy",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .create_principal_access_boundary_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_principal_access_boundary_policy(
         &self,
@@ -147,7 +381,36 @@ where
             .create_principal_access_boundary_policy(req, options)
             .await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_principal_access_boundary_policy(
+        &self,
+        req: crate::model::GetPrincipalAccessBoundaryPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::PrincipalAccessBoundaryPolicy>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "PrincipalAccessBoundaryPolicies",
+            "::get_principal_access_boundary_policy"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_principal_access_boundary_policy",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_principal_access_boundary_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_principal_access_boundary_policy(
         &self,
@@ -158,7 +421,36 @@ where
             .get_principal_access_boundary_policy(req, options)
             .await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_principal_access_boundary_policy(
+        &self,
+        req: crate::model::UpdatePrincipalAccessBoundaryPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "PrincipalAccessBoundaryPolicies",
+            "::update_principal_access_boundary_policy"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_principal_access_boundary_policy",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_principal_access_boundary_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_principal_access_boundary_policy(
         &self,
@@ -169,7 +461,36 @@ where
             .update_principal_access_boundary_policy(req, options)
             .await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_principal_access_boundary_policy(
+        &self,
+        req: crate::model::DeletePrincipalAccessBoundaryPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "PrincipalAccessBoundaryPolicies",
+            "::delete_principal_access_boundary_policy"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_principal_access_boundary_policy",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_principal_access_boundary_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_principal_access_boundary_policy(
         &self,
@@ -180,7 +501,37 @@ where
             .delete_principal_access_boundary_policy(req, options)
             .await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_principal_access_boundary_policies(
+        &self,
+        req: crate::model::ListPrincipalAccessBoundaryPoliciesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListPrincipalAccessBoundaryPoliciesResponse>>
+    {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "PrincipalAccessBoundaryPolicies",
+            "::list_principal_access_boundary_policies"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_principal_access_boundary_policies",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_principal_access_boundary_policies(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_principal_access_boundary_policies(
         &self,
@@ -192,7 +543,38 @@ where
             .list_principal_access_boundary_policies(req, options)
             .await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn search_principal_access_boundary_policy_bindings(
+        &self,
+        req: crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<
+        gax::response::Response<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse>,
+    > {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "PrincipalAccessBoundaryPolicies",
+            "::search_principal_access_boundary_policy_bindings"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "search_principal_access_boundary_policy_bindings",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .search_principal_access_boundary_policy_bindings(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn search_principal_access_boundary_policy_bindings(
         &self,
@@ -205,7 +587,36 @@ where
             .search_principal_access_boundary_policy_bindings(req, options)
             .await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "PrincipalAccessBoundaryPolicies",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,

@@ -34,7 +34,15 @@ impl std::fmt::Debug for DatasetService {
 
 impl DatasetService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -49,7 +57,7 @@ impl super::stub::DatasetService for DatasetService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}",
@@ -62,12 +70,13 @@ impl super::stub::DatasetService for DatasetService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("datasetView", &req.dataset_view)]);
                 let builder = builder.query(&[("accessPolicyVersion", &req.access_policy_version)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -89,6 +98,8 @@ impl super::stub::DatasetService for DatasetService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -110,7 +121,7 @@ impl super::stub::DatasetService for DatasetService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets",
@@ -119,11 +130,12 @@ impl super::stub::DatasetService for DatasetService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/bigquery/v2/projects/{project_id}/datasets";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("accessPolicyVersion", &req.access_policy_version)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -139,6 +151,8 @@ impl super::stub::DatasetService for DatasetService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -160,7 +174,7 @@ impl super::stub::DatasetService for DatasetService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}",
@@ -173,12 +187,13 @@ impl super::stub::DatasetService for DatasetService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = builder.query(&[("updateMode", &req.update_mode)]);
                 let builder = builder.query(&[("accessPolicyVersion", &req.access_policy_version)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -200,6 +215,8 @@ impl super::stub::DatasetService for DatasetService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -221,7 +238,7 @@ impl super::stub::DatasetService for DatasetService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}",
@@ -234,12 +251,13 @@ impl super::stub::DatasetService for DatasetService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}";
 
                 let builder = self.inner.builder(reqwest::Method::PUT, path);
                 let builder = builder.query(&[("updateMode", &req.update_mode)]);
                 let builder = builder.query(&[("accessPolicyVersion", &req.access_policy_version)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PUT)))
+                Some(builder.map(|b| (b, reqwest::Method::PUT, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -261,6 +279,8 @@ impl super::stub::DatasetService for DatasetService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -282,7 +302,7 @@ impl super::stub::DatasetService for DatasetService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}",
@@ -295,11 +315,12 @@ impl super::stub::DatasetService for DatasetService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("deleteContents", &req.delete_contents)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -321,6 +342,8 @@ impl super::stub::DatasetService for DatasetService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -347,7 +370,7 @@ impl super::stub::DatasetService for DatasetService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets",
@@ -356,6 +379,7 @@ impl super::stub::DatasetService for DatasetService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/bigquery/v2/projects/{project_id}/datasets";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -374,7 +398,7 @@ impl super::stub::DatasetService for DatasetService {
                     let builder = builder.query(&[("filter", &req.filter)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -390,6 +414,8 @@ impl super::stub::DatasetService for DatasetService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -411,7 +437,7 @@ impl super::stub::DatasetService for DatasetService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}:undelete",
@@ -424,10 +450,12 @@ impl super::stub::DatasetService for DatasetService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}:undelete";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -449,6 +477,8 @@ impl super::stub::DatasetService for DatasetService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -478,7 +508,15 @@ impl std::fmt::Debug for JobService {
 
 impl JobService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -493,7 +531,7 @@ impl super::stub::JobService for JobService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/jobs/{}/cancel",
@@ -506,11 +544,12 @@ impl super::stub::JobService for JobService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/bigquery/v2/projects/{project_id}/jobs/{job_id}/cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -532,6 +571,8 @@ impl super::stub::JobService for JobService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -553,7 +594,7 @@ impl super::stub::JobService for JobService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/jobs/{}",
@@ -566,11 +607,12 @@ impl super::stub::JobService for JobService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/bigquery/v2/projects/{project_id}/jobs/{job_id}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -592,6 +634,8 @@ impl super::stub::JobService for JobService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -613,7 +657,7 @@ impl super::stub::JobService for JobService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/jobs",
@@ -622,10 +666,11 @@ impl super::stub::JobService for JobService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/bigquery/v2/projects/{project_id}/jobs";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -641,6 +686,8 @@ impl super::stub::JobService for JobService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -662,7 +709,7 @@ impl super::stub::JobService for JobService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/jobs/{}/delete",
@@ -675,11 +722,12 @@ impl super::stub::JobService for JobService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/bigquery/v2/projects/{project_id}/jobs/{job_id}/delete";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -701,6 +749,8 @@ impl super::stub::JobService for JobService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -727,7 +777,7 @@ impl super::stub::JobService for JobService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/jobs",
@@ -736,6 +786,7 @@ impl super::stub::JobService for JobService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/bigquery/v2/projects/{project_id}/jobs";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -770,7 +821,7 @@ impl super::stub::JobService for JobService {
                     let builder = builder.query(&[("parentJobId", &req.parent_job_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -786,6 +837,8 @@ impl super::stub::JobService for JobService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -807,7 +860,7 @@ impl super::stub::JobService for JobService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/queries/{}",
@@ -820,6 +873,7 @@ impl super::stub::JobService for JobService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/bigquery/v2/projects/{project_id}/queries/{job_id}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -867,7 +921,7 @@ impl super::stub::JobService for JobService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -889,6 +943,8 @@ impl super::stub::JobService for JobService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -910,7 +966,7 @@ impl super::stub::JobService for JobService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/queries",
@@ -919,10 +975,11 @@ impl super::stub::JobService for JobService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/bigquery/v2/projects/{project_id}/queries";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -938,6 +995,22 @@ impl super::stub::JobService for JobService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or_else(|| {
+                req.query_request
+                    .as_ref()
+                    .and_then(|s| s.reservation.as_ref())
+            });
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//bigquery.googleapis.com/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -967,7 +1040,15 @@ impl std::fmt::Debug for ModelService {
 
 impl ModelService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -982,7 +1063,7 @@ impl super::stub::ModelService for ModelService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/models/{}",
@@ -999,10 +1080,12 @@ impl super::stub::ModelService for ModelService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/models/{model_id}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1030,6 +1113,8 @@ impl super::stub::ModelService for ModelService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1051,7 +1136,7 @@ impl super::stub::ModelService for ModelService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/models",
@@ -1064,6 +1149,8 @@ impl super::stub::ModelService for ModelService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/models";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -1080,7 +1167,7 @@ impl super::stub::ModelService for ModelService {
                     let builder = builder.query(&[("pageToken", &req.page_token)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1102,6 +1189,8 @@ impl super::stub::ModelService for ModelService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1123,7 +1212,7 @@ impl super::stub::ModelService for ModelService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/models/{}",
@@ -1140,10 +1229,12 @@ impl super::stub::ModelService for ModelService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/models/{model_id}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1171,6 +1262,8 @@ impl super::stub::ModelService for ModelService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1192,7 +1285,7 @@ impl super::stub::ModelService for ModelService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/models/{}",
@@ -1209,10 +1302,12 @@ impl super::stub::ModelService for ModelService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/models/{model_id}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1240,6 +1335,8 @@ impl super::stub::ModelService for ModelService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1274,7 +1371,15 @@ impl std::fmt::Debug for ProjectService {
 
 impl ProjectService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -1289,7 +1394,7 @@ impl super::stub::ProjectService for ProjectService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/serviceAccount",
@@ -1298,10 +1403,11 @@ impl super::stub::ProjectService for ProjectService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/bigquery/v2/projects/{project_id}/serviceAccount";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1317,6 +1423,8 @@ impl super::stub::ProjectService for ProjectService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1346,7 +1454,15 @@ impl std::fmt::Debug for RoutineService {
 
 impl RoutineService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -1361,54 +1477,47 @@ impl super::stub::RoutineService for RoutineService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.routine_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let path = format!(
+                "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
+                try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.routine_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+            );
+            let path_template = "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/routines/{routine_id}";
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "dataset_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.routine_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "routine_id",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "dataset_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.routine_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "routine_id",
+                    "*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1430,7 +1539,7 @@ impl super::stub::RoutineService for RoutineService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/routines",
@@ -1443,10 +1552,12 @@ impl super::stub::RoutineService for RoutineService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/routines";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1468,6 +1579,8 @@ impl super::stub::RoutineService for RoutineService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1489,54 +1602,47 @@ impl super::stub::RoutineService for RoutineService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.routine_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let path = format!(
+                "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
+                try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.routine_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+            );
+            let path_template = "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/routines/{routine_id}";
 
-                let builder = self.inner.builder(reqwest::Method::PUT, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PUT)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "dataset_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.routine_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "routine_id",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::PUT, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::PUT, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "dataset_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.routine_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "routine_id",
+                    "*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1558,54 +1664,47 @@ impl super::stub::RoutineService for RoutineService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.routine_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let path = format!(
+                "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
+                try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.routine_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+            );
+            let path_template = "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/routines/{routine_id}";
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "dataset_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.routine_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "routine_id",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::DELETE, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "dataset_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.routine_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "routine_id",
+                    "*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1632,7 +1731,7 @@ impl super::stub::RoutineService for RoutineService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/routines",
@@ -1645,6 +1744,8 @@ impl super::stub::RoutineService for RoutineService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/routines";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -1662,7 +1763,7 @@ impl super::stub::RoutineService for RoutineService {
                     let builder = builder.query(&[("filter", &req.filter)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1684,6 +1785,8 @@ impl super::stub::RoutineService for RoutineService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1713,7 +1816,15 @@ impl std::fmt::Debug for RowAccessPolicyService {
 
 impl RowAccessPolicyService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -1728,56 +1839,49 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let path = format!(
+                "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies",
+                try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.table_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+            );
+            let path_template = "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/tables/{table_id}/rowAccessPolicies";
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = builder.query(&[("pageToken", &req.page_token)]);
-                let builder = builder.query(&[("pageSize", &req.page_size)]);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "dataset_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "table_id",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = builder.query(&[("pageToken", &req.page_token)]);
+            let builder = builder.query(&[("pageSize", &req.page_size)]);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "dataset_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "table_id",
+                    "*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1799,64 +1903,53 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.policy_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let path = format!(
+                "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
+                try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.table_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.policy_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+            );
+            let path_template = "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/tables/{table_id}/rowAccessPolicies/{policy_id}";
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "dataset_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "table_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.policy_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "policy_id",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "dataset_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "table_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.policy_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "policy_id",
+                    "*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1878,54 +1971,47 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let path = format!(
+                "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies",
+                try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.table_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+            );
+            let path_template = "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/tables/{table_id}/rowAccessPolicies";
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "dataset_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "table_id",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "dataset_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "table_id",
+                    "*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1947,64 +2033,53 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.policy_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let path = format!(
+                "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
+                try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.table_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.policy_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+            );
+            let path_template = "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/tables/{table_id}/rowAccessPolicies/{policy_id}";
 
-                let builder = self.inner.builder(reqwest::Method::PUT, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PUT)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "dataset_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "table_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.policy_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "policy_id",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::PUT, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::PUT, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "dataset_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "table_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.policy_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "policy_id",
+                    "*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2026,68 +2101,54 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.policy_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let path = format!(
+                "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
+                try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.table_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.policy_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+            );
+            let path_template = "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/tables/{table_id}/rowAccessPolicies/{policy_id}";
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                let builder = req
-                    .force
-                    .iter()
-                    .fold(builder, |builder, p| builder.query(&[("force", p)]));
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "dataset_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "table_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.policy_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "policy_id",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::DELETE, path);
+            let builder = req.force.iter().fold(builder, |builder, p| builder.query(&[("force", p)]));
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "dataset_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "table_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.policy_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "policy_id",
+                    "*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2114,54 +2175,47 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies:batchDelete",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let path = format!(
+                "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies:batchDelete",
+                try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).map(|m| &m.table_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+            );
+            let path_template = "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/tables/{table_id}/rowAccessPolicies:batchDelete";
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "dataset_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "table_id",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "dataset_id",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "table_id",
+                    "*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2196,7 +2250,15 @@ impl std::fmt::Debug for TableService {
 
 impl TableService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -2211,7 +2273,7 @@ impl super::stub::TableService for TableService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
@@ -2228,12 +2290,14 @@ impl super::stub::TableService for TableService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/tables/{table_id}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("selectedFields", &req.selected_fields)]);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2261,6 +2325,8 @@ impl super::stub::TableService for TableService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2282,7 +2348,7 @@ impl super::stub::TableService for TableService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables",
@@ -2295,10 +2361,12 @@ impl super::stub::TableService for TableService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/tables";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2320,6 +2388,8 @@ impl super::stub::TableService for TableService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2341,7 +2411,7 @@ impl super::stub::TableService for TableService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
@@ -2358,11 +2428,13 @@ impl super::stub::TableService for TableService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/tables/{table_id}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = builder.query(&[("autodetectSchema", &req.autodetect_schema)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2390,6 +2462,8 @@ impl super::stub::TableService for TableService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2411,7 +2485,7 @@ impl super::stub::TableService for TableService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
@@ -2428,11 +2502,13 @@ impl super::stub::TableService for TableService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/tables/{table_id}";
 
                 let builder = self.inner.builder(reqwest::Method::PUT, path);
                 let builder = builder.query(&[("autodetectSchema", &req.autodetect_schema)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PUT)))
+                Some(builder.map(|b| (b, reqwest::Method::PUT, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2460,6 +2536,8 @@ impl super::stub::TableService for TableService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2481,7 +2559,7 @@ impl super::stub::TableService for TableService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
@@ -2498,10 +2576,12 @@ impl super::stub::TableService for TableService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/tables/{table_id}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2529,6 +2609,8 @@ impl super::stub::TableService for TableService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2555,7 +2637,7 @@ impl super::stub::TableService for TableService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables",
@@ -2568,6 +2650,8 @@ impl super::stub::TableService for TableService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/tables";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2584,7 +2668,7 @@ impl super::stub::TableService for TableService {
                     let builder = builder.query(&[("pageToken", &req.page_token)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2606,6 +2690,8 @@ impl super::stub::TableService for TableService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

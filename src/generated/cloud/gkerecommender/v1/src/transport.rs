@@ -34,7 +34,15 @@ impl std::fmt::Debug for GkeInferenceQuickstart {
 
 impl GkeInferenceQuickstart {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -47,9 +55,10 @@ impl super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart {
     ) -> Result<gax::response::Response<crate::model::FetchModelsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1/models:fetch".to_string();
+                let path_template = "/v1/models:fetch";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = req
@@ -61,7 +70,7 @@ impl super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -71,6 +80,8 @@ impl super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -90,9 +101,10 @@ impl super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart {
     ) -> Result<gax::response::Response<crate::model::FetchModelServersResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1/modelServers:fetch".to_string();
+                let path_template = "/v1/modelServers:fetch";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("model", &req.model)]);
@@ -105,7 +117,7 @@ impl super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -115,6 +127,8 @@ impl super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -134,9 +148,10 @@ impl super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart {
     ) -> Result<gax::response::Response<crate::model::FetchModelServerVersionsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1/modelServerVersions:fetch".to_string();
+                let path_template = "/v1/modelServerVersions:fetch";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("model", &req.model)]);
@@ -150,7 +165,7 @@ impl super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -160,6 +175,8 @@ impl super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -179,13 +196,14 @@ impl super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart {
     ) -> Result<gax::response::Response<crate::model::FetchProfilesResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1/profiles:fetch".to_string();
+                let path_template = "/v1/profiles:fetch";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -195,6 +213,8 @@ impl super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -214,13 +234,14 @@ impl super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart {
     ) -> Result<gax::response::Response<crate::model::GenerateOptimizedManifestResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1/optimizedManifest:generate".to_string();
+                let path_template = "/v1/optimizedManifest:generate";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -230,6 +251,8 @@ impl super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -249,13 +272,14 @@ impl super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart {
     ) -> Result<gax::response::Response<crate::model::FetchBenchmarkingDataResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1/benchmarkingData:fetch".to_string();
+                let path_template = "/v1/benchmarkingData:fetch";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -265,6 +289,8 @@ impl super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

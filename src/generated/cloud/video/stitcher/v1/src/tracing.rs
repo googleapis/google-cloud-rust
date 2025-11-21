@@ -37,6 +37,36 @@ impl<T> super::stub::VideoStitcherService for VideoStitcherService<T>
 where
     T: super::stub::VideoStitcherService + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_cdn_key(
+        &self,
+        req: crate::model::CreateCdnKeyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::create_cdn_key"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_cdn_key",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .create_cdn_key(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_cdn_key(
         &self,
@@ -45,7 +75,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_cdn_key(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_cdn_keys(
+        &self,
+        req: crate::model::ListCdnKeysRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListCdnKeysResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::list_cdn_keys"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_cdn_keys",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_cdn_keys(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_cdn_keys(
         &self,
@@ -54,7 +113,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListCdnKeysResponse>> {
         self.inner.list_cdn_keys(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_cdn_key(
+        &self,
+        req: crate::model::GetCdnKeyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::CdnKey>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::get_cdn_key"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_cdn_key",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_cdn_key(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_cdn_key(
         &self,
@@ -63,7 +151,36 @@ where
     ) -> Result<gax::response::Response<crate::model::CdnKey>> {
         self.inner.get_cdn_key(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_cdn_key(
+        &self,
+        req: crate::model::DeleteCdnKeyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::delete_cdn_key"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_cdn_key",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_cdn_key(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_cdn_key(
         &self,
@@ -72,7 +189,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_cdn_key(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_cdn_key(
+        &self,
+        req: crate::model::UpdateCdnKeyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::update_cdn_key"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_cdn_key",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_cdn_key(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_cdn_key(
         &self,
@@ -81,7 +227,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_cdn_key(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_vod_session(
+        &self,
+        req: crate::model::CreateVodSessionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::VodSession>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::create_vod_session"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_vod_session",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_vod_session(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_vod_session(
         &self,
@@ -90,7 +265,36 @@ where
     ) -> Result<gax::response::Response<crate::model::VodSession>> {
         self.inner.create_vod_session(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_vod_session(
+        &self,
+        req: crate::model::GetVodSessionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::VodSession>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::get_vod_session"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_vod_session",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_vod_session(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_vod_session(
         &self,
@@ -99,7 +303,36 @@ where
     ) -> Result<gax::response::Response<crate::model::VodSession>> {
         self.inner.get_vod_session(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_vod_stitch_details(
+        &self,
+        req: crate::model::ListVodStitchDetailsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListVodStitchDetailsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::list_vod_stitch_details"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_vod_stitch_details",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_vod_stitch_details(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_vod_stitch_details(
         &self,
@@ -108,7 +341,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListVodStitchDetailsResponse>> {
         self.inner.list_vod_stitch_details(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_vod_stitch_detail(
+        &self,
+        req: crate::model::GetVodStitchDetailRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::VodStitchDetail>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::get_vod_stitch_detail"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_vod_stitch_detail",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_vod_stitch_detail(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_vod_stitch_detail(
         &self,
@@ -117,7 +379,36 @@ where
     ) -> Result<gax::response::Response<crate::model::VodStitchDetail>> {
         self.inner.get_vod_stitch_detail(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_vod_ad_tag_details(
+        &self,
+        req: crate::model::ListVodAdTagDetailsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListVodAdTagDetailsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::list_vod_ad_tag_details"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_vod_ad_tag_details",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_vod_ad_tag_details(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_vod_ad_tag_details(
         &self,
@@ -126,7 +417,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListVodAdTagDetailsResponse>> {
         self.inner.list_vod_ad_tag_details(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_vod_ad_tag_detail(
+        &self,
+        req: crate::model::GetVodAdTagDetailRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::VodAdTagDetail>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::get_vod_ad_tag_detail"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_vod_ad_tag_detail",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_vod_ad_tag_detail(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_vod_ad_tag_detail(
         &self,
@@ -135,7 +455,36 @@ where
     ) -> Result<gax::response::Response<crate::model::VodAdTagDetail>> {
         self.inner.get_vod_ad_tag_detail(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_live_ad_tag_details(
+        &self,
+        req: crate::model::ListLiveAdTagDetailsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListLiveAdTagDetailsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::list_live_ad_tag_details"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_live_ad_tag_details",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_live_ad_tag_details(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_live_ad_tag_details(
         &self,
@@ -144,7 +493,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListLiveAdTagDetailsResponse>> {
         self.inner.list_live_ad_tag_details(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_live_ad_tag_detail(
+        &self,
+        req: crate::model::GetLiveAdTagDetailRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::LiveAdTagDetail>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::get_live_ad_tag_detail"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_live_ad_tag_detail",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_live_ad_tag_detail(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_live_ad_tag_detail(
         &self,
@@ -153,7 +531,36 @@ where
     ) -> Result<gax::response::Response<crate::model::LiveAdTagDetail>> {
         self.inner.get_live_ad_tag_detail(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_slate(
+        &self,
+        req: crate::model::CreateSlateRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::create_slate"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_slate",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_slate(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_slate(
         &self,
@@ -162,7 +569,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_slate(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_slates(
+        &self,
+        req: crate::model::ListSlatesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListSlatesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::list_slates"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_slates",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_slates(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_slates(
         &self,
@@ -171,7 +607,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListSlatesResponse>> {
         self.inner.list_slates(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_slate(
+        &self,
+        req: crate::model::GetSlateRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Slate>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::get_slate"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_slate",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_slate(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_slate(
         &self,
@@ -180,7 +645,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Slate>> {
         self.inner.get_slate(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_slate(
+        &self,
+        req: crate::model::UpdateSlateRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::update_slate"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_slate",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_slate(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_slate(
         &self,
@@ -189,7 +683,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_slate(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_slate(
+        &self,
+        req: crate::model::DeleteSlateRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::delete_slate"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_slate",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_slate(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_slate(
         &self,
@@ -198,7 +721,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_slate(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_live_session(
+        &self,
+        req: crate::model::CreateLiveSessionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::LiveSession>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::create_live_session"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_live_session",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_live_session(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_live_session(
         &self,
@@ -207,7 +759,36 @@ where
     ) -> Result<gax::response::Response<crate::model::LiveSession>> {
         self.inner.create_live_session(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_live_session(
+        &self,
+        req: crate::model::GetLiveSessionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::LiveSession>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::get_live_session"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_live_session",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_live_session(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_live_session(
         &self,
@@ -216,7 +797,36 @@ where
     ) -> Result<gax::response::Response<crate::model::LiveSession>> {
         self.inner.get_live_session(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_live_config(
+        &self,
+        req: crate::model::CreateLiveConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::create_live_config"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_live_config",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_live_config(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_live_config(
         &self,
@@ -225,7 +835,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_live_config(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_live_configs(
+        &self,
+        req: crate::model::ListLiveConfigsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListLiveConfigsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::list_live_configs"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_live_configs",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_live_configs(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_live_configs(
         &self,
@@ -234,7 +873,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListLiveConfigsResponse>> {
         self.inner.list_live_configs(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_live_config(
+        &self,
+        req: crate::model::GetLiveConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::LiveConfig>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::get_live_config"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_live_config",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_live_config(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_live_config(
         &self,
@@ -243,7 +911,36 @@ where
     ) -> Result<gax::response::Response<crate::model::LiveConfig>> {
         self.inner.get_live_config(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_live_config(
+        &self,
+        req: crate::model::DeleteLiveConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::delete_live_config"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_live_config",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_live_config(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_live_config(
         &self,
@@ -252,7 +949,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_live_config(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_live_config(
+        &self,
+        req: crate::model::UpdateLiveConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::update_live_config"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_live_config",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_live_config(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_live_config(
         &self,
@@ -261,7 +987,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_live_config(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_vod_config(
+        &self,
+        req: crate::model::CreateVodConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::create_vod_config"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_vod_config",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_vod_config(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_vod_config(
         &self,
@@ -270,7 +1025,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_vod_config(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_vod_configs(
+        &self,
+        req: crate::model::ListVodConfigsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListVodConfigsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::list_vod_configs"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_vod_configs",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_vod_configs(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_vod_configs(
         &self,
@@ -279,7 +1063,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListVodConfigsResponse>> {
         self.inner.list_vod_configs(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_vod_config(
+        &self,
+        req: crate::model::GetVodConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::VodConfig>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::get_vod_config"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_vod_config",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_vod_config(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_vod_config(
         &self,
@@ -288,7 +1101,36 @@ where
     ) -> Result<gax::response::Response<crate::model::VodConfig>> {
         self.inner.get_vod_config(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_vod_config(
+        &self,
+        req: crate::model::DeleteVodConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::delete_vod_config"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_vod_config",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_vod_config(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_vod_config(
         &self,
@@ -297,7 +1139,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_vod_config(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_vod_config(
+        &self,
+        req: crate::model::UpdateVodConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::update_vod_config"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_vod_config",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_vod_config(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_vod_config(
         &self,
@@ -306,7 +1177,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_vod_config(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::list_operations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_operations",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -315,7 +1215,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::get_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
@@ -324,7 +1253,36 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::delete_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_operation(
         &self,
@@ -333,7 +1291,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "VideoStitcherService",
+            "::cancel_operation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "cancel_operation",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,

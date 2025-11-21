@@ -37,6 +37,36 @@ impl<T> super::stub::Firestore for Firestore<T>
 where
     T: super::stub::Firestore + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_document(
+        &self,
+        req: crate::model::GetDocumentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Document>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Firestore",
+            "::get_document"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_document",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .get_document(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_document(
         &self,
@@ -45,7 +75,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Document>> {
         self.inner.get_document(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_documents(
+        &self,
+        req: crate::model::ListDocumentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListDocumentsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Firestore",
+            "::list_documents"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_documents",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_documents(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_documents(
         &self,
@@ -54,7 +113,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListDocumentsResponse>> {
         self.inner.list_documents(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_document(
+        &self,
+        req: crate::model::UpdateDocumentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Document>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Firestore",
+            "::update_document"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_document",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_document(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_document(
         &self,
@@ -63,7 +151,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Document>> {
         self.inner.update_document(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_document(
+        &self,
+        req: crate::model::DeleteDocumentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Firestore",
+            "::delete_document"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_document",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_document(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_document(
         &self,
@@ -72,7 +189,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_document(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn begin_transaction(
+        &self,
+        req: crate::model::BeginTransactionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::BeginTransactionResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Firestore",
+            "::begin_transaction"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "begin_transaction",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .begin_transaction(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn begin_transaction(
         &self,
@@ -81,7 +227,36 @@ where
     ) -> Result<gax::response::Response<crate::model::BeginTransactionResponse>> {
         self.inner.begin_transaction(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn commit(
+        &self,
+        req: crate::model::CommitRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::CommitResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Firestore",
+            "::commit"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "commit",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .commit(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn commit(
         &self,
@@ -90,7 +265,36 @@ where
     ) -> Result<gax::response::Response<crate::model::CommitResponse>> {
         self.inner.commit(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn rollback(
+        &self,
+        req: crate::model::RollbackRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Firestore",
+            "::rollback"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "rollback",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .rollback(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn rollback(
         &self,
@@ -99,7 +303,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.rollback(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn partition_query(
+        &self,
+        req: crate::model::PartitionQueryRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::PartitionQueryResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Firestore",
+            "::partition_query"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "partition_query",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .partition_query(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn partition_query(
         &self,
@@ -108,7 +341,36 @@ where
     ) -> Result<gax::response::Response<crate::model::PartitionQueryResponse>> {
         self.inner.partition_query(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_collection_ids(
+        &self,
+        req: crate::model::ListCollectionIdsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListCollectionIdsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Firestore",
+            "::list_collection_ids"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_collection_ids",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_collection_ids(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_collection_ids(
         &self,
@@ -117,7 +379,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListCollectionIdsResponse>> {
         self.inner.list_collection_ids(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn batch_write(
+        &self,
+        req: crate::model::BatchWriteRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::BatchWriteResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Firestore",
+            "::batch_write"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "batch_write",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .batch_write(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn batch_write(
         &self,
@@ -126,7 +417,36 @@ where
     ) -> Result<gax::response::Response<crate::model::BatchWriteResponse>> {
         self.inner.batch_write(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_document(
+        &self,
+        req: crate::model::CreateDocumentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Document>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Firestore",
+            "::create_document"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_document",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_document(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_document(
         &self,

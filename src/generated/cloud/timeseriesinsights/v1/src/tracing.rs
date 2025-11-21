@@ -37,6 +37,36 @@ impl<T> super::stub::TimeseriesInsightsController for TimeseriesInsightsControll
 where
     T: super::stub::TimeseriesInsightsController + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_data_sets(
+        &self,
+        req: crate::model::ListDataSetsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListDataSetsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TimeseriesInsightsController",
+            "::list_data_sets"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_data_sets",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .list_data_sets(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_data_sets(
         &self,
@@ -45,7 +75,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListDataSetsResponse>> {
         self.inner.list_data_sets(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_data_set(
+        &self,
+        req: crate::model::CreateDataSetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::DataSet>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TimeseriesInsightsController",
+            "::create_data_set"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_data_set",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_data_set(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_data_set(
         &self,
@@ -54,7 +113,36 @@ where
     ) -> Result<gax::response::Response<crate::model::DataSet>> {
         self.inner.create_data_set(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_data_set(
+        &self,
+        req: crate::model::DeleteDataSetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TimeseriesInsightsController",
+            "::delete_data_set"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_data_set",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_data_set(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_data_set(
         &self,
@@ -63,7 +151,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_data_set(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn append_events(
+        &self,
+        req: crate::model::AppendEventsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AppendEventsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TimeseriesInsightsController",
+            "::append_events"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "append_events",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .append_events(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn append_events(
         &self,
@@ -72,7 +189,36 @@ where
     ) -> Result<gax::response::Response<crate::model::AppendEventsResponse>> {
         self.inner.append_events(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn query_data_set(
+        &self,
+        req: crate::model::QueryDataSetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::QueryDataSetResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TimeseriesInsightsController",
+            "::query_data_set"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "query_data_set",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .query_data_set(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn query_data_set(
         &self,
@@ -81,7 +227,36 @@ where
     ) -> Result<gax::response::Response<crate::model::QueryDataSetResponse>> {
         self.inner.query_data_set(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn evaluate_slice(
+        &self,
+        req: crate::model::EvaluateSliceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::EvaluatedSlice>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TimeseriesInsightsController",
+            "::evaluate_slice"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "evaluate_slice",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .evaluate_slice(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn evaluate_slice(
         &self,
@@ -90,7 +265,36 @@ where
     ) -> Result<gax::response::Response<crate::model::EvaluatedSlice>> {
         self.inner.evaluate_slice(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn evaluate_timeseries(
+        &self,
+        req: crate::model::EvaluateTimeseriesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::EvaluatedSlice>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TimeseriesInsightsController",
+            "::evaluate_timeseries"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "evaluate_timeseries",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .evaluate_timeseries(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn evaluate_timeseries(
         &self,

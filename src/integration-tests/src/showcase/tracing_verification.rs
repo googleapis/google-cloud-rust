@@ -32,12 +32,20 @@ pub async fn run() -> Result<()> {
     let captured = TestLayer::capture(&guard);
     // Find the HTTP attempt span. It should have OTEL_KIND = Client.
     let http_span = captured.iter().find(|s| {
-        s.attributes.get("otel.kind").map(|v| v.as_string() == Some("Client".to_string())).unwrap_or(false)
+        s.attributes
+            .get("otel.kind")
+            .map(|v| v.as_string() == Some("Client".to_string()))
+            .unwrap_or(false)
     });
 
     if let Some(span) = http_span {
         let resource_name = span.attributes.get("gcp.resource.name");
-        assert_eq!(resource_name, Some(&"//localhost:7469/users/test-user".into()), "Attributes: {:?}", span.attributes);
+        assert_eq!(
+            resource_name,
+            Some(&"//localhost:7469/users/test-user".into()),
+            "Attributes: {:?}",
+            span.attributes
+        );
     } else {
         panic!("HTTP Client span not found. Captured: {:?}", captured);
     }
