@@ -300,6 +300,9 @@ pub enum WriteError {
     },
 }
 
+#[cfg(google_cloud_unstable_signed_url)]
+type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
+
 /// Represents an error that can occur when signing a URL.
 #[cfg(google_cloud_unstable_signed_url)]
 #[derive(thiserror::Error, Debug)]
@@ -310,8 +313,8 @@ pub enum SigningError {
     Signing(#[source] auth::signer::SigningError),
 
     /// The endpoint URL is invalid.
-    #[error("invalid endpoint: {0}")]
-    InvalidEndpoint(#[source] Box<dyn std::error::Error + Send + Sync + 'static>),
+    #[error("invalid GCS endpoint: {0}")]
+    InvalidEndpoint(#[source] BoxError),
 }
 
 #[cfg(test)]

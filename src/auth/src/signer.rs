@@ -130,11 +130,11 @@ impl SigningProvider for CredentialsSigner {
         let res = response
             .json::<SignBlobResponse>()
             .await
-            .map_err(SigningError::parsing)?;
+            .map_err(SigningError::transport)?;
 
         let signature = BASE64_STANDARD
             .decode(res.signed_blob)
-            .map_err(SigningError::parsing)?;
+            .map_err(SigningError::transport)?;
 
         let signature = hex::encode(signature);
 
@@ -195,18 +195,17 @@ impl SigningError {
         matches!(self.0, SigningErrorKind::Transport(_))
     }
 
-    /// A problem parsing a credentials JSON specification.
+    /// A problem parsing a private key for local signing.
     pub fn is_parsing(&self) -> bool {
         matches!(self.0, SigningErrorKind::Parsing(_))
     }
 
-    /// Mocked error.
-    #[doc(hidden)]
-    pub fn is_mock(&self) -> bool {
-        matches!(self.0, SigningErrorKind::Mock(_))
+    /// A problem signing content.
+    pub fn is_sign(&self) -> bool {
+        matches!(self.0, SigningErrorKind::Sign(_))
     }
 
-    /// A problem parsing a credentials specification.
+    /// A problem parsing a private key for local signing.
     pub(crate) fn parsing<T>(source: T) -> SigningError
     where
         T: Into<BoxError>,
@@ -222,7 +221,15 @@ impl SigningError {
         SigningError(SigningErrorKind::Transport(source.into()))
     }
 
-    /// Creates a new fake `SigningError`.
+    /// A problem signing content.
+    pub(crate) fn sign<T>(source: T) -> SigningError
+    where
+        T: Into<BoxError>,
+    {
+        SigningError(SigningErrorKind::Sign(source.into()))
+    }
+
+    /// Creates a new `SigningError`.
     ///
     /// This function is only intended for use in the client libraries
     /// implementation. Application may use this in mocks, though we do not
@@ -231,8 +238,11 @@ impl SigningError {
     /// # Parameters
     /// * `message` - The underlying error that caused the signing failure.
     #[doc(hidden)]
-    pub fn mock<T: Into<BoxError>>(message: T) -> Self {
-        SigningError(SigningErrorKind::Mock(message.into()))
+    pub fn from_msg<T>(message: T) -> SigningError
+    where
+        T: Into<BoxError>,
+    {
+        SigningError(SigningErrorKind::Sign(message.into()))
     }
 }
 
@@ -240,8 +250,8 @@ impl SigningError {
 enum SigningErrorKind {
     #[error("failed to generate signature via IAM API: {0}")]
     Transport(#[source] BoxError),
-    #[error("failed to parse credentials: {0}")]
+    #[error("failed to parse private key: {0}")]
     Parsing(#[source] BoxError),
-    #[error("mocked error when signing blob: {0}")]
-    Mock(#[source] BoxError),
+    #[error("failed to sign content: {0}")]
+    Sign(#[source] BoxError),
 }

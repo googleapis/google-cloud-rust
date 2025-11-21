@@ -254,7 +254,7 @@ mod tests {
                 Ok("test@example.com".to_string())
             }
             async fn sign(&self, _content: &[u8]) -> auth::signer::Result<String> {
-                Err(auth::signer::SigningError::mock("test".to_string()))
+                Err(auth::signer::SigningError::from_msg("test".to_string()))
             }
         }
         let signer = Signer::from(FailSigner);
@@ -264,7 +264,7 @@ mod tests {
             .unwrap_err();
 
         match err {
-            SigningError::Signing(e) => assert!(e.is_mock()),
+            SigningError::Signing(e) => assert!(e.is_sign()),
             _ => panic!("unexpected error type: {:?}", err),
         }
 

@@ -52,7 +52,7 @@ impl SigningProvider for ServiceAccountSigner {
             .signer()
             .map_err(SigningError::parsing)?;
 
-        let signature = signer.sign(content).map_err(SigningError::parsing)?;
+        let signature = signer.sign(content).map_err(SigningError::sign)?;
 
         let signature = hex::encode(signature);
 
