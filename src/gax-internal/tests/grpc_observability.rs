@@ -568,7 +568,7 @@ mod tests {
         config.tracing = true;
         config.cred = Some(test_credentials());
 
-        // Use a a real but non-existentaddress to ensure the request hangs and stays Pending,
+        // Use a a real but non-existent address to ensure the request hangs and stays Pending,
         // allowing us to drop it and trigger cancellation.
         let blackhole_endpoint = "http://192.0.2.1:1234";
         let client = grpc::Client::new(config, blackhole_endpoint).await?;
