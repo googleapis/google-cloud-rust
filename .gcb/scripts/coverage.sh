@@ -53,5 +53,6 @@ if [[ -n "${BRANCH_NAME:-}" ]]; then
     args+=(--branch "${BRANCH_NAME}")
 fi
 
-# Uploads the code coverate results
+# Uploads the code coverage results
+echo "Invoking codecovcli with ${args[@]}"
 env -i HOME="${HOME}" /workspace/.bin/codecovcli --verbose upload-process "${args[@]}"
