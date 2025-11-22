@@ -79,6 +79,10 @@ locals {
       config = "complex.yaml"
       script = "minimal-versions"
     }
+    protojson-conformance = {
+      config = "complex.yaml"
+      script = "protojson-conformance"
+    }
     semver-checks = {
       config = "complex.yaml"
       script = "semver-checks"
@@ -142,6 +146,10 @@ locals {
     minimal-versions = {
       config = "complex.yaml"
       script = "minimal-versions"
+    }
+    protojson-conformance = {
+      config = "complex.yaml"
+      script = "protojson-conformance"
     }
     referenceupload = {
       config = "referenceupload.yaml"
