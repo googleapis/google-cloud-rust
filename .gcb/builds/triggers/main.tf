@@ -47,6 +47,10 @@ locals {
       config = "complex.yaml"
       script = "compute-full"
     }
+    coverage = {
+      config = "coverage.yaml"
+      script = "coverage"
+    }
     docs = {
       config = "complex.yaml"
       script = "docs"
@@ -122,6 +126,10 @@ locals {
     compute-full = {
       config = "complex.yaml"
       script = "compute-full"
+    }
+    coverage = {
+      config = "coverage.yaml"
+      script = "coverage"
     }
     docs = {
       config = "complex.yaml"
