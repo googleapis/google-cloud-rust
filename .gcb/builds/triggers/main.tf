@@ -87,6 +87,10 @@ locals {
       config = "complex.yaml"
       script = "semver-checks"
     }
+    showcase = {
+      config = "complex.yaml"
+      script = "showcase"
+    }
     test-current = {
       config = "complex.yaml"
       flags  = local.unstable_flags
@@ -157,6 +161,10 @@ locals {
     semver-checks = {
       config = "complex.yaml"
       script = "semver-checks"
+    }
+    showcase = {
+      config = "complex.yaml"
+      script = "showcase"
     }
     test-current = {
       config = "complex.yaml"
