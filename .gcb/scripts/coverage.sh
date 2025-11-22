@@ -60,7 +60,7 @@ if [[ -n "${BRANCH_NAME:-}" ]]; then
 fi
 
 # Uploads the code coverage results
-echo "Invoking codecovcli with ${upload[@]}" | sed 's/--token.*--/--token [censored] --/'
+echo "Invoking codecovcli with ${upload[@]}" | sed 's/--token [^ ]* /--token [censored] /'
 env -i HOME="${HOME}" /workspace/.bin/codecovcli --verbose upload-process "${upload[@]}"
 
 # Notifies that all uploads are done.
