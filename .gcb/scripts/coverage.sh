@@ -44,8 +44,8 @@ notify=(
 # The commit SHA is required, use the GCB variable if set, otherwise try using
 # git to get the current SHA.
 if [[ -n "${COMMIT_SHA:-}" ]]; then
-    upload+=(--commit-sha "${_PR_NUMBER}")
-    notify+=(--commit-sha "${_PR_NUMBER}")
+    upload+=(--commit-sha "${COMMIT_SHA}")
+    notify+=(--commit-sha "${COMMIT_SHA}")
 else
     upload+=(--commit-sha "$(git rev-parse HEAD)")
     notify+=(--commit-sha "$(git rev-parse HEAD)")
