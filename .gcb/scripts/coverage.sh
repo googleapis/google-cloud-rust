@@ -24,7 +24,7 @@ cargo install cargo-tarpaulin --version 0.32.1 --locked
 
 cargo tarpaulin --out xml
 
-args=(
+upload=(
     # Get the codecov.io token from secret manager.
     --token "${CODECOV_TOKEN:-}"
     # We known where `cargo tarpaulin` outputs the coverage results, no need to
@@ -37,22 +37,31 @@ args=(
     # Provide some basic information
     --git-service github
 )
+notify=(
+    # Get the codecov.io token from secret manager.
+    --token "${CODECOV_TOKEN:-}"
+)
 # The commit SHA is required, use the GCB variable if set, otherwise try using
 # git to get the current SHA.
 if [[ -n "${COMMIT_SHA:-}" ]]; then
-    args+=(--pr "${_PR_NUMBER}")
+    upload+=(--commit-sha "${_PR_NUMBER}")
+    notify+=(--commit-sha "${_PR_NUMBER}")
 else
-    args+=(--pr "$(git rev-parse HEAD)")
+    upload+=(--commit-sha "$(git rev-parse HEAD)")
+    notify+=(--commit-sha "$(git rev-parse HEAD)")
 fi
 # Set the PR number from the GCB variable.
 if [[ -n "${_PR_NUMBER:-}" ]]; then
-    args+=(--pr "${_PR_NUMBER}")
+    upload+=(--pr "${_PR_NUMBER}")
 fi
 # Set the branch name from the GCB variable.
 if [[ -n "${BRANCH_NAME:-}" ]]; then
-    args+=(--branch "${BRANCH_NAME}")
+    upload+=(--branch "${BRANCH_NAME}")
 fi
 
 # Uploads the code coverage results
-echo "Invoking codecovcli with ${args[@]}" | sed 's/--token.*--/--token [censored] --/'
-env -i HOME="${HOME}" /workspace/.bin/codecovcli --verbose upload-process "${args[@]}"
+echo "Invoking codecovcli with ${upload[@]}" | sed 's/--token.*--/--token [censored] --/'
+env -i HOME="${HOME}" /workspace/.bin/codecovcli --verbose upload-process "${upload[@]}"
+
+# Notifies that all uploads are done.
+env -i HOME="${HOME}" /workspace/.bin/codecovcli --verbose send-notifications "${notify[@]}"
