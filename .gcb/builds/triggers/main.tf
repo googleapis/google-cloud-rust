@@ -83,6 +83,10 @@ locals {
       config = "complex.yaml"
       script = "protojson-conformance"
     }
+    regenerate = {
+      config = "complex.yaml"
+      script = "regenerate"
+    }
     semver-checks = {
       config = "complex.yaml"
       script = "semver-checks"
@@ -157,6 +161,10 @@ locals {
     }
     referenceupload = {
       config = "referenceupload.yaml"
+    }
+    regenerate = {
+      config = "complex.yaml"
+      script = "regenerate"
     }
     semver-checks = {
       config = "complex.yaml"
