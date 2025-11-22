@@ -23,7 +23,7 @@ cargo build -p protojson-conformance
 
 mkdir -p /workspace/target/protobuf
 curl -fsSL --retry 5 --retry-delay 15 https://github.com/protocolbuffers/protobuf/releases/download/v31.0/protobuf-31.0.tar.gz |
-  tar -C /workspace/target/protobuf -zxvf - --strip-components=1
+  tar -C /workspace/target/protobuf -zxf - --strip-components=1
 
 curl -fsSL --retry 5 --retry-delay 15 -o /workspace/.bin/bazelisk https://github.com/bazelbuild/bazelisk/releases/download/v1.27.0/bazelisk-linux-amd64
 chmod 755 /workspace/.bin/bazelisk
