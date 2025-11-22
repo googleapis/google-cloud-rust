@@ -161,11 +161,10 @@ GOPROXY=direct go run github.com/googleapis/librarian/cmd/sidekick@main refresha
 Find out what is the new version of librarian:
 
 ```bash
-GOPROXY=direct go list -m -u -f '{{.Version}}' github.com/googleapis/librarian@main
+GOPROXY=direct go list -m -u -f '{{.Version}}' github.com/googleapis/librarian@main >.sidekick-version.txt
 ```
 
-Then update any references in this document and in the `.github/workflows/*`
-files. Use a single PR to update the CI builds and any generated code.
+Use a single PR to update the CI builds and any generated code.
 
 ### Generating a library with customized directories
 
