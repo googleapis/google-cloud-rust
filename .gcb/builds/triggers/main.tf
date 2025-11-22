@@ -50,6 +50,7 @@ locals {
     coverage = {
       config = "coverage.yaml"
       script = "coverage"
+      flags  = local.unstable_flags
     }
     docs = {
       config = "complex.yaml"
@@ -130,6 +131,7 @@ locals {
     coverage = {
       config = "coverage.yaml"
       script = "coverage"
+      flags  = local.unstable_flags
     }
     docs = {
       config = "complex.yaml"
