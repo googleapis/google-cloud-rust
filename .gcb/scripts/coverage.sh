@@ -54,5 +54,5 @@ if [[ -n "${BRANCH_NAME:-}" ]]; then
 fi
 
 # Uploads the code coverage results
-echo "Invoking codecovcli with ${args[@]}"
+echo "Invoking codecovcli with ${args[@]}" | sed 's/--token.*--/--token [censored] --/'
 env -i HOME="${HOME}" /workspace/.bin/codecovcli --verbose upload-process "${args[@]}"
