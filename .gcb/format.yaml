@@ -1,0 +1,135 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Google Cloud Build configuration for complex builds. Delegates most of the
+# steps in the build to a script. The name of the script is configurable via
+# a substitution. Likewise, the machine type is configurable, as some builds
+# need more memory.
+
+options:
+  dynamic_substitutions: true
+  substitutionOption: 'ALLOW_LOOSE'
+  logging: CLOUD_LOGGING_ONLY
+  env:
+    - GOOGLE_CLOUD_RUST_TEST_RUNNING_ON_GCB=1
+    - GOOGLE_CLOUD_PROJECT=${PROJECT_ID}
+    - SCCACHE_GCS_BUCKET=${PROJECT_ID}-build-cache
+    - SCCACHE_GCS_RW_MODE=READ_WRITE
+    - SCCACHE_GCS_KEY_PREFIX=sccache/complex/${_SCRIPT}
+    - BAZEL_REMOTE_CACHE=https://storage.googleapis.com/${PROJECT_ID}-build-cache/bazel-cache/format
+    - RUSTC_WRAPPER=/workspace/.bin/sccache
+    - RUSTFLAGS=${_UNSTABLE_CFG_FLAGS}
+  workerPool: 'projects/${PROJECT_ID}/locations/${_POOL_REGION}/workerPools/${_POOL_ID}'
+serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
+steps:
+  - name: 'gcr.io/cloud-builders/curl'
+    automapSubstitutions: true
+    script: |
+      #!/usr/bin/env bash
+      set -euv
+      mkdir -p /workspace/.bin /workspace/.download
+
+      URL="https://releases.hashicorp.com/terraform/${_TERRAFORM_VERSION}/terraform_${_TERRAFORM_VERSION}_linux_amd64.zip"
+      curl -fsSL --retry 5 --retry-delay 15 "${URL}" -o /workspace/.download/terraform.zip
+      sha256sum -c <(echo "${_TERRAFORM_SHA256} */workspace/.download/terraform.zip")
+
+      URL="https://github.com/mozilla/sccache/releases/download/${_SCCACHE_VERSION}/sccache-${_SCCACHE_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+      curl -fsSL --retry 5 --retry-delay 15 "${URL}" -o /tmp/sccache.tar.gz
+      sha256sum -c <(echo "${_SCCACHE_SHA256} */tmp/sccache.tar.gz")
+      tar -C /workspace/.bin -zxf /tmp/sccache.tar.gz --strip-components=1
+      rm -f /tmp/sccache.tar.gz
+
+      chmod 755 /workspace/.bin/sccache
+  - name: 'rust:${_RUST_VERSION}-bookworm'
+    id: 'Search for typos'
+    script: |
+      #!/usr/bin/env bash
+      set -euv
+      cargo install typos-cli --version 1.32.0 --locked
+      typos
+  - name: 'rust:${_RUST_VERSION}-bookworm'
+    id: 'Verify all files have a copyright boilerplate'
+    script: |
+      #!/usr/bin/env bash
+      set -euv
+      cargo build --release --bin check-copyright
+      git ls-files -z -- '*.yaml' '*.yml' '*.toml' '*.go' '*.rs' \
+        ':!:testdata/**' ':!:**.md' ':!:**.mustache' ':!:**/generated/protos/**' | \
+        xargs -0 -r -P "$(nproc)" -n 50 target/release/check-copyright
+  - name: 'rust:${_RUST_VERSION}-bookworm'
+    id: 'Format TOML files'
+    script: |
+      #!/usr/bin/env bash
+      set -euv
+      cargo install taplo-cli --version 0.10.0 --locked
+      git ls-files -z -- '*.toml' ':!:testdata/**' ':!:**/generated/**' | \
+        xargs -0 taplo fmt
+  - name: 'golang:${_GO_VERSION}'
+    id: 'Format YAML files'
+    script: |
+      #!/usr/bin/env bash
+      set -euv
+      go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0
+      git ls-files -z -- '*.yaml' '*.yml' ':!:testdata/**' ':!:**/generated/**' | \
+        xargs -0 yamlfmt
+    waitFor: ['-']
+  - name: 'ubuntu:24.04'
+    id: 'Format Protobuf files'
+    script: |
+      #!/usr/bin/env bash
+      set -euv
+      apt update && apt install -y clang-format git
+      git ls-files -z -- '*.proto' ':!:**/testdata/googleapis/**' | \
+        xargs -0 -r -P "$(nproc)" -n 50 clang-format -i
+    waitFor: ['-']
+  - name: 'python:${_PYTHON_VERSION}'
+    id: 'Format Markdown (.md) files'
+    # Need entrypoint otherwise it starts Python.
+    entrypoint: '/bin/bash'
+    # Cannot use `script:` with `entrypoint:`. Use the (uglier) `args` list.
+    args:
+      - '-c'
+      - |
+        set -euv
+        pip install -r ci/requirements.txt
+        git ls-files -z -- '*.md' ':!:testdata/**' ':!:**/generated/**' | \
+          xargs -0 mdformat
+    waitFor: ['-']
+  # Maybe we should use the terraform docker image here. However, it does not
+  # `git`. We could install `git` on that image, but that is as hard / slow as
+  # installing `terraform` on Debian.
+  - name: 'rust:${_RUST_VERSION}-bookworm'
+    id: 'Format Terraform (.tf) files'
+    script: |
+      #!/usr/bin/env bash
+      set -euv
+      mkdir -p /workspace/.bin
+      env -C /workspace/.bin unzip -x /workspace/.download/terraform.zip
+      chmod 755 /workspace/.bin/terraform
+      git ls-files -z -- '*.tf' ':!:testdata/**' ':!:**/generated/**' | \
+        xargs -0 /workspace/.bin/terraform fmt
+    waitFor: ['-']
+  - name: 'rust:${_RUST_VERSION}-bookworm'
+    id: 'Detect miscellanous formatting problems'
+    script: git diff --exit-code
+substitutions:
+  _SCCACHE_VERSION: 'v0.12.0'
+  _SCCACHE_SHA256: 'b0e89ead6899224a4ba2b90e9073bf1ce036d95bab30f3dc33c1e1468bc4ad44'
+  _POOL_REGION: us-central1
+  _POOL_ID: rust-sdk-pool
+  _RUST_VERSION: '1.91'
+  _GO_VERSION: '1.25.4'
+  _PYTHON_VERSION: '3.14'
+  _TERRAFORM_VERSION: '1.14.0'
+  _TERRAFORM_SHA256: '33ac217458ba8b44ce2813553083bc132c9a07e41a79c2e3627977682d283093'
