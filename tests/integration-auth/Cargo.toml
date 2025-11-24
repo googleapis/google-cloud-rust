@@ -34,12 +34,12 @@ test-case.workspace  = true
 base64.workspace     = true
 reqwest.workspace    = true
 # Local dependencies
-auth           = { path = "../../../src/auth", package = "google-cloud-auth" }
-gax            = { path = "../../../src/gax", package = "google-cloud-gax" }
-language       = { path = "../../../src/generated/cloud/language/v2", package = "google-cloud-language-v2" }
-secretmanager  = { path = "../../../src/generated/cloud/secretmanager/v1", package = "google-cloud-secretmanager-v1" }
-iamcredentials = { path = "../../../src/generated/iam/credentials/v1", package = "google-cloud-iam-credentials-v1" }
-bigquery       = { path = "../../../src/generated/cloud/bigquery/v2", package = "google-cloud-bigquery-v2" }
+auth.workspace           = true
+gax.workspace            = true
+language.workspace       = true
+secretmanager.workspace  = true
+iamcredentials.workspace = true
+bigquery.workspace       = true
 
 [dev-dependencies]
 serial_test = { workspace = true }
