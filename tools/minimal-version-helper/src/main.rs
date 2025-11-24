@@ -16,7 +16,7 @@ use anyhow::{Result, bail};
 use clap::Parser;
 use semver::{Version, VersionReq};
 use std::{collections::HashMap, fs};
-use toml_edit::Document;
+use toml_edit::DocumentMut;
 
 #[derive(Parser)]
 #[command(version, about, long_about = None)]
@@ -56,7 +56,7 @@ fn prep(is_local: bool) -> Result<()> {
 
     let metadata = cargo_metadata::MetadataCommand::new().exec()?;
     let root_manifest_path = metadata.workspace_root.join("Cargo.toml");
-    let mut root_manifest = fs::read_to_string(&root_manifest_path)?.parse::<Document>()?;
+    let mut root_manifest = fs::read_to_string(&root_manifest_path)?.parse::<DocumentMut>()?;
 
     if is_local {
         // 1. Backup original files
