@@ -298,9 +298,9 @@ async-trait           = { default-features = false, version = "0.1.85" }
 base64                = { default-features = false, version = "0.22", features = ["std"] }
 bon                   = { default-features = false, version = "3.8" }
 bytes                 = { default-features = false, version = "1.10", features = ["serde"] }
-cargo_metadata        = { default-features = false, version = "0.18" }
+cargo_metadata        = { default-features = false, version = "0.23" }
 chrono                = { default-features = false, version = "0.4.42" }
-crates_io_api         = { default-features = false, version = "0.9.0" }
+crates_io_api         = { default-features = false, version = "0.12" }
 clap                  = { default-features = false, version = "4" }
 crc32c                = { default-features = false, version = "0.6.8" }
 futures               = { default-features = false, version = "0.3" }
@@ -334,7 +334,7 @@ thiserror             = { default-features = false, version = "2" }
 time                  = { default-features = false, version = "0.3.44" }
 tokio                 = { default-features = false, version = "1" }
 tokio-metrics         = { default-features = false, version = "0.4.5" }
-toml_edit             = { default-features = false, version = "0.21" }
+toml_edit             = { default-features = false, version = "0.23" }
 tonic                 = { default-features = false, version = "0.14.1", features = ["tls-native-roots", "tls-ring"] }
 tonic-prost           = { default-features = false, version = "0.14.2" }
 tonic-prost-build     = { default-features = false, version = "0.14.1" }

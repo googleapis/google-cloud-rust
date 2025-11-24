@@ -82,7 +82,7 @@ name = "auth-integration-tests"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "base64",
  "bytes",
  "google-cloud-auth",
  "google-cloud-bigquery-v2",
@@ -91,7 +91,7 @@ dependencies = [
  "google-cloud-language-v2",
  "google-cloud-secretmanager-v1",
  "httptest",
- "reqwest 0.12.24",
+ "reqwest",
  "scoped-env",
  "serde_json",
  "serial_test",
@@ -116,10 +116,10 @@ dependencies = [
  "bytes",
  "form_urlencoded",
  "futures-util",
- "http 1.3.1",
- "http-body 1.0.1",
+ "http",
+ "http-body",
  "http-body-util",
- "hyper 1.8.1",
+ "hyper",
  "hyper-util",
  "itoa",
  "matchit",
@@ -131,7 +131,7 @@ dependencies = [
  "serde_json",
  "serde_path_to_error",
  "serde_urlencoded",
- "sync_wrapper 1.0.2",
+ "sync_wrapper",
  "tokio",
  "tower",
  "tower-layer",
@@ -146,12 +146,12 @@ checksum = "59446ce19cd142f8833f856eb31f3eb097812d1479ab224f54d72428ca21ea22"
 dependencies = [
  "bytes",
  "futures-core",
- "http 1.3.1",
- "http-body 1.0.1",
+ "http",
+ "http-body",
  "http-body-util",
  "mime",
  "pin-project-lite",
- "sync_wrapper 1.0.2",
+ "sync_wrapper",
  "tower-layer",
  "tower-service",
 ]
@@ -164,12 +164,6 @@ checksum = "4c7f02d4ea65f2c1853089ffd8d2787bdbc63de2f0d29dedbcf8ccdfa0ccd4cf"
 
 [[package]]
 name = "base64"
-version = "0.21.7"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9d297deb1925b89f2ccc13d7635fa0714f12c87adce1c75356b39ca9b7178567"
-
-[[package]]
-name = "base64"
 version = "0.22.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "72b3254f16251a8381aa12e40e3c4d2f0199f8c6508fbecb9d91f575e0fbb8c6"
@@ -179,12 +173,6 @@ name = "base64ct"
 version = "1.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "55248b47b0caf0546f7988906588779981c43bb1bc9d0c44087278f80cdb44ba"
-
-[[package]]
-name = "bitflags"
-version = "1.3.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
 
 [[package]]
 name = "bitflags"
@@ -263,25 +251,25 @@ dependencies = [
 
 [[package]]
 name = "cargo-platform"
-version = "0.1.9"
+version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e35af189006b9c0f00a064685c727031e3ed2d8020f7ba284d78cc2671bd36ea"
+checksum = "122ec45a44b270afd1402f351b782c676b173e3c3fb28d86ff7ebfb4d86a4ee4"
 dependencies = [
  "serde",
 ]
 
 [[package]]
 name = "cargo_metadata"
-version = "0.18.1"
+version = "0.23.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2d886547e41f740c616ae73108f6eb70afe6d940c7bc697cb30f13daec073037"
+checksum = "ef987d17b0a113becdd19d3d0022d04d7ef41f9efe4f3fb63ac44ba61df3ade9"
 dependencies = [
  "camino",
  "cargo-platform",
  "semver",
  "serde",
  "serde_json",
- "thiserror 1.0.69",
+ "thiserror",
 ]
 
 [[package]]
@@ -417,13 +405,13 @@ dependencies = [
 
 [[package]]
 name = "crates_io_api"
-version = "0.9.0"
+version = "0.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cb0122a67287f6795360b83a542cf2fbb3eb57a42729966c9ac792598c909902"
+checksum = "b9d129ea9f4e6581cdda525c0b939e4b1753a9873543e4b409971b473f5c27db"
 dependencies = [
  "chrono",
  "futures",
- "reqwest 0.11.27",
+ "reqwest",
  "serde",
  "serde_derive",
  "serde_json",
@@ -945,7 +933,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -963,7 +951,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -988,7 +976,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1071,7 +1059,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1101,7 +1089,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1122,7 +1110,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1142,7 +1130,7 @@ dependencies = [
  "google-cloud-rpc-context",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1164,7 +1152,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1185,7 +1173,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1205,7 +1193,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1224,7 +1212,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1245,7 +1233,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1265,7 +1253,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1285,7 +1273,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1307,7 +1295,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1421,7 +1409,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1447,7 +1435,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1467,7 +1455,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1481,27 +1469,27 @@ version = "1.2.0"
 dependencies = [
  "anyhow",
  "async-trait",
- "base64 0.22.1",
+ "base64",
  "bon",
  "google-cloud-gax",
- "http 1.3.1",
+ "http",
  "httptest",
  "jsonwebtoken",
  "mockall",
  "mutants",
  "regex",
- "reqwest 0.12.24",
+ "reqwest",
  "rsa",
  "rustc_version",
  "rustls",
- "rustls-pemfile 2.2.0",
+ "rustls-pemfile",
  "scoped-env",
  "serde",
  "serde_json",
  "serial_test",
  "tempfile",
  "test-case",
- "thiserror 2.0.17",
+ "thiserror",
  "time",
  "tokio",
  "tokio-test",
@@ -1524,7 +1512,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1545,7 +1533,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1571,7 +1559,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1593,7 +1581,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1615,7 +1603,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1637,7 +1625,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1659,7 +1647,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1684,7 +1672,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1703,7 +1691,7 @@ dependencies = [
  "google-cloud-iam-v1",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1722,7 +1710,7 @@ dependencies = [
  "google-cloud-iam-v1",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1741,7 +1729,7 @@ dependencies = [
  "google-cloud-iam-v1",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1761,7 +1749,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1781,7 +1769,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1801,7 +1789,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1820,7 +1808,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1846,7 +1834,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1866,7 +1854,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1885,7 +1873,7 @@ dependencies = [
  "google-cloud-grafeas-v1",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1906,7 +1894,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1928,7 +1916,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1949,7 +1937,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1970,7 +1958,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -1989,7 +1977,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2012,7 +2000,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2034,7 +2022,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2054,7 +2042,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2086,7 +2074,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2106,7 +2094,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2129,7 +2117,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2150,7 +2138,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2172,7 +2160,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2194,7 +2182,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2213,7 +2201,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2233,7 +2221,7 @@ dependencies = [
  "google-cloud-iam-v1",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2253,7 +2241,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2275,7 +2263,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2297,7 +2285,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2317,7 +2305,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2339,7 +2327,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2361,7 +2349,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2385,7 +2373,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2406,7 +2394,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2429,7 +2417,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2451,7 +2439,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2469,7 +2457,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2492,7 +2480,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2515,7 +2503,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2538,7 +2526,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2562,7 +2550,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2583,7 +2571,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2605,7 +2593,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2626,7 +2614,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2644,7 +2632,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2667,7 +2655,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2689,7 +2677,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2711,7 +2699,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2731,7 +2719,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-type",
  "google-cloud-wkt",
- "http 1.3.1",
+ "http",
  "lazy_static",
  "prost",
  "prost-types",
@@ -2757,7 +2745,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2780,7 +2768,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2793,12 +2781,12 @@ name = "google-cloud-gax"
 version = "1.3.1"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "base64",
  "bytes",
  "futures",
  "google-cloud-rpc",
  "google-cloud-wkt",
- "http 1.3.1",
+ "http",
  "mockall",
  "pin-project",
  "rand 0.9.2",
@@ -2806,7 +2794,7 @@ dependencies = [
  "serde_json",
  "serial_test",
  "test-case",
- "thiserror 2.0.17",
+ "thiserror",
  "tokio",
  "tokio-test",
 ]
@@ -2825,11 +2813,11 @@ dependencies = [
  "google-cloud-test-utils",
  "google-cloud-wkt",
  "grpc-server",
- "http 1.3.1",
- "http-body 1.0.1",
+ "http",
+ "http-body",
  "http-body-util",
  "httptest",
- "hyper 1.8.1",
+ "hyper",
  "lazy_static",
  "mockall",
  "opentelemetry-semantic-conventions",
@@ -2837,7 +2825,7 @@ dependencies = [
  "pin-project",
  "prost",
  "prost-types",
- "reqwest 0.12.24",
+ "reqwest",
  "rustc_version",
  "scoped-env",
  "serde",
@@ -2845,7 +2833,7 @@ dependencies = [
  "serde_with",
  "serial_test",
  "test-case",
- "thiserror 2.0.17",
+ "thiserror",
  "tokio",
  "tokio-stream",
  "tonic",
@@ -2870,7 +2858,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2888,7 +2876,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2934,7 +2922,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2955,7 +2943,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2973,7 +2961,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -2992,7 +2980,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3017,7 +3005,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3037,7 +3025,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3055,7 +3043,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3074,7 +3062,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3095,7 +3083,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3116,7 +3104,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3135,7 +3123,7 @@ dependencies = [
  "google-cloud-iam-v1",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3170,7 +3158,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3190,7 +3178,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3209,7 +3197,7 @@ dependencies = [
  "google-cloud-kms-v1",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3231,7 +3219,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3249,7 +3237,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3270,7 +3258,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3288,7 +3276,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3307,7 +3295,7 @@ dependencies = [
  "google-cloud-location",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3342,7 +3330,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3361,7 +3349,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3384,7 +3372,7 @@ dependencies = [
  "google-cloud-wkt",
  "httptest",
  "pin-project",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "tokio",
@@ -3405,7 +3393,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3425,7 +3413,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3446,7 +3434,7 @@ dependencies = [
  "google-cloud-longrunning",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3467,7 +3455,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3489,7 +3477,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3511,7 +3499,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3534,7 +3522,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3556,7 +3544,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3575,7 +3563,7 @@ dependencies = [
  "google-cloud-location",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3595,7 +3583,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3615,7 +3603,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3636,7 +3624,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3657,7 +3645,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3680,7 +3668,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3703,7 +3691,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3725,7 +3713,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3747,7 +3735,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3769,7 +3757,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3790,7 +3778,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3812,7 +3800,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3833,7 +3821,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3864,7 +3852,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3885,7 +3873,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3916,7 +3904,7 @@ dependencies = [
  "google-cloud-oslogin-common",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3938,7 +3926,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3958,7 +3946,7 @@ dependencies = [
  "google-cloud-location",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -3982,7 +3970,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4004,7 +3992,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4025,7 +4013,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4045,7 +4033,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4067,7 +4055,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4085,7 +4073,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4106,12 +4094,12 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-iam-v1",
  "google-cloud-wkt",
- "http 1.3.1",
+ "http",
  "lazy_static",
  "mockall",
  "prost",
  "prost-types",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4134,7 +4122,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4153,7 +4141,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4185,7 +4173,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4207,7 +4195,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4229,7 +4217,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4250,7 +4238,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4273,7 +4261,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4320,7 +4308,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4340,7 +4328,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4360,7 +4348,7 @@ dependencies = [
  "google-cloud-location",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4382,7 +4370,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4405,7 +4393,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4423,7 +4411,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4444,7 +4432,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4466,7 +4454,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4486,7 +4474,7 @@ dependencies = [
  "google-cloud-location",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4505,7 +4493,7 @@ dependencies = [
  "google-cloud-location",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4525,7 +4513,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4548,7 +4536,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4575,7 +4563,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4596,7 +4584,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4618,7 +4606,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4636,7 +4624,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4650,7 +4638,7 @@ version = "1.4.0"
 dependencies = [
  "anyhow",
  "async-trait",
- "base64 0.22.1",
+ "base64",
  "bytes",
  "crc32c",
  "flate2",
@@ -4665,11 +4653,11 @@ dependencies = [
  "google-cloud-storage",
  "google-cloud-type",
  "google-cloud-wkt",
- "http 1.3.1",
- "http-body 1.0.1",
+ "http",
+ "http-body",
  "http-body-util",
  "httptest",
- "hyper 1.8.1",
+ "hyper",
  "lazy_static",
  "md5",
  "mime",
@@ -4680,7 +4668,7 @@ dependencies = [
  "pin-project",
  "prost",
  "prost-types",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4688,7 +4676,7 @@ dependencies = [
  "static_assertions",
  "tempfile",
  "test-case",
- "thiserror 2.0.17",
+ "thiserror",
  "tokio",
  "tokio-stream",
  "tokio-test",
@@ -4711,7 +4699,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4734,7 +4722,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4756,7 +4744,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4774,7 +4762,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4796,7 +4784,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4817,7 +4805,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4838,7 +4826,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4870,7 +4858,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4889,7 +4877,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4912,7 +4900,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4930,7 +4918,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4949,7 +4937,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -4971,7 +4959,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -5006,7 +4994,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -5026,7 +5014,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -5045,7 +5033,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -5066,7 +5054,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -5088,7 +5076,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -5110,7 +5098,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -5132,7 +5120,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -5153,7 +5141,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -5173,7 +5161,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -5191,7 +5179,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -5204,7 +5192,7 @@ name = "google-cloud-wkt"
 version = "1.1.0"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "base64",
  "bytes",
  "chrono",
  "common",
@@ -5213,7 +5201,7 @@ dependencies = [
  "serde_json",
  "serde_with",
  "test-case",
- "thiserror 2.0.17",
+ "thiserror",
  "time",
  "url",
 ]
@@ -5228,7 +5216,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -5249,7 +5237,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -5271,7 +5259,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -5299,7 +5287,7 @@ dependencies = [
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",
- "http 1.3.1",
+ "http",
  "prost",
  "serde_json",
  "tokio",
@@ -5307,25 +5295,6 @@ dependencies = [
  "tonic",
  "tonic-prost",
  "tonic-prost-build",
-]
-
-[[package]]
-name = "h2"
-version = "0.3.27"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0beca50380b1fc32983fc1cb4587bfa4bb9e78fc259aad4a0032d2080309222d"
-dependencies = [
- "bytes",
- "fnv",
- "futures-core",
- "futures-sink",
- "futures-util",
- "http 0.2.12",
- "indexmap 2.12.0",
- "slab",
- "tokio",
- "tokio-util",
- "tracing",
 ]
 
 [[package]]
@@ -5339,7 +5308,7 @@ dependencies = [
  "fnv",
  "futures-core",
  "futures-sink",
- "http 1.3.1",
+ "http",
  "indexmap 2.12.0",
  "slab",
  "tokio",
@@ -5391,17 +5360,6 @@ dependencies = [
 
 [[package]]
 name = "http"
-version = "0.2.12"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "601cbb57e577e2f5ef5be8e7b83f0f63994f25aa94d673e54a92d5c516d101f1"
-dependencies = [
- "bytes",
- "fnv",
- "itoa",
-]
-
-[[package]]
-name = "http"
 version = "1.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f4a85d31aea989eead29a3aaf9e1115a180df8282431156e533de47660892565"
@@ -5413,23 +5371,12 @@ dependencies = [
 
 [[package]]
 name = "http-body"
-version = "0.4.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7ceab25649e9960c0311ea418d17bee82c0dcec1bd053b5f9a66e265a693bed2"
-dependencies = [
- "bytes",
- "http 0.2.12",
- "pin-project-lite",
-]
-
-[[package]]
-name = "http-body"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1efedce1fb8e6913f23e0c92de8e62cd5b772a67e7b3946df930a62566c93184"
 dependencies = [
  "bytes",
- "http 1.3.1",
+ "http",
 ]
 
 [[package]]
@@ -5440,8 +5387,8 @@ checksum = "b021d93e26becf5dc7e1b75b1bed1fd93124b374ceb73f43d4d4eafec896a64a"
 dependencies = [
  "bytes",
  "futures-core",
- "http 1.3.1",
- "http-body 1.0.1",
+ "http",
+ "http-body",
  "pin-project-lite",
 ]
 
@@ -5468,9 +5415,9 @@ dependencies = [
  "crossbeam-channel",
  "form_urlencoded",
  "futures",
- "http 1.3.1",
+ "http",
  "http-body-util",
- "hyper 1.8.1",
+ "hyper",
  "hyper-util",
  "log",
  "once_cell",
@@ -5489,30 +5436,6 @@ checksum = "135b12329e5e3ce057a9f972339ea52bc954fe1e9358ef27f95e89716fbc5424"
 
 [[package]]
 name = "hyper"
-version = "0.14.32"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "41dfc780fdec9373c01bae43289ea34c972e40ee3c9f6b3c8801a35f35586ce7"
-dependencies = [
- "bytes",
- "futures-channel",
- "futures-core",
- "futures-util",
- "h2 0.3.27",
- "http 0.2.12",
- "http-body 0.4.6",
- "httparse",
- "httpdate",
- "itoa",
- "pin-project-lite",
- "socket2 0.5.10",
- "tokio",
- "tower-service",
- "tracing",
- "want",
-]
-
-[[package]]
-name = "hyper"
 version = "1.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2ab2d4f250c3d7b1c9fcdff1cece94ea4e2dfbec68614f7b87cb205f24ca9d11"
@@ -5521,9 +5444,9 @@ dependencies = [
  "bytes",
  "futures-channel",
  "futures-core",
- "h2 0.4.12",
- "http 1.3.1",
- "http-body 1.0.1",
+ "h2",
+ "http",
+ "http-body",
  "httparse",
  "httpdate",
  "itoa",
@@ -5540,8 +5463,8 @@ version = "0.27.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e3c93eb611681b207e1fe55d5a71ecf91572ec8a6705cdb6857f7d8d5242cf58"
 dependencies = [
- "http 1.3.1",
- "hyper 1.8.1",
+ "http",
+ "hyper",
  "hyper-util",
  "rustls",
  "rustls-pki-types",
@@ -5557,7 +5480,7 @@ version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2b90d566bffbce6a75bd8b09a05aa8c2cb1fabb6cb348f8840c9e4c90a0d83b0"
 dependencies = [
- "hyper 1.8.1",
+ "hyper",
  "hyper-util",
  "pin-project-lite",
  "tokio",
@@ -5566,15 +5489,18 @@ dependencies = [
 
 [[package]]
 name = "hyper-tls"
-version = "0.5.0"
+version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d6183ddfa99b85da61a140bea0efc93fdf56ceaa041b37d553518030827f9905"
+checksum = "70206fc6890eaca9fde8a0bf71caa2ddfc9fe045ac9e5c70df101a7dbde866e0"
 dependencies = [
  "bytes",
- "hyper 0.14.32",
+ "http-body-util",
+ "hyper",
+ "hyper-util",
  "native-tls",
  "tokio",
  "tokio-native-tls",
+ "tower-service",
 ]
 
 [[package]]
@@ -5583,19 +5509,19 @@ version = "0.1.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "52e9a2a24dc5c6821e71a7030e1e14b7b632acac55c40e9d2e082c621261bb56"
 dependencies = [
- "base64 0.22.1",
+ "base64",
  "bytes",
  "futures-channel",
  "futures-core",
  "futures-util",
- "http 1.3.1",
- "http-body 1.0.1",
- "hyper 1.8.1",
+ "http",
+ "http-body",
+ "hyper",
  "ipnet",
  "libc",
  "percent-encoding",
  "pin-project-lite",
- "socket2 0.6.1",
+ "socket2",
  "tokio",
  "tower-service",
  "tracing",
@@ -5784,7 +5710,7 @@ dependencies = [
  "google-cloud-wkt",
  "google-cloud-workflows-executions-v1",
  "google-cloud-workflows-v1",
- "http 1.3.1",
+ "http",
  "httptest",
  "mockall",
  "opentelemetry",
@@ -5793,7 +5719,7 @@ dependencies = [
  "opentelemetry_sdk",
  "pubsub-samples",
  "rand 0.9.2",
- "reqwest 0.12.24",
+ "reqwest",
  "secretmanager-openapi-v1",
  "serde",
  "serde_json",
@@ -5858,7 +5784,7 @@ version = "10.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c76e1c7d7df3e34443b3621b459b066a7b79644f059fc8b2db7070c825fd417e"
 dependencies = [
- "base64 0.22.1",
+ "base64",
  "ed25519-dalek",
  "getrandom 0.2.16",
  "hmac",
@@ -6047,7 +5973,7 @@ dependencies = [
  "bytes",
  "encoding_rs",
  "futures-util",
- "http 1.3.1",
+ "http",
  "httparse",
  "memchr",
  "mime",
@@ -6157,7 +6083,7 @@ version = "0.10.75"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "08838db121398ad17ab8531ce9de97b244589089e290a384c900cb9ff7434328"
 dependencies = [
- "bitflags 2.10.0",
+ "bitflags",
  "cfg-if",
  "foreign-types",
  "libc",
@@ -6205,7 +6131,7 @@ dependencies = [
  "futures-sink",
  "js-sys",
  "pin-project-lite",
- "thiserror 2.0.17",
+ "thiserror",
 ]
 
 [[package]]
@@ -6214,12 +6140,12 @@ version = "0.31.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7a2366db2dca4d2ad033cad11e6ee42844fd727007af5ad04a1730f4cb8163bf"
 dependencies = [
- "http 1.3.1",
+ "http",
  "opentelemetry",
  "opentelemetry-proto",
  "opentelemetry_sdk",
  "prost",
- "thiserror 2.0.17",
+ "thiserror",
  "tokio",
  "tonic",
 ]
@@ -6255,7 +6181,7 @@ dependencies = [
  "opentelemetry",
  "percent-encoding",
  "rand 0.9.2",
- "thiserror 2.0.17",
+ "thiserror",
  "tokio",
  "tokio-stream",
 ]
@@ -6579,8 +6505,8 @@ dependencies = [
  "quinn-udp",
  "rustc-hash",
  "rustls",
- "socket2 0.6.1",
- "thiserror 2.0.17",
+ "socket2",
+ "thiserror",
  "tokio",
  "tracing",
  "web-time",
@@ -6601,7 +6527,7 @@ dependencies = [
  "rustls",
  "rustls-pki-types",
  "slab",
- "thiserror 2.0.17",
+ "thiserror",
  "tinyvec",
  "tracing",
  "web-time",
@@ -6616,7 +6542,7 @@ dependencies = [
  "cfg_aliases",
  "libc",
  "once_cell",
- "socket2 0.6.1",
+ "socket2",
  "tracing",
  "windows-sys 0.60.2",
 ]
@@ -6701,7 +6627,7 @@ version = "0.5.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ed2bf2547551a7053d6fdfafda3f938979645c44812fbfcda098faae3f1a362d"
 dependencies = [
- "bitflags 2.10.0",
+ "bitflags",
 ]
 
 [[package]]
@@ -6755,63 +6681,26 @@ checksum = "7a2d987857b319362043e95f5353c0535c1f58eec5336fdfcf626430af7def58"
 
 [[package]]
 name = "reqwest"
-version = "0.11.27"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dd67538700a17451e7cba03ac727fb961abb7607553461627b97de0b89cf4a62"
-dependencies = [
- "base64 0.21.7",
- "bytes",
- "encoding_rs",
- "futures-core",
- "futures-util",
- "h2 0.3.27",
- "http 0.2.12",
- "http-body 0.4.6",
- "hyper 0.14.32",
- "hyper-tls",
- "ipnet",
- "js-sys",
- "log",
- "mime",
- "native-tls",
- "once_cell",
- "percent-encoding",
- "pin-project-lite",
- "rustls-pemfile 1.0.4",
- "serde",
- "serde_json",
- "serde_urlencoded",
- "sync_wrapper 0.1.2",
- "system-configuration",
- "tokio",
- "tokio-native-tls",
- "tower-service",
- "url",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "web-sys",
- "winreg",
-]
-
-[[package]]
-name = "reqwest"
 version = "0.12.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9d0946410b9f7b082a427e4ef5c8ff541a88b357bc6c637c40db3a68ac70a36f"
 dependencies = [
- "base64 0.22.1",
+ "base64",
  "bytes",
+ "futures-channel",
  "futures-core",
  "futures-util",
- "http 1.3.1",
- "http-body 1.0.1",
+ "http",
+ "http-body",
  "http-body-util",
- "hyper 1.8.1",
+ "hyper",
  "hyper-rustls",
+ "hyper-tls",
  "hyper-util",
  "js-sys",
  "log",
  "mime_guess",
+ "native-tls",
  "percent-encoding",
  "pin-project-lite",
  "quinn",
@@ -6820,8 +6709,9 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_urlencoded",
- "sync_wrapper 1.0.2",
+ "sync_wrapper",
  "tokio",
+ "tokio-native-tls",
  "tokio-rustls",
  "tokio-util",
  "tower",
@@ -6900,7 +6790,7 @@ version = "1.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cd15f8a2c5551a84d56efdc1cd049089e409ac19a3072d5037a17fd70719ff3e"
 dependencies = [
- "bitflags 2.10.0",
+ "bitflags",
  "errno",
  "libc",
  "linux-raw-sys",
@@ -6932,15 +6822,6 @@ dependencies = [
  "rustls-pki-types",
  "schannel",
  "security-framework 3.5.1",
-]
-
-[[package]]
-name = "rustls-pemfile"
-version = "1.0.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1c74cae0a4cf6ccbbf5f359f08efdf8ee7e1dc532573bf0db71968cb56b1448c"
-dependencies = [
- "base64 0.21.7",
 ]
 
 [[package]]
@@ -7069,7 +6950,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest 0.12.24",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_with",
@@ -7083,7 +6964,7 @@ version = "2.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "897b2245f0b511c87893af39b033e5ca9cce68824c4d7e7630b5a1d339658d02"
 dependencies = [
- "bitflags 2.10.0",
+ "bitflags",
  "core-foundation 0.9.4",
  "core-foundation-sys",
  "libc",
@@ -7096,7 +6977,7 @@ version = "3.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b3297343eaf830f66ede390ea39da1d462b6b0c1b000f420d0a83f898bbbe6ef"
 dependencies = [
- "bitflags 2.10.0",
+ "bitflags",
  "core-foundation 0.10.1",
  "core-foundation-sys",
  "libc",
@@ -7195,7 +7076,7 @@ version = "3.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "10574371d41b0d9b2cff89418eda27da52bcaff2cc8741db26382a77c29131f1"
 dependencies = [
- "base64 0.22.1",
+ "base64",
  "chrono",
  "hex",
  "indexmap 1.9.3",
@@ -7308,16 +7189,6 @@ checksum = "67b1b7a3b5fe4f1376887184045fcf45c69e92af734b7aaddc05fb777b6fbd03"
 
 [[package]]
 name = "socket2"
-version = "0.5.10"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e22376abed350d73dd1cd119b57ffccad95b4e585a7cda43e286245ce23c0678"
-dependencies = [
- "libc",
- "windows-sys 0.52.0",
-]
-
-[[package]]
-name = "socket2"
 version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "17129e116933cf371d018bb80ae557e889637989d8638274fb25622827b03881"
@@ -7359,7 +7230,7 @@ name = "storage-samples"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "base64",
  "bytes",
  "clap",
  "futures",
@@ -7425,12 +7296,6 @@ dependencies = [
 
 [[package]]
 name = "sync_wrapper"
-version = "0.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2047c6ded9c721764247e62cd3b03c09ffc529b2ba5b10ec482ae507a4a70160"
-
-[[package]]
-name = "sync_wrapper"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0bf256ce5efdfa370213c1dabab5935a12e49f2c58d15e9eac2870d3b4f27263"
@@ -7447,27 +7312,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
-]
-
-[[package]]
-name = "system-configuration"
-version = "0.5.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ba3a3adc5c275d719af8cb4272ea1c4a6d668a777f37e115f6d11ddbc1c8e0e7"
-dependencies = [
- "bitflags 1.3.2",
- "core-foundation 0.9.4",
- "system-configuration-sys",
-]
-
-[[package]]
-name = "system-configuration-sys"
-version = "0.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a75fb188eb626b924683e3b95e3a48e63551fcfb51949de2f06a9d91dbee93c9"
-dependencies = [
- "core-foundation-sys",
- "libc",
 ]
 
 [[package]]
@@ -7524,31 +7368,11 @@ dependencies = [
 
 [[package]]
 name = "thiserror"
-version = "1.0.69"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b6aaf5339b578ea85b50e080feb250a3e8ae8cfcdff9a461c9ec2904bc923f52"
-dependencies = [
- "thiserror-impl 1.0.69",
-]
-
-[[package]]
-name = "thiserror"
 version = "2.0.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f63587ca0f12b72a0600bcba1d40081f830876000bb46dd2337a3051618f4fc8"
 dependencies = [
- "thiserror-impl 2.0.17",
-]
-
-[[package]]
-name = "thiserror-impl"
-version = "1.0.69"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4fee6c4efc90059e10f81e6d42c60a18f76588c3d74cb83a0b242a2b6c7504c1"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn",
+ "thiserror-impl",
 ]
 
 [[package]]
@@ -7639,7 +7463,7 @@ dependencies = [
  "parking_lot",
  "pin-project-lite",
  "signal-hook-registry",
- "socket2 0.6.1",
+ "socket2",
  "tokio-macros",
  "windows-sys 0.61.2",
 ]
@@ -7726,20 +7550,40 @@ dependencies = [
 
 [[package]]
 name = "toml_datetime"
-version = "0.6.11"
+version = "0.7.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "22cddaf88f4fbc13c51aebbf5f8eceb5c7c5a9da2ac40a13519eb5b0a0e8f11c"
+checksum = "f2cdb639ebbc97961c51720f858597f7f24c4fc295327923af55b74c3c724533"
+dependencies = [
+ "serde_core",
+]
 
 [[package]]
 name = "toml_edit"
-version = "0.21.1"
+version = "0.23.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6a8534fd7f78b5405e860340ad6575217ce99f38d4d5c8f2442cb5ecb50090e1"
+checksum = "6485ef6d0d9b5d0ec17244ff7eb05310113c3f316f2d14200d4de56b3cb98f8d"
 dependencies = [
  "indexmap 2.12.0",
  "toml_datetime",
+ "toml_parser",
+ "toml_writer",
  "winnow",
 ]
+
+[[package]]
+name = "toml_parser"
+version = "1.0.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c0cbe268d35bdb4bb5a56a2de88d0ad0eb70af5384a99d648cd4b3d04039800e"
+dependencies = [
+ "winnow",
+]
+
+[[package]]
+name = "toml_writer"
+version = "1.0.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "df8b2b54733674ad286d16267dcfc7a71ed5c776e4ac7aa3c3e2561f7c637bf2"
 
 [[package]]
 name = "tonic"
@@ -7749,20 +7593,20 @@ checksum = "eb7613188ce9f7df5bfe185db26c5814347d110db17920415cf2fbcad85e7203"
 dependencies = [
  "async-trait",
  "axum",
- "base64 0.22.1",
+ "base64",
  "bytes",
- "h2 0.4.12",
- "http 1.3.1",
- "http-body 1.0.1",
+ "h2",
+ "http",
+ "http-body",
  "http-body-util",
- "hyper 1.8.1",
+ "hyper",
  "hyper-timeout",
  "hyper-util",
  "percent-encoding",
  "pin-project",
  "rustls-native-certs",
- "socket2 0.6.1",
- "sync_wrapper 1.0.2",
+ "socket2",
+ "sync_wrapper",
  "tokio",
  "tokio-rustls",
  "tokio-stream",
@@ -7822,7 +7666,7 @@ dependencies = [
  "indexmap 2.12.0",
  "pin-project-lite",
  "slab",
- "sync_wrapper 1.0.2",
+ "sync_wrapper",
  "tokio",
  "tokio-util",
  "tower-layer",
@@ -7836,11 +7680,11 @@ version = "0.6.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "adc82fd73de2a9722ac5da747f12383d2bfdb93591ee6c58486e0097890f05f2"
 dependencies = [
- "bitflags 2.10.0",
+ "bitflags",
  "bytes",
  "futures-util",
- "http 1.3.1",
- "http-body 1.0.1",
+ "http",
+ "http-body",
  "iri-string",
  "pin-project-lite",
  "tower",
@@ -7913,7 +7757,7 @@ dependencies = [
  "opentelemetry",
  "opentelemetry_sdk",
  "rustversion",
- "thiserror 2.0.17",
+ "thiserror",
  "tracing",
  "tracing-core",
  "tracing-subscriber",
@@ -8005,7 +7849,7 @@ dependencies = [
  "integration-tests",
  "mockall",
  "rand 0.9.2",
- "reqwest 0.12.24",
+ "reqwest",
  "serde_json",
  "storage-samples",
  "tempfile",
@@ -8234,15 +8078,6 @@ dependencies = [
 
 [[package]]
 name = "windows-sys"
-version = "0.48.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "677d2418bec65e3338edb076e806bc1ec15693c5d0104683f2efe857f61056a9"
-dependencies = [
- "windows-targets 0.48.5",
-]
-
-[[package]]
-name = "windows-sys"
 version = "0.52.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "282be5f36a8ce781fad8c8ae18fa3f9beff57ec1b52cb3de0789201425d9a33d"
@@ -8266,21 +8101,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ae137229bcbd6cdf0f7b80a31df61766145077ddf49416a728b02cb3921ff3fc"
 dependencies = [
  "windows-link",
-]
-
-[[package]]
-name = "windows-targets"
-version = "0.48.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9a2fa6e2155d7247be68c096456083145c183cbbbc2764150dda45a87197940c"
-dependencies = [
- "windows_aarch64_gnullvm 0.48.5",
- "windows_aarch64_msvc 0.48.5",
- "windows_i686_gnu 0.48.5",
- "windows_i686_msvc 0.48.5",
- "windows_x86_64_gnu 0.48.5",
- "windows_x86_64_gnullvm 0.48.5",
- "windows_x86_64_msvc 0.48.5",
 ]
 
 [[package]]
@@ -8318,12 +8138,6 @@ dependencies = [
 
 [[package]]
 name = "windows_aarch64_gnullvm"
-version = "0.48.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2b38e32f0abccf9987a4e3079dfb67dcd799fb61361e53e2882c3cbaf0d905d8"
-
-[[package]]
-name = "windows_aarch64_gnullvm"
 version = "0.52.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32a4622180e7a0ec044bb555404c800bc9fd9ec262ec147edd5989ccd0c02cd3"
@@ -8336,12 +8150,6 @@ checksum = "a9d8416fa8b42f5c947f8482c43e7d89e73a173cead56d044f6a56104a6d1b53"
 
 [[package]]
 name = "windows_aarch64_msvc"
-version = "0.48.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dc35310971f3b2dbbf3f0690a219f40e2d9afcf64f9ab7cc1be722937c26b4bc"
-
-[[package]]
-name = "windows_aarch64_msvc"
 version = "0.52.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "09ec2a7bb152e2252b53fa7803150007879548bc709c039df7627cabbd05d469"
@@ -8351,12 +8159,6 @@ name = "windows_aarch64_msvc"
 version = "0.53.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b9d782e804c2f632e395708e99a94275910eb9100b2114651e04744e9b125006"
-
-[[package]]
-name = "windows_i686_gnu"
-version = "0.48.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a75915e7def60c94dcef72200b9a8e58e5091744960da64ec734a6c6e9b3743e"
 
 [[package]]
 name = "windows_i686_gnu"
@@ -8384,12 +8186,6 @@ checksum = "fa7359d10048f68ab8b09fa71c3daccfb0e9b559aed648a8f95469c27057180c"
 
 [[package]]
 name = "windows_i686_msvc"
-version = "0.48.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8f55c233f70c4b27f66c523580f78f1004e8b5a8b659e05a4eb49d4166cca406"
-
-[[package]]
-name = "windows_i686_msvc"
 version = "0.52.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "240948bc05c5e7c6dabba28bf89d89ffce3e303022809e73deaefe4f6ec56c66"
@@ -8399,12 +8195,6 @@ name = "windows_i686_msvc"
 version = "0.53.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1e7ac75179f18232fe9c285163565a57ef8d3c89254a30685b57d83a38d326c2"
-
-[[package]]
-name = "windows_x86_64_gnu"
-version = "0.48.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "53d40abd2583d23e4718fddf1ebec84dbff8381c07cae67ff7768bbf19c6718e"
 
 [[package]]
 name = "windows_x86_64_gnu"
@@ -8420,12 +8210,6 @@ checksum = "9c3842cdd74a865a8066ab39c8a7a473c0778a3f29370b5fd6b4b9aa7df4a499"
 
 [[package]]
 name = "windows_x86_64_gnullvm"
-version = "0.48.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0b7b52767868a23d5bab768e390dc5f5c55825b6d30b86c844ff2dc7414044cc"
-
-[[package]]
-name = "windows_x86_64_gnullvm"
 version = "0.52.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "24d5b23dc417412679681396f2b49f3de8c1473deb516bd34410872eff51ed0d"
@@ -8435,12 +8219,6 @@ name = "windows_x86_64_gnullvm"
 version = "0.53.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0ffa179e2d07eee8ad8f57493436566c7cc30ac536a3379fdf008f47f6bb7ae1"
-
-[[package]]
-name = "windows_x86_64_msvc"
-version = "0.48.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ed94fce61571a4006852b7389a063ab983c02eb1bb37b47f8272ce92d06d9538"
 
 [[package]]
 name = "windows_x86_64_msvc"
@@ -8456,21 +8234,11 @@ checksum = "d6bbff5f0aada427a1e5a6da5f1f98158182f26556f345ac9e04d36d0ebed650"
 
 [[package]]
 name = "winnow"
-version = "0.5.40"
+version = "0.7.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f593a95398737aeed53e489c785df13f3618e41dbcd6718c6addbf1395aa6876"
+checksum = "21a0236b59786fed61e2a80582dd500fe61f18b5dca67a4a067d0bc9039339cf"
 dependencies = [
  "memchr",
-]
-
-[[package]]
-name = "winreg"
-version = "0.50.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "524e57b2c537c0f9b1e69f1965311ec12182b4122e45035b1508cd24d2adadb1"
-dependencies = [
- "cfg-if",
- "windows-sys 0.48.0",
 ]
 
 [[package]]
