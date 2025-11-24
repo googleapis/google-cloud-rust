@@ -160,12 +160,12 @@ hand-crafted code. The main directories are:
   libraries. Types in this crate are **not** intended for application developers
   to use.
 - `src/lro`: support code for long-running operations.
-- `tests/integration`: the integration tests. These run against production
-  and validate (using a small number of services) that the generator produces
+- `tests/integration`: the integration tests. These run against production and
+  validate (using a small number of services) that the generator produces
   working code.
-- `tests/endurance`: a smoke test for leaks or crashes. This test executes
-  many RPCs in the generated code, the expectation is that we can complex
-  over one billion requests without crashes, panics, or memory leaks.
+- `tests/endurance`: a smoke test for leaks or crashes. This test executes many
+  RPCs in the generated code, the expectation is that we can complex over one
+  billion requests without crashes, panics, or memory leaks.
 - `tests/integration-auth`: the auth library integration tests. These run
   against production and validate (using a small number of services) that the
   different authentication flows work as expected.
