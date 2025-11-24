@@ -27,7 +27,7 @@ cargo minimal-versions test --package google-cloud-gax-internal
 cargo minimal-versions check --package google-cloud-gax-internal
 
 echo "Prepare workspace to run minimal version tool."
-cargo run --release --bin minimal-version-helper prepare
+cargo run --release --package minimal-version-helper prepare
 cargo minimal-versions test --package google-cloud-storage
 cargo minimal-versions check --package google-cloud-storage
 cargo minimal-versions check --package google-cloud-gax-internal

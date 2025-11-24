@@ -63,7 +63,7 @@ steps:
     script: |
       #!/usr/bin/env bash
       set -euv
-      cargo build --release --bin check-copyright
+      cargo build --release --package check-copyright
       git ls-files -z -- '*.yaml' '*.yml' '*.toml' '*.go' '*.rs' \
         ':!:testdata/**' ':!:**.md' ':!:**.mustache' ':!:**/generated/protos/**' | \
         xargs -0 -r -P "$(nproc)" -n 50 target/release/check-copyright
