@@ -15,6 +15,10 @@
 
 set -ev
 
+echo DEBUG DEBUG
+printenv
+echo DEBUG DEBUG
+
 rustup component add clippy
 cargo version
 rustup show active-toolchain -v
@@ -30,6 +34,8 @@ if [[ "${GCB_TRIGGER_NAME:-}" == "*-test-msrv" ]]; then
 fi
 
 cargo test
+echo DEBUG DEBUG
+echo "Excluded == ${excluded[@]}"
 cargo check --profile=ci --workspace "${excluded[@]}"
 
 echo "==== DONE ===="
