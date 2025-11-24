@@ -4865,6 +4865,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BackupVault {
             __create_time,
             __update_time,
             __backup_minimum_enforced_retention_duration,
+            __backup_retention_inheritance,
             __deletable,
             __etag,
             __state,
@@ -4875,6 +4876,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BackupVault {
             __uid,
             __annotations,
             __access_restriction,
+            __encryption_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4908,6 +4910,12 @@ impl<'de> serde::de::Deserialize<'de> for super::BackupVault {
                             "backup_minimum_enforced_retention_duration" => {
                                 Ok(__FieldTag::__backup_minimum_enforced_retention_duration)
                             }
+                            "backupRetentionInheritance" => {
+                                Ok(__FieldTag::__backup_retention_inheritance)
+                            }
+                            "backup_retention_inheritance" => {
+                                Ok(__FieldTag::__backup_retention_inheritance)
+                            }
                             "deletable" => Ok(__FieldTag::__deletable),
                             "etag" => Ok(__FieldTag::__etag),
                             "state" => Ok(__FieldTag::__state),
@@ -4923,6 +4931,8 @@ impl<'de> serde::de::Deserialize<'de> for super::BackupVault {
                             "annotations" => Ok(__FieldTag::__annotations),
                             "accessRestriction" => Ok(__FieldTag::__access_restriction),
                             "access_restriction" => Ok(__FieldTag::__access_restriction),
+                            "encryptionConfig" => Ok(__FieldTag::__encryption_config),
+                            "encryption_config" => Ok(__FieldTag::__encryption_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5010,6 +5020,17 @@ impl<'de> serde::de::Deserialize<'de> for super::BackupVault {
                             }
                             result.backup_minimum_enforced_retention_duration =
                                 map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__backup_retention_inheritance => {
+                            if !fields.insert(__FieldTag::__backup_retention_inheritance) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_retention_inheritance",
+                                ));
+                            }
+                            result.backup_retention_inheritance = map
+                                .next_value::<std::option::Option<
+                                    crate::model::backup_vault::BackupRetentionInheritance,
+                                >>()?;
                         }
                         __FieldTag::__deletable => {
                             if !fields.insert(__FieldTag::__deletable) {
@@ -5130,6 +5151,97 @@ impl<'de> serde::de::Deserialize<'de> for super::BackupVault {
                                     crate::model::backup_vault::AccessRestriction,
                                 >>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__encryption_config => {
+                            if !fields.insert(__FieldTag::__encryption_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for encryption_config",
+                                ));
+                            }
+                            result.encryption_config =
+                                map.next_value::<std::option::Option<
+                                    crate::model::backup_vault::EncryptionConfig,
+                                >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::backup_vault::EncryptionConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __kms_key_name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for EncryptionConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "kmsKeyName" => Ok(__FieldTag::__kms_key_name),
+                            "kms_key_name" => Ok(__FieldTag::__kms_key_name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::backup_vault::EncryptionConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct EncryptionConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__kms_key_name => {
+                            if !fields.insert(__FieldTag::__kms_key_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for kms_key_name",
+                                ));
+                            }
+                            result.kms_key_name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6691,6 +6803,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Backup {
             __update_time,
             __labels,
             __enforced_retention_end_time,
+            __backup_retention_inheritance,
             __expire_time,
             __consistency_time,
             __etag,
@@ -6707,6 +6820,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Backup {
             __satisfies_pzs,
             __satisfies_pzi,
             __gcp_resource,
+            __kms_key_versions,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6739,6 +6853,12 @@ impl<'de> serde::de::Deserialize<'de> for super::Backup {
                             }
                             "enforced_retention_end_time" => {
                                 Ok(__FieldTag::__enforced_retention_end_time)
+                            }
+                            "backupRetentionInheritance" => {
+                                Ok(__FieldTag::__backup_retention_inheritance)
+                            }
+                            "backup_retention_inheritance" => {
+                                Ok(__FieldTag::__backup_retention_inheritance)
                             }
                             "expireTime" => Ok(__FieldTag::__expire_time),
                             "expire_time" => Ok(__FieldTag::__expire_time),
@@ -6782,6 +6902,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Backup {
                             "satisfies_pzi" => Ok(__FieldTag::__satisfies_pzi),
                             "gcpResource" => Ok(__FieldTag::__gcp_resource),
                             "gcp_resource" => Ok(__FieldTag::__gcp_resource),
+                            "kmsKeyVersions" => Ok(__FieldTag::__kms_key_versions),
+                            "kms_key_versions" => Ok(__FieldTag::__kms_key_versions),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6867,6 +6989,17 @@ impl<'de> serde::de::Deserialize<'de> for super::Backup {
                             }
                             result.enforced_retention_end_time =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__backup_retention_inheritance => {
+                            if !fields.insert(__FieldTag::__backup_retention_inheritance) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_retention_inheritance",
+                                ));
+                            }
+                            result.backup_retention_inheritance = map
+                                .next_value::<std::option::Option<
+                                    crate::model::backup_vault::BackupRetentionInheritance,
+                                >>()?;
                         }
                         __FieldTag::__expire_time => {
                             if !fields.insert(__FieldTag::__expire_time) {
@@ -7075,6 +7208,14 @@ impl<'de> serde::de::Deserialize<'de> for super::Backup {
                                     .unwrap_or_default(),
                                 ),
                             );
+                        }
+                        __FieldTag::__kms_key_versions => {
+                            if !fields.insert(__FieldTag::__kms_key_versions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for kms_key_versions",
+                                ));
+                            }
+                            result.kms_key_versions = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -9492,6 +9633,7 @@ impl<'de> serde::de::Deserialize<'de> for super::RestoreBackupRequest {
             __region_disk_target_environment,
             __compute_instance_restore_properties,
             __disk_restore_properties,
+            __clear_overrides_field_mask,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -9537,6 +9679,12 @@ impl<'de> serde::de::Deserialize<'de> for super::RestoreBackupRequest {
                             }
                             "diskRestoreProperties" => Ok(__FieldTag::__disk_restore_properties),
                             "disk_restore_properties" => Ok(__FieldTag::__disk_restore_properties),
+                            "clearOverridesFieldMask" => {
+                                Ok(__FieldTag::__clear_overrides_field_mask)
+                            }
+                            "clear_overrides_field_mask" => {
+                                Ok(__FieldTag::__clear_overrides_field_mask)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -9666,6 +9814,15 @@ impl<'de> serde::de::Deserialize<'de> for super::RestoreBackupRequest {
                                     map.next_value::<std::option::Option<std::boxed::Box<crate::model::DiskRestoreProperties>>>()?.unwrap_or_default()
                                 ),
                             );
+                        }
+                        __FieldTag::__clear_overrides_field_mask => {
+                            if !fields.insert(__FieldTag::__clear_overrides_field_mask) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for clear_overrides_field_mask",
+                                ));
+                            }
+                            result.clear_overrides_field_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -734,7 +734,7 @@ impl VmMigration {
         super::builder::vm_migration::GetImageImportJob::new(self.inner.clone())
     }
 
-    /// Initiates the cancellation of a running clone job.
+    /// Initiates the cancellation of a running ImageImportJob.
     ///
     /// # Long running operations
     ///

@@ -9613,6 +9613,15 @@ pub struct SimpleExportPolicyRule {
     /// value be ignored if this is enabled.
     pub kerberos_5p_read_write: std::option::Option<bool>,
 
+    /// Optional. Defines how user identity squashing is applied for this export
+    /// rule. This field is the preferred way to configure squashing behavior and
+    /// takes precedence over `has_root_access` if both are provided.
+    pub squash_mode: std::option::Option<crate::model::simple_export_policy_rule::SquashMode>,
+
+    /// Optional. An integer representing the anonymous user ID. Range is 0 to
+    /// 4294967295. Required when squash_mode is ROOT_SQUASH or ALL_SQUASH.
+    pub anon_uid: std::option::Option<i64>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9818,11 +9827,196 @@ impl SimpleExportPolicyRule {
         self.kerberos_5p_read_write = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [squash_mode][crate::model::SimpleExportPolicyRule::squash_mode].
+    pub fn set_squash_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::simple_export_policy_rule::SquashMode>,
+    {
+        self.squash_mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [squash_mode][crate::model::SimpleExportPolicyRule::squash_mode].
+    pub fn set_or_clear_squash_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::simple_export_policy_rule::SquashMode>,
+    {
+        self.squash_mode = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [anon_uid][crate::model::SimpleExportPolicyRule::anon_uid].
+    pub fn set_anon_uid<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.anon_uid = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [anon_uid][crate::model::SimpleExportPolicyRule::anon_uid].
+    pub fn set_or_clear_anon_uid<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.anon_uid = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for SimpleExportPolicyRule {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.netapp.v1.SimpleExportPolicyRule"
+    }
+}
+
+/// Defines additional types related to [SimpleExportPolicyRule].
+pub mod simple_export_policy_rule {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// SquashMode defines how remote user privileges are restricted when accessing
+    /// an NFS export. It controls how user identities (like root) are mapped to
+    /// anonymous users to limit access and enforce security.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SquashMode {
+        /// Defaults to NO_ROOT_SQUASH.
+        Unspecified,
+        /// The root user (UID 0) retains full access. Other users are
+        /// unaffected.
+        NoRootSquash,
+        /// The root user (UID 0) is squashed to anonymous user ID. Other users are
+        /// unaffected.
+        RootSquash,
+        /// All users are squashed to anonymous user ID.
+        AllSquash,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SquashMode::value] or
+        /// [SquashMode::name].
+        UnknownValue(squash_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod squash_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SquashMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NoRootSquash => std::option::Option::Some(1),
+                Self::RootSquash => std::option::Option::Some(2),
+                Self::AllSquash => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SQUASH_MODE_UNSPECIFIED"),
+                Self::NoRootSquash => std::option::Option::Some("NO_ROOT_SQUASH"),
+                Self::RootSquash => std::option::Option::Some("ROOT_SQUASH"),
+                Self::AllSquash => std::option::Option::Some("ALL_SQUASH"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for SquashMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SquashMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SquashMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NoRootSquash,
+                2 => Self::RootSquash,
+                3 => Self::AllSquash,
+                _ => Self::UnknownValue(squash_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SquashMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SQUASH_MODE_UNSPECIFIED" => Self::Unspecified,
+                "NO_ROOT_SQUASH" => Self::NoRootSquash,
+                "ROOT_SQUASH" => Self::RootSquash,
+                "ALL_SQUASH" => Self::AllSquash,
+                _ => Self::UnknownValue(squash_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SquashMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NoRootSquash => serializer.serialize_i32(1),
+                Self::RootSquash => serializer.serialize_i32(2),
+                Self::AllSquash => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SquashMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SquashMode>::new(
+                ".google.cloud.netapp.v1.SimpleExportPolicyRule.SquashMode",
+            ))
+        }
     }
 }
 
