@@ -29,8 +29,8 @@ steps:
     entrypoint: bash
     args: ['.gcb/scripts/install-sccache.sh']
     env:
-      - _SCCACHE_VERSION="${_SCCACHE_VERSION}"
-      - _SCCACHE_SHA256="${_SCCACHE_SHA256}"
+      - _SCCACHE_VERSION=${_SCCACHE_VERSION}
+      - _SCCACHE_SHA256=${_SCCACHE_SHA256}
   - name: 'rust:1.85-bookworm'
     script: |
       #!/usr/bin/env bash
