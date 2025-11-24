@@ -16,18 +16,14 @@
 
 //! Google Cloud Client Libraries for Rust - API Keys API
 //!
-//!
-//!
 //! This crate contains traits, types, and functions to interact with API Keys API
 //! Most applications will use the structs defined in the [client] module.
-//!
 //!
 //! The client library types and functions are stable and not expected to change.
 //! Please note that Google Cloud services do change from time to time. The client
 //! libraries are designed to preserve backwards compatibility when the service
 //! changes in compatible ways. For example, adding RPCs, or fields to messages
 //! should not introduce breaking changes to the client libraries.
-//!
 //!
 //! # Available Clients
 //!
