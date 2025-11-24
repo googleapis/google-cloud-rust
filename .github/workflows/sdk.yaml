@@ -35,7 +35,7 @@ jobs:
         rust-version: ['rust:current']
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: actions/cache@v4
         with:
           path: |
@@ -63,7 +63,7 @@ jobs:
       matrix:
         rust-version: ['rust:current']
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: actions/cache@v4
         with:
           path: |
@@ -131,7 +131,7 @@ jobs:
       matrix:
         rust-version: ['rust:current']
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: actions/cache@v4
         with:
           path: |
