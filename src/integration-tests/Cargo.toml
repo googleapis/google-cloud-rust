@@ -46,6 +46,7 @@ opentelemetry_sdk.workspace       = true
 opentelemetry-otlp.workspace      = true
 opentelemetry-proto.workspace     = true
 rand                              = { workspace = true, features = ["thread_rng"] }
+reqwest.workspace                 = true
 serde_json.workspace              = true
 tokio                             = { workspace = true, features = ["process", "test-util"] }
 tokio-stream                      = { workspace = true, features = ["net"] }
@@ -118,12 +119,15 @@ path    = "../../src/generated/cloud/workflows/v1"
 package = "google-cloud-workflows-executions-v1"
 path    = "../../src/generated/cloud/workflows/executions/v1"
 
+[dependencies.google-cloud-trace-v1]
+package = "google-cloud-trace-v1"
+path    = "../../src/generated/devtools/cloudtrace/v1"
+
 [dev-dependencies]
 anyhow.workspace            = true
 httptest.workspace          = true
 mockall.workspace           = true
 opentelemetry_sdk           = { workspace = true, features = ["testing"] }
-reqwest.workspace           = true
 serde.workspace             = true
 serde_with.workspace        = true
 static_assertions.workspace = true
