@@ -15,10 +15,6 @@
 
 set -ev
 
-echo DEBUG DEBUG
-printenv
-echo DEBUG DEBUG
-
 rustup component add clippy
 cargo version
 rustup show active-toolchain -v
@@ -26,7 +22,7 @@ rustup show active-toolchain -v
 echo "RUSTFLAGS in test: $RUSTFLAGS"
 
 excluded=()
-if [[ "${GCB_TRIGGER_NAME:-}" == "*-test-msrv" ]]; then
+if [[ "${GCB_TRIGGER_NAME:-}" == *"-test-msrv" ]]; then
     excluded+=(
         --exclude check-copyright
         --exclude minimal-version-helper
@@ -34,8 +30,6 @@ if [[ "${GCB_TRIGGER_NAME:-}" == "*-test-msrv" ]]; then
 fi
 
 cargo test
-echo DEBUG DEBUG
-echo "Excluded == ${excluded[@]}"
 cargo check --profile=ci --workspace "${excluded[@]}"
 
 echo "==== DONE ===="
