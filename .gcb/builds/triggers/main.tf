@@ -96,6 +96,9 @@ locals {
       config = "complex.yaml"
       script = "regenerate"
     }
+    rustdocfx = {
+      config = "rustdocfx.yaml"
+    }
     semver-checks = {
       config = "complex.yaml"
       script = "semver-checks"
