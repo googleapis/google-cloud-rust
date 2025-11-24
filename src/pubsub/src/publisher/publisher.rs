@@ -30,15 +30,15 @@ const MAX_BYTES: u32 = 1e7 as u32; // 10MB
 /// A `Publisher` sends messages to a specific topic. It manages message batching
 /// and sending in a background task.
 ///
-/// Publishers are created via a [`PublisherFactory`](crate::client::PublisherFactory).
+/// Publishers are created via a [`Client`](crate::client::Client).
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
-/// # use client::PublisherFactory;
+/// # use client::Client;
 /// # use model::PubsubMessage;
-/// let factory = PublisherFactory::builder().build().await?;
-/// let publisher = factory.publisher("projects/my-project/topics/my-topic").build();
+/// let client = Client::builder().build().await?;
+/// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
 /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World"));
 /// # Ok(()) }
 /// ```
@@ -122,17 +122,17 @@ impl Publisher {
 
 /// Creates `Publisher`s.
 ///
-/// Publishers are created via a [`PublisherFactory`][crate::client::PublisherFactory].
+/// Publishers are created via a [`Client`][crate::client::Client].
 ///
 /// # Example
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
-/// # use builder::publisher::PublisherFactoryBuilder;
-/// # use client::PublisherFactory;
-/// let factory = PublisherFactory::builder().build().await?;
-/// let publisher = factory.publisher("projects/my-project/topics/topic").build();
+/// # use builder::publisher::ClientBuilder;
+/// # use client::Client;
+/// let client = Client::builder().build().await?;
+/// let publisher = client.publisher("projects/my-project/topics/topic").build();
 /// # Ok(()) }
 /// ```
 #[derive(Clone, Debug)]
@@ -159,10 +159,10 @@ impl PublisherBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::PublisherFactory;
+    /// # use google_cloud_pubsub::client::Client;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// # let factory = PublisherFactory::builder().build().await?;
-    /// let publisher = factory.publisher("projects/my-project/topics/my-topic")
+    /// # let client = Client::builder().build().await?;
+    /// let publisher = client.publisher("projects/my-project/topics/my-topic")
     ///     .set_message_count_threshold(100)
     ///     .build();
     /// # Ok(()) }
@@ -178,11 +178,11 @@ impl PublisherBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::PublisherFactory;
+    /// # use google_cloud_pubsub::client::Client;
     /// # use std::time::Duration;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// # let factory = PublisherFactory::builder().build().await?;
-    /// let publisher = factory.publisher("projects/my-project/topics/my-topic")
+    /// # let client = Client::builder().build().await?;
+    /// let publisher = client.publisher("projects/my-project/topics/my-topic")
     ///     .set_delay_threshold(Duration::from_millis(50))
     ///     .build();
     /// # Ok(()) }
@@ -431,7 +431,7 @@ impl Batch {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{client::PublisherFactory, publisher::options::BatchingOptions};
+    use crate::{client::Client, publisher::options::BatchingOptions};
     use crate::{
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
         model::{PublishResponse, PubsubMessage},
@@ -792,8 +792,8 @@ mod tests {
 
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
-        let factory = PublisherFactory::builder().build().await?;
-        let builder = factory.publisher("projects/my-project/topics/my-topic".to_string());
+        let client = Client::builder().build().await?;
+        let builder = client.publisher("projects/my-project/topics/my-topic".to_string());
         let publisher = builder.set_message_count_threshold(1_u32).build();
         assert_eq!(publisher.batching_options.message_count_threshold, 1_u32);
         Ok(())
@@ -801,7 +801,7 @@ mod tests {
 
     #[tokio::test]
     async fn default_batching() -> anyhow::Result<()> {
-        let client = PublisherFactory::builder().build().await?;
+        let client = Client::builder().build().await?;
         let publisher = client
             .publisher("projects/my-project/topics/my-topic".to_string())
             .build();
@@ -829,7 +829,7 @@ mod tests {
             .set_message_count_threshold(MAX_MESSAGES + 1)
             .set_byte_threshold(MAX_BYTES + 1);
 
-        let client = PublisherFactory::builder().build().await?;
+        let client = Client::builder().build().await?;
         let publisher = client
             .publisher("projects/my-project/topics/my-topic".to_string())
             .set_delay_threshold(oversized_options.delay_threshold)
