@@ -46,7 +46,7 @@ fi
 env -C /workspace/target/protobuf USE_BAZEL_VERSION=8.2.1 \
     /workspace/.bin/bazelisk run "${args[@]}" -- \
     //conformance:conformance_test_runner \
-    --failure_list /workspace/src/protojson-conformance/expected_failures.txt \
+    --failure_list /workspace/tests/protojson-conformance/expected_failures.txt \
     /workspace/target/debug/protojson-conformance
 
 echo "==== DONE ===="
