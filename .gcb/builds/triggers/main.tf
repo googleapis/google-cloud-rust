@@ -65,6 +65,9 @@ locals {
       config = "complex.yaml"
       script = "features"
     }
+    format = {
+      config = "format.yaml"
+    }
     integration = {
       config = "integration.yaml"
     }
