@@ -29,14 +29,13 @@ options:
     - RUSTFLAGS=${_UNSTABLE_CFG_FLAGS}
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:
-  - name: 'gcr.io/cloud-builders/curl'
-    script: |
-      #!/usr/bin/env bash
-      set -e
-      mkdir -p .bin
-      curl -fsSL --retry 5 --retry-delay 15 https://github.com/mozilla/sccache/releases/download/v0.9.1/sccache-v0.9.1-x86_64-unknown-linux-musl.tar.gz |
-        tar -C /workspace/.bin -zxf - --strip-components=1
-      chmod 755 /workspace/.bin/sccache
+  - id: 'Set up build cache'
+    name: 'gcr.io/cloud-builders/curl'
+    entrypoint: bash
+    args: ['.gcb/scripts/install-sccache.sh']
+    env:
+      - _SCCACHE_VERSION="${_SCCACHE_VERSION}"
+      - _SCCACHE_SHA256="${_SCCACHE_SHA256}"
   - name: 'rust:1.90-bookworm'
     script: |
       #!/usr/bin/env bash
@@ -48,3 +47,6 @@ steps:
         --package pubsub-samples
       cargo build --package storage-samples --profile=test --all-features
       cargo build --package pubsub-samples --profile=test --all-features
+substitutions:
+  _SCCACHE_VERSION: 'v0.12.0'
+  _SCCACHE_SHA256: 'b0e89ead6899224a4ba2b90e9073bf1ce036d95bab30f3dc33c1e1468bc4ad44'

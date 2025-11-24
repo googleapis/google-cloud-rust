@@ -33,24 +33,24 @@ options:
   workerPool: 'projects/${PROJECT_ID}/locations/${_POOL_REGION}/workerPools/${_POOL_ID}'
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:
-  - name: 'gcr.io/cloud-builders/curl'
+  - id: 'Set up build cache'
+    name: 'gcr.io/cloud-builders/curl'
+    entrypoint: bash
+    args: ['.gcb/scripts/install-sccache.sh']
+    env:
+      - _SCCACHE_VERSION="${_SCCACHE_VERSION}"
+      - _SCCACHE_SHA256="${_SCCACHE_SHA256}"
+  - id: 'Install terraform'
+    name: 'gcr.io/cloud-builders/curl'
     automapSubstitutions: true
     script: |
       #!/usr/bin/env bash
       set -euv
-      mkdir -p /workspace/.bin /workspace/.download
+      mkdir -p /workspace/.download
 
       URL="https://releases.hashicorp.com/terraform/${_TERRAFORM_VERSION}/terraform_${_TERRAFORM_VERSION}_linux_amd64.zip"
       curl -fsSL --retry 5 --retry-delay 15 "${URL}" -o /workspace/.download/terraform.zip
       sha256sum -c <(echo "${_TERRAFORM_SHA256} */workspace/.download/terraform.zip")
-
-      URL="https://github.com/mozilla/sccache/releases/download/${_SCCACHE_VERSION}/sccache-${_SCCACHE_VERSION}-x86_64-unknown-linux-musl.tar.gz"
-      curl -fsSL --retry 5 --retry-delay 15 "${URL}" -o /tmp/sccache.tar.gz
-      sha256sum -c <(echo "${_SCCACHE_SHA256} */tmp/sccache.tar.gz")
-      tar -C /workspace/.bin -zxf /tmp/sccache.tar.gz --strip-components=1
-      rm -f /tmp/sccache.tar.gz
-
-      chmod 755 /workspace/.bin/sccache
   - name: 'rust:${_RUST_VERSION}-bookworm'
     id: 'Search for typos'
     script: |
