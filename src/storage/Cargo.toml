@@ -87,3 +87,5 @@ tempfile.workspace       = true
 tokio-test.workspace     = true
 tokio.workspace          = true
 google-cloud-storage     = { path = ".", features = ["unstable-stream"] }
+pretty_assertions        = { workspace = true }
+scoped-env.workspace     = true

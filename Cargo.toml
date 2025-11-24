@@ -362,6 +362,7 @@ multer            = { default-features = false, version = "3" }
 mutants           = { default-features = false, version = "0.0.3" }
 once_cell         = { default-features = false, version = "1.19.0" }
 paste             = { default-features = false, version = "1" }
+pretty_assertions = { default-features = false, version = "1.4.1", features = ["alloc"] }
 regex             = { default-features = false, version = "1" }
 rsa               = { default-features = false, version = "0.9.8" }
 rustc_version     = { default-features = false, version = "0.4" }
