@@ -21,8 +21,16 @@ rustup show active-toolchain -v
 
 echo "RUSTFLAGS in test: $RUSTFLAGS"
 
+excluded=()
+if [[ "${GCB_TRIGGER_NAME:-}" == "*-test-msrv" ]]; then
+    excluded+=(
+        --exclude check-copyright
+        --exclude minimal-version-helper
+    )
+fi
+
 cargo test
-cargo check --profile=ci --workspace
+cargo check --profile=ci --workspace "${excluded[@]}"
 
 echo "==== DONE ===="
 
