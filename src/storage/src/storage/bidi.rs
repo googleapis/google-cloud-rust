@@ -22,6 +22,9 @@ mod remaining_range;
 mod requested_range;
 mod resume_redirect;
 mod retry_redirect;
+mod stub;
+mod transport;
+mod worker;
 
 use crate::google::storage::v2::{BidiReadObjectRequest, BidiReadObjectResponse};
 use crate::request_options::RequestOptions;
@@ -160,5 +163,11 @@ mod tests {
             read_length: length,
             ..ProtoRange::default()
         }
+    }
+
+    pub(super) fn proto_range_id(offset: i64, length: i64, id: i64) -> ProtoRange {
+        let mut range = proto_range(offset, length);
+        range.read_id = id;
+        range
     }
 }

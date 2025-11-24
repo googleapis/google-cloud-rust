@@ -33,8 +33,6 @@ default-members = [
   "src/spanner",
   "src/storage",
   "src/wkt",
-  "tools/check-copyright",
-  "tools/minimal-version-helper",
   # We need `cargo test` to run at least some documentation tests for generated
   # libraries. These libraries are implicitly required by the integration tests
   # and samples, so they are not too expensive to include in the default builds.
@@ -368,7 +366,7 @@ axum              = { default-features = false, version = "0.8" }
 flate2            = { default-features = false, version = "1" }
 httptest          = { default-features = false, version = "0.16.3" }
 md5               = { default-features = false, version = "0.8" }
-mockall           = { default-features = false, version = "0.13" }
+mockall           = { default-features = false, version = "0.14" }
 multer            = { default-features = false, version = "3" }
 mutants           = { default-features = false, version = "0.0.3" }
 once_cell         = { default-features = false, version = "1.19.0" }

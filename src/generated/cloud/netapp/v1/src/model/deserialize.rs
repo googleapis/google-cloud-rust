@@ -11188,6 +11188,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SimpleExportPolicyRule {
             __kerberos_5i_read_write,
             __kerberos_5p_read_only,
             __kerberos_5p_read_write,
+            __squash_mode,
+            __anon_uid,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -11228,6 +11230,10 @@ impl<'de> serde::de::Deserialize<'de> for super::SimpleExportPolicyRule {
                             "kerberos_5p_read_only" => Ok(__FieldTag::__kerberos_5p_read_only),
                             "kerberos5pReadWrite" => Ok(__FieldTag::__kerberos_5p_read_write),
                             "kerberos_5p_read_write" => Ok(__FieldTag::__kerberos_5p_read_write),
+                            "squashMode" => Ok(__FieldTag::__squash_mode),
+                            "squash_mode" => Ok(__FieldTag::__squash_mode),
+                            "anonUid" => Ok(__FieldTag::__anon_uid),
+                            "anon_uid" => Ok(__FieldTag::__anon_uid),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -11349,6 +11355,35 @@ impl<'de> serde::de::Deserialize<'de> for super::SimpleExportPolicyRule {
                             }
                             result.kerberos_5p_read_write =
                                 map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::__squash_mode => {
+                            if !fields.insert(__FieldTag::__squash_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for squash_mode",
+                                ));
+                            }
+                            result.squash_mode = map.next_value::<std::option::Option<
+                                crate::model::simple_export_policy_rule::SquashMode,
+                            >>()?;
+                        }
+                        __FieldTag::__anon_uid => {
+                            if !fields.insert(__FieldTag::__anon_uid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for anon_uid",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.anon_uid = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -3122,21 +3122,6 @@ impl std::fmt::Debug for super::UpdateRoutineRequest {
     }
 }
 
-impl std::fmt::Debug for super::PatchRoutineRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("PatchRoutineRequest");
-        debug_struct.field("project_id", &self.project_id);
-        debug_struct.field("dataset_id", &self.dataset_id);
-        debug_struct.field("routine_id", &self.routine_id);
-        debug_struct.field("routine", &self.routine);
-        debug_struct.field("field_mask", &self.field_mask);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 impl std::fmt::Debug for super::DeleteRoutineRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteRoutineRequest");

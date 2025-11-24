@@ -2738,8 +2738,39 @@ impl serde::ser::Serialize for super::ComputeEngineTargetDefaults {
         if !wkt::internal::is_default(&self.boot_conversion) {
             state.serialize_entry("bootConversion", &self.boot_conversion)?;
         }
+        if !self.adaptation_modifiers.is_empty() {
+            state.serialize_entry("adaptationModifiers", &self.adaptation_modifiers)?;
+        }
         if !self.disk_replica_zones.is_empty() {
             state.serialize_entry("diskReplicaZones", &self.disk_replica_zones)?;
+        }
+        if !self.storage_pool.is_empty() {
+            state.serialize_entry("storagePool", &self.storage_pool)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AdaptationModifier {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.modifier.is_empty() {
+            state.serialize_entry("modifier", &self.modifier)?;
+        }
+        if !self.value.is_empty() {
+            state.serialize_entry("value", &self.value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2829,8 +2860,14 @@ impl serde::ser::Serialize for super::ComputeEngineTargetDetails {
         if !wkt::internal::is_default(&self.boot_conversion) {
             state.serialize_entry("bootConversion", &self.boot_conversion)?;
         }
+        if !self.adaptation_modifiers.is_empty() {
+            state.serialize_entry("adaptationModifiers", &self.adaptation_modifiers)?;
+        }
         if !self.disk_replica_zones.is_empty() {
             state.serialize_entry("diskReplicaZones", &self.disk_replica_zones)?;
+        }
+        if !self.storage_pool.is_empty() {
+            state.serialize_entry("storagePool", &self.storage_pool)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -5307,6 +5344,9 @@ impl serde::ser::Serialize for super::ImageImportOsAdaptationParameters {
         if !wkt::internal::is_default(&self.boot_conversion) {
             state.serialize_entry("bootConversion", &self.boot_conversion)?;
         }
+        if !self.adaptation_modifiers.is_empty() {
+            state.serialize_entry("adaptationModifiers", &self.adaptation_modifiers)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -5326,6 +5366,9 @@ impl serde::ser::Serialize for super::DataDiskImageImport {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.guest_os_features.is_empty() {
+            state.serialize_entry("guestOsFeatures", &self.guest_os_features)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

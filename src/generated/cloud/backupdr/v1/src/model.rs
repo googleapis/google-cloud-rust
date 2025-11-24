@@ -4773,6 +4773,11 @@ pub struct BackupVault {
     /// the backup vault.  The enforced retention for each backup can be extended.
     pub backup_minimum_enforced_retention_duration: std::option::Option<wkt::Duration>,
 
+    /// Optional. Setting for how a backup's enforced retention end time is
+    /// inherited.
+    pub backup_retention_inheritance:
+        std::option::Option<crate::model::backup_vault::BackupRetentionInheritance>,
+
     /// Output only. Set to true when there are no backups nested under this
     /// resource.
     pub deletable: std::option::Option<bool>,
@@ -4811,6 +4816,9 @@ pub struct BackupVault {
     /// Access restriction for the backup vault.
     /// Default value is WITHIN_ORGANIZATION if not provided during creation.
     pub access_restriction: crate::model::backup_vault::AccessRestriction,
+
+    /// Optional. The encryption config of the backup vault.
+    pub encryption_config: std::option::Option<crate::model::backup_vault::EncryptionConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4910,6 +4918,24 @@ impl BackupVault {
         T: std::convert::Into<wkt::Duration>,
     {
         self.backup_minimum_enforced_retention_duration = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [backup_retention_inheritance][crate::model::BackupVault::backup_retention_inheritance].
+    pub fn set_backup_retention_inheritance<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::backup_vault::BackupRetentionInheritance>,
+    {
+        self.backup_retention_inheritance = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backup_retention_inheritance][crate::model::BackupVault::backup_retention_inheritance].
+    pub fn set_or_clear_backup_retention_inheritance<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::backup_vault::BackupRetentionInheritance>,
+    {
+        self.backup_retention_inheritance = v.map(|x| x.into());
         self
     }
 
@@ -5022,6 +5048,24 @@ impl BackupVault {
         self.access_restriction = v.into();
         self
     }
+
+    /// Sets the value of [encryption_config][crate::model::BackupVault::encryption_config].
+    pub fn set_encryption_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::backup_vault::EncryptionConfig>,
+    {
+        self.encryption_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_config][crate::model::BackupVault::encryption_config].
+    pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::backup_vault::EncryptionConfig>,
+    {
+        self.encryption_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for BackupVault {
@@ -5034,6 +5078,198 @@ impl wkt::message::Message for BackupVault {
 pub mod backup_vault {
     #[allow(unused_imports)]
     use super::*;
+
+    /// Message describing the EncryptionConfig of backup vault.
+    /// This determines how data within the vault is encrypted at rest.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EncryptionConfig {
+        /// Optional. The Cloud KMS key name to encrypt backups in this backup vault.
+        /// Must be in the same region as the vault. Some workload backups like
+        /// compute disk backups may use their inherited source key instead. Format:
+        /// projects/{project}/locations/{location}/keyRings/{ring}/cryptoKeys/{key}
+        pub kms_key_name: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl EncryptionConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [kms_key_name][crate::model::backup_vault::EncryptionConfig::kms_key_name].
+        pub fn set_kms_key_name<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.kms_key_name = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [kms_key_name][crate::model::backup_vault::EncryptionConfig::kms_key_name].
+        pub fn set_or_clear_kms_key_name<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.kms_key_name = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for EncryptionConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.backupdr.v1.BackupVault.EncryptionConfig"
+        }
+    }
+
+    /// How a backup's enforced retention end time is inherited.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum BackupRetentionInheritance {
+        /// Inheritance behavior not set. This will default to
+        /// `INHERIT_VAULT_RETENTION`.
+        Unspecified,
+        /// The enforced retention end time of a backup will be inherited from the
+        /// backup vault's `backup_minimum_enforced_retention_duration` field.
+        ///
+        /// This is the default behavior.
+        InheritVaultRetention,
+        /// The enforced retention end time of a backup will always match the expire
+        /// time of the backup.
+        ///
+        /// If this is set, the backup's enforced retention end time will be set to
+        /// match the expire time during creation of the backup. When updating, the
+        /// ERET and expire time must be updated together and have the same value.
+        /// Invalid update requests will be rejected by the server.
+        MatchBackupExpireTime,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [BackupRetentionInheritance::value] or
+        /// [BackupRetentionInheritance::name].
+        UnknownValue(backup_retention_inheritance::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod backup_retention_inheritance {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl BackupRetentionInheritance {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::InheritVaultRetention => std::option::Option::Some(1),
+                Self::MatchBackupExpireTime => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("BACKUP_RETENTION_INHERITANCE_UNSPECIFIED")
+                }
+                Self::InheritVaultRetention => std::option::Option::Some("INHERIT_VAULT_RETENTION"),
+                Self::MatchBackupExpireTime => {
+                    std::option::Option::Some("MATCH_BACKUP_EXPIRE_TIME")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for BackupRetentionInheritance {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for BackupRetentionInheritance {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for BackupRetentionInheritance {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::InheritVaultRetention,
+                2 => Self::MatchBackupExpireTime,
+                _ => Self::UnknownValue(backup_retention_inheritance::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for BackupRetentionInheritance {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "BACKUP_RETENTION_INHERITANCE_UNSPECIFIED" => Self::Unspecified,
+                "INHERIT_VAULT_RETENTION" => Self::InheritVaultRetention,
+                "MATCH_BACKUP_EXPIRE_TIME" => Self::MatchBackupExpireTime,
+                _ => Self::UnknownValue(backup_retention_inheritance::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for BackupRetentionInheritance {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::InheritVaultRetention => serializer.serialize_i32(1),
+                Self::MatchBackupExpireTime => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for BackupRetentionInheritance {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<BackupRetentionInheritance>::new(
+                    ".google.cloud.backupdr.v1.BackupVault.BackupRetentionInheritance",
+                ),
+            )
+        }
+    }
 
     /// Holds the state of the backup vault resource.
     ///
@@ -6961,6 +7197,11 @@ pub struct Backup {
     /// Optional. The backup can not be deleted before this time.
     pub enforced_retention_end_time: std::option::Option<wkt::Timestamp>,
 
+    /// Output only. Setting for how the enforced retention end time is inherited.
+    /// This value is copied from this backup's BackupVault.
+    pub backup_retention_inheritance:
+        std::option::Option<crate::model::backup_vault::BackupRetentionInheritance>,
+
     /// Optional. When this backup is automatically expired.
     pub expire_time: std::option::Option<wkt::Timestamp>,
 
@@ -6993,6 +7234,10 @@ pub struct Backup {
 
     /// Optional. Output only. Reserved for future use.
     pub satisfies_pzi: std::option::Option<bool>,
+
+    /// Optional. Output only. The list of KMS key versions used to encrypt the
+    /// backup.
+    pub kms_key_versions: std::vec::Vec<std::string::String>,
 
     /// Workload specific backup properties.
     pub backup_properties: std::option::Option<crate::model::backup::BackupProperties>,
@@ -7098,6 +7343,24 @@ impl Backup {
         T: std::convert::Into<wkt::Timestamp>,
     {
         self.enforced_retention_end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [backup_retention_inheritance][crate::model::Backup::backup_retention_inheritance].
+    pub fn set_backup_retention_inheritance<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::backup_vault::BackupRetentionInheritance>,
+    {
+        self.backup_retention_inheritance = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backup_retention_inheritance][crate::model::Backup::backup_retention_inheritance].
+    pub fn set_or_clear_backup_retention_inheritance<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::backup_vault::BackupRetentionInheritance>,
+    {
+        self.backup_retention_inheritance = v.map(|x| x.into());
         self
     }
 
@@ -7231,6 +7494,17 @@ impl Backup {
         T: std::convert::Into<bool>,
     {
         self.satisfies_pzi = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [kms_key_versions][crate::model::Backup::kms_key_versions].
+    pub fn set_kms_key_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.kms_key_versions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -9311,6 +9585,21 @@ pub struct RestoreBackupRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     pub request_id: std::string::String,
 
+    /// Optional. A field mask used to clear server-side default values
+    /// for fields within the `instance_properties` oneof.
+    ///
+    /// When a field in this mask is cleared, the server will not apply its
+    /// default logic (like inheriting a value from the source) for that field.
+    ///
+    /// The most common current use case is clearing default encryption keys.
+    ///
+    /// Examples of field mask paths:
+    ///
+    /// - Compute Instance Disks:
+    ///   `compute_instance_restore_properties.disks.*.disk_encryption_key`
+    /// - Single Disk: `disk_restore_properties.disk_encryption_key`
+    pub clear_overrides_field_mask: std::option::Option<wkt::FieldMask>,
+
     /// The target environment for the restore operation.
     pub target_environment:
         std::option::Option<crate::model::restore_backup_request::TargetEnvironment>,
@@ -9336,6 +9625,24 @@ impl RestoreBackupRequest {
     /// Sets the value of [request_id][crate::model::RestoreBackupRequest::request_id].
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [clear_overrides_field_mask][crate::model::RestoreBackupRequest::clear_overrides_field_mask].
+    pub fn set_clear_overrides_field_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.clear_overrides_field_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [clear_overrides_field_mask][crate::model::RestoreBackupRequest::clear_overrides_field_mask].
+    pub fn set_or_clear_clear_overrides_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.clear_overrides_field_mask = v.map(|x| x.into());
         self
     }
 

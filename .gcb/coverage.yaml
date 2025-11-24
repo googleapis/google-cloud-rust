@@ -1,0 +1,81 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Google Cloud Build configuration for complex builds. Delegates most of the
+# steps in the build to a script. The name of the script is configurable via
+# a substitution. Likewise, the machine type is configurable, as some builds
+# need more memory.
+
+options:
+  dynamic_substitutions: true
+  substitutionOption: 'ALLOW_LOOSE'
+  logging: CLOUD_LOGGING_ONLY
+  env:
+    - GOOGLE_CLOUD_RUST_TEST_RUNNING_ON_GCB=1
+    - GOOGLE_CLOUD_PROJECT=${PROJECT_ID}
+    - SCCACHE_GCS_BUCKET=${PROJECT_ID}-build-cache
+    - SCCACHE_GCS_RW_MODE=READ_WRITE
+    - SCCACHE_GCS_KEY_PREFIX=sccache/complex/${_SCRIPT}
+    - BAZEL_REMOTE_CACHE=https://storage.googleapis.com/${PROJECT_ID}-build-cache/bazel-cache/complex/${_SCRIPT}
+    - RUSTC_WRAPPER=/workspace/.bin/sccache
+    - RUSTFLAGS=${_UNSTABLE_CFG_FLAGS}
+  workerPool: 'projects/${PROJECT_ID}/locations/${_POOL_REGION}/workerPools/${_POOL_ID}'
+serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
+steps:
+  - name: 'gcr.io/cloud-builders/curl'
+    automapSubstitutions: true
+    script: |
+      #!/usr/bin/env bash
+      set -eu
+      mkdir -p /workspace/.bin
+
+      curl -fsSL --retry 5 --retry-delay 15 -o /workspace/.bin/codecovcli https://github.com/getsentry/prevent-cli/releases/download/${_CODECOV_VERSION}/codecovcli_linux
+      sha256sum -c <(echo "${_CODECOV_SHA256} */workspace/.bin/codecovcli")
+
+      URL="https://github.com/mozilla/sccache/releases/download/${_SCCACHE_VERSION}/sccache-${_SCCACHE_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+      curl -fsSL --retry 5 --retry-delay 15 ${URL} -o /tmp/sccache.tar.gz
+      sha256sum -c <(echo "${_SCCACHE_SHA256} */tmp/sccache.tar.gz")
+      tar -C /workspace/.bin -zxf /tmp/sccache.tar.gz --strip-components=1
+      rm -f /tmp/sccache.tar.gz
+
+      chmod 755 /workspace/.bin/sccache /workspace/.bin/codecovcli
+  - name: 'rust:${_RUST_VERSION}-bookworm'
+    args: ['.gcb/scripts/${_SCRIPT}.sh']
+    secretEnv: ['CODECOV_TOKEN']
+    env:
+      # In PRs, the name of the target branch.
+      - _BASE_BRANCH=${_BASE_BRANCH}
+      # In PRs, the name of the source branch.
+      - _HEAD_BRANCH=${_HEAD_BRANCH}
+      # What is says on the tin.
+      - _PR_NUMBER=${_PR_NUMBER}
+      # In PRs, the name of the source branch. Otherwise the current branch.
+      - BRANCH_NAME=${BRANCH_NAME}
+      - COMMIT_SHA=${COMMIT_SHA}
+      # For example: googleapis/google-cloud-rust
+      - REPO_FULL_NAME=${REPO_FULL_NAME}
+      # For example: google-cloud-rust
+      - REPO_NAME=${REPO_NAME}
+substitutions:
+  _SCCACHE_VERSION: 'v0.12.0'
+  _SCCACHE_SHA256: 'b0e89ead6899224a4ba2b90e9073bf1ce036d95bab30f3dc33c1e1468bc4ad44'
+  _CODECOV_VERSION: 'v11.2.5'
+  _CODECOV_SHA256: '80b5e6f898d6080be523f53ff169702a008a1c91b20c63c49df1175ed794d822'
+  _POOL_REGION: us-central1
+  _POOL_ID: rust-sdk-pool
+  _RUST_VERSION: '1.91'
+availableSecrets:
+  secretManager:
+    - versionName: projects/${PROJECT_ID}/secrets/CODECOV_TOKEN/versions/latest
+      env: CODECOV_TOKEN
