@@ -102,6 +102,25 @@ impl std::fmt::Debug for super::DockerImage {
         debug_struct.field("media_type", &self.media_type);
         debug_struct.field("build_time", &self.build_time);
         debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("artifact_type", &self.artifact_type);
+        debug_struct.field("image_manifests", &self.image_manifests);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ImageManifest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImageManifest");
+        debug_struct.field("architecture", &self.architecture);
+        debug_struct.field("os", &self.os);
+        debug_struct.field("digest", &self.digest);
+        debug_struct.field("media_type", &self.media_type);
+        debug_struct.field("os_version", &self.os_version);
+        debug_struct.field("os_features", &self.os_features);
+        debug_struct.field("variant", &self.variant);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

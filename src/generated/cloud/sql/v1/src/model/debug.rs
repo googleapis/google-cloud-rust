@@ -2046,6 +2046,7 @@ impl std::fmt::Debug for super::Settings {
             "enable_dataplex_integration",
             &self.enable_dataplex_integration,
         );
+        debug_struct.field("auto_upgrade_enabled", &self.auto_upgrade_enabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

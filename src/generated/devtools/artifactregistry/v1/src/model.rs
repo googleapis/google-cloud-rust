@@ -572,7 +572,7 @@ impl wkt::message::Message for ImportAptArtifactsMetadata {
 pub struct DockerImage {
     /// Required. registry_location, project_id, repository_name and image id forms
     /// a unique image
-    /// name:`projects/<project_id>/locations/<location>/repository/<repository_name>/dockerImages/<docker_image>`.
+    /// name:`projects/<project_id>/locations/<location>/repositories/<repository_name>/dockerImages/<docker_image>`.
     /// For example,
     /// "projects/test-project/locations/us-west4/repositories/test-repo/dockerImages/
     /// nginx@sha256:e9954c1fc875017be1c3e36eca16be2d9e9bccc4bf072163515467d6a823c7cf",
@@ -613,6 +613,16 @@ pub struct DockerImage {
 
     /// Output only. The time when the docker image was last updated.
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// ArtifactType of this image, e.g. "application/vnd.example+type".
+    /// If the `subject_digest` is set and no `artifact_type` is given, the
+    /// `media_type` will be considered as the `artifact_type`. This field is
+    /// returned as the `metadata.artifactType` field in the Version resource.
+    pub artifact_type: std::string::String,
+
+    /// Optional. For multi-arch images (manifest lists), this field contains the
+    /// list of image manifests.
+    pub image_manifests: std::vec::Vec<crate::model::ImageManifest>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -710,11 +720,124 @@ impl DockerImage {
         self.update_time = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [artifact_type][crate::model::DockerImage::artifact_type].
+    pub fn set_artifact_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.artifact_type = v.into();
+        self
+    }
+
+    /// Sets the value of [image_manifests][crate::model::DockerImage::image_manifests].
+    pub fn set_image_manifests<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ImageManifest>,
+    {
+        use std::iter::Iterator;
+        self.image_manifests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for DockerImage {
     fn typename() -> &'static str {
         "type.googleapis.com/google.devtools.artifactregistry.v1.DockerImage"
+    }
+}
+
+/// Details of a single image manifest within a multi-arch image.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ImageManifest {
+    /// Optional. The CPU architecture of the image.
+    /// Values are provided by the Docker client and are not validated by Artifact
+    /// Registry. Example values include "amd64", "arm64", "ppc64le", "s390x",
+    /// "riscv64", "mips64le", etc.
+    pub architecture: std::string::String,
+
+    /// Optional. The operating system of the image.
+    /// Values are provided by the Docker client and are not validated by Artifact
+    /// Registry. Example values include "linux", "windows", "darwin", "aix", etc.
+    pub os: std::string::String,
+
+    /// Optional. The manifest digest, in the format "sha256:<sha256_hex_digest>".
+    pub digest: std::string::String,
+
+    /// Optional. The media type of the manifest, e.g.,
+    /// "application/vnd.docker.distribution.manifest.v2+json"
+    pub media_type: std::string::String,
+
+    /// Optional. The OS version of the image, for example on Windows
+    /// `10.0.14393.1066`.
+    pub os_version: std::string::String,
+
+    /// Optional. The required OS features for the image, for example on Windows
+    /// `win32k`.
+    pub os_features: std::vec::Vec<std::string::String>,
+
+    /// Optional. The variant of the CPU in the image, for example `v7` to specify
+    /// ARMv7 when architecture is `arm`.
+    pub variant: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ImageManifest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [architecture][crate::model::ImageManifest::architecture].
+    pub fn set_architecture<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.architecture = v.into();
+        self
+    }
+
+    /// Sets the value of [os][crate::model::ImageManifest::os].
+    pub fn set_os<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.os = v.into();
+        self
+    }
+
+    /// Sets the value of [digest][crate::model::ImageManifest::digest].
+    pub fn set_digest<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.digest = v.into();
+        self
+    }
+
+    /// Sets the value of [media_type][crate::model::ImageManifest::media_type].
+    pub fn set_media_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.media_type = v.into();
+        self
+    }
+
+    /// Sets the value of [os_version][crate::model::ImageManifest::os_version].
+    pub fn set_os_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.os_version = v.into();
+        self
+    }
+
+    /// Sets the value of [os_features][crate::model::ImageManifest::os_features].
+    pub fn set_os_features<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.os_features = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [variant][crate::model::ImageManifest::variant].
+    pub fn set_variant<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.variant = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ImageManifest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.devtools.artifactregistry.v1.ImageManifest"
     }
 }
 
@@ -6333,7 +6456,7 @@ pub struct Repository {
     /// use this to calculate storage costs.
     pub size_bytes: i64,
 
-    /// Output only. If set, the repository satisfies physical zone separation.
+    /// Output only. Whether or not this repository satisfies PZS.
     pub satisfies_pzs: bool,
 
     /// Optional. If true, the cleanup pipeline is prevented from deleting versions
@@ -6349,7 +6472,7 @@ pub struct Repository {
     /// error rather than defaulting to standard.
     pub disallow_unspecified_mode: bool,
 
-    /// Output only. If set, the repository satisfies physical zone isolation.
+    /// Output only. Whether or not this repository satisfies PZI.
     pub satisfies_pzi: bool,
 
     /// Output only. The repository endpoint, for example:
@@ -7018,7 +7141,8 @@ pub mod repository {
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum EnablementConfig {
-            /// Not set. This will be treated as INHERITED.
+            /// Not set. This will be treated as INHERITED for Docker repositories and
+            /// DISABLED for non-Docker repositories.
             Unspecified,
             /// Scanning is Enabled, but dependent on API enablement.
             Inherited,
@@ -7316,6 +7440,8 @@ pub mod repository {
         Go,
         /// Generic package format.
         Generic,
+        /// Ruby package format.
+        Ruby,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Format::value] or
@@ -7348,6 +7474,7 @@ pub mod repository {
                 Self::Kfp => std::option::Option::Some(9),
                 Self::Go => std::option::Option::Some(10),
                 Self::Generic => std::option::Option::Some(11),
+                Self::Ruby => std::option::Option::Some(12),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -7368,6 +7495,7 @@ pub mod repository {
                 Self::Kfp => std::option::Option::Some("KFP"),
                 Self::Go => std::option::Option::Some("GO"),
                 Self::Generic => std::option::Option::Some("GENERIC"),
+                Self::Ruby => std::option::Option::Some("RUBY"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -7399,6 +7527,7 @@ pub mod repository {
                 9 => Self::Kfp,
                 10 => Self::Go,
                 11 => Self::Generic,
+                12 => Self::Ruby,
                 _ => Self::UnknownValue(format::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -7420,6 +7549,7 @@ pub mod repository {
                 "KFP" => Self::Kfp,
                 "GO" => Self::Go,
                 "GENERIC" => Self::Generic,
+                "RUBY" => Self::Ruby,
                 _ => Self::UnknownValue(format::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -7443,6 +7573,7 @@ pub mod repository {
                 Self::Kfp => serializer.serialize_i32(9),
                 Self::Go => serializer.serialize_i32(10),
                 Self::Generic => serializer.serialize_i32(11),
+                Self::Ruby => serializer.serialize_i32(12),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
