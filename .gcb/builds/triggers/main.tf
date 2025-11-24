@@ -41,8 +41,9 @@ locals {
     "--cfg google_cloud_unstable_storage_bidi"
   ])
 
-  # Add to these lists of you want to have more triggers.
-  pr_builds = {
+  # These builds appear in both the PR (Pull Request) triggers and the
+  # PM (Post Merge) triggers. See below for builds that only appear in one.
+  common_builds = {
     compute-full = {
       config = "complex.yaml"
       script = "compute-full"
@@ -116,95 +117,27 @@ locals {
       flags  = local.unstable_flags
       script = "test-unstable-cfg"
     }
-    # The full workspace build is too slow for a PR build.
-    # workspace = {
-    #   config = "complex.yaml"
-    #   script = "workspace"
-    # }
   }
 
-  pm_builds = {
-    compute-full = {
-      config = "complex.yaml"
-      script = "compute-full"
-    }
-    coverage = {
-      config = "coverage.yaml"
-      script = "coverage"
-      flags  = local.unstable_flags
-    }
-    docs = {
-      config = "complex.yaml"
-      script = "docs"
-    }
-    docs-rs = {
-      config = "complex.yaml"
-      script = "docs-rs"
-    }
-    features = {
-      config = "complex.yaml"
-      script = "features"
-    }
-    integration = {
-      config = "integration.yaml"
-    }
-    integration-unstable = {
-      config = "integration.yaml"
-      flags  = local.unstable_flags
-    }
-    lint = {
-      config = "complex.yaml"
-      script = "lint"
-    }
-    lint-unstable = {
-      config = "complex.yaml"
-      flags  = local.unstable_flags
-      script = "lint-unstable"
-    }
-    minimal-versions = {
-      config = "complex.yaml"
-      script = "minimal-versions"
-    }
-    protojson-conformance = {
-      config = "complex.yaml"
-      script = "protojson-conformance"
-    }
+  # These are builds that only run during Pull Requests.
+  pr_build_overrides = {}
+
+  # There are builds that only run Post Merge.
+  pm_build_overrides = {
+    # Uploads the reference docs, too expensive for PR builds.
     referenceupload = {
       config = "referenceupload.yaml"
     }
-    regenerate = {
-      config = "complex.yaml"
-      script = "regenerate"
-    }
-    semver-checks = {
-      config = "complex.yaml"
-      script = "semver-checks"
-    }
-    showcase = {
-      config = "complex.yaml"
-      script = "showcase"
-    }
-    test-current = {
-      config = "complex.yaml"
-      flags  = local.unstable_flags
-      script = "test"
-    }
-    test-msrv = {
-      config       = "complex.yaml"
-      flags        = local.unstable_flags
-      script       = "test"
-      rust_version = "1.85"
-    }
-    test-unstable-cfg = {
-      config = "complex.yaml"
-      flags  = local.unstable_flags
-      script = "test-unstable-cfg"
-    }
+    # Builds and tests all the crates. This is too slow for a PR build.
     workspace = {
       config = "complex.yaml"
       script = "workspace"
     }
   }
+
+  # Compute the effective list of builds.
+  pr_builds = merge(local.common_builds, local.pr_build_overrides)
+  pm_builds = merge(local.common_builds, local.pm_build_overrides)
 }
 
 # This is used to retrieve the project number. The project number is embedded in
