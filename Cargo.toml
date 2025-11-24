@@ -425,19 +425,19 @@ iam_v2                        = { version = "1", path = "src/generated/iam/v2", 
 recommender                   = { version = "1", path = "src/generated/cloud/recommender/v1", package = "google-cloud-recommender-v1" }
 accesscontextmanager_type     = { version = "1", path = "src/generated/identity/accesscontextmanager/type", package = "google-cloud-identity-accesscontextmanager-type" }
 # Used in integration tests
-google-cloud-speech-v2         = { version = "1", path = "src/generated/cloud/speech/v2" }
-google-cloud-secretmanager-v1  = { version = "1", path = "src/generated/cloud/secretmanager/v1" }
-secretmanager                  = { version = "1", path = "src/generated/cloud/secretmanager/v1", package = "google-cloud-secretmanager-v1" }
-google-cloud-aiplatform-v1     = { version = "1", default-features = false, path = "src/generated/cloud/aiplatform/v1" }
-google-cloud-compute-v1        = { version = "0.2", default-features = false, path = "src/generated/cloud/compute/v1" }
-google-cloud-storage           = { version = "1", path = "src/storage" }
-google-cloud-pubsub            = { path = "src/pubsub" }
-google-cloud-bigquery-v2       = { version = "1", path = "src/generated/cloud/bigquery/v2" }
-bigquery                       = { version = "1", path = "src/generated/cloud/bigquery/v2", package = "google-cloud-bigquery-v2" }
-google-cloud-iamcredentials-v1 = { version = "1", path = "src/generated/iam/credentials/v1" }
-iamcredentials                 = { version = "1", path = "src/generated/iam/credentials/v1", package = "google-cloud-iam-credentials-v1" }
-google-cloud-language-v2       = { version = "1", path = "src/generated/cloud/language/v2" }
-language                       = { version = "1", path = "src/generated/cloud/language/v2", package = "google-cloud-language-v2" }
+google-cloud-speech-v2          = { version = "1", path = "src/generated/cloud/speech/v2" }
+google-cloud-secretmanager-v1   = { version = "1", path = "src/generated/cloud/secretmanager/v1" }
+secretmanager                   = { version = "1", path = "src/generated/cloud/secretmanager/v1", package = "google-cloud-secretmanager-v1" }
+google-cloud-aiplatform-v1      = { version = "1", default-features = false, path = "src/generated/cloud/aiplatform/v1" }
+google-cloud-compute-v1         = { version = "0.2", default-features = false, path = "src/generated/cloud/compute/v1" }
+google-cloud-storage            = { version = "1", path = "src/storage" }
+google-cloud-pubsub             = { path = "src/pubsub" }
+google-cloud-bigquery-v2        = { version = "1", path = "src/generated/cloud/bigquery/v2" }
+bigquery                        = { version = "1", path = "src/generated/cloud/bigquery/v2", package = "google-cloud-bigquery-v2" }
+google-cloud-iam-credentials-v1 = { version = "1", path = "src/generated/iam/credentials/v1" }
+iamcredentials                  = { version = "1", path = "src/generated/iam/credentials/v1", package = "google-cloud-iam-credentials-v1" }
+google-cloud-language-v2        = { version = "1", path = "src/generated/cloud/language/v2" }
+language                        = { version = "1", path = "src/generated/cloud/language/v2", package = "google-cloud-language-v2" }
 
 # Local test packages (never add a version)
 google-cloud-test-utils = { path = "src/test-utils" }
