@@ -44,7 +44,7 @@ jobs:
         # TODO(#3887) - restore the cache
         if: matrix.os != 'macos-14'
       - name: Setup Rust ${{ matrix.rust-version }}
-        run: rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+        run: rustup-mock toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
       - run: rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
       - name: Display Cargo version
         run: cargo version
