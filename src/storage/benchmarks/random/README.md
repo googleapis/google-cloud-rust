@@ -1,7 +1,7 @@
 # Random Reads Benchmark
 
 Benchmarks the Cloud Storage client library. The benchmark uploads a number of
-objects and then reads ranges from them at random, reporting the TTFB 
+objects and then reads ranges from them at random, reporting the TTFB
 (time-to-first byte) latency, TTLB (time-to-last byte) latency for each read.
 
 ## Pre-requisites
