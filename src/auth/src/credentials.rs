@@ -15,13 +15,13 @@
 use crate::build_errors::Error as BuilderError;
 use crate::constants::GOOGLE_CLOUD_QUOTA_PROJECT_VAR;
 use crate::errors::{self, CredentialsError};
+use crate::token::Token;
 use crate::{BuildResult, Result};
 use http::{Extensions, HeaderMap};
 use serde_json::Value;
 use std::future::Future;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
-
 pub mod anonymous;
 pub mod api_key_credentials;
 pub mod external_account;
@@ -135,6 +135,98 @@ impl Credentials {
     pub async fn universe_domain(&self) -> Option<String> {
         self.inner.universe_domain().await
     }
+}
+
+/// An implementation of [crate::credentials::CredentialsProvider] that can also
+/// provide direct access to the underlying access token.
+///
+/// This struct is returned by the `build_access_token_credentials()` method on
+/// the various credential builders. It can be used to obtain an access token
+/// directly via the `access_token()` method, or it can be converted into a `Credentials`
+/// object to be used with the Google Cloud client libraries.
+#[derive(Clone, Debug)]
+pub struct AccessTokenCredentials {
+    // We use an `Arc` to hold the inner implementation.
+    //
+    // AccessTokenCredentials may be shared across threads (`Send + Sync`), so an `Rc`
+    // will not do.
+    //
+    // They also need to derive `Clone`, as the
+    // `gax::http_client::ReqwestClient`s which hold them derive `Clone`. So a
+    // `Box` will not do.
+    inner: Arc<dyn dynamic::AccessTokenCredentialsProvider>,
+}
+
+impl<T> std::convert::From<T> for AccessTokenCredentials
+where
+    T: crate::credentials::AccessTokenCredentialsProvider + Send + Sync + 'static,
+{
+    fn from(value: T) -> Self {
+        Self {
+            inner: Arc::new(value),
+        }
+    }
+}
+
+impl AccessTokenCredentials {
+    pub async fn access_token(&self) -> Result<AccessToken> {
+        self.inner.access_token().await
+    }
+}
+
+/// Makes [AccessTokenCredentials] compatible with clients that expect
+/// a [Credentials] and/or a [CredentialsProvider].
+impl CredentialsProvider for AccessTokenCredentials {
+    async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+        self.inner.headers(extensions).await
+    }
+
+    async fn universe_domain(&self) -> Option<String> {
+        self.inner.universe_domain().await
+    }
+}
+
+/// Represents an OAuth 2.0 access token.
+#[derive(Clone)]
+pub struct AccessToken {
+    /// The access token string.
+    pub token: String,
+}
+
+impl std::fmt::Debug for AccessToken {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("AccessToken")
+            .field("token", &"[censored]")
+            .finish()
+    }
+}
+
+impl std::convert::From<CacheableResource<Token>> for Result<AccessToken> {
+    fn from(token: CacheableResource<Token>) -> Self {
+        match token {
+            CacheableResource::New { data, .. } => Ok(data.into()),
+            CacheableResource::NotModified => Err(errors::CredentialsError::from_msg(
+                false,
+                "Expecting token to be present",
+            )),
+        }
+    }
+}
+
+impl std::convert::From<Token> for AccessToken {
+    fn from(token: Token) -> Self {
+        Self { token: token.token }
+    }
+}
+
+/// A trait for credential types that can provide direct access to an access token.
+///
+/// This trait is primarily intended for interoperability with other libraries that
+/// require a raw access token, or for calling Google Cloud APIs that are not yet
+/// supported by the SDK.
+pub trait AccessTokenCredentialsProvider: CredentialsProvider + std::fmt::Debug {
+    /// Asynchronously retrieves an access token.
+    fn access_token(&self) -> impl Future<Output = Result<AccessToken>> + Send;
 }
 
 /// Represents a [Credentials] used to obtain auth request headers.
@@ -254,6 +346,24 @@ pub(crate) mod dynamic {
         }
         async fn universe_domain(&self) -> Option<String> {
             T::universe_domain(self).await
+        }
+    }
+
+    /// A dyn-compatible, crate-private version of `AccessTokenCredentialsProvider`.
+    #[async_trait::async_trait]
+    pub trait AccessTokenCredentialsProvider:
+        CredentialsProvider + Send + Sync + std::fmt::Debug
+    {
+        async fn access_token(&self) -> Result<super::AccessToken>;
+    }
+
+    #[async_trait::async_trait]
+    impl<T> AccessTokenCredentialsProvider for T
+    where
+        T: super::AccessTokenCredentialsProvider + Send + Sync,
+    {
+        async fn access_token(&self) -> Result<super::AccessToken> {
+            T::access_token(self).await
         }
     }
 }
@@ -397,13 +507,43 @@ impl Builder {
     ///
     /// # Errors
     ///
-    /// Returns a [CredentialsError] if a unsupported credential type is provided
-    /// or if the JSON value is either malformed
-    /// or missing required fields. For more information, on how to generate
-    /// json, consult the relevant section in the [application-default credentials] guide.
+    /// Returns a [CredentialsError] if an unsupported credential type is provided
+    /// or if the JSON value is either malformed or missing required fields.
+    ///
+    /// For more information, on how to generate the JSON for a credential,
+    /// consult the relevant section in the [application-default credentials] guide.
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> BuildResult<Credentials> {
+        Ok(self.build_access_token_credentials()?.into())
+    }
+
+    /// Returns an [AccessTokenCredentials] instance with the configured settings.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// # use google_cloud_auth::credentials::{Builder, AccessTokenCredentials, AccessTokenCredentialsProvider};
+    /// # tokio_test::block_on(async {
+    /// // This will search for Application Default Credentials and build AccessTokenCredentials.
+    /// let credentials: AccessTokenCredentials = Builder::default()
+    ///     .build_access_token_credentials()?;
+    /// let access_token = credentials.access_token().await?;
+    /// println!("Token: {}", access_token.token);
+    /// # Ok::<(), anyhow::Error>(())
+    /// # });
+    /// ```
+    ///
+    /// # Errors
+    ///
+    /// Returns a [CredentialsError] if an unsupported credential type is provided
+    /// or if the JSON value is either malformed or missing required fields.
+    ///
+    /// For more information, on how to generate the JSON for a credential,
+    /// consult the relevant section in the [application-default credentials] guide.
+    ///
+    /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
+    pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
         let json_data = match load_adc()? {
             AdcContents::Contents(contents) => {
                 Some(serde_json::from_str(&contents).map_err(BuilderError::parsing)?)
@@ -454,7 +594,7 @@ macro_rules! config_builder {
             .into_iter()
             .fold(builder, |b, s| $apply_scopes_closure(b, s));
 
-        builder.build()
+        builder.build_access_token_credentials()
     }};
 }
 
@@ -462,7 +602,7 @@ fn build_credentials(
     json: Option<Value>,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
-) -> BuildResult<Credentials> {
+) -> BuildResult<AccessTokenCredentials> {
     match json {
         None => config_builder!(
             mds::Builder::from_adc(),
@@ -628,6 +768,7 @@ pub(crate) mod tests {
     use std::sync::LazyLock;
     use test_case::test_case;
     use tokio::time::Duration;
+    use tokio::time::Instant;
 
     pub(crate) fn find_source_error<'a, T: Error + 'static>(
         error: &'a (dyn Error + 'static),
@@ -993,5 +1134,20 @@ pub(crate) mod tests {
         assert_eq!(claims["scope"], scopes.join(" "));
 
         Ok(())
+    }
+
+    #[test]
+    fn debug_access_token() {
+        let expires_at = Instant::now() + Duration::from_secs(3600);
+        let token = Token {
+            token: "token-test-only".into(),
+            token_type: "Bearer".into(),
+            expires_at: Some(expires_at),
+            metadata: None,
+        };
+        let access_token: AccessToken = token.into();
+        let got = format!("{access_token:?}");
+        assert!(!got.contains("token-test-only"), "{got}");
+        assert!(got.contains("token: \"[censored]\""), "{got}");
     }
 }

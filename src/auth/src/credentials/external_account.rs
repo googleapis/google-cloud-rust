@@ -116,8 +116,10 @@ use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, 
 use super::{CacheableResource, Credentials};
 use crate::build_errors::Error as BuilderError;
 use crate::constants::{DEFAULT_SCOPE, STS_TOKEN_URL};
+use crate::credentials::dynamic::AccessTokenCredentialsProvider;
 use crate::credentials::external_account_sources::programmatic_sourced::ProgrammaticSourcedCredentials;
 use crate::credentials::subject_token::dynamic;
+use crate::credentials::{AccessToken, AccessTokenCredentials};
 use crate::errors::non_retryable;
 use crate::headers_util::build_cacheable_headers;
 use crate::retry::Builder as RetryTokenProviderBuilder;
@@ -327,7 +329,7 @@ impl ExternalAccountConfig {
         self,
         quota_project_id: Option<String>,
         retry_builder: RetryTokenProviderBuilder,
-    ) -> Credentials {
+    ) -> AccessTokenCredentials {
         let config = self.clone();
         match self.credential_source {
             CredentialSource::Url(source) => {
@@ -353,7 +355,7 @@ impl ExternalAccountConfig {
         config: ExternalAccountConfig,
         quota_project_id: Option<String>,
         retry_builder: RetryTokenProviderBuilder,
-    ) -> Credentials
+    ) -> AccessTokenCredentials
     where
         T: dynamic::SubjectTokenProvider + 'static,
     {
@@ -363,7 +365,7 @@ impl ExternalAccountConfig {
         };
         let token_provider_with_retry = retry_builder.build(token_provider);
         let cache = TokenCache::new(token_provider_with_retry);
-        Credentials {
+        AccessTokenCredentials {
             inner: Arc::new(ExternalAccountCredentials {
                 token_provider: cache,
                 quota_project_id,
@@ -637,12 +639,30 @@ impl Builder {
     /// Returns a [BuilderError] if the `external_account_config`
     /// provided to [`Builder::new`] cannot be successfully deserialized into the
     /// expected format for an external account configuration. This typically happens if the
-    /// JSON value is malformed or missing required fields. For more information,
-    /// on the expected format, consult the relevant section in the
-    /// [external_account_credentials] guide.
+    /// JSON value is malformed or missing required fields.
+    ///
+    /// For more information, on the expected format, consult the relevant
+    /// section in the [external_account_credentials] guide.
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build(self) -> BuildResult<Credentials> {
+        Ok(self.build_access_token_credentials()?.into())
+    }
+
+    /// Returns an [AccessTokenCredentials] instance with the configured settings.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [BuilderError] if the `external_account_config`
+    /// provided to [`Builder::new`] cannot be successfully deserialized into the
+    /// expected format for an external account configuration. This typically happens if the
+    /// JSON value is malformed or missing required fields.
+    ///
+    /// For more information, on the expected format, consult the relevant
+    /// section in the [external_account_credentials] guide.
+    ///
+    /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
+    pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
         let mut file: ExternalAccountFile =
             serde_json::from_value(self.external_account_config).map_err(BuilderError::parsing)?;
 
@@ -1220,7 +1240,9 @@ impl ProgrammaticBuilder {
     /// `audience` or `subject_token_type`) have not been set.
     pub fn build(self) -> BuildResult<Credentials> {
         let (config, quota_project_id, retry_builder) = self.build_components()?;
-        Ok(config.make_credentials(quota_project_id, retry_builder))
+        Ok(config
+            .make_credentials(quota_project_id, retry_builder)
+            .into())
     }
 
     /// Consumes the builder and returns its configured components.
@@ -1258,6 +1280,17 @@ where
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
         build_cacheable_headers(&token, &self.quota_project_id)
+    }
+}
+
+#[async_trait::async_trait]
+impl<T> AccessTokenCredentialsProvider for ExternalAccountCredentials<T>
+where
+    T: CachedTokenProvider,
+{
+    async fn access_token(&self) -> Result<AccessToken> {
+        let token = self.token_provider.token(Extensions::new()).await?;
+        token.into()
     }
 }
 
@@ -1589,6 +1622,66 @@ mod tests {
             }
             CacheableResource::NotModified => panic!("Expected new headers"),
         }
+    }
+
+    #[tokio::test]
+    async fn test_external_account_access_token_credentials_success() {
+        let server = Server::run();
+
+        let contents = json!({
+            "type": "external_account",
+            "audience": "audience",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": server.url("/token").to_string(),
+            "credential_source": {
+                "url": server.url("/subject_token").to_string(),
+                "format": {
+                  "type": "json",
+                  "subject_token_field_name": "access_token"
+                }
+            }
+        });
+
+        server.expect(
+            Expectation::matching(request::method_path("GET", "/subject_token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "subject_token",
+                })),
+            ),
+        );
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/token"),
+                request::body(url_decoded(contains((
+                    "grant_type",
+                    TOKEN_EXCHANGE_GRANT_TYPE
+                )))),
+                request::body(url_decoded(contains(("subject_token", "subject_token")))),
+                request::body(url_decoded(contains((
+                    "requested_token_type",
+                    ACCESS_TOKEN_TYPE
+                )))),
+                request::body(url_decoded(contains((
+                    "subject_token_type",
+                    JWT_TOKEN_TYPE
+                )))),
+                request::body(url_decoded(contains(("audience", "audience")))),
+                request::body(url_decoded(contains(("scope", DEFAULT_SCOPE)))),
+            ])
+            .respond_with(json_encoded(json!({
+                "access_token": "sts-only-token",
+                "issued_token_type": "urn:ietf:params:oauth:token-type:access_token",
+                "token_type": "Bearer",
+                "expires_in": 3600,
+            }))),
+        );
+
+        let creds = Builder::new(contents)
+            .build_access_token_credentials()
+            .unwrap();
+        let access_token = creds.access_token().await.unwrap();
+        assert_eq!(access_token.token, "sts-only-token");
     }
 
     #[tokio::test]
