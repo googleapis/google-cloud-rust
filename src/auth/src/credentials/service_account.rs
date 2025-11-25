@@ -281,16 +281,17 @@ impl Builder {
     /// Returns a [CredentialsError] if the `service_account_key`
     /// provided to [`Builder::new`] cannot be successfully deserialized into the
     /// expected format for a service account key. This typically happens if the
-    /// JSON value is malformed or missing required fields. For more information,
-    /// on the expected format for a service account key, consult the
-    /// relevant section in the [service account keys] guide.
+    /// JSON value is malformed or missing required fields.
+    ///
+    /// For more information, on the expected format for a service account key,
+    /// consult the relevant section in the [service account keys] guide.
     ///
     /// [creating service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
     pub fn build(self) -> BuildResult<Credentials> {
         Ok(self.build_access_token_credentials()?.into())
     }
 
-    /// Returns a [AccessTokenCredentials] instance with the configured settings.
+    /// Returns an [AccessTokenCredentials] instance with the configured settings.
     ///
     /// # Example
     ///
@@ -320,11 +321,12 @@ impl Builder {
     /// Returns a [CredentialsError] if the `service_account_key`
     /// provided to [`Builder::new`] cannot be successfully deserialized into the
     /// expected format for a service account key. This typically happens if the
-    /// JSON value is malformed or missing required fields. For more information,
-    /// on the expected format for a service account key, consult the
-    /// relevant section in the [service account keys] guide.
+    /// JSON value is malformed or missing required fields.
     ///
-    /// [creating service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
+    /// For more information, on the expected format for a service account key,
+    /// consult the relevant section in the [service account keys] guide.
+    ///
+    /// [service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
         Ok(AccessTokenCredentials {
             inner: Arc::new(ServiceAccountCredentials {

@@ -639,25 +639,27 @@ impl Builder {
     /// Returns a [BuilderError] if the `external_account_config`
     /// provided to [`Builder::new`] cannot be successfully deserialized into the
     /// expected format for an external account configuration. This typically happens if the
-    /// JSON value is malformed or missing required fields. For more information,
-    /// on the expected format, consult the relevant section in the
-    /// [external_account_credentials] guide.
+    /// JSON value is malformed or missing required fields.
+    ///
+    /// For more information, on the expected format, consult the relevant
+    /// section in the [external_account_credentials] guide.
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build(self) -> BuildResult<Credentials> {
         Ok(self.build_access_token_credentials()?.into())
     }
 
-    /// Returns a [AccessTokenCredentials] instance with the configured settings.
+    /// Returns an [AccessTokenCredentials] instance with the configured settings.
     ///
     /// # Errors
     ///
     /// Returns a [BuilderError] if the `external_account_config`
     /// provided to [`Builder::new`] cannot be successfully deserialized into the
     /// expected format for an external account configuration. This typically happens if the
-    /// JSON value is malformed or missing required fields. For more information,
-    /// on the expected format, consult the relevant section in the
-    /// [external_account_credentials] guide.
+    /// JSON value is malformed or missing required fields.
+    ///
+    /// For more information, on the expected format, consult the relevant
+    /// section in the [external_account_credentials] guide.
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {

@@ -309,16 +309,17 @@ impl Builder {
     /// Returns a [CredentialsError] if the `authorized_user`
     /// provided to [`Builder::new`] cannot be successfully deserialized into the
     /// expected format. This typically happens if the JSON value is malformed or
-    /// missing required fields. For more information, on how to generate
-    /// `authorized_user` json, consult the relevant section in the
-    /// [application-default credentials] guide.
+    /// missing required fields.
+    ///
+    /// For more information, on how to generate `authorized_user` JSON,
+    /// consult the relevant section in the [application-default credentials] guide.
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> BuildResult<Credentials> {
         Ok(self.build_access_token_credentials()?.into())
     }
 
-    /// Returns a [AccessTokenCredentials] instance with the configured settings.
+    /// Returns an [AccessTokenCredentials] instance with the configured settings.
     ///
     /// # Example
     ///
@@ -346,9 +347,10 @@ impl Builder {
     /// Returns a [CredentialsError] if the `authorized_user`
     /// provided to [`Builder::new`] cannot be successfully deserialized into the
     /// expected format. This typically happens if the JSON value is malformed or
-    /// missing required fields. For more information, on how to generate
-    /// `authorized_user` json, consult the relevant section in the
-    /// [application-default credentials] guide.
+    /// missing required fields.
+    ///
+    /// For more information, on how to generate `authorized_user` JSON,
+    /// consult the relevant section in the [application-default credentials] guide.
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
@@ -1194,7 +1196,6 @@ mod tests {
             .build_access_token_credentials()?;
         let access_token = uc.access_token().await?;
         assert_eq!(access_token.token, "test-access-token");
-        assert_eq!(access_token.token_type, "test-token-type");
 
         Ok(())
     }

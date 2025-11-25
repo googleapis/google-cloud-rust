@@ -22,8 +22,6 @@ use serde_json::Value;
 use std::future::Future;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
-use tokio::time::Instant;
-
 pub mod anonymous;
 pub mod api_key_credentials;
 pub mod external_account;
@@ -193,18 +191,12 @@ impl CredentialsProvider for AccessTokenCredentials {
 pub struct AccessToken {
     /// The access token string.
     pub token: String,
-    /// The type of the access token.
-    pub(crate) token_type: String,
-    /// The time when the access token expires.
-    pub(crate) expires_at: Option<Instant>,
 }
 
 impl std::fmt::Debug for AccessToken {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("AccessToken")
             .field("token", &"[censored]")
-            .field("token_type", &self.token_type)
-            .field("expires_at", &self.expires_at)
             .finish()
     }
 }
@@ -223,11 +215,7 @@ impl std::convert::From<CacheableResource<Token>> for Result<AccessToken> {
 
 impl std::convert::From<Token> for AccessToken {
     fn from(token: Token) -> Self {
-        Self {
-            token: token.token,
-            token_type: token.token_type,
-            expires_at: token.expires_at,
-        }
+        Self { token: token.token }
     }
 }
 
@@ -519,17 +507,18 @@ impl Builder {
     ///
     /// # Errors
     ///
-    /// Returns a [CredentialsError] if a unsupported credential type is provided
-    /// or if the JSON value is either malformed
-    /// or missing required fields. For more information, on how to generate
-    /// json, consult the relevant section in the [application-default credentials] guide.
+    /// Returns a [CredentialsError] if an unsupported credential type is provided
+    /// or if the JSON value is either malformed or missing required fields.
+    ///
+    /// For more information, on how to generate the JSON for a credential,
+    /// consult the relevant section in the [application-default credentials] guide.
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> BuildResult<Credentials> {
         Ok(self.build_access_token_credentials()?.into())
     }
 
-    /// Returns a [Credentials] instance with the configured settings.
+    /// Returns an [AccessTokenCredentials] instance with the configured settings.
     ///
     /// # Example
     ///
@@ -547,10 +536,11 @@ impl Builder {
     ///
     /// # Errors
     ///
-    /// Returns a [CredentialsError] if a unsupported credential type is provided
-    /// or if the JSON value is either malformed
-    /// or missing required fields. For more information, on how to generate
-    /// json, consult the relevant section in the [application-default credentials] guide.
+    /// Returns a [CredentialsError] if an unsupported credential type is provided
+    /// or if the JSON value is either malformed or missing required fields.
+    ///
+    /// For more information, on how to generate the JSON for a credential,
+    /// consult the relevant section in the [application-default credentials] guide.
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
@@ -1158,10 +1148,5 @@ pub(crate) mod tests {
         let got = format!("{access_token:?}");
         assert!(!got.contains("token-test-only"), "{got}");
         assert!(got.contains("token: \"[censored]\""), "{got}");
-        assert!(got.contains("token_type: \"Bearer\""), "{got}");
-        assert!(
-            got.contains(&format!("expires_at: Some({expires_at:?}")),
-            "{got}"
-        );
     }
 }

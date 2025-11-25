@@ -24,13 +24,13 @@ mod tests {
     };
     use google_cloud_auth::errors::SubjectTokenProviderError;
 
-    use google_cloud_auth::credentials::EntityTag;
     use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
     use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;
     use google_cloud_auth::credentials::user_account::Builder as UserAccountCredentialBuilder;
+    use google_cloud_auth::credentials::{AccessToken, AccessTokenCredentials, EntityTag};
     use google_cloud_auth::credentials::{
-        Builder as AccessTokenCredentialBuilder, CacheableResource, Credentials,
-        CredentialsProvider, api_key_credentials::Builder as ApiKeyCredentialsBuilder,
+        AccessTokenCredentialsProvider, Builder as AccessTokenCredentialBuilder, CacheableResource,
+        Credentials, CredentialsProvider, api_key_credentials::Builder as ApiKeyCredentialsBuilder,
     };
     use google_cloud_auth::errors::CredentialsError;
     use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
@@ -410,6 +410,10 @@ mod tests {
             async fn headers(&self, extensions: Extensions) -> std::result::Result<CacheableResource<HeaderMap>, CredentialsError>;
             async fn universe_domain(&self) -> Option<String>;
         }
+
+        impl AccessTokenCredentialsProvider for Credentials {
+            async fn access_token(&self) -> std::result::Result<AccessToken, CredentialsError>;
+        }
     }
 
     #[tokio::test]
@@ -435,6 +439,22 @@ mod tests {
             }
         };
         assert_eq!(creds.universe_domain().await, None);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn mocking_access_token_credentials() -> Result<()> {
+        let mut mock = MockCredentials::new();
+        mock.expect_access_token().return_once(|| {
+            Ok(AccessToken {
+                token: "test-token".to_string(),
+            })
+        });
+
+        let creds = AccessTokenCredentials::from(mock);
+        let access_token = creds.access_token().await?;
+        assert_eq!(access_token.token, "test-token");
 
         Ok(())
     }
