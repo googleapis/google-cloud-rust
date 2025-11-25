@@ -61,7 +61,8 @@ Run:
 
 ```bash
 git checkout -b chore-update-googleapis-sha-circa-$(date +%Y-%m-%d)
-go run github.com/googleapis/librarian/cmd/sidekick@main update && taplo fmt .sidekick.toml && cargo fmt
+V=$(cat .sidekick-version.txt)
+go run github.com/googleapis/librarian/cmd/sidekick@${V} update && taplo fmt .sidekick.toml && cargo fmt
 git commit -m"chore: update googleapis SHA circa $(date +%Y-%m-%d)" .
 ```
 
@@ -71,7 +72,8 @@ Then send a PR with whatever changed.
 
 ```bash
 git checkout -b chore-update-discovery-sha-circa-$(date +%Y-%m-%d)
-go run github.com/googleapis/librarian/cmd/sidekick@main update -updated-root discovery && taplo fmt .sidekick.toml && cargo fmt
+V=$(cat .sidekick-version.txt)
+go run github.com/googleapis/librarian/cmd/sidekick@${V} update -updated-root discovery && taplo fmt .sidekick.toml && cargo fmt
 git commit -m"chore: update discovery SHA circa $(date +%Y-%m-%d)" .
 ```
 
@@ -83,7 +85,8 @@ Run:
 
 ```bash
 git checkout -b chore-bump-version-numbers-circa-$(date +%Y-%m-%d)
-go run github.com/googleapis/librarian/cmd/sidekick@main rust-bump-versions
+V=$(cat .sidekick-version.txt)
+go run github.com/googleapis/librarian/cmd/sidekick@${V} rust-bump-versions
 # The previous command fails when `gax-internal` has changed.
 git ls-files -z -- \
     '*.toml' ':!:**/testdata/**' ':!:**/generated/**' | \
@@ -98,7 +101,8 @@ git commit -m"chore: bump version numbers circa $(date +%Y-%m-%d)" .
 Run:
 
 ```bash
-go run github.com/googleapis/librarian/cmd/sidekick@main refreshall && cargo fmt
+V=$(cat .sidekick-version.txt)
+go run github.com/googleapis/librarian/cmd/sidekick@${V} refreshall && cargo fmt
 ```
 
 Then run the unit tests and send a PR with whatever changed.
@@ -111,7 +115,8 @@ When iterating, it can be useful to regenerate the code associated with a single
 Run:
 
 ```bash
-go run github.com/googleapis/librarian/cmd/sidekick@main refresh \
+V=$(cat .sidekick-version.txt)
+go run github.com/googleapis/librarian/cmd/sidekick@${V} refresh \
     -output src/generated/cloud/secretmanager/v1 && \
     cargo fmt -p google-cloud-secretmanager-v1
 ```
@@ -122,7 +127,8 @@ Someday `sidekick` will be stable enough that we will be able to install it. At
 that point we will be able to say:
 
 ```bash
-go install github.com/googleapis/librarian/sidekick@v0.1.1
+V=$(cat .sidekick-version.txt)
+go install github.com/googleapis/librarian/sidekick@${V}
 ```
 
 And we will be able to issue shorter commands, such as:
@@ -152,19 +158,21 @@ go -C ../librarian run ./cmd/sidekick refreshall -project-root $PWD && cargo fmt
 Once the changes work then send a PR in the librarian repo to make your changes.
 Wait for the PR to be approved and merged.
 
-Then finish your PR in `google-cloud-rust` by running sidekick again:
+Then finish your PR in `google-cloud-rust`.
 
-```bash
-GOPROXY=direct go run github.com/googleapis/librarian/cmd/sidekick@main refreshall && cargo fmt
-```
+1. Update the default librarian version:
+   ```bash
+   GOPROXY=direct go list -m -u -f '{{.Version}}' github.com/googleapis/librarian@main >.sidekick-version.txt
+   ```
 
-Find out what is the new version of librarian:
+1. Update the generated code:
 
-```bash
-GOPROXY=direct go list -m -u -f '{{.Version}}' github.com/googleapis/librarian@main >.sidekick-version.txt
-```
+   ```bash
+   V=$(cat .sidekick-version.txt)
+   go run github.com/googleapis/librarian/cmd/sidekick@${V} refreshall && cargo fmt
+   ```
 
-Use a single PR to update the CI builds and any generated code.
+Use a single PR to update the librarian version and any generated code.
 
 ### Generating a library with customized directories
 
