@@ -768,6 +768,7 @@ pub(crate) mod tests {
     use std::sync::LazyLock;
     use test_case::test_case;
     use tokio::time::Duration;
+    use tokio::time::Instant;
 
     pub(crate) fn find_source_error<'a, T: Error + 'static>(
         error: &'a (dyn Error + 'static),
