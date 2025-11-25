@@ -16,11 +16,6 @@
 
 //! Google Cloud Client Libraries for Rust - Common Types
 //!
-//! **WARNING:** this crate is under active development. We expect multiple
-//! breaking changes in the upcoming releases. Testing is also incomplete, we do
-//! **not** recommend that you use this crate in production. We welcome feedback
-//! about the APIs, documentation, missing features, bugs, etc.
-//!
 //! This crate defines types and functions used by one or more Google Cloud
 //! services. Most applications will use the structs defined in the [model]
 //! module.
