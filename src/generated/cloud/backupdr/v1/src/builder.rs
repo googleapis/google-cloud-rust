@@ -2288,6 +2288,27 @@ pub mod backup_dr {
             self
         }
 
+        /// Sets the value of [clear_overrides_field_mask][crate::model::RestoreBackupRequest::clear_overrides_field_mask].
+        pub fn set_clear_overrides_field_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.clear_overrides_field_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [clear_overrides_field_mask][crate::model::RestoreBackupRequest::clear_overrides_field_mask].
+        pub fn set_or_clear_clear_overrides_field_mask<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.clear_overrides_field_mask = v.map(|x| x.into());
+            self
+        }
+
         /// Sets the value of [target_environment][crate::model::RestoreBackupRequest::target_environment].
         ///
         /// Note that all the setters affecting `target_environment` are

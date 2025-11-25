@@ -16,8 +16,6 @@
 
 //! Google Cloud Client Libraries for Rust - Vertex AI Search for commerce API
 //!
-//!
-//!
 //! **WARNING:** some RPCs have no corresponding Rust function to call them.
 //! Typically these are streaming RPCs. We expect adding these RPCs in a
 //! way that does not break the existing APIs or changes their behavior in a
@@ -25,17 +23,14 @@
 //! will be required. If you need these RPCs please open an issue in our
 //! GitHub repository.
 //!
-//!
 //! This crate contains traits, types, and functions to interact with Vertex AI Search for commerce API
 //! Most applications will use the structs defined in the [client] module.
-//!
 //!
 //! The client library types and functions are stable and not expected to change.
 //! Please note that Google Cloud services do change from time to time. The client
 //! libraries are designed to preserve backwards compatibility when the service
 //! changes in compatible ways. For example, adding RPCs, or fields to messages
 //! should not introduce breaking changes to the client libraries.
-//!
 //!
 //! # Available Clients
 //!

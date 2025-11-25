@@ -639,6 +639,8 @@ impl<'de> serde::de::Deserialize<'de> for super::DockerImage {
             __media_type,
             __build_time,
             __update_time,
+            __artifact_type,
+            __image_manifests,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -672,6 +674,10 @@ impl<'de> serde::de::Deserialize<'de> for super::DockerImage {
                             "build_time" => Ok(__FieldTag::__build_time),
                             "updateTime" => Ok(__FieldTag::__update_time),
                             "update_time" => Ok(__FieldTag::__update_time),
+                            "artifactType" => Ok(__FieldTag::__artifact_type),
+                            "artifact_type" => Ok(__FieldTag::__artifact_type),
+                            "imageManifests" => Ok(__FieldTag::__image_manifests),
+                            "image_manifests" => Ok(__FieldTag::__image_manifests),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -781,6 +787,177 @@ impl<'de> serde::de::Deserialize<'de> for super::DockerImage {
                             }
                             result.update_time =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__artifact_type => {
+                            if !fields.insert(__FieldTag::__artifact_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for artifact_type",
+                                ));
+                            }
+                            result.artifact_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__image_manifests => {
+                            if !fields.insert(__FieldTag::__image_manifests) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for image_manifests",
+                                ));
+                            }
+                            result.image_manifests = map.next_value::<std::option::Option<std::vec::Vec<crate::model::ImageManifest>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ImageManifest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __architecture,
+            __os,
+            __digest,
+            __media_type,
+            __os_version,
+            __os_features,
+            __variant,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ImageManifest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "architecture" => Ok(__FieldTag::__architecture),
+                            "os" => Ok(__FieldTag::__os),
+                            "digest" => Ok(__FieldTag::__digest),
+                            "mediaType" => Ok(__FieldTag::__media_type),
+                            "media_type" => Ok(__FieldTag::__media_type),
+                            "osVersion" => Ok(__FieldTag::__os_version),
+                            "os_version" => Ok(__FieldTag::__os_version),
+                            "osFeatures" => Ok(__FieldTag::__os_features),
+                            "os_features" => Ok(__FieldTag::__os_features),
+                            "variant" => Ok(__FieldTag::__variant),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ImageManifest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ImageManifest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__architecture => {
+                            if !fields.insert(__FieldTag::__architecture) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for architecture",
+                                ));
+                            }
+                            result.architecture = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__os => {
+                            if !fields.insert(__FieldTag::__os) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for os",
+                                ));
+                            }
+                            result.os = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__digest => {
+                            if !fields.insert(__FieldTag::__digest) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for digest",
+                                ));
+                            }
+                            result.digest = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__media_type => {
+                            if !fields.insert(__FieldTag::__media_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for media_type",
+                                ));
+                            }
+                            result.media_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__os_version => {
+                            if !fields.insert(__FieldTag::__os_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for os_version",
+                                ));
+                            }
+                            result.os_version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__os_features => {
+                            if !fields.insert(__FieldTag::__os_features) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for os_features",
+                                ));
+                            }
+                            result.os_features = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__variant => {
+                            if !fields.insert(__FieldTag::__variant) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for variant",
+                                ));
+                            }
+                            result.variant = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

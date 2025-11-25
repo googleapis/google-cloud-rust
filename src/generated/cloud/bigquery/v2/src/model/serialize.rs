@@ -9742,40 +9742,6 @@ impl serde::ser::Serialize for super::UpdateRoutineRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::PatchRoutineRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.project_id.is_empty() {
-            state.serialize_entry("projectId", &self.project_id)?;
-        }
-        if !self.dataset_id.is_empty() {
-            state.serialize_entry("datasetId", &self.dataset_id)?;
-        }
-        if !self.routine_id.is_empty() {
-            state.serialize_entry("routineId", &self.routine_id)?;
-        }
-        if self.routine.is_some() {
-            state.serialize_entry("routine", &self.routine)?;
-        }
-        if self.field_mask.is_some() {
-            state.serialize_entry("fieldMask", &self.field_mask)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
 impl serde::ser::Serialize for super::DeleteRoutineRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where

@@ -9409,7 +9409,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ComputeEngineTargetDefaults {
             __hostname,
             __encryption,
             __boot_conversion,
+            __adaptation_modifiers,
             __disk_replica_zones,
+            __storage_pool,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -9473,8 +9475,12 @@ impl<'de> serde::de::Deserialize<'de> for super::ComputeEngineTargetDefaults {
                             "encryption" => Ok(__FieldTag::__encryption),
                             "bootConversion" => Ok(__FieldTag::__boot_conversion),
                             "boot_conversion" => Ok(__FieldTag::__boot_conversion),
+                            "adaptationModifiers" => Ok(__FieldTag::__adaptation_modifiers),
+                            "adaptation_modifiers" => Ok(__FieldTag::__adaptation_modifiers),
                             "diskReplicaZones" => Ok(__FieldTag::__disk_replica_zones),
                             "disk_replica_zones" => Ok(__FieldTag::__disk_replica_zones),
+                            "storagePool" => Ok(__FieldTag::__storage_pool),
+                            "storage_pool" => Ok(__FieldTag::__storage_pool),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -9721,6 +9727,18 @@ impl<'de> serde::de::Deserialize<'de> for super::ComputeEngineTargetDefaults {
                                 .next_value::<std::option::Option<crate::model::BootConversion>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__adaptation_modifiers => {
+                            if !fields.insert(__FieldTag::__adaptation_modifiers) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for adaptation_modifiers",
+                                ));
+                            }
+                            result.adaptation_modifiers = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::AdaptationModifier>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__disk_replica_zones => {
                             if !fields.insert(__FieldTag::__disk_replica_zones) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -9728,6 +9746,108 @@ impl<'de> serde::de::Deserialize<'de> for super::ComputeEngineTargetDefaults {
                                 ));
                             }
                             result.disk_replica_zones = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__storage_pool => {
+                            if !fields.insert(__FieldTag::__storage_pool) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for storage_pool",
+                                ));
+                            }
+                            result.storage_pool = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::AdaptationModifier {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __modifier,
+            __value,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AdaptationModifier")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "modifier" => Ok(__FieldTag::__modifier),
+                            "value" => Ok(__FieldTag::__value),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::AdaptationModifier;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AdaptationModifier")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__modifier => {
+                            if !fields.insert(__FieldTag::__modifier) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for modifier",
+                                ));
+                            }
+                            result.modifier = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__value => {
+                            if !fields.insert(__FieldTag::__value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for value",
+                                ));
+                            }
+                            result.value = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -9774,7 +9894,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ComputeEngineTargetDetails {
             __hostname,
             __encryption,
             __boot_conversion,
+            __adaptation_modifiers,
             __disk_replica_zones,
+            __storage_pool,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -9837,8 +9959,12 @@ impl<'de> serde::de::Deserialize<'de> for super::ComputeEngineTargetDetails {
                             "encryption" => Ok(__FieldTag::__encryption),
                             "bootConversion" => Ok(__FieldTag::__boot_conversion),
                             "boot_conversion" => Ok(__FieldTag::__boot_conversion),
+                            "adaptationModifiers" => Ok(__FieldTag::__adaptation_modifiers),
+                            "adaptation_modifiers" => Ok(__FieldTag::__adaptation_modifiers),
                             "diskReplicaZones" => Ok(__FieldTag::__disk_replica_zones),
                             "disk_replica_zones" => Ok(__FieldTag::__disk_replica_zones),
+                            "storagePool" => Ok(__FieldTag::__storage_pool),
+                            "storage_pool" => Ok(__FieldTag::__storage_pool),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -10085,6 +10211,18 @@ impl<'de> serde::de::Deserialize<'de> for super::ComputeEngineTargetDetails {
                                 .next_value::<std::option::Option<crate::model::BootConversion>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__adaptation_modifiers => {
+                            if !fields.insert(__FieldTag::__adaptation_modifiers) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for adaptation_modifiers",
+                                ));
+                            }
+                            result.adaptation_modifiers = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::AdaptationModifier>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__disk_replica_zones => {
                             if !fields.insert(__FieldTag::__disk_replica_zones) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -10092,6 +10230,16 @@ impl<'de> serde::de::Deserialize<'de> for super::ComputeEngineTargetDetails {
                                 ));
                             }
                             result.disk_replica_zones = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__storage_pool => {
+                            if !fields.insert(__FieldTag::__storage_pool) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for storage_pool",
+                                ));
+                            }
+                            result.storage_pool = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -19039,6 +19187,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ImageImportOsAdaptationParamete
             __generalize,
             __license_type,
             __boot_conversion,
+            __adaptation_modifiers,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -19064,6 +19213,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ImageImportOsAdaptationParamete
                             "license_type" => Ok(__FieldTag::__license_type),
                             "bootConversion" => Ok(__FieldTag::__boot_conversion),
                             "boot_conversion" => Ok(__FieldTag::__boot_conversion),
+                            "adaptationModifiers" => Ok(__FieldTag::__adaptation_modifiers),
+                            "adaptation_modifiers" => Ok(__FieldTag::__adaptation_modifiers),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -19117,6 +19268,18 @@ impl<'de> serde::de::Deserialize<'de> for super::ImageImportOsAdaptationParamete
                                 .next_value::<std::option::Option<crate::model::BootConversion>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__adaptation_modifiers => {
+                            if !fields.insert(__FieldTag::__adaptation_modifiers) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for adaptation_modifiers",
+                                ));
+                            }
+                            result.adaptation_modifiers = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::AdaptationModifier>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -19140,6 +19303,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DataDiskImageImport {
         #[doc(hidden)]
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
+            __guest_os_features,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -19159,7 +19323,11 @@ impl<'de> serde::de::Deserialize<'de> for super::DataDiskImageImport {
                     {
                         use std::result::Result::Ok;
                         use std::string::ToString;
-                        Ok(__FieldTag::Unknown(value.to_string()))
+                        match value {
+                            "guestOsFeatures" => Ok(__FieldTag::__guest_os_features),
+                            "guest_os_features" => Ok(__FieldTag::__guest_os_features),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
                     }
                 }
                 deserializer.deserialize_identifier(Visitor)
@@ -19178,10 +19346,19 @@ impl<'de> serde::de::Deserialize<'de> for super::DataDiskImageImport {
                 #[allow(unused_imports)]
                 use serde::de::Error;
                 use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
+                        __FieldTag::__guest_os_features => {
+                            if !fields.insert(__FieldTag::__guest_os_features) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for guest_os_features",
+                                ));
+                            }
+                            result.guest_os_features = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);

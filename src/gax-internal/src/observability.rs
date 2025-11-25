@@ -20,7 +20,10 @@
 #[cfg(google_cloud_unstable_tracing)]
 pub mod attributes;
 
-#[cfg(all(google_cloud_unstable_tracing, feature = "_internal-http-client"))]
+#[cfg(all(
+    google_cloud_unstable_tracing,
+    any(feature = "_internal-http-client", feature = "_internal-grpc-client")
+))]
 mod errors;
 
 #[cfg(all(google_cloud_unstable_tracing, feature = "_internal-http-client"))]

@@ -9795,6 +9795,10 @@ pub struct ComputeEngineTargetDefaults {
     /// convert the virtual machine from using the existing boot option to another.
     pub boot_conversion: crate::model::BootConversion,
 
+    /// Optional. AdaptationModifiers are the set of modifiers used during OS
+    /// adaptation.
+    pub adaptation_modifiers: std::vec::Vec<crate::model::AdaptationModifier>,
+
     /// Optional. Additional replica zones of the target regional disks.
     /// If this list is not empty a regional disk will be created. The first
     /// supported zone would be the one stated in the
@@ -9807,6 +9811,13 @@ pub struct ComputeEngineTargetDefaults {
     ///
     /// [google.cloud.vmmigration.v1.ComputeEngineTargetDefaults.zone]: crate::model::ComputeEngineTargetDefaults::zone
     pub disk_replica_zones: std::vec::Vec<std::string::String>,
+
+    /// Optional. If specified this will be the storage pool in which the disk is
+    /// created. This is the full path of the storage pool resource, for example:
+    /// "projects/my-project/zones/us-central1-a/storagePools/my-storage-pool".
+    /// The storage pool must be in the same project and zone as the target disks.
+    /// The storage pool's type must match the disk type.
+    pub storage_pool: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -10026,6 +10037,17 @@ impl ComputeEngineTargetDefaults {
         self
     }
 
+    /// Sets the value of [adaptation_modifiers][crate::model::ComputeEngineTargetDefaults::adaptation_modifiers].
+    pub fn set_adaptation_modifiers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AdaptationModifier>,
+    {
+        use std::iter::Iterator;
+        self.adaptation_modifiers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [disk_replica_zones][crate::model::ComputeEngineTargetDefaults::disk_replica_zones].
     pub fn set_disk_replica_zones<T, V>(mut self, v: T) -> Self
     where
@@ -10036,11 +10058,56 @@ impl ComputeEngineTargetDefaults {
         self.disk_replica_zones = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [storage_pool][crate::model::ComputeEngineTargetDefaults::storage_pool].
+    pub fn set_storage_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.storage_pool = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ComputeEngineTargetDefaults {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.vmmigration.v1.ComputeEngineTargetDefaults"
+    }
+}
+
+/// AdaptationModifier a modifier to be used for configuration of the OS
+/// adaptation process.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AdaptationModifier {
+    /// Optional. The modifier name.
+    pub modifier: std::string::String,
+
+    /// Optional. The value of the modifier.
+    /// The actual value depends on the modifier and can also be empty.
+    pub value: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AdaptationModifier {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [modifier][crate::model::AdaptationModifier::modifier].
+    pub fn set_modifier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.modifier = v.into();
+        self
+    }
+
+    /// Sets the value of [value][crate::model::AdaptationModifier::value].
+    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.value = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AdaptationModifier {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.vmmigration.v1.AdaptationModifier"
     }
 }
 
@@ -10118,6 +10185,10 @@ pub struct ComputeEngineTargetDetails {
     /// convert the virtual machine from using the existing boot option to another.
     pub boot_conversion: crate::model::BootConversion,
 
+    /// Optional. Modifiers to be used as configuration of the OS adaptation
+    /// process.
+    pub adaptation_modifiers: std::vec::Vec<crate::model::AdaptationModifier>,
+
     /// Optional. Additional replica zones of the target regional disks.
     /// If this list is not empty a regional disk will be created. The first
     /// supported zone would be the one stated in the
@@ -10130,6 +10201,14 @@ pub struct ComputeEngineTargetDetails {
     ///
     /// [google.cloud.vmmigration.v1.ComputeEngineTargetDetails.zone]: crate::model::ComputeEngineTargetDetails::zone
     pub disk_replica_zones: std::vec::Vec<std::string::String>,
+
+    /// Optional. The storage pool used for the VM disks.
+    /// If specified this will be the storage pool in which the disk is created.
+    /// This is the full path of the storage pool resource, for example:
+    /// "projects/my-project/zones/us-central1-a/storagePools/my-storage-pool".
+    /// The storage pool must be in the same project and zone as the target disks.
+    /// The storage pool's type must match the disk type.
+    pub storage_pool: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -10349,6 +10428,17 @@ impl ComputeEngineTargetDetails {
         self
     }
 
+    /// Sets the value of [adaptation_modifiers][crate::model::ComputeEngineTargetDetails::adaptation_modifiers].
+    pub fn set_adaptation_modifiers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AdaptationModifier>,
+    {
+        use std::iter::Iterator;
+        self.adaptation_modifiers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [disk_replica_zones][crate::model::ComputeEngineTargetDetails::disk_replica_zones].
     pub fn set_disk_replica_zones<T, V>(mut self, v: T) -> Self
     where
@@ -10357,6 +10447,12 @@ impl ComputeEngineTargetDetails {
     {
         use std::iter::Iterator;
         self.disk_replica_zones = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [storage_pool][crate::model::ComputeEngineTargetDetails::storage_pool].
+    pub fn set_storage_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.storage_pool = v.into();
         self
     }
 }
@@ -17844,6 +17940,10 @@ pub struct ImageImportOsAdaptationParameters {
     /// The size of the boot disk might be increased to allow the conversion
     pub boot_conversion: crate::model::BootConversion,
 
+    /// Optional. Modifiers to be used as configuration of the OS adaptation
+    /// process.
+    pub adaptation_modifiers: std::vec::Vec<crate::model::AdaptationModifier>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -17875,6 +17975,17 @@ impl ImageImportOsAdaptationParameters {
         self.boot_conversion = v.into();
         self
     }
+
+    /// Sets the value of [adaptation_modifiers][crate::model::ImageImportOsAdaptationParameters::adaptation_modifiers].
+    pub fn set_adaptation_modifiers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AdaptationModifier>,
+    {
+        use std::iter::Iterator;
+        self.adaptation_modifiers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for ImageImportOsAdaptationParameters {
@@ -17883,16 +17994,39 @@ impl wkt::message::Message for ImageImportOsAdaptationParameters {
     }
 }
 
-/// Mentions that the image import is not using OS adaptation process.
+/// Used when the image import is not using OS adaptation process.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataDiskImageImport {
+    /// Optional. A list of guest OS features to apply to the imported image. These
+    /// features are flags that are used by Compute Engine to enable certain
+    /// capabilities for virtual machine instances that are created from the image.
+    ///
+    /// This field does not change the OS of the image; it only marks the image
+    /// with the specified features. The user must ensure that the OS is
+    /// compatible with the features.
+    ///
+    /// For a list of available features, see
+    /// <https://cloud.google.com/compute/docs/images/create-custom#guest-os-features>.
+    pub guest_os_features: std::vec::Vec<std::string::String>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DataDiskImageImport {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [guest_os_features][crate::model::DataDiskImageImport::guest_os_features].
+    pub fn set_guest_os_features<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.guest_os_features = v.into_iter().map(|i| i.into()).collect();
+        self
     }
 }
 
