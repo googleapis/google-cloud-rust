@@ -18,7 +18,6 @@ resolver = "2"
 default-members = [
   "guide/samples",
   "src/auth",
-  "src/auth/integration-tests",
   "src/base",
   "src/bigquery",
   "src/bigtable",
@@ -26,7 +25,6 @@ default-members = [
   "src/firestore",
   "src/gax",
   "src/gax-internal",
-  "src/integration-tests",
   "src/lro",
   "src/pubsub",
   "src/root",
@@ -41,16 +39,16 @@ default-members = [
   "src/generated/cloud/speech/v2",
   "src/generated/cloud/workflows/v1",
   "src/generated/openapi-validation",
+  "tests/integration",
+  "tests/integration-auth",
 ]
 members = [
   "guide/samples",
   "src/auth",
-  "src/auth/integration-tests",
   "src/base",
   "src/bigquery",
   "src/bigtable",
   "src/datastore",
-  "src/endurance-test",
   "src/firestore",
   "src/gax",
   "src/gax-internal",
@@ -259,17 +257,19 @@ members = [
   "src/generated/spanner/admin/instance/v1",
   "src/generated/storagetransfer/v1",
   "src/generated/type",
-  "src/integration-tests",
   "src/lro",
-  "src/protojson-conformance",
   "src/pubsub",
   "src/pubsub/examples",
   "src/root",
   "src/spanner",
   "src/storage",
+  "src/storage/benchmarks/w1r3",
   "src/storage/examples",
-  "src/w1r3",
   "src/wkt",
+  "tests/endurance",
+  "tests/integration",
+  "tests/integration-auth",
+  "tests/protojson-conformance",
   "tools/check-copyright",
   "tools/minimal-version-helper",
 ]
@@ -424,17 +424,24 @@ oslogin_common                = { version = "1", path = "src/generated/oslogin/c
 iam_v2                        = { version = "1", path = "src/generated/iam/v2", package = "google-cloud-iam-v2" }
 recommender                   = { version = "1", path = "src/generated/cloud/recommender/v1", package = "google-cloud-recommender-v1" }
 accesscontextmanager_type     = { version = "1", path = "src/generated/identity/accesscontextmanager/type", package = "google-cloud-identity-accesscontextmanager-type" }
-google-cloud-language-v2      = { version = "1", path = "src/generated/cloud/language/v2" }
-google-cloud-speech-v2        = { version = "1", path = "src/generated/cloud/speech/v2" }
-google-cloud-secretmanager-v1 = { version = "1", path = "src/generated/cloud/secretmanager/v1" }
-google-cloud-aiplatform-v1    = { version = "1", default-features = false, path = "src/generated/cloud/aiplatform/v1" }
-google-cloud-compute-v1       = { version = "0.2", default-features = false, path = "src/generated/cloud/compute/v1" }
-google-cloud-storage          = { version = "1", path = "src/storage" }
-google-cloud-pubsub           = { path = "src/pubsub" }
+# Used in integration tests
+google-cloud-speech-v2          = { version = "1", path = "src/generated/cloud/speech/v2" }
+google-cloud-secretmanager-v1   = { version = "1", path = "src/generated/cloud/secretmanager/v1" }
+secretmanager                   = { version = "1", path = "src/generated/cloud/secretmanager/v1", package = "google-cloud-secretmanager-v1" }
+google-cloud-aiplatform-v1      = { version = "1", default-features = false, path = "src/generated/cloud/aiplatform/v1" }
+google-cloud-compute-v1         = { version = "0.2", default-features = false, path = "src/generated/cloud/compute/v1" }
+google-cloud-storage            = { version = "1", path = "src/storage" }
+google-cloud-pubsub             = { path = "src/pubsub" }
+google-cloud-bigquery-v2        = { version = "1", path = "src/generated/cloud/bigquery/v2" }
+bigquery                        = { version = "1", path = "src/generated/cloud/bigquery/v2", package = "google-cloud-bigquery-v2" }
+google-cloud-iam-credentials-v1 = { version = "1", path = "src/generated/iam/credentials/v1" }
+iamcredentials                  = { version = "1", path = "src/generated/iam/credentials/v1", package = "google-cloud-iam-credentials-v1" }
+google-cloud-language-v2        = { version = "1", path = "src/generated/cloud/language/v2" }
+language                        = { version = "1", path = "src/generated/cloud/language/v2", package = "google-cloud-language-v2" }
 
 # Local test packages (never add a version)
 google-cloud-test-utils = { path = "src/test-utils" }
-integration-tests       = { path = "src/integration-tests" }
+integration-tests       = { path = "tests/integration" }
 pubsub-samples          = { path = "src/pubsub/examples" }
 storage-samples         = { path = "src/storage/examples" }
 

@@ -1,4 +1,4 @@
-# The future location of all the SDK code
+# The client library crates
 
-We plan to move all the library code, include hand-crafted libraries and common
-components.
+This directory contains all the client libraries and the crates needed to build
+them.
