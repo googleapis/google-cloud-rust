@@ -17,24 +17,16 @@ use crate::publisher::worker::BundledMessage;
 use futures::stream::FuturesUnordered;
 use std::sync::Arc;
 
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub(crate) struct Batch {
     // TODO(#3686): A batch should also keep track of its total size
     // for improved performance.
     messages: Vec<BundledMessage>,
 }
 
-impl Default for Batch {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
 impl Batch {
     pub(crate) fn new() -> Self {
-        Batch {
-            messages: Vec::new(),
-        }
+        Batch::default()
     }
 
     pub(crate) fn is_empty(&self) -> bool {
