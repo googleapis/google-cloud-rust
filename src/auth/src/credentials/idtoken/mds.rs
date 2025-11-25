@@ -159,7 +159,7 @@ impl Builder {
     ///
     /// # Example
     ///
-    /// ```no_run
+    /// ```
     /// # use google_cloud_auth::credentials::idtoken;
     /// let audience = "https://my-service.a.run.app";
     /// let credentials = idtoken::mds::Builder::new(audience)
@@ -182,7 +182,7 @@ impl Builder {
     ///
     /// # Example
     ///
-    /// ```no_run
+    /// ```
     /// # use google_cloud_auth::credentials::idtoken;
     /// let audience = "https://my-service.a.run.app";
     /// let credentials = idtoken::mds::Builder::new(audience)
@@ -204,7 +204,7 @@ impl Builder {
     ///
     /// # Example
     ///
-    /// ```no_run
+    /// ```
     /// # use google_cloud_auth::credentials::idtoken;
     /// let audience = "https://my-service.a.run.app";
     /// let credentials = idtoken::mds::Builder::new(audience)

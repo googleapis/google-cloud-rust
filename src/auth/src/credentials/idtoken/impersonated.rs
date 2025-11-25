@@ -138,7 +138,7 @@ impl Builder {
     /// Target principal is the email of the service account to impersonate.
     ///
     /// # Example
-    /// ```no_run
+    /// ```
     /// # use google_cloud_auth::credentials::idtoken;
     /// # use google_cloud_auth::credentials::user_account;
     /// # use serde_json::json;
