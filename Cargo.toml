@@ -42,6 +42,7 @@ default-members = [
   "tests/integration",
   "tests/integration-auth",
 ]
+
 members = [
   "guide/samples",
   "src/auth",
@@ -263,6 +264,7 @@ members = [
   "src/root",
   "src/spanner",
   "src/storage",
+  "src/storage/benchmarks/random",
   "src/storage/benchmarks/w1r3",
   "src/storage/examples",
   "src/wkt",
