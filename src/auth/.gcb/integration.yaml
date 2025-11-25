@@ -27,21 +27,19 @@ serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@
 steps:
   - id: 'Set up build cache'
     name: 'gcr.io/cloud-builders/curl'
-    script: |
-      #!/usr/bin/env bash
-      set -e
-      mkdir -p .bin
-      curl -fsSL https://github.com/mozilla/sccache/releases/download/v0.9.1/sccache-v0.9.1-x86_64-unknown-linux-musl.tar.gz |
-        tar -C /workspace/.bin -zxf - --strip-components=1
-      chmod 755 /workspace/.bin/sccache
+    entrypoint: bash
+    args: ['.gcb/scripts/install-sccache.sh']
+    env:
+      - _SCCACHE_VERSION=${_SCCACHE_VERSION}
+      - _SCCACHE_SHA256=${_SCCACHE_SHA256}
   - id: 'Run auth integration tests'
-    name: 'rust:1.90-bookworm'
+    name: 'rust:${_RUST_VERSION}-bookworm'
     script: |
       #!/usr/bin/env bash
       set -e
       cargo test --features run-integration-tests -p auth-integration-tests
   - id: 'Run External Account integration tests'
-    name: 'rust:1.90-bookworm'
+    name: 'rust:${_RUST_VERSION}-bookworm'
     env:
       - 'EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=${_EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL}'
       - 'GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=${_WORKLOAD_IDENTITY_AUDIENCE}'
@@ -50,3 +48,7 @@ steps:
       #!/usr/bin/env bash
       set -e
       cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
+substitutions:
+  _RUST_VERSION: '1.91'
+  _SCCACHE_VERSION: 'v0.12.0'
+  _SCCACHE_SHA256: 'b0e89ead6899224a4ba2b90e9073bf1ce036d95bab30f3dc33c1e1468bc4ad44'

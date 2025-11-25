@@ -24,12 +24,12 @@ type ReadResult<T> = std::result::Result<T, ReadError>;
 #[derive(Debug)]
 pub(crate) struct ActiveRead {
     state: RemainingRange,
-    sender: Sender<Result<bytes::Bytes, ReadError>>,
+    sender: Sender<ReadResult<bytes::Bytes>>,
 }
 
 impl ActiveRead {
     pub(super) fn new(
-        sender: Sender<Result<bytes::Bytes, ReadError>>,
+        sender: Sender<ReadResult<bytes::Bytes>>,
         requested_range: RequestedRange,
     ) -> Self {
         Self {
@@ -38,15 +38,16 @@ impl ActiveRead {
         }
     }
 
-    pub(super) async fn handle_data(
+    pub(super) fn handle_data(
         &mut self,
         data: Option<ChecksummedData>,
         received_range: ProtoRange,
         end: bool,
-    ) -> ReadResult<()> {
+    ) -> ReadResult<Handler> {
         self.state.update(received_range)?;
         let Some(data) = data else {
-            return self.state.handle_empty(end);
+            self.state.handle_empty(end)?;
+            return Ok(Handler(InnerHandler::NoData));
         };
         if let Some(want) = data.crc32c {
             let got = crc32c::crc32c(&data.content);
@@ -57,9 +58,10 @@ impl ActiveRead {
                 }));
             }
         };
-        // Ignore errors, the application can drop a pending range at any time.
-        let _ = self.sender.send(Ok(data.content)).await;
-        Ok(())
+        Ok(Handler(InnerHandler::Send(
+            self.sender.clone(),
+            data.content,
+        )))
     }
 
     pub(super) async fn handle_error(&mut self, error: ReadError) {
@@ -83,6 +85,27 @@ impl ActiveRead {
     }
 }
 
+#[derive(Debug)]
+pub struct Handler(InnerHandler);
+impl Handler {
+    pub async fn send(self) {
+        match self.0 {
+            InnerHandler::NoData => {}
+            InnerHandler::Send(tx, data) => {
+                // Ignore errors, the application can drop the reader (which
+                // holds the other side of the `tx` channel) at any time.
+                let _ = tx.send(Ok(data)).await;
+            }
+        }
+    }
+}
+
+#[derive(Debug)]
+enum InnerHandler {
+    NoData,
+    Send(Sender<ReadResult<bytes::Bytes>>, bytes::Bytes),
+}
+
 #[cfg(test)]
 mod tests {
     use super::super::tests::{permanent_error, proto_range};
@@ -102,8 +125,13 @@ mod tests {
             content: bytes::Bytes::from_owner(content.clone()),
             ..ChecksummedData::default()
         };
-        range.handle_data(Some(data), response, false).await?;
+        let handler = range.handle_data(Some(data), response, false)?;
         assert_eq!(range.as_proto(0), proto_range(25, 0));
+        assert!(
+            matches!(handler, Handler(InnerHandler::Send(_, ref data)) if *data == content),
+            "{handler:?}"
+        );
+        handler.send().await;
 
         let recv = rx.recv().await;
         assert!(matches!(recv, Some(Ok(ref b)) if *b == content), "{recv:?}");
@@ -115,7 +143,7 @@ mod tests {
             content: bytes::Bytes::from_owner(content.clone()),
             crc32c: Some(crc32c::crc32c(content.as_bytes())),
         };
-        range.handle_data(Some(data), response, false).await?;
+        let _ = range.handle_data(Some(data), response, false)?;
         assert_eq!(range.as_proto(0), proto_range(50, 0));
 
         Ok(())
@@ -129,7 +157,7 @@ mod tests {
         let requested = ReadRange::segment(0, 100).0;
         let mut range = ActiveRead::new(tx, requested);
         let response = proto_range(0, 0);
-        let result = range.handle_data(None, response, true).await;
+        let result = range.handle_data(None, response, true);
         assert!(
             matches!(result, Err(ReadError::ShortRead(ref l)) if *l == 100),
             "result={result:?} {range:?}"
@@ -147,7 +175,12 @@ mod tests {
             read_length: 0,
             read_id: 0,
         };
-        range.handle_data(None, proto_range, false).await?;
+        let handler = range.handle_data(None, proto_range, false)?;
+        assert!(
+            matches!(handler, Handler(InnerHandler::NoData)),
+            "{handler:?}"
+        );
+        handler.send().await; // Just for coverage, it is a no-op.
         Ok(())
     }
 
@@ -168,7 +201,6 @@ mod tests {
         };
         let err = range
             .handle_data(Some(data), proto_range, false)
-            .await
             .unwrap_err();
         assert!(
             matches!(err, ReadError::ChecksumMismatch(ChecksumMismatch::Crc32c {ref got, ..}) if *got == actual),
@@ -193,7 +225,6 @@ mod tests {
         };
         let err = range
             .handle_data(Some(data), proto_range, false)
-            .await
             .unwrap_err();
         assert!(
             matches!(err, ReadError::OutOfOrderBidiResponse{ ref got, ref expected } if *got == 25 && *expected == 0),

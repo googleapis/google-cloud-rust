@@ -13721,6 +13721,11 @@ pub struct Settings {
     /// Dataplex on Cloud SQL instances is activated.
     pub enable_dataplex_integration: std::option::Option<wkt::BoolValue>,
 
+    /// Optional. Cloud SQL for MySQL auto-upgrade configuration. When this
+    /// parameter is set to true, auto-upgrade is enabled for MySQL 8.0 minor
+    /// versions. The MySQL version must be 8.0.35 or higher.
+    pub auto_upgrade_enabled: std::option::Option<bool>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -14211,6 +14216,24 @@ impl Settings {
         T: std::convert::Into<wkt::BoolValue>,
     {
         self.enable_dataplex_integration = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [auto_upgrade_enabled][crate::model::Settings::auto_upgrade_enabled].
+    pub fn set_auto_upgrade_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.auto_upgrade_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [auto_upgrade_enabled][crate::model::Settings::auto_upgrade_enabled].
+    pub fn set_or_clear_auto_upgrade_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.auto_upgrade_enabled = v.map(|x| x.into());
         self
     }
 }

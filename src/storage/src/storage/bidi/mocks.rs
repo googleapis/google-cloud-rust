@@ -12,8 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::connector::Connector;
+use super::tests::test_options;
 use super::{Client, Receiver, RequestOptions, TonicStreaming};
-use crate::google::storage::v2::{BidiReadObjectRequest, BidiReadObjectResponse};
+use crate::google::storage::v2::{
+    BidiReadObjectRequest, BidiReadObjectResponse, BidiReadObjectSpec,
+};
 use std::sync::Arc;
 use tokio::sync::mpsc::Sender;
 
@@ -73,3 +77,19 @@ pub trait TestClient: std::fmt::Debug {
 
 pub type MockStream = Receiver<tonic::Result<BidiReadObjectResponse>>;
 pub type MockStreamSender = Sender<tonic::Result<BidiReadObjectResponse>>;
+
+pub fn mock_connector(mock: MockTestClient) -> Connector<SharedMockClient> {
+    let client = SharedMockClient::new(mock);
+
+    let spec = BidiReadObjectSpec {
+        bucket: "projects/_/buckets/test-bucket".into(),
+        object: "test-object".into(),
+        ..BidiReadObjectSpec::default()
+    };
+
+    Connector::new(spec, test_options(), client.clone())
+}
+
+pub fn mock_stream() -> (MockStreamSender, MockStream) {
+    tokio::sync::mpsc::channel(10)
+}

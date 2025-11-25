@@ -1328,6 +1328,8 @@ impl std::fmt::Debug for super::SimpleExportPolicyRule {
         debug_struct.field("kerberos_5i_read_write", &self.kerberos_5i_read_write);
         debug_struct.field("kerberos_5p_read_only", &self.kerberos_5p_read_only);
         debug_struct.field("kerberos_5p_read_write", &self.kerberos_5p_read_write);
+        debug_struct.field("squash_mode", &self.squash_mode);
+        debug_struct.field("anon_uid", &self.anon_uid);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

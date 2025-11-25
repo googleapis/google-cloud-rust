@@ -12,8 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub(crate) mod batch;
 pub mod client;
 pub mod model_ext;
 pub mod options;
 #[allow(clippy::module_inception)]
 pub mod publisher;
+pub(crate) mod worker;

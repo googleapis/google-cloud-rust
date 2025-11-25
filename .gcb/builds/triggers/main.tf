@@ -34,37 +34,115 @@ locals {
   # connection and just record it here.
   gcb_secret_name = "projects/${var.project}/secrets/github-github-oauthtoken-319d75/versions/latest"
 
-  # Add to these lists of you want to have more triggers.
-  pr_builds = {
+  unstable_flags = join(" ", [
+    "--cfg google_cloud_unstable_tracing",
+    "--cfg google_cloud_unstable_signed_url",
+    "--cfg google_cloud_unstable_storage_bidi"
+  ])
+
+  # These builds appear in both the PR (Pull Request) triggers and the
+  # PM (Post Merge) triggers. See below for builds that only appear in one.
+  common_builds = {
+    compute-full = {
+      config = "complex.yaml"
+      script = "compute-full"
+    }
+    coverage = {
+      config = "coverage.yaml"
+      script = "coverage"
+      flags  = local.unstable_flags
+    }
+    docs = {
+      config = "complex.yaml"
+      script = "docs"
+    }
+    docs-rs = {
+      config = "complex.yaml"
+      script = "docs-rs"
+    }
+    features = {
+      config = "complex.yaml"
+      script = "features"
+    }
+    format = {
+      config = "format.yaml"
+    }
     integration = {
       config = "integration.yaml"
     }
     integration-unstable = {
       config = "integration.yaml"
-      flags = join(" ", [
-        "--cfg google_cloud_unstable_tracing",
-        "--cfg google_cloud_unstable_signed_url",
-        "--cfg google_cloud_unstable_storage_bidi"
-      ])
+      flags  = local.unstable_flags
+    }
+    lint = {
+      config = "complex.yaml"
+      script = "lint"
+    }
+    lint-unstable = {
+      config = "complex.yaml"
+      flags  = local.unstable_flags
+      script = "lint-unstable"
+    }
+    minimal-versions = {
+      config = "complex.yaml"
+      script = "minimal-versions"
+    }
+    protojson-conformance = {
+      config = "complex.yaml"
+      script = "protojson-conformance"
+    }
+    regenerate = {
+      config = "complex.yaml"
+      script = "regenerate"
+    }
+    rustdocfx = {
+      config = "rustdocfx.yaml"
+    }
+    semver-checks = {
+      config = "complex.yaml"
+      script = "semver-checks"
+    }
+    showcase = {
+      config = "complex.yaml"
+      script = "showcase"
+    }
+    test-current = {
+      config = "complex.yaml"
+      flags  = local.unstable_flags
+      script = "test"
+    }
+    test-msrv = {
+      config       = "complex.yaml"
+      flags        = local.unstable_flags
+      script       = "test"
+      rust_version = "1.85"
+    }
+    test-unstable-cfg = {
+      config = "complex.yaml"
+      flags  = local.unstable_flags
+      script = "test-unstable-cfg"
     }
   }
 
-  pm_builds = {
-    integration = {
-      config = "integration.yaml"
-    }
-    integration-unstable = {
-      config = "integration.yaml"
-      flags = join(" ", [
-        "--cfg google_cloud_unstable_tracing",
-        "--cfg google_cloud_unstable_signed_url",
-        "--cfg google_cloud_unstable_storage_bidi"
-      ])
-    }
+  # These are builds that only run during Pull Requests.
+  pr_build_overrides = {}
+
+  # There are builds that only run Post Merge.
+  pm_build_overrides = {
+    # Uploads the reference docs, too expensive for PR builds.
     referenceupload = {
       config = "referenceupload.yaml"
     }
+    # Builds and tests all the crates. This is too slow for a PR build.
+    workspace = {
+      config = "complex.yaml"
+      script = "workspace"
+    }
   }
+
+  # Compute the effective list of builds.
+  pr_builds = merge(local.common_builds, local.pr_build_overrides)
+  pm_builds = merge(local.common_builds, local.pm_build_overrides)
 }
 
 # This is used to retrieve the project number. The project number is embedded in
@@ -119,6 +197,8 @@ resource "google_cloudbuild_trigger" "pull-request" {
 
   substitutions = {
     _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
+    _SCRIPT             = lookup(each.value, "script", "")
+    _RUST_VERSION       = lookup(each.value, "rust_version", "1.91")
   }
 }
 
@@ -142,6 +222,8 @@ resource "google_cloudbuild_trigger" "post-merge" {
 
   substitutions = {
     _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
+    _SCRIPT             = lookup(each.value, "script", "")
+    _RUST_VERSION       = lookup(each.value, "rust_version", "1.91")
   }
 }
 

@@ -25,7 +25,7 @@ repository.workspace = true
 [dependencies]
 anyhow.workspace         = true
 cargo_metadata.workspace = true
-clap                     = { workspace = true, features = ["derive"] }
+clap                     = { workspace = true, features = ["derive", "std"] }
 crates_io_api            = { workspace = true, features = ["default"] }
 semver.workspace         = true
 toml_edit                = { workspace = true, features = ["display", "parse"] }

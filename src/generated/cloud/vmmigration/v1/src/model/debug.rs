@@ -1074,7 +1074,21 @@ impl std::fmt::Debug for super::ComputeEngineTargetDefaults {
         debug_struct.field("hostname", &self.hostname);
         debug_struct.field("encryption", &self.encryption);
         debug_struct.field("boot_conversion", &self.boot_conversion);
+        debug_struct.field("adaptation_modifiers", &self.adaptation_modifiers);
         debug_struct.field("disk_replica_zones", &self.disk_replica_zones);
+        debug_struct.field("storage_pool", &self.storage_pool);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AdaptationModifier {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdaptationModifier");
+        debug_struct.field("modifier", &self.modifier);
+        debug_struct.field("value", &self.value);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1110,7 +1124,9 @@ impl std::fmt::Debug for super::ComputeEngineTargetDetails {
         debug_struct.field("hostname", &self.hostname);
         debug_struct.field("encryption", &self.encryption);
         debug_struct.field("boot_conversion", &self.boot_conversion);
+        debug_struct.field("adaptation_modifiers", &self.adaptation_modifiers);
         debug_struct.field("disk_replica_zones", &self.disk_replica_zones);
+        debug_struct.field("storage_pool", &self.storage_pool);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2178,6 +2194,7 @@ impl std::fmt::Debug for super::ImageImportOsAdaptationParameters {
         debug_struct.field("generalize", &self.generalize);
         debug_struct.field("license_type", &self.license_type);
         debug_struct.field("boot_conversion", &self.boot_conversion);
+        debug_struct.field("adaptation_modifiers", &self.adaptation_modifiers);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2188,6 +2205,7 @@ impl std::fmt::Debug for super::ImageImportOsAdaptationParameters {
 impl std::fmt::Debug for super::DataDiskImageImport {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DataDiskImageImport");
+        debug_struct.field("guest_os_features", &self.guest_os_features);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

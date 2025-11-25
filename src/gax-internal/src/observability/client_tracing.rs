@@ -26,7 +26,7 @@ use tracing::{Span, field};
 ///
 /// # Example
 ///
-/// ```ignore
+/// ```compile_fail
 /// let span = create_client_request_span(
 ///     "google_cloud_storage::client::Client::upload_chunk",
 ///     "upload_chunk",

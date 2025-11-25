@@ -360,6 +360,85 @@ impl std::fmt::Debug for super::VideoMetadata {
 }
 
 #[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+impl std::fmt::Debug for super::PrebuiltVoiceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrebuiltVoiceConfig");
+        debug_struct.field("voice_name", &self.voice_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+impl std::fmt::Debug for super::ReplicatedVoiceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplicatedVoiceConfig");
+        debug_struct.field("mime_type", &self.mime_type);
+        debug_struct.field("voice_sample_audio", &self.voice_sample_audio);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+impl std::fmt::Debug for super::VoiceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VoiceConfig");
+        debug_struct.field("voice_config", &self.voice_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+impl std::fmt::Debug for super::SpeakerVoiceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpeakerVoiceConfig");
+        debug_struct.field("speaker", &self.speaker);
+        debug_struct.field("voice_config", &self.voice_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+impl std::fmt::Debug for super::MultiSpeakerVoiceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MultiSpeakerVoiceConfig");
+        debug_struct.field("speaker_voice_configs", &self.speaker_voice_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+impl std::fmt::Debug for super::SpeechConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpeechConfig");
+        debug_struct.field("voice_config", &self.voice_config);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field(
+            "multi_speaker_voice_config",
+            &self.multi_speaker_voice_config,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
 impl std::fmt::Debug for super::ImageConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImageConfig");
@@ -390,6 +469,7 @@ impl std::fmt::Debug for super::GenerationConfig {
         debug_struct.field("response_schema", &self.response_schema);
         debug_struct.field("response_json_schema", &self.response_json_schema);
         debug_struct.field("routing_config", &self.routing_config);
+        debug_struct.field("speech_config", &self.speech_config);
         debug_struct.field("thinking_config", &self.thinking_config);
         debug_struct.field("image_config", &self.image_config);
         if !self._unknown_fields.is_empty() {
@@ -8443,6 +8523,7 @@ impl std::fmt::Debug for super::MachineSpec {
         debug_struct.field("machine_type", &self.machine_type);
         debug_struct.field("accelerator_type", &self.accelerator_type);
         debug_struct.field("accelerator_count", &self.accelerator_count);
+        debug_struct.field("gpu_partition_size", &self.gpu_partition_size);
         debug_struct.field("tpu_topology", &self.tpu_topology);
         debug_struct.field("reservation_affinity", &self.reservation_affinity);
         if !self._unknown_fields.is_empty() {
@@ -13334,6 +13415,32 @@ impl std::fmt::Debug for super::reasoning_engine_spec::source_code_spec::InlineS
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InlineSource");
         debug_struct.field("source_archive", &self.source_archive);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-service")]
+impl std::fmt::Debug for super::reasoning_engine_spec::source_code_spec::DeveloperConnectConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeveloperConnectConfig");
+        debug_struct.field("git_repository_link", &self.git_repository_link);
+        debug_struct.field("dir", &self.dir);
+        debug_struct.field("revision", &self.revision);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-service")]
+impl std::fmt::Debug for super::reasoning_engine_spec::source_code_spec::DeveloperConnectSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeveloperConnectSource");
+        debug_struct.field("config", &self.config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

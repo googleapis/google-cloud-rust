@@ -59,7 +59,7 @@ For example:
 cargo test -p google-cloud-storage
 ```
 
-The integration tests, located in `src/integration-tests`, run against live GCP
+The integration tests, located in `tests/integration`, run against live GCP
 services to validate the generated code.
 
 ### Linter
