@@ -18,17 +18,26 @@ set -euv
 cargo version
 rustup show active-toolchain -v
 
-echo "==== Install cargo-tarpaulin ===="
-cargo install cargo-tarpaulin --version 0.32.1 --locked
+echo "==== Install cargo-llvm-cov ===="
+cargo install --locked cargo-llvm-cov
 
-cargo tarpaulin --out xml
+cargo llvm-cov --all-features \
+    --package google-cloud-auth \
+    --package google-cloud-gax \
+    --package google-cloud-gax-internal \
+    --package google-cloud-lro \
+    --package google-cloud-pubsub \
+    --package google-cloud-storage \
+    --package google-cloud-test-utils \
+    --package google-cloud-wkt \
+    --codecov --output-path codecov.json
 
 upload=(
     # Get the codecov.io token from secret manager.
     --token "${CODECOV_TOKEN:-}"
-    # We known where `cargo tarpaulin` outputs the coverage results, no need to
+    # We known where `cargo llvm-cov` outputs the coverage results, no need to
     # search for them.
-    --file "cobertura.xml"
+    --file "codecov.json"
     --disable-search
     # Exit with an error if the upload fails, we can return the build in that
     # case.
