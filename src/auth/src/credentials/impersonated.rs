@@ -93,9 +93,10 @@
 
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
-use crate::credentials::dynamic::CredentialsProvider;
+use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{
-    CacheableResource, Credentials, build_credentials, extract_credential_type,
+    AccessToken, AccessTokenCredentials, CacheableResource, Credentials, build_credentials,
+    extract_credential_type,
 };
 use crate::errors::{self, CredentialsError};
 use crate::headers_util::{
@@ -421,8 +422,53 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> BuildResult<Credentials> {
+        Ok(self.build_access_token_credentials()?.into())
+    }
+
+    /// Returns an [AccessTokenCredentials] instance with the configured settings.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::impersonated::Builder;
+    /// # use google_cloud_auth::credentials::{AccessTokenCredentials, AccessTokenCredentialsProvider};
+    /// # use serde_json::json;
+    /// # tokio_test::block_on(async {
+    /// let impersonated_credential = json!({
+    ///     "type": "impersonated_service_account",
+    ///     "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+    ///     "source_credentials": {
+    ///         "type": "authorized_user",
+    ///         "client_id": "test-client-id",
+    ///         "client_secret": "test-client-secret",
+    ///         "refresh_token": "test-refresh-token"
+    ///     }
+    /// });
+    /// let credentials: AccessTokenCredentials = Builder::new(impersonated_credential.into())
+    ///     .build_access_token_credentials()?;
+    /// let access_token = credentials.access_token().await?;
+    /// println!("Token: {}", access_token.token);
+    /// # Ok::<(), anyhow::Error>(())
+    /// # });
+    /// ```
+    ///
+    /// # Errors
+    ///
+    /// Returns a [BuilderError] for one of the following cases:
+    /// - If the `impersonated_service_account` provided to [`Builder::new`] cannot
+    ///   be successfully deserialized into the expected format. This typically happens
+    ///   if the JSON value is malformed or missing required fields. For more information,
+    ///   on how to generate `impersonated_service_account` json, consult the relevant
+    ///   section in the [application-default credentials] guide.
+    /// - If the `impersonated_service_account` provided to [`Builder::new`] has a
+    ///   `source_credentials` of `impersonated_service_account` type.
+    /// - If `service_account_impersonation_url` is not provided after initializing
+    ///   the builder with [`Builder::from_source_credentials`].
+    ///
+    /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
+    pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
         let (token_provider, quota_project_id) = self.build_components()?;
-        Ok(Credentials {
+        Ok(AccessTokenCredentials {
             inner: Arc::new(ImpersonatedServiceAccount {
                 token_provider: TokenCache::new(token_provider),
                 quota_project_id,
@@ -493,7 +539,7 @@ pub(crate) fn build_components_from_json(
     // the quota project and they typically need different scopes.
     // If user does want some specific scopes or quota, they can build using the
     // from_source_credentials method.
-    let source_credentials = build_credentials(Some(config.source_credentials), None, None)?;
+    let source_credentials = build_credentials(Some(config.source_credentials), None, None)?.into();
 
     Ok(ImpersonatedCredentialComponents {
         source_credentials,
@@ -548,6 +594,17 @@ where
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
         build_cacheable_headers(&token, &self.quota_project_id)
+    }
+}
+
+#[async_trait::async_trait]
+impl<T> AccessTokenCredentialsProvider for ImpersonatedServiceAccount<T>
+where
+    T: CachedTokenProvider,
+{
+    async fn access_token(&self) -> Result<AccessToken> {
+        let token = self.token_provider.token(Extensions::new()).await?;
+        token.into()
     }
 }
 
@@ -1456,6 +1513,51 @@ mod tests {
             }
             CacheableResource::NotModified => panic!("Expected new headers, but got NotModified"),
         }
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn access_token_credentials_success() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "test-user-account-token",
+                    "expires_in": 3600,
+                    "token_type": "Bearer",
+                })),
+            ),
+        );
+        let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
+            .format(&time::format_description::well_known::Rfc3339)
+            .unwrap();
+        server.expect(
+            Expectation::matching(request::method_path(
+                "POST",
+                "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+            ))
+            .respond_with(json_encoded(json!({
+                "accessToken": "test-impersonated-token",
+                "expireTime": expire_time
+            }))),
+        );
+
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": server.url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken").to_string(),
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token",
+                "token_uri": server.url("/token").to_string()
+            }
+        });
+        let creds = Builder::new(impersonated_credential).build_access_token_credentials()?;
+
+        let access_token = creds.access_token().await?;
+        assert_eq!(access_token.token, "test-impersonated-token");
 
         Ok(())
     }

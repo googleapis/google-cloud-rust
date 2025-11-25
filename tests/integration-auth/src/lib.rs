@@ -49,7 +49,7 @@ pub async fn service_account() -> anyhow::Result<()> {
 
     // Create credentials for the principal under test.
     let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
-    let creds = AccessTokenCredentialBuilder::default().build()?;
+    let creds = AccessTokenCredentialBuilder::default().build_access_token_credentials()?;
 
     // Construct a new SecretManager client using the credentials.
     let client = SecretManagerService::builder()
@@ -86,7 +86,7 @@ pub async fn service_account_with_audience() -> anyhow::Result<()> {
                 "https://secretmanager.googleapis.com/",
             ),
         )
-        .build()?;
+        .build_access_token_credentials()?;
 
     // Construct a new SecretManager client using the credentials.
     let client = SecretManagerService::builder()
@@ -123,7 +123,7 @@ pub async fn impersonated() -> anyhow::Result<()> {
             .with_target_principal(format!(
                 "impersonation-target@{project}.iam.gserviceaccount.com"
             ))
-            .build()?;
+            .build_access_token_credentials()?;
 
     let client = SecretManagerService::builder()
         .with_credentials(impersonated_creds)
