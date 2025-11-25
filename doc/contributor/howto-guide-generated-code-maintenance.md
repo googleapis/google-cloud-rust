@@ -161,6 +161,7 @@ Wait for the PR to be approved and merged.
 Then finish your PR in `google-cloud-rust`.
 
 1. Update the default librarian version:
+
    ```bash
    GOPROXY=direct go list -m -u -f '{{.Version}}' github.com/googleapis/librarian@main >.sidekick-version.txt
    ```
