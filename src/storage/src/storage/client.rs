@@ -22,6 +22,7 @@ use crate::streaming_source::Payload;
 use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
+use gax::client_builder::{Error as BuilderError, Result as BuilderResult};
 use gaxi::options::ClientConfig;
 use gaxi::options::Credentials;
 use http::Extensions;
@@ -228,8 +229,7 @@ where
 }
 
 impl Storage {
-    pub(crate) fn new(builder: ClientBuilder) -> gax::client_builder::Result<Self> {
-        use gax::client_builder::Error;
+    pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
         let client = reqwest::Client::builder()
             // Disable all automatic decompression. These could be enabled by users by enabling
             // the corresponding features flags, but we will not be able to tell whether this
@@ -239,19 +239,10 @@ impl Storage {
             .no_gzip()
             .no_zstd()
             .build()
-            .map_err(Error::transport)?;
-        let (cred, endpoint, options) = builder.into_parts();
-        let cred = if let Some(c) = cred {
-            c
-        } else {
-            auth::credentials::Builder::default()
-                .build()
-                .map_err(Error::cred)?
-        };
-        let endpoint = endpoint.unwrap_or_else(|| super::DEFAULT_HOST.to_string());
-        let inner = Arc::new(StorageInner::new(client, cred, endpoint, options));
+            .map_err(BuilderError::transport)?;
+        let inner = StorageInner::from_parts(client, builder).await?;
         let options = inner.options.clone();
-        let stub = crate::storage::transport::Storage::new(inner);
+        let stub = crate::storage::transport::Storage::new(Arc::new(inner));
         Ok(Self { stub, options })
     }
 }
@@ -270,6 +261,24 @@ impl StorageInner {
             endpoint,
             options,
         }
+    }
+
+    pub(self) async fn from_parts(
+        client: reqwest::Client,
+        builder: ClientBuilder,
+    ) -> BuilderResult<Self> {
+        let (config, options) = builder.into_parts()?;
+        let endpoint = config
+            .endpoint
+            .clone()
+            .expect("into_parts() assigns a default endpoint");
+        let cred = config
+            .cred
+            .clone()
+            .expect("into_parts() assigns default credentials");
+
+        let inner = StorageInner::new(client, cred, endpoint, options);
+        Ok(inner)
     }
 
     // Helper method to apply authentication headers to the request builder.
@@ -336,8 +345,8 @@ impl ClientBuilder {
     /// let client = Storage::builder().build().await?;
     /// # Ok(()) }
     /// ```
-    pub async fn build(self) -> gax::client_builder::Result<Storage> {
-        Storage::new(self)
+    pub async fn build(self) -> BuilderResult<Storage> {
+        Storage::new(self).await
     }
 
     /// Sets the endpoint.
@@ -567,10 +576,34 @@ impl ClientBuilder {
         self
     }
 
-    pub(crate) fn into_parts(self) -> (Option<Credentials>, Option<String>, RequestOptions) {
+    pub(crate) fn apply_default_credentials(&mut self) -> BuilderResult<()> {
+        if self.config.cred.is_some() {
+            return Ok(());
+        };
+        let default = auth::credentials::Builder::default()
+            .build()
+            .map_err(BuilderError::cred)?;
+        self.config.cred = Some(default);
+        Ok(())
+    }
+
+    pub(crate) fn apply_default_endpoint(&mut self) -> BuilderResult<()> {
+        let _ = self
+            .config
+            .endpoint
+            .get_or_insert_with(|| super::DEFAULT_HOST.to_string());
+        Ok(())
+    }
+
+    // Breaks the builder into its parts, with defaults applied.
+    pub(crate) fn into_parts(
+        mut self,
+    ) -> gax::client_builder::Result<(ClientConfig, RequestOptions)> {
+        self.apply_default_credentials()?;
+        self.apply_default_endpoint()?;
         let request_options =
             RequestOptions::new_with_client_config(&self.config, self.common_options);
-        (self.config.cred, self.config.endpoint, request_options)
+        Ok((self.config, request_options))
     }
 }
 
@@ -651,15 +684,12 @@ pub(crate) mod tests {
     }
 
     /// This is used by the request builder tests.
-    pub(crate) fn test_inner_client(builder: ClientBuilder) -> Arc<StorageInner> {
+    pub(crate) async fn test_inner_client(builder: ClientBuilder) -> Arc<StorageInner> {
         let client = reqwest::Client::new();
-        let (cred, endpoint, options) = builder.into_parts();
-        Arc::new(StorageInner::new(
-            client,
-            cred.unwrap(),
-            endpoint.unwrap(),
-            options,
-        ))
+        let inner = StorageInner::from_parts(client, builder)
+            .await
+            .expect("creating an test inner client succeeds");
+        Arc::new(inner)
     }
 
     mockall::mock! {

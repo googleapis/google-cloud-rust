@@ -618,7 +618,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_clone() {
-        let inner = test_inner_client(test_builder());
+        let inner = test_inner_client(test_builder()).await;
         let stub = crate::storage::transport::Storage::new(inner.clone());
         let options = {
             let mut o = RequestOptions::new();
@@ -954,7 +954,7 @@ mod tests {
 
     #[tokio::test]
     async fn read_object() -> Result {
-        let inner = test_inner_client(test_builder());
+        let inner = test_inner_client(test_builder()).await;
         let stub = crate::storage::transport::Storage::new(inner.clone());
         let builder = ReadObject::new(
             stub,
@@ -976,7 +976,8 @@ mod tests {
     async fn read_object_error_credentials() -> Result {
         let inner = test_inner_client(
             test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
-        );
+        )
+        .await;
         let stub = crate::storage::transport::Storage::new(inner.clone());
         let builder = ReadObject::new(
             stub,
@@ -993,7 +994,7 @@ mod tests {
 
     #[tokio::test]
     async fn read_object_bad_bucket() -> Result {
-        let inner = test_inner_client(test_builder());
+        let inner = test_inner_client(test_builder()).await;
         let stub = crate::storage::transport::Storage::new(inner.clone());
         let builder = ReadObject::new(stub, "malformed", "object", inner.options.clone());
         let _ = http_request_builder(inner, builder)
@@ -1004,7 +1005,7 @@ mod tests {
 
     #[tokio::test]
     async fn read_object_query_params() -> Result {
-        let inner = test_inner_client(test_builder());
+        let inner = test_inner_client(test_builder()).await;
         let stub = crate::storage::transport::Storage::new(inner.clone());
         let builder = ReadObject::new(
             stub,
@@ -1044,7 +1045,7 @@ mod tests {
     #[tokio::test]
     async fn read_object_default_headers() -> Result {
         // The API takes the unencoded byte array.
-        let inner = test_inner_client(test_builder());
+        let inner = test_inner_client(test_builder()).await;
         let stub = crate::storage::transport::Storage::new(inner.clone());
         let builder = ReadObject::new(
             stub,
@@ -1075,7 +1076,7 @@ mod tests {
     #[tokio::test]
     async fn read_object_automatic_decompression_headers() -> Result {
         // The API takes the unencoded byte array.
-        let inner = test_inner_client(test_builder());
+        let inner = test_inner_client(test_builder()).await;
         let stub = crate::storage::transport::Storage::new(inner.clone());
         let builder = ReadObject::new(
             stub,
@@ -1103,7 +1104,7 @@ mod tests {
         let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
         // The API takes the unencoded byte array.
-        let inner = test_inner_client(test_builder());
+        let inner = test_inner_client(test_builder()).await;
         let stub = crate::storage::transport::Storage::new(inner.clone());
         let builder = ReadObject::new(
             stub,
@@ -1143,7 +1144,7 @@ mod tests {
     #[test_case(ReadRange::segment(1000, 100), Some(&http::HeaderValue::from_static("bytes=1000-1099")); "offset and limit")]
     #[tokio::test]
     async fn range_header(input: ReadRange, want: Option<&http::HeaderValue>) -> Result {
-        let inner = test_inner_client(test_builder());
+        let inner = test_inner_client(test_builder()).await;
         let stub = crate::storage::transport::Storage::new(inner.clone());
         let builder = ReadObject::new(
             stub,
@@ -1178,7 +1179,7 @@ mod tests {
     )]
     #[tokio::test]
     async fn test_percent_encoding_object_name(name: &str, want: &str) -> Result {
-        let inner = test_inner_client(test_builder());
+        let inner = test_inner_client(test_builder()).await;
         let stub = crate::storage::transport::Storage::new(inner.clone());
         let builder = ReadObject::new(
             stub,

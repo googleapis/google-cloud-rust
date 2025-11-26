@@ -232,7 +232,7 @@ fn response_body() -> Value {
 #[tokio::test]
 async fn upload_object_bytes() -> Result {
     const PAYLOAD: &str = "hello";
-    let inner = test_inner_client(test_builder());
+    let inner = test_inner_client(test_builder()).await;
     let options = inner.options.clone();
     let stub = crate::storage::transport::Storage::new(inner.clone());
     let builder = WriteObject::new(
@@ -259,7 +259,7 @@ async fn upload_object_bytes() -> Result {
 
 #[tokio::test]
 async fn upload_object_metadata() -> Result {
-    let inner = test_inner_client(test_builder());
+    let inner = test_inner_client(test_builder()).await;
     let options = inner.options.clone();
     let stub = crate::storage::transport::Storage::new(inner.clone());
     let builder = WriteObject::new(
@@ -295,7 +295,7 @@ async fn upload_object_stream() -> Result {
         ]
         .map(|x| bytes::Bytes::from_static(x.as_bytes())),
     );
-    let inner = test_inner_client(test_builder());
+    let inner = test_inner_client(test_builder()).await;
     let options = inner.options.clone();
     let stub = crate::storage::transport::Storage::new(inner.clone());
     let builder = WriteObject::new(stub, "projects/_/buckets/bucket", "object", stream, options);
@@ -318,7 +318,8 @@ async fn upload_object_stream() -> Result {
 async fn upload_object_error_credentials() -> Result {
     let inner = test_inner_client(
         test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
-    );
+    )
+    .await;
     let options = inner.options.clone();
     let stub = crate::storage::transport::Storage::new(inner.clone());
     let builder = WriteObject::new(
@@ -338,7 +339,7 @@ async fn upload_object_error_credentials() -> Result {
 
 #[tokio::test]
 async fn upload_object_bad_bucket() -> Result {
-    let inner = test_inner_client(test_builder());
+    let inner = test_inner_client(test_builder()).await;
     let options = inner.options.clone();
     let stub = crate::storage::transport::Storage::new(inner.clone());
     let builder = WriteObject::new(stub, "malformed", "object", "hello", options);
@@ -354,7 +355,7 @@ async fn upload_object_headers() -> Result {
     // Make a 32-byte key.
     let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
-    let inner = test_inner_client(test_builder());
+    let inner = test_inner_client(test_builder()).await;
     let options = inner.options.clone();
     let stub = crate::storage::transport::Storage::new(inner.clone());
     let builder = WriteObject::new(
@@ -445,7 +446,7 @@ async fn retry_transient_not_idempotent() -> Result {
     );
 
     let inner =
-        test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
+        test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr()))).await;
     let options = inner.options.clone();
     let stub = crate::storage::transport::Storage::new(inner);
     let err = WriteObject::new(
@@ -480,7 +481,7 @@ async fn retry_transient_override_idempotency() -> Result {
     ]));
 
     let inner =
-        test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
+        test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr()))).await;
     let options = inner.options.clone();
     let stub = crate::storage::transport::Storage::new(inner);
     let got = WriteObject::new(
@@ -516,7 +517,7 @@ async fn retry_transient_failures_then_success() -> Result {
     ]));
 
     let inner =
-        test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
+        test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr()))).await;
     let options = inner.options.clone();
     let stub = crate::storage::transport::Storage::new(inner);
     let got = WriteObject::new(
@@ -552,7 +553,7 @@ async fn retry_transient_failures_then_permanent() -> Result {
     ]));
 
     let inner =
-        test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
+        test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr()))).await;
     let options = inner.options.clone();
     let stub = crate::storage::transport::Storage::new(inner);
     let err = WriteObject::new(
@@ -588,7 +589,7 @@ async fn retry_transient_failures_exhausted() -> Result {
     );
 
     let inner =
-        test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
+        test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr()))).await;
     let options = inner.options.clone();
     let stub = crate::storage::transport::Storage::new(inner);
     let err = WriteObject::new(
