@@ -88,7 +88,6 @@ test-case.workspace      = true
 tempfile.workspace       = true
 tokio-test.workspace     = true
 tokio.workspace          = true
+pretty_assertions        = { workspace = true }
 # The tests use `unstable-stream`, which is not enabled by default.
 google-cloud-storage     = { path = ".", features = ["unstable-stream"] }
-pretty_assertions        = { workspace = true }
-scoped-env.workspace     = true
