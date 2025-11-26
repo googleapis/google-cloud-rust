@@ -52,7 +52,7 @@ pub(crate) fn perform_upload<T>(
 
 #[tokio::test]
 async fn start_resumable_upload() -> Result {
-    let inner = test_inner_client(test_builder());
+    let inner = test_inner_client(test_builder()).await;
     let options = inner.options.clone();
     let stub = crate::storage::transport::Storage::new(inner.clone());
     let builder = WriteObject::new(
@@ -84,7 +84,7 @@ async fn start_resumable_upload_headers() -> Result {
     // Make a 32-byte key.
     let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
-    let inner = test_inner_client(test_builder());
+    let inner = test_inner_client(test_builder()).await;
     let options = inner.options.clone();
     let stub = crate::storage::transport::Storage::new(inner.clone());
     let builder = WriteObject::new(
@@ -123,7 +123,7 @@ async fn start_resumable_upload_headers() -> Result {
 
 #[tokio::test]
 async fn start_resumable_upload_bad_bucket() -> Result {
-    let inner = test_inner_client(test_builder());
+    let inner = test_inner_client(test_builder()).await;
     let options = inner.options.clone();
     let stub = crate::storage::transport::Storage::new(inner.clone());
     let builder = WriteObject::new(stub, "malformed", "object", "hello", options);
@@ -137,7 +137,7 @@ async fn start_resumable_upload_bad_bucket() -> Result {
 #[tokio::test]
 async fn start_resumable_upload_metadata_in_request() -> Result {
     use crate::model::ObjectAccessControl;
-    let inner = test_inner_client(test_builder());
+    let inner = test_inner_client(test_builder()).await;
     let options = inner.options.clone();
     let stub = crate::storage::transport::Storage::new(inner.clone());
     let builder = WriteObject::new(stub, "projects/_/buckets/bucket", "object", "", options)
@@ -222,7 +222,8 @@ async fn start_resumable_upload_metadata_in_request() -> Result {
 async fn start_resumable_upload_credentials() -> Result {
     let inner = test_inner_client(
         test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
-    );
+    )
+    .await;
     let options = inner.options.clone();
     let stub = crate::storage::transport::Storage::new(inner.clone());
     let builder = WriteObject::new(

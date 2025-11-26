@@ -229,7 +229,7 @@ mod tests {
             "Noé, sin vergüenza, la más exquisita champaña del menú"))]
     #[tokio::test]
     async fn test_percent_encoding_object_name(want: &str) -> Result {
-        let inner = test_inner_client(test_builder());
+        let inner = test_inner_client(test_builder()).await;
         let options = inner.options.clone();
         let stub = crate::storage::transport::Storage::new(inner.clone());
         let builder = WriteObject::new(stub, "projects/_/buckets/bucket", want, "hello", options);

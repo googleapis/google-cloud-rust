@@ -1175,10 +1175,10 @@ mod tests {
         Ok(())
     }
 
-    #[test]
-    fn write_object_metadata() -> Result {
+    #[tokio::test]
+    async fn write_object_metadata() -> Result {
         use crate::model::ObjectAccessControl;
-        let inner = test_inner_client(test_builder());
+        let inner = test_inner_client(test_builder()).await;
         let options = inner.options.clone();
         let stub = crate::storage::transport::Storage::new(inner);
         let key = KeyAes256::new(&[0x42; 32]).expect("hard-coded key is not an error");
@@ -1271,13 +1271,14 @@ mod tests {
         Ok(())
     }
 
-    #[test]
-    fn upload_object_options() {
+    #[tokio::test]
+    async fn upload_object_options() {
         let inner = test_inner_client(
             test_builder()
                 .with_resumable_upload_threshold(123_usize)
                 .with_resumable_upload_buffer_size(234_usize),
-        );
+        )
+        .await;
         let options = inner.options.clone();
         let stub = crate::storage::transport::Storage::new(inner);
         let request = WriteObject::new(
