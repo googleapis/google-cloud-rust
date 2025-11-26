@@ -81,6 +81,7 @@ impl Worker {
         let mut batch = Batch::new();
         let delay = self.batching_options.delay_threshold;
         let message_limit = self.batching_options.message_count_threshold;
+        let byte_threshold = self.batching_options.byte_threshold;
         let mut inflight = FuturesUnordered::new();
 
         let timer = tokio::time::sleep(delay);
@@ -105,7 +106,7 @@ impl Worker {
                                 timer.as_mut().reset(tokio::time::Instant::now() + delay);
                             }
                             batch.push(msg);
-                            if batch.len() as u32 >= message_limit {
+                            if batch.len() as u32 >= message_limit || batch.size() >=  byte_threshold {
                                 batch.flush(self.client.clone(), self.topic_name.clone(), &mut inflight);
                             }
                         },
