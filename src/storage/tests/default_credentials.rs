@@ -20,7 +20,7 @@ mod tests {
 
     #[tokio::test]
     #[serial]
-    async fn load_default_credentials() -> anyhow::Result<()> {
+    async fn load_default_credentials_missing() -> anyhow::Result<()> {
         let tmp = tempfile::tempdir()?;
         let missing = tmp.path().join("--does-not-exist--");
         let _e = ScopedEnv::set(
@@ -31,6 +31,32 @@ mod tests {
         // This should fail because the file does not exist.
         let err = Storage::builder().build().await.unwrap_err();
         assert!(err.is_default_credentials(), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn load_default_credentials_success() -> anyhow::Result<()> {
+        let tmp = tempfile::tempdir()?;
+        let destination = tmp.path().join("sa.json");
+        let contents = serde_json::json!({
+            "type": "service_account",
+            "project_id": "test-project-id",
+            "private_key_id": "test-private-key-id",
+            "private_key": "-----BEGIN PRIVATE KEY-----\nBLAHBLAHBLAH\n-----END PRIVATE KEY-----\n",
+            "client_email": "test-client-email",
+            "universe_domain": "test-universe-domain"
+        });
+        std::fs::write(destination.clone(), contents.to_string())?;
+
+        let _e = ScopedEnv::set(
+            "GOOGLE_APPLICATION_CREDENTIALS",
+            destination.to_str().expect("tmp is a UTF-8 string"),
+        );
+
+        // This should fail because the file does not exist.
+        let result = Storage::builder().build().await;
+        assert!(result.is_ok(), "{result:?}");
         Ok(())
     }
 }
