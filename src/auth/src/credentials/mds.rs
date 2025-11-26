@@ -74,8 +74,8 @@
 //! [gke-link]: https://cloud.google.com/kubernetes-engine
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
-use crate::credentials::dynamic::CredentialsProvider;
-use crate::credentials::{CacheableResource, Credentials};
+use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
+use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::CredentialsError;
 use crate::headers_util::build_cacheable_headers;
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
@@ -293,11 +293,31 @@ impl Builder {
 
     /// Returns a [Credentials] instance with the configured settings.
     pub fn build(self) -> BuildResult<Credentials> {
+        Ok(self.build_access_token_credentials()?.into())
+    }
+
+    /// Returns an [AccessTokenCredentials] instance with the configured settings.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::mds::Builder;
+    /// # use google_cloud_auth::credentials::{AccessTokenCredentials, AccessTokenCredentialsProvider};
+    /// # tokio_test::block_on(async {
+    /// let credentials: AccessTokenCredentials = Builder::default()
+    ///     .with_quota_project_id("my-quota-project")
+    ///     .build_access_token_credentials()?;
+    /// let access_token = credentials.access_token().await?;
+    /// println!("Token: {}", access_token.token);
+    /// # Ok::<(), anyhow::Error>(())
+    /// # });
+    /// ```
+    pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
         let mdsc = MDSCredentials {
             quota_project_id: self.quota_project_id.clone(),
             token_provider: TokenCache::new(self.build_token_provider()),
         };
-        Ok(Credentials {
+        Ok(AccessTokenCredentials {
             inner: Arc::new(mdsc),
         })
     }
@@ -321,6 +341,17 @@ where
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let cached_token = self.token_provider.token(extensions).await?;
         build_cacheable_headers(&cached_token, &self.quota_project_id)
+    }
+}
+
+#[async_trait::async_trait]
+impl<T> AccessTokenCredentialsProvider for MDSCredentials<T>
+where
+    T: CachedTokenProvider,
+{
+    async fn access_token(&self) -> Result<AccessToken> {
+        let token = self.token_provider.token(Extensions::new()).await?;
+        token.into()
     }
 }
 
@@ -566,6 +597,30 @@ mod tests {
             CacheableResource::New { .. } => unreachable!("expecting new headers"),
             CacheableResource::NotModified => CacheableResource::<HeaderMap>::NotModified,
         };
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn access_token_success() -> TestResult {
+        let server = Server::run();
+        let response = MDSTokenResponse {
+            access_token: "test-access-token".to_string(),
+            expires_in: Some(3600),
+            token_type: "Bearer".to_string(),
+        };
+        server.expect(
+            Expectation::matching(all_of![request::path(format!("{MDS_DEFAULT_URI}/token")),])
+                .respond_with(json_encoded(response)),
+        );
+
+        let creds = Builder::default()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .build_access_token_credentials()
+            .unwrap();
+
+        let access_token = creds.access_token().await.unwrap();
+        assert_eq!(access_token.token, "test-access-token");
+
         Ok(())
     }
 

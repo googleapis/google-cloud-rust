@@ -25,6 +25,39 @@ mod driver {
     }
 
     #[tokio::test(flavor = "multi_thread")]
+    async fn id_token() -> anyhow::Result<()> {
+        use google_cloud_auth::credentials::idtoken::Builder;
+        use httptest::{Expectation, Server, matchers::*, responders::*};
+
+        let audience = "https://my-service.a.run.app";
+        let id_token =
+            user_guide_samples::authentication::request_id_token::sample(audience).await?;
+        user_guide_samples::authentication::verify_id_token::sample(&id_token, audience).await?;
+
+        let credentials = Builder::new(audience).build()?;
+        let id_token = credentials.id_token().await?;
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "/"),
+                request::headers(contains(("authorization", format!("Bearer {}", id_token)))),
+            ])
+            .respond_with(status_code(200)),
+        );
+
+        let target_url = server.url("/").to_string();
+
+        user_guide_samples::authentication::request_id_token::api_call_with_id_token(
+            &target_url,
+            &credentials,
+        )
+        .await?;
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
     async fn endpoint() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
         let region = std::env::var("GOOGLE_CLOUD_TEST_REGION").unwrap_or("us-central1".to_string());

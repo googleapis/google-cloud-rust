@@ -16302,6 +16302,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Settings {
             __data_cache_config,
             __enable_google_ml_integration,
             __enable_dataplex_integration,
+            __auto_upgrade_enabled,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -16422,6 +16423,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Settings {
                             "enable_dataplex_integration" => {
                                 Ok(__FieldTag::__enable_dataplex_integration)
                             }
+                            "autoUpgradeEnabled" => Ok(__FieldTag::__auto_upgrade_enabled),
+                            "auto_upgrade_enabled" => Ok(__FieldTag::__auto_upgrade_enabled),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -16805,6 +16808,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Settings {
                             }
                             result.enable_dataplex_integration =
                                 map.next_value::<std::option::Option<wkt::BoolValue>>()?;
+                        }
+                        __FieldTag::__auto_upgrade_enabled => {
+                            if !fields.insert(__FieldTag::__auto_upgrade_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for auto_upgrade_enabled",
+                                ));
+                            }
+                            result.auto_upgrade_enabled =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -1379,6 +1379,12 @@ impl serde::ser::Serialize for super::BackupVault {
                 &self.backup_minimum_enforced_retention_duration,
             )?;
         }
+        if self.backup_retention_inheritance.is_some() {
+            state.serialize_entry(
+                "backupRetentionInheritance",
+                &self.backup_retention_inheritance,
+            )?;
+        }
         if self.deletable.is_some() {
             state.serialize_entry("deletable", &self.deletable)?;
         }
@@ -1426,6 +1432,31 @@ impl serde::ser::Serialize for super::BackupVault {
         }
         if !wkt::internal::is_default(&self.access_restriction) {
             state.serialize_entry("accessRestriction", &self.access_restriction)?;
+        }
+        if self.encryption_config.is_some() {
+            state.serialize_entry("encryptionConfig", &self.encryption_config)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::backup_vault::EncryptionConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.kms_key_name.is_some() {
+            state.serialize_entry("kmsKeyName", &self.kms_key_name)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1891,6 +1922,12 @@ impl serde::ser::Serialize for super::Backup {
                 &self.enforced_retention_end_time,
             )?;
         }
+        if self.backup_retention_inheritance.is_some() {
+            state.serialize_entry(
+                "backupRetentionInheritance",
+                &self.backup_retention_inheritance,
+            )?;
+        }
         if self.expire_time.is_some() {
             state.serialize_entry("expireTime", &self.expire_time)?;
         }
@@ -1947,6 +1984,9 @@ impl serde::ser::Serialize for super::Backup {
         }
         if let Some(value) = self.gcp_resource() {
             state.serialize_entry("gcpResource", value)?;
+        }
+        if !self.kms_key_versions.is_empty() {
+            state.serialize_entry("kmsKeyVersions", &self.kms_key_versions)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2655,6 +2695,9 @@ impl serde::ser::Serialize for super::RestoreBackupRequest {
         }
         if let Some(value) = self.disk_restore_properties() {
             state.serialize_entry("diskRestoreProperties", value)?;
+        }
+        if self.clear_overrides_field_mask.is_some() {
+            state.serialize_entry("clearOverridesFieldMask", &self.clear_overrides_field_mask)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

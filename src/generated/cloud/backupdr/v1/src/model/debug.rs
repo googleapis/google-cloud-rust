@@ -603,6 +603,10 @@ impl std::fmt::Debug for super::BackupVault {
             "backup_minimum_enforced_retention_duration",
             &self.backup_minimum_enforced_retention_duration,
         );
+        debug_struct.field(
+            "backup_retention_inheritance",
+            &self.backup_retention_inheritance,
+        );
         debug_struct.field("deletable", &self.deletable);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("state", &self.state);
@@ -613,6 +617,18 @@ impl std::fmt::Debug for super::BackupVault {
         debug_struct.field("uid", &self.uid);
         debug_struct.field("annotations", &self.annotations);
         debug_struct.field("access_restriction", &self.access_restriction);
+        debug_struct.field("encryption_config", &self.encryption_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::backup_vault::EncryptionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptionConfig");
+        debug_struct.field("kms_key_name", &self.kms_key_name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -775,6 +791,10 @@ impl std::fmt::Debug for super::Backup {
             "enforced_retention_end_time",
             &self.enforced_retention_end_time,
         );
+        debug_struct.field(
+            "backup_retention_inheritance",
+            &self.backup_retention_inheritance,
+        );
         debug_struct.field("expire_time", &self.expire_time);
         debug_struct.field("consistency_time", &self.consistency_time);
         debug_struct.field("etag", &self.etag);
@@ -785,6 +805,7 @@ impl std::fmt::Debug for super::Backup {
         debug_struct.field("resource_size_bytes", &self.resource_size_bytes);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+        debug_struct.field("kms_key_versions", &self.kms_key_versions);
         debug_struct.field("backup_properties", &self.backup_properties);
         debug_struct.field("plan_info", &self.plan_info);
         debug_struct.field("source_resource", &self.source_resource);
@@ -1085,6 +1106,10 @@ impl std::fmt::Debug for super::RestoreBackupRequest {
         let mut debug_struct = f.debug_struct("RestoreBackupRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
+        debug_struct.field(
+            "clear_overrides_field_mask",
+            &self.clear_overrides_field_mask,
+        );
         debug_struct.field("target_environment", &self.target_environment);
         debug_struct.field("instance_properties", &self.instance_properties);
         if !self._unknown_fields.is_empty() {

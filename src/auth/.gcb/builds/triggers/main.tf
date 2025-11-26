@@ -165,7 +165,7 @@ locals {
     }
     integration-unstable = {
       config = "integration.yaml"
-      flags  = "--cfg google_cloud_unstable_id_token --cfg google_cloud_unstable_signed_url"
+      flags  = "--cfg google_cloud_unstable_signed_url"
     }
   }
 }

@@ -42,7 +42,7 @@
 //!     "source_credentials": source_credentials,
 //! });
 //!
-//! let audience = "https://example.com"
+//! let audience = "https://my-service.a.run.app";
 //! let credentials = idtoken::impersonated::Builder::new(audience, impersonated_credential)
 //!     .build()?;
 //! let id_token = credentials.id_token().await?;
@@ -59,7 +59,7 @@
 //! ```
 //!
 //! [Impersonated service accounts]: https://cloud.google.com/docs/authentication/use-service-account-impersonation
-//! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+//! [OIDC ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 //! [User Account]: https://cloud.google.com/docs/authentication#user-accounts
 //! [Service Account]: https://cloud.google.com/iam/docs/service-account-overview
 //! [Service Account Token Creator Role]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#required-roles
@@ -89,6 +89,25 @@ use serde_json::Value;
 use std::sync::Arc;
 
 /// A builder for constructing Impersonated Service Account [IDTokenCredentials] instance.
+///
+/// # Example
+/// ```
+/// # use google_cloud_auth::credentials::idtoken;
+/// # tokio_test::block_on(async {
+/// let impersonated_credential = serde_json::json!({
+///     "type": "impersonated_service_account",
+///     "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+///     "source_credentials": {
+///         "type": "authorized_user",
+///         "client_id": "test-client-id",
+///         "client_secret": "test-client-secret",
+///         "refresh_token": "test-refresh-token"
+///     }
+/// });
+///
+/// let audience = "https://my-service.a.run.app";
+/// let credentials = idtoken::impersonated::Builder::new(audience, impersonated_credential).build();
+/// # });
 pub struct Builder {
     source: BuilderSource,
     delegates: Option<Vec<String>>,
@@ -117,6 +136,23 @@ impl Builder {
 
     /// Creates a new builder with a source [Credentials] object, target principal and audience.
     /// Target principal is the email of the service account to impersonate.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::idtoken;
+    /// # use google_cloud_auth::credentials::user_account;
+    /// # use serde_json::json;
+    /// #
+    /// # fn example() -> Result<(), anyhow::Error> {
+    /// let source_credentials = user_account::Builder::new(json!({ /* add details here */ })).build()?;
+    ///
+    /// let audience = "https://my-service.a.run.app";
+    /// let credentials = idtoken::impersonated::Builder::from_source_credentials(audience, "test-principal", source_credentials)
+    ///     .build();
+    /// # Ok::<(), anyhow::Error>(())
+    /// # }
+    /// // Now you can use credentials.id_token().await to fetch the token.
+    /// ```    
     pub fn from_source_credentials<SA: Into<String>, SP: Into<String>>(
         target_audience: SA,
         target_principal: SP,
@@ -144,12 +180,40 @@ impl Builder {
     }
 
     /// Should include email claims in the ID Token.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::idtoken;
+    /// # use serde_json::json;
+    /// let impersonated_credential = json!({ /* add details here */ });
+    ///
+    /// let audience = "https://my-service.a.run.app";
+    /// let credentials = idtoken::impersonated::Builder::new(audience, impersonated_credential)
+    ///     .with_include_email()
+    ///     .build();
+    /// // Now you can use credentials.id_token().await to fetch the token.
+    /// ```    
     pub fn with_include_email(mut self) -> Self {
         self.include_email = Some(true);
         self
     }
 
     /// Sets the chain of delegates.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::idtoken;
+    /// # use serde_json::json;
+    /// let impersonated_credential = json!({ /* add details here */ });
+    ///
+    /// let audience = "https://my-service.a.run.app";
+    /// let credentials = idtoken::impersonated::Builder::new(audience, impersonated_credential)
+    ///     .with_delegates(vec!["delegate1-sa@example.com", "delegate2-sa@example.com"])
+    ///     .build();
+    /// // Now you can use credentials.id_token().await to fetch the token.
+    /// ```
     pub fn with_delegates<I, S>(mut self, delegates: I) -> Self
     where
         I: IntoIterator<Item = S>,

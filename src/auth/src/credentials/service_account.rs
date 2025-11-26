@@ -74,8 +74,8 @@ mod jws;
 
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
-use crate::credentials::dynamic::CredentialsProvider;
-use crate::credentials::{CacheableResource, Credentials};
+use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
+use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::{self, CredentialsError};
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
@@ -281,13 +281,54 @@ impl Builder {
     /// Returns a [CredentialsError] if the `service_account_key`
     /// provided to [`Builder::new`] cannot be successfully deserialized into the
     /// expected format for a service account key. This typically happens if the
-    /// JSON value is malformed or missing required fields. For more information,
-    /// on the expected format for a service account key, consult the
-    /// relevant section in the [service account keys] guide.
+    /// JSON value is malformed or missing required fields.
+    ///
+    /// For more information, on the expected format for a service account key,
+    /// consult the relevant section in the [service account keys] guide.
     ///
     /// [creating service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
     pub fn build(self) -> BuildResult<Credentials> {
-        Ok(Credentials {
+        Ok(self.build_access_token_credentials()?.into())
+    }
+
+    /// Returns an [AccessTokenCredentials] instance with the configured settings.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::service_account::Builder;
+    /// # use google_cloud_auth::credentials::{AccessTokenCredentials, AccessTokenCredentialsProvider};
+    /// # use serde_json::json;
+    /// # tokio_test::block_on(async {
+    /// let service_account_key = json!({
+    ///     "client_email": "test-client-email",
+    ///     "private_key_id": "test-private-key-id",
+    ///     "private_key": "-----BEGIN PRIVATE KEY-----\nBLAHBLAHBLAH\n-----END PRIVATE KEY-----\n",
+    ///     "project_id": "test-project-id",
+    ///     "universe_domain": "test-universe-domain",
+    /// });
+    /// let credentials: AccessTokenCredentials = Builder::new(service_account_key)
+    ///     .with_quota_project_id("my-quota-project")
+    ///     .build_access_token_credentials()?;
+    /// let access_token = credentials.access_token().await?;
+    /// println!("Token: {}", access_token.token);
+    /// # Ok::<(), anyhow::Error>(())
+    /// # });
+    /// ```
+    ///
+    /// # Errors
+    ///
+    /// Returns a [CredentialsError] if the `service_account_key`
+    /// provided to [`Builder::new`] cannot be successfully deserialized into the
+    /// expected format for a service account key. This typically happens if the
+    /// JSON value is malformed or missing required fields.
+    ///
+    /// For more information, on the expected format for a service account key,
+    /// consult the relevant section in the [service account keys] guide.
+    ///
+    /// [service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
+    pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
+        Ok(AccessTokenCredentials {
             inner: Arc::new(ServiceAccountCredentials {
                 quota_project_id: self.quota_project_id.clone(),
                 token_provider: TokenCache::new(self.build_token_provider()?),
@@ -429,7 +470,6 @@ pub(crate) struct ServiceAccountTokenGenerator {
 }
 
 impl ServiceAccountTokenGenerator {
-    #[cfg(google_cloud_unstable_id_token)]
     pub(crate) fn new_id_token_generator(
         target_audience: String,
         audience: String,
@@ -490,6 +530,17 @@ where
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
         build_cacheable_headers(&token, &self.quota_project_id)
+    }
+}
+
+#[async_trait::async_trait]
+impl<T> AccessTokenCredentialsProvider for ServiceAccountCredentials<T>
+where
+    T: CachedTokenProvider,
+{
+    async fn access_token(&self) -> Result<AccessToken> {
+        let token = self.token_provider.token(Extensions::new()).await?;
+        token.into()
     }
 }
 
@@ -862,6 +913,27 @@ mod tests {
         assert!(claims["iat"].is_number());
         assert!(claims["exp"].is_number());
         assert_eq!(claims["sub"], service_account_key["client_email"]);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn get_service_account_access_token() -> TestResult {
+        let mut service_account_key = get_mock_service_key();
+        service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
+        let creds = Builder::new(service_account_key.clone()).build_access_token_credentials()?;
+
+        let access_token = creds.access_token().await?;
+        let token = access_token.token;
+
+        let re = regex::Regex::new(SSJ_REGEX).unwrap();
+        let captures = re.captures(&token).ok_or_else(|| {
+            format!(r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {token}"#)
+        })?;
+        let token_header = b64_decode_to_json(captures["header"].to_string());
+        assert_eq!(token_header["alg"], "RS256");
+        assert_eq!(token_header["typ"], "JWT");
+        assert_eq!(token_header["kid"], service_account_key["private_key_id"]);
+
         Ok(())
     }
 }

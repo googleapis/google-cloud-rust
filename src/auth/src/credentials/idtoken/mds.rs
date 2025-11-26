@@ -39,7 +39,7 @@
 //! # use google_cloud_auth::credentials::idtoken;
 //! # use reqwest;
 //! # tokio_test::block_on(async {
-//! let audience = "https://example.com";
+//! let audience = "https://my-service.a.run.app";
 //! let credentials = idtoken::mds::Builder::new(audience)
 //!     .build()?;
 //! let id_token = credentials.id_token().await?;
@@ -56,11 +56,12 @@
 //! ```    
 //!
 //! [Application Default Credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
-//! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+//! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 //! [Cloud Run]: https://cloud.google.com/run
 //! [default service account]: https://cloud.google.com/iam/docs/service-account-types#default
 //! [gce-link]: https://cloud.google.com/products/compute
 //! [gke-link]: https://cloud.google.com/kubernetes-engine
+//! [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
 use crate::Result;
@@ -155,6 +156,17 @@ impl Builder {
     ///
     /// A trailing slash is significant, so specify the base URL without a trailing  
     /// slash. If not set, the credentials use `http://metadata.google.internal`.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// # use google_cloud_auth::credentials::idtoken;
+    /// let audience = "https://my-service.a.run.app";
+    /// let credentials = idtoken::mds::Builder::new(audience)
+    ///     .with_endpoint("http://169.254.169.254")
+    ///     .build();
+    /// // Now you can use credentials.id_token().await to fetch the token.
+    /// ```
     pub fn with_endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
         self.endpoint = Some(endpoint.into());
         self
@@ -167,6 +179,17 @@ impl Builder {
     /// from the payload. The default value is `standard`.
     ///
     /// [format]: https://cloud.google.com/compute/docs/instances/verifying-instance-identity#token_format
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// # use google_cloud_auth::credentials::idtoken;
+    /// let audience = "https://my-service.a.run.app";
+    /// let credentials = idtoken::mds::Builder::new(audience)
+    ///     .with_format(idtoken::mds::Format::Full)
+    ///     .build();
+    /// // Now you can use credentials.id_token().await to fetch the token.
+    /// ```
     pub fn with_format(mut self, format: Format) -> Self {
         self.format = Some(format);
         self
@@ -178,6 +201,18 @@ impl Builder {
     /// The default value is `false`. Has no effect unless format is `full`.
     ///
     /// [license codes]: https://cloud.google.com/compute/docs/reference/rest/v1/images/get#body.Image.FIELDS.license_code
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// # use google_cloud_auth::credentials::idtoken;
+    /// let audience = "https://my-service.a.run.app";
+    /// let credentials = idtoken::mds::Builder::new(audience)
+    ///     .with_format(idtoken::mds::Format::Full) // licenses only works with format = Full
+    ///     .with_licenses(true)
+    ///     .build();
+    /// // Now you can use credentials.id_token().await to fetch the token.
+    /// ```
     pub fn with_licenses(mut self, licenses: bool) -> Self {
         self.licenses = if licenses {
             Some("TRUE".to_string())

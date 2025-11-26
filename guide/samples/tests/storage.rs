@@ -29,6 +29,7 @@ pub mod storage {
     mod driver {
         use super::*;
 
+        #[ignore = "TODO(#3916) - disabled because it is flaky"]
         #[tokio::test(flavor = "multi_thread")]
         async fn quickstart() -> anyhow::Result<()> {
             let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();

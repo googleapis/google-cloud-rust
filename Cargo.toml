@@ -18,7 +18,6 @@ resolver = "2"
 default-members = [
   "guide/samples",
   "src/auth",
-  "src/auth/integration-tests",
   "src/base",
   "src/bigquery",
   "src/bigtable",
@@ -26,14 +25,12 @@ default-members = [
   "src/firestore",
   "src/gax",
   "src/gax-internal",
-  "src/integration-tests",
   "src/lro",
   "src/pubsub",
   "src/root",
   "src/spanner",
   "src/storage",
   "src/wkt",
-  "tools/check-copyright",
   # We need `cargo test` to run at least some documentation tests for generated
   # libraries. These libraries are implicitly required by the integration tests
   # and samples, so they are not too expensive to include in the default builds.
@@ -42,16 +39,17 @@ default-members = [
   "src/generated/cloud/speech/v2",
   "src/generated/cloud/workflows/v1",
   "src/generated/openapi-validation",
+  "tests/integration",
+  "tests/integration-auth",
 ]
+
 members = [
   "guide/samples",
   "src/auth",
-  "src/auth/integration-tests",
   "src/base",
   "src/bigquery",
   "src/bigtable",
   "src/datastore",
-  "src/endurance-test",
   "src/firestore",
   "src/gax",
   "src/gax-internal",
@@ -73,6 +71,10 @@ members = [
   "src/generated/bigtable/admin/v2",
   "src/generated/cloud/accessapproval/v1",
   "src/generated/cloud/advisorynotifications/v1",
+  "src/generated/cloud/aiplatform/schema/predict/instance",
+  "src/generated/cloud/aiplatform/schema/predict/params",
+  "src/generated/cloud/aiplatform/schema/predict/prediction",
+  "src/generated/cloud/aiplatform/schema/trainingjob/definition",
   "src/generated/cloud/aiplatform/v1",
   "src/generated/cloud/alloydb/connectors/v1",
   "src/generated/cloud/alloydb/v1",
@@ -228,6 +230,7 @@ members = [
   "src/generated/devtools/cloudbuild/v1",
   "src/generated/devtools/cloudbuild/v2",
   "src/generated/devtools/cloudprofiler/v2",
+  "src/generated/devtools/cloudtrace/v1",
   "src/generated/devtools/cloudtrace/v2",
   "src/generated/devtools/containeranalysis/v1",
   "src/generated/firestore/admin/v1",
@@ -255,18 +258,22 @@ members = [
   "src/generated/spanner/admin/instance/v1",
   "src/generated/storagetransfer/v1",
   "src/generated/type",
-  "src/integration-tests",
   "src/lro",
-  "src/protojson-conformance",
   "src/pubsub",
   "src/pubsub/examples",
   "src/root",
   "src/spanner",
   "src/storage",
+  "src/storage/benchmarks/random",
+  "src/storage/benchmarks/w1r3",
   "src/storage/examples",
-  "src/w1r3",
   "src/wkt",
+  "tests/endurance",
+  "tests/integration",
+  "tests/integration-auth",
+  "tests/protojson-conformance",
   "tools/check-copyright",
+  "tools/minimal-version-helper",
 ]
 
 [workspace.package]
@@ -293,10 +300,13 @@ async-trait           = { default-features = false, version = "0.1.85" }
 base64                = { default-features = false, version = "0.22", features = ["std"] }
 bon                   = { default-features = false, version = "3.8" }
 bytes                 = { default-features = false, version = "1.10", features = ["serde"] }
+cargo_metadata        = { default-features = false, version = "0.23" }
 chrono                = { default-features = false, version = "0.4.42" }
+crates_io_api         = { default-features = false, version = "0.12" }
 clap                  = { default-features = false, version = "4" }
 crc32c                = { default-features = false, version = "0.6.8" }
 futures               = { default-features = false, version = "0.3" }
+futures-util          = { default-features = false, version = "0.3" }
 http                  = { default-features = false, version = "1", features = ["std"] }
 hex                   = { default-features = false, version = "0.4.3" }
 http-body             = { default-features = false, version = "1" }
@@ -318,6 +328,7 @@ rand                  = { default-features = false, version = "0.9.2" }
 reqwest               = { default-features = false, version = "0.12.24", features = ["json"] }
 rustls                = { default-features = false, version = "0.23" }
 rustls-pemfile        = { default-features = false, version = "2" }
+semver                = { default-features = false, version = "1.0.21" }
 serde                 = { default-features = false, version = "1.0.228", features = ["serde_derive"] }
 serde_json            = { default-features = false, version = "1.0.132", features = ["std"] }
 serde_with            = { default-features = false, version = "3", features = ["base64", "macros", "std"] }
@@ -326,6 +337,7 @@ thiserror             = { default-features = false, version = "2" }
 time                  = { default-features = false, version = "0.3.44" }
 tokio                 = { default-features = false, version = "1" }
 tokio-metrics         = { default-features = false, version = "0.4.5" }
+toml_edit             = { default-features = false, version = "0.23" }
 tonic                 = { default-features = false, version = "0.14.1", features = ["tls-native-roots", "tls-ring"] }
 tonic-prost           = { default-features = false, version = "0.14.2" }
 tonic-prost-build     = { default-features = false, version = "0.14.1" }
@@ -357,7 +369,7 @@ axum              = { default-features = false, version = "0.8" }
 flate2            = { default-features = false, version = "1" }
 httptest          = { default-features = false, version = "0.16.3" }
 md5               = { default-features = false, version = "0.8" }
-mockall           = { default-features = false, version = "0.13" }
+mockall           = { default-features = false, version = "0.14" }
 multer            = { default-features = false, version = "3" }
 mutants           = { default-features = false, version = "0.0.3" }
 once_cell         = { default-features = false, version = "1.19.0" }
@@ -416,23 +428,29 @@ oslogin_common                = { version = "1", path = "src/generated/oslogin/c
 iam_v2                        = { version = "1", path = "src/generated/iam/v2", package = "google-cloud-iam-v2" }
 recommender                   = { version = "1", path = "src/generated/cloud/recommender/v1", package = "google-cloud-recommender-v1" }
 accesscontextmanager_type     = { version = "1", path = "src/generated/identity/accesscontextmanager/type", package = "google-cloud-identity-accesscontextmanager-type" }
-google-cloud-language-v2      = { version = "1", path = "src/generated/cloud/language/v2" }
-google-cloud-speech-v2        = { version = "1", path = "src/generated/cloud/speech/v2" }
-google-cloud-secretmanager-v1 = { version = "1", path = "src/generated/cloud/secretmanager/v1" }
-google-cloud-aiplatform-v1    = { version = "1", default-features = false, path = "src/generated/cloud/aiplatform/v1" }
-google-cloud-compute-v1       = { version = "0.2", default-features = false, path = "src/generated/cloud/compute/v1" }
-google-cloud-storage          = { version = "1", path = "src/storage" }
-google-cloud-pubsub           = { path = "src/pubsub" }
+# Used in integration tests
+google-cloud-speech-v2          = { version = "1", path = "src/generated/cloud/speech/v2" }
+google-cloud-secretmanager-v1   = { version = "1", path = "src/generated/cloud/secretmanager/v1" }
+secretmanager                   = { version = "1", path = "src/generated/cloud/secretmanager/v1", package = "google-cloud-secretmanager-v1" }
+google-cloud-aiplatform-v1      = { version = "1", default-features = false, path = "src/generated/cloud/aiplatform/v1" }
+google-cloud-compute-v1         = { version = "0.2", default-features = false, path = "src/generated/cloud/compute/v1" }
+google-cloud-storage            = { version = "1", path = "src/storage" }
+google-cloud-pubsub             = { path = "src/pubsub" }
+google-cloud-bigquery-v2        = { version = "1", path = "src/generated/cloud/bigquery/v2" }
+bigquery                        = { version = "1", path = "src/generated/cloud/bigquery/v2", package = "google-cloud-bigquery-v2" }
+google-cloud-iam-credentials-v1 = { version = "1", path = "src/generated/iam/credentials/v1" }
+iamcredentials                  = { version = "1", path = "src/generated/iam/credentials/v1", package = "google-cloud-iam-credentials-v1" }
+google-cloud-language-v2        = { version = "1", path = "src/generated/cloud/language/v2" }
+language                        = { version = "1", path = "src/generated/cloud/language/v2", package = "google-cloud-language-v2" }
 
 # Local test packages (never add a version)
 google-cloud-test-utils = { path = "src/test-utils" }
-integration-tests       = { path = "src/integration-tests" }
+integration-tests       = { path = "tests/integration" }
 pubsub-samples          = { path = "src/pubsub/examples" }
 storage-samples         = { path = "src/storage/examples" }
 
 [workspace.lints.rust]
 unexpected_cfgs = { level = "deny", check-cfg = [
-  'cfg(google_cloud_unstable_id_token)',
   'cfg(google_cloud_unstable_signed_url)',
   'cfg(google_cloud_unstable_storage_bidi)',
   'cfg(google_cloud_unstable_tracing)',

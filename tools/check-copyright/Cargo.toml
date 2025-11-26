@@ -15,8 +15,12 @@
 [package]
 name    = "check-copyright"
 version = "0.1.0"
-edition = "2021"
 publish = false
+# Inherit other attributes from the workspace.
+edition.workspace    = true
+authors.workspace    = true
+license.workspace    = true
+repository.workspace = true
 
 [dependencies]
-regex = "1"
+regex.workspace = true

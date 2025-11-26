@@ -225,6 +225,52 @@ impl serde::ser::Serialize for super::DockerImage {
         if self.update_time.is_some() {
             state.serialize_entry("updateTime", &self.update_time)?;
         }
+        if !self.artifact_type.is_empty() {
+            state.serialize_entry("artifactType", &self.artifact_type)?;
+        }
+        if !self.image_manifests.is_empty() {
+            state.serialize_entry("imageManifests", &self.image_manifests)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ImageManifest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.architecture.is_empty() {
+            state.serialize_entry("architecture", &self.architecture)?;
+        }
+        if !self.os.is_empty() {
+            state.serialize_entry("os", &self.os)?;
+        }
+        if !self.digest.is_empty() {
+            state.serialize_entry("digest", &self.digest)?;
+        }
+        if !self.media_type.is_empty() {
+            state.serialize_entry("mediaType", &self.media_type)?;
+        }
+        if !self.os_version.is_empty() {
+            state.serialize_entry("osVersion", &self.os_version)?;
+        }
+        if !self.os_features.is_empty() {
+            state.serialize_entry("osFeatures", &self.os_features)?;
+        }
+        if !self.variant.is_empty() {
+            state.serialize_entry("variant", &self.variant)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

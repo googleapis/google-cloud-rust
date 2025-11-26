@@ -22,7 +22,7 @@ use gaxi::prost::ToProto;
 /// A request builder for `open_object()`.
 ///
 /// # Example
-/// ```ignore
+/// ```compile_fail
 /// use google_cloud_storage::client::Storage;
 /// use google_cloud_storage::retry_policy::RetryableErrors;
 /// async fn sample(client: &Storage) -> anyhow::Result<()> {
@@ -75,7 +75,7 @@ impl OpenObject {
     /// opposed to the latest version, the default).
     ///
     /// # Example
-    /// ```ignore
+    /// ```compile_fail
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
@@ -95,7 +95,7 @@ impl OpenObject {
     /// matches the given value.
     ///
     /// # Example
-    /// ```ignore
+    /// ```compile_fail
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
@@ -119,7 +119,7 @@ impl OpenObject {
     /// fails.
     ///
     /// # Example
-    /// ```ignore
+    /// ```compile_fail
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
@@ -142,7 +142,7 @@ impl OpenObject {
     /// metageneration matches the given value.
     ///
     /// # Example
-    /// ```ignore
+    /// ```compile_fail
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
@@ -165,7 +165,7 @@ impl OpenObject {
     /// metageneration does not match the given value.
     ///
     /// # Example
-    /// ```ignore
+    /// ```compile_fail
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
@@ -188,7 +188,7 @@ impl OpenObject {
     /// feature. In raw bytes format (not base64-encoded).
     ///
     /// Example:
-    /// ```ignore
+    /// ```compile_fail
     /// # use google_cloud_storage::{model_ext::KeyAes256, client::Storage};
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let key: &[u8] = &[97; 32];
@@ -211,7 +211,7 @@ impl OpenObject {
     /// The retry policy used for this request.
     ///
     /// # Example
-    /// ```ignore
+    /// ```compile_fail
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use google_cloud_storage::retry_policy::RetryableErrors;
@@ -237,7 +237,7 @@ impl OpenObject {
     /// The backoff policy used for this request.
     ///
     /// # Example
-    /// ```ignore
+    /// ```compile_fail
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use std::time::Duration;
@@ -266,7 +266,7 @@ impl OpenObject {
     /// requests.
     ///
     /// # Example
-    /// ```ignore
+    /// ```compile_fail
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
@@ -296,7 +296,7 @@ impl OpenObject {
     /// treated as retryable.
     ///
     /// # Example
-    /// ```ignore
+    /// ```compile_fail
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};

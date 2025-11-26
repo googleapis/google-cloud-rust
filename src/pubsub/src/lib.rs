@@ -29,7 +29,7 @@
 //! * [SchemaService][client::SchemaService]
 //!
 //! For publishing messages:
-//! * [PublisherFactory][client::PublisherFactory] and [Publisher][client::Publisher]
+//! * [Client][client::Client] and [Publisher][client::Publisher]
 //!
 //! Receiving messages is not yet supported by this crate.
 //!
@@ -54,7 +54,7 @@ pub mod builder {
     pub mod publisher {
         #[doc(hidden)]
         pub use crate::generated::gapic_dataplane::builder::publisher::*;
-        pub use crate::publisher::client::PublisherFactoryBuilder;
+        pub use crate::publisher::client::ClientBuilder;
         pub use crate::publisher::publisher::PublisherBuilder;
     }
     /// Request and client builders for the [SchemaService][crate::client::SchemaService] client.
@@ -86,14 +86,14 @@ pub mod model_ext {
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
-/// use google_cloud_pubsub::client::PublisherFactory;
+/// use google_cloud_pubsub::client::Client;
 /// use google_cloud_pubsub::model::PubsubMessage;
 ///
-/// // Create a factory for creating publishers.
-/// let factory = PublisherFactory::builder().build().await?;
+/// // Create a client for creating publishers.
+/// let client = Client::builder().build().await?;
 ///
 /// // Create a publisher that handles batching for a specific topic.
-/// let publisher = factory.publisher("projects/my-project/topics/my-topic").build();
+/// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
 ///
 /// // Publish several messages.
 /// // The client will automatically batch them in the background.
@@ -115,7 +115,7 @@ pub mod model_ext {
 /// ```
 pub mod client {
     pub use crate::generated::gapic::client::*;
-    pub use crate::publisher::client::PublisherFactory;
+    pub use crate::publisher::client::Client;
     pub use crate::publisher::publisher::Publisher;
 }
 

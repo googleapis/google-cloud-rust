@@ -934,6 +934,16 @@ impl super::stub::Compliance for Compliance {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1116,6 +1126,16 @@ impl super::stub::Compliance for Compliance {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1250,6 +1270,16 @@ impl super::stub::Compliance for Compliance {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2063,6 +2093,16 @@ impl super::stub::Echo for Echo {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2245,6 +2285,16 @@ impl super::stub::Echo for Echo {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2379,6 +2429,16 @@ impl super::stub::Echo for Echo {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2742,6 +2802,16 @@ impl super::stub::Identity for Identity {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2864,6 +2934,16 @@ impl super::stub::Identity for Identity {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3160,6 +3240,16 @@ impl super::stub::Identity for Identity {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3342,6 +3432,16 @@ impl super::stub::Identity for Identity {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3476,6 +3576,16 @@ impl super::stub::Identity for Identity {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3825,6 +3935,16 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3947,6 +4067,16 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4076,6 +4206,18 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None
+                .or(Some(&req.parent))
+                .or(req.blurb.as_ref().map(|s| &s.user));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4172,6 +4314,16 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4304,6 +4456,16 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(req.blurb.as_ref().map(|s| &s.user));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4400,6 +4562,16 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4493,6 +4665,16 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4580,6 +4762,16 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4831,6 +5023,16 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5013,6 +5215,16 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5147,6 +5359,16 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5556,6 +5778,16 @@ impl super::stub::SequenceService for SequenceService {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5616,6 +5848,16 @@ impl super::stub::SequenceService for SequenceService {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5668,6 +5910,16 @@ impl super::stub::SequenceService for SequenceService {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5924,6 +6176,16 @@ impl super::stub::SequenceService for SequenceService {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6106,6 +6368,16 @@ impl super::stub::SequenceService for SequenceService {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6240,6 +6512,16 @@ impl super::stub::SequenceService for SequenceService {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6589,6 +6871,16 @@ impl super::stub::Testing for Testing {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6681,6 +6973,16 @@ impl super::stub::Testing for Testing {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6738,6 +7040,16 @@ impl super::stub::Testing for Testing {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6792,6 +7104,16 @@ impl super::stub::Testing for Testing {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.parent));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6854,6 +7176,16 @@ impl super::stub::Testing for Testing {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6926,6 +7258,16 @@ impl super::stub::Testing for Testing {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.name));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7177,6 +7519,16 @@ impl super::stub::Testing for Testing {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7359,6 +7711,16 @@ impl super::stub::Testing for Testing {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7493,6 +7855,16 @@ impl super::stub::Testing for Testing {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = gax::options::internal::set_path_template(options, _path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = Option::<&String>::None.or(Some(&req.resource));
+            if let Some(rn) = resource_name {
+                let full_resource_name = format!("//localhost:7469/{}", rn);
+                gax::options::internal::set_resource_name(options, full_resource_name)
+            } else {
+                options
+            }
+        };
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

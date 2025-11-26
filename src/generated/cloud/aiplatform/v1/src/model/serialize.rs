@@ -856,6 +856,168 @@ impl serde::ser::Serialize for super::VideoMetadata {
 
 #[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
 #[doc(hidden)]
+impl serde::ser::Serialize for super::PrebuiltVoiceConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.voice_name.is_some() {
+            state.serialize_entry("voiceName", &self.voice_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ReplicatedVoiceConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.mime_type.is_empty() {
+            state.serialize_entry("mimeType", &self.mime_type)?;
+        }
+        if !self.voice_sample_audio.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("voiceSampleAudio", &__With(&self.voice_sample_audio))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::VoiceConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.prebuilt_voice_config() {
+            state.serialize_entry("prebuiltVoiceConfig", value)?;
+        }
+        if let Some(value) = self.replicated_voice_config() {
+            state.serialize_entry("replicatedVoiceConfig", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SpeakerVoiceConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.speaker.is_empty() {
+            state.serialize_entry("speaker", &self.speaker)?;
+        }
+        if self.voice_config.is_some() {
+            state.serialize_entry("voiceConfig", &self.voice_config)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::MultiSpeakerVoiceConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.speaker_voice_configs.is_empty() {
+            state.serialize_entry("speakerVoiceConfigs", &self.speaker_voice_configs)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SpeechConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.voice_config.is_some() {
+            state.serialize_entry("voiceConfig", &self.voice_config)?;
+        }
+        if !self.language_code.is_empty() {
+            state.serialize_entry("languageCode", &self.language_code)?;
+        }
+        if self.multi_speaker_voice_config.is_some() {
+            state.serialize_entry("multiSpeakerVoiceConfig", &self.multi_speaker_voice_config)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[doc(hidden)]
 impl serde::ser::Serialize for super::ImageConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1031,6 +1193,9 @@ impl serde::ser::Serialize for super::GenerationConfig {
         }
         if self.routing_config.is_some() {
             state.serialize_entry("routingConfig", &self.routing_config)?;
+        }
+        if self.speech_config.is_some() {
+            state.serialize_entry("speechConfig", &self.speech_config)?;
         }
         if self.thinking_config.is_some() {
             state.serialize_entry("thinkingConfig", &self.thinking_config)?;
@@ -19385,6 +19550,9 @@ impl serde::ser::Serialize for super::MachineSpec {
             }
             state.serialize_entry("acceleratorCount", &__With(&self.accelerator_count))?;
         }
+        if !self.gpu_partition_size.is_empty() {
+            state.serialize_entry("gpuPartitionSize", &self.gpu_partition_size)?;
+        }
         if !self.tpu_topology.is_empty() {
             state.serialize_entry("tpuTopology", &self.tpu_topology)?;
         }
@@ -30313,6 +30481,9 @@ impl serde::ser::Serialize for super::reasoning_engine_spec::SourceCodeSpec {
         if let Some(value) = self.inline_source() {
             state.serialize_entry("inlineSource", value)?;
         }
+        if let Some(value) = self.developer_connect_source() {
+            state.serialize_entry("developerConnectSource", value)?;
+        }
         if let Some(value) = self.python_spec() {
             state.serialize_entry("pythonSpec", value)?;
         }
@@ -30347,6 +30518,62 @@ impl serde::ser::Serialize for super::reasoning_engine_spec::source_code_spec::I
                 }
             }
             state.serialize_entry("sourceArchive", &__With(&self.source_archive))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::reasoning_engine_spec::source_code_spec::DeveloperConnectConfig
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.git_repository_link.is_empty() {
+            state.serialize_entry("gitRepositoryLink", &self.git_repository_link)?;
+        }
+        if !self.dir.is_empty() {
+            state.serialize_entry("dir", &self.dir)?;
+        }
+        if !self.revision.is_empty() {
+            state.serialize_entry("revision", &self.revision)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::reasoning_engine_spec::source_code_spec::DeveloperConnectSource
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.config.is_some() {
+            state.serialize_entry("config", &self.config)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

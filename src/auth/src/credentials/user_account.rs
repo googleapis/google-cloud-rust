@@ -96,8 +96,8 @@
 
 use crate::build_errors::Error as BuilderError;
 use crate::constants::OAUTH2_TOKEN_SERVER_URL;
-use crate::credentials::dynamic::CredentialsProvider;
-use crate::credentials::{CacheableResource, Credentials};
+use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
+use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::{self, CredentialsError};
 use crate::headers_util::build_cacheable_headers;
 use crate::retry::Builder as RetryTokenProviderBuilder;
@@ -309,12 +309,51 @@ impl Builder {
     /// Returns a [CredentialsError] if the `authorized_user`
     /// provided to [`Builder::new`] cannot be successfully deserialized into the
     /// expected format. This typically happens if the JSON value is malformed or
-    /// missing required fields. For more information, on how to generate
-    /// `authorized_user` json, consult the relevant section in the
-    /// [application-default credentials] guide.
+    /// missing required fields.
+    ///
+    /// For more information, on how to generate `authorized_user` JSON,
+    /// consult the relevant section in the [application-default credentials] guide.
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> BuildResult<Credentials> {
+        Ok(self.build_access_token_credentials()?.into())
+    }
+
+    /// Returns an [AccessTokenCredentials] instance with the configured settings.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::user_account::Builder;
+    /// # use google_cloud_auth::credentials::{AccessTokenCredentials, AccessTokenCredentialsProvider};
+    /// # use serde_json::json;
+    /// # tokio_test::block_on(async {
+    /// let authorized_user = json!({
+    ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
+    ///     "client_secret": "YOUR_CLIENT_SECRET",
+    ///     "refresh_token": "YOUR_REFRESH_TOKEN",
+    ///     "type": "authorized_user",
+    /// });
+    /// let credentials: AccessTokenCredentials = Builder::new(authorized_user)
+    ///     .build_access_token_credentials()?;
+    /// let access_token = credentials.access_token().await?;
+    /// println!("Token: {}", access_token.token);
+    /// # Ok::<(), anyhow::Error>(())
+    /// # });
+    /// ```
+    ///
+    /// # Errors
+    ///
+    /// Returns a [CredentialsError] if the `authorized_user`
+    /// provided to [`Builder::new`] cannot be successfully deserialized into the
+    /// expected format. This typically happens if the JSON value is malformed or
+    /// missing required fields.
+    ///
+    /// For more information, on how to generate `authorized_user` JSON,
+    /// consult the relevant section in the [application-default credentials] guide.
+    ///
+    /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
+    pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
         let authorized_user = serde_json::from_value::<AuthorizedUser>(self.authorized_user)
             .map_err(BuilderError::parsing)?;
         let endpoint = self
@@ -334,7 +373,7 @@ impl Builder {
 
         let token_provider = TokenCache::new(self.retry_builder.build(token_provider));
 
-        Ok(Credentials {
+        Ok(AccessTokenCredentials {
             inner: Arc::new(UserCredentials {
                 token_provider,
                 quota_project_id,
@@ -373,7 +412,6 @@ impl std::fmt::Debug for UserTokenProvider {
 }
 
 impl UserTokenProvider {
-    #[cfg(google_cloud_unstable_id_token)]
     pub(crate) fn new_id_token_provider(
         authorized_user: AuthorizedUser,
         token_uri: Option<String>,
@@ -467,6 +505,17 @@ where
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
         build_cacheable_headers(&token, &self.quota_project_id)
+    }
+}
+
+#[async_trait::async_trait]
+impl<T> AccessTokenCredentialsProvider for UserCredentials<T>
+where
+    T: CachedTokenProvider,
+{
+    async fn access_token(&self) -> Result<AccessToken> {
+        let token = self.token_provider.token(Extensions::new()).await?;
+        token.into()
     }
 }
 
@@ -1108,6 +1157,44 @@ mod tests {
             get_token_type_from_headers(headers).unwrap(),
             "test-token-type"
         );
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn access_credential_provider_with_token_uri() -> TestResult {
+        let server = Server::run();
+        let response = Oauth2RefreshResponse {
+            access_token: "test-access-token".to_string(),
+            id_token: None,
+            expires_in: None,
+            refresh_token: None,
+            scope: None,
+            token_type: "test-token-type".to_string(),
+        };
+        server.expect(
+            Expectation::matching(all_of![
+                request::path("/token"),
+                request::body(json_decoded(|req: &Oauth2RefreshRequest| {
+                    check_request(req, None)
+                }))
+            ])
+            .respond_with(json_encoded(response)),
+        );
+
+        let authorized_user = serde_json::json!({
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
+            "token_uri": "test-endpoint"
+        });
+
+        let uc = Builder::new(authorized_user)
+            .with_token_uri(server.url("/token").to_string())
+            .build_access_token_credentials()?;
+        let access_token = uc.access_token().await?;
+        assert_eq!(access_token.token, "test-access-token");
 
         Ok(())
     }

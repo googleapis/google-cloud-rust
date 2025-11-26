@@ -18,7 +18,6 @@ pub(crate) const GOOGLE_CLOUD_QUOTA_PROJECT_VAR: &str = "GOOGLE_CLOUD_QUOTA_PROJ
 pub(crate) const TOKEN_EXCHANGE_GRANT_TYPE: &str =
     "urn:ietf:params:oauth:grant-type:token-exchange";
 /// JWT Bearer OAuth Grant Type
-#[cfg(google_cloud_unstable_id_token)]
 pub(crate) const JWT_BEARER_GRANT_TYPE: &str = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 pub(crate) const STS_TOKEN_URL: &str = "https://sts.googleapis.com/v1/token";
 pub(crate) const OAUTH2_TOKEN_SERVER_URL: &str = "https://oauth2.googleapis.com/token";

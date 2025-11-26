@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Obtain [OIDC ID Tokens].
+//! Obtain, use, and verify [OIDC ID Tokens].
 //!
 //! `IDTokenCredentials` obtain OIDC ID tokens, which are commonly
 //! used for [service to service authentication]. For example, when the
@@ -53,24 +53,26 @@
 //! ## Example: Verifying an ID token
 //!
 //! Within the receiving private service, you can parse the authorization header to
-//! receive the information being sent by the Bearer token and use the [Verifier] to
-//! check if is valid.
+//! receive the information being sent by the Bearer token and use the
+//! [Verifier][verifier::Verifier] to check if the token is valid.
 //!
-//! ```no_run
+//! ```
 //! # use google_cloud_auth::credentials::idtoken;
+//! # use google_cloud_auth::credentials::idtoken::verifier::Verifier;
 //! # use std::time::Duration;
+//! # tokio_test::block_on(async {
 //! let audience = "https://my-service.a.run.app";
 //! let verifier = idtoken::verifier::Builder::new([audience]).build();
 //!
-//! async fn verify_id_token(token: &str) -> anyhow::Result<()> {
+//! async fn verify_id_token(verifier: &Verifier, token: &str) -> anyhow::Result<()> {
 //!     let claims = verifier.verify(token).await?;
-//!     let email = claims["email"].as_str()?;
 //!
-//!     println!("Hello: {:?}", email);
+//!     println!("Hello: {:?}", claims["email"]);
 //! #   Ok(())
 //! }
+//! # });
 //! ```
-//!
+//! [Verifier]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/idtoken/struct.Verifier.html
 //! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 //! [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
 
@@ -79,7 +81,7 @@ use crate::credentials::{AdcContents, CredentialsError, extract_credential_type,
 use crate::token::Token;
 use crate::{BuildResult, Result};
 use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
-pub use serde_json::{Map, Value};
+use serde_json::Value;
 use std::collections::HashMap;
 use std::future::Future;
 use std::sync::Arc;
