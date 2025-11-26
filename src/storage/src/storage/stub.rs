@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[cfg(google_cloud_unstable_storage_bidi)]
+use super::bidi::OpenObject;
 use crate::Result;
 use crate::model::{Object, ReadObjectRequest};
 use crate::model_ext::WriteObjectRequest;
@@ -65,6 +67,16 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         P: StreamingSource + Seek + Send + Sync + 'static,
     {
         unimplemented_stub::<Object>()
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    fn open_object(
+        &self,
+        _bucket: String,
+        _object: String,
+        _options: RequestOptions,
+    ) -> OpenObject {
+        unimplemented!("{UNIMPLEMENTED}");
     }
 }
 
