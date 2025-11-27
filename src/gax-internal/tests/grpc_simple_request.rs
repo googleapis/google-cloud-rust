@@ -34,6 +34,7 @@ mod tests {
         check_simple_request(client).await
     }
 
+    #[ignore = "TODO(#3928) - enable IPv6 testing in GCB"]
     #[tokio::test]
     async fn non_default_endpoint_ipv6() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server_with_address("[::]:0").await?;
