@@ -17,7 +17,7 @@ mod tests {
     use gax::options::*;
     use gax::retry_policy::NeverRetry;
     use google_cloud_gax_internal::grpc;
-    use grpc_server::{builder, google, start_echo_server};
+    use grpc_server::{builder, google, start_echo_server, start_echo_server_with_address};
 
     fn test_credentials() -> auth::credentials::Credentials {
         auth::credentials::anonymous::Builder::new().build()
@@ -28,6 +28,31 @@ mod tests {
         let (endpoint, _server) = start_echo_server().await?;
 
         let client = builder(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
+        check_simple_request(client).await
+    }
+
+    #[ignore = "TODO(#3928) - enable IPv6 testing in GCB"]
+    #[tokio::test]
+    async fn non_default_endpoint_ipv6() -> anyhow::Result<()> {
+        let (endpoint, _server) = start_echo_server_with_address("[::]:0").await?;
+
+        let client = builder("https://storage.googleapis.com")
+            .with_endpoint(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
+        check_simple_request(client).await
+    }
+
+    #[tokio::test]
+    async fn non_default_endpoint_ipv4() -> anyhow::Result<()> {
+        let (endpoint, _server) = start_echo_server_with_address("0.0.0.0:0").await?;
+
+        let client = builder("https://storage.googleapis.com")
+            .with_endpoint(endpoint)
             .with_credentials(test_credentials())
             .build()
             .await?;
