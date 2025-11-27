@@ -19,9 +19,9 @@ use std::sync::Arc;
 
 #[derive(Debug, Default)]
 pub(crate) struct Batch {
-    // TODO(#3686): A batch should also keep track of its total size
-    // for improved performance.
     messages: Vec<BundledMessage>,
+    // messages_byte_size currently only considers the aggregate size of PubsubMessages. For future imrpovement, consider the entire PublishRequest including topic field.
+    messages_byte_size: u32,
 }
 
 impl Batch {
@@ -37,7 +37,17 @@ impl Batch {
         self.messages.len()
     }
 
+    pub(crate) fn size(&self) -> u32 {
+        self.messages_byte_size
+    }
+
     pub(crate) fn push(&mut self, msg: BundledMessage) {
+        use gaxi::prost::ToProto;
+        use prost::Message;
+        // TODO(NOW): Yuk. Can we avoid the clone here?
+        let proto = msg.msg.clone().to_proto().unwrap();
+        let msg_size = proto.encoded_len() as u32;
+        self.messages_byte_size = self.messages_byte_size + msg_size;
         self.messages.push(msg);
     }
 
@@ -58,7 +68,9 @@ impl Batch {
         }
         let batch_to_send = Self {
             messages: self.messages.drain(..).collect(),
+            messages_byte_size: self.messages_byte_size,
         };
+        self.messages_byte_size = 0;
         inflight.push(tokio::spawn(batch_to_send.send(client, topic)));
     }
 
@@ -96,13 +108,26 @@ impl Batch {
 
 #[cfg(test)]
 mod tests {
+    use gaxi::prost::ToProto;
+    use prost::Message;
+    // use tonic::IntoRequest;
+    use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
     use crate::model::PubsubMessage;
     use crate::publisher::batch::Batch;
     use crate::publisher::worker::BundledMessage;
+    use futures::stream::FuturesUnordered;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        GapicPublisher {}
+        impl crate::generated::gapic_dataplane::stub::Publisher for GapicPublisher {
+            async fn publish(&self, req: crate::model::PublishRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<crate::model::PublishResponse>>;
+        }
+    }
 
     #[tokio::test]
-    async fn test_push_batch() {
-        let mut batch = Batch::new();
+    async fn test_push_and_flush_batch() {
+        let mut batch: Batch = Batch::new();
         assert!(batch.is_empty());
 
         let (message_a, _rx_a) = create_bundled_message_helper("hello".to_string());
@@ -116,6 +141,36 @@ mod tests {
         let (message_c, _rx_c) = create_bundled_message_helper("world".to_string());
         batch.push(message_c);
         assert_eq!(batch.len(), 3);
+
+        let mock = MockGapicPublisher::new();
+        let client = GapicPublisher::from_stub(mock);
+        let mut inflight = FuturesUnordered::new();
+        batch.flush(client, "topic".to_string(), &mut inflight);
+        assert_eq!(inflight.len(), 1);
+        assert_eq!(batch.len(), 0);
+    }
+
+    #[tokio::test]
+    async fn test_size() {
+        let mut batch: Batch = Batch::new();
+        assert_eq!(batch.size(), 0);
+
+        let (message_a, _rx_a) = create_bundled_message_helper("hello a".to_string());
+        let message_a_size = message_a.msg.clone().to_proto().unwrap().encoded_len();
+        batch.push(message_a);
+        assert_eq!(batch.size(), message_a_size as u32);
+
+        let (message_b, _rx_a) = create_bundled_message_helper("hello b".to_string());
+        let message_b_size = message_b.msg.clone().to_proto().unwrap().encoded_len();
+        batch.push(message_b);
+        assert_eq!(batch.size(), (message_a_size + message_b_size) as u32);
+
+        let mock = MockGapicPublisher::new();
+        let client = GapicPublisher::from_stub(mock);
+        let mut inflight = FuturesUnordered::new();
+        batch.flush(client, "topic".to_string(), &mut inflight);
+        assert_eq!(inflight.len(), 1);
+        assert_eq!(batch.size(), 0);
     }
 
     fn create_bundled_message_helper(

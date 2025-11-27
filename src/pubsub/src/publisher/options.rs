@@ -17,7 +17,7 @@
 #[non_exhaustive]
 pub struct BatchingOptions {
     pub message_count_threshold: u32,
-    pub(crate) byte_threshold: u32,
+    pub byte_threshold: u32,
     pub delay_threshold: std::time::Duration,
 }
 
@@ -34,8 +34,6 @@ impl BatchingOptions {
     }
 
     /// Set the [BatchingOptions][Self::byte_threshold] field.
-    // TODO(#3686): support byte thresholds.
-    #[allow(dead_code)]
     pub(crate) fn set_byte_threshold<V: Into<u32>>(mut self, v: V) -> Self {
         self.byte_threshold = v.into();
         self
