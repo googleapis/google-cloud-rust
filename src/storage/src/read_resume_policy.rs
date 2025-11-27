@@ -39,6 +39,7 @@
 //! ```
 
 use crate::Error;
+use gax::error::rpc::Code;
 
 pub use gax::retry_result::RetryResult as ResumeResult;
 
@@ -132,11 +133,20 @@ pub struct Recommended;
 
 impl ReadResumePolicy for Recommended {
     fn on_error(&self, _status: &ResumeQuery, error: Error) -> ResumeResult {
-        if error.is_io() {
-            ResumeResult::Continue(error)
-        } else {
-            ResumeResult::Permanent(error)
+        match error {
+            e if self::is_transient(&e) => ResumeResult::Continue(e),
+            e => ResumeResult::Permanent(e),
         }
+    }
+}
+
+fn is_transient(error: &Error) -> bool {
+    match error {
+        // When using HTTP the only error after the read starts are I/O errors.
+        e if e.is_io() => true,
+        // When using gRPC the errors may include more information.
+        e if e.is_transport() => true,
+        e => e.status().is_some_and(|s| s.code == Code::Unavailable),
     }
 }
 
@@ -252,7 +262,14 @@ mod tests {
         let policy = Recommended;
         let r = policy.on_error(&ResumeQuery::new(0), transient());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
+        let r = policy.on_error(&ResumeQuery::new(0), transport_error());
+        assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
+        let r = policy.on_error(&ResumeQuery::new(0), grpc_error(Code::Unavailable));
+        assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
+
         let r = policy.on_error(&ResumeQuery::new(0), permanent());
+        assert!(matches!(r, ResumeResult::Permanent(_)), "{r:?}");
+        let r = policy.on_error(&ResumeQuery::new(0), grpc_error(Code::PermissionDenied));
         assert!(matches!(r, ResumeResult::Permanent(_)), "{r:?}");
     }
 
@@ -305,5 +322,14 @@ mod tests {
 
     fn permanent() -> Error {
         Error::deser("bad data")
+    }
+
+    fn transport_error() -> Error {
+        Error::transport(http::HeaderMap::new(), "test-only")
+    }
+
+    fn grpc_error(code: Code) -> Error {
+        let status = gax::error::rpc::Status::default().set_code(code);
+        Error::service(status)
     }
 }
