@@ -303,13 +303,23 @@ impl Client {
         let origin =
             crate::host::from_endpoint(endpoint.as_deref(), default_endpoint, |origin, _host| {
                 origin
-            })?;
+            });
+        let origin = origin?;
         let endpoint =
             Endpoint::from_shared(endpoint.unwrap_or_else(|| default_endpoint.to_string()))
-                .map_err(BuilderError::transport)?
+                .map_err(BuilderError::transport)?;
+        let endpoint = if endpoint
+            .uri()
+            .scheme()
+            .is_some_and(|s| s == &http::uri::Scheme::HTTPS)
+        {
+            endpoint
                 .tls_config(ClientTlsConfig::new().with_enabled_roots())
                 .map_err(BuilderError::transport)?
-                .origin(origin);
+        } else {
+            endpoint
+        };
+        let endpoint = endpoint.origin(origin);
         let channel = endpoint.connect_lazy();
 
         #[cfg(not(google_cloud_unstable_tracing))]
