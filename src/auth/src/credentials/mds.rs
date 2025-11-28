@@ -259,16 +259,15 @@ impl Builder {
         }
     }
 
-    fn build_token_provider(self) -> TokenProviderWithRetry<MDSAccessTokenProvider> {
+    fn resolve_endpoint(&self) -> (String, bool) {
         let final_endpoint: String;
         let endpoint_overridden: bool;
-
         // Determine the endpoint and whether it was overridden
         if let Ok(host_from_env) = std::env::var(GCE_METADATA_HOST_ENV_VAR) {
             // Check GCE_METADATA_HOST environment variable first
             final_endpoint = format!("http://{host_from_env}");
             endpoint_overridden = true;
-        } else if let Some(builder_endpoint) = self.endpoint {
+        } else if let Some(builder_endpoint) = self.endpoint.clone() {
             // Else, check if an endpoint was provided to the mds::Builder
             final_endpoint = builder_endpoint;
             endpoint_overridden = true;
@@ -277,6 +276,11 @@ impl Builder {
             final_endpoint = METADATA_ROOT.to_string();
             endpoint_overridden = false;
         };
+        (final_endpoint, endpoint_overridden)
+    }
+
+    fn build_token_provider(self) -> TokenProviderWithRetry<MDSAccessTokenProvider> {
+        let (final_endpoint, endpoint_overridden) = self.resolve_endpoint();
 
         let tp = MDSAccessTokenProvider::builder()
             .endpoint(final_endpoint)
@@ -315,6 +319,16 @@ impl Builder {
         };
         Ok(AccessTokenCredentials {
             inner: Arc::new(mdsc),
+        })
+    }
+
+    #[cfg(google_cloud_unstable_signed_url)]
+    pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
+        let (endpoint, _) = self.resolve_endpoint();
+        let credentials = self.build()?;
+        let signing_provider = crate::signer::mds::MDSCredentialsSigner::new(endpoint, credentials);
+        Ok(crate::signer::Signer {
+            inner: Arc::new(signing_provider),
         })
     }
 }

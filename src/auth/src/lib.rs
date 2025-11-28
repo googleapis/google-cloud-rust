@@ -57,3 +57,6 @@ pub(crate) mod retry;
 ///
 /// [Credentials]: https://cloud.google.com/docs/authentication#credentials
 pub(crate) mod headers_util;
+
+#[cfg(google_cloud_unstable_signed_url)]
+pub mod signer;
