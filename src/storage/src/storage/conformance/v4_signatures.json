@@ -365,7 +365,7 @@
       "expectedStringToSign": "GOOG4-RSA-SHA256\n20190201T090000Z\n20190201/auto/storage/goog4_request\ne47446edb8eed4c1797dfd31ce30272be89659a6ef38e91b549740c8f875d27b"
     },
     {
-      "description": "Hostname takes precendence over endpoint and emulator",
+      "description": "Hostname takes precedence over endpoint and emulator",
       "bucket": "test-bucket",
       "object": "test-object",
       "method": "GET",
