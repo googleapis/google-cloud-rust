@@ -147,7 +147,7 @@ impl SigningScope<String, String> {
 }
 
 impl SignedUrlBuilder {
-    pub fn new<B, O>(scope: SigningScope<B, O>) -> Self
+    fn new<B, O>(scope: SigningScope<B, O>) -> Self
     where
         B: Into<String>,
         O: Into<String>,
@@ -169,6 +169,21 @@ impl SignedUrlBuilder {
             timestamp: Utc::now(),
             url_style: UrlStyle::PathStyle,
         }
+    }
+
+    pub fn for_object<B, O>(bucket: B, object: O) -> Self
+    where
+        B: Into<String>,
+        O: Into<String>,
+    {
+        Self::new(SigningScope::Object(bucket, object))
+    }
+
+    pub fn for_bucket<B>(bucket: B) -> Self
+    where
+        B: Into<String>,
+    {
+        Self::new(SigningScope::Bucket(bucket))
     }
 
     #[cfg(test)]
@@ -544,7 +559,6 @@ mod tests {
 
         let mut failed_tests = Vec::new();
         let mut passed_tests = Vec::new();
-        // let mut skipped_tests = Vec::new();
         let total_tests = suite.signing_v4_tests.len();
         for test in suite.signing_v4_tests {
             let timestamp =
@@ -559,15 +573,15 @@ mod tests {
                 },
                 None => UrlStyle::PathStyle,
             };
-            let scope = match test.object {
-                Some(object) => SigningScope::Object(test.bucket, object),
-                None => SigningScope::Bucket(test.bucket),
+            let builder = match test.object {
+                Some(object) => SignedUrlBuilder::for_object(test.bucket, object),
+                None => SignedUrlBuilder::for_bucket(test.bucket),
             };
 
             let emulator_hostname = test.emulator_hostname.unwrap_or_default();
             let _e = ScopedEnv::set("STORAGE_EMULATOR_HOST", emulator_hostname.as_str());
 
-            let builder = SignedUrlBuilder::new(scope)
+            let builder = builder
                 .with_method(method)
                 .with_url_style(url_style)
                 .with_expiration(Duration::from_secs(test.expiration))
@@ -636,9 +650,6 @@ mod tests {
 
         let failed = !failed_tests.is_empty();
         let total_passed = passed_tests.len();
-        /*for test in skipped_tests {
-            println!("⚠️ Skipped test: {}", test);
-        }*/
         for test in passed_tests {
             println!("✅ Passed test: {}", test);
         }
