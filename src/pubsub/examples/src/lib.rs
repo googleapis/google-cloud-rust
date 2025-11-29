@@ -102,7 +102,7 @@ pub async fn cleanup_stale_topics(client: &TopicAdmin, project_id: &str) -> anyh
 
 pub const TOPIC_ID_LENGTH: usize = 255;
 
-fn random_topic_id() -> String {
+pub fn random_topic_id() -> String {
     let prefix = "topic-";
     let topic_id: String = rand::rng()
         .sample_iter(&Alphanumeric)
