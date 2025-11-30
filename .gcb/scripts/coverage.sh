@@ -18,6 +18,13 @@ set -euv
 cargo version
 rustup show active-toolchain -v
 
+# We use `--all-features` which triggers the Tonic+Prost code generation.
+echo "==== Install protoc ===="
+curl -fsSL --retry 5 --retry-delay 15 -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v28.3/protoc-28.3-linux-x86_64.zip
+sha256sum -c <(echo 0ad949f04a6a174da83cdcbdb36dee0a4925272a5b6d83f79a6bf9852076d53f  /tmp/protoc.zip)
+env -C /usr/local unzip -x /tmp/protoc.zip
+protoc --version
+
 echo "==== Install cargo-tarpaulin ===="
 cargo install cargo-tarpaulin --version 0.32.1 --locked
 
