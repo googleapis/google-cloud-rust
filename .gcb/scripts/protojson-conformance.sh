@@ -22,10 +22,12 @@ set -ev
 cargo build -p protojson-conformance
 
 mkdir -p /workspace/target/protobuf
-curl -fsSL --retry 5 --retry-delay 15 https://github.com/protocolbuffers/protobuf/releases/download/v31.0/protobuf-31.0.tar.gz |
-  tar -C /workspace/target/protobuf -zxf - --strip-components=1
+curl -fsSL --retry 5 --retry-delay 15 https://github.com/protocolbuffers/protobuf/releases/download/v31.1/protobuf-31.1.tar.gz -p /tmp/protobuf.tar.gz
+sha256sum -c <(echo 12bfd76d27b9ac3d65c00966901609e020481b9474ef75c7ff4601ac06fa0b82 /tmp/protobuf.tar.gz)
+tar -C /workspace/target/protobuf -zxf /tmp/protobuf.tar.gz --strip-components=1
 
 curl -fsSL --retry 5 --retry-delay 15 -o /workspace/.bin/bazelisk https://github.com/bazelbuild/bazelisk/releases/download/v1.27.0/bazelisk-linux-amd64
+sha256sum -c <(echo e1508323f347ad1465a887bc5d2bfb91cffc232d11e8e997b623227c6b32fb76 /workspace/.bin/bazelisk)
 chmod 755 /workspace/.bin/bazelisk
 
 args=(
