@@ -31,6 +31,8 @@ use crate::google::storage::v2::{BidiReadObjectRequest, BidiReadObjectResponse};
 use crate::request_options::RequestOptions;
 use tokio::sync::mpsc::Receiver;
 
+pub use builder::OpenObject;
+
 /// A trait to mock `tonic::Streaming<T>` in the unit tests.
 ///
 /// This is not a public trait, we only need this for our own testing.
