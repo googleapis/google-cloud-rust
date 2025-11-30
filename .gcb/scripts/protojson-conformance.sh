@@ -22,7 +22,7 @@ set -ev
 cargo build -p protojson-conformance
 
 mkdir -p /workspace/target/protobuf
-curl -fsSL --retry 5 --retry-delay 15 https://github.com/protocolbuffers/protobuf/releases/download/v31.1/protobuf-31.1.tar.gz -p /tmp/protobuf.tar.gz
+curl -fsSL --retry 5 --retry-delay 15 https://github.com/protocolbuffers/protobuf/releases/download/v31.1/protobuf-31.1.tar.gz -o /tmp/protobuf.tar.gz
 sha256sum -c <(echo 12bfd76d27b9ac3d65c00966901609e020481b9474ef75c7ff4601ac06fa0b82 /tmp/protobuf.tar.gz)
 tar -C /workspace/target/protobuf -zxf /tmp/protobuf.tar.gz --strip-components=1
 
