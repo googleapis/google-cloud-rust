@@ -40,7 +40,9 @@ done
 
 # Integration tests
 echo "==== Install go compiler ===="
-curl -fsSL --retry 5 --retry-delay 15 https://go.dev/dl/go1.25.4.linux-amd64.tar.gz | tar -C /usr/local -xzf -
+curl -fsSL --retry 5 --retry-delay 15 https://go.dev/dl/go1.25.4.linux-amd64.tar.gz -o /tmp/go.tar.gz
+sha256sum -c <(echo 9fa5ffeda4170de60f67f3aa0f824e426421ba724c21e133c1e35d6159ca1bec /tmp/go.tar.gz)
+tar -C /usr/local -xzf /tmp/go.tar.gz
 export PATH=${PATH}:/usr/local/go/bin
 
 echo "==== integration-tests (UNSTABLE) ===="
