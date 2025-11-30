@@ -18,6 +18,7 @@ pub(crate) mod bidi;
 pub(crate) mod checksum;
 pub(crate) mod client;
 pub(crate) mod common_options;
+pub(crate) mod open_object;
 pub(crate) mod perform_upload;
 pub(crate) mod read_object;
 pub mod request_options;
