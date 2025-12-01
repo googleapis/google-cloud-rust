@@ -50,21 +50,6 @@ bon.workspace         = true
 # Local dependencies
 gax.workspace = true
 
-# Optional dependencies
-[dependencies.jsonwebtoken_rust_crypto]
-package          = "jsonwebtoken"
-default-features = false
-version          = "10"
-features         = ["rust_crypto"]
-optional         = true
-
-[dependencies.jsonwebtoken_aws_lc]
-package          = "jsonwebtoken"
-default-features = false
-version          = "10"
-features         = ["aws_lc_rs"]
-optional         = true
-
 [dev-dependencies]
 anyhow.workspace      = true
 httptest.workspace    = true
