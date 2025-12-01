@@ -240,7 +240,7 @@ where
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use google_cloud_storage::model_ext::ReadRange;
     /// let descriptor = client
-    ///     .object_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
     ///     .await?;
     /// // Print the object metadata
