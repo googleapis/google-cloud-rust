@@ -17,6 +17,8 @@ use crate::Error;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::WriteObject;
 use crate::read_resume_policy::ReadResumePolicy;
+#[cfg(google_cloud_unstable_storage_bidi)]
+use crate::storage::bidi::OpenObject;
 use crate::storage::common_options::CommonOptions;
 use crate::streaming_source::Payload;
 use auth::credentials::CacheableResource;
@@ -104,6 +106,8 @@ pub(crate) struct StorageInner {
     pub cred: auth::credentials::Credentials,
     pub endpoint: String,
     pub options: RequestOptions,
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    pub grpc: gaxi::grpc::Client,
 }
 
 impl Storage {
@@ -226,6 +230,44 @@ where
     {
         ReadObject::new(self.stub.clone(), bucket, object, self.options.clone())
     }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    /// Opens an object to read its contents using concurrent ranged reads.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::model_ext::ReadRange;
+    /// let descriptor = client
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .send()
+    ///     .await?;
+    /// // Print the object metadata
+    /// println!("metadata = {:?}", descriptor.object());
+    /// // Read 2000 bytes starting at offset 1000.
+    /// let reader = descriptor.read_range(ReadRange::segment(1000, 2000)).await;
+    /// let mut contents = Vec::new();
+    /// while let Some(chunk) = reader.next().await.transpose()? {
+    ///   contents.extend_from_slice(&chunk);
+    /// }
+    /// println!("range contents={:?}", bytes::Bytes::from_owner(contents));
+    /// // `descriptor` can be used to read more ranges, concurrently if needed.
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// # Parameters
+    /// * `bucket` - the bucket name containing the object. In
+    ///   `projects/_/buckets/{bucket_id}` format.
+    /// * `object` - the object name.
+    pub fn open_object<B, O>(&self, bucket: B, object: O) -> OpenObject
+    where
+        B: Into<String>,
+        O: Into<String>,
+    {
+        self.stub
+            .open_object(bucket.into(), object.into(), self.options.clone())
+    }
 }
 
 impl Storage {
@@ -254,12 +296,15 @@ impl StorageInner {
         cred: Credentials,
         endpoint: String,
         options: RequestOptions,
+        #[cfg(google_cloud_unstable_storage_bidi)] grpc: gaxi::grpc::Client,
     ) -> Self {
         Self {
             client,
             cred,
             endpoint,
             options,
+            #[cfg(google_cloud_unstable_storage_bidi)]
+            grpc,
         }
     }
 
@@ -277,7 +322,14 @@ impl StorageInner {
             .clone()
             .expect("into_parts() assigns default credentials");
 
-        let inner = StorageInner::new(client, cred, endpoint, options);
+        let inner = StorageInner::new(
+            client,
+            cred,
+            endpoint,
+            options,
+            #[cfg(google_cloud_unstable_storage_bidi)]
+            gaxi::grpc::Client::new(config, super::DEFAULT_HOST).await?,
+        );
         Ok(inner)
     }
 
