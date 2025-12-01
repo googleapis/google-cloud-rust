@@ -46,9 +46,23 @@ thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
 bon.workspace         = true
-jsonwebtoken          = { workspace = true, features = ["rust_crypto"] }
 # Local dependencies
 gax.workspace = true
+
+# Optional dependencies
+[dependencies.jsonwebtoken_rust_crypto]
+package          = "jsonwebtoken"
+default-features = false
+version          = "10"
+features         = ["rust_crypto"]
+optional         = true
+
+[dependencies.jsonwebtoken_aws_lc]
+package          = "jsonwebtoken"
+default-features = false
+version          = "10"
+features         = ["aws_lc_rs"]
+optional         = true
 
 [dev-dependencies]
 anyhow.workspace      = true
@@ -64,6 +78,11 @@ tokio                 = { workspace = true, features = ["macros", "rt-multi-thre
 tokio-test.workspace  = true
 url.workspace         = true
 mutants.workspace     = true
+
+[features]
+default     = ["aws_lc"]
+rust_crypto = ["jsonwebtoken_rust_crypto"]
+aws_lc      = ["jsonwebtoken_aws_lc"]
 
 [lints]
 workspace = true

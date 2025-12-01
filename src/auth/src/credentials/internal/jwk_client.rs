@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use crate::Result;
+use crate::credentials::internal::jwt::{Algorithm, DecodingKey, jwk::JwkSet};
 use crate::errors::CredentialsError;
-use jsonwebtoken::{Algorithm, DecodingKey, jwk::JwkSet};
 use std::{
     collections::HashMap,
     sync::Arc,
@@ -130,11 +130,11 @@ impl JwkClient {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::credentials::internal::jwt::Algorithm;
     use base64::Engine;
     use httptest::matchers::{all_of, request};
     use httptest::responders::json_encoded;
     use httptest::{Expectation, Server};
-    use jsonwebtoken::Algorithm;
     use rsa::traits::PublicKeyParts;
     use serial_test::parallel;
 

@@ -16,3 +16,10 @@
 pub mod sts_exchange;
 
 pub mod jwk_client;
+
+// Pick one of the jsonwebtoken crate with specific crypto implementations
+#[cfg(feature = "rust_crypto")]
+pub use jsonwebtoken_rust_crypto as jwt;
+
+#[cfg(feature = "aws_lc")]
+pub use jsonwebtoken_aws_lc as jwt;

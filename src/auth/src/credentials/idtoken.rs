@@ -334,7 +334,8 @@ fn instant_from_epoch_seconds(secs: u64, now: SystemTime) -> Option<Instant> {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use jsonwebtoken::{Algorithm, EncodingKey, Header};
+    use crate::credentials::internal::jwt;
+    use crate::credentials::internal::jwt::{Algorithm, EncodingKey, Header};
     use mds::Format;
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use serde_json::json;
@@ -386,7 +387,7 @@ pub(crate) mod tests {
 
         let private_key = EncodingKey::from_rsa_der(private_cert.as_bytes());
 
-        jsonwebtoken::encode(&header, &claims, &private_key).expect("failed to encode jwt")
+        jwt::encode(&header, &claims, &private_key).expect("failed to encode jwt")
     }
 
     #[tokio::test(start_paused = true)]

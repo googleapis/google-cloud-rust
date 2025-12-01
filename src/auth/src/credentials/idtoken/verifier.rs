@@ -37,7 +37,8 @@
 //! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 
 use crate::credentials::internal::jwk_client::JwkClient;
-use jsonwebtoken::Validation;
+use crate::credentials::internal::jwt;
+use crate::credentials::internal::jwt::Validation;
 /// Represents the claims in an ID token.
 pub use serde_json::Map;
 /// Represents a claim value in an ID token.
@@ -165,7 +166,7 @@ pub struct Verifier {
 impl Verifier {
     /// Verifies the ID token and returns the claims.
     pub async fn verify(&self, token: &str) -> std::result::Result<Map<String, Value>, Error> {
-        let header = jsonwebtoken::decode_header(token).map_err(Error::decode)?;
+        let header = jwt::decode_header(token).map_err(Error::decode)?;
 
         let key_id = header
             .kid
@@ -186,15 +187,16 @@ impl Verifier {
             .await
             .map_err(Error::load_cert)?;
 
-        let token = jsonwebtoken::decode::<Map<String, Value>>(&token, &cert, &validation)
-            .map_err(|e| match e.clone().into_kind() {
-                jsonwebtoken::errors::ErrorKind::InvalidIssuer => Error::invalid_field("iss", e),
-                jsonwebtoken::errors::ErrorKind::InvalidAudience => Error::invalid_field("aud", e),
-                jsonwebtoken::errors::ErrorKind::MissingRequiredClaim(field) => {
+        let token = jwt::decode::<Map<String, Value>>(&token, &cert, &validation).map_err(|e| {
+            match e.clone().into_kind() {
+                jwt::errors::ErrorKind::InvalidIssuer => Error::invalid_field("iss", e),
+                jwt::errors::ErrorKind::InvalidAudience => Error::invalid_field("aud", e),
+                jwt::errors::ErrorKind::MissingRequiredClaim(field) => {
                     Error::invalid_field(field.as_str(), e)
                 }
                 _ => Error::invalid(e),
-            })?;
+            }
+        })?;
 
         let claims = token.claims;
         if let Some(email) = expected_email {
@@ -297,11 +299,12 @@ pub(crate) mod tests {
     use crate::credentials::idtoken::tests::{
         TEST_KEY_ID, generate_test_id_token, generate_test_id_token_with_claims,
     };
+    use crate::credentials::internal::jwt;
+    use crate::credentials::internal::jwt::{Algorithm, EncodingKey, Header};
     use base64::Engine;
     use httptest::matchers::{all_of, request};
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
-    use jsonwebtoken::{Algorithm, EncodingKey, Header};
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::traits::PublicKeyParts;
     use std::collections::HashMap;
@@ -590,8 +593,7 @@ pub(crate) mod tests {
 
         let private_key = EncodingKey::from_rsa_der(private_cert.as_bytes());
 
-        let token =
-            jsonwebtoken::encode(&header, &claims, &private_key).expect("failed to encode jwt");
+        let token = jwt::encode(&header, &claims, &private_key).expect("failed to encode jwt");
 
         let verifier = Builder::new(["https://example.com"]).build();
 
