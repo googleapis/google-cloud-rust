@@ -260,72 +260,80 @@ mod tests {
     #[test]
     fn recommended() {
         let policy = Recommended;
-        let r = policy.on_error(&ResumeQuery::new(0), transient());
+        let r = policy.on_error(&ResumeQuery::new(0), common_transient());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
-        let r = policy.on_error(&ResumeQuery::new(0), transport_error());
+        let r = policy.on_error(&ResumeQuery::new(0), http_transient());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
-        let r = policy.on_error(&ResumeQuery::new(0), grpc_error(Code::Unavailable));
+        let r = policy.on_error(&ResumeQuery::new(0), grpc_transient());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
 
-        let r = policy.on_error(&ResumeQuery::new(0), permanent());
+        let r = policy.on_error(&ResumeQuery::new(0), http_permanent());
         assert!(matches!(r, ResumeResult::Permanent(_)), "{r:?}");
-        let r = policy.on_error(&ResumeQuery::new(0), grpc_error(Code::PermissionDenied));
+        let r = policy.on_error(&ResumeQuery::new(0), grpc_permanent());
         assert!(matches!(r, ResumeResult::Permanent(_)), "{r:?}");
     }
 
     #[test]
     fn always_resume() {
         let policy = AlwaysResume;
-        let r = policy.on_error(&ResumeQuery::new(0), transient());
+        let r = policy.on_error(&ResumeQuery::new(0), http_transient());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
-        let r = policy.on_error(&ResumeQuery::new(0), permanent());
+        let r = policy.on_error(&ResumeQuery::new(0), http_permanent());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
     }
 
     #[test]
     fn never_resume() {
         let policy = NeverResume;
-        let r = policy.on_error(&ResumeQuery::new(0), transient());
+        let r = policy.on_error(&ResumeQuery::new(0), http_transient());
         assert!(matches!(r, ResumeResult::Permanent(_)), "{r:?}");
-        let r = policy.on_error(&ResumeQuery::new(0), permanent());
+        let r = policy.on_error(&ResumeQuery::new(0), http_permanent());
         assert!(matches!(r, ResumeResult::Permanent(_)), "{r:?}");
     }
 
     #[test]
     fn attempt_limit() {
         let policy = Recommended.with_attempt_limit(3);
-        let r = policy.on_error(&ResumeQuery::new(0), transient());
+        let r = policy.on_error(&ResumeQuery::new(0), http_transient());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
-        let r = policy.on_error(&ResumeQuery::new(1), transient());
+        let r = policy.on_error(&ResumeQuery::new(1), http_transient());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
-        let r = policy.on_error(&ResumeQuery::new(2), transient());
+        let r = policy.on_error(&ResumeQuery::new(2), http_transient());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
-        let r = policy.on_error(&ResumeQuery::new(3), transient());
+        let r = policy.on_error(&ResumeQuery::new(3), http_transient());
         assert!(matches!(r, ResumeResult::Exhausted(_)), "{r:?}");
 
-        let r = policy.on_error(&ResumeQuery::new(0), permanent());
+        let r = policy.on_error(&ResumeQuery::new(0), http_permanent());
         assert!(matches!(r, ResumeResult::Permanent(_)), "{r:?}");
-        let r = policy.on_error(&ResumeQuery::new(3), permanent());
+        let r = policy.on_error(&ResumeQuery::new(3), http_permanent());
         assert!(matches!(r, ResumeResult::Permanent(_)), "{r:?}");
     }
 
     #[test]
     fn attempt_limit_inner_exhausted() {
         let policy = AlwaysResume.with_attempt_limit(3).with_attempt_limit(5);
-        let r = policy.on_error(&ResumeQuery::new(3), transient());
+        let r = policy.on_error(&ResumeQuery::new(3), http_transient());
         assert!(matches!(r, ResumeResult::Exhausted(_)), "{r:?}");
     }
 
-    fn transient() -> Error {
+    fn http_transient() -> Error {
         Error::io("test only")
     }
 
-    fn permanent() -> Error {
+    fn http_permanent() -> Error {
         Error::deser("bad data")
     }
 
-    fn transport_error() -> Error {
+    fn common_transient() -> Error {
         Error::transport(http::HeaderMap::new(), "test-only")
+    }
+
+    fn grpc_transient() -> Error {
+        grpc_error(Code::Unavailable)
+    }
+
+    fn grpc_permanent() -> Error {
+        grpc_error(Code::PermissionDenied)
     }
 
     fn grpc_error(code: Code) -> Error {
