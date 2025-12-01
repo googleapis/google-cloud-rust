@@ -27,9 +27,8 @@ pub async fn run(bucket_name: &str) -> anyhow::Result<()> {
         .send_unbuffered()
         .await?;
 
-    println!("created bidi client: {client:?}");
     let open = client.open_object(bucket_name, &write.name).send().await?;
-    println!("open returns: {open:?}");
+    tracing::info!("open returns: {open:?}");
     let got = open.object();
     let mut want = write.clone();
     // This field is a mismatch, but both `Some(false)` and `None` represent
@@ -42,7 +41,7 @@ pub async fn run(bucket_name: &str) -> anyhow::Result<()> {
     let mut reader = open.read_range(ReadRange::head(100)).await;
     let mut count = 0_usize;
     while let Some(r) = reader.next().await.transpose()? {
-        println!("received {} bytes", r.len());
+        tracing::info!("received {} bytes", r.len());
         count += r.len();
     }
     assert_eq!(count, 100_usize);
