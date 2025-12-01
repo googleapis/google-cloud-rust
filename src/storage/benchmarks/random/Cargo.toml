@@ -23,6 +23,9 @@ repository.workspace = true
 keywords.workspace   = true
 categories.workspace = true
 
+[lints]
+workspace = true
+
 [dependencies]
 anyhow.workspace               = true
 bytes.workspace                = true
