@@ -77,7 +77,7 @@ http-body-util.workspace = true
 httptest.workspace       = true
 mockall.workspace        = true
 multer.workspace         = true
-paste.workspace          = true
+pastey.workspace         = true
 scoped-env.workspace     = true
 serial_test.workspace    = true
 static_assertions        = { workspace = true }
