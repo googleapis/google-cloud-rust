@@ -39,6 +39,7 @@
 //! ```
 
 use crate::Error;
+use gax::error::rpc::Code;
 
 pub use gax::retry_result::RetryResult as ResumeResult;
 
@@ -132,11 +133,20 @@ pub struct Recommended;
 
 impl ReadResumePolicy for Recommended {
     fn on_error(&self, _status: &ResumeQuery, error: Error) -> ResumeResult {
-        if error.is_io() {
-            ResumeResult::Continue(error)
-        } else {
-            ResumeResult::Permanent(error)
+        match error {
+            e if self::is_transient(&e) => ResumeResult::Continue(e),
+            e => ResumeResult::Permanent(e),
         }
+    }
+}
+
+fn is_transient(error: &Error) -> bool {
+    match error {
+        // When using HTTP the only error after the read starts are I/O errors.
+        e if e.is_io() => true,
+        // When using gRPC the errors may include more information.
+        e if e.is_transport() => true,
+        e => e.status().is_some_and(|s| s.code == Code::Unavailable),
     }
 }
 
@@ -250,60 +260,84 @@ mod tests {
     #[test]
     fn recommended() {
         let policy = Recommended;
-        let r = policy.on_error(&ResumeQuery::new(0), transient());
+        let r = policy.on_error(&ResumeQuery::new(0), common_transient());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
-        let r = policy.on_error(&ResumeQuery::new(0), permanent());
+        let r = policy.on_error(&ResumeQuery::new(0), http_transient());
+        assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
+        let r = policy.on_error(&ResumeQuery::new(0), grpc_transient());
+        assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
+
+        let r = policy.on_error(&ResumeQuery::new(0), http_permanent());
+        assert!(matches!(r, ResumeResult::Permanent(_)), "{r:?}");
+        let r = policy.on_error(&ResumeQuery::new(0), grpc_permanent());
         assert!(matches!(r, ResumeResult::Permanent(_)), "{r:?}");
     }
 
     #[test]
     fn always_resume() {
         let policy = AlwaysResume;
-        let r = policy.on_error(&ResumeQuery::new(0), transient());
+        let r = policy.on_error(&ResumeQuery::new(0), http_transient());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
-        let r = policy.on_error(&ResumeQuery::new(0), permanent());
+        let r = policy.on_error(&ResumeQuery::new(0), http_permanent());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
     }
 
     #[test]
     fn never_resume() {
         let policy = NeverResume;
-        let r = policy.on_error(&ResumeQuery::new(0), transient());
+        let r = policy.on_error(&ResumeQuery::new(0), http_transient());
         assert!(matches!(r, ResumeResult::Permanent(_)), "{r:?}");
-        let r = policy.on_error(&ResumeQuery::new(0), permanent());
+        let r = policy.on_error(&ResumeQuery::new(0), http_permanent());
         assert!(matches!(r, ResumeResult::Permanent(_)), "{r:?}");
     }
 
     #[test]
     fn attempt_limit() {
         let policy = Recommended.with_attempt_limit(3);
-        let r = policy.on_error(&ResumeQuery::new(0), transient());
+        let r = policy.on_error(&ResumeQuery::new(0), http_transient());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
-        let r = policy.on_error(&ResumeQuery::new(1), transient());
+        let r = policy.on_error(&ResumeQuery::new(1), http_transient());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
-        let r = policy.on_error(&ResumeQuery::new(2), transient());
+        let r = policy.on_error(&ResumeQuery::new(2), http_transient());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
-        let r = policy.on_error(&ResumeQuery::new(3), transient());
+        let r = policy.on_error(&ResumeQuery::new(3), http_transient());
         assert!(matches!(r, ResumeResult::Exhausted(_)), "{r:?}");
 
-        let r = policy.on_error(&ResumeQuery::new(0), permanent());
+        let r = policy.on_error(&ResumeQuery::new(0), http_permanent());
         assert!(matches!(r, ResumeResult::Permanent(_)), "{r:?}");
-        let r = policy.on_error(&ResumeQuery::new(3), permanent());
+        let r = policy.on_error(&ResumeQuery::new(3), http_permanent());
         assert!(matches!(r, ResumeResult::Permanent(_)), "{r:?}");
     }
 
     #[test]
     fn attempt_limit_inner_exhausted() {
         let policy = AlwaysResume.with_attempt_limit(3).with_attempt_limit(5);
-        let r = policy.on_error(&ResumeQuery::new(3), transient());
+        let r = policy.on_error(&ResumeQuery::new(3), http_transient());
         assert!(matches!(r, ResumeResult::Exhausted(_)), "{r:?}");
     }
 
-    fn transient() -> Error {
+    fn http_transient() -> Error {
         Error::io("test only")
     }
 
-    fn permanent() -> Error {
+    fn http_permanent() -> Error {
         Error::deser("bad data")
+    }
+
+    fn common_transient() -> Error {
+        Error::transport(http::HeaderMap::new(), "test-only")
+    }
+
+    fn grpc_transient() -> Error {
+        grpc_error(Code::Unavailable)
+    }
+
+    fn grpc_permanent() -> Error {
+        grpc_error(Code::PermissionDenied)
+    }
+
+    fn grpc_error(code: Code) -> Error {
+        let status = gax::error::rpc::Status::default().set_code(code);
+        Error::service(status)
     }
 }
