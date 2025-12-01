@@ -127,7 +127,7 @@ pub mod google {
 mod tests {
     use super::*;
     use google::storage::v2::storage_client::StorageClient;
-    use paste::paste;
+    use pastey::paste;
     use std::str::FromStr;
     use std::sync::{Arc, Mutex};
     use test_case::test_case;
