@@ -23,7 +23,8 @@ will need to copy the files from time-to-time to keep them up to date. We can
 change `sidekick` to generate these files for us instead. I think that the
 support will be low, we only need to make changes if either (1) new RPCs appear
 that we want to test (most unary RPCs won't need new tests), or (2) new fields
-relevant for tests (most fields are ignored in end-to-end tests).
+appear that are relevant for tests (most fields are ignored in end-to-end
+tests).
 
 I also decided to save the generated files, as to avoid requiring `protoc` in
 all our builds. However, any build use `--all-features`, such as the coverage

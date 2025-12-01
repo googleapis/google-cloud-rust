@@ -129,6 +129,7 @@ mod tests {
     use google::storage::v2::storage_client::StorageClient;
     use paste::paste;
     use std::str::FromStr;
+    use std::sync::{Arc, Mutex};
     use test_case::test_case;
     use tonic::transport::Channel;
 
@@ -228,24 +229,43 @@ mod tests {
     }
 
     macro_rules! bidi_streaming_stub_tests {
-        ($($method:ident),*) => {
+        ($(($method:ident,$request:path)),*) => {
             $( paste! {
                 #[tokio::test]
                 async fn [<mock_stub_success_$method>]() -> anyhow::Result<()> {
                     let (response_tx, response_rx) = tokio::sync::mpsc::channel(1);
+                    let capture = Arc::new(Mutex::new(None));
+                    let received = capture.clone();
                     let mut mock = MockStorage::new();
                     mock.[<expect_$method>]()
                         .once()
-                        .return_once(move |_| Ok(tonic::Response::from(response_rx)));
+                        .return_once(move |r| {
+                            received.lock().expect("never poisoned").get_or_insert(r);
+                            Ok(tonic::Response::from(response_rx))
+                        });
 
                     let (address, _server) = start("0.0.0.0:0", mock).await?;
                     let endpoint = Channel::from_shared(address.clone())?.connect().await?;
                     let mut client = StorageClient::new(endpoint);
+                    // Prepare the request, send one element on the stream and close it.
                     let (request_tx, request_rx) = tokio::sync::mpsc::channel(1);
-                    drop(request_tx);
+
+                    // Send the request.
                     let response = client
                         .$method(tokio_stream::wrappers::ReceiverStream::new(request_rx))
                         .await?;
+                    // Verify the mock can receive messages.
+                    let request = capture.lock().expect("never poisoned").take().expect("request captured");
+                    let (_metadata, _extensions, mut stream) = request.into_parts();
+                    let _ = request_tx.send($request::default()).await;
+                    drop(request_tx);
+                    let message = stream.recv().await;
+                    assert!(message.is_some(), "{message:?}");
+                    let message = stream.recv().await;
+                    assert!(message.is_none(), "{message:?}");
+
+                    // Verify we can use the mock to send back messages. Use an
+                    // error response to keep this code simpler.
                     let (_metadata, mut stream, _extensions) = response.into_parts();
                     response_tx
                         .send(Err(tonic::Status::invalid_argument(
@@ -253,6 +273,7 @@ mod tests {
                         )))
                         .await?;
                     drop(response_tx);
+                    // Read the simulated error message.
                     let status = stream
                         .message()
                         .await
@@ -261,13 +282,22 @@ mod tests {
                         .expect_err("response should be an error");
                     assert_eq!(status.code(), tonic::Code::InvalidArgument);
                     assert_eq!(status.message(), "missing initial request");
+                    // Expect the stream to be closed.
+                    let message = stream.message().await.transpose();
+                    assert!(message.is_none(), "{message:?}");
                     Ok(())
                 }
             })*
         };
     }
 
-    bidi_streaming_stub_tests!(bidi_read_object, bidi_write_object);
+    bidi_streaming_stub_tests!(
+        (bidi_read_object, google::storage::v2::BidiReadObjectRequest),
+        (
+            bidi_write_object,
+            google::storage::v2::BidiWriteObjectRequest
+        )
+    );
 
     macro_rules! client_streaming_stub_tests {
         ($($method:ident),*) => {
