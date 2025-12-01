@@ -45,6 +45,7 @@ serde_json.workspace  = true
 thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
+jsonwebtoken          = { workspace = true }
 bon.workspace         = true
 # Local dependencies
 gax.workspace = true
@@ -80,9 +81,9 @@ url.workspace         = true
 mutants.workspace     = true
 
 [features]
-default     = ["aws_lc"]
-rust_crypto = ["jsonwebtoken_rust_crypto"]
-aws_lc      = ["jsonwebtoken_aws_lc"]
+default = ["aws_lc"]
+rsa     = ["jsonwebtoken/rust_crypto"]
+aws_lc  = ["jsonwebtoken/aws_lc_rs"]
 
 [lints]
 workspace = true
