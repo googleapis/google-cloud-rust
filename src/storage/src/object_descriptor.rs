@@ -40,7 +40,7 @@ use crate::storage::bidi::stub::dynamic::ObjectDescriptor as ObjectDescriptorStu
 /// ```
 ///
 /// This is analogous to a "file descriptor". It represents an object in Cloud
-/// Storage that has been "opened" and it is ready for more read operations. An
+/// Storage that has been "opened" and is ready for more read operations. An
 /// object descriptor can have multiple concurrent read operations at a time.
 /// You may call `read_range()` even if previous reads have not completed.
 ///
@@ -95,7 +95,7 @@ impl ObjectDescriptor {
     /// let read2 = open.read_range(ReadRange::segment(4 * MIB, 2 * MIB)).await;
     ///
     /// let t1 = tokio::spawn(async move { do_read(read1) });
-    /// let t2 = tokio::spawn(async move { do_read(read1) });
+    /// let t2 = tokio::spawn(async move { do_read(read2) });
     ///
     /// async fn do_read(mut reader: ReadObjectResponse) {
     /// # panic!()
