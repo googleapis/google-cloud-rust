@@ -37,7 +37,7 @@
 //! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 
 use crate::credentials::internal::jwk_client::JwkClient;
-use jsonwebtoken::Validation;
+use biscuit::SingleOrMultiple;
 /// Represents the claims in an ID token.
 pub use serde_json::Map;
 /// Represents a claim value in an ID token.
@@ -153,7 +153,6 @@ impl Builder {
 ///     println!("Verified claims: {:?}", claims);
 /// }
 /// ```
-#[derive(Debug)]
 pub struct Verifier {
     jwk_client: JwkClient,
     audiences: Vec<String>,
@@ -165,40 +164,58 @@ pub struct Verifier {
 impl Verifier {
     /// Verifies the ID token and returns the claims.
     pub async fn verify(&self, token: &str) -> std::result::Result<Map<String, Value>, Error> {
-        let header = jsonwebtoken::decode_header(token).map_err(Error::decode)?;
+        let token = biscuit::JWT::<Map<String,Value>, biscuit::Empty>::new_encoded(&token);
+        let header = token.unverified_header().map_err(Error::decode)?;
 
         let key_id = header
-            .kid
+            .registered
+            .key_id
             .ok_or_else(|| Error::invalid_field("kid", "kid header is missing"))?;
 
-        let mut validation = Validation::new(header.alg);
-        validation.leeway = self.clock_skew.as_secs();
-        // TODO(#3591): Support TPC/REP that can have different issuers
-        validation.set_issuer(&["https://accounts.google.com", "accounts.google.com"]);
-        validation.set_audience(&self.audiences);
-
+        let alg = header.registered.algorithm;
         let expected_email = self.email.clone();
         let jwks_url = self.jwks_url.clone();
 
-        let cert = self
+        let jwk_set = self
             .jwk_client
-            .get_or_load_cert(key_id, header.alg, jwks_url)
+            .get_or_load_jwk_set(key_id, alg, jwks_url)
             .await
             .map_err(Error::load_cert)?;
 
-        let token = jsonwebtoken::decode::<Map<String, Value>>(&token, &cert, &validation)
-            .map_err(|e| match e.clone().into_kind() {
-                jsonwebtoken::errors::ErrorKind::InvalidIssuer => Error::invalid_field("iss", e),
-                jsonwebtoken::errors::ErrorKind::InvalidAudience => Error::invalid_field("aud", e),
-                jsonwebtoken::errors::ErrorKind::MissingRequiredClaim(field) => {
-                    Error::invalid_field(field.as_str(), e)
-                }
-                _ => Error::invalid(e),
-            })?;
+        let token = token.decode_with_jwks(&jwk_set, Some(alg))
+            .map_err(Error::invalid)?;
 
-        let claims = token.claims;
+        token.validate(biscuit::ValidationOptions { 
+            claim_presence_options: biscuit::ClaimPresenceOptions::default(),
+            temporal_options: biscuit::TemporalOptions{
+                epsilon: chrono::Duration::seconds(self.clock_skew.as_secs() as i64),
+                ..Default::default()
+            },
+            issued_at: biscuit::Validation::Validate(chrono::TimeDelta::MAX),
+            not_before: biscuit::Validation::Validate(()),
+            expiry: biscuit::Validation::Validate(()),
+            issuer: biscuit::Validation::Ignored,
+            audience: biscuit::Validation::Ignored,
+        }).map_err(Error::invalid)?;
+        
+        let claims = token.payload().map_err(Error::decode)?;    
+        // if one of the audiences matches, then the validation is successful
+        let audience = self.audiences.iter().find(|audience| {
+            claims.registered.validate_aud(biscuit::Validation::Validate(audience.to_string())).is_ok()
+        });
+        if audience.is_none() {
+            return Err(Error::invalid_field("aud", "audience claim is missing"));
+        }    
+        // if one of the issuers matches, then the validation is successful
+        let issuers = [&"https://accounts.google.com", "accounts.google.com"];
+        let issuer = issuers.iter().find(|issuer| {
+            claims.registered.validate_iss(biscuit::Validation::Validate(issuer.to_string())).is_ok()
+        });
+        if issuer.is_none() {
+            return Err(Error::invalid_field("iss", "issuer claim is missing"));
+        }
         if let Some(email) = expected_email {
-            let email_verified = claims["email_verified"]
+            let email_verified = claims.private["email_verified"]
                 .as_bool()
                 .ok_or(Error::invalid_field(
                     "email_verified",
@@ -210,7 +227,7 @@ impl Verifier {
                     "email_verified claim value is `false`",
                 ));
             }
-            let token_email = claims["email"]
+            let token_email = claims.private["email"]
                 .as_str()
                 .ok_or_else(|| Error::invalid_field("email", "email claim is missing"))?;
             if !email.eq(token_email) {
@@ -219,7 +236,28 @@ impl Verifier {
             }
         }
 
-        Ok(claims)
+        let mut all_claims: Map<String, Value> = claims.private.clone();
+        claims.registered.audience.iter().for_each(|aud| {
+            let aud = match aud {
+                SingleOrMultiple::Single(aud) => aud,
+                SingleOrMultiple::Multiple(aud) => &aud.join(","),
+            };
+            all_claims.insert("aud".to_string(), Value::String(aud.to_string()));
+        });
+        claims.registered.issuer.iter().for_each(|iss| {
+            all_claims.insert("iss".to_string(), Value::String(iss.to_string()));
+        });
+        claims.registered.issued_at.iter().for_each(|iat| {
+            all_claims.insert("iat".to_string(), Value::Number(iat.timestamp().into()));
+        });
+        claims.registered.not_before.iter().for_each(|nbf| {            
+            all_claims.insert("nbf".to_string(), Value::Number(nbf.timestamp().into()));
+        });
+        claims.registered.expiry.iter().for_each(|exp| {
+            all_claims.insert("exp".to_string(), Value::Number(exp.timestamp().into()));
+        });
+
+        Ok(all_claims)
     }
 }
 
