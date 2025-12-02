@@ -117,15 +117,26 @@ impl ReqwestClient {
         self.retry_loop::<O>(builder, options).await
     }
 
-    pub async fn execute_streaming(
+    /// Executes a streaming request.
+    ///
+    /// The `builder` should be configured with the HTTP method, URL, and any
+    /// request body.
+    ///
+    /// This method does *not* handle retries. The caller is responsible for
+    /// handling retries if necessary.
+    pub async fn execute_streaming_once(
         &self,
         mut builder: reqwest::RequestBuilder,
         options: gax::options::RequestOptions,
-    ) -> Result<Response<impl futures_util::Stream<Item = Result<bytes::Bytes>>>> {
-        use futures_util::TryStreamExt;
+        remaining_time: Option<std::time::Duration>,
+        attempt_count: u32,
+    ) -> Result<Response<impl futures::Stream<Item = Result<bytes::Bytes>>>> {
+        use futures::TryStreamExt;
 
         builder = self.configure_builder(builder, &options)?;
-        let response = self.request_attempt(builder, &options, None, 0).await?;
+        let response = self
+            .request_attempt(builder, &options, remaining_time, attempt_count)
+            .await?;
 
         let response = http::Response::from(response);
         let (parts, body) = response.into_parts();
@@ -694,9 +705,11 @@ mod tests {
         let builder = client.builder(Method::GET, "foo".to_string());
         let options = gax::options::RequestOptions::default();
 
-        let response = client.execute_streaming(builder, options).await?;
+        let response = client
+            .execute_streaming_once(builder, options, None, 0)
+            .await?;
 
-        use futures_util::TryStreamExt;
+        use futures::TryStreamExt;
         let body_bytes = response
             .into_body()
             .map_ok(|b| b.to_vec())
@@ -707,7 +720,7 @@ mod tests {
     }
 
     /// 308 (Permanent Redirect) is used in Resumable Uploads to indicate "Resume Incomplete".
-    /// We need to ensure that `execute_streaming` treats this as an error (and not a success)
+    /// We need to ensure that `execute_streaming_once` treats this as an error (and not a success)
     /// so that the caller can handle the 308 status code appropriately (e.g., to query the upload status).
     #[tokio::test]
     async fn execute_streaming_308() -> TestResult {
@@ -725,7 +738,9 @@ mod tests {
         let builder = client.builder(Method::PUT, "upload".to_string());
         let options = gax::options::RequestOptions::default();
 
-        let result = client.execute_streaming(builder, options).await;
+        let result = client
+            .execute_streaming_once(builder, options, None, 0)
+            .await;
         assert!(result.is_err());
         let err = result.err().unwrap();
         assert_eq!(err.http_status_code(), Some(308));

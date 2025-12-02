@@ -39,7 +39,7 @@ _internal-http-client = [
   "_internal-common",
   "dep:auth",
   "dep:bytes",
-  "dep:futures-util",
+  "dep:futures",
   "dep:gax",
   "dep:http",
   "dep:http-body-util",
@@ -56,7 +56,7 @@ _internal-grpc-client = [
   "_internal-common",
   "dep:auth",
   "dep:bytes",
-  "dep:futures-util",
+  "dep:futures",
   "dep:gax",
   "dep:http",
   "dep:http-body",
@@ -79,7 +79,7 @@ _internal-common = ["dep:auth", "dep:gax", "dep:percent-encoding", "dep:thiserro
 
 [dependencies]
 bytes                              = { workspace = true, optional = true, features = ["serde"] }
-futures-util                       = { workspace = true, optional = true }
+futures                            = { workspace = true, optional = true }
 http                               = { workspace = true, optional = true }
 http-body                          = { workspace = true, optional = true }
 http-body-util                     = { workspace = true, optional = true }
