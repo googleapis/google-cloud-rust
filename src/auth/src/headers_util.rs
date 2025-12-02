@@ -31,6 +31,7 @@ pub(crate) const X_GOOG_API_CLIENT: &str = "x-goog-api-client";
 /// Access token request type.
 pub(crate) const ACCESS_TOKEN_REQUEST_TYPE: &str = "at";
 
+#[cfg(feature = "idtoken")]
 /// ID token request type.
 pub(crate) const ID_TOKEN_REQUEST_TYPE: &str = "it";
 
