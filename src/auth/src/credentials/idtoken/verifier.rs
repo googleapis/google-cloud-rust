@@ -164,7 +164,7 @@ pub struct Verifier {
 impl Verifier {
     /// Verifies the ID token and returns the claims.
     pub async fn verify(&self, token: &str) -> std::result::Result<Map<String, Value>, Error> {
-        let token = biscuit::JWT::<Map<String,Value>, biscuit::Empty>::new_encoded(&token);
+        let token = biscuit::JWT::<Map<String, Value>, biscuit::Empty>::new_encoded(&token);
         let header = token.unverified_header().map_err(Error::decode)?;
 
         let key_id = header
@@ -182,45 +182,55 @@ impl Verifier {
             .await
             .map_err(Error::load_cert)?;
 
-        let token = token.decode_with_jwks(&jwk_set, Some(alg))
+        let token = token
+            .decode_with_jwks(&jwk_set, Some(alg))
             .map_err(Error::invalid)?;
 
-        token.validate(biscuit::ValidationOptions { 
-            claim_presence_options: biscuit::ClaimPresenceOptions::default(),
-            temporal_options: biscuit::TemporalOptions{
-                epsilon: chrono::Duration::seconds(self.clock_skew.as_secs() as i64),
-                ..Default::default()
-            },
-            issued_at: biscuit::Validation::Validate(chrono::TimeDelta::MAX),
-            not_before: biscuit::Validation::Validate(()),
-            expiry: biscuit::Validation::Validate(()),
-            issuer: biscuit::Validation::Ignored,
-            audience: biscuit::Validation::Ignored,
-        }).map_err(Error::invalid)?;
-        
-        let claims = token.payload().map_err(Error::decode)?;    
+        token
+            .validate(biscuit::ValidationOptions {
+                claim_presence_options: biscuit::ClaimPresenceOptions::default(),
+                temporal_options: biscuit::TemporalOptions {
+                    epsilon: chrono::Duration::seconds(self.clock_skew.as_secs() as i64),
+                    ..Default::default()
+                },
+                issued_at: biscuit::Validation::Validate(chrono::TimeDelta::MAX),
+                not_before: biscuit::Validation::Validate(()),
+                expiry: biscuit::Validation::Validate(()),
+                issuer: biscuit::Validation::Ignored,
+                audience: biscuit::Validation::Ignored,
+            })
+            .map_err(Error::invalid)?;
+
+        let claims = token.payload().map_err(Error::decode)?;
         // if one of the audiences matches, then the validation is successful
         let audience = self.audiences.iter().find(|audience| {
-            claims.registered.validate_aud(biscuit::Validation::Validate(audience.to_string())).is_ok()
+            claims
+                .registered
+                .validate_aud(biscuit::Validation::Validate(audience.to_string()))
+                .is_ok()
         });
         if audience.is_none() {
             return Err(Error::invalid_field("aud", "audience claim is missing"));
-        }    
+        }
         // if one of the issuers matches, then the validation is successful
         let issuers = [&"https://accounts.google.com", "accounts.google.com"];
         let issuer = issuers.iter().find(|issuer| {
-            claims.registered.validate_iss(biscuit::Validation::Validate(issuer.to_string())).is_ok()
+            claims
+                .registered
+                .validate_iss(biscuit::Validation::Validate(issuer.to_string()))
+                .is_ok()
         });
         if issuer.is_none() {
             return Err(Error::invalid_field("iss", "issuer claim is missing"));
         }
         if let Some(email) = expected_email {
-            let email_verified = claims.private["email_verified"]
-                .as_bool()
-                .ok_or(Error::invalid_field(
-                    "email_verified",
-                    "email_verified claim is missing",
-                ))?;
+            let email_verified =
+                claims.private["email_verified"]
+                    .as_bool()
+                    .ok_or(Error::invalid_field(
+                        "email_verified",
+                        "email_verified claim is missing",
+                    ))?;
             if !email_verified {
                 return Err(Error::invalid_field(
                     "email_verified",
@@ -250,7 +260,7 @@ impl Verifier {
         claims.registered.issued_at.iter().for_each(|iat| {
             all_claims.insert("iat".to_string(), Value::Number(iat.timestamp().into()));
         });
-        claims.registered.not_before.iter().for_each(|nbf| {            
+        claims.registered.not_before.iter().for_each(|nbf| {
             all_claims.insert("nbf".to_string(), Value::Number(nbf.timestamp().into()));
         });
         claims.registered.expiry.iter().for_each(|exp| {
@@ -333,7 +343,7 @@ enum ErrorKind {
 pub(crate) mod tests {
     use super::*;
     use crate::credentials::idtoken::tests::{
-        OverrideClaims, TEST_KEY_ID, generate_test_id_token, generate_test_id_token_with_claims
+        OverrideClaims, TEST_KEY_ID, generate_test_id_token, generate_test_id_token_with_claims,
     };
     use base64::Engine;
     use biscuit::jwa::SignatureAlgorithm as Algorithm;
@@ -622,11 +632,11 @@ pub(crate) mod tests {
     #[tokio::test]
     async fn test_verify_missing_kid() -> TestResult {
         let header = RegisteredHeader {
-                algorithm: Algorithm::RS256,
-                ..Default::default()
-            };
+            algorithm: Algorithm::RS256,
+            ..Default::default()
+        };
         let claims = ClaimsSet::<biscuit::Empty>::default();
-        let jwt = JWT::<biscuit::Empty, biscuit::Empty>::new_decoded(From::from(header),claims);
+        let jwt = JWT::<biscuit::Empty, biscuit::Empty>::new_decoded(From::from(header), claims);
 
         let private_cert = crate::credentials::tests::RSA_PRIVATE_KEY
             .to_pkcs1_der()
@@ -635,7 +645,8 @@ pub(crate) mod tests {
         let key_pair = ring::signature::RsaKeyPair::from_der(private_cert.as_bytes()).unwrap();
         let private_key = Secret::RsaKeyPair(Arc::new(key_pair));
 
-        let token = jwt.into_encoded(&private_key)
+        let token = jwt
+            .into_encoded(&private_key)
             .expect("failed to encode jwt")
             .unwrap_encoded()
             .to_string();

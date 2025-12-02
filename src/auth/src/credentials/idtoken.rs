@@ -362,7 +362,11 @@ pub(crate) mod tests {
             let now = now.duration_since(UNIX_EPOCH).unwrap();
             let then = now + DEFAULT_TEST_TOKEN_EXPIRATION;
             RegisteredClaims {
-                issuer: Some(self.issuer.clone().unwrap_or("accounts.google.com".to_string())),
+                issuer: Some(
+                    self.issuer
+                        .clone()
+                        .unwrap_or("accounts.google.com".to_string()),
+                ),
                 issued_at: Some((now.as_secs() as i64).into()),
                 expiry: Some(self.expiry.clone().unwrap_or(then.as_secs() as i64).into()),
                 audience: Some(SingleOrMultiple::Single(audience)),
@@ -400,7 +404,7 @@ pub(crate) mod tests {
         audience: String,
         claims_to_add: OverrideClaims,
         now: SystemTime,
-    ) -> String {       
+    ) -> String {
         let claims = ClaimsSet::<ExtraClaims> {
             registered: claims_to_add.into_registered_claims(audience, now),
             private: claims_to_add.into_extra_claims(),
