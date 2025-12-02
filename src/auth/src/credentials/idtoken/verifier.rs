@@ -267,6 +267,9 @@ impl Verifier {
         claims.registered.expiry.iter().for_each(|exp| {
             all_claims.insert("exp".to_string(), Value::Number(exp.timestamp().into()));
         });
+        claims.registered.subject.iter().for_each(|sub| {
+            all_claims.insert("sub".to_string(), Value::String(sub.to_string()));
+        });
 
         Ok(all_claims)
     }
