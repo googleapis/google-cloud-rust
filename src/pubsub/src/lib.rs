@@ -41,7 +41,6 @@
 //! [pub/sub]: https://cloud.google.com/pubsub
 //! [gcloud-pubsub]: https://crates.io/crates/gcloud-pubsub
 
-#![allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
 
 pub(crate) mod publisher;
