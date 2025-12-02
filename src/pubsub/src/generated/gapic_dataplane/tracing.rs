@@ -46,3 +46,44 @@ where
         self.inner.publish(req, options).await
     }
 }
+
+/// Implements a [Subscriber](super::stub::Subscriber) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct Subscriber<T>
+where
+    T: super::stub::Subscriber + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+impl<T> Subscriber<T>
+where
+    T: super::stub::Subscriber + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+impl<T> super::stub::Subscriber for Subscriber<T>
+where
+    T: super::stub::Subscriber + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn modify_ack_deadline(
+        &self,
+        req: crate::model::ModifyAckDeadlineRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.modify_ack_deadline(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn acknowledge(
+        &self,
+        req: crate::model::AcknowledgeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.acknowledge(req, options).await
+    }
+}

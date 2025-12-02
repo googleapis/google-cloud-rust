@@ -202,3 +202,639 @@ impl wkt::message::Message for PublishResponse {
         "type.googleapis.com/google.pubsub.v1.PublishResponse"
     }
 }
+
+/// A message and its corresponding acknowledgment ID.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ReceivedMessage {
+    /// Optional. This ID can be used to acknowledge the received message.
+    pub ack_id: std::string::String,
+
+    /// Optional. The message.
+    pub message: std::option::Option<crate::model::PubsubMessage>,
+
+    /// Optional. The approximate number of times that Pub/Sub has attempted to
+    /// deliver the associated message to a subscriber.
+    ///
+    /// More precisely, this is 1 + (number of NACKs) +
+    /// (number of ack_deadline exceeds) for this message.
+    ///
+    /// A NACK is any call to ModifyAckDeadline with a 0 deadline. An ack_deadline
+    /// exceeds event is whenever a message is not acknowledged within
+    /// ack_deadline. Note that ack_deadline is initially
+    /// Subscription.ackDeadlineSeconds, but may get extended automatically by
+    /// the client library.
+    ///
+    /// Upon the first delivery of a given message, `delivery_attempt` will have a
+    /// value of 1. The value is calculated at best effort and is approximate.
+    ///
+    /// If a DeadLetterPolicy is not set on the subscription, this will be 0.
+    pub delivery_attempt: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ReceivedMessage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [ack_id][crate::model::ReceivedMessage::ack_id].
+    pub fn set_ack_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ack_id = v.into();
+        self
+    }
+
+    /// Sets the value of [message][crate::model::ReceivedMessage::message].
+    pub fn set_message<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PubsubMessage>,
+    {
+        self.message = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [message][crate::model::ReceivedMessage::message].
+    pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PubsubMessage>,
+    {
+        self.message = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [delivery_attempt][crate::model::ReceivedMessage::delivery_attempt].
+    pub fn set_delivery_attempt<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.delivery_attempt = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ReceivedMessage {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.pubsub.v1.ReceivedMessage"
+    }
+}
+
+/// Request for the ModifyAckDeadline method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ModifyAckDeadlineRequest {
+    /// Required. The name of the subscription.
+    /// Format is `projects/{project}/subscriptions/{sub}`.
+    pub subscription: std::string::String,
+
+    /// Required. List of acknowledgment IDs.
+    pub ack_ids: std::vec::Vec<std::string::String>,
+
+    /// Required. The new ack deadline with respect to the time this request was
+    /// sent to the Pub/Sub system. For example, if the value is 10, the new ack
+    /// deadline will expire 10 seconds after the `ModifyAckDeadline` call was
+    /// made. Specifying zero might immediately make the message available for
+    /// delivery to another subscriber client. This typically results in an
+    /// increase in the rate of message redeliveries (that is, duplicates).
+    /// The minimum deadline you can specify is 0 seconds.
+    /// The maximum deadline you can specify in a single request is 600 seconds
+    /// (10 minutes).
+    pub ack_deadline_seconds: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ModifyAckDeadlineRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [subscription][crate::model::ModifyAckDeadlineRequest::subscription].
+    pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.subscription = v.into();
+        self
+    }
+
+    /// Sets the value of [ack_ids][crate::model::ModifyAckDeadlineRequest::ack_ids].
+    pub fn set_ack_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.ack_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [ack_deadline_seconds][crate::model::ModifyAckDeadlineRequest::ack_deadline_seconds].
+    pub fn set_ack_deadline_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.ack_deadline_seconds = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ModifyAckDeadlineRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.pubsub.v1.ModifyAckDeadlineRequest"
+    }
+}
+
+/// Request for the Acknowledge method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AcknowledgeRequest {
+    /// Required. The subscription whose message is being acknowledged.
+    /// Format is `projects/{project}/subscriptions/{sub}`.
+    pub subscription: std::string::String,
+
+    /// Required. The acknowledgment ID for the messages being acknowledged that
+    /// was returned by the Pub/Sub system in the `Pull` response. Must not be
+    /// empty.
+    pub ack_ids: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AcknowledgeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [subscription][crate::model::AcknowledgeRequest::subscription].
+    pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.subscription = v.into();
+        self
+    }
+
+    /// Sets the value of [ack_ids][crate::model::AcknowledgeRequest::ack_ids].
+    pub fn set_ack_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.ack_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for AcknowledgeRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.pubsub.v1.AcknowledgeRequest"
+    }
+}
+
+/// Request for the `StreamingPull` streaming RPC method. This request is used to
+/// establish the initial stream as well as to stream acknowledgments and ack
+/// deadline modifications from the client to the server.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StreamingPullRequest {
+    /// Required. The subscription for which to initialize the new stream. This
+    /// must be provided in the first request on the stream, and must not be set in
+    /// subsequent requests from client to server.
+    /// Format is `projects/{project}/subscriptions/{sub}`.
+    pub subscription: std::string::String,
+
+    /// Optional. List of acknowledgment IDs for acknowledging previously received
+    /// messages (received on this stream or a different stream). If an ack ID has
+    /// expired, the corresponding message may be redelivered later. Acknowledging
+    /// a message more than once will not result in an error. If the acknowledgment
+    /// ID is malformed, the stream will be aborted with status `INVALID_ARGUMENT`.
+    pub ack_ids: std::vec::Vec<std::string::String>,
+
+    /// Optional. The list of new ack deadlines for the IDs listed in
+    /// `modify_deadline_ack_ids`. The size of this list must be the same as the
+    /// size of `modify_deadline_ack_ids`. If it differs the stream will be aborted
+    /// with `INVALID_ARGUMENT`. Each element in this list is applied to the
+    /// element in the same position in `modify_deadline_ack_ids`. The new ack
+    /// deadline is with respect to the time this request was sent to the Pub/Sub
+    /// system. Must be >= 0. For example, if the value is 10, the new ack deadline
+    /// will expire 10 seconds after this request is received. If the value is 0,
+    /// the message is immediately made available for another streaming or
+    /// non-streaming pull request. If the value is < 0 (an error), the stream will
+    /// be aborted with status `INVALID_ARGUMENT`.
+    pub modify_deadline_seconds: std::vec::Vec<i32>,
+
+    /// Optional. List of acknowledgment IDs whose deadline will be modified based
+    /// on the corresponding element in `modify_deadline_seconds`. This field can
+    /// be used to indicate that more time is needed to process a message by the
+    /// subscriber, or to make the message available for redelivery if the
+    /// processing was interrupted.
+    pub modify_deadline_ack_ids: std::vec::Vec<std::string::String>,
+
+    /// Required. The ack deadline to use for the stream. This must be provided in
+    /// the first request on the stream, but it can also be updated on subsequent
+    /// requests from client to server. The minimum deadline you can specify is 10
+    /// seconds. The maximum deadline you can specify is 600 seconds (10 minutes).
+    pub stream_ack_deadline_seconds: i32,
+
+    /// Optional. A unique identifier that is used to distinguish client instances
+    /// from each other. Only needs to be provided on the initial request. When a
+    /// stream disconnects and reconnects for the same stream, the client_id should
+    /// be set to the same value so that state associated with the old stream can
+    /// be transferred to the new stream. The same client_id should not be used for
+    /// different client instances.
+    pub client_id: std::string::String,
+
+    /// Optional. Flow control settings for the maximum number of outstanding
+    /// messages. When there are `max_outstanding_messages` currently sent to the
+    /// streaming pull client that have not yet been acked or nacked, the server
+    /// stops sending more messages. The sending of messages resumes once the
+    /// number of outstanding messages is less than this value. If the value is
+    /// <= 0, there is no limit to the number of outstanding messages. This
+    /// property can only be set on the initial StreamingPullRequest. If it is set
+    /// on a subsequent request, the stream will be aborted with status
+    /// `INVALID_ARGUMENT`.
+    pub max_outstanding_messages: i64,
+
+    /// Optional. Flow control settings for the maximum number of outstanding
+    /// bytes. When there are `max_outstanding_bytes` or more worth of messages
+    /// currently sent to the streaming pull client that have not yet been acked or
+    /// nacked, the server will stop sending more messages. The sending of messages
+    /// resumes once the number of outstanding bytes is less than this value. If
+    /// the value is <= 0, there is no limit to the number of outstanding bytes.
+    /// This property can only be set on the initial StreamingPullRequest. If it is
+    /// set on a subsequent request, the stream will be aborted with status
+    /// `INVALID_ARGUMENT`.
+    pub max_outstanding_bytes: i64,
+
+    /// Optional. The protocol version used by the client. This property can only
+    /// be set on the initial StreamingPullRequest. If it is set on a subsequent
+    /// request, the stream will be aborted with status `INVALID_ARGUMENT`.
+    pub protocol_version: i64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StreamingPullRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [subscription][crate::model::StreamingPullRequest::subscription].
+    pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.subscription = v.into();
+        self
+    }
+
+    /// Sets the value of [ack_ids][crate::model::StreamingPullRequest::ack_ids].
+    pub fn set_ack_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.ack_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [modify_deadline_seconds][crate::model::StreamingPullRequest::modify_deadline_seconds].
+    pub fn set_modify_deadline_seconds<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.modify_deadline_seconds = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [modify_deadline_ack_ids][crate::model::StreamingPullRequest::modify_deadline_ack_ids].
+    pub fn set_modify_deadline_ack_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.modify_deadline_ack_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [stream_ack_deadline_seconds][crate::model::StreamingPullRequest::stream_ack_deadline_seconds].
+    pub fn set_stream_ack_deadline_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.stream_ack_deadline_seconds = v.into();
+        self
+    }
+
+    /// Sets the value of [client_id][crate::model::StreamingPullRequest::client_id].
+    pub fn set_client_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client_id = v.into();
+        self
+    }
+
+    /// Sets the value of [max_outstanding_messages][crate::model::StreamingPullRequest::max_outstanding_messages].
+    pub fn set_max_outstanding_messages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.max_outstanding_messages = v.into();
+        self
+    }
+
+    /// Sets the value of [max_outstanding_bytes][crate::model::StreamingPullRequest::max_outstanding_bytes].
+    pub fn set_max_outstanding_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.max_outstanding_bytes = v.into();
+        self
+    }
+
+    /// Sets the value of [protocol_version][crate::model::StreamingPullRequest::protocol_version].
+    pub fn set_protocol_version<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.protocol_version = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for StreamingPullRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.pubsub.v1.StreamingPullRequest"
+    }
+}
+
+/// Response for the `StreamingPull` method. This response is used to stream
+/// messages from the server to the client.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StreamingPullResponse {
+    /// Optional. Received Pub/Sub messages.
+    pub received_messages: std::vec::Vec<crate::model::ReceivedMessage>,
+
+    /// Optional. This field will only be set if `enable_exactly_once_delivery` is
+    /// set to `true` and is not guaranteed to be populated.
+    pub acknowledge_confirmation:
+        std::option::Option<crate::model::streaming_pull_response::AcknowledgeConfirmation>,
+
+    /// Optional. This field will only be set if `enable_exactly_once_delivery` is
+    /// set to `true` and is not guaranteed to be populated.
+    pub modify_ack_deadline_confirmation:
+        std::option::Option<crate::model::streaming_pull_response::ModifyAckDeadlineConfirmation>,
+
+    /// Optional. Properties associated with this subscription.
+    pub subscription_properties:
+        std::option::Option<crate::model::streaming_pull_response::SubscriptionProperties>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StreamingPullResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [received_messages][crate::model::StreamingPullResponse::received_messages].
+    pub fn set_received_messages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ReceivedMessage>,
+    {
+        use std::iter::Iterator;
+        self.received_messages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [acknowledge_confirmation][crate::model::StreamingPullResponse::acknowledge_confirmation].
+    pub fn set_acknowledge_confirmation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::streaming_pull_response::AcknowledgeConfirmation>,
+    {
+        self.acknowledge_confirmation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [acknowledge_confirmation][crate::model::StreamingPullResponse::acknowledge_confirmation].
+    pub fn set_or_clear_acknowledge_confirmation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::streaming_pull_response::AcknowledgeConfirmation>,
+    {
+        self.acknowledge_confirmation = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [modify_ack_deadline_confirmation][crate::model::StreamingPullResponse::modify_ack_deadline_confirmation].
+    pub fn set_modify_ack_deadline_confirmation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::streaming_pull_response::ModifyAckDeadlineConfirmation>,
+    {
+        self.modify_ack_deadline_confirmation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [modify_ack_deadline_confirmation][crate::model::StreamingPullResponse::modify_ack_deadline_confirmation].
+    pub fn set_or_clear_modify_ack_deadline_confirmation<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::streaming_pull_response::ModifyAckDeadlineConfirmation>,
+    {
+        self.modify_ack_deadline_confirmation = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [subscription_properties][crate::model::StreamingPullResponse::subscription_properties].
+    pub fn set_subscription_properties<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::streaming_pull_response::SubscriptionProperties>,
+    {
+        self.subscription_properties = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [subscription_properties][crate::model::StreamingPullResponse::subscription_properties].
+    pub fn set_or_clear_subscription_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::streaming_pull_response::SubscriptionProperties>,
+    {
+        self.subscription_properties = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for StreamingPullResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.pubsub.v1.StreamingPullResponse"
+    }
+}
+
+/// Defines additional types related to [StreamingPullResponse].
+pub mod streaming_pull_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Acknowledgment IDs sent in one or more previous requests to acknowledge a
+    /// previously received message.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AcknowledgeConfirmation {
+        /// Optional. Successfully processed acknowledgment IDs.
+        pub ack_ids: std::vec::Vec<std::string::String>,
+
+        /// Optional. List of acknowledgment IDs that were malformed or whose
+        /// acknowledgment deadline has expired.
+        pub invalid_ack_ids: std::vec::Vec<std::string::String>,
+
+        /// Optional. List of acknowledgment IDs that were out of order.
+        pub unordered_ack_ids: std::vec::Vec<std::string::String>,
+
+        /// Optional. List of acknowledgment IDs that failed processing with
+        /// temporary issues.
+        pub temporary_failed_ack_ids: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AcknowledgeConfirmation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [ack_ids][crate::model::streaming_pull_response::AcknowledgeConfirmation::ack_ids].
+        pub fn set_ack_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.ack_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [invalid_ack_ids][crate::model::streaming_pull_response::AcknowledgeConfirmation::invalid_ack_ids].
+        pub fn set_invalid_ack_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.invalid_ack_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [unordered_ack_ids][crate::model::streaming_pull_response::AcknowledgeConfirmation::unordered_ack_ids].
+        pub fn set_unordered_ack_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.unordered_ack_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [temporary_failed_ack_ids][crate::model::streaming_pull_response::AcknowledgeConfirmation::temporary_failed_ack_ids].
+        pub fn set_temporary_failed_ack_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.temporary_failed_ack_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AcknowledgeConfirmation {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.pubsub.v1.StreamingPullResponse.AcknowledgeConfirmation"
+        }
+    }
+
+    /// Acknowledgment IDs sent in one or more previous requests to modify the
+    /// deadline for a specific message.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ModifyAckDeadlineConfirmation {
+        /// Optional. Successfully processed acknowledgment IDs.
+        pub ack_ids: std::vec::Vec<std::string::String>,
+
+        /// Optional. List of acknowledgment IDs that were malformed or whose
+        /// acknowledgment deadline has expired.
+        pub invalid_ack_ids: std::vec::Vec<std::string::String>,
+
+        /// Optional. List of acknowledgment IDs that failed processing with
+        /// temporary issues.
+        pub temporary_failed_ack_ids: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ModifyAckDeadlineConfirmation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [ack_ids][crate::model::streaming_pull_response::ModifyAckDeadlineConfirmation::ack_ids].
+        pub fn set_ack_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.ack_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [invalid_ack_ids][crate::model::streaming_pull_response::ModifyAckDeadlineConfirmation::invalid_ack_ids].
+        pub fn set_invalid_ack_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.invalid_ack_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [temporary_failed_ack_ids][crate::model::streaming_pull_response::ModifyAckDeadlineConfirmation::temporary_failed_ack_ids].
+        pub fn set_temporary_failed_ack_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.temporary_failed_ack_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ModifyAckDeadlineConfirmation {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.pubsub.v1.StreamingPullResponse.ModifyAckDeadlineConfirmation"
+        }
+    }
+
+    /// Subscription properties sent as part of the response.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SubscriptionProperties {
+        /// Optional. True iff exactly once delivery is enabled for this
+        /// subscription.
+        pub exactly_once_delivery_enabled: bool,
+
+        /// Optional. True iff message ordering is enabled for this subscription.
+        pub message_ordering_enabled: bool,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SubscriptionProperties {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [exactly_once_delivery_enabled][crate::model::streaming_pull_response::SubscriptionProperties::exactly_once_delivery_enabled].
+        pub fn set_exactly_once_delivery_enabled<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.exactly_once_delivery_enabled = v.into();
+            self
+        }
+
+        /// Sets the value of [message_ordering_enabled][crate::model::streaming_pull_response::SubscriptionProperties::message_ordering_enabled].
+        pub fn set_message_ordering_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.message_ordering_enabled = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SubscriptionProperties {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.pubsub.v1.StreamingPullResponse.SubscriptionProperties"
+        }
+    }
+}

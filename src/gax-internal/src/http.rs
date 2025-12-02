@@ -54,7 +54,11 @@ impl ReqwestClient {
         default_endpoint: &str,
     ) -> gax::client_builder::Result<Self> {
         let cred = Self::make_credentials(&config).await?;
-        let inner = reqwest::Client::new();
+        let mut builder = reqwest::Client::builder();
+        if config.disable_automatic_decompression {
+            builder = builder.no_gzip().no_brotli().no_deflate();
+        }
+        let inner = builder.build().map_err(BuilderError::transport)?;
         let host = crate::host::from_endpoint(
             config.endpoint.as_deref(),
             default_endpoint,
@@ -622,8 +626,20 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[tokio::test]
+    async fn reqwest_client_decompression_config() -> anyhow::Result<()> {
+        let mut config = ClientConfig::default();
+        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
+        config.disable_automatic_decompression = true;
+        let _client = ReqwestClient::new(config.clone(), "https://test.googleapis.com").await?;
+
+        config.disable_automatic_decompression = false;
+        let _client = ReqwestClient::new(config, "https://test.googleapis.com").await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[cfg(google_cloud_unstable_tracing)]
     async fn test_t3_span_enrichment() {
         let guard = TestLayer::initialize();
         let t3_span =
