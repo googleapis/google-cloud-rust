@@ -23,8 +23,8 @@ use crate::storage::bidi::stub::dynamic::ObjectDescriptor as ObjectDescriptorStu
 ///
 /// # Example
 /// ```
-/// # use google_cloud_storage::ObjectDescriptor;
-/// use google_cloud_storage::client::Storage;
+/// # use google_cloud_storage::object_descriptor::ObjectDescriptor;
+/// use google_cloud_storage::{client::Storage, model_ext::ReadRange};
 /// # async fn sample() -> anyhow::Result<()> {
 /// let client = Storage::builder().build().await?;
 /// let open: ObjectDescriptor = client
@@ -62,7 +62,7 @@ impl ObjectDescriptor {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage::ObjectDescriptor;
+    /// # use google_cloud_storage::object_descriptor::ObjectDescriptor;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let descriptor = open();
     /// println!("object generation = {}", descriptor.object().generation);
@@ -82,17 +82,17 @@ impl ObjectDescriptor {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage::ObjectDescriptor;
-    /// use google_cloud_storage::read_object::ReadObjectResponse;
+    /// # use google_cloud_storage::object_descriptor::ObjectDescriptor;
+    /// use google_cloud_storage::{model_ext::ReadRange, read_object::ReadObjectResponse};
     /// # async fn sample() -> anyhow::Result<()> {
     /// const MIB: u64 = 1024 * 1024;
     /// let descriptor = open();
     /// println!("object generation = {}", descriptor.object().generation);
     ///
     /// // Read 2 MiB starting at offset 0.
-    /// let read1 = open.read_range(ReadRange::segment(0, 2 * MIB)).await;
+    /// let read1 = descriptor.read_range(ReadRange::segment(0, 2 * MIB)).await;
     /// // Concurrently read 2 MiB starting at offset 4 MiB.
-    /// let read2 = open.read_range(ReadRange::segment(4 * MIB, 2 * MIB)).await;
+    /// let read2 = descriptor.read_range(ReadRange::segment(4 * MIB, 2 * MIB)).await;
     ///
     /// let t1 = tokio::spawn(async move { do_read(read1) });
     /// let t2 = tokio::spawn(async move { do_read(read2) });
