@@ -64,14 +64,16 @@ impl Runner {
             );
         };
         let mut reader = descriptor
-            .read_range(ReadRange::segment(range.read_offset, range.read_offset))
+            .read_range(ReadRange::segment(range.read_offset, range.read_length))
             .await;
         let mut ttfb = None;
-        while reader.next().await.transpose()?.is_some() {
+        let mut size = 0;
+        while let Some(b) = reader.next().await.transpose()? {
             let _ = ttfb.get_or_insert(Instant::now() - start);
+            size += b.len();
         }
         let ttlb = Instant::now() - start;
         let ttfb = ttfb.unwrap_or(ttlb);
-        Ok(Attempt { ttfb, ttlb })
+        Ok(Attempt { size, ttfb, ttlb })
     }
 }
