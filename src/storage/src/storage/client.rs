@@ -246,7 +246,7 @@ where
     /// // Print the object metadata
     /// println!("metadata = {:?}", descriptor.object());
     /// // Read 2000 bytes starting at offset 1000.
-    /// let reader = descriptor.read_range(ReadRange::segment(1000, 2000)).await;
+    /// let mut reader = descriptor.read_range(ReadRange::segment(1000, 2000)).await;
     /// let mut contents = Vec::new();
     /// while let Some(chunk) = reader.next().await.transpose()? {
     ///   contents.extend_from_slice(&chunk);
