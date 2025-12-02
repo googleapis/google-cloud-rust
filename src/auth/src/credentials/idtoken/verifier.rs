@@ -164,7 +164,7 @@ pub struct Verifier {
 impl Verifier {
     /// Verifies the ID token and returns the claims.
     pub async fn verify(&self, token: &str) -> std::result::Result<Map<String, Value>, Error> {
-        let token = biscuit::JWT::<Map<String, Value>, biscuit::Empty>::new_encoded(&token);
+        let token = biscuit::JWT::<Map<String, Value>, biscuit::Empty>::new_encoded(token);
         let header = token.unverified_header().map_err(Error::decode)?;
 
         let key_id = header
@@ -213,7 +213,8 @@ impl Verifier {
             return Err(Error::invalid_field("aud", "audience claim is missing"));
         }
         // if one of the issuers matches, then the validation is successful
-        let issuers = [&"https://accounts.google.com", "accounts.google.com"];
+        // TODO(#3591): Support TPC/REP that can have different issuers
+        let issuers = ["https://accounts.google.com", "accounts.google.com"];
         let issuer = issuers.iter().find(|issuer| {
             claims
                 .registered
@@ -348,7 +349,7 @@ pub(crate) mod tests {
     use base64::Engine;
     use biscuit::jwa::SignatureAlgorithm as Algorithm;
     use biscuit::jws::{RegisteredHeader, Secret};
-    use biscuit::{ClaimsSet, JWT, RegisteredClaims, SingleOrMultiple};
+    use biscuit::{ClaimsSet, JWT};
     use httptest::matchers::{all_of, request};
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
@@ -460,8 +461,10 @@ pub(crate) mod tests {
         );
 
         let audience = "https://example.com";
-        let mut claims = OverrideClaims::default();
-        claims.issuer = Some("https://wrong-issuer.com".into());
+        let claims = OverrideClaims {
+            issuer: Some("https://wrong-issuer.com".into()),
+            ..OverrideClaims::default()
+        };
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
@@ -487,9 +490,11 @@ pub(crate) mod tests {
 
         let audience = "https://example.com";
         let email = "test@example.com";
-        let mut claims = OverrideClaims::default();
-        claims.email = Some(email.into());
-        claims.email_verified = Some(true);
+        let claims = OverrideClaims {
+            email: Some(email.into()),
+            email_verified: Some(true),
+            ..OverrideClaims::default()
+        };
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
@@ -517,9 +522,11 @@ pub(crate) mod tests {
 
         let audience = "https://example.com";
         let email = "test@example.com";
-        let mut claims = OverrideClaims::default();
-        claims.email = Some(email.into());
-        claims.email_verified = Some(true);
+        let claims = OverrideClaims {
+            email: Some(email.into()),
+            email_verified: Some(true),
+            ..OverrideClaims::default()
+        };
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
@@ -544,9 +551,16 @@ pub(crate) mod tests {
         );
 
         let audience = "https://example.com";
-        let mut claims = OverrideClaims::default();
-        let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
-        claims.expiry = Some((now.as_secs() - 3600) as i64); // expired 1 hour ago
+        let claims = OverrideClaims {
+            expiry: Some(
+                (SystemTime::now()
+                    .duration_since(UNIX_EPOCH)
+                    .unwrap()
+                    .as_secs()
+                    - 3600) as i64,
+            ), // expired 1 hour ago
+            ..OverrideClaims::default()
+        };
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
@@ -572,9 +586,11 @@ pub(crate) mod tests {
 
         let audience = "https://example.com";
         let email = "test@example.com";
-        let mut claims = OverrideClaims::default();
-        claims.email = Some(email.into());
-        claims.email_verified = Some(false);
+        let claims = OverrideClaims {
+            email: Some(email.into()),
+            email_verified: Some(false),
+            ..OverrideClaims::default()
+        };
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
@@ -599,9 +615,16 @@ pub(crate) mod tests {
         );
 
         let audience = "https://example.com";
-        let mut claims = OverrideClaims::default();
-        let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
-        claims.expiry = Some((now.as_secs() - 5) as i64); // expired 5 seconds ago
+        let claims = OverrideClaims {
+            expiry: Some(
+                (SystemTime::now()
+                    .duration_since(UNIX_EPOCH)
+                    .unwrap()
+                    .as_secs()
+                    - 5) as i64,
+            ), // expired 5 seconds ago
+            ..OverrideClaims::default()
+        };
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 

@@ -358,7 +358,7 @@ pub(crate) mod tests {
     }
 
     impl OverrideClaims {
-        fn into_registered_claims(&self, audience: String, now: SystemTime) -> RegisteredClaims {
+        fn as_registered_claims(&self, audience: String, now: SystemTime) -> RegisteredClaims {
             let now = now.duration_since(UNIX_EPOCH).unwrap();
             let then = now + DEFAULT_TEST_TOKEN_EXPIRATION;
             RegisteredClaims {
@@ -368,16 +368,16 @@ pub(crate) mod tests {
                         .unwrap_or("accounts.google.com".to_string()),
                 ),
                 issued_at: Some((now.as_secs() as i64).into()),
-                expiry: Some(self.expiry.clone().unwrap_or(then.as_secs() as i64).into()),
+                expiry: Some(self.expiry.unwrap_or(then.as_secs() as i64).into()),
                 audience: Some(SingleOrMultiple::Single(audience)),
                 ..Default::default()
             }
         }
 
-        fn into_extra_claims(&self) -> ExtraClaims {
+        fn as_extra_claims(&self) -> ExtraClaims {
             ExtraClaims {
                 email: self.email.clone(),
-                email_verified: self.email_verified.clone(),
+                email_verified: self.email_verified,
             }
         }
     }
@@ -406,8 +406,8 @@ pub(crate) mod tests {
         now: SystemTime,
     ) -> String {
         let claims = ClaimsSet::<ExtraClaims> {
-            registered: claims_to_add.into_registered_claims(audience, now),
-            private: claims_to_add.into_extra_claims(),
+            registered: claims_to_add.as_registered_claims(audience, now),
+            private: claims_to_add.as_extra_claims(),
         };
 
         let jwt = JWT::<ExtraClaims, biscuit::Empty>::new_decoded(
