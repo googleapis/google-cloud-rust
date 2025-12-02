@@ -39,6 +39,7 @@ _internal-http-client = [
   "_internal-common",
   "dep:auth",
   "dep:bytes",
+  "dep:futures-util",
   "dep:gax",
   "dep:http",
   "dep:http-body-util",
