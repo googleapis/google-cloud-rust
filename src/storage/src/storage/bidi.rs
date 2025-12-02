@@ -16,14 +16,13 @@ mod active_read;
 mod builder;
 mod connector;
 mod normalized_range;
-mod object_descriptor;
 mod range_reader;
 mod redirect;
 mod remaining_range;
 mod requested_range;
 mod resume_redirect;
 mod retry_redirect;
-mod stub;
+pub(crate) mod stub;
 mod transport;
 mod worker;
 

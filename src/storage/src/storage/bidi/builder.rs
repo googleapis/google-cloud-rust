@@ -13,11 +13,11 @@
 // limitations under the License.
 
 use super::connector::Connector;
-use super::object_descriptor::ObjectDescriptor;
 use super::transport::ObjectDescriptorTransport;
 use crate::Result;
 use crate::google::storage::v2::BidiReadObjectSpec;
 use crate::model_ext::KeyAes256;
+use crate::object_descriptor::ObjectDescriptor;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::request_options::RequestOptions;
 use gaxi::grpc::Client as GrpcClient;
