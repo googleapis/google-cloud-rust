@@ -404,7 +404,7 @@ mod tests {
 
         // Send 3 read requests in quick succession. The first one will block
         // until we pull a message from `response_tx`. That will force the second
-        // and third requests to be coallesced into a single BidiReadObjectRequest.
+        // and third requests to be coalesced into a single BidiReadObjectRequest.
         //
         // It is possible that all three reads are collaesced into a single
         // `BidiReadObjectRequest` message.
