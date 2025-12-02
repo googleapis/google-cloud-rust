@@ -423,6 +423,7 @@ pub mod internal {
         pub retry_throttler: SharedRetryThrottler,
         pub polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
         pub polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
+        pub disable_automatic_decompression: bool,
     }
 
     impl<Cr> std::default::Default for ClientConfig<Cr> {
@@ -438,8 +439,22 @@ pub mod internal {
                 retry_throttler: Arc::new(Mutex::new(AdaptiveThrottler::default())),
                 polling_error_policy: None,
                 polling_backoff_policy: None,
+                disable_automatic_decompression: false,
             }
         }
+    }
+
+    /// Configure automatic decompression.
+    ///
+    /// By default, the client libraries automatically decompress responses.
+    /// Internal users can disable this behavior if they need to access the raw
+    /// compressed bytes.
+    pub fn with_automatic_decompression<F, Cr>(
+        mut builder: super::ClientBuilder<F, Cr>,
+        v: bool,
+    ) -> super::ClientBuilder<F, Cr> {
+        builder.config.disable_automatic_decompression = !v;
+        builder
     }
 }
 
@@ -531,6 +546,7 @@ pub mod examples {
             assert!(config.backoff_policy.is_none(), "{config:?}");
             assert!(config.polling_error_policy.is_none(), "{config:?}");
             assert!(config.polling_backoff_policy.is_none(), "{config:?}");
+            assert!(!config.disable_automatic_decompression, "{config:?}");
         }
 
         #[tokio::test]
@@ -549,6 +565,25 @@ pub mod examples {
             let client = Client::builder().with_tracing().build().await.unwrap();
             let config = client.0;
             assert!(config.tracing);
+        }
+
+        #[tokio::test]
+        async fn automatic_decompression() {
+            let client = Client::builder();
+            let client = super::super::internal::with_automatic_decompression(client, false)
+                .build()
+                .await
+                .unwrap();
+            let config = client.0;
+            assert!(config.disable_automatic_decompression);
+
+            let client = Client::builder();
+            let client = super::super::internal::with_automatic_decompression(client, true)
+                .build()
+                .await
+                .unwrap();
+            let config = client.0;
+            assert!(!config.disable_automatic_decompression);
         }
 
         #[tokio::test]
