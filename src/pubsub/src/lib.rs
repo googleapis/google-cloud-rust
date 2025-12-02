@@ -69,7 +69,7 @@ pub mod builder {
 pub mod model {
     pub use crate::generated::gapic::model::*;
     pub use crate::generated::gapic_dataplane::model::PubsubMessage;
-    pub(crate) use crate::generated::gapic_dataplane::model::{PublishRequest, PublishResponse};
+    pub(crate) use crate::generated::gapic_dataplane::model::*;
 }
 
 /// Extends [model] with types that improve type safety and/or ergonomics.

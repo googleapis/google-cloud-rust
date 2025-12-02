@@ -18,7 +18,10 @@ specification-source = 'google/pubsub/v1'
 
 [source]
 included-ids = """\
-    .google.pubsub.v1.Publisher.Publish\
+    .google.pubsub.v1.Publisher.Publish,\
+    .google.pubsub.v1.Subscriber.StreamingPull,\
+    .google.pubsub.v1.Subscriber.Acknowledge,\
+    .google.pubsub.v1.Subscriber.ModifyAckDeadline\
     """
 
 [codec]
