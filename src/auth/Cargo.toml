@@ -46,7 +46,6 @@ thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
 bon.workspace         = true
-jsonwebtoken          = { workspace = true, features = ["rust_crypto"] }
 biscuit               = { workspace = true }
 ring                  = { workspace = true }
 chrono                = { workspace = true }
