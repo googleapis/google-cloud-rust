@@ -95,3 +95,103 @@ impl super::stub::Publisher for Publisher {
             .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::PublishResponse>)
     }
 }
+
+/// Implements [Subscriber](super::stub::Subscriber) using a Tonic-generated client.
+#[derive(Clone)]
+pub struct Subscriber {
+    inner: gaxi::grpc::Client,
+}
+
+impl std::fmt::Debug for Subscriber {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        f.debug_struct("Subscriber")
+            .field("inner", &self.inner)
+            .finish()
+    }
+}
+
+impl Subscriber {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
+        Ok(Self { inner })
+    }
+}
+
+impl super::stub::Subscriber for Subscriber {
+    async fn modify_ack_deadline(
+        &self,
+        req: crate::model::ModifyAckDeadlineRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use gaxi::prost::ToProto;
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.pubsub.v1.Subscriber",
+                "ModifyAckDeadline",
+            ));
+            e
+        };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.pubsub.v1.Subscriber/ModifyAckDeadline");
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.subscription)
+            .map(|s| s.as_str())
+            .map(|v| format!("subscription={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = ();
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, ()>)
+    }
+
+    async fn acknowledge(
+        &self,
+        req: crate::model::AcknowledgeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use gaxi::prost::ToProto;
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.pubsub.v1.Subscriber",
+                "Acknowledge",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.pubsub.v1.Subscriber/Acknowledge");
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.subscription)
+            .map(|s| s.as_str())
+            .map(|v| format!("subscription={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = ();
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, ()>)
+    }
+}

@@ -106,3 +106,325 @@ impl serde::ser::Serialize for super::PublishResponse {
         state.end()
     }
 }
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ReceivedMessage {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.ack_id.is_empty() {
+            state.serialize_entry("ackId", &self.ack_id)?;
+        }
+        if self.message.is_some() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !wkt::internal::is_default(&self.delivery_attempt) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("deliveryAttempt", &__With(&self.delivery_attempt))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ModifyAckDeadlineRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.subscription.is_empty() {
+            state.serialize_entry("subscription", &self.subscription)?;
+        }
+        if !self.ack_ids.is_empty() {
+            state.serialize_entry("ackIds", &self.ack_ids)?;
+        }
+        if !wkt::internal::is_default(&self.ack_deadline_seconds) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("ackDeadlineSeconds", &__With(&self.ack_deadline_seconds))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AcknowledgeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.subscription.is_empty() {
+            state.serialize_entry("subscription", &self.subscription)?;
+        }
+        if !self.ack_ids.is_empty() {
+            state.serialize_entry("ackIds", &self.ack_ids)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::StreamingPullRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.subscription.is_empty() {
+            state.serialize_entry("subscription", &self.subscription)?;
+        }
+        if !self.ack_ids.is_empty() {
+            state.serialize_entry("ackIds", &self.ack_ids)?;
+        }
+        if !self.modify_deadline_seconds.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "modifyDeadlineSeconds",
+                &__With(&self.modify_deadline_seconds),
+            )?;
+        }
+        if !self.modify_deadline_ack_ids.is_empty() {
+            state.serialize_entry("modifyDeadlineAckIds", &self.modify_deadline_ack_ids)?;
+        }
+        if !wkt::internal::is_default(&self.stream_ack_deadline_seconds) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "streamAckDeadlineSeconds",
+                &__With(&self.stream_ack_deadline_seconds),
+            )?;
+        }
+        if !self.client_id.is_empty() {
+            state.serialize_entry("clientId", &self.client_id)?;
+        }
+        if !wkt::internal::is_default(&self.max_outstanding_messages) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "maxOutstandingMessages",
+                &__With(&self.max_outstanding_messages),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.max_outstanding_bytes) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("maxOutstandingBytes", &__With(&self.max_outstanding_bytes))?;
+        }
+        if !wkt::internal::is_default(&self.protocol_version) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("protocolVersion", &__With(&self.protocol_version))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::StreamingPullResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.received_messages.is_empty() {
+            state.serialize_entry("receivedMessages", &self.received_messages)?;
+        }
+        if self.acknowledge_confirmation.is_some() {
+            state.serialize_entry("acknowledgeConfirmation", &self.acknowledge_confirmation)?;
+        }
+        if self.modify_ack_deadline_confirmation.is_some() {
+            state.serialize_entry(
+                "modifyAckDeadlineConfirmation",
+                &self.modify_ack_deadline_confirmation,
+            )?;
+        }
+        if self.subscription_properties.is_some() {
+            state.serialize_entry("subscriptionProperties", &self.subscription_properties)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::streaming_pull_response::AcknowledgeConfirmation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.ack_ids.is_empty() {
+            state.serialize_entry("ackIds", &self.ack_ids)?;
+        }
+        if !self.invalid_ack_ids.is_empty() {
+            state.serialize_entry("invalidAckIds", &self.invalid_ack_ids)?;
+        }
+        if !self.unordered_ack_ids.is_empty() {
+            state.serialize_entry("unorderedAckIds", &self.unordered_ack_ids)?;
+        }
+        if !self.temporary_failed_ack_ids.is_empty() {
+            state.serialize_entry("temporaryFailedAckIds", &self.temporary_failed_ack_ids)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::streaming_pull_response::ModifyAckDeadlineConfirmation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.ack_ids.is_empty() {
+            state.serialize_entry("ackIds", &self.ack_ids)?;
+        }
+        if !self.invalid_ack_ids.is_empty() {
+            state.serialize_entry("invalidAckIds", &self.invalid_ack_ids)?;
+        }
+        if !self.temporary_failed_ack_ids.is_empty() {
+            state.serialize_entry("temporaryFailedAckIds", &self.temporary_failed_ack_ids)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::streaming_pull_response::SubscriptionProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.exactly_once_delivery_enabled) {
+            state.serialize_entry(
+                "exactlyOnceDeliveryEnabled",
+                &self.exactly_once_delivery_enabled,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.message_ordering_enabled) {
+            state.serialize_entry("messageOrderingEnabled", &self.message_ordering_enabled)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
