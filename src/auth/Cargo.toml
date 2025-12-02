@@ -46,7 +46,7 @@ thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
 bon.workspace         = true
-jsonwebtoken          = { workspace = true, features = ["rust_crypto"] }
+jsonwebtoken          = { workspace = true, features = ["aws_lc_rs"] }
 # Local dependencies
 gax.workspace = true
 
