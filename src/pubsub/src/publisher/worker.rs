@@ -78,7 +78,7 @@ impl Worker {
     /// The loop terminates when the `rx` channel is closed, which happens when all
     /// `Publisher` clones have been dropped.
     pub(crate) async fn run(mut self) {
-        let mut batch = Batch::new();
+        let mut batch = Batch::new(&self.topic_name);
         let delay = self.batching_options.delay_threshold;
         let message_limit = self.batching_options.message_count_threshold;
         let byte_threshold = self.batching_options.byte_threshold;

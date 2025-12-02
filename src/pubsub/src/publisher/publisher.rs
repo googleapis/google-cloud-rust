@@ -578,9 +578,11 @@ mod tests {
         });
 
         let client = GapicPublisher::from_stub(mock);
+        // Ensure that the first message does not pass the threshold.
+        let byte_threshold = "my-topic".len() + "hello".len() + 1;
         let publisher = PublisherBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(MAX_MESSAGES)
-            .set_byte_threshold(10_u32)
+            .set_byte_threshold(byte_threshold as u32)
             .set_delay_threshold(std::time::Duration::MAX)
             .build();
 

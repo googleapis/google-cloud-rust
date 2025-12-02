@@ -20,13 +20,15 @@ use std::sync::Arc;
 #[derive(Debug, Default)]
 pub(crate) struct Batch {
     messages: Vec<BundledMessage>,
-    // messages_byte_size currently only considers the aggregate size of PubsubMessages. For future imrpovement, consider the entire PublishRequest including topic field.
     messages_byte_size: u32,
 }
 
 impl Batch {
-    pub(crate) fn new() -> Self {
-        Batch::default()
+    pub(crate) fn new(topic: &str) -> Self {
+        Batch {
+            messages_byte_size: topic.len() as u32,
+            ..Batch::default()
+        }
     }
 
     pub(crate) fn is_empty(&self) -> bool {
@@ -42,13 +44,21 @@ impl Batch {
     }
 
     pub(crate) fn push(&mut self, msg: BundledMessage) {
-        use gaxi::prost::ToProto;
-        use prost::Message;
-        // TODO(NOW): Yuk. Can we avoid the clone here?
-        let proto = msg.msg.clone().to_proto().unwrap();
-        let msg_size = proto.encoded_len() as u32;
-        self.messages_byte_size = self.messages_byte_size + msg_size;
+        self.messages_byte_size += Self::message_size(&msg.msg) as u32;
         self.messages.push(msg);
+    }
+
+    fn message_size(msg: &crate::model::PubsubMessage) -> usize {
+        // This is only an estimate and not the wire length.
+        // TODO(NOW): Add issue to convert to the protobuf thing.
+        let mut size = 0;
+        size += msg.data.len();
+        size += msg.ordering_key.len();
+        size += msg
+            .attributes
+            .iter()
+            .fold(0, |acc, (k, v)| acc + k.len() + v.len());
+        size
     }
 
     /// Drains the batch and spawns a task to send the messages.
@@ -108,9 +118,6 @@ impl Batch {
 
 #[cfg(test)]
 mod tests {
-    use gaxi::prost::ToProto;
-    use prost::Message;
-    // use tonic::IntoRequest;
     use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
     use crate::model::PubsubMessage;
     use crate::publisher::batch::Batch;
@@ -127,18 +134,18 @@ mod tests {
 
     #[tokio::test]
     async fn test_push_and_flush_batch() {
-        let mut batch: Batch = Batch::new();
+        let mut batch: Batch = Batch::new("topic");
         assert!(batch.is_empty());
 
-        let (message_a, _rx_a) = create_bundled_message_helper("hello".to_string());
+        let (message_a, _rx_a) = create_bundled_message_from_bytes("hello");
         batch.push(message_a);
         assert_eq!(batch.len(), 1);
 
-        let (message_b, _rx_b) = create_bundled_message_helper(", ".to_string());
+        let (message_b, _rx_b) = create_bundled_message_from_bytes(", ");
         batch.push(message_b);
         assert_eq!(batch.len(), 2);
 
-        let (message_c, _rx_c) = create_bundled_message_helper("world".to_string());
+        let (message_c, _rx_c) = create_bundled_message_from_bytes("world");
         batch.push(message_c);
         assert_eq!(batch.len(), 3);
 
@@ -152,18 +159,36 @@ mod tests {
 
     #[tokio::test]
     async fn test_size() {
-        let mut batch: Batch = Batch::new();
-        assert_eq!(batch.size(), 0);
+        use std::collections::HashMap;
 
-        let (message_a, _rx_a) = create_bundled_message_helper("hello a".to_string());
-        let message_a_size = message_a.msg.clone().to_proto().unwrap().encoded_len();
-        batch.push(message_a);
-        assert_eq!(batch.size(), message_a_size as u32);
+        let topic = "topic";
+        let mut batch: Batch = Batch::new(&topic);
+        let mut expected_encoded_len = topic.len();
+        assert_eq!(batch.size(), expected_encoded_len as u32);
 
-        let (message_b, _rx_a) = create_bundled_message_helper("hello b".to_string());
-        let message_b_size = message_b.msg.clone().to_proto().unwrap().encoded_len();
-        batch.push(message_b);
-        assert_eq!(batch.size(), (message_a_size + message_b_size) as u32);
+        let (message_data_only, _rx) = create_bundled_message_from_bytes("message_data_only");
+        expected_encoded_len += message_data_only.msg.data.len();
+        batch.push(message_data_only);
+        assert_eq!(batch.size(), expected_encoded_len as u32);
+
+        let (message_with_ordering, _rx) = create_bundled_message_from_pubsub_message(
+            PubsubMessage::new().set_ordering_key("ordering_key".to_string()),
+        );
+        expected_encoded_len += message_with_ordering.msg.ordering_key.len();
+        batch.push(message_with_ordering);
+        assert_eq!(batch.size(), expected_encoded_len as u32);
+
+        let attributes = HashMap::from([("k1", "v1"), ("k2", "v2")]);
+        let (message_with_attributes, _rx) = create_bundled_message_from_pubsub_message(
+            PubsubMessage::new().set_attributes(attributes),
+        );
+        expected_encoded_len += message_with_attributes
+            .msg
+            .attributes
+            .iter()
+            .fold(0, |acc, (k, v)| acc + k.len() + v.len());
+        batch.push(message_with_attributes);
+        assert_eq!(batch.size(), expected_encoded_len as u32);
 
         let mock = MockGapicPublisher::new();
         let client = GapicPublisher::from_stub(mock);
@@ -173,19 +198,22 @@ mod tests {
         assert_eq!(batch.size(), 0);
     }
 
-    fn create_bundled_message_helper(
-        data: String,
+    fn create_bundled_message_from_bytes<T: Into<::bytes::Bytes>>(
+        data: T,
+    ) -> (
+        BundledMessage,
+        tokio::sync::oneshot::Receiver<crate::Result<String>>,
+    ) {
+        create_bundled_message_from_pubsub_message(PubsubMessage::new().set_data(data.into()))
+    }
+
+    fn create_bundled_message_from_pubsub_message(
+        msg: PubsubMessage,
     ) -> (
         BundledMessage,
         tokio::sync::oneshot::Receiver<crate::Result<String>>,
     ) {
         let (tx, rx) = tokio::sync::oneshot::channel();
-        (
-            BundledMessage {
-                tx,
-                msg: PubsubMessage::new().set_data(data),
-            },
-            rx,
-        )
+        (BundledMessage { tx, msg: msg }, rx)
     }
 }
