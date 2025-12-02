@@ -50,7 +50,8 @@ impl Batch {
 
     fn message_size(msg: &crate::model::PubsubMessage) -> usize {
         // This is only an estimate and not the wire length.
-        // TODO(NOW): Add issue to convert to the protobuf thing.
+        // TODO(#3963): If we move on to use protobuf crate, then it may be
+        // possible to use compute_size to find the wire length.
         let mut size = 0;
         size += msg.data.len();
         size += msg.ordering_key.len();
