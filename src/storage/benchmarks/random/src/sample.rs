@@ -16,6 +16,7 @@ use std::time::Duration;
 
 #[derive(Clone, Debug)]
 pub struct Attempt {
+    pub size: usize,
     pub ttfb: Duration,
     pub ttlb: Duration,
 }
@@ -27,7 +28,9 @@ pub struct Sample {
     pub start: Duration,
     pub range_id: usize,
     pub range_count: usize,
+    pub range_offset: u64,
     pub range_length: u64,
+    pub transfer_size: usize,
     pub protocol: Protocol,
     pub ttfb: Duration,
     pub ttlb: Duration,
@@ -38,20 +41,23 @@ pub struct Sample {
 impl Sample {
     pub const HEADER: &str = concat!(
         "Task,Iteration,IterationStart,RangeId,RangeCount",
-        ",RangeSize,Protocol,TtfbMicroseconds,TtlbMicroseconds",
+        ",RangeOffset,RangeSize,Protocol",
+        ",TransferSize,TtfbMicroseconds,TtlbMicroseconds",
         ",Object,Details"
     );
 
     pub fn to_row(&self) -> String {
         format!(
-            "{},{},{},{},{},{},{},{},{},{},{}",
+            "{},{},{},{},{},{},{},{},{},{},{},{},{}",
             self.task,
             self.iteration,
             self.start.as_micros(),
             self.range_id,
             self.range_count,
+            self.range_offset,
             self.range_length,
             self.protocol.name(),
+            self.transfer_size,
             self.ttfb.as_micros(),
             self.ttlb.as_micros(),
             self.object,

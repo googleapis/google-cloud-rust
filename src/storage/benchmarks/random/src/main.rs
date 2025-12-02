@@ -123,15 +123,16 @@ async fn runner(
                 .zip(experiment.ranges)
                 .enumerate()
                 .map(|(i, (result, range))| {
-                    let (ttfb, ttlb, details) = match result {
-                        Ok(a) => (a.ttfb, a.ttlb, "OK"),
+                    let (size, ttfb, ttlb, details) = match result {
+                        Ok(a) => (a.size, a.ttfb, a.ttlb, "OK"),
                         Err(e) => {
                             tracing::error!("error on range {i}: {e:?}");
-                            (elapsed, elapsed, "ERROR")
+                            (0, elapsed, elapsed, "ERROR")
                         }
                     };
                     Sample {
                         protocol,
+                        transfer_size: size,
                         ttfb,
                         ttlb,
                         details: details.to_string(),
@@ -140,6 +141,7 @@ async fn runner(
                         range_id: i,
                         range_count,
                         start: relative_start,
+                        range_offset: range.read_offset,
                         range_length: range.read_length,
                         object: range.object_name,
                     }
