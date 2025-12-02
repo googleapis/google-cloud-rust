@@ -66,6 +66,7 @@ pub mod builder {
     pub use crate::generated::gapic::builder::topic_admin;
     // TODO(#3959) - remove internal types from the public API.
     #[doc(hidden)]
+    #[allow(rustdoc::broken_intra_doc_links)]
     pub use crate::generated::gapic_dataplane::builder::subscriber;
 }
 
