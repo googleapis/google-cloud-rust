@@ -53,6 +53,7 @@ where
         connection: Connection<C::Stream>,
         mut requests: Receiver<ActiveRead>,
     ) -> LoopResult<()> {
+        let mut ranges = Vec::new();
         let (mut rx, mut tx) = (connection.rx, connection.tx);
         // Note how this loop only exits when the `requests` queue is
         // closed. A successfully closed stream and unrecoverable errors
@@ -76,11 +77,11 @@ where
                         }
                     };
                 },
-                r = requests.recv() => {
-                    let Some(range) = r else {
+                r = requests.recv_many(&mut ranges, 16) => {
+                    if r == 0 {
                         break;
                     };
-                    self.insert_range(tx.clone(), range).await;
+                    self.insert_ranges(tx.clone(), std::mem::take(&mut ranges)).await;
                 },
             }
         }
@@ -163,14 +164,18 @@ where
         let _ = closing.count().await;
     }
 
-    async fn insert_range(&mut self, tx: Sender<BidiReadObjectRequest>, reader: ActiveRead) {
-        let id = self.next_range_id;
-        self.next_range_id += 1;
+    async fn insert_ranges(&mut self, tx: Sender<BidiReadObjectRequest>, readers: Vec<ActiveRead>) {
+        let mut ranges = Vec::new();
+        for r in readers {
+            let id = self.next_range_id;
+            self.next_range_id += 1;
 
-        let request = reader.as_proto(id);
-        self.ranges.lock().await.insert(id, reader);
+            let request = r.as_proto(id);
+            self.ranges.lock().await.insert(id, r);
+            ranges.push(request);
+        }
         let request = BidiReadObjectRequest {
-            read_ranges: vec![request],
+            read_ranges: ranges,
             ..BidiReadObjectRequest::default()
         };
         // If this fails the main loop will reconnect the stream and include the
@@ -388,6 +393,90 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn run_batched_reads() -> anyhow::Result<()> {
+        let MockSetup {
+            join,
+            tx,
+            response_tx,
+            mut request_rx,
+        } = set_up_mock().await;
+
+        // Send 3 read requests in quick succession. The first one will block
+        // until we pull a message from `response_tx`. That will force the second
+        // and third requests to be coalesced into a single BidiReadObjectRequest.
+        //
+        // It is possible that all three reads are collaesced into a single
+        // `BidiReadObjectRequest` message.
+        let reader1 = mock_reader(&tx, ReadRange::segment(100, 42)).await;
+        let reader2 = mock_reader(&tx, ReadRange::segment(200, 42)).await;
+        let reader3 = mock_reader(&tx, ReadRange::segment(300, 42)).await;
+
+        // Capture the first request sent to the service.
+        let request1 = request_rx.recv().await;
+
+        // Simulate a response to synchronize all the work.
+        let content = bytes::Bytes::from_owner(String::from_iter((0..42).map(|_| 'x')));
+        let response = BidiReadObjectResponse {
+            object_data_ranges: (0..3)
+                .map(|i| ObjectRangeData {
+                    read_range: Some(proto_range_id(100 + i * 100, content.len() as i64, i)),
+                    range_end: true,
+                    checksummed_data: Some(ChecksummedData {
+                        content: content.clone(),
+                        ..ChecksummedData::default()
+                    }),
+                })
+                .collect(),
+            ..BidiReadObjectResponse::default()
+        };
+        response_tx.send(Ok(response)).await?;
+
+        for (i, mut r) in [reader1, reader2, reader3].into_iter().enumerate() {
+            let got = r.recv().await;
+            assert!(
+                matches!(got, Some(Ok(ref b)) if *b == content),
+                "[{i}] {got:?}"
+            );
+            let got = r.recv().await;
+            assert!(got.is_none(), "[{i}] {got:?}");
+        }
+
+        // Make sure all the streams are closed.
+        drop(tx);
+        join.await??;
+
+        // Finally, capture the second request, if any, and then compare both
+        // requests against the expected ranges.
+        let request2 = request_rx.recv().await;
+        let e0 = proto_range_id(100, 42, 0);
+        let e1 = proto_range_id(200, 42, 1);
+        let e2 = proto_range_id(300, 42, 2);
+        match (request1, request2) {
+            (Some(r), None) if r.read_ranges.len() == 3 => {
+                assert!(r.read_object_spec.is_none(), "{r:?}");
+                assert_eq!(r.read_ranges, vec![e0, e1, e2], "{r:?}");
+            }
+            (Some(r), Some(n)) if n.read_ranges.len() == 2 => {
+                assert!(r.read_object_spec.is_none(), "{r:?}");
+                assert_eq!(r.read_ranges, vec![e0], "{r:?}");
+                assert!(n.read_object_spec.is_none(), "{n:?}");
+                assert_eq!(n.read_ranges, vec![e1, e2], "{r:?}");
+            }
+            (Some(r), None) => {
+                panic!("initial request did not have enough messages: {r:?}")
+            }
+            (Some(r), Some(n)) => {
+                panic!("first or second requests have too few messages r={r:?}, n={n:?}")
+            }
+            (None, n) => {
+                panic!("first message is none and second is not {n:?}")
+            }
+        }
+
+        Ok(())
+    }
+
     struct SuccessfulReadSetup {
         // A handle to the background task, useful to check for errors.
         join: tokio::task::JoinHandle<Result<(), Arc<crate::Error>>>,
@@ -402,16 +491,12 @@ mod tests {
     }
 
     async fn set_up_successful_read() -> SuccessfulReadSetup {
-        let (request_tx, mut request_rx) = tokio::sync::mpsc::channel(1);
-        let (response_tx, response_rx) = mock_stream();
-        let (tx, rx) = tokio::sync::mpsc::channel(1);
-        let connection = Connection::new(request_tx, response_rx);
-
-        let mut mock = MockTestClient::new();
-        mock.expect_start().never();
-        let connector = mock_connector(mock);
-        let worker = Worker::new(connector);
-        let join = tokio::spawn(async move { worker.run(connection, rx).await });
+        let MockSetup {
+            join,
+            tx,
+            response_tx,
+            mut request_rx,
+        } = set_up_mock().await;
 
         let reader = mock_reader(&tx, ReadRange::segment(100, 100)).await;
         let request = request_rx
@@ -430,6 +515,37 @@ mod tests {
             reader,
             response_tx,
             request: *request,
+        }
+    }
+
+    struct MockSetup {
+        // A handle to the background task, useful to check for errors.
+        join: tokio::task::JoinHandle<Result<(), Arc<crate::Error>>>,
+        // The sender to create more active reads. Needed to keep the background task running.
+        tx: Sender<ActiveRead>,
+        // The sender to simulate the bidi streaming read RPC responses.
+        response_tx: Sender<tonic::Result<BidiReadObjectResponse>>,
+        // The receiver to catch sent requests.
+        request_rx: Receiver<BidiReadObjectRequest>,
+    }
+
+    async fn set_up_mock() -> MockSetup {
+        let (request_tx, request_rx) = tokio::sync::mpsc::channel(1);
+        let (response_tx, response_rx) = mock_stream();
+        let (tx, rx) = tokio::sync::mpsc::channel(16);
+        let connection = Connection::new(request_tx, response_rx);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start().never();
+        let connector = mock_connector(mock);
+        let worker = Worker::new(connector);
+        let join = tokio::spawn(async move { worker.run(connection, rx).await });
+
+        MockSetup {
+            join,
+            tx,
+            response_tx,
+            request_rx,
         }
     }
 
