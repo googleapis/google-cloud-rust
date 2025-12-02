@@ -37,7 +37,7 @@
 //! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 
 use crate::credentials::internal::jwk_client::JwkClient;
-use jsonwebtoken::Validation;
+use biscuit::SingleOrMultiple;
 /// Represents the claims in an ID token.
 pub use serde_json::Map;
 /// Represents a claim value in an ID token.
@@ -153,7 +153,6 @@ impl Builder {
 ///     println!("Verified claims: {:?}", claims);
 /// }
 /// ```
-#[derive(Debug)]
 pub struct Verifier {
     jwk_client: JwkClient,
     audiences: Vec<String>,
@@ -165,52 +164,81 @@ pub struct Verifier {
 impl Verifier {
     /// Verifies the ID token and returns the claims.
     pub async fn verify(&self, token: &str) -> std::result::Result<Map<String, Value>, Error> {
-        let header = jsonwebtoken::decode_header(token).map_err(Error::decode)?;
+        let token = biscuit::JWT::<Map<String, Value>, biscuit::Empty>::new_encoded(token);
+        let header = token.unverified_header().map_err(Error::decode)?;
 
         let key_id = header
-            .kid
+            .registered
+            .key_id
             .ok_or_else(|| Error::invalid_field("kid", "kid header is missing"))?;
 
-        let mut validation = Validation::new(header.alg);
-        validation.leeway = self.clock_skew.as_secs();
-        // TODO(#3591): Support TPC/REP that can have different issuers
-        validation.set_issuer(&["https://accounts.google.com", "accounts.google.com"]);
-        validation.set_audience(&self.audiences);
-
+        let alg = header.registered.algorithm;
         let expected_email = self.email.clone();
         let jwks_url = self.jwks_url.clone();
 
-        let cert = self
+        let jwk_set = self
             .jwk_client
-            .get_or_load_cert(key_id, header.alg, jwks_url)
+            .get_or_load_jwk_set(key_id, alg, jwks_url)
             .await
             .map_err(Error::load_cert)?;
 
-        let token = jsonwebtoken::decode::<Map<String, Value>>(&token, &cert, &validation)
-            .map_err(|e| match e.clone().into_kind() {
-                jsonwebtoken::errors::ErrorKind::InvalidIssuer => Error::invalid_field("iss", e),
-                jsonwebtoken::errors::ErrorKind::InvalidAudience => Error::invalid_field("aud", e),
-                jsonwebtoken::errors::ErrorKind::MissingRequiredClaim(field) => {
-                    Error::invalid_field(field.as_str(), e)
-                }
-                _ => Error::invalid(e),
-            })?;
+        let token = token
+            .decode_with_jwks(&jwk_set, Some(alg))
+            .map_err(Error::invalid)?;
 
-        let claims = token.claims;
+        token
+            .validate(biscuit::ValidationOptions {
+                claim_presence_options: biscuit::ClaimPresenceOptions::default(),
+                temporal_options: biscuit::TemporalOptions {
+                    epsilon: chrono::Duration::seconds(self.clock_skew.as_secs() as i64),
+                    ..Default::default()
+                },
+                issued_at: biscuit::Validation::Validate(chrono::TimeDelta::MAX),
+                not_before: biscuit::Validation::Validate(()),
+                expiry: biscuit::Validation::Validate(()),
+                issuer: biscuit::Validation::Ignored,
+                audience: biscuit::Validation::Ignored,
+            })
+            .map_err(Error::invalid)?;
+
+        let claims = token.payload().map_err(Error::decode)?;
+        // if one of the audiences matches, then the validation is successful
+        let audience = self.audiences.iter().find(|audience| {
+            claims
+                .registered
+                .validate_aud(biscuit::Validation::Validate(audience.to_string()))
+                .is_ok()
+        });
+        if audience.is_none() {
+            return Err(Error::invalid_field("aud", "audience claim is missing"));
+        }
+        // if one of the issuers matches, then the validation is successful
+        // TODO(#3591): Support TPC/REP that can have different issuers
+        let issuers = ["https://accounts.google.com", "accounts.google.com"];
+        let issuer = issuers.iter().find(|issuer| {
+            claims
+                .registered
+                .validate_iss(biscuit::Validation::Validate(issuer.to_string()))
+                .is_ok()
+        });
+        if issuer.is_none() {
+            return Err(Error::invalid_field("iss", "issuer claim is missing"));
+        }
         if let Some(email) = expected_email {
-            let email_verified = claims["email_verified"]
-                .as_bool()
-                .ok_or(Error::invalid_field(
-                    "email_verified",
-                    "email_verified claim is missing",
-                ))?;
+            let email_verified =
+                claims.private["email_verified"]
+                    .as_bool()
+                    .ok_or(Error::invalid_field(
+                        "email_verified",
+                        "email_verified claim is missing",
+                    ))?;
             if !email_verified {
                 return Err(Error::invalid_field(
                     "email_verified",
                     "email_verified claim value is `false`",
                 ));
             }
-            let token_email = claims["email"]
+            let token_email = claims.private["email"]
                 .as_str()
                 .ok_or_else(|| Error::invalid_field("email", "email claim is missing"))?;
             if !email.eq(token_email) {
@@ -219,7 +247,31 @@ impl Verifier {
             }
         }
 
-        Ok(claims)
+        let mut all_claims: Map<String, Value> = claims.private.clone();
+        claims.registered.audience.iter().for_each(|aud| {
+            let aud = match aud {
+                SingleOrMultiple::Single(aud) => aud,
+                SingleOrMultiple::Multiple(aud) => &aud.join(","),
+            };
+            all_claims.insert("aud".to_string(), Value::String(aud.to_string()));
+        });
+        claims.registered.issuer.iter().for_each(|iss| {
+            all_claims.insert("iss".to_string(), Value::String(iss.to_string()));
+        });
+        claims.registered.issued_at.iter().for_each(|iat| {
+            all_claims.insert("iat".to_string(), Value::Number(iat.timestamp().into()));
+        });
+        claims.registered.not_before.iter().for_each(|nbf| {
+            all_claims.insert("nbf".to_string(), Value::Number(nbf.timestamp().into()));
+        });
+        claims.registered.expiry.iter().for_each(|exp| {
+            all_claims.insert("exp".to_string(), Value::Number(exp.timestamp().into()));
+        });
+        claims.registered.subject.iter().for_each(|sub| {
+            all_claims.insert("sub".to_string(), Value::String(sub.to_string()));
+        });
+
+        Ok(all_claims)
     }
 }
 
@@ -295,16 +347,18 @@ enum ErrorKind {
 pub(crate) mod tests {
     use super::*;
     use crate::credentials::idtoken::tests::{
-        TEST_KEY_ID, generate_test_id_token, generate_test_id_token_with_claims,
+        OverrideClaims, TEST_KEY_ID, generate_test_id_token, generate_test_id_token_with_claims,
     };
     use base64::Engine;
+    use biscuit::jwa::SignatureAlgorithm as Algorithm;
+    use biscuit::jws::{RegisteredHeader, Secret};
+    use biscuit::{ClaimsSet, JWT};
     use httptest::matchers::{all_of, request};
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
-    use jsonwebtoken::{Algorithm, EncodingKey, Header};
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::traits::PublicKeyParts;
-    use std::collections::HashMap;
+    use std::sync::Arc;
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
     type TestResult = anyhow::Result<()>;
@@ -410,8 +464,10 @@ pub(crate) mod tests {
         );
 
         let audience = "https://example.com";
-        let mut claims = HashMap::new();
-        claims.insert("iss", "https://wrong-issuer.com".into());
+        let claims = OverrideClaims {
+            issuer: Some("https://wrong-issuer.com".into()),
+            ..OverrideClaims::default()
+        };
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
@@ -437,9 +493,11 @@ pub(crate) mod tests {
 
         let audience = "https://example.com";
         let email = "test@example.com";
-        let mut claims = HashMap::new();
-        claims.insert("email", email.into());
-        claims.insert("email_verified", true.into());
+        let claims = OverrideClaims {
+            email: Some(email.into()),
+            email_verified: Some(true),
+            ..OverrideClaims::default()
+        };
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
@@ -467,9 +525,11 @@ pub(crate) mod tests {
 
         let audience = "https://example.com";
         let email = "test@example.com";
-        let mut claims = HashMap::new();
-        claims.insert("email", email.into());
-        claims.insert("email_verified", true.into());
+        let claims = OverrideClaims {
+            email: Some(email.into()),
+            email_verified: Some(true),
+            ..OverrideClaims::default()
+        };
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
@@ -494,9 +554,16 @@ pub(crate) mod tests {
         );
 
         let audience = "https://example.com";
-        let mut claims = HashMap::new();
-        let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
-        claims.insert("exp", (now.as_secs() - 3600).into()); // expired 1 hour ago
+        let claims = OverrideClaims {
+            expiry: Some(
+                (SystemTime::now()
+                    .duration_since(UNIX_EPOCH)
+                    .unwrap()
+                    .as_secs()
+                    - 3600) as i64,
+            ), // expired 1 hour ago
+            ..OverrideClaims::default()
+        };
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
@@ -522,9 +589,11 @@ pub(crate) mod tests {
 
         let audience = "https://example.com";
         let email = "test@example.com";
-        let mut claims = HashMap::new();
-        claims.insert("email", email.into());
-        claims.insert("email_verified", false.into());
+        let claims = OverrideClaims {
+            email: Some(email.into()),
+            email_verified: Some(false),
+            ..OverrideClaims::default()
+        };
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
@@ -549,9 +618,16 @@ pub(crate) mod tests {
         );
 
         let audience = "https://example.com";
-        let mut claims = HashMap::new();
-        let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
-        claims.insert("exp", (now.as_secs() - 5).into()); // expired 5 seconds ago
+        let claims = OverrideClaims {
+            expiry: Some(
+                (SystemTime::now()
+                    .duration_since(UNIX_EPOCH)
+                    .unwrap()
+                    .as_secs()
+                    - 5) as i64,
+            ), // expired 5 seconds ago
+            ..OverrideClaims::default()
+        };
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
@@ -581,17 +657,25 @@ pub(crate) mod tests {
 
     #[tokio::test]
     async fn test_verify_missing_kid() -> TestResult {
-        let header = Header::new(Algorithm::RS256);
-        let claims: HashMap<&str, Value> = HashMap::new();
+        let header = RegisteredHeader {
+            algorithm: Algorithm::RS256,
+            ..Default::default()
+        };
+        let claims = ClaimsSet::<biscuit::Empty>::default();
+        let jwt = JWT::<biscuit::Empty, biscuit::Empty>::new_decoded(From::from(header), claims);
 
         let private_cert = crate::credentials::tests::RSA_PRIVATE_KEY
             .to_pkcs1_der()
             .expect("Failed to encode private key to PKCS#1 DER");
 
-        let private_key = EncodingKey::from_rsa_der(private_cert.as_bytes());
+        let key_pair = ring::signature::RsaKeyPair::from_der(private_cert.as_bytes()).unwrap();
+        let private_key = Secret::RsaKeyPair(Arc::new(key_pair));
 
-        let token =
-            jsonwebtoken::encode(&header, &claims, &private_key).expect("failed to encode jwt");
+        let token = jwt
+            .into_encoded(&private_key)
+            .expect("failed to encode jwt")
+            .unwrap_encoded()
+            .to_string();
 
         let verifier = Builder::new(["https://example.com"]).build();
 

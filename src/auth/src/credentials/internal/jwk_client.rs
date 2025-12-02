@@ -14,7 +14,8 @@
 
 use crate::Result;
 use crate::errors::CredentialsError;
-use jsonwebtoken::{Algorithm, DecodingKey, jwk::JwkSet};
+use biscuit::jwa::SignatureAlgorithm as Algorithm;
+use biscuit::jwk::JWKSet;
 use std::{
     collections::HashMap,
     sync::Arc,
@@ -26,15 +27,17 @@ const IAP_JWK_URL: &str = "https://www.gstatic.com/iap/verify/public_key-jwk";
 const OAUTH2_JWK_URL: &str = "https://www.googleapis.com/oauth2/v3/certs";
 const CACHE_TTL: Duration = Duration::from_secs(3600);
 
-#[derive(Clone, Debug)]
+type JwkSet = JWKSet<biscuit::Empty>;
+
+#[derive(Clone)]
 struct CacheEntry {
-    key: DecodingKey,
+    set: JwkSet,
     expires_at: Instant,
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone)]
 pub struct JwkClient {
-    cache: Arc<RwLock<HashMap<String, CacheEntry>>>, // KeyID -> Certificate
+    cache: Arc<RwLock<HashMap<String, CacheEntry>>>, // KeyID -> JwkSet
     ttl: Duration,
 }
 
@@ -54,38 +57,35 @@ impl JwkClient {
         }
     }
 
-    pub async fn get_or_load_cert(
+    pub async fn get_or_load_jwk_set(
         &self,
         key_id: String,
         alg: Algorithm,
         jwks_url: Option<String>,
-    ) -> Result<DecodingKey> {
+    ) -> Result<JwkSet> {
         let key_id_str = key_id.as_str();
         let mut cache = self.cache.try_write().map_err(|_e| {
             CredentialsError::from_msg(false, "failed to obtain lock to read certificate cache")
         })?;
         if let Some(entry) = cache.get(key_id_str) {
             if entry.expires_at > Instant::now() {
-                return Ok(entry.key.clone());
+                return Ok(entry.set.clone());
             }
         }
 
         let jwks_url = self.resolve_jwks_url(alg, jwks_url)?;
         let jwk_set: JwkSet = self.fetch_certs(jwks_url).await?;
-        let jwk = jwk_set.find(key_id_str).ok_or_else(|| {
+        let _jwk = jwk_set.find(key_id_str).ok_or_else(|| {
             CredentialsError::from_msg(false, "JWKS did not contain a matching `kid`")
         })?;
 
-        let key = DecodingKey::from_jwk(jwk)
-            .map_err(|e| CredentialsError::new(false, "failed to parse JWK", e))?;
-
         let entry = CacheEntry {
-            key: key.clone(),
+            set: jwk_set.clone(),
             expires_at: Instant::now() + self.ttl,
         };
         cache.insert(key_id_str.to_string(), entry);
 
-        Ok(key)
+        Ok(jwk_set)
     }
 
     fn resolve_jwks_url(&self, alg: Algorithm, jwks_url: Option<String>) -> Result<String> {
@@ -131,10 +131,10 @@ impl JwkClient {
 mod tests {
     use super::*;
     use base64::Engine;
+    use biscuit::jwa::SignatureAlgorithm as Algorithm;
     use httptest::matchers::{all_of, request};
     use httptest::responders::json_encoded;
     use httptest::{Expectation, Server};
-    use jsonwebtoken::Algorithm;
     use rsa::traits::PublicKeyParts;
     use serial_test::parallel;
 
@@ -174,7 +174,7 @@ mod tests {
 
         // First call, should fetch from URL
         let _key = client
-            .get_or_load_cert(
+            .get_or_load_jwk_set(
                 TEST_KEY_ID.to_string(),
                 Algorithm::RS256,
                 Some(jwks_url.clone()),
@@ -183,7 +183,7 @@ mod tests {
 
         // Second call, should use cache
         let _key = client
-            .get_or_load_cert(TEST_KEY_ID.to_string(), Algorithm::RS256, Some(jwks_url))
+            .get_or_load_jwk_set(TEST_KEY_ID.to_string(), Algorithm::RS256, Some(jwks_url))
             .await?;
 
         Ok(())
@@ -204,7 +204,7 @@ mod tests {
         let jwks_url = format!("http://{}/certs", server.addr());
 
         let result = client
-            .get_or_load_cert("unknown-kid".to_string(), Algorithm::RS256, Some(jwks_url))
+            .get_or_load_jwk_set("unknown-kid".to_string(), Algorithm::RS256, Some(jwks_url))
             .await;
 
         assert!(result.is_err());
@@ -231,7 +231,7 @@ mod tests {
         let jwks_url = format!("http://{}/certs", server.addr());
 
         let result = client
-            .get_or_load_cert(TEST_KEY_ID.to_string(), Algorithm::RS256, Some(jwks_url))
+            .get_or_load_jwk_set(TEST_KEY_ID.to_string(), Algorithm::RS256, Some(jwks_url))
             .await;
 
         assert!(result.is_err());
@@ -290,7 +290,7 @@ mod tests {
 
         // First call, should fetch from URL and cache it.
         let _key = client
-            .get_or_load_cert(
+            .get_or_load_jwk_set(
                 TEST_KEY_ID.to_string(),
                 Algorithm::RS256,
                 Some(jwks_url.clone()),
@@ -299,7 +299,7 @@ mod tests {
 
         // Second call, should still be cached.
         let _key = client
-            .get_or_load_cert(
+            .get_or_load_jwk_set(
                 TEST_KEY_ID.to_string(),
                 Algorithm::RS256,
                 Some(jwks_url.clone()),
@@ -311,7 +311,7 @@ mod tests {
 
         // This call should fetch from URL again.
         let _key = client
-            .get_or_load_cert(TEST_KEY_ID.to_string(), Algorithm::RS256, Some(jwks_url))
+            .get_or_load_jwk_set(TEST_KEY_ID.to_string(), Algorithm::RS256, Some(jwks_url))
             .await?;
 
         Ok(())
