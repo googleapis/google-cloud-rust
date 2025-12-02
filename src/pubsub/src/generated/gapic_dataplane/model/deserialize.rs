@@ -329,3 +329,1009 @@ impl<'de> serde::de::Deserialize<'de> for super::PublishResponse {
         deserializer.deserialize_any(Visitor)
     }
 }
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ReceivedMessage {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __ack_id,
+            __message,
+            __delivery_attempt,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ReceivedMessage")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "ackId" => Ok(__FieldTag::__ack_id),
+                            "ack_id" => Ok(__FieldTag::__ack_id),
+                            "message" => Ok(__FieldTag::__message),
+                            "deliveryAttempt" => Ok(__FieldTag::__delivery_attempt),
+                            "delivery_attempt" => Ok(__FieldTag::__delivery_attempt),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ReceivedMessage;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ReceivedMessage")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__ack_id => {
+                            if !fields.insert(__FieldTag::__ack_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ack_id",
+                                ));
+                            }
+                            result.ack_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__message => {
+                            if !fields.insert(__FieldTag::__message) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for message",
+                                ));
+                            }
+                            result.message = map
+                                .next_value::<std::option::Option<crate::model::PubsubMessage>>()?;
+                        }
+                        __FieldTag::__delivery_attempt => {
+                            if !fields.insert(__FieldTag::__delivery_attempt) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for delivery_attempt",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.delivery_attempt =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ModifyAckDeadlineRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __subscription,
+            __ack_ids,
+            __ack_deadline_seconds,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ModifyAckDeadlineRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "subscription" => Ok(__FieldTag::__subscription),
+                            "ackIds" => Ok(__FieldTag::__ack_ids),
+                            "ack_ids" => Ok(__FieldTag::__ack_ids),
+                            "ackDeadlineSeconds" => Ok(__FieldTag::__ack_deadline_seconds),
+                            "ack_deadline_seconds" => Ok(__FieldTag::__ack_deadline_seconds),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ModifyAckDeadlineRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ModifyAckDeadlineRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__subscription => {
+                            if !fields.insert(__FieldTag::__subscription) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for subscription",
+                                ));
+                            }
+                            result.subscription = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ack_ids => {
+                            if !fields.insert(__FieldTag::__ack_ids) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ack_ids",
+                                ));
+                            }
+                            result.ack_ids = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__ack_deadline_seconds => {
+                            if !fields.insert(__FieldTag::__ack_deadline_seconds) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ack_deadline_seconds",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.ack_deadline_seconds =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::AcknowledgeRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __subscription,
+            __ack_ids,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AcknowledgeRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "subscription" => Ok(__FieldTag::__subscription),
+                            "ackIds" => Ok(__FieldTag::__ack_ids),
+                            "ack_ids" => Ok(__FieldTag::__ack_ids),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::AcknowledgeRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AcknowledgeRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__subscription => {
+                            if !fields.insert(__FieldTag::__subscription) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for subscription",
+                                ));
+                            }
+                            result.subscription = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ack_ids => {
+                            if !fields.insert(__FieldTag::__ack_ids) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ack_ids",
+                                ));
+                            }
+                            result.ack_ids = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::StreamingPullRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __subscription,
+            __ack_ids,
+            __modify_deadline_seconds,
+            __modify_deadline_ack_ids,
+            __stream_ack_deadline_seconds,
+            __client_id,
+            __max_outstanding_messages,
+            __max_outstanding_bytes,
+            __protocol_version,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for StreamingPullRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "subscription" => Ok(__FieldTag::__subscription),
+                            "ackIds" => Ok(__FieldTag::__ack_ids),
+                            "ack_ids" => Ok(__FieldTag::__ack_ids),
+                            "modifyDeadlineSeconds" => Ok(__FieldTag::__modify_deadline_seconds),
+                            "modify_deadline_seconds" => Ok(__FieldTag::__modify_deadline_seconds),
+                            "modifyDeadlineAckIds" => Ok(__FieldTag::__modify_deadline_ack_ids),
+                            "modify_deadline_ack_ids" => Ok(__FieldTag::__modify_deadline_ack_ids),
+                            "streamAckDeadlineSeconds" => {
+                                Ok(__FieldTag::__stream_ack_deadline_seconds)
+                            }
+                            "stream_ack_deadline_seconds" => {
+                                Ok(__FieldTag::__stream_ack_deadline_seconds)
+                            }
+                            "clientId" => Ok(__FieldTag::__client_id),
+                            "client_id" => Ok(__FieldTag::__client_id),
+                            "maxOutstandingMessages" => Ok(__FieldTag::__max_outstanding_messages),
+                            "max_outstanding_messages" => {
+                                Ok(__FieldTag::__max_outstanding_messages)
+                            }
+                            "maxOutstandingBytes" => Ok(__FieldTag::__max_outstanding_bytes),
+                            "max_outstanding_bytes" => Ok(__FieldTag::__max_outstanding_bytes),
+                            "protocolVersion" => Ok(__FieldTag::__protocol_version),
+                            "protocol_version" => Ok(__FieldTag::__protocol_version),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::StreamingPullRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct StreamingPullRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__subscription => {
+                            if !fields.insert(__FieldTag::__subscription) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for subscription",
+                                ));
+                            }
+                            result.subscription = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ack_ids => {
+                            if !fields.insert(__FieldTag::__ack_ids) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ack_ids",
+                                ));
+                            }
+                            result.ack_ids = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__modify_deadline_seconds => {
+                            if !fields.insert(__FieldTag::__modify_deadline_seconds) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for modify_deadline_seconds",
+                                ));
+                            }
+                            struct __With(std::option::Option<std::vec::Vec<i32>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.modify_deadline_seconds =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__modify_deadline_ack_ids => {
+                            if !fields.insert(__FieldTag::__modify_deadline_ack_ids) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for modify_deadline_ack_ids",
+                                ));
+                            }
+                            result.modify_deadline_ack_ids = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__stream_ack_deadline_seconds => {
+                            if !fields.insert(__FieldTag::__stream_ack_deadline_seconds) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for stream_ack_deadline_seconds",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.stream_ack_deadline_seconds =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__client_id => {
+                            if !fields.insert(__FieldTag::__client_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_id",
+                                ));
+                            }
+                            result.client_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__max_outstanding_messages => {
+                            if !fields.insert(__FieldTag::__max_outstanding_messages) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_outstanding_messages",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.max_outstanding_messages =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__max_outstanding_bytes => {
+                            if !fields.insert(__FieldTag::__max_outstanding_bytes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_outstanding_bytes",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.max_outstanding_bytes =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__protocol_version => {
+                            if !fields.insert(__FieldTag::__protocol_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for protocol_version",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.protocol_version =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::StreamingPullResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __received_messages,
+            __acknowledge_confirmation,
+            __modify_ack_deadline_confirmation,
+            __subscription_properties,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for StreamingPullResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "receivedMessages" => Ok(__FieldTag::__received_messages),
+                            "received_messages" => Ok(__FieldTag::__received_messages),
+                            "acknowledgeConfirmation" => Ok(__FieldTag::__acknowledge_confirmation),
+                            "acknowledge_confirmation" => {
+                                Ok(__FieldTag::__acknowledge_confirmation)
+                            }
+                            "modifyAckDeadlineConfirmation" => {
+                                Ok(__FieldTag::__modify_ack_deadline_confirmation)
+                            }
+                            "modify_ack_deadline_confirmation" => {
+                                Ok(__FieldTag::__modify_ack_deadline_confirmation)
+                            }
+                            "subscriptionProperties" => Ok(__FieldTag::__subscription_properties),
+                            "subscription_properties" => Ok(__FieldTag::__subscription_properties),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::StreamingPullResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct StreamingPullResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__received_messages => {
+                            if !fields.insert(__FieldTag::__received_messages) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for received_messages",
+                                ));
+                            }
+                            result.received_messages =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::ReceivedMessage>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__acknowledge_confirmation => {
+                            if !fields.insert(__FieldTag::__acknowledge_confirmation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for acknowledge_confirmation",
+                                ));
+                            }
+                            result.acknowledge_confirmation = map
+                                .next_value::<std::option::Option<
+                                    crate::model::streaming_pull_response::AcknowledgeConfirmation,
+                                >>()?;
+                        }
+                        __FieldTag::__modify_ack_deadline_confirmation => {
+                            if !fields.insert(__FieldTag::__modify_ack_deadline_confirmation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for modify_ack_deadline_confirmation",
+                                ));
+                            }
+                            result.modify_ack_deadline_confirmation = map.next_value::<std::option::Option<crate::model::streaming_pull_response::ModifyAckDeadlineConfirmation>>()?
+                                ;
+                        }
+                        __FieldTag::__subscription_properties => {
+                            if !fields.insert(__FieldTag::__subscription_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for subscription_properties",
+                                ));
+                            }
+                            result.subscription_properties = map.next_value::<std::option::Option<
+                                crate::model::streaming_pull_response::SubscriptionProperties,
+                            >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::streaming_pull_response::AcknowledgeConfirmation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __ack_ids,
+            __invalid_ack_ids,
+            __unordered_ack_ids,
+            __temporary_failed_ack_ids,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AcknowledgeConfirmation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "ackIds" => Ok(__FieldTag::__ack_ids),
+                            "ack_ids" => Ok(__FieldTag::__ack_ids),
+                            "invalidAckIds" => Ok(__FieldTag::__invalid_ack_ids),
+                            "invalid_ack_ids" => Ok(__FieldTag::__invalid_ack_ids),
+                            "unorderedAckIds" => Ok(__FieldTag::__unordered_ack_ids),
+                            "unordered_ack_ids" => Ok(__FieldTag::__unordered_ack_ids),
+                            "temporaryFailedAckIds" => Ok(__FieldTag::__temporary_failed_ack_ids),
+                            "temporary_failed_ack_ids" => {
+                                Ok(__FieldTag::__temporary_failed_ack_ids)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::streaming_pull_response::AcknowledgeConfirmation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AcknowledgeConfirmation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__ack_ids => {
+                            if !fields.insert(__FieldTag::__ack_ids) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ack_ids",
+                                ));
+                            }
+                            result.ack_ids = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__invalid_ack_ids => {
+                            if !fields.insert(__FieldTag::__invalid_ack_ids) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for invalid_ack_ids",
+                                ));
+                            }
+                            result.invalid_ack_ids = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__unordered_ack_ids => {
+                            if !fields.insert(__FieldTag::__unordered_ack_ids) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unordered_ack_ids",
+                                ));
+                            }
+                            result.unordered_ack_ids = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__temporary_failed_ack_ids => {
+                            if !fields.insert(__FieldTag::__temporary_failed_ack_ids) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for temporary_failed_ack_ids",
+                                ));
+                            }
+                            result.temporary_failed_ack_ids = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::streaming_pull_response::ModifyAckDeadlineConfirmation
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __ack_ids,
+            __invalid_ack_ids,
+            __temporary_failed_ack_ids,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ModifyAckDeadlineConfirmation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "ackIds" => Ok(__FieldTag::__ack_ids),
+                            "ack_ids" => Ok(__FieldTag::__ack_ids),
+                            "invalidAckIds" => Ok(__FieldTag::__invalid_ack_ids),
+                            "invalid_ack_ids" => Ok(__FieldTag::__invalid_ack_ids),
+                            "temporaryFailedAckIds" => Ok(__FieldTag::__temporary_failed_ack_ids),
+                            "temporary_failed_ack_ids" => {
+                                Ok(__FieldTag::__temporary_failed_ack_ids)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::streaming_pull_response::ModifyAckDeadlineConfirmation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ModifyAckDeadlineConfirmation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__ack_ids => {
+                            if !fields.insert(__FieldTag::__ack_ids) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ack_ids",
+                                ));
+                            }
+                            result.ack_ids = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__invalid_ack_ids => {
+                            if !fields.insert(__FieldTag::__invalid_ack_ids) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for invalid_ack_ids",
+                                ));
+                            }
+                            result.invalid_ack_ids = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__temporary_failed_ack_ids => {
+                            if !fields.insert(__FieldTag::__temporary_failed_ack_ids) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for temporary_failed_ack_ids",
+                                ));
+                            }
+                            result.temporary_failed_ack_ids = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::streaming_pull_response::SubscriptionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __exactly_once_delivery_enabled,
+            __message_ordering_enabled,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SubscriptionProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "exactlyOnceDeliveryEnabled" => {
+                                Ok(__FieldTag::__exactly_once_delivery_enabled)
+                            }
+                            "exactly_once_delivery_enabled" => {
+                                Ok(__FieldTag::__exactly_once_delivery_enabled)
+                            }
+                            "messageOrderingEnabled" => Ok(__FieldTag::__message_ordering_enabled),
+                            "message_ordering_enabled" => {
+                                Ok(__FieldTag::__message_ordering_enabled)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::streaming_pull_response::SubscriptionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SubscriptionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__exactly_once_delivery_enabled => {
+                            if !fields.insert(__FieldTag::__exactly_once_delivery_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for exactly_once_delivery_enabled",
+                                ));
+                            }
+                            result.exactly_once_delivery_enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__message_ordering_enabled => {
+                            if !fields.insert(__FieldTag::__message_ordering_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for message_ordering_enabled",
+                                ));
+                            }
+                            result.message_ordering_enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}

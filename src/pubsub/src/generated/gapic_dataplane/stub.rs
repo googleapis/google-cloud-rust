@@ -49,3 +49,34 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+
+/// Defines the trait used to implement [super::client::Subscriber].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::Subscriber`.  In other use-cases, application developers only
+/// use `client::Subscriber` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait Subscriber: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::Subscriber::modify_ack_deadline].
+    fn modify_ack_deadline(
+        &self,
+        _req: crate::model::ModifyAckDeadlineRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Subscriber::acknowledge].
+    fn acknowledge(
+        &self,
+        _req: crate::model::AcknowledgeRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
