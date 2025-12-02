@@ -28,7 +28,7 @@ use gaxi::prost::ToProto;
 /// # Example
 /// ```
 /// use google_cloud_storage::client::Storage;
-/// # use google_cloud_storage::builder::OpenObject;
+/// # use google_cloud_storage::builder::storage::OpenObject;
 /// async fn sample(client: &Storage) -> anyhow::Result<()> {
 ///     let builder: OpenObject = client
 ///         .open_object("projects/_/buckets/my-bucket", "my-object");
