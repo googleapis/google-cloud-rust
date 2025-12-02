@@ -87,17 +87,13 @@ where
         let retry = Arc::new(RetryRedirect::new(self.options.retry_policy.clone()));
         let backoff = self.options.backoff_policy.clone();
         let client = self.client.clone();
-        let request = BidiReadObjectRequest {
-            read_object_spec: Some((*self.spec.lock().expect("never poisoned")).clone()),
-            read_ranges: ranges,
-        };
         let options = self.options.clone();
         let spec = self.spec.clone();
         let sleep = async |backoff| tokio::time::sleep(backoff).await;
 
         // Move the copies and invoke the retry loop to call `connect_attempt()`.
         let inner = async move |_| {
-            Self::connect_attempt(client.clone(), spec.clone(), &request, &options).await
+            Self::connect_attempt(client.clone(), spec.clone(), ranges.clone(), &options).await
         };
         gax::retry_loop_internal::retry_loop(inner, sleep, true, throttler, retry, backoff).await
     }
@@ -132,9 +128,13 @@ where
     async fn connect_attempt(
         client: T,
         spec: Arc<Mutex<BidiReadObjectSpec>>,
-        request: &BidiReadObjectRequest,
+        ranges: Vec<ProtoRange>,
         options: &RequestOptions,
     ) -> Result<(BidiReadObjectResponse, Connection<T::Stream>)> {
+        let request = BidiReadObjectRequest {
+            read_object_spec: Some((*spec.lock().expect("never poisoned")).clone()),
+            read_ranges: ranges,
+        };
         let bucket_name = request
             .read_object_spec
             .as_ref()
@@ -458,14 +458,23 @@ mod tests {
     async fn start_redirect_then_error() -> Result<()> {
         let mut seq = mockall::Sequence::new();
         let mut mock = MockTestClient::new();
+        let receivers = Arc::new(Mutex::new(Vec::new()));
+        let save = receivers.clone();
         mock.expect_start()
             .times(1)
             .in_sequence(&mut seq)
-            .returning(|_, _, _, _, _, _| Ok(Err(redirect_status("r1"))));
+            .returning(move |_, _, rx, _, _, _| {
+                save.lock().expect("never poisoned").push(rx);
+                Ok(Err(redirect_status("r1")))
+            });
+        let save = receivers.clone();
         mock.expect_start()
             .times(1)
             .in_sequence(&mut seq)
-            .returning(|_, _, _, _, _, _| Err(permanent_error()));
+            .returning(move |_, _, rx, _, _, _| {
+                save.lock().expect("never poisoned").push(rx);
+                Err(permanent_error())
+            });
         let client = SharedMockClient::new(mock);
 
         let spec = BidiReadObjectSpec {
@@ -477,9 +486,39 @@ mod tests {
         let mut connector = Connector::new(spec, test_options(), client);
         let err = connector.connect(Vec::new()).await.unwrap_err();
         assert_eq!(err.status(), permanent_error().status(), "{err:?}");
-        let guard = connector.spec.lock().expect("never poisoned");
-        assert_eq!(guard.routing_token.as_deref(), Some("r1"));
-        assert_eq!(guard.read_handle, Some(redirect_handle()));
+        let got = connector.spec.lock().expect("never poisoned").clone();
+        assert_eq!(got.routing_token.as_deref(), Some("r1"));
+        assert_eq!(got.read_handle, Some(redirect_handle()));
+
+        let mut rx = receivers
+            .lock()
+            .expect("never poisoned")
+            .pop()
+            .expect("at least two receiver");
+        // We pop the receivers, so this is the second receiver. This receiver should include an spec with the redirect options.
+        let got = rx.recv().await.expect("at least one request sent");
+        let want = BidiReadObjectSpec {
+            bucket: "projects/_/buckets/test-bucket".into(),
+            object: "test-object".into(),
+            routing_token: Some("r1".to_string()),
+            read_handle: Some(redirect_handle()),
+            ..BidiReadObjectSpec::default()
+        };
+        assert_eq!(got.read_object_spec, Some(want));
+
+        let mut rx = receivers
+            .lock()
+            .expect("never poisoned")
+            .pop()
+            .expect("at least two receiver");
+        // We pop the receivers, so this is the second receiver. This receiver should include an spec with the redirect options.
+        let got = rx.recv().await.expect("at least one request sent");
+        let want = BidiReadObjectSpec {
+            bucket: "projects/_/buckets/test-bucket".into(),
+            object: "test-object".into(),
+            ..BidiReadObjectSpec::default()
+        };
+        assert_eq!(got.read_object_spec, Some(want));
 
         Ok(())
     }
