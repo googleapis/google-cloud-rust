@@ -55,7 +55,7 @@ where
     ) -> Poll<Option<Result<http_body::Frame<Self::Data>, B::Error>>> {
         let this = self.project();
         let _guard = this.span.enter();
-        let result = std::task::ready!(this.inner.poll_frame(cx));
+        let result = futures::ready!(this.inner.poll_frame(cx));
 
         match &result {
             Some(Ok(frame)) => {
@@ -240,7 +240,7 @@ where
     fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         use http_body_util::Either;
         let this = self.project();
-        let result = std::task::ready!(this.inner.poll(cx));
+        let result = futures::ready!(this.inner.poll(cx));
         Poll::Ready(result.map(|r| r.map(Either::Right)))
     }
 }
@@ -280,10 +280,10 @@ where
         let this = self.project();
         let _guard = this.span.enter();
 
-        // Note: `std::task::ready!` will immediately return `Poll::Pending` if the future is not ready.
+        // Note: `futures::ready!` will immediately return `Poll::Pending` if the future is not ready.
         // Crucially, this causes `_guard` to be dropped, which exits the span.
         // This ensures we don't hold the span open while waiting for I/O.
-        let result = std::task::ready!(this.inner.poll(cx));
+        let result = futures::ready!(this.inner.poll(cx));
 
         // If we get here, the future is ready.
         *this.completed = true;
