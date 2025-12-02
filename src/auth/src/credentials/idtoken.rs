@@ -334,12 +334,14 @@ fn instant_from_epoch_seconds(secs: u64, now: SystemTime) -> Option<Instant> {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use jsonwebtoken::{Algorithm, EncodingKey, Header};
+    use biscuit::jwa::SignatureAlgorithm as Algorithm;
+    use biscuit::jws::{RegisteredHeader, Secret};
+    use biscuit::{ClaimsSet, JWT, RegisteredClaims, SingleOrMultiple};
     use mds::Format;
     use rsa::pkcs1::EncodeRsaPrivateKey;
+    use serde::{Deserialize, Serialize};
     use serde_json::json;
     use serial_test::parallel;
-    use std::collections::HashMap;
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
     type TestResult = anyhow::Result<()>;
@@ -347,46 +349,83 @@ pub(crate) mod tests {
     const DEFAULT_TEST_TOKEN_EXPIRATION: Duration = Duration::from_secs(3600);
     pub(crate) const TEST_KEY_ID: &str = "test-key-id";
 
+    #[derive(Debug, Default)]
+    pub(crate) struct OverrideClaims {
+        pub issuer: Option<String>,
+        pub expiry: Option<i64>,
+        pub email: Option<String>,
+        pub email_verified: Option<bool>,
+    }
+
+    impl OverrideClaims {
+        fn into_registered_claims(&self, audience: String, now: SystemTime) -> RegisteredClaims {
+            let now = now.duration_since(UNIX_EPOCH).unwrap();
+            let then = now + DEFAULT_TEST_TOKEN_EXPIRATION;
+            RegisteredClaims {
+                issuer: Some(self.issuer.clone().unwrap_or("accounts.google.com".to_string())),
+                issued_at: Some((now.as_secs() as i64).into()),
+                expiry: Some(self.expiry.clone().unwrap_or(then.as_secs() as i64).into()),
+                audience: Some(SingleOrMultiple::Single(audience)),
+                ..Default::default()
+            }
+        }
+
+        fn into_extra_claims(&self) -> ExtraClaims {
+            ExtraClaims {
+                email: self.email.clone(),
+                email_verified: self.email_verified.clone(),
+            }
+        }
+    }
+
+    #[derive(Debug, Default, Serialize, Deserialize)]
+    struct ExtraClaims {
+        pub email: Option<String>,
+        pub email_verified: Option<bool>,
+    }
+
     /// Function to be used in tests to generate a fake, but valid enough, id token.
     pub(crate) fn generate_test_id_token<S: Into<String>>(audience: S) -> String {
-        generate_test_id_token_with_claims(audience, HashMap::new())
+        generate_test_id_token_with_claims(audience, OverrideClaims::default())
     }
 
     pub(crate) fn generate_test_id_token_with_claims<S: Into<String>>(
         audience: S,
-        claims_to_add: HashMap<&str, Value>,
+        claims_to_add: OverrideClaims,
     ) -> String {
         generate_test_id_token_impl(audience.into(), claims_to_add, SystemTime::now())
     }
 
     fn generate_test_id_token_impl(
         audience: String,
-        claims_to_add: HashMap<&str, Value>,
+        claims_to_add: OverrideClaims,
         now: SystemTime,
-    ) -> String {
-        let now = now.duration_since(UNIX_EPOCH).unwrap();
-        let then = now + DEFAULT_TEST_TOKEN_EXPIRATION;
+    ) -> String {       
+        let claims = ClaimsSet::<ExtraClaims> {
+            registered: claims_to_add.into_registered_claims(audience, now),
+            private: claims_to_add.into_extra_claims(),
+        };
 
-        let mut header = Header::new(Algorithm::RS256);
-        header.kid = Some(TEST_KEY_ID.to_string());
-
-        let mut claims: HashMap<&str, Value> = HashMap::new();
-        claims.insert("aud", Value::String(audience));
-        claims.insert("iss", "accounts.google.com".into());
-        claims.insert("exp", then.as_secs().into());
-        claims.insert("iat", now.as_secs().into());
-
-        for (k, v) in claims_to_add {
-            claims.insert(k, v);
-        }
+        let jwt = JWT::<ExtraClaims, biscuit::Empty>::new_decoded(
+            From::from(RegisteredHeader {
+                algorithm: Algorithm::RS256,
+                key_id: Some(TEST_KEY_ID.to_string()),
+                ..Default::default()
+            }),
+            claims,
+        );
 
         let private_cert = crate::credentials::tests::RSA_PRIVATE_KEY
             .to_pkcs1_der()
             .expect("Failed to encode private key to PKCS#1 DER");
 
-        let private_key = EncodingKey::from_rsa_der(private_cert.as_bytes());
+        let key_pair = ring::signature::RsaKeyPair::from_der(private_cert.as_bytes()).unwrap();
+        let private_key = Secret::RsaKeyPair(Arc::new(key_pair));
 
-        jsonwebtoken::encode(&header, &claims, &private_key).expect("failed to encode jwt")
+        jwt.into_encoded(&private_key)
+            .expect("failed to encode jwt")
+            .unwrap_encoded()
+            .to_string()
     }
 
     #[tokio::test(start_paused = true)]
@@ -394,7 +433,7 @@ pub(crate) mod tests {
     async fn test_parse_id_token() -> TestResult {
         let now = SystemTime::now();
         let audience = "https://example.com".to_string();
-        let id_token = generate_test_id_token_impl(audience, HashMap::new(), now);
+        let id_token = generate_test_id_token_impl(audience, OverrideClaims::default(), now);
 
         let token = parse_id_token_from_str_impl(id_token.clone(), now)?;
 

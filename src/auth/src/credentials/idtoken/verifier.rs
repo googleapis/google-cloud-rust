@@ -333,16 +333,18 @@ enum ErrorKind {
 pub(crate) mod tests {
     use super::*;
     use crate::credentials::idtoken::tests::{
-        TEST_KEY_ID, generate_test_id_token, generate_test_id_token_with_claims,
+        OverrideClaims, TEST_KEY_ID, generate_test_id_token, generate_test_id_token_with_claims
     };
     use base64::Engine;
+    use biscuit::jwa::SignatureAlgorithm as Algorithm;
+    use biscuit::jws::{RegisteredHeader, Secret};
+    use biscuit::{ClaimsSet, JWT, RegisteredClaims, SingleOrMultiple};
     use httptest::matchers::{all_of, request};
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
-    use jsonwebtoken::{Algorithm, EncodingKey, Header};
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::traits::PublicKeyParts;
-    use std::collections::HashMap;
+    use std::sync::Arc;
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
     type TestResult = anyhow::Result<()>;
@@ -448,8 +450,8 @@ pub(crate) mod tests {
         );
 
         let audience = "https://example.com";
-        let mut claims = HashMap::new();
-        claims.insert("iss", "https://wrong-issuer.com".into());
+        let mut claims = OverrideClaims::default();
+        claims.issuer = Some("https://wrong-issuer.com".into());
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
@@ -475,9 +477,9 @@ pub(crate) mod tests {
 
         let audience = "https://example.com";
         let email = "test@example.com";
-        let mut claims = HashMap::new();
-        claims.insert("email", email.into());
-        claims.insert("email_verified", true.into());
+        let mut claims = OverrideClaims::default();
+        claims.email = Some(email.into());
+        claims.email_verified = Some(true);
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
@@ -505,9 +507,9 @@ pub(crate) mod tests {
 
         let audience = "https://example.com";
         let email = "test@example.com";
-        let mut claims = HashMap::new();
-        claims.insert("email", email.into());
-        claims.insert("email_verified", true.into());
+        let mut claims = OverrideClaims::default();
+        claims.email = Some(email.into());
+        claims.email_verified = Some(true);
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
@@ -532,9 +534,9 @@ pub(crate) mod tests {
         );
 
         let audience = "https://example.com";
-        let mut claims = HashMap::new();
+        let mut claims = OverrideClaims::default();
         let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
-        claims.insert("exp", (now.as_secs() - 3600).into()); // expired 1 hour ago
+        claims.expiry = Some((now.as_secs() - 3600) as i64); // expired 1 hour ago
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
@@ -560,9 +562,9 @@ pub(crate) mod tests {
 
         let audience = "https://example.com";
         let email = "test@example.com";
-        let mut claims = HashMap::new();
-        claims.insert("email", email.into());
-        claims.insert("email_verified", false.into());
+        let mut claims = OverrideClaims::default();
+        claims.email = Some(email.into());
+        claims.email_verified = Some(false);
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
@@ -587,9 +589,9 @@ pub(crate) mod tests {
         );
 
         let audience = "https://example.com";
-        let mut claims = HashMap::new();
+        let mut claims = OverrideClaims::default();
         let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
-        claims.insert("exp", (now.as_secs() - 5).into()); // expired 5 seconds ago
+        claims.expiry = Some((now.as_secs() - 5) as i64); // expired 5 seconds ago
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
@@ -619,17 +621,24 @@ pub(crate) mod tests {
 
     #[tokio::test]
     async fn test_verify_missing_kid() -> TestResult {
-        let header = Header::new(Algorithm::RS256);
-        let claims: HashMap<&str, Value> = HashMap::new();
+        let header = RegisteredHeader {
+                algorithm: Algorithm::RS256,
+                ..Default::default()
+            };
+        let claims = ClaimsSet::<biscuit::Empty>::default();
+        let jwt = JWT::<biscuit::Empty, biscuit::Empty>::new_decoded(From::from(header),claims);
 
         let private_cert = crate::credentials::tests::RSA_PRIVATE_KEY
             .to_pkcs1_der()
             .expect("Failed to encode private key to PKCS#1 DER");
 
-        let private_key = EncodingKey::from_rsa_der(private_cert.as_bytes());
+        let key_pair = ring::signature::RsaKeyPair::from_der(private_cert.as_bytes()).unwrap();
+        let private_key = Secret::RsaKeyPair(Arc::new(key_pair));
 
-        let token =
-            jsonwebtoken::encode(&header, &claims, &private_key).expect("failed to encode jwt");
+        let token = jwt.into_encoded(&private_key)
+            .expect("failed to encode jwt")
+            .unwrap_encoded()
+            .to_string();
 
         let verifier = Builder::new(["https://example.com"]).build();
 

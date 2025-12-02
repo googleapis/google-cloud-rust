@@ -1503,6 +1503,7 @@ dependencies = [
  "mutants",
  "regex",
  "reqwest",
+ "ring",
  "rsa",
  "rustc_version",
  "rustls",
