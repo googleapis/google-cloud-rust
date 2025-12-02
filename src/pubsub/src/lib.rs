@@ -41,6 +41,7 @@
 //! [pub/sub]: https://cloud.google.com/pubsub
 //! [gcloud-pubsub]: https://crates.io/crates/gcloud-pubsub
 
+#[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
 
 pub(crate) mod publisher;
@@ -66,7 +67,6 @@ pub mod builder {
     pub use crate::generated::gapic::builder::topic_admin;
     // TODO(#3959) - remove internal types from the public API.
     #[doc(hidden)]
-    #[allow(rustdoc::broken_intra_doc_links)]
     pub use crate::generated::gapic_dataplane::builder::subscriber;
 }
 
