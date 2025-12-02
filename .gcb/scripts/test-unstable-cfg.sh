@@ -22,7 +22,8 @@ cargo version
 rustup show active-toolchain -v
 
 set -e
-echo "RUSTFLAGS in test-unstable-cfg: $RUSTFLAGS"
+echo "RUSTFLAGS in test-unstable-cfg: ${RUSTFLAGS:-}"
+echo "RUSTDOCFLAGS in test-unstable-cfg: ${RUSTDOCFLAGS:-}"
 
 # Key crates
 crates=(
