@@ -43,7 +43,7 @@ steps:
       wget https://go.dev/dl/go1.25.1.linux-amd64.tar.gz
       tar -C /usr/local -xzf ./go1.25.1.linux-amd64.tar.gz
       export PATH=$PATH:/usr/local/go/bin
-      cargo install --locked cargo-workspaces
+      cargo install --locked cargo-workspaces --version 0.4.1
       go run ./tools/cmd/docfx -project-root . -staging-bucket ${STAGING_BUCKET}
 substitutions:
   _SCCACHE_VERSION: 'v0.12.0'
