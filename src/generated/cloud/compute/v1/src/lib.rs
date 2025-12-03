@@ -18,14 +18,18 @@
 //!
 //! This client library was generated from the "20251031" revision of the API.
 //!
+//!
+//!
 //! This crate contains traits, types, and functions to interact with Google Compute Engine API
 //! Most applications will use the structs defined in the [client] module.
+//!
 //!
 //! The client library types and functions are stable and not expected to change.
 //! Please note that Google Cloud services do change from time to time. The client
 //! libraries are designed to preserve backwards compatibility when the service
 //! changes in compatible ways. For example, adding RPCs, or fields to messages
 //! should not introduce breaking changes to the client libraries.
+//!
 //!
 //! # Available Clients
 //!
@@ -404,6 +408,17 @@ pub(crate) mod info {
                 library_type:  gaxi::api_header::GAPIC,
             };
             ac.rest_header_value()
+        };
+    }
+    #[cfg(google_cloud_unstable_tracing)]
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "compute";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "compute";
+            info
         };
     }
 }

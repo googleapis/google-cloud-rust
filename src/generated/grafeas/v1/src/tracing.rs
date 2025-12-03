@@ -37,6 +37,36 @@ impl<T> super::stub::Grafeas for Grafeas<T>
 where
     T: super::stub::Grafeas + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_occurrence(
+        &self,
+        req: crate::model::GetOccurrenceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Occurrence>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Grafeas",
+            "::get_occurrence"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_occurrence",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .get_occurrence(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_occurrence(
         &self,
@@ -45,7 +75,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Occurrence>> {
         self.inner.get_occurrence(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_occurrences(
+        &self,
+        req: crate::model::ListOccurrencesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListOccurrencesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Grafeas",
+            "::list_occurrences"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_occurrences",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_occurrences(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_occurrences(
         &self,
@@ -54,7 +113,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListOccurrencesResponse>> {
         self.inner.list_occurrences(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_occurrence(
+        &self,
+        req: crate::model::DeleteOccurrenceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Grafeas",
+            "::delete_occurrence"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_occurrence",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_occurrence(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_occurrence(
         &self,
@@ -63,7 +151,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_occurrence(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_occurrence(
+        &self,
+        req: crate::model::CreateOccurrenceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Occurrence>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Grafeas",
+            "::create_occurrence"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_occurrence",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_occurrence(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_occurrence(
         &self,
@@ -72,7 +189,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Occurrence>> {
         self.inner.create_occurrence(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn batch_create_occurrences(
+        &self,
+        req: crate::model::BatchCreateOccurrencesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::BatchCreateOccurrencesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Grafeas",
+            "::batch_create_occurrences"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "batch_create_occurrences",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .batch_create_occurrences(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn batch_create_occurrences(
         &self,
@@ -81,7 +227,36 @@ where
     ) -> Result<gax::response::Response<crate::model::BatchCreateOccurrencesResponse>> {
         self.inner.batch_create_occurrences(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_occurrence(
+        &self,
+        req: crate::model::UpdateOccurrenceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Occurrence>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Grafeas",
+            "::update_occurrence"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_occurrence",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_occurrence(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_occurrence(
         &self,
@@ -90,7 +265,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Occurrence>> {
         self.inner.update_occurrence(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_occurrence_note(
+        &self,
+        req: crate::model::GetOccurrenceNoteRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Note>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Grafeas",
+            "::get_occurrence_note"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_occurrence_note",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_occurrence_note(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_occurrence_note(
         &self,
@@ -99,7 +303,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Note>> {
         self.inner.get_occurrence_note(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_note(
+        &self,
+        req: crate::model::GetNoteRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Note>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Grafeas",
+            "::get_note"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_note",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_note(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_note(
         &self,
@@ -108,7 +341,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Note>> {
         self.inner.get_note(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_notes(
+        &self,
+        req: crate::model::ListNotesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListNotesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Grafeas",
+            "::list_notes"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_notes",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_notes(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_notes(
         &self,
@@ -117,7 +379,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListNotesResponse>> {
         self.inner.list_notes(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_note(
+        &self,
+        req: crate::model::DeleteNoteRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Grafeas",
+            "::delete_note"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_note",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_note(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_note(
         &self,
@@ -126,7 +417,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_note(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_note(
+        &self,
+        req: crate::model::CreateNoteRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Note>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Grafeas",
+            "::create_note"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_note",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_note(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_note(
         &self,
@@ -135,7 +455,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Note>> {
         self.inner.create_note(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn batch_create_notes(
+        &self,
+        req: crate::model::BatchCreateNotesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::BatchCreateNotesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Grafeas",
+            "::batch_create_notes"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "batch_create_notes",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .batch_create_notes(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn batch_create_notes(
         &self,
@@ -144,7 +493,36 @@ where
     ) -> Result<gax::response::Response<crate::model::BatchCreateNotesResponse>> {
         self.inner.batch_create_notes(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_note(
+        &self,
+        req: crate::model::UpdateNoteRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Note>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Grafeas",
+            "::update_note"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_note",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_note(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_note(
         &self,
@@ -153,7 +531,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Note>> {
         self.inner.update_note(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_note_occurrences(
+        &self,
+        req: crate::model::ListNoteOccurrencesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListNoteOccurrencesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Grafeas",
+            "::list_note_occurrences"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_note_occurrences",
+            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_note_occurrences(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_note_occurrences(
         &self,

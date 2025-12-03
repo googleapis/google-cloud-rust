@@ -16,6 +16,8 @@
 
 //! Google Cloud Client Libraries for Rust - Cloud Text-to-Speech API
 //!
+//!
+//!
 //! **WARNING:** some RPCs have no corresponding Rust function to call them.
 //! Typically these are streaming RPCs. We expect adding these RPCs in a
 //! way that does not break the existing APIs or changes their behavior in a
@@ -23,14 +25,17 @@
 //! will be required. If you need these RPCs please open an issue in our
 //! GitHub repository.
 //!
+//!
 //! This crate contains traits, types, and functions to interact with Cloud Text-to-Speech API
 //! Most applications will use the structs defined in the [client] module.
+//!
 //!
 //! The client library types and functions are stable and not expected to change.
 //! Please note that Google Cloud services do change from time to time. The client
 //! libraries are designed to preserve backwards compatibility when the service
 //! changes in compatible ways. For example, adding RPCs, or fields to messages
 //! should not introduce breaking changes to the client libraries.
+//!
 //!
 //! # Available Clients
 //!
@@ -76,6 +81,17 @@ pub(crate) mod info {
                 library_type:  gaxi::api_header::GAPIC,
             };
             ac.rest_header_value()
+        };
+    }
+    #[cfg(google_cloud_unstable_tracing)]
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "texttospeech";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "texttospeech";
+            info
         };
     }
 }

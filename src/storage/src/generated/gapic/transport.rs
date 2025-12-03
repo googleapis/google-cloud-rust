@@ -20,7 +20,7 @@ use gax::error::Error;
 
 const DEFAULT_HOST: &str = "https://storage.googleapis.com";
 
-mod info {
+pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
     lazy_static::lazy_static! {
@@ -31,6 +31,17 @@ mod info {
                 library_type:  gaxi::api_header::GAPIC,
             };
             ac.grpc_header_value()
+        };
+    }
+    #[cfg(google_cloud_unstable_tracing)]
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "storage";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "storage";
+            info
         };
     }
 }
@@ -51,6 +62,20 @@ impl std::fmt::Debug for StorageControl {
 
 impl StorageControl {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_enabled = gaxi::options::tracing_enabled(&config);
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_enabled {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                DEFAULT_HOST,
+                &info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, DEFAULT_HOST).await?
+        };
+        #[cfg(not(google_cloud_unstable_tracing))]
         let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
