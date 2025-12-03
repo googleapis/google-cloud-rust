@@ -601,11 +601,14 @@ fn build_signer_from_json(json: Value) -> BuildResult<Option<crate::signer::Sign
         let service_account_key =
             serde_json::from_value::<ServiceAccountKey>(config.source_credentials)
                 .map_err(BuilderError::parsing)?;
-        let signer = ServiceAccountSigner::from_impersonated_service_account(
+        let signing_provider = ServiceAccountSigner::from_impersonated_service_account(
             service_account_key,
             client_email,
         );
-        return Ok(Some(signer.into()));
+        let signer = crate::signer::Signer {
+            inner: Arc::new(signing_provider),
+        };
+        return Ok(Some(signer));
     }
     Ok(None)
 }

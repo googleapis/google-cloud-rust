@@ -44,7 +44,7 @@ const PATH_ENCODE_SET: AsciiSet = AsciiSet::EMPTY
 /// A builder for creating signed URLs.
 #[derive(Debug)]
 pub struct SignedUrlBuilder {
-    scope: SigningScope<String, String>,
+    scope: SigningScope,
     method: http::Method,
     expiration: std::time::Duration,
     headers: BTreeMap<String, String>,
@@ -70,16 +70,12 @@ impl Default for UrlStyle {
 }
 
 #[derive(Debug)]
-pub enum SigningScope<B, O>
-where
-    B: Into<String>,
-    O: Into<String>,
-{
-    Bucket(B),
-    Object(B, O),
+enum SigningScope {
+    Bucket(String),
+    Object(String, String),
 }
 
-impl SigningScope<String, String> {
+impl SigningScope {
     fn bucket_name(&self) -> String {
         let bucket = match self {
             SigningScope::Bucket(bucket) => bucket,
@@ -147,18 +143,9 @@ impl SigningScope<String, String> {
 }
 
 impl SignedUrlBuilder {
-    fn new<B, O>(scope: SigningScope<B, O>) -> Self
-    where
-        B: Into<String>,
-        O: Into<String>,
-    {
+    fn new(scope: SigningScope) -> Self {
         Self {
-            scope: match scope {
-                SigningScope::Bucket(bucket) => SigningScope::Bucket(bucket.into()),
-                SigningScope::Object(bucket, object) => {
-                    SigningScope::Object(bucket.into(), object.into())
-                }
-            },
+            scope,
             method: http::Method::GET,
             expiration: std::time::Duration::from_secs(7 * 24 * 60 * 60), // 7 days
             headers: BTreeMap::new(),
@@ -176,14 +163,14 @@ impl SignedUrlBuilder {
         B: Into<String>,
         O: Into<String>,
     {
-        Self::new(SigningScope::Object(bucket, object))
+        Self::new(SigningScope::Object(bucket.into(), object.into()))
     }
 
     pub fn for_bucket<B>(bucket: B) -> Self
     where
         B: Into<String>,
     {
-        Self::new(SigningScope::Bucket(bucket))
+        Self::new(SigningScope::Bucket(bucket.into()))
     }
 
     #[cfg(test)]
@@ -409,24 +396,26 @@ mod tests {
 
     type TestResult = anyhow::Result<()>;
 
-    #[derive(Debug)]
-    struct MockSigner;
+    mockall::mock! {
+        #[derive(Debug)]
+        Signer {}
 
-    #[async_trait::async_trait]
-    impl SigningProvider for MockSigner {
-        async fn client_email(&self) -> auth::signer::Result<String> {
-            Ok("test@example.com".to_string())
-        }
-
-        async fn sign(&self, _content: &[u8]) -> auth::signer::Result<String> {
-            Ok("test-signature".to_string())
+        impl SigningProvider for Signer {
+            async fn client_email(&self) -> auth::signer::Result<String>;
+            async fn sign(&self, _content: &[u8]) -> auth::signer::Result<String>;
         }
     }
 
     #[tokio::test]
     async fn test_signed_url_generation() -> TestResult {
-        let signer = Signer::from(MockSigner);
-        let url = SignedUrlBuilder::new(SigningScope::Object("test-bucket", "test-object"))
+        let mut mock = MockSigner::new();
+        mock.expect_client_email()
+            .return_once(|| Ok("test@example.com".to_string()));
+        mock.expect_sign()
+            .return_once(|_content| Ok("test-signature".to_string()));
+
+        let signer = Signer::from(mock);
+        let url = SignedUrlBuilder::for_object("test-bucket", "test-object")
             .with_method(http::Method::PUT)
             .with_expiration(std::time::Duration::from_secs(3600))
             .with_header("x-goog-meta-test", "value")
@@ -444,16 +433,19 @@ mod tests {
 
     #[tokio::test]
     async fn test_signed_url_generation_escaping() -> TestResult {
-        let signer: Signer = Signer::from(MockSigner);
-        let url = SignedUrlBuilder::new(SigningScope::Object(
-            "test-bucket",
-            "folder/test object.txt",
-        ))
-        .with_method(http::Method::PUT)
-        .with_header("content-type", "text/plain")
-        .sign_with(&signer)
-        .await
-        .unwrap();
+        let mut mock = MockSigner::new();
+        mock.expect_client_email()
+            .return_once(|| Ok("test@example.com".to_string()));
+        mock.expect_sign()
+            .return_once(|_content| Ok("test-signature".to_string()));
+
+        let signer = Signer::from(mock);
+        let url = SignedUrlBuilder::for_object("test-bucket", "folder/test object.txt")
+            .with_method(http::Method::PUT)
+            .with_header("content-type", "text/plain")
+            .sign_with(&signer)
+            .await
+            .unwrap();
 
         assert!(
             url.starts_with("https://storage.googleapis.com/test-bucket/folder/test%20object.txt?")
@@ -465,19 +457,14 @@ mod tests {
 
     #[tokio::test]
     async fn test_signed_url_error_signing() -> TestResult {
-        #[derive(Debug)]
-        struct FailSigner;
-        #[async_trait::async_trait]
-        impl SigningProvider for FailSigner {
-            async fn client_email(&self) -> auth::signer::Result<String> {
-                Ok("test@example.com".to_string())
-            }
-            async fn sign(&self, _content: &[u8]) -> auth::signer::Result<String> {
-                Err(auth::signer::SigningError::from_msg("test".to_string()))
-            }
-        }
-        let signer = Signer::from(FailSigner);
-        let err = SignedUrlBuilder::new(SigningScope::Object("b", "o"))
+        let mut mock = MockSigner::new();
+        mock.expect_client_email()
+            .return_once(|| Ok("test@example.com".to_string()));
+        mock.expect_sign()
+            .return_once(|_content| Err(auth::signer::SigningError::from_msg("test".to_string())));
+
+        let signer = Signer::from(mock);
+        let err = SignedUrlBuilder::for_object("b", "o")
             .sign_with(&signer)
             .await
             .unwrap_err();
@@ -492,8 +479,14 @@ mod tests {
 
     #[tokio::test]
     async fn test_signed_url_error_endpoint() -> TestResult {
-        let signer: Signer = Signer::from(MockSigner);
-        let err = SignedUrlBuilder::new(SigningScope::Object("b", "o"))
+        let mut mock = MockSigner::new();
+        mock.expect_client_email()
+            .return_once(|| Ok("test@example.com".to_string()));
+        mock.expect_sign()
+            .return_once(|_content| Ok("test-signature".to_string()));
+
+        let signer = Signer::from(mock);
+        let err = SignedUrlBuilder::for_object("b", "o")
             .with_endpoint("invalid url")
             .sign_with(&signer)
             .await

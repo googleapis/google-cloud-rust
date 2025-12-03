@@ -1,4 +1,4 @@
-// Copyright 2024 Google LLC
+// Copyright 2025 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::credentials::service_account::ServiceAccountKey;
-use crate::signer::{Result, SigningError, SigningProvider};
+use crate::signer::{Result, SigningError, dynamic::SigningProvider};
 
 // Implements a local Signer using Service Account private key.
 #[derive(Clone, Debug)]

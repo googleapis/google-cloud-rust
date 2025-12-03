@@ -1,4 +1,4 @@
-// Copyright 2024 Google LLC
+// Copyright 2025 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -83,7 +83,7 @@ struct SignBlobResponse {
 }
 
 #[async_trait::async_trait]
-impl SigningProvider for CredentialsSigner {
+impl dynamic::SigningProvider for CredentialsSigner {
     async fn client_email(&self) -> Result<String> {
         Ok(self.client_email.clone())
     }
@@ -143,18 +143,17 @@ impl SigningProvider for CredentialsSigner {
 }
 
 /// A trait for types that can sign content.
-#[async_trait::async_trait]
-pub trait SigningProvider: Send + Sync + std::fmt::Debug {
+pub trait SigningProvider: std::fmt::Debug {
     /// Returns the email address of the authorizer.
     ///
     /// It is typically the Google service account client email address from the Google Developers Console
     /// in the form of "xxx@developer.gserviceaccount.com". Required.
-    async fn client_email(&self) -> Result<String>;
+    fn client_email(&self) -> impl Future<Output = Result<String>> + Send;
 
     /// Signs the content.
     ///
     /// Returns the signature.
-    async fn sign(&self, content: &[u8]) -> Result<String>;
+    fn sign(&self, content: &[u8]) -> impl Future<Output = Result<String>> + Send;
 }
 
 pub(crate) mod dynamic {

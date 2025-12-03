@@ -1,4 +1,4 @@
-// Copyright 2024 Google LLC
+// Copyright 2025 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 
 use crate::credentials::Credentials;
 use crate::credentials::mds::{MDS_DEFAULT_URI, METADATA_FLAVOR, METADATA_FLAVOR_VALUE};
-use crate::signer::{Result, SigningError, SigningProvider};
+use crate::signer::{Result, SigningError, dynamic::SigningProvider};
 use http::HeaderValue;
 use reqwest::Client;
 use std::sync::Arc;
