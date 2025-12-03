@@ -89,7 +89,7 @@ mod telemetry {
         );
 
         // 4. Force flush to ensure spans are sent.
-        let _ = provider.force_flush();
+        provider.force_flush()?;
 
         // 5. Verify (Poll Cloud Trace API)
         let client = TraceService::builder().build().await?;

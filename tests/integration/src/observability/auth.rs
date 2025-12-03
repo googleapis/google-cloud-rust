@@ -68,10 +68,9 @@ impl Interceptor for CloudTelemetryAuthInterceptor {
         // Read the latest headers from the watch channel.
         let rx_ref = self.rx.borrow();
         let metadata = rx_ref.as_ref().ok_or_else(|| {
-            // If the first refresh hasn't completed yet, fail the request.
-            // The OTLP exporter is expected to handle this transient failure
-            // with its built-in retry mechanism.
-            Status::unauthenticated("GCP credentials not yet available")
+            // This should only happen if the initialization failed (e.g. bad credentials)
+            // and the refresh task exited.
+            Status::unauthenticated("GCP credentials unavailable (initialization failed)")
         })?;
 
         for entry in metadata.iter() {
@@ -127,8 +126,13 @@ async fn refresh_task(credentials: Credentials, tx: watch::Sender<Option<Metadat
                 sleep(REFRESH_INTERVAL).await;
             }
             Err(e) => {
-                tracing::warn!("Failed to refresh GCP credentials: {e:?}");
-                sleep(ERROR_RETRY_DELAY).await;
+                if e.is_transient() {
+                    tracing::warn!("Failed to refresh GCP credentials: {e:?}");
+                    sleep(ERROR_RETRY_DELAY).await;
+                } else {
+                    tracing::error!("Failed to refresh GCP credentials (non-retryable): {e:?}");
+                    break;
+                }
             }
         }
     }
