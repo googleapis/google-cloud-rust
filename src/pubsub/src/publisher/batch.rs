@@ -163,7 +163,7 @@ mod tests {
         use std::collections::HashMap;
 
         let topic = "topic";
-        let mut batch: Batch = Batch::new(&topic);
+        let mut batch: Batch = Batch::new(topic);
         let mut expected_encoded_len = topic.len();
         assert_eq!(batch.size(), expected_encoded_len as u32);
 
