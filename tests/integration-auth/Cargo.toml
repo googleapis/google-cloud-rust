@@ -34,7 +34,7 @@ test-case.workspace  = true
 base64.workspace     = true
 reqwest.workspace    = true
 # Local dependencies
-auth.workspace           = true
+auth                     = { workspace = true, features = ["idtoken"] }
 gax.workspace            = true
 language.workspace       = true
 secretmanager.workspace  = true
