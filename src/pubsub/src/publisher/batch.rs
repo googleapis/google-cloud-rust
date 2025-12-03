@@ -215,6 +215,6 @@ mod tests {
         tokio::sync::oneshot::Receiver<crate::Result<String>>,
     ) {
         let (tx, rx) = tokio::sync::oneshot::channel();
-        (BundledMessage { tx, msg: msg }, rx)
+        (BundledMessage { tx, msg }, rx)
     }
 }
