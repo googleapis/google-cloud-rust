@@ -140,7 +140,7 @@ fn prep(is_local: bool) -> Result<()> {
                 }) {
                     println!("Found unpublished crate: {} v{}", name, version);
                     patched.push(name);
-                    patch_content.push_str(&format!(r#"{} = {{ path = "{}" }}\n"#, name, path));
+                    patch_content.push_str(&format!("{} = {{ path = \"{}\" }}\n", name, path));
                 }
             }
             Err(e) => {

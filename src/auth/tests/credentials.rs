@@ -772,6 +772,7 @@ mod tests {
         Ok(())
     }
 
+    #[cfg(all(test, feature = "idtoken"))]
     #[tokio::test]
     #[serial]
     async fn create_id_token_credentials_fallback_to_mds() -> TestResult {
@@ -787,6 +788,7 @@ mod tests {
         Ok(())
     }
 
+    #[cfg(all(test, feature = "idtoken"))]
     #[tokio::test]
     #[serial]
     async fn create_id_token_credentials_adc_service_account() -> TestResult {
@@ -809,6 +811,7 @@ mod tests {
         Ok(())
     }
 
+    #[cfg(all(test, feature = "idtoken"))]
     #[tokio::test]
     #[serial]
     async fn create_id_token_credentials_adc_impersonated_service_account() -> TestResult {
@@ -835,6 +838,7 @@ mod tests {
         Ok(())
     }
 
+    #[cfg(all(test, feature = "idtoken"))]
     #[tokio::test]
     #[serial]
     async fn create_id_token_credentials_adc_user_account_not_supported() -> TestResult {

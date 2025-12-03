@@ -15,4 +15,5 @@
 #[allow(dead_code)]
 pub mod sts_exchange;
 
+#[cfg(feature = "idtoken")]
 pub mod jwk_client;

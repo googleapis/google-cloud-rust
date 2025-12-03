@@ -116,3 +116,193 @@ pub mod publisher {
         }
     }
 }
+
+pub mod subscriber {
+    use crate::Result;
+
+    /// Common implementation for [crate::client::Subscriber] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        request: R,
+        options: gax::options::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: gax::options::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [Subscriber::modify_ack_deadline][crate::client::Subscriber::modify_ack_deadline] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_pubsub::builder;
+    /// use builder::subscriber::ModifyAckDeadline;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ModifyAckDeadline {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ModifyAckDeadline(RequestBuilder<crate::model::ModifyAckDeadlineRequest>);
+
+    impl ModifyAckDeadline {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ModifyAckDeadlineRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .modify_ack_deadline(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [subscription][crate::model::ModifyAckDeadlineRequest::subscription].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_subscription<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.subscription = v.into();
+            self
+        }
+
+        /// Sets the value of [ack_ids][crate::model::ModifyAckDeadlineRequest::ack_ids].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_ack_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.ack_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [ack_deadline_seconds][crate::model::ModifyAckDeadlineRequest::ack_deadline_seconds].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_ack_deadline_seconds<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.ack_deadline_seconds = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ModifyAckDeadline {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Subscriber::acknowledge][crate::client::Subscriber::acknowledge] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_pubsub::builder;
+    /// use builder::subscriber::Acknowledge;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Acknowledge {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Acknowledge(RequestBuilder<crate::model::AcknowledgeRequest>);
+
+    impl Acknowledge {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::AcknowledgeRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .acknowledge(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [subscription][crate::model::AcknowledgeRequest::subscription].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_subscription<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.subscription = v.into();
+            self
+        }
+
+        /// Sets the value of [ack_ids][crate::model::AcknowledgeRequest::ack_ids].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_ack_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.ack_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Acknowledge {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
