@@ -52,14 +52,10 @@ impl Batch {
         // This is only an estimate and not the wire length.
         // TODO(#3963): If we move on to use protobuf crate, then it may be
         // possible to use compute_size to find the wire length.
-        let mut size = 0;
-        size += msg.data.len();
-        size += msg.ordering_key.len();
-        size += msg
+        msg
             .attributes
             .iter()
-            .fold(0, |acc, (k, v)| acc + k.len() + v.len());
-        size
+            .fold(msg.data.len() + msg.ordering_key.len(), |acc, (k, v)| acc + k.len() + v.len())
     }
 
     /// Drains the batch and spawns a task to send the messages.
