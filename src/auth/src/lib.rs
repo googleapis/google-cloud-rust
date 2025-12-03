@@ -59,4 +59,5 @@ pub(crate) mod retry;
 pub(crate) mod headers_util;
 
 #[cfg(google_cloud_unstable_signed_url)]
+#[allow(dead_code)]
 pub mod signer;
