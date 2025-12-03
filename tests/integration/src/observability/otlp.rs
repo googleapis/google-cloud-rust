@@ -173,7 +173,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_builder_configuration() {
-        let credentials = auth::credentials::testing::error_credentials(true);
+        let credentials = auth::credentials::testing::error_credentials(false);
         let project_id = "builder-project-id";
         let service_name = "builder-service-name";
         let endpoint = "https://custom-endpoint.example.com";
