@@ -55,11 +55,10 @@ impl LeaseState {
         }
     }
 
-    /// Flush pending acks/nacks and extend leases
+    /// Flush pending acks/nacks
     async fn flush(&mut self) {
         let _to_ack = std::mem::take(&mut self.to_ack);
         let _to_nack = std::mem::take(&mut self.to_nack);
-        let _under_lease: Vec<String> = self.under_lease.iter().cloned().collect();
     }
 }
 
