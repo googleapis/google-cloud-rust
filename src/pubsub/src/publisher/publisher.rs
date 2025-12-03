@@ -172,6 +172,24 @@ impl PublisherBuilder {
         self
     }
 
+    /// Sets the byte threshold for batching in a single `Publish` call.
+    /// When this many bytes are accumulated, the batch is sent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::Client;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # let client = Client::builder().build().await?;
+    /// let publisher = client.publisher("projects/my-project/topics/my-topic")
+    ///     .set_byte_threshold(100)
+    ///     .build();
+    /// # Ok(()) }
+    /// ```
+    pub fn set_byte_threshold(mut self, threshold: u32) -> PublisherBuilder {
+        self.batching_options = self.batching_options.set_byte_threshold(threshold);
+        self
+    }
+
     /// Sets the maximum amount of time the publisher will wait before sending a
     /// batch. When this delay is reached, the current batch is sent, regardless
     /// of the number of messages or total byte size.
@@ -465,7 +483,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_batching_message_count_success() {
+    async fn test_batching_send_on_message_count_threshold_success() {
         // Make sure all messages in a batch receive the correct message ID.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().return_once({
@@ -485,6 +503,7 @@ mod tests {
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(2_u32)
+            .set_byte_threshold(MAX_BYTES)
             .set_delay_threshold(std::time::Duration::MAX)
             .build();
 
@@ -506,7 +525,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_batching_message_count_error() {
+    async fn test_batching_send_on_message_count_threshold_error() {
         // Make sure all messages in a batch receive an error.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().return_once({
@@ -520,6 +539,7 @@ mod tests {
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(2_u32)
+            .set_byte_threshold(MAX_BYTES)
             .set_delay_threshold(std::time::Duration::MAX)
             .build();
 
@@ -539,8 +559,52 @@ mod tests {
         }
     }
 
+    #[tokio::test]
+    async fn test_batching_send_on_byte_threshold() {
+        // Make sure all messages in a batch receive the correct message ID.
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish().return_once({
+            |r, _| {
+                assert_eq!(r.topic, "my-topic");
+                assert_eq!(r.messages.len(), 2);
+                let ids = r
+                    .messages
+                    .iter()
+                    .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
+                Ok(gax::response::Response::from(
+                    PublishResponse::new().set_message_ids(ids),
+                ))
+            }
+        });
+
+        let client = GapicPublisher::from_stub(mock);
+        // Ensure that the first message does not pass the threshold.
+        let byte_threshold = "my-topic".len() + "hello".len() + 1;
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+            .set_message_count_threshold(MAX_MESSAGES)
+            .set_byte_threshold(byte_threshold as u32)
+            .set_delay_threshold(std::time::Duration::MAX)
+            .build();
+
+        let messages = vec![
+            PubsubMessage::new().set_data("hello".to_string()),
+            PubsubMessage::new().set_data("world".to_string()),
+        ];
+        let mut handles = Vec::new();
+        for msg in messages {
+            let handle = publisher.publish(msg.clone());
+            handles.push((msg, handle));
+        }
+
+        for (id, rx) in handles.into_iter() {
+            let got = rx.await.expect("expected message id");
+            let id = String::from_utf8(id.data.to_vec()).unwrap();
+            assert_eq!(got, id);
+        }
+    }
+
     #[tokio::test(start_paused = true)]
-    async fn test_batching_messages_send_on_timeout() {
+    async fn test_batching_send_on_delay_threshold() {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().returning({
             |r, _| {
@@ -559,6 +623,7 @@ mod tests {
         let delay = std::time::Duration::from_millis(10);
         let publisher = PublisherBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(u32::MAX)
+            .set_byte_threshold(MAX_BYTES)
             .set_delay_threshold(delay)
             .build();
 
@@ -633,21 +698,25 @@ mod tests {
             .publisher("projects/my-project/topics/my-topic".to_string())
             .set_delay_threshold(oversized_options.delay_threshold)
             .set_message_count_threshold(oversized_options.message_count_threshold)
+            .set_byte_threshold(oversized_options.byte_threshold)
             .build();
         let got = publisher.batching_options;
 
         assert_eq!(got.delay_threshold, MAX_DELAY);
         assert_eq!(got.message_count_threshold, MAX_MESSAGES);
+        assert_eq!(got.byte_threshold, MAX_BYTES);
 
         // Test values that are within limits and should not be changed.
         let normal_options = BatchingOptions::new()
             .set_delay_threshold(Duration::from_secs(10))
-            .set_message_count_threshold(10_u32);
+            .set_message_count_threshold(10_u32)
+            .set_byte_threshold(100_u32);
 
         let publisher = client
             .publisher("projects/my-project/topics/my-topic".to_string())
             .set_delay_threshold(normal_options.delay_threshold)
             .set_message_count_threshold(normal_options.message_count_threshold)
+            .set_byte_threshold(normal_options.byte_threshold)
             .build();
         let got = publisher.batching_options;
 
@@ -656,6 +725,7 @@ mod tests {
             got.message_count_threshold,
             normal_options.message_count_threshold
         );
+        assert_eq!(got.byte_threshold, normal_options.byte_threshold);
 
         Ok(())
     }
