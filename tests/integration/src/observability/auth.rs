@@ -50,9 +50,15 @@ pub struct CloudTelemetryAuthInterceptor {
 impl CloudTelemetryAuthInterceptor {
     /// Creates a new `CloudTelemetryAuthInterceptor` and starts a background task to keep
     /// credentials refreshed.
-    pub fn new(credentials: Credentials) -> Self {
-        let (tx, rx) = watch::channel(None);
+    pub async fn new(credentials: Credentials) -> Self {
+        let (tx, mut rx) = watch::channel(None);
         tokio::spawn(refresh_task(credentials, tx));
+
+        // Wait for the first refresh to complete.
+        // We ignore the result because if the sender is dropped (unlikely),
+        // the interceptor will just fail requests, which is the correct behavior.
+        let _ = rx.changed().await;
+
         Self { rx }
     }
 }
@@ -62,10 +68,9 @@ impl Interceptor for CloudTelemetryAuthInterceptor {
         // Read the latest headers from the watch channel.
         let rx_ref = self.rx.borrow();
         let metadata = rx_ref.as_ref().ok_or_else(|| {
-            // If the first refresh hasn't completed yet, fail the request.
-            // The OTLP exporter is expected to handle this transient failure
-            // with its built-in retry mechanism.
-            Status::unauthenticated("GCP credentials not yet available")
+            // This should only happen if the initialization failed (e.g. bad credentials)
+            // and the refresh task exited.
+            Status::unauthenticated("GCP credentials unavailable (initialization failed)")
         })?;
 
         for entry in metadata.iter() {
@@ -121,8 +126,13 @@ async fn refresh_task(credentials: Credentials, tx: watch::Sender<Option<Metadat
                 sleep(REFRESH_INTERVAL).await;
             }
             Err(e) => {
-                tracing::warn!("Failed to refresh GCP credentials: {e:?}");
-                sleep(ERROR_RETRY_DELAY).await;
+                if e.is_transient() {
+                    tracing::warn!("Failed to refresh GCP credentials: {e:?}");
+                    sleep(ERROR_RETRY_DELAY).await;
+                } else {
+                    tracing::error!("Failed to refresh GCP credentials (non-retryable): {e:?}");
+                    break;
+                }
             }
         }
     }
@@ -139,6 +149,12 @@ mod tests {
     #[tokio::test]
     async fn test_interceptor_injects_headers() {
         let (tx, rx) = watch::channel(None);
+        // Manually construct because new() spawns a task we don't want here,
+        // or we could just use new() and let it spawn.
+        // But since we want to control the channel, we construct manually as before.
+        // Wait, the previous test code manually constructed it:
+        // let mut interceptor = CloudTelemetryAuthInterceptor { rx };
+        // So we don't need to change this test if it doesn't use new().
         let mut interceptor = CloudTelemetryAuthInterceptor { rx };
 
         // 1. Initial state (no headers)

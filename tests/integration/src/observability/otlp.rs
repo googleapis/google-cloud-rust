@@ -101,7 +101,7 @@ impl CloudTelemetryTracerProviderBuilder {
                 .build()
                 .map_err(|e| TraceError::Other(e.into()))?,
         };
-        let interceptor = CloudTelemetryAuthInterceptor::new(credentials);
+        let interceptor = CloudTelemetryAuthInterceptor::new(credentials).await;
 
         let resource = opentelemetry_sdk::Resource::builder_empty()
             .with_attributes(vec![
@@ -173,7 +173,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_builder_configuration() {
-        let credentials = auth::credentials::testing::error_credentials(true);
+        let credentials = auth::credentials::testing::error_credentials(false);
         let project_id = "builder-project-id";
         let service_name = "builder-service-name";
         let endpoint = "https://custom-endpoint.example.com";
