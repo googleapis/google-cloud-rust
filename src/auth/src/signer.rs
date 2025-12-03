@@ -254,3 +254,55 @@ enum SigningErrorKind {
     #[error("failed to sign content: {0}")]
     Sign(#[source] BoxError),
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    type TestResult = anyhow::Result<()>;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        Signer{}
+
+        impl SigningProvider for Signer {
+            async fn client_email(&self) -> Result<String>;
+            async fn sign(&self, content: &[u8]) -> Result<String>;
+        }
+    }
+
+    #[tokio::test]
+    async fn test_signer_success() -> TestResult {
+        let mut mock = MockSigner::new();
+        mock.expect_client_email()
+            .returning(|| Ok("test".to_string()));
+        mock.expect_sign().returning(|_| Ok("test".to_string()));
+        let signer = Signer::from(mock);
+
+        let result = signer.client_email().await?;
+        assert_eq!(result, "test");
+        let result = signer.sign("test").await?;
+        assert_eq!(result, "test");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_signer_error() -> TestResult {
+        let mut mock = MockSigner::new();
+        mock.expect_client_email()
+            .returning(|| Err(SigningError::transport("test")));
+        mock.expect_sign()
+            .returning(|_| Err(SigningError::sign("test")));
+        let signer = Signer::from(mock);
+
+        let result = signer.client_email().await;
+        assert!(result.is_err());
+        assert!(result.unwrap_err().is_transport());
+        let result = signer.sign("test").await;
+        assert!(result.is_err());
+        assert!(result.unwrap_err().is_sign());
+
+        Ok(())
+    }
+}

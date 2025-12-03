@@ -102,7 +102,7 @@ enum ErrorKind {
     #[error("unknown or invalid credentials type {0}")]
     UnknownType(#[source] BoxError),
     #[error("missing required field: {0}")]
-    MissingField(&'static str),    
+    MissingField(&'static str),
     #[error("credentials type not supported: {0}")]
     NotSupported(#[source] BoxError),
 }
